@@ -1,0 +1,37 @@
+// Place all the styles related to the Entries controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.entries 
+{ 
+    div {
+        padding: 5px;
+        vertical-align: top;
+    }
+
+    .list_metadata {
+        div { padding: 0; }
+        font-size: x-small;
+    }
+
+    .list_description {
+        width: 65%;
+    }
+
+    .list_actions {
+        div { padding: 0; }
+        font-size: x-small;
+        text-align: right;
+        padding-left: 1em;
+    }
+
+    .list_line_even {
+        background: #e0f8f8;
+    }
+
+    .list_line_odd {
+        background: #f8b0f8;
+    }
+}
+
+
