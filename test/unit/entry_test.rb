@@ -1,7 +1,11 @@
 require 'test_helper'
 
 class EntryTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+    fixtures :entries
+
+    test "entry attributes must not be empty" do
+        entry = Entry.new
+        assert entry.invalid?
+        assert entry.errors[:description].any?
+    end
 end
