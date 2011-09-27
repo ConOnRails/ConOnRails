@@ -1,20 +1,22 @@
 <h1>Listing entries</h1>
 
 <% @entries.each do |entry| %>
-  <div class="<%= cycle('list_line_odd', 'list_line_even') %>" >
-    <div class="list_metadata">
-      <div>Created at: <%= entry.created_at %></div>
-      <div>Updated at: <%= entry.updated_at %></div>
-    </div>
-    <div class="list_description">
-      <%= strip_tags(entry.description) %>
+  <div class="entry">
+    <div class="<%= cycle('list_line_odd', 'list_line_even') %>" >
+      <div class="list_metadata">
+	<div>Created at: <%= entry.created_at %></div>
+	<div>Updated at: <%= entry.updated_at %></div>
+      </div>
+      <div class="list_description">
+	<%= strip_tags(entry.description) %>
+      </div>
       <div class="list_actions">
-	<div><%= link_to 'Show', entry %></div>
-	<div><%= link_to 'Edit', edit_entry_path(entry) %></div>
-	<div><%= link_to 'Destroy', entry, 
+	<span class="action"><%= link_to 'Show', entry %></span>
+	<span class="action"><%= link_to 'Edit', edit_entry_path(entry) %></span>
+	<span class="action"><%= link_to 'Destroy', entry, 
 	  confirm: 'Are you sure?', 
 	  method: :delete %>
-	</div>
+	</span>
       </div>
     </div>
   </div>
