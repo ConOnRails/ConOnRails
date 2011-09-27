@@ -4,34 +4,37 @@
 
 .entries 
 { 
-    div {
-        padding: 5px;
-        vertical-align: top;
-    }
+  font-family: Calibri, Palatino, "Times New Roman", serif;
 
-    .list_metadata {
-        div { padding: 0; }
-        font-size: x-small;
-    }
+  .entry
+  {
+    padding-bottom: 6px;
+  }
 
-    .list_description {
-        width: 65%;
-    }
+  .list_line_odd
+  {
+    background-color: #e1e100;
+  }
+  .list_line_even
+  {
+    background-color: #00e1e1;
+  }
 
-    .list_actions {
-        div { padding: 0; }
-        font-size: x-small;
-        text-align: right;
-        padding-left: 1em;
-    }
+  .list_metadata
+  {
+    font-family: Consolas, "Courier New", Courier, monospace;
+    font-size: x-small;
+    padding: 0;
+  }
 
-    .list_line_even {
-        background: #e0f8f8;
-    }
+  .list_description
+  {
+  }
 
-    .list_line_odd {
-        background: #f8b0f8;
-    }
+  .list_actions
+  {
+    font-size: x-small;
+  }
 }
 
 

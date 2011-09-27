@@ -2,7 +2,7 @@ require 'test_helper'
 
 class EntriesControllerTest < ActionController::TestCase
   setup do
-    @entry = entries(:one)
+    @entry = entries(:verbosity)
   end
 
   test "should get index" do
