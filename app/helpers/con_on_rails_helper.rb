@@ -1,0 +1,2 @@
+module ConOnRailsHelper
+end

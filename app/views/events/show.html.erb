@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<div>
+  <b>Summary:</b>
+  <%= @event.summary %>
+</div>
+
+<div>
+  <b>Event type:</b>
+  <%= @event.event_type.name %>
+</div>
+
+<div>
+  <b>Event status:</b>
+  <%= @event.event_status.name %>
+</div>
+
+<div id="entries">
+    <%= render(partial: "entries/entry", collection: @event.entries) %>
+</div>
+
+
+<%= link_to 'Edit', edit_event_path(@event) %> |
+<%= link_to 'Back', events_path %>
