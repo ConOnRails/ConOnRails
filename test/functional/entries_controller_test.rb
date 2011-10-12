@@ -3,6 +3,8 @@ require 'test_helper'
 class EntriesControllerTest < ActionController::TestCase
   setup do
     @entry = entries(:verbosity)
+    @user  = users(:one)
+    @event = events(:one)
   end
 
   test "should get index" do
@@ -12,13 +14,13 @@ class EntriesControllerTest < ActionController::TestCase
   end
 
   test "should get new" do
-    get :new
+    get :new, event_id: @event.id, user_id: @user.id
     assert_response :success
   end
 
   test "should create entry" do
     assert_difference('Entry.count') do
-      post :create, entry: @entry.attributes
+      post :create, entry: @entry.attributes, event_id: @event.id, user_id: @user.id
     end
 
     assert_redirected_to entry_path(assigns(:entry))

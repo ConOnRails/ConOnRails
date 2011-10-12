@@ -1,5 +1,21 @@
 ConOnRails::Application.routes.draw do
+  resources :users
+
+  resources :event_statuses
+
+  resources :event_types
+
+  resources :events
+
+  get "con_on_rails/index"
+
   resources :entries
+
+  controller :sessions do
+    get  'login' => :new
+    post 'login' => :create
+    delete 'logout' => :destroy
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -51,6 +67,7 @@ ConOnRails::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'
+  root :to => 'con_on_rails#index', as: 'con_on_rails'
 
   # See how all your routes lay out with "rake routes"
 

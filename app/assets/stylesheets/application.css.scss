@@ -1,0 +1,92 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+ *= require_self
+ *= require_tree . 
+*/
+
+#banner {
+  padding: 10px;
+  border-bottom: 2px solid;
+  font: small-caps 40px/40px "Palatino", "Times New Roman", serif;
+  text-align: center;
+
+  img {
+    float: left;
+  }
+}
+
+#notice {
+  color: #000 !important;
+  border: 2px solid red;
+  padding: 1em;
+  margin-bottom: 2em;
+  background-color: #f0f0f0;
+  font: bold smaller sans-serif;
+}
+
+#columns {
+  #main {
+    margin-left: 17em;
+    padding: 1em;
+    background: white;
+  }
+
+  #side {
+    float: left;
+    padding: 1em 2em;
+    width: 13em;
+    background: #141;
+    color: #fbf;
+
+    ul {
+      padding: 0;
+      li {
+	list-style: none;
+	
+	a {
+	  color: #bfb;
+	  font-size: small;
+	}
+      }
+    }
+  }
+}
+
+#indicia {
+  padding: 10px;
+  border-top: 2px solid;
+  font: small-caps 10px/10px "Palatino", "Times New Roman", serif;
+  text-align: center;
+}
+
+.con_on_rails_form {
+  fieldset {
+    legend {
+      font-size: larger;
+      font-weight: bold;
+    }
+  }
+
+  form {
+    label {
+      width: 5em;
+      float: left;
+      margin-right: 0.1em;
+      display: block;
+    }
+
+    select, textarea, input {
+      margin-left: 0.5em;
+    }
+
+    .submit {
+      margin-left: 4em;
+    }
+
+    br {
+      display: none;
+    }
+  }
+}
