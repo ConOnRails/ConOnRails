@@ -1,9 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
 oneliner:
+  user: one
+  event: one
   description: MyText is full of llama meat llama meat llama meat
 
 verbosity:
+  user: one
+  event: one
   description: 
     Kimi o ai no
     Aishiteta to nageku ni wa

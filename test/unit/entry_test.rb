@@ -7,5 +7,7 @@ class EntryTest < ActiveSupport::TestCase
         entry = Entry.new
         assert entry.invalid?
         assert entry.errors[:description].any?
+        assert entry.errors[:user].any?
+        assert entry.errors[:event].any?
     end
 end

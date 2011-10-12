@@ -25,6 +25,8 @@ class EntriesController < ApplicationController
   # GET /entries/new.json
   def new
     @entry = Entry.new
+    @entry.event = Event.find(params[:event_id])
+    @entry.user  = User.find(params[:user_id])
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,6 +43,8 @@ class EntriesController < ApplicationController
   # POST /entries.json
   def create
     @entry = Entry.new(params[:entry])
+    @entry.event = Event.find(params[:event_id])
+    @entry.user  = User.find(params[:user_id])
 
     respond_to do |format|
       if @entry.save
