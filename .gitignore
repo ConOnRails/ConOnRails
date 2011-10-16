@@ -4,3 +4,8 @@ log/*.log
 tmp/
 .sass-cache/
 *~
+Gemfile.lock
+
+.rvmrc
+
+.rvmrc.10.13.2011-19:08:43

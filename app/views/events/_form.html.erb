@@ -1,45 +1,46 @@
+<% if @event.errors.any? %>
+<div id="error_explanation">
+	<h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+	<ul>
+		<% @event.errors.full_messages.each do |msg| %>
+		<li><%= msg %></li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
+
 <%= form_for(@event) do |f| %>
-  <% if @event.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
 
-      <ul>
-      <% @event.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<div class="field">
+	<%= f.label :summary %><br />
+	<%= f.text_field :summary %>
+</div>
+<div class="field">
+	<%= f.label :event_type_id %><br />
+	<%= f.select :event_type_id, EventType.all.collect { |et| [ et.name, et.id ]  } %>
+</div>
+<div class="field">
+	<%= f.label :event_status_id %><br />
+	<%= f.select :event_status_id, EventStatus.all.collect { |es| [ es.name, es.id ] } %>
+</div>
 
-  <div class="field">
-    <%= f.label :summary %><br />
-    <%= f.text_field :summary %>
-  </div>
-  <div class="field">
-    <%= f.label :event_type_id %><br />
-    <%= f.select :event_type_id, EventType.all.collect { |et| [ et.name, et.id ]  } %>
-  </div>
-  <div class="field">
-    <%= f.label :event_status_id %><br />
-    <%= f.select :event_status_id, EventStatus.all.collect { |es| [ es.name, es.id ] } %>
-  </div>
+<%= f.fields_for :entries do |e| %>
+<div class="entry_metadata">
+	<%= e.hidden_field :user_id %>
+	<%= e.hidden_field :event_id %>
 
-  <%= f.fields_for :entries do |e| %>
-  <div class="entry_metadata">
-    <%= e.hidden_field :user_id %>
-    <%= e.hidden_field :event_id %>
+	<div><strong>Created by </strong> <%= link_to @user %></div>
+</div>
+<div class="field">
+	<%= e.label :description %><br />
+	<%= e.text_area :description, rows: 10, cols: 80 %>
+</div>
 
-    <div><strong>Created by </strong> <%= link_to @user %></div>
-  </div>
-  <div class="field">
-    <%= e.label :description %><br />
-    <%= e.text_area :description, rows: 10, cols: 80 %>
-  </div>
+<% end %>
 
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<div class="actions">
+	<%= f.submit %>
+</div>
 
 <% end %>

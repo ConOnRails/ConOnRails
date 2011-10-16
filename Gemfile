@@ -18,6 +18,7 @@ end
 
 gem 'jquery-rails'
 gem 'therubyracer'
+gem 'formtastic'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -28,7 +29,13 @@ gem 'therubyracer'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
+group :development do
+  gem 'rspec-rails', '2.6.1'
+  #gem 'annotate', '2.4.0'
+end
+
 group :test do
   # Pretty printed test output
   gem 'turn', :require => false
+  gem 'minitest'
 end
