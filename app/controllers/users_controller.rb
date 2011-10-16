@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  # GET /users
-  # GET /users.json
+  # GET /admin/users
+  # GET /admin/users.json
   def index
     @users = User.order(:name)
 
@@ -37,8 +37,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  # POST /users
-  # POST /users.json
+  # POST /admin/users
+  # POST /admin/users.json
   def create
     @user = User.new(params[:user])
 

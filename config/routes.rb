@@ -1,21 +1,16 @@
 ConOnRails::Application.routes.draw do
-  resources :users
+  root :to => 'con_on_rails#index', as: 'con_on_rails'
 
-  resources :event_statuses
-
-  resources :event_types
-
+  # TODO nest these so that entries depend upon events.
   resources :events
-
-  get "con_on_rails/index"
-
   resources :entries
 
-  controller :sessions do
-    get  'login' => :new
-    post 'login' => :create
-    delete 'logout' => :destroy
-  end
+  # TODO At some point, we want administrative versions of these
+  #namespace :admin do
+    resources :event_statuses
+    resources :event_types
+    resources :users
+  #end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -67,7 +62,6 @@ ConOnRails::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'
-  root :to => 'con_on_rails#index', as: 'con_on_rails'
 
   # See how all your routes lay out with "rake routes"
 

@@ -12,8 +12,8 @@ EventStatus.delete_all
 EventType.delete_all
 User.delete_all
 
-user = User.create( { handle: "Uncle Mikey",
-                        name: "Michael Scott Shappe"
+user = User.create( { name: "Uncle Mikey",
+                        realname: "Michael Scott Shappe"
                     } )
                  
                    
