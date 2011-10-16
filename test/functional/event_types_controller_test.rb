@@ -3,6 +3,7 @@ require 'test_helper'
 class EventTypesControllerTest < ActionController::TestCase
   setup do
     @event_type = event_types(:one)
+    @input_attributes = { name: "Goobma" }
   end
 
   test "should get index" do
@@ -18,7 +19,7 @@ class EventTypesControllerTest < ActionController::TestCase
 
   test "should create event_type" do
     assert_difference('EventType.count') do
-      post :create, event_type: @event_type.attributes
+      post :create, event_type: @input_attributes
     end
 
     assert_redirected_to event_type_path(assigns(:event_type))
@@ -35,7 +36,7 @@ class EventTypesControllerTest < ActionController::TestCase
   end
 
   test "should update event_type" do
-    put :update, id: @event_type.to_param, event_type: @event_type.attributes
+    put :update, id: @event_type.to_param, event_type: @input_attributes
     assert_redirected_to event_type_path(assigns(:event_type))
   end
 

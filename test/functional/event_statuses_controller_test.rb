@@ -3,6 +3,7 @@ require 'test_helper'
 class EventStatusesControllerTest < ActionController::TestCase
   setup do
     @event_status = event_statuses(:one)
+    @input_attributes = { name: "Fishbait" }
   end
 
   test "should get index" do
@@ -18,7 +19,7 @@ class EventStatusesControllerTest < ActionController::TestCase
 
   test "should create event_status" do
     assert_difference('EventStatus.count') do
-      post :create, event_status: @event_status.attributes
+      post :create, event_status: @input_attributes
     end
 
     assert_redirected_to event_status_path(assigns(:event_status))
@@ -35,7 +36,7 @@ class EventStatusesControllerTest < ActionController::TestCase
   end
 
   test "should update event_status" do
-    put :update, id: @event_status.to_param, event_status: @event_status.attributes
+    put :update, id: @event_status.to_param, event_status: @input_attributes
     assert_redirected_to event_status_path(assigns(:event_status))
   end
 
