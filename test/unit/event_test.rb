@@ -7,7 +7,7 @@ class EventTest < ActiveSupport::TestCase
         event = Event.new
         assert event.invalid?
         assert event.errors[:summary].any?
-
-        p event
+        assert event.errors[:event_status_id].any?
+        assert event.errors[:event_type_id].any?
     end
 end
