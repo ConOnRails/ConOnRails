@@ -2,6 +2,7 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
+    @title = "Event Log"
     @events = Event.all
 
     respond_to do |format|

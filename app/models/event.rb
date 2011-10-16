@@ -3,8 +3,8 @@ class Event < ActiveRecord::Base
     belongs_to :event_status
     belongs_to :event_type
     validates  :summary, presence: true, allow_blank: false
-    validates  :event_status, presence: true, allow_blank: false
-    validates  :event_type, presence: true, allow_blank: false
+    validates  :event_status_id, presence: true, allow_blank: false
+    validates  :event_type_id, presence: true, allow_blank: false
 
     accepts_nested_attributes_for :entries, :allow_destroy => true
 

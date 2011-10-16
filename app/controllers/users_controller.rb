@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   # GET /admin/users
   # GET /admin/users.json
   def index
+    @title = "Users"
     @users = User.order(:name)
 
     respond_to do |format|

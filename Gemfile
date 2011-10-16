@@ -29,11 +29,6 @@ gem 'formtastic'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
-group :development do
-  gem 'rspec-rails', '2.6.1'
-  #gem 'annotate', '2.4.0'
-end
-
 group :test do
   # Pretty printed test output
   gem 'turn', :require => false
