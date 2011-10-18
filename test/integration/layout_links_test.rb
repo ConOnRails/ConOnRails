@@ -43,7 +43,6 @@ class LayoutLinksTest < ActionDispatch::IntegrationTest
   
   test "should be able to sign out" do
     get "/signout"
-    assert_response :success
-    assert_select 'title', @@title_prefix + "Goodbye!"
+    assert_redirected_to root_url
   end
 end
