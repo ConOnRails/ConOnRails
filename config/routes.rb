@@ -1,5 +1,5 @@
 ConOnRails::Application.routes.draw do
-  root :to => 'con_on_rails#index', as: 'con_on_rails'
+  root :to => 'con_on_rails#index'
 
   # TODO nest these so that entries depend upon events.
   resources :events

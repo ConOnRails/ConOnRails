@@ -1,13 +1,15 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
+  GoodPassword = "zogity123*%^! 42"
+  
   setup do
     @user  = users(:one)
     @input_attributes = {
         name: "mikey",
         realname: "Mi Key",
-        password: "zog",
-        password_confirmation: "zog",
+        password: GoodPassword,
+        password_confirmation: GoodPassword,
     }
   end
 
