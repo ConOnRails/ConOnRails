@@ -3,6 +3,14 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
   fixtures :users
   
+  LongName = 'a' * 33
+  LongRealName = 'a' * 65
+  ShortPassword = 'a' * 4
+  LongPassword = 'a' * 33
+  BadName = "a&%T@%{ \003} elknart" # Should fail for space, printable specials, and control-C
+  BadPassword = "a&%T@%{ \003} elknart" # Should fail for control-C
+  GoodPassword = "zogity123*%^! 42"
+  
   def failure_is_good( input_attributes )
     user = nil
     if input_attributes == {}
@@ -18,8 +26,8 @@ class UserTest < ActiveSupport::TestCase
     @input_attributes = {
         name: "mikey",
         realname: "Mi Key",
-        password: "zog",
-        password_confirmation: "zog",
+        password: GoodPassword,
+        password_confirmation: GoodPassword,
     }
   end
   
@@ -38,20 +46,52 @@ class UserTest < ActiveSupport::TestCase
   end
   
   test "username should not be longer than 32 characters" do
-    long_name_is_long = @input_attributes
-    long_name_is_long[:name] = 'a' * 33
-    failure_is_good long_name_is_long
+    @input_attributes[:name] = LongName
+    failure_is_good @input_attributes
   end
   
   test "realname should not be longer than 64 characters" do
-    long_name_is_long = @input_attributes
-    long_name_is_long[:realname] = 'a' * 65
-    failure_is_good long_name_is_long
+    @input_attributes[:realname] = LongRealName
+    failure_is_good @input_attributes
   end
   
   test "username should only contain alphanumerics and underscores" do
-    bad_username_is_bad = @input_attributes
-    bad_username_is_bad[:name] = "a&%T@%{ \003} elknart"
-    failure_is_good bad_username_is_bad
+    @input_attributes[:name] = BadName
+    failure_is_good @input_attributes
   end
+  
+  test "passwords have to match" do
+    @input_attributes[:password_confirmation] = ShortPassword
+    failure_is_good @input_attributes
+  end
+  
+  test "passwords have to be at least 6 characters" do
+    @input_attributes[:password] = ShortPassword
+    @input_attributes[:password_confirmation] = ShortPassword
+    failure_is_good @input_attributes
+  end
+  
+  test "passwords shouldn't be more than 32 characters" do
+    @input_attributes[:password] = LongPassword
+    @input_attributes[:password_confirmation] = LongPassword
+    failure_is_good @input_attributes
+  end
+  
+  test "passwords should only contain alphanumerics underscores and some printable specials" do
+    @input_attributes[:password] = BadPassword
+    @input_attributes[:password_confirmation] = BadPassword
+    failure_is_good @input_attributes
+  end
+  
+  test "can authenticate user" do
+    user = User.create!(@input_attributes)
+    assert user.authenticate GoodPassword
+  end
+  
+  test "wrong passwords don't authenticate" do
+    user = User.create!(@input_attributes)
+    assert false == user.authenticate( ShortPassword )
+  end
+  
+    
 end

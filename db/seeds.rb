@@ -14,8 +14,8 @@ User.delete_all
 
 user = User.create!( { name: "Uncle_Mikey",
   realname: "Michael Scott Shappe",
-  password: "zog",
-  password_confirmation: "zog"
+  password: "zogity",
+  password_confirmation: "zogity"
   } )
 
 
