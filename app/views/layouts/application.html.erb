@@ -1,45 +1,59 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <%= stylesheet_link_tag    "application" %>
-    <%= javascript_include_tag "application" %>
-    <%= csrf_meta_tags %>
-  </head>
-  <body class="<%= controller.controller_name %>">
-    <div id="banner">
-      <%= title %>
-    </div>
+<head>
+	<title>Con On Rails<%= title %></title>
+	<%= stylesheet_link_tag    "application" %>
+	<%= javascript_include_tag "application" %>
+	<%= csrf_meta_tags %>
+</head>
+<body class="<%= controller.controller_name %>">
 
-		<%- flash.each do |key, msg| -%>
-		  <div id="<%= key %>">
-		    <p style="float:right;"><%= link_to_function 'X', "Effect.Fade('#{key}')" %></p>
-		    <p><%= msg %></p>
-		    <div class="clear"></div>
-		  </div>
-		<%- end -%>
+	<div id="banner" class="normal"> <!-- Todo: class should be determined by current status -->
+		<div id="logo">
+			Con On Rails	   
+		</div>
 		
-    <div id="columns">
-      <div id="side">
-	<ul>
-	  <li><a href="/">Home</a></li>
-	  <li><a href="/events">The Log</a></li>
-	  <li>
-	    <div>Lost And Found</div>
-	    <span><a href="/lost_items">Lost items</a></span>
-	    <span><a href="/found_items">Found items</a></span>
-	  </li>
-	  <li><a href="/users">Users</a></li>
-	</ul>
-      </div>
-      <div id="main">
-	<%= yield %>
-      </div>
-    </div>
-    
-    <div id="indicia">
-      Con on Rails is Copyright &copy; 2011 Michael Scott Shappe, licensed under some license or other yet to be determined.
-			<%= debug(params) if Rails.env.development? %>
-    </div>
-  </body>
+		<div id="text">
+			Something interesting goes here
+		</div>
+		
+		<div id="emergency_button">
+			<a href="/events/create_emergency">Open a New Emergency</a>
+		</div>
+	</div>
+
+	<div id="menubar">
+		<ul>
+			<li><a href="/">Main</a></li>
+			<li><a href="/events/new">Log Event</a></li>
+			<li><a href="/lostfound">Lost/Found</a></li>
+			<li><a href="/messages">Messages</a></li>
+			<li><a href="/equipment">Equipment</a></li>
+			<li><a href="/events">Review</a></li>
+			<li><a href="/signout">Log Out</a></li>
+		</ul>
+	</div>
+
+	<%- flash.each do |key, msg| -%>
+	<div id="<%= key %>">
+		<p style="float:right;"><%= link_to_function 'X', "Effect.Fade('#{key}')" %></p>
+		<p><%= msg %></p>
+		<div class="clear"></div>
+	</div>
+	<%- end -%>
+
+	<div id="columns">
+		<div id="side">
+
+		</div>
+		<div id="main">
+			<%= yield %>
+		</div>
+	</div>
+
+	<div id="indicia">
+		Con on Rails is Copyright &copy; 2011 Michael Scott Shappe, licensed under some license or other yet to be determined.
+		<%= debug(params) if Rails.env.development? %>
+	</div>
+</body>
 </html>
