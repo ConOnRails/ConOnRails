@@ -1,0 +1,36 @@
+/* The palette */
+$green: rgba(0, 102, 0, 1);
+$yellow: rgba(255, 204, 0, 1);
+$green_desat: rgba(0, 102, 0, .29);
+$yellow_desat: rgba(255, 204, 0, .38);
+$blue: rgba(0, 0, 102, 1);
+$red: rgba(204, 0, 0, 1);
+$light_grey: rgba(153, 153, 153, 1);
+$dark_grey: rgba(51, 51, 51, 1);
+$bright_yellow: rgba(255, 255, 0, 1);
+
+/* The assignments */
+$no_issues_bg: $green;
+$active_issues_bg: $blue;
+$messages_bg: $bright_yellow;
+$emergency_bg: $red;
+$found_button_bg: $green;
+$found_bg: $green_desat;
+$lost_button_bg: $yellow;
+$lost_bg: $yellow_desat;
+$nav_bar_bg: $light_grey;
+$nav_bar_tab_bg: $dark_grey;
+$sidebar_bg: $green;
+
+$no_issues_fg: white;
+$active_issues_fg: white;
+$messages_fg: black;
+$emergency_fg: white;
+$found_button_fg: white;
+$found_fg: black;
+$lost_button_fg: black;
+$lost_fg: black;
+$nav_bar_fg: white;
+$nav_bar_tab_fg: white; 
+$sidebar_fg: white;
+

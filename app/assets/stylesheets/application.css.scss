@@ -1,26 +1,143 @@
 /*
- * This is a manifest file that'll automatically include all the stylesheets available in this directory
- * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
- * the top of the compiled file, but it's generally better to create a new file per style scope.
- *= require_self
- *= require_tree . 
- *= require formtastic
- *= require my_formtastic_changes
+* This is a manifest file that'll automatically include all the stylesheets available in this directory
+* and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+* the top of the compiled file, but it's generally better to create a new file per style scope.
+*= require_self
+*= require_tree . 
+*= require formtastic
+*= require my_formtastic_changes
 */
 
-#banner {
-  padding: 10px;
-  border-bottom: 2px solid;
-  font: small-caps 40px/40px "Palatino", "Times New Roman", serif;
-  text-align: center;
+@import "colors";
 
+body
+{
+  width: 1000px;
+  margin: auto;
+  padding: 0;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 0.9em;
+  background-color: white;
+  color: black;
+}
+
+a /* No links should have underlines ever */
+{
+  text-decoration: none;
+}
+
+#banner 
+{
+  position: relative;
+  height: 100px;
+  width: 100%;
+  padding-top: 1px;
+  
   img {
     float: left;
   }
+
+  #logo
+  {
+    background-color: black;
+    color: white;
+    padding: 10px 10px 10px 20px;
+    float: left;
+    width: 100px;
+    
+  }
+  
+  #text
+  {
+    margin-left: 160px;
+  }
+  
+  #emergency_button
+  {
+    background-color: $emergency_bg;
+    color: $emergency_fg;
+    float: right;
+    width: 162px;
+    height: 60px;
+    padding-left: 20px;
+    padding-top: 8px;
+    
+    a
+    {
+      font-family: Verdana, Geneva, sans-serif;
+      font-size: 1.2em;
+      font-weight: bold;
+      color: white;
+    }
+  }
+  
+}
+
+.normal#banner
+{
+  background-color: $no_issues_bg;
+  color: $no_issues_fg;
+}
+
+.active#banner
+{
+  background-color: $active_issues_bg;
+  color: $active_issues_fg;
+}
+
+.messages#banner
+{
+  background-color: $messages_bg;
+  color: $messages_fg;
+}
+
+.emergency#banner
+{
+  background-color: $emergency_bg;
+  color: $emergency_fg;
+}
+
+#menubar
+{
+  margin: 0;
+  padding: 0;
+  height: 5em;
+  background-color: $nav_bar_bg;
+  color: $nav_bar_fg;
+
+  ul
+  {
+    width: 100%;
+    float: left;
+    padding: 0;
+    margin-left: 0;
+    border-bottom: 1px solid #778;
+    font: bold .9em Verdana, sans-serif;
+    
+    li
+    {
+      list-style: none;
+      margin: 0;
+      float: left;
+
+      a
+      {
+        padding: 12px 0.5em;
+        margin-left: 3px;
+        border: 1px solid #778;
+        border-bottom: none;
+        background-color: $nav_bar_tab_bg;
+        color: $nav_bar_tab_fg;
+        display: block;
+        width: 7em;
+      }
+    }
+  }
+
 }
 
 #notice {
-  color: #000 !important;
+  color: black !important;
   border: 2px solid red;
   padding: 1em;
   margin-bottom: 2em;
@@ -28,29 +145,43 @@
   font: bold smaller sans-serif;
 }
 
-#columns {
-  #main {
-    margin-left: 17em;
-    padding: 1em;
-    background: white;
+#columns 
+{
+  #main 
+  {
+    margin-left: 10em;
+    margin-right: 5em;
   }
 
-  #side {
-    float: left;
-    padding: 1em 2em;
-    width: 13em;
-    background: #141;
-    color: #fbf;
 
-    ul {
+  #side 
+  {
+    margin: 0;
+    padding: 0;
+    float: left;
+
+    ul 
+    {
+      width: 100%;
+      float: left;
       padding: 0;
-      li {
-	list-style: none;
-	
-	a {
-	  color: #bfb;
-	  font-size: small;
-	}
+      margin-left: 0;
+      font: bold .8em Verdana, sans-serif;
+
+      li
+      {
+        list-style: none;
+        margin: 0;        margin: .5em;
+        padding: .5em;
+        a {
+          padding: 12px 0.5em;
+          margin-left: .5em;
+          border: 1px solid $green_desat;          
+          background-color: $sidebar_bg;
+          color: $sidebar_fg;
+          display: block;
+          width: 9em;
+        }
       }
     }
   }
