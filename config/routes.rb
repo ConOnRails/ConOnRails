@@ -13,7 +13,7 @@ ConOnRails::Application.routes.draw do
   #end
 
   resources :sessions, :only => [:new, :create, :destroy]
-  match '/signin', :to => 'sessions#new'
+  match '/public', :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
 
   # The priority is based upon order of creation:

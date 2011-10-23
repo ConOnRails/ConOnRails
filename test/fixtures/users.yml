@@ -3,8 +3,7 @@
 one:
   name: MyString
   realname: MyString
-  password_digest: MyString
-
+  password_digest: BCrypt::Password.create("MyString")
 two:
   name: MyString2
   realname: MyString

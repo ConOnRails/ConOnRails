@@ -1,3 +1,17 @@
-<h1>Sign In</h1>
+<% content_for :banner do%>
+<h1>CONVergence Operations Log</h1>
+<% end %>
+
+<% content_for :side do %>
+<div id="public_menu">
+	<ul>
+		<li><%= link_to "Duty Board", root_url %></li>
+		<li><%= link_to "Ops Schedule", root_url %></li>
+		<li><%= link_to "Ops Training &amp; Policies", root_url %></li>
+	</ul>
+</div>
+<% end %>
+
+
 
 <%= render :partial => 'form' %>
