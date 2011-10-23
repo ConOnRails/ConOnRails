@@ -5,8 +5,6 @@
       <span class="add_entry_link"><%= link_to 'Add Entry', new_entry_path( event_id: event, user_id: session[:user_id] ) %></span>
     </div>
     <div class="event_metadata">
-      <div class="event_type"><strong>Type: </strong>&nbsp;<%= event.event_type.name %></div>
-      <div class="event_status"><strong>Status: </strong>&nbsp;<%= event.event_status.name %></div>
     </div>
     <div class="entries">
       <%= render(partial: 'entries/entry', collection: event.entries) %>
