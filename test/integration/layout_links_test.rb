@@ -11,29 +11,29 @@ class LayoutLinksTest < ActionDispatch::IntegrationTest
     assert_select 'title', @@title_prefix + 'Main'
   end
   
-  test "should get events" do
+  test "should get event review" do
     get "/events"
     assert_response :success
     assert_select 'title', @@title_prefix + 'Event Log'
   end
   
-  test "should get lost items" do
-    get "/lost_items"
-    assert_response :success
-    assert_select 'title', @@title_prefix + "Lost Items"
-  end
+  test "should get lost/found items" #do
+#    get "/lostfound"
+#    assert_response :success
+#    assert_select 'title', @@title_prefix + "Lost Items"
+#  end
   
-  test "should get found items" do
-    get "/found_items"
-    assert_response :success
-    assert_select 'title', @@title_prefix + "Found Items"
-  end
+  test "should get messages"  #do
+#    get "/messages"
+#    assert_response :success
+#    assert_select 'title', @@title_prefix + "Messages"
+#  end
   
-  test "should get users" do
-    get "/users"
-    assert_response :success
-    assert_select 'title', @@title_prefix + "Users"
-  end
+  test "should get equipment" #do
+#    get "/equipment"
+#    assert_resopnse :success
+#    assert_select 'title', @@title_prefix + "Equipment"
+#  end
   
   test "should be able to sign in" do
     get "/signin"

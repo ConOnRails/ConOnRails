@@ -2,10 +2,6 @@
 
 one:
   summary: MyString
-  event_type: one
-  event_status: one
 
 two:
   summary: MyString
-  event_type: two
-  event_status: two
