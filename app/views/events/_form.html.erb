@@ -16,14 +16,6 @@
 	<%= f.label :summary %><br />
 	<%= f.text_field :summary %>
 </div>
-<div class="field">
-	<%= f.label :event_type_id %><br />
-	<%= f.select :event_type_id, EventType.all.collect { |et| [ et.name, et.id ]  } %>
-</div>
-<div class="field">
-	<%= f.label :event_status_id %><br />
-	<%= f.select :event_status_id, EventStatus.all.collect { |es| [ es.name, es.id ] } %>
-</div>
 
 <%= f.fields_for :entries do |e| %>
 <div class="entry_metadata">
