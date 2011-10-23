@@ -1,7 +1,6 @@
 <% @events.each do |event| %>
   <div class="event">
     <div class="event_header">
-      <span class="event_summary"><strong>Summary: </strong>&nbsp;<%= event.summary %></span>
       <span class="add_entry_link"><%= link_to 'Add Entry', new_entry_path( event_id: event, user_id: session[:user_id] ) %></span>
     </div>
     <div class="event_metadata">

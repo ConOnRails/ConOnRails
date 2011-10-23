@@ -12,11 +12,6 @@
 
 <%= form_for(@event) do |f| %>
 
-<div class="field">
-	<%= f.label :summary %><br />
-	<%= f.text_field :summary %>
-</div>
-
 <%= f.fields_for :entries do |e| %>
 <div class="entry_metadata">
 	<%= e.hidden_field :user_id %>

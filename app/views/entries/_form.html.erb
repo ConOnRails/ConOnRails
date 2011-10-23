@@ -15,7 +15,6 @@
     <%= f.hidden_field :user_id %>
     <%= f.hidden_field :event_id %>
     <div><strong>Created by </strong> <%= link_to @entry.user.name, @entry.user %></div>
-    <div><strong>Appending to</strong> <%= link_to @entry.event.summary, @entry.event %></div>
   </div>
   <div class="field">
     <%= f.label :description %><br />
