@@ -10,6 +10,11 @@
 </div>
 <% end %>
 
+<%= semantic_form_for @event do |f| %>
+	<%= f.inputs %>
+	<%= f.buttons %>
+<% end %>
+
 <%= form_for(@event) do |f| %>
 
 <%= f.fields_for :entries do |e| %>

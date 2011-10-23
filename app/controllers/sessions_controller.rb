@@ -1,19 +1,19 @@
 class SessionsController < ApplicationController
+  skip_before_filter :require_login, only: [:new, :create]
+  
   def new
     @title = "Mr X., Sign in please!"
   end
   
   def create
+    p params
     user = User.find_by_name(params[:name])
-    if not user
-      flash.now.alert = "Fuck a monkey"
-      render 'new'
-    elsif user && user.authenticate(params[:password])
+    if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       redirect_to root_url, notice: "Logged in!"
     else
-      flash.now.alert = "Invalid email or password"
-      render 'new'
+      flash[:notice] = "Invalid email or password"
+      render 'new' 
     end
   end
 

@@ -21,28 +21,12 @@ ActiveRecord::Schema.define(:version => 20111023030220) do
     t.integer  "event_id"
   end
 
-  create_table "event_statuses", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "tag"
-  end
-
-  create_table "event_types", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "tag"
-  end
-
   create_table "events", :force => true do |t|
     t.integer  "event_type_id"
     t.integer  "event_status_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "sticky_flag",       :default => false
-    t.boolean  "confidential_flag", :default => false
-    t.boolean  "is_active",         :default => true
+    t.boolean  "is_active",       :default => true
     t.boolean  "comment"
     t.boolean  "flagged"
     t.boolean  "post_con"
