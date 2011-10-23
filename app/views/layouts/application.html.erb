@@ -7,21 +7,23 @@
 	<%= csrf_meta_tags %>
 </head>
 <body class="<%= controller.controller_name %>">
-
 	<div id="banner" class="normal"> <!-- Todo: class should be determined by current status -->
 		<div id="logo">
 			Con On Rails	   
 		</div>
 		
 		<div id="text">
-			Something interesting goes here
+			<%= yield :banner %>
 		</div>
-		
+
+		<% if is_authenticated? %>
 		<div id="emergency_button">
 			<a href="/events/create_emergency">Open a New Emergency</a>
 		</div>
+		<% end %>
 	</div>
 
+	<% if is_authenticated? %>
 	<div id="menubar">
 		<ul>
 			<li><a href="/">Main</a></li>
@@ -33,7 +35,8 @@
 			<li><a href="/signout">Log Out</a></li>
 		</ul>
 	</div>
-
+	<% end %>
+	
 	<%- flash.each do |key, msg| -%>
 	<div id="<%= key %>">
 		<p style="float:right;"><%= link_to_function 'X', "Effect.Fade('#{key}')" %></p>
@@ -44,7 +47,7 @@
 
 	<div id="columns">
 		<div id="side">
-
+			<%= yield :side %>
 		</div>
 		<div id="main">
 			<%= yield %>

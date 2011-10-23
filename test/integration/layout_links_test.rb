@@ -1,48 +1,52 @@
 require 'test_helper'
 
-class LayoutLinksTest < ActionDispatch::IntegrationTest
+class LayoutLinksTest < ActionDispatch::IntegrationTest  
   fixtures :all
-
+  
+  setup do
+    @user_params = { name: "zog", realname: "zogfrog", password: "zogity", password_confirmation: "zogity" }
+    @user = User.create! @user_params
+    @login_params = { name: @user.name, password: @user.password }
+  end
+  
   @@title_prefix = 'Con On Rails | '
 
-  test "should get main" do
-    get "/"
-    assert_response :success
-    assert_select 'title', @@title_prefix + 'Main'
+  test "get main page while not logged in" do
+    get_root_not_logged_in
   end
   
-  test "should get event review" do
-    get "/events"
-    assert_response :success
-    assert_select 'title', @@title_prefix + 'Event Log'
+  test "get main page then log in" do
+    get_root_not_logged_in
+    log_in @login_params
   end
   
-  test "should get lost/found items" #do
-#    get "/lostfound"
-#    assert_response :success
-#    assert_select 'title', @@title_prefix + "Lost Items"
-#  end
-  
-  test "should get messages"  #do
-#    get "/messages"
-#    assert_response :success
-#    assert_select 'title', @@title_prefix + "Messages"
-#  end
-  
-  test "should get equipment" #do
-#    get "/equipment"
-#    assert_resopnse :success
-#    assert_select 'title', @@title_prefix + "Equipment"
-#  end
-  
-  test "should be able to sign in" do
-    get "/signin"
-    assert_response :success
-    assert_select 'title', @@title_prefix + "Mr X., Sign in please!"
+  test "login and initiate new event" do
+    get_root_not_logged_in
+    log_in @login_params do |sess|
+      sess.get new_event_url
+      assert_response :success
+      assert_template "events/new"
+    end
   end
-  
-  test "should be able to sign out" do
-    get "/signout"
-    assert_redirected_to root_url
+
+  test "log_in and go to lost and found" do
+    flunk "Lost and Found not implemented yet"
   end
+  #do
+   # get_root_not_logged_in
+    #log_in @login_params do |sess|
+    #  sess.get lostfound_url
+     # assert_response :success
+      #assert_template "lostfound/index"
+    #end
+  #end
+   
+   test "log in and go to event log" do
+     get_root_not_logged_in
+     log_in @login_params do |sess|
+       sess.get events_url
+       assert_response :success
+       assert_template "events/index"
+      end
+    end 
 end

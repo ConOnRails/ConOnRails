@@ -1,14 +1,17 @@
-<%= form_for :session, :url => sessions_path do |f| %>
-	
+<div id="login_form">
+	<h1>Log In</h1>
+	<%= form_tag sessions_path do %>
+
 	<div class="field">
-		<%= f.label :name %>
-		<%= f.text_field :name %>
+		<div><%= label_tag :name %></div>
+		<div><%= text_field_tag :name %></div>
 	</div>
 	<div class="field">
-		<%= f.label :password %>
-		<%= f.password_field :password %>
+		<div><%= label_tag :password %></div>
+		<div><%= password_field_tag :password %></div>
 	</div>
 	<div class="actions">
-		<%= f.submit "Sign in" %>
+		<%= submit_tag "Log in" %>
 	</div>
-<% end %>
+	<% end %>
+</div>

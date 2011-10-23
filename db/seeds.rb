@@ -10,14 +10,14 @@ Entry.delete_all
 Event.delete_all
 User.delete_all
 
-user = User.create!( { name: "Uncle_Mikey",
+user = User.create!( { name: "mikey",
   realname: "Michael Scott Shappe",
   password: "zogity",
   password_confirmation: "zogity"
   } )
 
 event = Event.create!( 
-  { summary: "Sit right down and hear a tale of a fateful trip" } )
+  {} )
 
 Entry.create!( 
   { user: user,

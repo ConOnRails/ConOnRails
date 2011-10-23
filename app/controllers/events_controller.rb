@@ -26,7 +26,7 @@ class EventsController < ApplicationController
   # GET /events/new.json
   def new
     @event = Event.new
-    @user  = User.find(params[:user_id])
+    @user  = User.find(session[:user_id])
     @entry = Entry.new(event: @event, user: @user)
 
     respond_to do |format|

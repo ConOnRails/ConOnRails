@@ -1,3 +1,66 @@
 // Place all the styles related to the Sessions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import 'colors';
+
+.sessions
+{
+  #main
+  {
+    height: 270px;
+  }
+
+  #columns
+  {
+    #side
+    {
+      width: 500px;
+      margin-left: 7em;
+
+      #public_menu
+      {
+        background-color: white;
+
+        ul
+        {
+          list-style-type: none;
+          li
+          {
+            background-color: $green;
+            color: white;
+            text-align: center;
+            a
+            {
+              font-size: 1.4em;
+              font-weight: bold;
+              color: white;
+              display: block;
+              padding-left: 15px;
+              padding-top: 6px;
+              padding-bottom: 20px;
+              width: inherit;
+            }
+          }
+        }      
+      }
+    }
+  
+    #main
+    {
+      #login_form
+      {
+        float: right;
+        padding-left: 25px;
+        width: 260px;
+        height: 270px;
+        background-color: $green_desat;
+      }
+      
+      label
+      {
+        font-weight: bold;
+      }
+    }
+  }
+}
