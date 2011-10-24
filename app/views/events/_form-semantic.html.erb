@@ -11,25 +11,29 @@
 <% end %>
 
 <h1>Create a new log entry</h1>
-<div class="entry_metadata"><%= time_tag Time.now %> created by <%= current_user.realname %></div>
-<%= semantic_form_for @event do |f| %>
+<div class="entry_metadata"><%= time_tag @time %> created by <%= current_user.realname %></div>
+<%= semantic_form_for [@event, @entry] do |f| %>
 <div id="event_options_side">
 	<%= f.inputs class: "status" do %>
-		<%= f.input :status, as: :radio, collection: Event.statuses, label: false %>
+	<%= f.input :status, as: :radio, collection: Event.statuses, label: false %>
 	<% end %>
 	<%= f.inputs class: "type_flags" do %>
-		<%= f.input :comment %>
-		<%= f.input :flagged %>
-		<%= f.input :post_con %>
-		<%= f.input :quote %>
-		<%= f.input :sticky %>
-		<%= f.input :emergency %>
-		<%= f.input :medical %>
-		<%= f.input :hidden %>
-		<%= f.input :secure %>
+	<%= f.input :comment %>
+	<%= f.input :flagged %>
+	<%= f.input :post_con %>
+	<%= f.input :quote %>
+	<%= f.input :sticky %>
+	<%= f.input :emergency %>
+	<%= f.input :medical %>
+	<%= f.input :hidden %>
+	<%= f.input :secure %>
 	<% end %>
 </div>
-	<%= f.input :firstdescription, as: :text, label: false %>
+<%= f.semantic_fields_for :entry do |e| %>
+	<%= e.inputs class: 'entry_description' do %>
+		<%= e.input :description, as: :text, label: false %>
+	<% end %>
+<% end %>
 <div id="event_options_bottom">
 	<%= f.inputs class: "department_flags" do %>
 	<%= f.input :consuite %>

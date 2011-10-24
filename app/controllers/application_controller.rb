@@ -19,5 +19,13 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  helper_method :is_authenticated?
+  def current_user
+    if is_authenticated?
+      return User.find(session[:user_id])
+    else
+      return nil
+    end
+  end
+  
+  helper_method :is_authenticated?, :current_user
 end
