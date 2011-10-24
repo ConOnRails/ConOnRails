@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111023030220) do
+ActiveRecord::Schema.define(:version => 20111024031119) do
 
   create_table "entries", :force => true do |t|
     t.text     "description"
@@ -22,11 +22,9 @@ ActiveRecord::Schema.define(:version => 20111023030220) do
   end
 
   create_table "events", :force => true do |t|
-    t.integer  "event_type_id"
-    t.integer  "event_status_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_active",       :default => true
+    t.boolean  "is_active",   :default => true
     t.boolean  "comment"
     t.boolean  "flagged"
     t.boolean  "post_con"

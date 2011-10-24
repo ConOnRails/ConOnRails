@@ -1,7 +1,7 @@
 <% @events.each do |event| %>
   <div class="event">
     <div class="event_header">
-      <span class="add_entry_link"><%= link_to 'Add Entry', new_entry_path( event_id: event, user_id: session[:user_id] ) %></span>
+      <span class="add_entry_link"><%= link_to 'Add Entry', new_event_entry_path( event_id: event, user_id: session[:user_id] ) %></span>
     </div>
     <div class="event_metadata">
     </div>
@@ -10,7 +10,6 @@
     </div>
     <div class="event_actions">
       <div class="event_action"><%= link_to 'Show', event %></div>
-      <div class="event_action"><%= link_to 'Edit', edit_event_path(event) %></div>
       <div class="event_action"><%= link_to 'Destroy', event, confirm: 'Are you sure?', method: :delete %></div>
 
     </div>

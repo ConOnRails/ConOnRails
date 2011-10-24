@@ -2,4 +2,5 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Back', entries_path %>
+<%= render @event.entries %>
+<%= link_to 'Back', event_entries_path %>

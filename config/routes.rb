@@ -1,20 +1,18 @@
 ConOnRails::Application.routes.draw do
-  root :to => 'con_on_rails#index'
-
-  # TODO nest these so that entries depend upon events.
-  resources :events
-  resources :entries
-
-  # TODO At some point, we want administrative versions of these
-  #namespace :admin do
-    resources :event_statuses
-    resources :event_types
-    resources :users
-  #end
-
+  root :to => 'events#active'
   resources :sessions, :only => [:new, :create, :destroy]
   match '/public', :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
+
+  resources :events do
+    resources :entries
+  end
+  
+  # TODO At some point, we want administrative versions of these
+  #namespace :admin do
+    resources :users
+  #end
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

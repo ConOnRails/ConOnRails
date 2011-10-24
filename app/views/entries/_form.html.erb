@@ -1,26 +1,42 @@
-<%= form_for(@entry) do |f| %>
-  <% if @entry.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@entry.errors.count, "error") %> prohibited this entry from being saved:</h2>
+<% if @entry.errors.any? %>
+<div id="error_explanation">
+	<h2><%= pluralize(@entry.errors.count, "error") %> prohibited this entry from being saved:</h2>
 
-      <ul>
-      <% @entry.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+	<ul>
+		<% @entry.errors.full_messages.each do |msg| %>
+		<li><%= msg %></li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
 
-  <div class="entry_metadata">
-    <%= f.hidden_field :user_id %>
-    <%= f.hidden_field :event_id %>
-    <div><strong>Created by </strong> <%= link_to @entry.user.name, @entry.user %></div>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description, rows: 10, cols: 80 %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<div class="entry_metadata">
+	<div><strong>Created by </strong> <%= link_to current_user.name, current_user %></div>
+</div>
+
+<%= semantic_form_for [@event, @entry], url: event_entries_url do |f| %>
+
+<div id="event_options_side">
+	<%= semantic_fields_for @event do |e| %>
+	<%= e.inputs class: "status" do %>
+		<%= e.input :status, as: :radio, collection: Event.statuses, label: false %>
+	<% end %>
+	<%= e.inputs class: "type_flags" do %>
+		<%= e.input :comment %>
+		<%= e.input :flagged %>
+		<%= e.input :post_con %>
+		<%= e.input :quote %>
+		<%= e.input :sticky %>
+		<%= e.input :emergency %>
+		<%= e.input :medical %>
+		<%= e.input :hidden %>
+		<%= e.input :secure %>
+	<% end %>
+	<% end %>
+</div>
+
+<%= f.inputs do %>
+<%= f.input :description, as: :text, label: false %>
+<% end %>
+<%= f.buttons %>
 <% end %>

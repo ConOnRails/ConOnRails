@@ -2,6 +2,38 @@
 
 one:
   is_active: true
+  comment: false
+  flagged: false
+  post_con: false
+  quote: false
+  sticky: false
+  emergency: false
+  medical: false
+  hidden: false
+  secure: false
+  consuite: false
+  hotel: false
+  parties: false
+  volunteers: false
+  dealers: false
+  dock: false
+  merchandise: false
   
 two:
   is_active: true
+  comment: false
+  flagged: false
+  post_con: false
+  quote: false
+  sticky: false
+  emergency: false
+  medical: false
+  hidden: false
+  secure: false
+  consuite: false
+  hotel: false
+  parties: false
+  volunteers: false
+  dealers: false
+  dock: false
+  merchandise: false

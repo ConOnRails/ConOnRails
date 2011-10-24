@@ -11,6 +11,16 @@ class EventsController < ApplicationController
     end
   end
 
+  def active
+    @title = "Active Events"
+    @events = Event.find_all_by_is_active(true)
+    
+    respond_to do |format|
+      format.html { render "index"}
+      format.json { render json: @events}
+    end
+  end
+  
   # GET /events/1
   # GET /events/1.json
   def show
@@ -24,27 +34,21 @@ class EventsController < ApplicationController
 
   # GET /events/new
   # GET /events/new.json
+  # There is POST /events. We actually create the new event here and then redirect to create the first entry
   def new
     @event = Event.new
-    @user  = User.find(session[:user_id])
-    @entry = Entry.new(event: @event, user: @user)
+    @time  = Time.now
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.json { render json: @event }
     end
+    
   end
-
-  # GET /events/1/edit
-  def edit
-    @event = Event.find(params[:id])
-    @user  = User.find(params[:user_id])
-  end
-
-  # POST /events
-  # POST /events.json
+  
   def create
     @event = Event.new(params[:event])
+    @event.entries.build({ description: @event.firstdescription, user: current_user, event: @event })
 
     respond_to do |format|
       if @event.save
@@ -55,6 +59,12 @@ class EventsController < ApplicationController
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  # GET /events/1/edit
+  def edit
+    @event = Event.find(params[:id])
+    @user  = User.find(session[:user_id])
   end
 
   # PUT /events/1
