@@ -2,7 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.event
+.events
 {
   .event_header
   {
@@ -26,10 +26,6 @@
     {
     }
 
-    .event_status
-    {
-    }
-
     .event_num_entries
     {
     }
@@ -40,6 +36,6 @@
     .event_action
     {
       display: inline;
-    }
+    }  
   }
 }

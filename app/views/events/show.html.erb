@@ -6,7 +6,8 @@
 <div id="entries">
     <%= render(partial: "entries/entry", collection: @event.entries) %>
 </div>
+<%= link_to 'Add Update', new_event_entry_path(@event) %>
 
-
-<%= link_to 'Edit', edit_event_path(@event) %> |
+<%= content_for :side do %>
 <%= link_to 'Back', events_path %>
+<% end %>

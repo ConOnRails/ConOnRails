@@ -1,17 +1,10 @@
-  <div class="entry">
-    <div class="<%= cycle('list_line_odd', 'list_line_even') %>" >
-      <div class="list_metadata">
-	<div>Entry by <%= link_to entry.user.name, entry.user %> <!-- NOTE: position --> at <%= entry.created_at %></div>
-      </div>
-      <div class="list_description">
-	<%= strip_tags(entry.description) %>
-      </div>
-      <div class="list_actions">
-	<span class="action"><%= link_to 'Edit', edit_entry_path(entry) %></span>
-	<span class="action"><%= link_to 'Destroy', entry, 
-	  confirm: 'Are you sure?', 
-	  method: :delete %>
-	</span>
-      </div>
-    </div>
-  </div>
+<div class="entry">
+	<div class="<%= cycle('list_line_odd', 'list_line_even') %>" >
+		<div class="list_metadata">
+			<div>Entry by <%= link_to entry.user.name, entry.user %> <!-- NOTE: position --> at <%= entry.created_at %></div>
+		</div>
+		<div class="list_description">
+			<%= strip_tags(entry.description) %>
+		</div>
+</div>
+</div>

@@ -24,10 +24,9 @@ class EntriesController < ApplicationController
   # GET /entries/new
   # GET /entries/new.json
   def new
+    @event = Event.find(params[:event_id])
     @entry = Entry.new
-    @entry.event = Event.find(params[:event_id])
-    @entry.user  = User.find(params[:user_id])
-
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @entry }
@@ -44,12 +43,15 @@ class EntriesController < ApplicationController
   def create
     @entry = Entry.new(params[:entry])
     @entry.event = Event.find(params[:event_id])
-    @entry.user  = User.find(params[:user_id])
+    @entry.user  = User.find(session[:user_id])
 
     respond_to do |format|
-      if @entry.save
-        format.html { redirect_to @entry, notice: 'Entry was successfully created.' }
-        format.json { render json: @entry, status: :created, location: @entry }
+      if @entry.description == "" or @entry.save
+        # We also need to update event attributes
+        @entry.event.update_attributes(params[:event])
+        
+        format.html { redirect_to @entry.event, notice: 'Entry was successfully created.' }
+        format.json { render json: @entry.event, status: :created, location: @entry }
       else
         format.html { render action: "new" }
         format.json { render json: @entry.errors, status: :unprocessable_entity }
