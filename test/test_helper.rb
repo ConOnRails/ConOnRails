@@ -25,7 +25,7 @@ class ActiveSupport::TestCase
     assert_redirected_to root_url
     follow_redirect!
     assert_response :success
-    assert_template "con_on_rails/index"    
+    assert_template "sessions/new"    
     yield sess if block_given?
   end
 end

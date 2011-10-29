@@ -29,8 +29,11 @@
 		<%= f.input :secure %>
 	<% end %>
 </div>
-	<%= f.input :firstdescription, as: :text, label: false %>
-<div id="event_options_bottom">
+<div id="entries">
+	<%= render partial: 'new_entry', locals: { event: @event, entry: Entry.new } %>
+	<%= render partial: 'entry', collection: @event.entries %>
+</div>
+i<div id="event_options_bottom">
 	<%= f.inputs class: "department_flags" do %>
 	<%= f.input :consuite %>
 	<%= f.input :hotel %>
