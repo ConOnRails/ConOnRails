@@ -1,4 +1,17 @@
 class EventsController < ApplicationController
+  def build_new_entry( event )
+    entry = event.entries.build
+    entry.event = event
+    entry.user  = User.find( session[:user_id] )
+    return entry
+  end
+  
+  def build_entry_from_params( event, params )
+    entry = event.entries.build( params )
+    entry.event = event
+    entry.user = User.find( session[:user_id] )
+  end
+
   # GET /events
   # GET /events.json
   def index
@@ -25,7 +38,8 @@ class EventsController < ApplicationController
   # GET /events/1.json
   def show
     @event = Event.find(params[:id])
-
+    @entry = build_new_entry @event
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @event }
@@ -37,7 +51,7 @@ class EventsController < ApplicationController
   # There is POST /events. We actually create the new event here and then redirect to create the first entry
   def new
     @event = Event.new
-    @time  = Time.now
+    @entry = build_new_entry @event
 
     respond_to do |format|
       format.html
@@ -48,7 +62,7 @@ class EventsController < ApplicationController
   
   def create
     @event = Event.new(params[:event])
-    @event.entries.build({ description: @event.firstdescription, user: current_user, event: @event })
+    build_entry_from_params( @event, params[:entry] )
 
     respond_to do |format|
       if @event.save
@@ -64,13 +78,13 @@ class EventsController < ApplicationController
   # GET /events/1/edit
   def edit
     @event = Event.find(params[:id])
-    @user  = User.find(session[:user_id])
   end
 
   # PUT /events/1
   # PUT /events/1.json
   def update
     @event = Event.find(params[:id])
+    build_entry_from_params( @event, params[:entry] ) if params[:entry][:description] != ''
 
     respond_to do |format|
       if @event.update_attributes(params[:event])

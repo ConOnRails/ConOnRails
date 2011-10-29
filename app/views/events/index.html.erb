@@ -1,17 +1,14 @@
 <% @events.each do |event| %>
   <div class="event">
-    <div class="event_header">
-      <span class="add_entry_link"><%= link_to 'Add Entry', new_event_entry_path( event_id: event, user_id: session[:user_id] ) %></span>
-    </div>
     <div class="event_metadata">
+			Flags will go here
     </div>
     <div class="entries">
-      <%= render(partial: 'entries/entry', collection: event.entries) %>
+      <%= render partial: 'entry', collection: event.entries %>
     </div>
     <div class="event_actions">
-      <div class="event_action"><%= link_to 'Show', event %></div>
+      <div class="event_action"><%= link_to 'Update', event %></div>
       <div class="event_action"><%= link_to 'Destroy', event, confirm: 'Are you sure?', method: :delete %></div>
-
     </div>
   </div>
 <% end %>
