@@ -3,6 +3,7 @@ class EntriesController < ApplicationController
   # GET /entries.json
   def index
     @entries = Entry.all
+    @event = Event.find(params[:event_id])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -31,11 +32,6 @@ class EntriesController < ApplicationController
       format.html # new.html.erb
       format.json { render json: @entry }
     end
-  end
-
-  # GET /entries/1/edit
-  def edit
-    @entry = Entry.find(params[:id])
   end
 
   # POST /entries
@@ -72,18 +68,6 @@ class EntriesController < ApplicationController
         format.html { render action: "edit" }
         format.json { render json: @entry.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # DELETE /entries/1
-  # DELETE /entries/1.json
-  def destroy
-    @entry = Entry.find(params[:id])
-    @entry.destroy
-
-    respond_to do |format|
-      format.html { redirect_to entries_url }
-      format.json { head :ok }
     end
   end
 end
