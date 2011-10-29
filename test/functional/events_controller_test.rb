@@ -3,6 +3,7 @@ require 'test_helper'
 class EventsControllerTest < ActionController::TestCase
   setup do
     @event = events(:one)
+    #@event.entry = entries(:verbosity)
     @user  = users(:one)
   end
 
@@ -19,7 +20,8 @@ class EventsControllerTest < ActionController::TestCase
 
   test "should create event" do
     assert_difference('Event.count') do
-      post :create, { event: @event.attributes }, { user_id: @user.id }
+      attributes = @event.attributes.merge( { firstdescription: entries(:verbosity).description } )
+      post :create, { event: attributes, entry: { description: "Foo"} }, { user_id: @user.id }
     end
 
     assert_redirected_to event_path(assigns(:event))
