@@ -1,0 +1,14 @@
+<div class="event">
+	<div class="event_metadata">
+		<%= render partial: 'metadata', locals: { event: event, form: form } %>
+	</div>
+
+	<ul class="entries">
+		<% entries = event.entries %>
+		<% if actives %>
+			<% entries = entries.reverse_order %>
+		<% end %>
+		<% entries = entries.reject &:new_record? %>
+		<%= render partial: 'entry', collection: entries, locals: { event: event } %>
+	</ul>
+</div>

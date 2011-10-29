@@ -1,5 +1,5 @@
 class Event < ActiveRecord::Base
-    has_many   :entries, dependent: :destroy
+    has_many   :entries, dependent: :destroy, order: 'created_at ASC'
     accepts_nested_attributes_for :entries, allow_destroy: true
 
     STATUSES = [ 'Active', 'Closed' ]

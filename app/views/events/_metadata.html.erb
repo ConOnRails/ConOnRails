@@ -1,0 +1,27 @@
+<% style = '' %>
+<% tags = '' %>
+<% if event.is_active? %>
+	<% style << "active " %>
+	<% tags << "Current Active " %>
+<% end %>
+
+<% if event.medical? %>
+	<% style << "medical "%>
+	<% tags << "Medical " %> 
+<% end %>
+
+<% if event.emergency? %>
+	<% style << "emergency "%>
+	<% tags << "Emergency"%>
+<% elsif event.sticky? %>
+	<% style << "sticky "%>
+	<% tags << "Sticky " %>
+<% else %>
+	<% tags << "Issue" %></span>
+<% end %>
+
+<span class="<%= style %>" ><%= tags %></span>
+
+<% if !form %>
+	<span class="update">&nbsp;&bull;&nbsp;<%= link_to 'Update or Append', event %></span>
+<% end %>
