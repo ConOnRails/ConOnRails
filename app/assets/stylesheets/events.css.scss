@@ -2,6 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import "colors";
+
 .events
 {
   .event_header
@@ -15,28 +17,55 @@
     padding-left: 3px;
     margin-right: 6px;
     border: thin solid;
-    width: 150px;
-    float:left;
-
-    .event_user
+     
+    .medical
     {
+      color: $red;
     }
-
-    .event_type
+    
+    .emergency
     {
+      color: $red;
     }
-
-    .event_num_entries
+    
+    .active
     {
+      font-weight: bold;
+    }
+    
+    .update
+    {
+        a
+        {
+          background-color: $green;
+          color: white;
+        }
+        a:hover
+        {
+          background-color: $green_desat;
+        }
     }
   }
 
-  .event_actions
+  ul.entries
   {
-    .event_action
+    margin-left: 1em;
+    
+    list-style-type: square;
+    list-style-position: outside;
+    li.entry
     {
-      display: inline;
-    }  
+      margin-bottom: 1em;
+      
+      .date
+      {
+        display: inline;
+      }
+      .volunteer
+      {
+        display: inline;
+      }
+    }
   }
   
   .formtastic
@@ -62,6 +91,10 @@
     fieldset.entry_description
     {
       width: 500px; 
+      textarea
+      {
+        width: 100%;
+      }
     }
     
     #event_options_side
@@ -136,9 +169,13 @@
       }
     }
  
-    #event_entry_description
+    #entry_description_input
     {
-      width: 95%;
+      textarea
+      {
+        margin: 1em;
+        width: 95%;
+      }
     }
 
     .buttons
@@ -146,6 +183,7 @@
       display: block;
       padding-left: .5em;
       padding-top: .5em;
+      margin-bottom: 1em;
     }
   }
   

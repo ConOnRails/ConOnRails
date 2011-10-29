@@ -17,6 +17,7 @@ class EventsController < ApplicationController
   def index
     @title = "Event Log"
     @events = Event.all
+    @actives = false
 
     respond_to do |format|
       format.html # index.html.erb
@@ -27,6 +28,7 @@ class EventsController < ApplicationController
   def active
     @title = "Active Events"
     @events = Event.find_all_by_is_active(true)
+    @actives = true
     
     respond_to do |format|
       format.html { render "index"}

@@ -1,0 +1,6 @@
+<li class="entry">
+	<% created_or_updated = ( entry == event.entries.first ) ? "created" : "updated" %>
+	<div class="date"><%= entry.created_at %></div>
+	<div class="volunteer"><%= created_or_updated %> by <%= link_to entry.user.realname, entry.user %></div>
+	<div class="description"><%= entry.description %></div>
+</li>

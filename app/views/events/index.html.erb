@@ -1,16 +1,1 @@
-<% @events.each do |event| %>
-  <div class="event">
-    <div class="event_metadata">
-			Flags will go here
-    </div>
-    <div class="entries">
-      <%= render partial: 'entry', collection: event.entries %>
-    </div>
-    <div class="event_actions">
-      <div class="event_action"><%= link_to 'Update', event %></div>
-      <div class="event_action"><%= link_to 'Destroy', event, confirm: 'Are you sure?', method: :delete %></div>
-    </div>
-  </div>
-<% end %>
-
-<%= link_to 'New Event', new_event_path %>
+<%= render partial: 'event', collection: @events, locals: { form: false, actives: @actives } %>
