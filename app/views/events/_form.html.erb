@@ -10,8 +10,9 @@
 </div>
 <% end %>
 
-<h1>Create a new log entry</h1>
-<div class="entry_metadata"><%= time_tag Time.now %> created by <%= current_user.realname %></div>
+<% create_or_update = @event.new_record? ? 'Create a new' : 'Update a' %>
+<h1><%= create_or_update %> log entry</h1>
+
 <%= semantic_form_for @event do |f| %>
 <div id="event_options_side">
 	<%= f.inputs class: "status" do %>
@@ -31,9 +32,8 @@
 </div>
 <div id="entries">
 	<%= render partial: 'new_entry', locals: { event: @event, entry: Entry.new } %>
-	<%= render partial: 'entry', collection: @event.entries %>
 </div>
-i<div id="event_options_bottom">
+<div id="event_options_bottom">
 	<%= f.inputs class: "department_flags" do %>
 	<%= f.input :consuite %>
 	<%= f.input :hotel %>
@@ -50,5 +50,6 @@ i<div id="event_options_bottom">
 	<%= f.commit_button %>
 	<% end %>
 </div>
+<%= render partial: 'event', object: @event, locals: { form: true, actives: false } %>
 <% end %>
 
