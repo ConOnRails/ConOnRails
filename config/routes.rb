@@ -4,9 +4,11 @@ ConOnRails::Application.routes.draw do
   match '/public', :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
 
-  resources :events do
-    resources :entries
-  end
+  # events cannot be destroyed (and neither can entries). We consider this a legal record
+  resources :events, except: [:destroy]
+  
+
+  # entries have no separate controller -- they're dependencies of events in all cases
   
   # TODO At some point, we want administrative versions of these
   #namespace :admin do
