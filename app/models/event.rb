@@ -4,10 +4,22 @@ class Event < ActiveRecord::Base
 
     STATUSES = [ 'Active', 'Closed' ]
 
+    def self.num_active
+      return Event.count( conditions: "is_active == 't'" )
+    end
+    
+    def self.num_inactive
+      return Event.count( conditions: "is_active != 't'" )
+    end
+    
+    def self.num_active_emergencies
+      return Event.count( conditions: "is_active == 't' and emergency == 't'" )
+    end
+
     def get_num_entries
         return entries.count
     end
-  
+
     def status
       return 'Active' if is_active?
       return 'Closed' unless is_active?

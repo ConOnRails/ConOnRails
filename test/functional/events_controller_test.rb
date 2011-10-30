@@ -25,6 +25,14 @@ class EventsControllerTest < ActionController::TestCase
 
     assert_redirected_to event_path(assigns(:event))
   end
+  
+  test "should create emergency" do
+    assert_difference 'Event.count' do
+      assert_difference 'Event.num_active_emergencies' do
+        post :create_emergency, { event: @event.attributes, entry: entries( :verbosity ).attributes }, { user_id: @user_id }
+      end
+    end
+  end
 
   test "should show event" do
     get :show, { id: @event.to_param, user_id: @user.id }, { user_id: @user.id }
@@ -46,11 +54,21 @@ class EventsControllerTest < ActionController::TestCase
     assert_redirected_to event_path(assigns(:event))
   end
   
-  test "should destroy event" do
-    assert_difference('Event.count', -1) do
-      delete :destroy, { id: @event.to_param }, { user_id: @user.id }
+  test "creating an event with blank initial entry fails" do
+    assert_no_difference 'Event.count' do
+      post :create, { event: @event.attributes, entry: { description: '' } }, { user_id: @user.id }
     end
-
-    assert_redirected_to events_path
   end
-end
+  
+  test "creating an event with NO initial entry fails" do
+    assert_no_difference 'Event.count' do
+      post :create, { event: @event.attributes }, { user_id: @user_id }
+    end
+  end
+  
+  test "creating an event while not logged in fails" do
+    assert_no_difference 'Event.count' do
+      post :create, { event: @event.attributes, entry: entries( :verbosity ).attributes }
+    end
+  end
+end 

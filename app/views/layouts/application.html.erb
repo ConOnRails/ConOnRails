@@ -7,18 +7,28 @@
 	<%= csrf_meta_tags %>
 </head>
 <body class="<%= controller.controller_name %>">
-	<div id="banner" class="normal"> <!-- Todo: class should be determined by current status -->
+	<div id="banner" class="<%= get_banner_style %>"> 
 		<div id="logo">
 			Con On Rails	   
 		</div>
 		
 		<div id="text">
-			<%= yield :banner %>
+			<% if !content_for?(:banner) %>
+				<% count = Event.num_active %>
+				<% emerg = Event.num_active_emergencies %>
+				<div><%= pluralize count, "Active Issue" %></div>
+				<% if emerg > 0 %>
+					<div><%= pluralize emerg, "Emergency" %></div>
+				<% end %>
+				<div><%= Time.now %>&mdash;User: <%= link_to current_user.name, current_user %></div>
+			<% else %>
+				<%= yield :banner %>
+			<% end %>
 		</div>
 
 		<% if is_authenticated? %>
 		<div id="emergency_button">
-			<a href="/events/create_emergency">Open a New Emergency</a>
+			<a href="/events/new?emergency=1">Open a New Emergency</a>
 		</div>
 		<% end %>
 	</div>

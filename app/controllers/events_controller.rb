@@ -54,6 +54,9 @@ class EventsController < ApplicationController
   def new
     @event = Event.new
     @entry = build_new_entry @event
+    if params[:emergency] == '1'
+      @event.emergency = true
+    end
 
     respond_to do |format|
       format.html
@@ -75,6 +78,9 @@ class EventsController < ApplicationController
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def create_emergency
   end
 
   # GET /events/1/edit

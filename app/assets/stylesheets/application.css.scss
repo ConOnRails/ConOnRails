@@ -49,7 +49,18 @@ a /* No links should have underlines ever */
   
   #text
   {
-    margin-left: 160px;
+    margin-left: 5em;
+    margin-top: .5em;
+    font-weight: bold;
+    float: left;
+    div
+    {
+      margin-bottom: .5em;
+      a
+      {
+        color: inherit;
+      }
+    }
   }
   
   #emergency_button
