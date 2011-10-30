@@ -27,5 +27,12 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  helper_method :is_authenticated?, :current_user
+  def num_events
+    return Event.count
+  end
+  
+  #def num_active_events
+  #end
+
+  helper_method :is_authenticated?, :current_user, :num_events
 end
