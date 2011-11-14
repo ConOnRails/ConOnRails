@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111024031119) do
+ActiveRecord::Schema.define(:version => 20111104235723) do
 
   create_table "entries", :force => true do |t|
     t.text     "description"
@@ -41,6 +41,20 @@ ActiveRecord::Schema.define(:version => 20111024031119) do
     t.boolean  "dealers"
     t.boolean  "dock"
     t.boolean  "merchandise"
+  end
+
+  create_table "lost_and_found_items", :force => true do |t|
+    t.string   "category"
+    t.string   "description"
+    t.text     "details"
+    t.string   "where_last_seen"
+    t.string   "where_found"
+    t.string   "owner_name"
+    t.text     "owner_contact"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "found"
+    t.boolean  "returned"
   end
 
   create_table "users", :force => true do |t|

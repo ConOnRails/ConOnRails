@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+lost:
+  category: MyString
+  description: MyString
+  details: MyText
+  where_last_seen: MyString
+  owner_name: MyString
+  owner_contact: MyText
+  found: false
+  returned: false
+
+found:
+  category: MyString
+  description: MyString
+  details: MyText
+  where_found: MyString
+  owner_name: MyString
+  owner_contact: MyText
+  found: true
+  returned: false
+
+returned:
+  category: MyString
+  description: MyString
+  details: MyText
+  where_found: MyString
+  owner_name: MyString
+  owner_contact: MyText
+  found: true
+  returned: true
