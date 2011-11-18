@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111104235723) do
+ActiveRecord::Schema.define(:version => 20111114234458) do
 
   create_table "entries", :force => true do |t|
     t.text     "description"
@@ -53,8 +53,9 @@ ActiveRecord::Schema.define(:version => 20111104235723) do
     t.text     "owner_contact"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "found"
-    t.boolean  "returned"
+    t.boolean  "found",            :default => false
+    t.boolean  "returned",         :default => false
+    t.boolean  "reported_missing", :default => false
   end
 
   create_table "users", :force => true do |t|
