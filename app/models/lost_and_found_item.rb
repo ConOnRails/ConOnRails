@@ -1,14 +1,49 @@
 class LostAndFoundItem < ActiveRecord::Base
-  CATEGORIES = { llama: "Llama" }
+  @@VALID_CATEGORIES = [ "Llama" ]
   
-  validates :category, presence: true, allow_blank: false
+  validates :category, presence: true, allow_blank: false#, inclusion: { in: @@VALID_CATEGORIES }
   validates :description, presence: true, allow_blank: false
-  validates :where_last_seen, presence: true, allow_blank: false#, unless: :found?
-  validates :where_found, presence: true, allow_blank: false#if: found?
+  
+  # These rules are a little complicated but it's worth it to ensure data integrity
+  # 1] On create, only one of reported_missing or found can be true, and only the 
+  # correct fields should be defined
+  validates :found, inclusion: { in: [false] }, if: :reported_missing?, on: :create
+  validates :reported_missing, inclusion: { in: [false] }, if: :found?, on: :create
+  
+  # 2] It should always be true that certain fields are defined for certain flags
+  validates :where_last_seen, presence: true, allow_blank: false, if: :reported_missing?
+  validates :owner_name, presence: true, allow_blank: false, if: :reported_missing?
+  validates :owner_contact, presence: true, allow_blank: false, if: :reported_missing?
+  
+  validates :where_found, presence: true, allow_blank: false, if: :found?
 
-  # To avoid any chance of confusion, items must be created as explicitly
-  # lost (found & returned == false), explicitly found but not returned,
-  # or explicitly found and returned.
-  validates :found, inclusion: { in: [true, false] }, allow_blank: false
-  validates :returned, inclusion: { in: [true, false] }, allow_blank: false
+  # 3] These are hard to express using standard validators, but we always want
+  # at least one of reported_missing or found to be true, and we want the "opposite"
+  # where fields to be empty on create
+  validate :always_missing_or_found
+  validate :created_with_correct_descriptive_fields, on: :create
+
+  def always_missing_or_found
+    if not reported_missing? and not found?
+      errors.add :reported_missing, "must be true if found is false"
+      errors.add :found, "must be true if reported_missing is false"
+    end
+  end
+  
+  def created_with_correct_descriptive_fields
+    validate_where_found_empty if reported_missing?
+    validate_where_last_seen_empty if found?
+  end
+    
+  def validate_where_last_seen_empty
+    if where_last_seen != nil and where_last_seen != ''
+      errors.add :where_last_seen, "expected empty"
+    end
+  end
+  
+  def validate_where_found_empty
+    if where_found != nil and where_found != ''
+      errors.add :where_found, "expected empty"
+    end
+  end
 end
