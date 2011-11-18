@@ -9,6 +9,7 @@ lost:
   owner_contact: MyText
   found: false
   returned: false
+  reported_missing: true
 
 found:
   category: MyString
@@ -19,6 +20,7 @@ found:
   owner_contact: MyText
   found: true
   returned: false
+  reported_missing: false
 
 returned:
   category: MyString
@@ -29,3 +31,4 @@ returned:
   owner_contact: MyText
   found: true
   returned: true
+  reported_missing: true
