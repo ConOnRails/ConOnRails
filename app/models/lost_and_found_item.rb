@@ -1,27 +1,30 @@
 class LostAndFoundItem < ActiveRecord::Base
-  @@VALID_CATEGORIES = [
-    "Badge",
-    "Bag",
-    "Bottle",
-    "Clothing",
-    "Costume Jewelry",
-    "Electronics",
-    "Glasses",
-    "Headgear",
-    "Jewelry",
-    "Keys",
-    "Media",
-    "Money",
-    "Paper",
-    "Phone",
-    "Small Electronics",
-    "Toy",
-    "Wallet",
-    "Weapon",
-    "Other Not Listed"
-     ]
+  @@VALID_CATEGORIES = {
+    badge: "Badge",
+    bag: "Bag",
+    bottle: "Bottle",
+    clothing: "Clothing",
+    costume_jewelry: "Costume Jewelry",
+    electronics: "Electronics",
+    glasses: "Glasses",
+    headgear: "Headgear",
+    jewelry: "Jewelry",
+    keys: "Keys",
+    media: "Media",
+    money: "Money",
+    paper: "Paper",
+    phone: "Phone",
+    small_electronics: "Small Electronics",
+    toy: "Toy",
+    wallet: "Wallet",
+    weapon: "Weapon",
+    other_not_listed: "Other Not Listed"
+   }
   
-  validates :category, presence: true, allow_blank: false, inclusion: { in: @@VALID_CATEGORIES }
+  scope :found, where( found: true )
+  scope :mising, where( reported_missing: true )
+  
+  validates :category, presence: true, allow_blank: false, inclusion: { in: @@VALID_CATEGORIES.values }
   validates :description, presence: true, allow_blank: false
   
   # These rules are a little complicated but it's worth it to ensure data integrity

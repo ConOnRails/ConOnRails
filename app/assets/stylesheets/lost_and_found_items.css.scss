@@ -125,3 +125,20 @@ abbr
     }
   }
 }
+
+.new_button
+{
+  font-size: 18px;
+  font-weight: bold;
+  padding: 12px;
+  
+  .missing
+  {
+    background: $missing_button_bg;
+  }
+  
+  .found
+  {
+    background: $found_button_bg;
+  }
+}
