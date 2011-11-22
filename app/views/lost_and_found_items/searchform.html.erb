@@ -1,0 +1,19 @@
+<h1>Search for a
+	<%= "missing" if params[:reported_missing] == true %>
+	<%= "found" if params[:found] == true%>
+	item
+	</h1>
+<%= form_tag search_lost_and_found_items_path, method: :get, id: "lost_and_found_search_form" do %>
+	<%= hidden_field_tag "reported_missing", params[:reported_missing] if params[:reported_missing] %>
+	<%= hidden_field_tag "found", params[:found] if params[:found] %>
+	<%= field_set_tag "", id: "lost_and_found_checkboxes" do %>
+		<ol>
+			<% LostAndFoundItem.Categories.each do |c| %>
+				<li><%= checkbox c.downcase.to_sym, c %></li>
+			<% end %>
+		</ol>
+	<% end %>
+	<%= label_tag :keywords, "Keyword(s)" %>
+	<%= text_field_tag :keywords %>
+	<%= button_tag "Submit" %>
+<% end %>

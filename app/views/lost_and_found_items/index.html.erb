@@ -1,0 +1,17 @@
+<% @lfis.each do |lfi| %>
+	<% itembg = "" %>
+	<% itembg = "missing" if lfi.reported_missing %>
+	<% itembg = "found" if lfi.found %>
+	<div class="lfi <%= itembg %>">
+		<div class="id_line">
+			<div class="label">Item ID:</div>
+			<div class="item_id"><%= lfi.id %></div>
+			<div class="view_button <%= itembg %>"><%= link_to "View", lfi %></div>
+		</div>
+		
+		<div class="summary">
+			<div class="description">Description: <%= lfi.description %></div>
+			<div class="status">Status: <%= itembg.upcase %></div>
+		</div>	
+	</div>
+<% end %>

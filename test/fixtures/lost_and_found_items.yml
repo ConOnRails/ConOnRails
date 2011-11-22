@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
 lost:
-  category: MyString
+  category: Badge
   description: MyString
   details: MyText
   where_last_seen: MyString
@@ -12,7 +12,7 @@ lost:
   reported_missing: true
 
 found:
-  category: MyString
+  category: Badge
   description: MyString
   details: MyText
   where_found: MyString
@@ -23,7 +23,7 @@ found:
   reported_missing: false
 
 returned:
-  category: MyString
+  category: Badge
   description: MyString
   details: MyText
   where_found: MyString

@@ -6,9 +6,20 @@ ConOnRails::Application.routes.draw do
 
   # events cannot be destroyed (and neither can entries). We consider this a legal record
   resources :events, except: [:destroy]
-  
 
   # entries have no separate controller -- they're dependencies of events in all cases
+ 
+  resources :lost_and_found, :only => [:index]
+  match '/lost_and_found', to: 'lost_and_found#index'
+
+  resources :lost_and_found_items, except: [:index, :destroy] do
+    collection do
+      get 'missing'
+      get 'found'
+      get 'searchform'
+      get 'search'
+    end
+  end
   
   # TODO At some point, we want administrative versions of these
   #namespace :admin do
