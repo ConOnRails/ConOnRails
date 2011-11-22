@@ -1,0 +1,50 @@
+// Place all the styles related to the LostAndFound controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import 'colors';
+
+.morf
+{
+  width: 250px;
+  max-width: 250px;
+  height: 250px;
+  float: left;
+  margin-top: 25px;
+  margin-right: 25px;
+  padding: 30px;
+  
+  font-weight: bold;
+  font-size: 18pt;
+  line-height: 110%;
+}
+
+.morf_button
+{
+  width: 250px;
+  max-width: 250px;
+  height: 40px;
+  text-align: center;
+  padding-top: 15px;
+  margin-bottom: 10px;
+}
+#missing
+{
+  background-color: $missing_bg;
+
+  #missing_button
+  {
+    background-color: $missing_button_bg;
+  }
+}
+
+#found
+{
+  background-color: $found_bg;
+
+  #found_button
+  {
+    background-color: $found_button_bg;
+  }
+  
+}

@@ -1,0 +1,127 @@
+// Place all the styles related to the lost_and_found_items controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import 'colors';
+abbr
+{
+  color: red;
+}
+
+.formtastic
+{
+  fieldset
+  {
+    padding: 0;
+    margin: 0;
+    ol
+    {
+      padding: 0;
+      margin: 0;
+      
+      li.input
+      {
+        width: 600px;
+        
+        padding: 0;
+        padding-top: 3px;
+        margin: 0;
+        
+        label
+        {
+          font-weight: bold;
+       }
+      }
+    }
+  }
+}
+
+#lost_and_found_item_owner_contact_input
+{
+  textarea
+  {
+    height: 100px;
+  }
+}
+
+#lost_and_found_item_details_input
+{
+  width: 750px;
+  textarea
+  {
+    height: 200px;
+  }
+}
+
+#lost_and_found_search_form
+{
+  #lost_and_found_checkboxes
+  {
+    border: none;
+    ol
+    {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      li
+      {
+        float: left;
+        width: 33%;
+        
+        label
+        {
+          margin-left: 3px;
+        }
+      }
+    }
+  }
+  
+  input#keywords
+   {
+     width: 65%;
+   }
+}
+
+.lfi
+{
+  padding: 6px;
+  .id_line
+  {
+    div
+    {
+      padding-top: 12px;
+      float: left;
+    }
+    .label
+    {
+      font-weight: bold;
+      margin-right: 3px;
+    }
+    .view_button
+    {
+      font-size: 18px;
+      font-weight: bold;
+      padding: 12px;
+      margin-left: 36px;
+
+      .missing
+      {
+        background: $missing_button_bg;
+      }
+
+      .found
+      {
+        background: $found_button_bg;
+      } 
+    }
+  }
+  .summary
+  {
+    div
+    {
+      margin-left: 36px;
+      float: none;
+      clear: left;
+    }
+  }
+}

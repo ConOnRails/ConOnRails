@@ -9,6 +9,7 @@
 Entry.delete_all
 Event.delete_all
 User.delete_all
+LostAndFoundItem.delete_all
 
 user = User.create!( { name: "mikey",
   realname: "Michael Scott Shappe",
@@ -41,3 +42,24 @@ Entry.create!(
                 Shiritaidake
                 } } )
 
+LostAndFoundItem.create!(
+  {
+    category: "Badge",
+    reported_missing: true,
+    where_last_seen: "Wombatland",
+    owner_name: "Spike Spiegel",
+    owner_contact: "spike@bebop.co.mars",
+    description: "#4242",
+    details: "I am the walrus"
+  }
+  )
+  
+LostAndFoundItem.create!(
+  {
+    category: "Weapon",
+    found: true,
+    where_found: "Atrium 42",
+    description: "A frickin' laser",
+    details: "One laser, frickin'"
+  }
+  )

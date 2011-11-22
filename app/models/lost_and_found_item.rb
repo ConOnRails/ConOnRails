@@ -1,7 +1,27 @@
 class LostAndFoundItem < ActiveRecord::Base
-  @@VALID_CATEGORIES = [ "Llama" ]
+  @@VALID_CATEGORIES = [
+    "Badge",
+    "Bag",
+    "Bottle",
+    "Clothing",
+    "Costume Jewelry",
+    "Electronics",
+    "Glasses",
+    "Headgear",
+    "Jewelry",
+    "Keys",
+    "Media",
+    "Money",
+    "Paper",
+    "Phone",
+    "Small Electronics",
+    "Toy",
+    "Wallet",
+    "Weapon",
+    "Other Not Listed"
+     ]
   
-  validates :category, presence: true, allow_blank: false#, inclusion: { in: @@VALID_CATEGORIES }
+  validates :category, presence: true, allow_blank: false, inclusion: { in: @@VALID_CATEGORIES }
   validates :description, presence: true, allow_blank: false
   
   # These rules are a little complicated but it's worth it to ensure data integrity
@@ -12,9 +32,7 @@ class LostAndFoundItem < ActiveRecord::Base
   
   # 2] It should always be true that certain fields are defined for certain flags
   validates :where_last_seen, presence: true, allow_blank: false, if: :reported_missing?
-  validates :owner_name, presence: true, allow_blank: false, if: :reported_missing?
-  validates :owner_contact, presence: true, allow_blank: false, if: :reported_missing?
-  
+  validates :owner_name, presence: true, allow_blank: false, if: :reported_missing?  
   validates :where_found, presence: true, allow_blank: false, if: :found?
 
   # 3] These are hard to express using standard validators, but we always want
@@ -23,6 +41,10 @@ class LostAndFoundItem < ActiveRecord::Base
   validate :always_missing_or_found
   validate :created_with_correct_descriptive_fields, on: :create
 
+  def LostAndFoundItem.Categories
+    return @@VALID_CATEGORIES
+  end
+  
   def always_missing_or_found
     if not reported_missing? and not found?
       errors.add :reported_missing, "must be true if found is false"
