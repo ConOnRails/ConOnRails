@@ -39,7 +39,6 @@ class LostAndFoundItemTest < ActiveSupport::TestCase
     assert lfi.invalid?
     assert lfi.errors[:where_last_seen].any?
     assert lfi.errors[:owner_name].any?
-    assert lfi.errors[:owner_contact].any?
   end
   
   test "item created missing MUST NOT have where_found" do
@@ -86,7 +85,7 @@ class LostAndFoundItemTest < ActiveSupport::TestCase
 
   test "category must be valid" do
     doom = @lost.attributes
-    doom["category"] = "Llama" # This is only valid right now
+    doom["category"] = "Llamarama"
     lfi = LostAndFoundItem.create(doom)
     assert lfi.invalid?
     assert lfi.errors[:category].any?

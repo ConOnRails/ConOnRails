@@ -84,6 +84,16 @@ a /* No links should have underlines ever */
   
 }
 
+.missing
+{
+  background-color: $missing_bg;
+}
+
+.found
+{
+  background-color: $found_bg;
+}
+
 .normal#banner
 {
   background-color: $no_issues_bg;

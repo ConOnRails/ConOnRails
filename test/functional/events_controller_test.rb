@@ -25,14 +25,6 @@ class EventsControllerTest < ActionController::TestCase
 
     assert_redirected_to event_path(assigns(:event))
   end
-  
-  test "should create emergency" do
-    assert_difference 'Event.count' do
-      assert_difference 'Event.num_active_emergencies' do
-        post :create_emergency, { event: @event.attributes, entry: entries( :verbosity ).attributes }, { user_id: @user_id }
-      end
-    end
-  end
 
   test "should show event" do
     get :show, { id: @event.to_param, user_id: @user.id }, { user_id: @user.id }

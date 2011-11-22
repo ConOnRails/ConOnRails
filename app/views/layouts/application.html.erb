@@ -6,7 +6,10 @@
 	<%= javascript_include_tag "application" %>
 	<%= csrf_meta_tags %>
 </head>
-<body class="<%= controller.controller_name %>">
+<% background = "" %>
+<% background = "missing" if params[:reported_missing] %>
+<% background = "found" if params[:found] %>
+<body class="<%= controller.controller_name %> <%= background %>">
 	<div id="banner" class="<%= get_banner_style %>"> 
 		<div id="logo">
 			Con On Rails	   
@@ -38,7 +41,7 @@
 		<ul>
 			<li><a href="/">Main</a></li>
 			<li><a href="/events/new">Log Event</a></li>
-			<li><a href="/lostfound">Lost/Found</a></li>
+			<li><a href="/lost_and_found">Lost/Found</a></li>
 			<li><a href="/messages">Messages</a></li>
 			<li><a href="/equipment">Equipment</a></li>
 			<li><a href="/events">Review</a></li>

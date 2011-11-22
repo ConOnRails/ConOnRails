@@ -30,16 +30,13 @@ class LayoutLinksTest < ActionDispatch::IntegrationTest
   end
 
   test "log_in and go to lost and found" do
-    flunk "Lost and Found not implemented yet"
+    get_root_not_logged_in
+    log_in @login_params do |sess|
+      sess.get lost_and_found_url
+      assert_response :success
+      assert_template "lost_and_found/index"
+    end
   end
-  #do
-   # get_root_not_logged_in
-    #log_in @login_params do |sess|
-    #  sess.get lostfound_url
-     # assert_response :success
-      #assert_template "lostfound/index"
-    #end
-  #end
    
    test "log in and go to event log" do
      get_root_not_logged_in
