@@ -14,4 +14,16 @@
 			<div class="status">Status: <%= itembg.upcase %></div>
 		</div>	
 	</div>
+	
+	<% newparams = {} %>
+	<% if params[:reported_missing] %>
+		<% buttontext = "Create new missing item" %>
+		<% newparams[:reported_missing] = true %>
+	<% end %>
+	<% if params[:found] %>
+		<% buttontext = "Create new found item" %>
+		<% newparams[:found] = true%>
+	<% end %>
+
+	<div class="new_button <%= itembg %>"><%= link_to buttontext, new_lost_and_found_item_path( newparams ) %></div>
 <% end %>
