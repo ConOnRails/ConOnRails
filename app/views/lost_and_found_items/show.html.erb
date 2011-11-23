@@ -1,2 +1,15 @@
-<h1>LostAndFoundItems#show</h1>
-<p>Find me in app/views/lost_and_found_items/show.html.erb</p>
+<h2>Item Details</h2>
+<div id="header">
+	<div><strong>Item ID:</strong> <%= @lfi.id %> <strong>Category:</strong> <%= @lfi.category %></div>
+	<div><strong>Description:</strong> <%= @lfi.description %></div>
+	<% if @lfi.reported_missing %>
+		<div><strong>Where Last Seen:</strong> <%= @lfi.where_last_seen %></div>
+		<div><strong>Owner Name:</strong> <%= @lfi.owner_name %></div>
+		<div><strong>Owner Contact:</strong> <%= @lfi.owner_contact %></div>
+	<% end %>
+	<% if @lfi.found %>
+		<div><strong>Where Found:</strong> <%= @lfi.where_found %></div>
+	<% end %>
+</div>
+<div>Details:</div>
+<div><%= @lfi.details %></div>

@@ -1,17 +1,14 @@
 <% @lfis.each do |lfi| %>
-	<% itembg = "" %>
-	<% itembg = "missing" if lfi.reported_missing %>
-	<% itembg = "found" if lfi.found %>
-	<div class="lfi <%= itembg %>">
+	<div class="lfi <%= lfi.type %>">
 		<div class="id_line">
 			<div class="label">Item ID:</div>
 			<div class="item_id"><%= lfi.id %></div>
-			<div class="view_button <%= itembg %>"><%= link_to "View", lfi %></div>
+			<div class="view_button <%= lfi.type %>"><%= link_to "View", lfi %></div>
 		</div>
 		
 		<div class="summary">
 			<div class="description">Description: <%= lfi.description %></div>
-			<div class="status">Status: <%= itembg.upcase %></div>
+			<div class="status">Status: <%= lfi.type.upcase %></div>
 		</div>	
 	</div>
 	
@@ -22,8 +19,8 @@
 	<% end %>
 	<% if params[:found] %>
 		<% buttontext = "Create new found item" %>
-		<% newparams[:found] = true%>
+		<% newparams[:found] = true %>
 	<% end %>
 
-	<div class="new_button <%= itembg %>"><%= link_to buttontext, new_lost_and_found_item_path( newparams ) %></div>
+	<div class="new_button <%= lfi.type %>"><%= link_to buttontext, new_lost_and_found_item_path( newparams ) %></div>
 <% end %>

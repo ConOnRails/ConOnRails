@@ -12,29 +12,37 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
 #    assert_response :success
 #  end
 
-#  test "should get show" do
-#    get :show
-#    assert_response :success
-#  end
+  test "should get show" do
+    p @missing
+    get :show, { id: @missing.id }, { user_id: @user.id }
+    assert_response :success
+    assert_template "show"
+    assert_not_nil assigns :lfi
+  end
 
   test "should get new missing" do
     get :new, { reported_missing: true }, { user_id: @user.id }
     assert_response :success
+    assert_template "new"
   end
 
   test "should get new found" do
     get :new, { found: true }, { user_id: @user.id }
     assert_response :success
+    assert_template "new"
   end
   
   test "should get missing search form" do
     get :searchform, { reported_missing: true }, { user_id: @user.id }
     assert_response :success
+    assert_template "searchform"
   end
   
   test "can search" do
     get :search, { reported_missing: true, badge: 1 }, { user_id: @user.id }
     assert_response :success
+    assert_template "index"
+    assert_not_nil assigns :lfis
   end
   
 #  test "should get create" do
