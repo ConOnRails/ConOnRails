@@ -25,6 +25,7 @@ class LostAndFoundItemsController < ApplicationController
   end
 
   def show
+    @lfi = LostAndFoundItem.find(params[:id])
   end
 
 
