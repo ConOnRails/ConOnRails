@@ -1,7 +1,4 @@
-<h1>New 
-<%= "Missing" if @lfi.reported_missing %>
-<%= "Found" if @lfi.found %> 
-Item </h1>
+<h1>New <%= @lfi.type %> item </h1>
 
 <%= semantic_form_for @lfi do |f| %>
 	<%= f.inputs do %>

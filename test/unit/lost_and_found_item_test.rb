@@ -90,4 +90,16 @@ class LostAndFoundItemTest < ActiveSupport::TestCase
     assert lfi.invalid?
     assert lfi.errors[:category].any?
   end
+  
+  test "missing items report 'missing' type" do
+    assert_equal @lost.type, 'missing'
+  end
+  
+  test "found items report 'found' type" do
+    assert_equal @found.type, 'found'
+  end
+  
+  test "returned items report 'returned' type" do
+    assert_equal @returned.type, 'returned'
+  end
 end
