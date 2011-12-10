@@ -2,8 +2,8 @@
 
 lost:
   category: Badge
-  description: MyString
-  details: MyText
+  description: Llamas and Tigers and Bears
+  details: Oh My!
   where_last_seen: MyString
   owner_name: MyString
   owner_contact: MyText
@@ -13,8 +13,8 @@ lost:
 
 found:
   category: Badge
-  description: MyString
-  details: MyText
+  description: Wombats and Llamas and Snakes
+  details: Oh my!
   where_found: MyString
   owner_name: MyString
   owner_contact: MyText
@@ -24,8 +24,8 @@ found:
 
 returned:
   category: Badge
-  description: MyString
-  details: MyText
+  description: "Emus, Begonias and Flakes"
+  details: O mai!
   where_found: MyString
   owner_name: MyString
   owner_contact: MyText
