@@ -6,35 +6,10 @@ class LostAndFoundItemsController < ApplicationController
 
   def search
     categories = build_categories_from_params
-    keywords = []
-    
-    if params.has_key? :keywords and params[:keywords] != ''
-      keywords = params[:keywords].split
-    end
-    
-    p keywords
-    p params[:search_type]
-    
-    like = ""
-    if params[:search_type] == 'all'
-      keywords.each do |k|
-        like += "%#{k}%"
-      end
-      like = "\"description\" LIKE '#{like}'"
-    elsif params[:search_type] == 'any'
-      keywords.each do |k|
-        if k == keywords.first
-          like = "\"description\" LIKE '%#{k}%'"
-        else
-          like += " OR \"description\" LIKE '%#{k}%'"
-        end
-      end
-    end
-    
-    p like
-          
+    like = process_keywords( params[:keywords] )  
+            
     @lfis = LostAndFoundItem.where returned: false
-    @lfis = @lfis.where( like ) 
+    @lfis = @lfis.where( like ) unless like == ''
     @lfis = @lfis.where( category: categories ) unless categories == []
     
     respond_to do |format|
@@ -78,4 +53,42 @@ class LostAndFoundItemsController < ApplicationController
     
     return ret
   end
+
+  def process_search_all( keywords )
+    like = ''
+    keywords.each do |k|
+      like += "%#{k}%"
+    end
+    like = "\"description\" LIKE '#{like}'"
+  end
+
+  def process_search_any( keywords )
+    like = ''
+    keywords.each do |k|
+      if k == keywords.first
+        like = "\"description\" LIKE '%#{k}%'"
+      else
+        like += " OR \"description\" LIKE '%#{k}%'"
+      end
+    end
+    return like
+  end
+
+  def process_keywords( keyword_params )
+    like = ""
+    
+    if params.has_key? :keywords and params[:keywords] != ''
+      keywords = params[:keywords].split
+
+      if params[:search_type] == 'all'
+        like = process_search_all( keywords )
+      elsif params[:search_type] == 'any'
+        like = process_search_any( keywords )
+      end
+    end    
+    
+    return like
+  end
+
+
 end
