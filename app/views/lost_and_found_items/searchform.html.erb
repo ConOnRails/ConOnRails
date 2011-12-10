@@ -11,5 +11,13 @@
 	<% end %>
 	<%= label_tag :keywords, "Keyword(s)" %>
 	<%= text_field_tag :keywords %>
+	<%= field_set_tag "", id: "lost_and_found_search_options" do %>
+		<ol>
+			<li><%= label_tag :search_type_all, "Find All" %>
+					<%= radio_button_tag :search_type, "all", true %></li>
+			<li><%= label_tag :search_type_any, "Find Any" %>
+					<%= radio_button_tag :search_type, "any" %></li>
+		</ol>
+	<% end %>
 	<%= button_tag "Submit" %>
 <% end %>

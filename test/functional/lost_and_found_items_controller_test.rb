@@ -11,9 +11,16 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
 #    get :index, { reported_missing: true }, { user_id: @user.id }
 #    assert_response :success
 #  end
+  test "must be authenticated" do
+    get :show, { id: @missing.id }
+    assert_response :redirect
+    get :new, { reported_missing: true }
+    assert_response :redirect
+    get :searchform, { reported_missing: true }
+    assert_response :redirect
+  end
 
   test "should get show" do
-    p @missing
     get :show, { id: @missing.id }, { user_id: @user.id }
     assert_response :success
     assert_template "show"
@@ -38,12 +45,39 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     assert_template "searchform"
   end
   
-  test "can search" do
+  test "can search by type 'badge'" do
     get :search, { reported_missing: true, badge: 1 }, { user_id: @user.id }
     assert_response :success
     assert_template "index"
     assert_not_nil assigns :lfis
   end
+  
+  test "can search by single keyword" do
+    get :search, { reported_missing: true, keywords: "Llamas"}, { user_id: @user.id }
+    assert_response :success
+    assert_template "index"
+    assert_not_nil assigns :lfis
+    assert_equal 2, @controller.lfis.length
+  end
+  
+  test "can search by all of multiple keywords" do
+    get :search, { reported_missing: true, search_type: "all", keywords: "Llamas Tigers" }, { user_id: @user.id }
+    assert_response :success
+    assert_template "index"
+    assert_not_nil assigns :lfis
+    assert_equal 1, @controller.lfis.length
+  end
+  
+  test "can search for any of multiple keywords" do
+    get :search, { reported_found: true, search_type: "any", keywords: "Llamas Tigers" }, { user_id: @user.id }
+    assert_response :success
+    assert_template "index"
+    assert_not_nil assigns :lfis
+    p @controller.lfis
+    assert_equal 2, @controller.lfis.length
+  end
+    
+    
   
 #  test "should get create" do
 #    get :create
