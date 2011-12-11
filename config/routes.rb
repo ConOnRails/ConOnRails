@@ -18,6 +18,7 @@ ConOnRails::Application.routes.draw do
       get 'found'
       get 'searchform'
       get 'search'
+      post 'mark_found'
     end
   end
   

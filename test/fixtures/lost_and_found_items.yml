@@ -7,8 +7,6 @@ lost:
   where_last_seen: MyString
   owner_name: MyString
   owner_contact: MyText
-  found: false
-  returned: false
   reported_missing: true
 
 found:
@@ -19,8 +17,6 @@ found:
   owner_name: MyString
   owner_contact: MyText
   found: true
-  returned: false
-  reported_missing: false
 
 returned:
   category: Badge
