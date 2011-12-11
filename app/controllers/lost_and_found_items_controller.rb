@@ -1,5 +1,5 @@
 class LostAndFoundItemsController < ApplicationController
-  attr_reader :lfis
+  attr_reader :lfis, :lfi
   
   def searchform
   end
@@ -31,6 +31,13 @@ class LostAndFoundItemsController < ApplicationController
     @lfi = LostAndFoundItem.find(params[:id])
   end
 
+  def mark_found
+    @lfi = LostAndFoundItem.find( params[:id] )
+    respond_to do |format|
+      format.html { render 'show' }
+      format.json { render json: @lfi }
+    end
+  end
 
   def create
   end

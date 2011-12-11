@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class LostAndFoundItemsControllerTest < ActionController::TestCase
+  fixtures :lost_and_found_items
+  
   setup do
     @missing = lost_and_found_items :lost
     @found   = lost_and_found_items :found
@@ -76,7 +78,16 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     p @controller.lfis
     assert_equal 2, @controller.lfis.length
   end
-    
+  
+  test "can mark an missing item found" do
+    get :show, { id: @missing.id }, { user_id: @user.id }
+    assert_response :success
+    assert_template "show"
+    post :mark_found, { id: @missing.id }, { user_id: @user.id }
+    assert_response :success
+    assert_template "show"
+    assert_equal true, @controller.lfi.found?
+  end
     
   
 #  test "should get create" do
