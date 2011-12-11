@@ -1,4 +1,5 @@
-<h2>Item Details</h2>
+<div id="item" class="@lfi.type">
+<h2><%= @lfi.Type %> Item Details</h2>
 <div id="header">
 	<div><strong>Item ID:</strong> <%= @lfi.id %> <strong>Category:</strong> <%= @lfi.category %></div>
 	<div><strong>Description:</strong> <%= @lfi.description %></div>
@@ -13,3 +14,9 @@
 </div>
 <div>Details:</div>
 <div><%= @lfi.details %></div>
+<div id="item_found_button">
+	<% @lfi.found = true %>
+</div>
+<div id="item_returned_button">
+	<% @lfi.returned = true %>
+</div>

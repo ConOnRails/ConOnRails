@@ -54,6 +54,12 @@ class LostAndFoundItem < ActiveRecord::Base
     return 'missing' if reported_missing?
   end
   
+  def Type
+    return 'Returned' if returned?
+    return 'Found' if found?
+    return 'Missing' if reported_missing?
+  end
+  
   def always_missing_or_found
     if not reported_missing? and not found?
       errors.add :reported_missing, "must be true if found is false"
