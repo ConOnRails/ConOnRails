@@ -40,12 +40,45 @@ class LostAndFoundItemsController < ApplicationController
   end
 
   def create
+    @lfi = LostAndFoundItem.new params[:lost_and_found_item]
+    
+    respond_to do |format|
+      if @lfi.save
+        type = "Missing" if @lfi.reported_missing?
+        type = "Found" if @lfi.found?
+        format.html { redirect_to @lfi, notice: "#{type} item was successfully created." }
+        format.json { render json: @lfi, status: :created, location: @lfi }
+      else
+        format.html { render action: "edit", lfi: @lfi }
+        format.json { render json: @lfi.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def edit
+    @lfi = LostAndFoundItem.find params[:id]
+    @lfi.found = true if params[:found] == 'true'
+    @lfi.returned = true if params[:returned] =='true'
+    
+    p "DOOM", @lfi
   end
 
   def update
+    @lfi = LostAndFoundItem.find params[:id]
+    
+    respond_to do |format|
+      if @lfi.update_attributes params[:lost_and_found_item]
+        p @lfi
+        type = "Missing" if @lfi.reported_missing?
+        type = "Found" if @lfi.found?
+        type = "Returned" if @lfi.returned?
+        format.html { redirect_to @lfi, notice: "#{type} item was successfully updated." }
+        format.json { render json: @lfi, status: :created, location: @lfi }
+      else
+        format.html { render action: "edit", lfi: @lfi, notide: "#{type} could not be saved." }
+        format.json { render json: @lfi.errors, status: :unprocessable_entity }
+      end
+    end
   end
   
   private

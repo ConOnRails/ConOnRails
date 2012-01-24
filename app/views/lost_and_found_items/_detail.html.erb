@@ -1,0 +1,26 @@
+<div id="item" class="@lfi.type">
+<h2><%= @lfi.Type %> Item Details</h2>
+<div id="header">
+	<div><strong>Item ID:</strong> <%= @lfi.id %> <strong>Category:</strong> <%= @lfi.category %></div>
+	<div><strong>Description:</strong> <%= @lfi.description %></div>
+	<% if @lfi.reported_missing %>
+		<div><strong>Where Last Seen:</strong> <%= @lfi.where_last_seen %></div>
+		<div><strong>Owner Name:</strong> <%= @lfi.owner_name %></div>
+		<div><strong>Owner Contact:</strong> <%= @lfi.owner_contact %></div>
+	<% end %>
+	<% if @lfi.found %>
+		<div><strong>Where Found:</strong> <%= @lfi.where_found %></div>
+	<% end %>
+</div>
+<div>Details:</div>
+<div><%= @lfi.details %></div>
+<% if @lfi.reported_missing? and ! @lfi.found? %>
+<div id="item_found_button">
+	<%= link_to "Item Has Been Found", edit_lost_and_found_item_path( @lfi, found: true ) %>
+</div>
+<% end %>
+<% if !@lfi.returned? %>
+<div id="item_returned_button">
+	<%= link_to "Item Has Been Returned", edit_lost_and_found_item_path( @lfi, returned: true ) %>
+</div>
+<% end %>
