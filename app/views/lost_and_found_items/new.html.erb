@@ -1,20 +1,3 @@
 <h1>New <%= @lfi.type %> item </h1>
 
-<%= semantic_form_for @lfi do |f| %>
-	<%= f.inputs do %>
-		<%= f.input :category, label: "Category:", as: :select, collection: LostAndFoundItem.Categories %>
-		<%= f.input :description, label: "Description:" %>
-		<% if @lfi.reported_missing %>
-			<%= f.input :where_last_seen, label: "Where Last Seen:" %>
-			<%= f.input :owner_name, label: "Owner Name:" %>
-			<%= f.input :owner_contact, label: "Owner Contact:" %>
-		<% elsif @lfi.found %>
-			<%= f.input :where_found, label: "Where Found:" %>
-		<% end %>				
-		<%= f.input :details, as: :text %>
-	<% end %>
-	<div><abbr text="required">*</abbr> denotes a required field</div>
-	<%= f.buttons do %>
-		<%= f.commit_button label: "Submit" %>
-	<% end %>
-<% end %>
+<%= render partial: "form" %>

@@ -88,6 +88,12 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     assert_template "show"
     assert_equal true, @controller.lfi.found?
   end
+  
+  test "can create new lost" do
+    assert_difference 'LostAndFoundItem.count' do
+      post :create, { lfi: @missing.attributes }, { user_id: @user.id }
+    end
+  end
     
   
 #  test "should get create" do

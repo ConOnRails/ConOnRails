@@ -68,8 +68,10 @@ class LostAndFoundItem < ActiveRecord::Base
   end
   
   def created_with_correct_descriptive_fields
-    validate_where_found_empty if reported_missing?
-    validate_where_last_seen_empty if found?
+    # This used to enforce only one or the other, but once a missing item has been found,
+    # we want both fields
+    validate_where_found_empty if reported_missing? and !found?
+    validate_where_last_seen_empty if found? and !reported_missing?
   end
     
   def validate_where_last_seen_empty

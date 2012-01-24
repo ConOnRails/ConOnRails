@@ -88,19 +88,19 @@
       }
     }
 
-    fieldset.entry_description
+    fieldset.inputs
     {
-      width: 500px; 
       textarea
       {
-        width: 100%;
+        width: 575px;
+        margin-right: 2em;
       }
     }
     
     #event_options_side
     {
       float: right;
-      width: 300px;
+      width: 200px;
       label
       {
         padding: 0;
