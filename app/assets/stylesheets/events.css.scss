@@ -87,20 +87,11 @@
         }
       }
     }
-
-    fieldset.inputs
-    {
-      textarea
-      {
-        width: 575px;
-        margin-right: 2em;
-      }
-    }
     
     #event_options_side
     {
       float: right;
-      width: 200px;
+      width: 180px;
       label
       {
         padding: 0;
@@ -174,7 +165,7 @@
       textarea
       {
         margin: 1em;
-        width: 95%;
+        width: 97%;
       }
     }
 
@@ -184,6 +175,8 @@
       padding-left: .5em;
       padding-top: .5em;
       margin-bottom: 1em;
+      border: visible;
+      border-radius: 10px;
     }
   }
   

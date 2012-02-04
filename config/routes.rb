@@ -1,4 +1,6 @@
 ConOnRails::Application.routes.draw do
+  resources :roles
+
   root :to => 'events#active'
   resources :sessions, :only => [:new, :create, :destroy]
   match '/public', :to => 'sessions#new'

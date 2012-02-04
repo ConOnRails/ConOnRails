@@ -124,16 +124,8 @@ abbr
       font-weight: bold;
       padding: 12px;
       margin-left: 36px;
-
-      .missing
-      {
-        background: $missing_button_bg;
-      }
-
-      .found
-      {
-        background: $found_button_bg;
-      } 
+      border: visible;
+      border-radius: 10px;
     }
   }
   .summary
@@ -151,15 +143,30 @@ abbr
 {
   font-size: 18px;
   font-weight: bold;
+  width: 300px;
+  margin-top: 12px;
   padding: 12px;
-  
-  .missing
-  {
-    background: $missing_button_bg;
-  }
-  
-  .found
-  {
-    background: $found_button_bg;
-  }
+  border: visible;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.missing
+{
+  background: $missing_bg;
+}
+
+.found
+{
+  background: $found_bg;
+}
+
+.missingbtn
+{
+  background: $missing_button_bg;
+}
+
+.foundbtn
+{
+  background: $found_button_bg;
 }
