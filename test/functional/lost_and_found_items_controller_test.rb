@@ -79,32 +79,16 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     assert_equal 2, @controller.lfis.length
   end
   
-  test "can mark an missing item found" do
-    get :show, { id: @missing.id }, { user_id: @user.id }
-    assert_response :success
-    assert_template "show"
-    post :mark_found, { id: @missing.id }, { user_id: @user.id }
-    assert_response :success
-    assert_template "show"
-    assert_equal true, @controller.lfi.found?
-  end
-  
   test "can create new lost" do
     assert_difference 'LostAndFoundItem.count' do
-      post :create, { lfi: @missing.attributes }, { user_id: @user.id }
+      post :create, { lost_and_found_item: @missing.attributes }, { user_id: @user.id }
     end
   end
     
-  
-#  test "should get create" do
-#    get :create
-#    assert_response :success
-#  end
-
-#  test "should get edit" do
-#    get :edit
-#    assert_response :success
-#  end
+  test "should get edit" do
+    get :edit, { id: @missing.id }, { user_id: @user.id }
+    assert_response :success
+  end
 
 #  test "should get update" do
 #    get :update

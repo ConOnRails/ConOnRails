@@ -7,8 +7,8 @@
 	<%= csrf_meta_tags %>
 </head>
 <% background = "" %>
-<% background = "missing" if params[:reported_missing] %>
-<% background = "found" if params[:found] %>
+<% background = "missing" if params[:reported_missing] or ( @lfi and @lfi.reported_missing? )%>
+<% background = "found" if params[:found] or ( @lfi and @lfi.found? )%>
 <body class="<%= controller.controller_name %> <%= background %>">
 	<div id="banner" class="<%= get_banner_style %>"> 
 		<div id="logo">

@@ -15,12 +15,12 @@
 
 <% newparams = {} %>
 <% if params[:reported_missing] %>
-	<% buttontype = "missing" %>
+	<% buttontype = "missingbtn" %>
 	<% buttontext = "Create new missing item" %>
 	<% newparams[:reported_missing] = true %>
 <% end %>
 <% if params[:found] %>
-	<% buttontype = "found" %>
+	<% buttontype = "foundbtn" %>
 	<% buttontext = "Create new found item" %>
 	<% newparams[:found] = true %>
 <% end %>
