@@ -43,7 +43,7 @@ class LostAndFoundItemsController < ApplicationController
     @lfi = LostAndFoundItem.new params[:lost_and_found_item]
     
     respond_to do |format|
-      if @lfi.save
+      if @lfi.save!
         type = "Missing" if @lfi.reported_missing?
         type = "Found" if @lfi.found?
         format.html { redirect_to @lfi, notice: "#{type} item was successfully created." }

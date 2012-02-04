@@ -17,6 +17,8 @@
   font-weight: bold;
   font-size: 18pt;
   line-height: 110%;
+  border: visible;
+  border-radius: 10px;
 }
 
 .morf_button
@@ -27,7 +29,10 @@
   text-align: center;
   padding-top: 15px;
   margin-bottom: 10px;
+  border: visible;
+  border-radius: 10px;
 }
+
 #missing
 {
   background-color: $missing_bg;

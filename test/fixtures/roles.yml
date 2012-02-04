@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  write_entries: false
+  read_hidden_entries: false
+  add_lost_and_found: false
+  modify_lost_and_found: false
+  admin_radios: false
+  assign_radios: false
+  admin_users: false
+  admin_schedule: false
+  assign_shifts: false
+  assign_duty_board_slots: false
+  admin_duty_board: false
+
+two:
+  name: MyString
+  write_entries: false
+  read_hidden_entries: false
+  add_lost_and_found: false
+  modify_lost_and_found: false
+  admin_radios: false
+  assign_radios: false
+  admin_users: false
+  admin_schedule: false
+  assign_shifts: false
+  assign_duty_board_slots: false
+  admin_duty_board: false

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111114234458) do
+ActiveRecord::Schema.define(:version => 20120204211444) do
 
   create_table "entries", :force => true do |t|
     t.text     "description"
@@ -56,6 +56,23 @@ ActiveRecord::Schema.define(:version => 20111114234458) do
     t.boolean  "found",            :default => false
     t.boolean  "returned",         :default => false
     t.boolean  "reported_missing", :default => false
+  end
+
+  create_table "roles", :force => true do |t|
+    t.string   "name"
+    t.boolean  "write_entries"
+    t.boolean  "read_hidden_entries"
+    t.boolean  "add_lost_and_found"
+    t.boolean  "modify_lost_and_found"
+    t.boolean  "admin_radios"
+    t.boolean  "assign_radios"
+    t.boolean  "admin_users"
+    t.boolean  "admin_schedule"
+    t.boolean  "assign_shifts"
+    t.boolean  "assign_duty_board_slots"
+    t.boolean  "admin_duty_board"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|
