@@ -1,19 +1,10 @@
 ConOnRails::Application.routes.draw do
-  resources :roles
-
-  root :to => 'events#active'
-  resources :sessions, :only => [:new, :create, :destroy]
-  match '/public', :to => 'sessions#new'
-  match '/signout', :to => 'sessions#destroy'
-
-  # events cannot be destroyed (and neither can entries). We consider this a legal record
   resources :events, except: [:destroy]
-
-  # entries have no separate controller -- they're dependencies of events in all cases
- 
   resources :lost_and_found, :only => [:index]
-  match '/lost_and_found', to: 'lost_and_found#index'
-
+  resources :roles
+  resources :sessions, :only => [:new, :create, :destroy]
+  # events cannot be destroyed (and neither can entries). We consider this a legal record
+  resources :users
   resources :lost_and_found_items, except: [:index, :destroy] do
     collection do
       get 'missing'
@@ -23,11 +14,11 @@ ConOnRails::Application.routes.draw do
       post 'mark_found'
     end
   end
-  
-  # TODO At some point, we want administrative versions of these
-  #namespace :admin do
-    resources :users
-  #end
+
+  root :to => 'events#active'
+  match '/public', :to => 'sessions#new'
+  match '/signout', :to => 'sessions#destroy' 
+  match '/lost_and_found', to: 'lost_and_found#index'
 
 
   # The priority is based upon order of creation:
