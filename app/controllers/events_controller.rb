@@ -1,4 +1,22 @@
 class EventsController < ApplicationController
+  before_filter :user_can_write_entries, only: [ :new, :create, :edit, :update ]
+  
+  protected
+  
+  def user_can_write_entries
+    user = User.find session[:user_id]
+    unless user.write_entries?
+      redirect_to events_url
+    end
+  end
+  
+  def user_can_see_hidden
+    user = User.find session[:user_id]
+    return user.read_hidden_entries?
+  end
+    
+  public
+  
   def build_new_entry( event )
     entry = event.entries.build
     entry.event = event
@@ -11,12 +29,23 @@ class EventsController < ApplicationController
     entry.event = event
     entry.user = User.find( session[:user_id] )
   end
+  
+  def filter_out_hidden_if_needed
+    ret = []
+    if user_can_see_hidden
+      ret = Event.all
+    else
+      ret = Event.where hidden: false
+    end
+    
+    return ret
+  end
 
   # GET /events
   # GET /events.json
   def index
     @title = "Event Log"
-    @events = Event.all
+    @events = filter_out_hidden_if_needed
     @actives = false
 
     respond_to do |format|

@@ -20,7 +20,7 @@ class RolesControllerTest < ActionController::TestCase
 
   test "should create role" do
     assert_difference('Role.count') do
-      post :create,  { role: @peon.attributes }, { user_id: @user.id }
+      post :create,  { role: { name: "Foo" } }, { user_id: @user.id }
     end
 
     assert_redirected_to role_path(assigns(:role))
