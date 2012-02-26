@@ -92,4 +92,5 @@ class UserTest < ActiveSupport::TestCase
     user = User.create!(@input_attributes)
     assert false == user.authenticate( ShortPassword )
   end
+  
 end

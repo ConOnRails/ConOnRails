@@ -1,5 +1,25 @@
 class LostAndFoundItemsController < ApplicationController
+  before_filter :user_can_add_lost_and_found, only: [ :new, :create ]
+  before_filter :user_can_modify_lost_and_found, only: [ :edit, :update ]
   attr_reader :lfis, :lfi
+  
+  protected
+  
+  def user_can_add_lost_and_found
+    user = User.find session[:user_id]
+    unless user.add_lost_and_found?
+      redirect_to lost_and_found_url
+    end    
+  end
+  
+  def user_can_modify_lost_and_found
+    user = User.find session[:user_id]
+    unless user.modify_lost_and_found?
+      redirect_to lost_and_found_url
+    end
+  end
+  
+  public
   
   def searchform
   end
@@ -59,8 +79,6 @@ class LostAndFoundItemsController < ApplicationController
     @lfi = LostAndFoundItem.find params[:id]
     @lfi.found = true if params[:found] == 'true'
     @lfi.returned = true if params[:returned] =='true'
-    
-    p "DOOM", @lfi
   end
 
   def update

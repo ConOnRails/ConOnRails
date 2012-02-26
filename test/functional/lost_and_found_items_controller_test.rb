@@ -7,6 +7,11 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     @missing = lost_and_found_items :lost
     @found   = lost_and_found_items :found
     @user = users :one
+    @admin_role = roles :admin
+    @user.roles << @admin_role
+    @peon_user = users :two
+    @peon_role = roles :peon
+    @peon_user.roles << @peon_role
   end
   
 #  test "should get missing index" do
@@ -22,14 +27,27 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     assert_response :redirect
   end
 
-  test "should get show" do
-    get :show, { id: @missing.id }, { user_id: @user.id }
+  def get_show( user )
+    get :show, { id: @missing.id }, { user_id: user.id }
     assert_response :success
     assert_template "show"
     assert_not_nil assigns :lfi
+ end   
+
+  test "peons can get show" do
+    get_show @peon_user
   end
 
-  test "should get new missing" do
+  test "non-peons can get show" do
+    get_show @user
+  end
+
+  test "peons cannot get new" do
+      get :new, { reported_missing: true }, { user_id: @peon_user.id }
+      assert_redirected_to lost_and_found_url
+    end
+
+  test "non-peons should get new missing" do
     get :new, { reported_missing: true }, { user_id: @user.id }
     assert_response :success
     assert_template "new"
@@ -47,11 +65,19 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     assert_template "searchform"
   end
   
-  test "can search by type 'badge'" do
-    get :search, { reported_missing: true, badge: 1 }, { user_id: @user.id }
+  def can_search( user )
+    get :search, { reported_missing: true, badge: 1 }, { user_id: user.id }
     assert_response :success
     assert_template "index"
     assert_not_nil assigns :lfis
+  end
+  
+  test "peon can search by type 'badge" do
+    can_search @peon_user
+  end
+  
+  test "can search by type 'badge'" do
+    can_search @user
   end
   
   test "can search by single keyword" do
@@ -75,8 +101,13 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     assert_response :success
     assert_template "index"
     assert_not_nil assigns :lfis
-    p @controller.lfis
     assert_equal 2, @controller.lfis.length
+  end
+  
+  test "peon cannot create new lost" do
+    assert_no_difference 'LostAndFoundItem.count' do
+      post :create, { lost_and_found_item: @missing.attributes }, { user_id: @peon_user.id }
+    end
   end
   
   test "can create new lost" do
@@ -85,6 +116,11 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     end
   end
     
+  test "peon cannot edit lost" do
+    get :edit, { id: @missing.id }, { user_id: @peon_user.id }
+    assert_redirected_to lost_and_found_url
+  end    
+  
   test "should get edit" do
     get :edit, { id: @missing.id }, { user_id: @user.id }
     assert_response :success
