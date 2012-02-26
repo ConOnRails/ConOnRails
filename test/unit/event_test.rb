@@ -88,16 +88,16 @@ class EventTest < ActiveSupport::TestCase
   
   test "can determine number of active events" do
     make_one_inactive
-    assert_equal Event.num_active, 1  
+    assert_equal 2, Event.num_active
   end
   
   test "can determine number of inactive events" do
     make_one_inactive
-    assert_equal Event.num_inactive, 1
+    assert_equal 1, Event.num_inactive
   end
   
   test "can determine number of active emergencies" do
     make_an_emergency
-    assert_equal Event.num_active_emergencies, 1
+    assert_equal 1, Event.num_active_emergencies
   end
 end

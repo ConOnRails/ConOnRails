@@ -37,3 +37,22 @@ two:
   dealers: false
   dock: false
   merchandise: false
+  
+hidden:
+   is_active: true
+   comment: false
+   flagged: false
+   post_con: false
+   quote: false
+   sticky: false
+   emergency: false
+   medical: false
+   hidden: true
+   secure: false
+   consuite: false
+   hotel: false
+   parties: false
+   volunteers: false
+   dealers: false
+   dock: false
+   merchandise: false
