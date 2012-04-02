@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base    
   has_and_belongs_to_many :roles
-  attr_accessible :name, :realname, :password, :password_confirmation
+  attr_accessible :name, :realname, :password, :password_confirmation, :role_ids
 
   name_regex = /^[a-zA-Z0-9_]*$/
   password_regex = /^[a-zA-Z0-9!@#$\%^&*()\-_ ]*$/

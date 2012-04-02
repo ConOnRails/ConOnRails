@@ -2,10 +2,10 @@
 * This is a manifest file that'll automatically include all the stylesheets available in this directory
 * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
 * the top of the compiled file, but it's generally better to create a new file per style scope.
-*= require_self
-*= require_tree . 
 *= require formtastic
 *= require my_formtastic_changes
+*= require_self
+*= require_tree . 
 */
 
 @import "colors";
@@ -215,6 +215,18 @@ a /* No links should have underlines ever */
   padding: 10px;
   border-top: 2px solid;
   font: small-caps 10px/10px "Palatino", "Times New Roman", serif;
+  text-align: center;
+}
+
+.new_button
+{
+  font-size: 18px;
+  font-weight: bold;
+  width: 300px;
+  margin-top: 12px;
+  padding: 12px;
+  border: visible;
+  border-radius: 10px;
   text-align: center;
 }
 

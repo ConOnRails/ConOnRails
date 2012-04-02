@@ -18,7 +18,7 @@
 		<%= f.input :details, as: :text %>
 	<% end %>
 	<div><abbr text="required">*</abbr> denotes a required field</div>
-	<%= f.buttons do %>
-		<%= f.commit_button label: "Submit" %>
+	<%= f.actions do %>
+		<%= f.action :submit, label: "Submit" %>
 	<% end %>
 <% end %>
