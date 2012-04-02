@@ -1,4 +1,12 @@
 class UsersController < ApplicationController
+  before_filter :redirect_if_cannot_admin
+  
+  def redirect_if_cannot_admin
+    unless can_admin_anything?
+      redirect_to public_url
+    end
+  end
+  
   # GET /admin/users
   # GET /admin/users.json
   def index
@@ -58,6 +66,8 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
+
+    p params[:roles]
 
     respond_to do |format|
       if @user.update_attributes(params[:user])

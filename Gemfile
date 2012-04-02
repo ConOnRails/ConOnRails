@@ -18,7 +18,7 @@ end
 
 gem 'jquery-rails'
 gem 'therubyracer'
-gem 'formtastic'
+gem 'formtastic', "~> 2.1.1"
 
 # Use unicorn as the web server
 # gem 'unicorn'

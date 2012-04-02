@@ -13,6 +13,15 @@ class ApplicationController < ActionController::Base
      end
    end
   
+  def can_admin_anything?
+    ret = false
+    if is_authenticated?
+      user = User.find session[:user_id]
+      ret = user.can_admin_anything?
+    end
+    return ret
+  end
+      
   def require_login
     unless is_authenticated?
       redirect_to public_url
@@ -34,5 +43,5 @@ class ApplicationController < ActionController::Base
   #def num_active_events
   #end
 
-  helper_method :is_authenticated?, :current_user, :num_events
+  helper_method :is_authenticated?, :can_admin_anything?, :current_user, :num_events
 end

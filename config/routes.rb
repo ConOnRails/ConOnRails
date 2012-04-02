@@ -1,10 +1,13 @@
 ConOnRails::Application.routes.draw do
-  resources :events, except: [:destroy]
-  resources :lost_and_found, :only => [:index]
+  resources :admin, only: [:index]
+  
   resources :roles
-  resources :sessions, :only => [:new, :create, :destroy]
-  # events cannot be destroyed (and neither can entries). We consider this a legal record
   resources :users
+  
+  resources :events, except: [:destroy]
+  resources :lost_and_found, only: [:index]
+  resources :sessions, only: [:new, :create, :destroy]
+  # events cannot be destroyed (and neither can entries). We consider this a legal record
   resources :lost_and_found_items, except: [:index, :destroy] do
     collection do
       get 'missing'
@@ -15,10 +18,11 @@ ConOnRails::Application.routes.draw do
     end
   end
 
-  root :to => 'events#active'
-  match '/public', :to => 'sessions#new'
-  match '/signout', :to => 'sessions#destroy' 
+  root to: 'events#active'
+  match '/public', to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy' 
   match '/lost_and_found', to: 'lost_and_found#index'
+  match '/admin', to: 'admin#index'
 
 
   # The priority is based upon order of creation:

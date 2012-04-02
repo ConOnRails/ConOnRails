@@ -1,43 +1,9 @@
 <h1>Listing roles</h1>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Write entries</th>
-    <th>Read hidden entries</th>
-    <th>Add lost and found</th>
-    <th>Modify lost and found</th>
-    <th>Admin radios</th>
-    <th>Assign radios</th>
-    <th>Admin users</th>
-    <th>Admin schedule</th>
-    <th>Assign shifts</th>
-    <th>Assign duty board slots</th>
-    <th>Admin duty board</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<table id="roleslist">
+<%= render partial: "roleheader" %>
 
-<% @roles.each do |role| %>
-  <tr>
-    <td><%= role.name %></td>
-    <td><%= role.write_entries %></td>
-    <td><%= role.read_hidden_entries %></td>
-    <td><%= role.add_lost_and_found %></td>
-    <td><%= role.modify_lost_and_found %></td>
-    <td><%= role.admin_radios %></td>
-    <td><%= role.assign_radios %></td>
-    <td><%= role.admin_users %></td>
-    <td><%= role.admin_schedule %></td>
-    <td><%= role.assign_shifts %></td>
-    <td><%= role.assign_duty_board_slots %></td>
-    <td><%= role.admin_duty_board %></td>
-    <td><%= link_to 'Show', role %></td>
-    <td><%= link_to 'Edit', edit_role_path(role) %></td>
-    <td><%= link_to 'Destroy', role, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+<%= render @roles %>
 </table>
 
 <br />

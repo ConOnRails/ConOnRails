@@ -1,4 +1,13 @@
 <div class="con_on_rails_form">
+	<%= semantic_form_for @user do |f| %>
+	  <%= f.inputs %>
+	  <%= f.inputs do %>
+	  	<%= f.input :roles %>
+	  <% end %>
+	  <%= f.actions %>
+	<% end %>
+</div>
+<!--
     <%= form_for(@user) do |f| %>
     <% if @user.errors.any? %>
     <div id="error_explanation">
@@ -35,4 +44,4 @@
       </div>
     </fieldset>
     <% end %>
-</div>
+</div> -->

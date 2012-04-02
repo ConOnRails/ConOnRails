@@ -46,8 +46,8 @@
 </div>
 <br />
 <div class="buttons">
-	<%= f.buttons do %>
-	<%= f.commit_button %>
+	<%= f.actions do %>
+	<%= f.action :submit %>
 	<% end %>
 </div>
 <%= render partial: 'event', object: @event, locals: { form: true, actives: false } %>

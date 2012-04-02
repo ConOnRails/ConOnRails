@@ -45,6 +45,9 @@
 			<li><a href="/messages">Messages</a></li>
 			<li><a href="/equipment">Equipment</a></li>
 			<li><a href="/events">Review</a></li>
+			<% if can_admin_anything? %>
+			<li><a href="/admin">Admin</a></li>
+			<% end %>
 			<li><a href="/signout">Log Out</a></li>
 		</ul>
 	</div>
