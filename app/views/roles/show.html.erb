@@ -1,65 +1,13 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @role.name %>
-</p>
+<table id="roleslist">
+<%= render partial: "roleheader" %>
+<%= render @role  %>
+</table>
+<h2>Users</h2>
+<table>
+<%= render @role.users %>
+</table>
 
-<p>
-  <b>Write entries:</b>
-  <%= @role.write_entries %>
-</p>
-
-<p>
-  <b>Read hidden entries:</b>
-  <%= @role.read_hidden_entries %>
-</p>
-
-<p>
-  <b>Add lost and found:</b>
-  <%= @role.add_lost_and_found %>
-</p>
-
-<p>
-  <b>Modify lost and found:</b>
-  <%= @role.modify_lost_and_found %>
-</p>
-
-<p>
-  <b>Admin radios:</b>
-  <%= @role.admin_radios %>
-</p>
-
-<p>
-  <b>Assign radios:</b>
-  <%= @role.assign_radios %>
-</p>
-
-<p>
-  <b>Admin users:</b>
-  <%= @role.admin_users %>
-</p>
-
-<p>
-  <b>Admin schedule:</b>
-  <%= @role.admin_schedule %>
-</p>
-
-<p>
-  <b>Assign shifts:</b>
-  <%= @role.assign_shifts %>
-</p>
-
-<p>
-  <b>Assign duty board slots:</b>
-  <%= @role.assign_duty_board_slots %>
-</p>
-
-<p>
-  <b>Admin duty board:</b>
-  <%= @role.admin_duty_board %>
-</p>
-
-
-<%= link_to 'Edit', edit_role_path(@role) %> |
+<%= link_to 'Edit', edit_role_path( @role )%> |
 <%= link_to 'Back', roles_path %>

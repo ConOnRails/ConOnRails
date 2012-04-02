@@ -1,20 +1,25 @@
 <%= semantic_form_for @role do |f| %>
+<table class="roleslist">
+	<%= render partial: "roles/roleheader" %>
+	<tr>
   <%= f.inputs do %>
-    <%= f.input :name %>
-    <%= f.input :write_entries %>
-    <%= f.input :read_hidden_entries %>
-    <%= f.input :add_lost_and_found %>
-    <%= f.input :modify_lost_and_found %>
-    <%= f.input :admin_radios %>
-    <%= f.input :assign_radios %>
-    <%= f.input :admin_users %>
-    <%= f.input :admin_schedule %>
-    <%= f.input :assign_shifts %>
-    <%= f.input :assign_duty_board_slots %>
-    <%= f.input :admin_duty_board %>
+    <td><%= f.input :name, label: "" %></td>
+    <td><%= f.input :write_entries, label: "" %></td>
+    <td><%= f.input :read_hidden_entries, label: "" %></td>
+    <td><%= f.input :add_lost_and_found, label: "" %></td>
+    <td><%= f.input :modify_lost_and_found, label: "" %></td>
+    <td><%= f.input :admin_radios, label: "" %></td>
+    <td><%= f.input :assign_radios, label: "" %></td>
+    <td><%= f.input :admin_users, label: "" %></td>
+    <td><%= f.input :admin_schedule, label: "" %></td>
+    <td><%= f.input :assign_shifts, label: "" %></td>
+    <td><%= f.input :assign_duty_board_slots, label: "" %></td>
+    <td><%= f.input :admin_duty_board, label: "" %></td>
   <% end %>
+</tr>
+</table>
 
-  <%= f.buttons do %>
-    <%= f.commit_button %>
+  <%= f.actions do %>
+    <%= f.action :submit %>
   <% end %>
 <% end %>

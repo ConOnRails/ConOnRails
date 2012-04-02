@@ -6,15 +6,16 @@
 </p>
 
 <p>
-  <b>Realname:</b>
+  <b>Real Name:</b>
   <%= @user.realname %>
 </p>
 
 <p>
-  <b>Password digest:</b>
-  <%= @user.password_digest %>
-</p>
-
-
+	<b>Roles</b>: 
+	<table id="roleslist">
+	<%= render partial: "roles/roleheader" %>
+	<%= render @user.roles %>
+	</table>
+	</p>
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
