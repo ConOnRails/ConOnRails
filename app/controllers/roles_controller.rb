@@ -1,4 +1,12 @@
 class RolesController < ApplicationController
+  before_filter :redirect_if_cannot_admin
+  
+  def redirect_if_cannot_admin
+    unless current_user and current_user.can_admin_users?
+      redirect_to public_url
+    end
+  end
+  
   # GET /roles
   # GET /roles.json
   def index

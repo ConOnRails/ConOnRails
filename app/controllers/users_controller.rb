@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_filter :redirect_if_cannot_admin
   
   def redirect_if_cannot_admin
-    unless can_admin_anything?
+    unless current_user and current_user.can_admin_users?
       redirect_to public_url
     end
   end

@@ -36,6 +36,9 @@ class User < ActiveRecord::Base
             find_perm "admin_radios?")
   end
               
+  def can_admin_users?
+    find_perm "admin_users?"
+  end
                        
   def write_entries?
     find_perm "write_entries?"

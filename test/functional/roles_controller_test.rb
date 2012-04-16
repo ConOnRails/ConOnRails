@@ -2,9 +2,10 @@ require 'test_helper'
 
 class RolesControllerTest < ActionController::TestCase
   setup do
-    @peon = roles(:peon)
-    @admin = roles(:admin)
-    @user = users :one
+    @peon = FactoryGirl.create :role
+    @admin = FactoryGirl.create :admin_users_role
+    @user = FactoryGirl.create :user
+    @user.roles << @admin
   end
 
   test "should get index" do
