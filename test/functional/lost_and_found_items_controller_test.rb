@@ -1,16 +1,14 @@
 require 'test_helper'
 
-class LostAndFoundItemsControllerTest < ActionController::TestCase
-  fixtures :lost_and_found_items
-  
+class LostAndFoundItemsControllerTest < ActionController::TestCase  
   setup do
-    @missing = lost_and_found_items :lost
-    @found   = lost_and_found_items :found
-    @user = users :one
-    @admin_role = roles :admin
+    @missing = FactoryGirl.create :lost
+    @found   = FactoryGirl.create :found
+    @user = FactoryGirl.create :user
+    @admin_role = FactoryGirl.create :can_admin_lost_and_found_user
     @user.roles << @admin_role
-    @peon_user = users :two
-    @peon_role = roles :peon
+    @peon_user = FactoryGirl.create :peon
+    @peon_role = FactoryGirl.create :role
     @peon_user.roles << @peon_role
   end
   

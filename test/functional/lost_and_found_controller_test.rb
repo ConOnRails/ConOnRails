@@ -2,7 +2,7 @@ require 'test_helper'
 
 class LostAndFoundControllerTest < ActionController::TestCase
   setup do
-    @user = users :one 
+    @user = FactoryGirl.create :user 
   end
     
   test "should get index" do

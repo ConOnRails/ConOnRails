@@ -1,12 +1,11 @@
 require 'test_helper'
 
 class LostAndFoundItemTest < ActiveSupport::TestCase
-  fixtures :lost_and_found_items
 
   setup do
-    @lost = lost_and_found_items(:lost)
-    @found = lost_and_found_items(:found)
-    @returned = lost_and_found_items(:returned)
+    @lost = FactoryGirl.build :lost
+    @found = FactoryGirl.build :found
+    @returned = FactoryGirl.build :returned
   end
 
   test "default construction should be invalid" do

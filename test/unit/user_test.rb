@@ -1,8 +1,6 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  fixtures :users
-  
   LongName = 'a' * 33
   LongRealName = 'a' * 65
   ShortPassword = 'a' * 4

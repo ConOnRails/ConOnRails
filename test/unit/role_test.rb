@@ -1,8 +1,6 @@
 require 'test_helper'
 
-class RoleTest < ActiveSupport::TestCase
-  fixtures :roles
-  
+class RoleTest < ActiveSupport::TestCase  
   LongName = 'a' * 33
   BadName = "a&%T@%{ \003} elknart" # Should fail for printable specials, and control-C
   
