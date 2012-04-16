@@ -12,10 +12,10 @@ User.delete_all
 Role.delete_all
 LostAndFoundItem.delete_all
 
-user = User.create!( { name: "mikey",
+user = User.create!( { name: "admin",
   realname: "Michael Scott Shappe",
-  password: "zogity",
-  password_confirmation: "zogity"
+  password: "controlthehorizontal",
+  password_confirmation: "controlthehorizontal"
   } )
 
 role = Role.create!( { name: "wheel", admin_users: true })
@@ -23,7 +23,7 @@ role = Role.create!( { name: "wheel", admin_users: true })
 user.roles << role
 user.save!
 
-testuser = User.create!( { name: "testuser", realname: "Test User", 
+testuser = User.create!( { name: "test", realname: "Test User", 
                            password: "testme", password_confirmation: "testme" } )
 
 event = Event.create!( 
