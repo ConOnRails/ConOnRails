@@ -23,5 +23,5 @@
 <span class="<%= style %>" ><%= tags %></span>
 
 <% if !form %>
-	<span class="update">&nbsp;&bull;&nbsp;<%= link_to 'Update or Append', event %></span>
+	<span class="update">&nbsp;&bull;&nbsp;<%= link_to 'Update or Append', edit_event_path(event) %></span>
 <% end %>

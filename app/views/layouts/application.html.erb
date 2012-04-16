@@ -40,16 +40,20 @@
 	<div id="menubar">
 		<ul>
 			<li><a href="/">Main</a></li>
+                        <% if current_user and current_user.write_entries? %>
 			<li><a href="/events/new">Log Event</a></li>
+                        <% end %>
+                        <% if current_user and current_user.add_lost_and_found? %>
 			<li><a href="/lost_and_found">Lost/Found</a></li>
-			<li><a href="/messages">Messages</a></li>
-			<li><a href="/equipment">Equipment</a></li>
+                        <% end %>
+			<!--li><a href="/messages">Messages</a></li-->
+			<!--li><a href="/equipment">Equipment</a></li-->
 			<li><a href="/events">Review</a></li>
 			<% if can_admin_anything? %>
 			<li><a href="/admin">Admin</a></li>
 			<% end %>
 			<li><a href="/signout">Log Out</a></li>
-			<li><a href="https://github.com/conOnRails/ConOnRails/issues">Bug Report</a></li>
+			<li><a target="_new" href="https://github.com/conOnRails/ConOnRails/issues">Bug Report</a></li>
 		</ul>
 	</div>
 	<% end %>
