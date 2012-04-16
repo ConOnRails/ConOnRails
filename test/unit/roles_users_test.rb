@@ -1,12 +1,11 @@
 require 'test_helper'
 
 class RolesUsersTest < ActiveSupport::TestCase
-  fixtures :users, :roles
   setup do
-    @user1 = User.find users :one
-    @user2 = User.find users :two
-    @role1 = Role.find roles :peon
-    @role2 = Role.find roles :admin
+    @user1 = FactoryGirl.create :user
+    @user2 = FactoryGirl.create :peon
+    @role1 = FactoryGirl.create :write_entries_role
+    @role2 = FactoryGirl.create :role
   end
 
   def setup_roles
@@ -38,12 +37,12 @@ class RolesUsersTest < ActiveSupport::TestCase
 
   test "can find write_entries permission in user roles" do
     setup_roles
-    assert @user2.write_entries?
+    assert @user1.write_entries?
   end
   
   test "can find absence of write_entries permission in user roles" do
     setup_roles
-    assert !@user1.write_entries?
+    assert !@user2.write_entries?
   end
 
 end

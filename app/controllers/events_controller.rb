@@ -4,15 +4,13 @@ class EventsController < ApplicationController
   protected
   
   def user_can_write_entries
-    user = User.find session[:user_id]
-    unless user.write_entries?
+    unless current_user and current_user.write_entries?
       redirect_to events_url
     end
   end
   
   def user_can_see_hidden
-    user = User.find session[:user_id]
-    return user.read_hidden_entries?
+    return current_user == nil ? false : current_user.read_hidden_entries?
   end
     
   public
@@ -20,14 +18,14 @@ class EventsController < ApplicationController
   def build_new_entry( event )
     entry = event.entries.build
     entry.event = event
-    entry.user  = User.find( session[:user_id] )
+    entry.user  = current_user
     return entry
   end
   
   def build_entry_from_params( event, params )
     entry = event.entries.build( params )
     entry.event = event
-    entry.user = User.find( session[:user_id] )
+    entry.user = current_user
   end
   
   def filter_out_hidden_if_needed
@@ -47,7 +45,7 @@ class EventsController < ApplicationController
     @title = "Event Log"
     @events = filter_out_hidden_if_needed
     @actives = false
-
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @events }
