@@ -5,7 +5,7 @@ class EventsController < ApplicationController
   
   def user_can_write_entries
     unless current_user and current_user.write_entries?
-      redirect_to events_url
+      redirect_to root_url
     end
   end
   
@@ -31,9 +31,9 @@ class EventsController < ApplicationController
   def filter_out_hidden_if_needed
     ret = []
     if user_can_see_hidden
-      ret = Event.all
+      ret = Event.order("updated_at desc")
     else
-      ret = Event.where hidden: false
+      ret = Event.order("updated_at desc").find_all_by_hidden(false)
     end
     
     return ret
@@ -54,7 +54,7 @@ class EventsController < ApplicationController
 
   def active
     @title = "Active Events"
-    @events = Event.find_all_by_is_active(true)
+    @events = Event.order("updated_at desc").find_all_by_is_active(true)
     @actives = true
     
     respond_to do |format|

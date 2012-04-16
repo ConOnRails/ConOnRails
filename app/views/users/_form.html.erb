@@ -1,7 +1,10 @@
 <div class="con_on_rails_form">
 	<%= semantic_form_for @user do |f| %>
-	  <%= f.inputs %>
 	  <%= f.inputs do %>
+		<%= f.input :name %>
+		<%= f.input :realname %>
+		<%= f.input :password %>
+		<%= f.input :password_confirmation %>
 	  	<%= f.input :roles %>
 	  <% end %>
 	  <%= f.actions %>
