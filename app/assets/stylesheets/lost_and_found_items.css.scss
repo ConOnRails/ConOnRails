@@ -149,12 +149,29 @@ abbr
   background: $found_bg;
 }
 
-.missingbtn
+#item_missing_button
 {
   background: $missing_button_bg;
+  font-weight: bold;
+  font-size: 14pt;
+  line-height: 110%;
+  float: left;
 }
 
-.foundbtn
+#item_found_button
 {
   background: $found_button_bg;
+  font-weight: bold;
+  font-size: 14pt;
+  line-height: 110%;
+  float: left;
+}
+
+#item_returned_button
+{
+  background: white;
+  font-weight: bold;
+  font-size: 14pt;
+  line-height: 110%;
+  float: left;
 }
