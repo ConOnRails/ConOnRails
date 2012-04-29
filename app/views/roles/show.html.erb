@@ -1,13 +1,11 @@
-<p id="notice"><%= notice %></p>
-
 <table id="roleslist">
-<%= render partial: "roleheader" %>
-<%= render @role  %>
+  <%= render partial: "roleheader" %>
+  <%= render @role %>
 </table>
 <h2>Users</h2>
 <table>
-<%= render @role.users %>
+  <%= render @role.users %>
 </table>
 
-<%= link_to 'Edit', edit_role_path( @role )%> |
+<%= link_to 'Edit', edit_role_path(@role) %> |
 <%= link_to 'Back', roles_path %>

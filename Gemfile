@@ -31,11 +31,15 @@ gem 'formtastic', "~> 2.1.1"
 
 group :test do
   # Pretty printed test output
-  gem 'turn', :require => false
-  gem 'minitest'
-  gem 'cucumber-rails'
-  gem 'rspec-rails'
+  #  gem 'turn', :require => false
+  gem 'minitest-reporters'
+  gem 'spork'
+  gem 'spork-testunit'
+#  gem 'cucumber-rails'
+#  gem 'rspec-rails'
   gem 'database_cleaner'
   gem 'ruby-debug19'
   gem 'factory_girl_rails'
+  gem 'simplecov'
+  gem 'simplecov-html'
 end

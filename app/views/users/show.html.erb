@@ -1,21 +1,19 @@
-<p id="notice"><%= notice %></p>
-
 <p>
-  <b>Name:</b>
+  <strong>Name:</strong>
   <%= @user.name %>
 </p>
 
 <p>
-  <b>Real Name:</b>
+  <strong>Real Name:</strong>
   <%= @user.realname %>
 </p>
 
 <p>
-	<b>Roles</b>: 
-	<table id="roleslist">
-	<%= render partial: "roles/roleheader" %>
-	<%= render @user.roles %>
-	</table>
-	</p>
+  <strong>Roles</strong>:
+<table id="roleslist">
+  <%= render partial: "roles/roleheader" %>
+  <%= render @user.roles %>
+</table>
+</p>
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

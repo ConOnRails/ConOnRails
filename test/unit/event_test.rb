@@ -2,7 +2,7 @@ require 'test_helper'
 
 class EventTest < ActiveSupport::TestCase
   setup do
-    @event = FactoryGirl.create :event
+    @event       = FactoryGirl.create :event
     @other_event = FactoryGirl.create :ordinary_event
   end
 
@@ -11,13 +11,13 @@ class EventTest < ActiveSupport::TestCase
     @event.save
     assert !@event.is_active?
   end
-  
+
   def make_an_emergency
     @event.emergency = true
     @event.save
     assert @event.emergency
   end
-  
+
   test "active flag should be true by default" do
     assert @event.is_active?
   end
@@ -76,24 +76,24 @@ class EventTest < ActiveSupport::TestCase
       @event.status = 'Fudgewidget'
     end
   end
-  
+
   test "correct attributes are exposed" do
     event = Event.create!(@event.attributes)
   end
-  
+
   test "can determine number of events" do
-    Event.count
+    assert_equal 2, Event.count
   end
-  
+
   test "can determine number of active events" do
     assert_equal 2, Event.num_active
   end
-  
+
   test "can determine number of inactive events" do
     make_one_inactive
     assert_equal 1, Event.num_inactive
   end
-  
+
   test "can determine number of active emergencies" do
     make_an_emergency
     assert_equal 1, Event.num_active_emergencies

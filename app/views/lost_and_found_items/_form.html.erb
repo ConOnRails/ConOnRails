@@ -1,24 +1,24 @@
 <%= semantic_form_for @lfi do |f| %>
-	<%= f.inputs do %>
-		<%= f.input :category, label: "Category:", as: :select, collection: LostAndFoundItem.Categories %>
-		<%= f.input :description, label: "Description:" %>
-		<% if @lfi.reported_missing %>
-			<%= f.input :reported_missing, as: :hidden, value: true %>
-			<%= f.input :where_last_seen, label: "Where Last Seen:" %>
-			<%= f.input :owner_name, label: "Owner Name:" %>
-			<%= f.input :owner_contact, label: "Owner Contact:" %>
-		<% end %>
-		<% if @lfi.found %>
-			<%= f.input :found, as: :hidden, value: true %>
-			<%= f.input :where_found, label: "Where Found:" %>
-		<% end %>
-		<% if @lfi.returned %>
-			<%= f.input :returned, as: :hidden, value: true %>
-		<% end %>
-		<%= f.input :details, as: :text %>
-	<% end %>
-	<div><abbr text="required">*</abbr> denotes a required field</div>
-	<%= f.actions do %>
-		<%= f.action :submit, label: "Submit" %>
-	<% end %>
+    <%= f.inputs do %>
+        <%= f.input :category, label: "Category:", as: :select, collection: LostAndFoundItem.categories %>
+        <%= f.input :description, label: "Description:" %>
+        <% if @lfi.reported_missing %>
+            <%= f.input :reported_missing, as: :hidden, value: true %>
+            <%= f.input :where_last_seen, label: "Where Last Seen:" %>
+            <%= f.input :owner_name, label: "Owner Name:" %>
+            <%= f.input :owner_contact, label: "Owner Contact:" %>
+        <% end %>
+        <% if @lfi.found %>
+            <%= f.input :found, as: :hidden, value: true %>
+            <%= f.input :where_found, label: "Where Found:" %>
+        <% end %>
+        <% if @lfi.returned %>
+            <%= f.input :returned, as: :hidden, value: true %>
+        <% end %>
+        <%= f.input :details, as: :text %>
+    <% end %>
+    <div><abbr text="required">*</abbr> denotes a required field</div>
+    <%= f.actions do %>
+        <%= f.action :submit, label: "Submit" %>
+    <% end %>
 <% end %>

@@ -11,66 +11,76 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120226183628) do
+ActiveRecord::Schema.define(:version => 20120429052751) do
 
-  create_table "entries", :force => true do |t|
-    t.text     "description"
+  create_table "contacts", :force => true do |t|
+    t.string "name"
+    t.string "department"
+    t.string "cell_phone"
+    t.string "hotel"
+    t.integer "hotel_room"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
-    t.integer  "event_id"
+  end
+
+  create_table "entries", :force => true do |t|
+    t.text "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer "user_id"
+    t.integer "event_id"
   end
 
   create_table "events", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_active",   :default => true
-    t.boolean  "comment"
-    t.boolean  "flagged"
-    t.boolean  "post_con"
-    t.boolean  "quote"
-    t.boolean  "sticky"
-    t.boolean  "emergency"
-    t.boolean  "medical"
-    t.boolean  "hidden"
-    t.boolean  "secure"
-    t.boolean  "consuite"
-    t.boolean  "hotel"
-    t.boolean  "parties"
-    t.boolean  "volunteers"
-    t.boolean  "dealers"
-    t.boolean  "dock"
-    t.boolean  "merchandise"
+    t.boolean "is_active", :default => true
+    t.boolean "comment", :default => false
+    t.boolean "flagged", :default => false
+    t.boolean "post_con", :default => false
+    t.boolean "quote", :default => false
+    t.boolean "sticky", :default => false
+    t.boolean "emergency", :default => false
+    t.boolean "medical", :default => false
+    t.boolean "hidden", :default => false
+    t.boolean "secure", :default => false
+    t.boolean "consuite"
+    t.boolean "hotel"
+    t.boolean "parties"
+    t.boolean "volunteers"
+    t.boolean "dealers"
+    t.boolean "dock"
+    t.boolean "merchandise"
   end
 
   create_table "lost_and_found_items", :force => true do |t|
-    t.string   "category"
-    t.string   "description"
-    t.text     "details"
-    t.string   "where_last_seen"
-    t.string   "where_found"
-    t.string   "owner_name"
-    t.text     "owner_contact"
+    t.string "category"
+    t.string "description"
+    t.text "details"
+    t.string "where_last_seen"
+    t.string "where_found"
+    t.string "owner_name"
+    t.text "owner_contact"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "found",            :default => false
-    t.boolean  "returned",         :default => false
-    t.boolean  "reported_missing", :default => false
+    t.boolean "found", :default => false
+    t.boolean "returned", :default => false
+    t.boolean "reported_missing", :default => false
   end
 
   create_table "roles", :force => true do |t|
-    t.string   "name"
-    t.boolean  "write_entries"
-    t.boolean  "read_hidden_entries"
-    t.boolean  "add_lost_and_found"
-    t.boolean  "modify_lost_and_found"
-    t.boolean  "admin_radios"
-    t.boolean  "assign_radios"
-    t.boolean  "admin_users"
-    t.boolean  "admin_schedule"
-    t.boolean  "assign_shifts"
-    t.boolean  "assign_duty_board_slots"
-    t.boolean  "admin_duty_board"
+    t.string "name"
+    t.boolean "write_entries"
+    t.boolean "read_hidden_entries"
+    t.boolean "add_lost_and_found"
+    t.boolean "modify_lost_and_found"
+    t.boolean "admin_radios"
+    t.boolean "assign_radios"
+    t.boolean "admin_users"
+    t.boolean "admin_schedule"
+    t.boolean "assign_shifts"
+    t.boolean "assign_duty_board_slots"
+    t.boolean "admin_duty_board"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -83,9 +93,9 @@ ActiveRecord::Schema.define(:version => 20120226183628) do
   add_index "roles_users", ["role_id", "user_id"], :name => "index_roles_users_on_role_id_and_user_id", :unique => true
 
   create_table "users", :force => true do |t|
-    t.string   "name"
-    t.string   "realname"
-    t.string   "password_digest"
+    t.string "name"
+    t.string "realname"
+    t.string "password_digest"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

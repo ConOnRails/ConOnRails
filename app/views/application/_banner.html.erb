@@ -1,0 +1,13 @@
+<div id="banner" class="<%= get_banner_style %>">
+  <div id="logo">
+    Con On Rails
+  </div>
+
+  <%= render "banner_text" %>
+
+  <% if is_authenticated? %>
+      <div id="emergency_button">
+        <a href="/events/new?emergency=1">Open a New Emergency</a>
+      </div>
+  <% end %>
+</div>

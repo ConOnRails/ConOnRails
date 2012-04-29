@@ -1,16 +1,12 @@
 <h1>Listing users</h1>
 
-<% if notice %>
-<p id="notice"><%= notice %> </p>
-<% end %>
-
 <table>
   <tr>
     <th class="username">Name</th>
     <th class="realname">Real name</th>
   </tr>
 
-<%= render @users %>
+  <%= render @users %>
 </table>
 
 <div class="new_button"><%= link_to 'New User', new_user_path %></div>
