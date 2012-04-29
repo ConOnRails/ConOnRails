@@ -1,9 +1,11 @@
 ConOnRails::Application.routes.draw do
+  resources :contacts
+
   resources :admin, only: [:index]
-  
+
   resources :roles
   resources :users
-  
+
   resources :events, except: [:destroy]
   resources :lost_and_found, only: [:index]
   resources :sessions, only: [:new, :create, :destroy]
@@ -20,7 +22,7 @@ ConOnRails::Application.routes.draw do
 
   root to: 'events#active'
   match '/public', to: 'sessions#new'
-  match '/signout', to: 'sessions#destroy' 
+  match '/signout', to: 'sessions#destroy'
   match '/lost_and_found', to: 'lost_and_found#index'
   match '/admin', to: 'admin#index'
 

@@ -1,86 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Con On Rails<%= title %></title>
-	<%= stylesheet_link_tag    "application" %>
-	<%= javascript_include_tag "application" %>
-	<%= csrf_meta_tags %>
+  <title>Con On Rails<%= title %></title>
+  <%= stylesheet_link_tag "application" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
 </head>
 <% background = "" %>
-<% background = "missing" if params[:reported_missing] or ( @lfi and @lfi.reported_missing? )%>
-<% background = "found" if params[:found] or ( @lfi and @lfi.found? )%>
+<% background = "missing" if params[:reported_missing] or (@lfi and @lfi.reported_missing?) %>
+<% background = "found" if params[:found] or (@lfi and @lfi.found?) %>
 <body class="<%= controller.controller_name %> <%= background %>">
-	<div id="banner" class="<%= get_banner_style %>"> 
-		<div id="logo">
-			Con On Rails	   
-		</div>
-		
-		<div id="text">
-			<% if !content_for?(:banner) %>
-				<% count = Event.num_active %>
-				<% emerg = Event.num_active_emergencies %>
-				<div><%= pluralize count, "Active Issue" %></div>
-				<% if emerg > 0 %>
-					<div><%= pluralize emerg, "Emergency" %></div>
-				<% end %>
-				<div><%= Time.now %>&mdash;User: <%= link_to current_user.name, current_user %></div>
-			<% else %>
-				<%= yield :banner %>
-			<% end %>
-		</div>
 
-		<% if is_authenticated? %>
-		<div id="emergency_button">
-			<a href="/events/new?emergency=1">Open a New Emergency</a>
-		</div>
-		<% end %>
-	</div>
+<%= render "banner" %>
+<%= render "menubar" %>
 
-	<% if is_authenticated? %>
-	<div id="menubar">
-		<ul>
-			<li><a href="/">Main</a></li>
-                        <% if current_user and current_user.write_entries? %>
-			<li><a href="/events/new">Log Event</a></li>
-                        <% end %>
-                        <% if current_user and current_user.add_lost_and_found? %>
-			<li><a href="/lost_and_found">Lost/Found</a></li>
-                        <% end %>
-			<!--li><a href="/messages">Messages</a></li-->
-			<!--li><a href="/equipment">Equipment</a></li-->
-			<li><a href="/events">Review</a></li>
-			<% if can_admin_anything? %>
-			<li><a href="/admin">Admin</a></li>
-			<% end %>
-			<li><a href="/signout">Log Out</a></li>
-			<li><a target="_new" href="https://github.com/conOnRails/ConOnRails/issues">Bug Report</a></li>
-		</ul>
-	</div>
-	<% end %>
-	
-	<%- flash.each do |key, msg| -%>
-	<div id="<%= key %>">
-		<p style="float:right;"><%= link_to_function 'X', "Effect.Fade('#{key}')" %></p>
-		<p><%= msg %></p>
-		<div class="clear"></div>
-	</div>
-	<%- end -%>
+<%- flash.each do |key, msg| -%>
+    <div id="<%= key %>">
+      <p style="float:right;"><%= link_to_function 'X', "$('##{key}').fadeOut(0)" %></p>
 
-	<h1>Welcome to the first open Alpha Test of Con On Rails.</h1>
-	<p>I have no version numbering scheme in mind yet, so we're going to call this version "Fred"</p>
+      <p><%= msg %></p>
 
-	<div id="columns">
-		<div id="side">
-			<%= yield :side %>
-		</div>
-		<div id="main">
-			<%= content_for?(:main) ? yield( :main ) : yield %>
-		</div>
-	</div>
+      <div class="clear"></div>
+    </div>
+    <script type="text/javascript">
+        $( '#<%= key %>' ).fadeOut( 10000 );
+    </script>
+<%- end -%>
 
-	<div id="indicia">
-		Con on Rails is Copyright &copy; 2011 Michael Scott Shappe, licensed under some license or other yet to be determined.
-		<%= debug(params) if Rails.env.development? %>
-	</div>
+<h1>Welcome to the first open Alpha Test of Con On Rails.</h1>
+
+<p>I have no version numbering scheme in mind yet, so we're going to call this version "Fred"</p>
+
+<div id="columns">
+  <div id="side">
+    <%= yield :side %>
+  </div>
+  <div id="main">
+    <%= content_for?(:main) ? yield(:main) : yield %>
+  </div>
+</div>
+
+<div id="indicia">
+  Con on Rails is Copyright &copy; 2011 Michael Scott Shappe, licensed under some license or other yet to be determined.
+  <%= debug(params) if Rails.env.development? %>
+</div>
 </body>
 </html>
