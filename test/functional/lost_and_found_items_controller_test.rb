@@ -1,36 +1,38 @@
 require 'test_helper'
 
-class LostAndFoundItemsControllerTest < ActionController::TestCase  
+class LostAndFoundItemsControllerTest < ActionController::TestCase
   setup do
-    @missing = FactoryGirl.create :lost
-    @found   = FactoryGirl.create :found
-    @user = FactoryGirl.create :user
+    @missing    = FactoryGirl.create :lost
+    @found      = FactoryGirl.create :found
+    @incomplete = FactoryGirl.build :incomplete
+    @user       = FactoryGirl.create :user
     @admin_role = FactoryGirl.create :can_admin_lost_and_found_user
     @user.roles << @admin_role
     @peon_user = FactoryGirl.create :peon
     @peon_role = FactoryGirl.create :role
     @peon_user.roles << @peon_role
+    @change_this = { description: "Beware the viscous giraffe" }
   end
-  
+
 #  test "should get missing index" do
 #    get :index, { reported_missing: true }, { user_id: @user.id }
 #    assert_response :success
 #  end
   test "must be authenticated" do
     get :show, { id: @missing.id }
-    assert_response :redirect
+    assert_redirected_to :public
     get :new, { reported_missing: true }
-    assert_response :redirect
+    assert_redirected_to :public
     get :searchform, { reported_missing: true }
-    assert_response :redirect
+    assert_redirected_to :public
   end
 
-  def get_show( user )
+  def get_show(user)
     get :show, { id: @missing.id }, { user_id: user.id }
     assert_response :success
-    assert_template "show"
+    assert_template :show
     assert_not_nil assigns :lfi
- end   
+  end
 
   test "peons can get show" do
     get_show @peon_user
@@ -41,92 +43,111 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
   end
 
   test "peons cannot get new" do
-      get :new, { reported_missing: true }, { user_id: @peon_user.id }
-      assert_redirected_to lost_and_found_url
-    end
+    get :new, { reported_missing: true }, { user_id: @peon_user.id }
+    assert_redirected_to :lost_and_found
+  end
 
   test "non-peons should get new missing" do
     get :new, { reported_missing: true }, { user_id: @user.id }
     assert_response :success
-    assert_template "new"
+    assert_template :new
   end
 
   test "should get new found" do
     get :new, { found: true }, { user_id: @user.id }
     assert_response :success
-    assert_template "new"
+    assert_template :new
   end
-  
+
   test "should get missing search form" do
     get :searchform, { reported_missing: true }, { user_id: @user.id }
     assert_response :success
-    assert_template "searchform"
+    assert_template :searchform
   end
-  
-  def can_search( user )
+
+  def can_search(user)
     get :search, { reported_missing: true, badge: 1 }, { user_id: user.id }
     assert_response :success
-    assert_template "index"
+    assert_template :index
     assert_not_nil assigns :lfis
   end
-  
+
   test "peon can search by type 'badge" do
     can_search @peon_user
   end
-  
+
   test "can search by type 'badge'" do
     can_search @user
   end
-  
+
   test "can search by single keyword" do
-    get :search, { reported_missing: true, keywords: "Llamas"}, { user_id: @user.id }
+    get :search, { reported_missing: true, keywords: "Llamas" }, { user_id: @user.id }
     assert_response :success
-    assert_template "index"
+    assert_template :index
     assert_not_nil assigns :lfis
     assert_equal 2, @controller.lfis.length
   end
-  
+
   test "can search by all of multiple keywords" do
     get :search, { reported_missing: true, search_type: "all", keywords: "Llamas Tigers" }, { user_id: @user.id }
     assert_response :success
-    assert_template "index"
+    assert_template :index
     assert_not_nil assigns :lfis
     assert_equal 1, @controller.lfis.length
   end
-  
+
   test "can search for any of multiple keywords" do
     get :search, { reported_found: true, search_type: "any", keywords: "Llamas Tigers" }, { user_id: @user.id }
     assert_response :success
-    assert_template "index"
+    assert_template :index
     assert_not_nil assigns :lfis
     assert_equal 2, @controller.lfis.length
   end
-  
+
   test "peon cannot create new lost" do
     assert_no_difference 'LostAndFoundItem.count' do
       post :create, { lost_and_found_item: @missing.attributes }, { user_id: @peon_user.id }
     end
   end
-  
+
   test "can create new lost" do
     assert_difference 'LostAndFoundItem.count' do
       post :create, { lost_and_found_item: @missing.attributes }, { user_id: @user.id }
     end
   end
-    
+
+  test "cannot create incomplete entry" do
+    assert_no_difference 'LostAndFoundItem.count' do
+      post :create, { lost_and_found_item: @incomplete.attributes }, { user_id: @user.id }
+    end
+    assert_template :edit
+  end
+
   test "peon cannot edit lost" do
     get :edit, { id: @missing.id }, { user_id: @peon_user.id }
-    assert_redirected_to lost_and_found_url
-  end    
-  
+    assert_redirected_to :lost_and_found
+  end
+
   test "should get edit" do
     get :edit, { id: @missing.id }, { user_id: @user.id }
     assert_response :success
   end
 
-#  test "should get update" do
-#    get :update
-#    assert_response :success
-#  end
+  test "can update" do
+    put :update, { id: @missing.id, lost_and_found_item: @change_this }, { user_id: @user.id }
+    assert_equal @change_this[:description], assigns(:lfi).description
+    assert_redirected_to assigns(:lfi)
+  end
 
+  test "peon cannot update" do
+    put :update, { id: @missing.id, lost_and_found_item: @change_this }, { user_id: @peon_user.id }
+    assert_nil assigns(:lfi)
+    assert_redirected_to :lost_and_found
+  end
+
+  test "cannot update with incomplete information" do
+    put :update, { id: @missing.id, lost_and_found_item: { description: "" } }, { user_id: @user.id }
+    assert assigns(:lfi).invalid?
+    assert_template :edit
+  end
 end

@@ -1,4 +1,15 @@
 FactoryGirl.define do
+  factory :contact do
+  end
+
+  factory :valid_contact, class: Contact do
+    name "Wom Bat"
+    department "Lingerie"
+    cell_phone "+1 123 456 7890"
+    hotel "Ritz"
+    hotel_room 666
+  end
+
   factory :user do
     name "wombat"
     realname "Wom Bat"
@@ -16,7 +27,7 @@ FactoryGirl.define do
     realname "Dummy"
     password "dummy42"
   end
-  
+
   factory :other_dummy_user, class: User do
     name "ymmud"
     realname "Ymmud"
@@ -54,9 +65,9 @@ FactoryGirl.define do
 
     factory :ordinary_event do
       hidden false
-      
+
       after_create do |event, evaluator|
-        entry = FactoryGirl.build :oneliner_entry, event: event, user: FactoryGirl.create( :dummy_user )
+        entry = FactoryGirl.build :oneliner_entry, event: event, user: FactoryGirl.create(:dummy_user)
       end
     end
 
@@ -64,10 +75,10 @@ FactoryGirl.define do
       hidden true
 
       after_create do |event, evaluator|
-        entry = FactoryGirl.build :verbose_entry, event: event, user: FactoryGirl.create( :other_dummy_user )
+        entry = FactoryGirl.build :verbose_entry, event: event, user: FactoryGirl.create(:other_dummy_user)
       end
     end
-  end  
+  end
 
   factory :entry do
 #    user FactoryGirl.create :dummy_user
@@ -77,7 +88,7 @@ FactoryGirl.define do
     end
 
     factory :verbose_entry do
-      description """
+      description "" "
       Kimi o ai no
       Aishiteta to nageku ni wa
       Amari ni mo toki  wa sugi te shimatta
@@ -110,17 +121,19 @@ FactoryGirl.define do
       Honto no kanashimi ga shiritaidake
       Doro no kawa ni sukatta jinsei mo warukuwanai
       Ichido kiri de owarunara
-      """
+      " ""
     end
   end
 
   factory :lost_and_found_item do
+    factory :incomplete
+
     factory :lost do
       reported_missing true
       category "Badge"
       description "Llamas and Tigers and Bears"
       where_last_seen "MyString"
-      owner_name "MyString" 
+      owner_name "MyString"
     end
 
     factory :found do
@@ -131,7 +144,7 @@ FactoryGirl.define do
       owner_name "MyString"
       owner_contact "MyText"
     end
-    
+
     factory :returned do
       found true
       reported_missing true

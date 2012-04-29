@@ -1,23 +1,23 @@
 <h2>Search for an item</h2>
-<%= form_tag search_lost_and_found_items_path, method: :get, id: "lost_and_found_search_form" do %>
-	<%= hidden_field_tag "reported_missing", params[:reported_missing] if params[:reported_missing] %>
-	<%= hidden_field_tag "found", params[:found] if params[:found] %>
-	<%= field_set_tag "", id: "lost_and_found_checkboxes" do %>
-		<ol>
-			<% LostAndFoundItem.Categories.each do |k, v| %>
-				<li><%= checkbox k, v %></li>
-			<% end %>
-		</ol>
-	<% end %>
-	<%= label_tag :keywords, "Keyword(s)" %>
-	<%= text_field_tag :keywords %>
-	<%= field_set_tag "", id: "lost_and_found_search_options" do %>
-		<ol>
-			<li><%= label_tag :search_type_all, "Find All" %>
-					<%= radio_button_tag :search_type, "all", true %></li>
-			<li><%= label_tag :search_type_any, "Find Any" %>
-					<%= radio_button_tag :search_type, "any" %></li>
-		</ol>
-	<% end %>
-	<%= button_tag "Submit" %>
+<%= form_tag :search_lost_and_found_items, method: :get, id: "lost_and_found_search_form" do %>
+    <%= hidden_field_tag "reported_missing", params[:reported_missing] if params[:reported_missing] %>
+    <%= hidden_field_tag "found", params[:found] if params[:found] %>
+    <%= field_set_tag "", id: "lost_and_found_checkboxes" do %>
+        <ol>
+          <% LostAndFoundItem.categories.each do |k, v| %>
+              <li><%= checkbox k, v %></li>
+          <% end %>
+        </ol>
+    <% end %>
+    <%= label_tag :keywords, "Keyword(s)" %>
+    <%= text_field_tag :keywords %>
+    <%= field_set_tag "", id: "lost_and_found_search_options" do %>
+        <ol>
+          <li><%= label_tag :search_type_all, "Find All" %>
+            <%= radio_button_tag :search_type, "all", true %></li>
+          <li><%= label_tag :search_type_any, "Find Any" %>
+            <%= radio_button_tag :search_type, "any" %></li>
+        </ol>
+    <% end %>
+    <%= button_tag "Submit" %>
 <% end %>

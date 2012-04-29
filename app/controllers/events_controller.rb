@@ -1,51 +1,43 @@
 class EventsController < ApplicationController
-  before_filter :user_can_write_entries, only: [ :new, :create, :edit, :update ]
-  
+  before_filter :can_write_entries?, only: [:new, :create, :edit, :update]
+
   protected
-  
-  def user_can_write_entries
-    unless current_user and current_user.write_entries?
-      redirect_to root_url
-    end
-  end
-  
+
   def user_can_see_hidden
     return current_user == nil ? false : current_user.read_hidden_entries?
   end
-    
+
   public
-  
-  def build_new_entry( event )
-    entry = event.entries.build
+
+  def build_new_entry(event)
+    entry       = event.entries.build
     entry.event = event
     entry.user  = current_user
     return entry
   end
-  
-  def build_entry_from_params( event, params )
-    entry = event.entries.build( params )
+
+  def build_entry_from_params(event, params)
+    entry       = event.entries.build(params)
     entry.event = event
-    entry.user = current_user
+    entry.user  = current_user
   end
-  
-  def filter_out_hidden_if_needed
-    ret = []
+
+  def filter_hidden_if_needed
+    @events = nil
     if user_can_see_hidden
-      ret = Event.order("updated_at desc")
+      @events = Event.order("updated_at desc")
     else
-      ret = Event.order("updated_at desc").find_all_by_hidden(false)
+      @events = Event.order("updated_at desc").find_all_by_hidden(false)
     end
-    
-    return ret
   end
 
   # GET /events
   # GET /events.json
   def index
-    @title = "Event Log"
-    @events = filter_out_hidden_if_needed
+    @title   = "Event Log"
+    @events  = filter_hidden_if_needed
     @actives = false
-    
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @events }
@@ -53,22 +45,22 @@ class EventsController < ApplicationController
   end
 
   def active
-    @title = "Active Events"
-    @events = Event.order("updated_at desc").find_all_by_is_active(true)
+    @title   = "Active Events"
+    @events  = Event.order("updated_at desc").find_all_by_hidden_and_is_active(false, true)
     @actives = true
-    
+
     respond_to do |format|
-      format.html { render "index"}
-      format.json { render json: @events}
+      format.html { render "index" }
+      format.json { render json: @events }
     end
   end
-  
+
   # GET /events/1
   # GET /events/1.json
   def show
     @event = Event.find(params[:id])
     @entry = build_new_entry @event
-    
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @event }
@@ -89,12 +81,12 @@ class EventsController < ApplicationController
       format.html
       format.json { render json: @event }
     end
-    
+
   end
-  
+
   def create
     @event = Event.new(params[:event])
-    build_entry_from_params( @event, params[:entry] )
+    build_entry_from_params(@event, params[:entry])
 
     respond_to do |format|
       if @event.save
@@ -119,28 +111,23 @@ class EventsController < ApplicationController
   # PUT /events/1.json
   def update
     @event = Event.find(params[:id])
-    build_entry_from_params( @event, params[:entry] ) if params[:entry][:description] != ''
+    build_entry_from_params(@event, params[:entry]) if params[:entry][:description] != ''
 
     respond_to do |format|
       if @event.update_attributes(params[:event])
         format.html { redirect_to @event, notice: 'Event was successfully updated.' }
         format.json { head :ok }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @event.errors, status: :unprocessable_entity }
+        # It is more or less impossible to supply invalid parameters to events. Here's why:
+        # events themselves have almost no validation to them. There are no illegal states and the
+        # defaults are all reasonable.
+        # entries cannot actually be updated right now -- events can be updated by adding
+        # entries, and we only do that if a description is provided, and then we make sure the user and event
+        # fields are set up correctly, so validation is guaranteed to pass.
+        # IFF entries become editable, then there will need to be some tweaking there.
+        #format.html { render action: "edit" }
+        #format.json { render json: @event.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # DELETE /events/1
-  # DELETE /events/1.json
-  def destroy
-    @event = Event.find(params[:id])
-    @event.destroy
-
-    respond_to do |format|
-      format.html { redirect_to events_url }
-      format.json { head :ok }
     end
   end
 end

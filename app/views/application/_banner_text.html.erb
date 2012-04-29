@@ -1,0 +1,13 @@
+<div id="text">
+  <% if content_for?(:banner) %>
+      <%= yield :banner %>
+  <% else %>
+      <% count = Event.num_active %>
+      <% emerg = Event.num_active_emergencies %>
+      <div><%= pluralize count, "Active Issue" %></div>
+      <% if emerg > 0 %>
+          <div><%= pluralize emerg, "Emergency" %></div>
+      <% end %>
+      <div><%= Time.now %>&mdash;User: <%= link_to current_user.name, current_user %></div>
+  <% end %>
+</div>

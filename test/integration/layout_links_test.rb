@@ -1,13 +1,9 @@
 require 'test_helper'
 
-class LayoutLinksTest < ActionDispatch::IntegrationTest  
-  fixtures :all
-
+class LayoutLinksTest < ActionDispatch::IntegrationTest
   setup do
-    @user_params = { name: "zog", realname: "zogfrog", password: "zogity", password_confirmation: "zogity" }
-    @role_params = { name: "nonpeon", write_entries: true }
-    @user = User.create! @user_params
-    @role = Role.create @role_params
+    @user = FactoryGirl.create(:user)
+    @role = FactoryGirl.create(:write_entries_role)
     @user.roles << @role
     @user.save!
     @login_params = { name: @user.name, password: @user.password }
@@ -49,6 +45,6 @@ class LayoutLinksTest < ActionDispatch::IntegrationTest
       assert_response :success
       assert_template "events/index"
     end
-  end 
-      
+  end
+
 end
