@@ -1,4 +1,6 @@
 class LostAndFoundItem < ActiveRecord::Base
+  audited
+
   @@valid_categories = {
       badge:             "Badge",
       bag:               "Bag",

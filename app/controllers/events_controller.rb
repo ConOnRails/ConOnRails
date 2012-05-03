@@ -31,12 +31,23 @@ class EventsController < ApplicationController
     end
   end
 
+  def subwombat
+    events = nil
+    if session[:actives]
+      events = Event.order("updated_at desc").find_all_by_hidden_and_is_active( false, true )
+    else
+      events = filter_hidden_if_needed
+    end
+    render partial: 'event', content_type: 'text/html', collection: events, locals: { form: false, actives: @actives }
+  end
+
   # GET /events
   # GET /events.json
   def index
     @title   = "Event Log"
     @events  = filter_hidden_if_needed
     @actives = false
+    session[:actives] = nil
 
     respond_to do |format|
       format.html # index.html.erb
@@ -47,6 +58,7 @@ class EventsController < ApplicationController
   def active
     @title   = "Active Events"
     @events  = Event.order("updated_at desc").find_all_by_hidden_and_is_active(false, true)
+    session[:actives] = true
     @actives = true
 
     respond_to do |format|

@@ -1,0 +1,41 @@
+<h1>Listing volunteer_trainings</h1>
+
+<table>
+  <tr>
+    <th>Volunteer</th>
+    <th>Radio</th>
+    <th>Ops basics</th>
+    <th>First contact</th>
+    <th>Communications</th>
+    <th>Dispatch</th>
+    <th>Wandering host</th>
+    <th>Xo</th>
+    <th>Ops subhead</th>
+    <th>Ops head</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @volunteer_trainings.each do |volunteer_training| %>
+  <tr>
+    <td><%= volunteer_training.volunteer_id %></td>
+    <td><%= volunteer_training.radio %></td>
+    <td><%= volunteer_training.ops_basics %></td>
+    <td><%= volunteer_training.first_contact %></td>
+    <td><%= volunteer_training.communications %></td>
+    <td><%= volunteer_training.dispatch %></td>
+    <td><%= volunteer_training.wandering_host %></td>
+    <td><%= volunteer_training.xo %></td>
+    <td><%= volunteer_training.ops_subhead %></td>
+    <td><%= volunteer_training.ops_head %></td>
+    <td><%= link_to 'Show', volunteer_training %></td>
+    <td><%= link_to 'Edit', edit_volunteer_training_path(volunteer_training) %></td>
+    <td><%= link_to 'Destroy', volunteer_training, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Volunteer training', new_volunteer_training_path %>

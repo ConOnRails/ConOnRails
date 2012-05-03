@@ -1,4 +1,35 @@
 FactoryGirl.define do
+  factory :volunteer do
+
+    factory :valid_volunteer do
+      first_name "Rufus"
+      middle_name "Xavier"
+      last_name "Sassparilla"
+      address1 "666 Sixth Street SE"
+      home_phone "+1 666-666-6666"
+      email "rxs@rxs.nowhere"
+
+      after_create do |vol,evaluator|
+        volunteer_training = FactoryGirl.build :valid_volunteer_training, volunteer: vol
+        vol.volunteer_training = volunteer_training
+      end
+
+      after_build do |vol,evaluator|
+        volunteer_training = FactoryGirl.build :valid_volunteer_training, volunteer: vol
+        vol.volunteer_training = volunteer_training
+      end
+
+    end
+  end
+
+  factory :volunteer_training do
+
+    factory :valid_volunteer_training do
+      radio true
+      communications true
+    end
+  end
+
   factory :contact do
   end
 
