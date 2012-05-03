@@ -1,5 +1,5 @@
 <h2>Search for an item</h2>
-<%= form_tag :search_lost_and_found_items, method: :get, id: "lost_and_found_search_form" do %>
+<%= form_tag :search_lost_and_found_items, method: :post, id: "lost_and_found_search_form" do %>
     <%= hidden_field_tag "reported_missing", params[:reported_missing] if params[:reported_missing] %>
     <%= hidden_field_tag "found", params[:found] if params[:found] %>
     <%= field_set_tag "", id: "lost_and_found_checkboxes" do %>

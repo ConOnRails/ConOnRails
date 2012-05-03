@@ -3,71 +3,101 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 @import 'colors';
-abbr
-{
-  color: red;
-}
 
-.formtastic
+.lost_and_found_items
 {
-  fieldset
+  abbr
   {
-    padding: 0;
-    margin: 0;
-    ol
+    color: red;
+  }
+
+  .formtastic
+  {
+    fieldset
     {
       padding: 0;
-      margin: 0;
-      
-      li.input
+      margin:  0;
+      ol
       {
-        width: 600px;
-        
         padding: 0;
-        padding-top: 3px;
-        margin: 0;
-        
-        label
+        margin:  0;
+
+        li.input
         {
-          font-weight: bold;
-       }
+          width:       600px;
+
+          padding:     0;
+          padding-top: 3px;
+          margin:      0;
+
+          label
+          {
+            font-weight: bold;
+          }
+        }
       }
     }
   }
-}
 
-#lost_and_found_item_owner_contact_input
-{
-  textarea
+  #lost_and_found_item_owner_contact_input
   {
-    height: 100px;
-  }
-}
-
-#lost_and_found_item_details_input
-{
-  width: 750px;
-  textarea
-  {
-    height: 200px;
-  }
-}
-
-#lost_and_found_search_form
-{
-  #lost_and_found_checkboxes
-  {
-    border: none;
-    ol
+    textarea
     {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      li
+      height: 100px;
+    }
+  }
+
+  #lost_and_found_item_details_input
+  {
+    width: 750px;
+    textarea
+    {
+      height: 200px;
+    }
+  }
+
+  #lost_and_found_search_form
+  {
+    #lost_and_found_checkboxes
+    {
+      border: none;
+      ol
       {
-        float: left;
-        width: 33%;
-        
+        list-style: none;
+        padding:    0;
+        margin:     0;
+        li
+        {
+          float: left;
+          width: 33%;
+
+          label
+          {
+            margin-left: 3px;
+          }
+        }
+      }
+    }
+
+    input#keywords
+    {
+      width: 65%;
+    }
+
+    #lost_and_found_search_options
+    {
+      border: none;
+      ol
+      {
+        list-style: none;
+        padding:    0;
+        margin:     0;
+        li
+        {
+          float: left;
+          width: 33%;
+        }
+
         label
         {
           margin-left: 3px;
@@ -75,103 +105,77 @@ abbr
       }
     }
   }
-  
-  input#keywords
-   {
-     width: 65%;
-   }
-   
-   #lost_and_found_search_options
-   {
-     border: none;
-     ol
-     {
-       list-style: none;
-       padding: 0;
-       margin: 0;
-       li
-       {
-         float: left;
-         width: 33%;
-       }
-       
-       label
-       {
-         margin-left: 3px;
-       }
-     }
-   }
-}
 
-.lfi
-{
-  padding: 6px;
-  .id_line
+  .lfi
   {
-    div
+    padding: 6px;
+    .id_line
     {
-      padding-top: 12px;
-      float: left;
+      div
+      {
+        padding-top: 12px;
+        float:       left;
+      }
+      .label
+      {
+        font-weight:  bold;
+        margin-right: 3px;
+      }
+      .view_button
+      {
+        font-size:     18px;
+        font-weight:   bold;
+        padding:       12px;
+        margin-left:   36px;
+        border:        visible;
+        border-radius: 10px;
+      }
     }
-    .label
+    .summary
     {
-      font-weight: bold;
-      margin-right: 3px;
-    }
-    .view_button
-    {
-      font-size: 18px;
-      font-weight: bold;
-      padding: 12px;
-      margin-left: 36px;
-      border: visible;
-      border-radius: 10px;
+      div
+      {
+        margin-left: 36px;
+        float:       none;
+        clear:       left;
+      }
     }
   }
-  .summary
+
+  .missing
   {
-    div
-    {
-      margin-left: 36px;
-      float: none;
-      clear: left;
-    }
+    background: $missing_bg;
   }
-}
 
-.missing
-{
-  background: $missing_bg;
-}
+  .found
+  {
+    background: $found_bg;
+  }
 
-.found
-{
-  background: $found_bg;
-}
+  #item_missing_button
+  {
+    background:  $missing_button_bg;
+    font-weight: bold;
+    font-size:   14pt;
+    line-height: 110%;
+    float:       left;
+  }
 
-#item_missing_button
-{
-  background: $missing_button_bg;
-  font-weight: bold;
-  font-size: 14pt;
-  line-height: 110%;
-  float: left;
-}
+  #item_found_button
+  {
+    background:  $found_button_bg;
+    font-weight: bold;
+    font-size:   14pt;
+    line-height: 110%;
+    float:       left;
+  }
 
-#item_found_button
-{
-  background: $found_button_bg;
-  font-weight: bold;
-  font-size: 14pt;
-  line-height: 110%;
-  float: left;
-}
-
-#item_returned_button
-{
-  background: white;
-  font-weight: bold;
-  font-size: 14pt;
-  line-height: 110%;
-  float: left;
+  #item_returned_button
+  {
+    background:  white;
+    font-weight: bold;
+    font-size:   14pt;
+    line-height: 110%;
+    float:       left;
+  }
 }

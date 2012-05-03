@@ -19,6 +19,9 @@ end
 gem 'jquery-rails'
 gem 'therubyracer'
 gem 'formtastic', "~> 2.1.1"
+gem 'country-select'
+gem "audited-activerecord", "~> 3.0.0rc1"
+
 
 # Use unicorn as the web server
 # gem 'unicorn'

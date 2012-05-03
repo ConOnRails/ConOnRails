@@ -1,0 +1,40 @@
+<div id="volunteer-info">
+  <div class="name">
+    <%= @volunteer.first_name %> <%= @volunteer.middle_name %> <%= @volunteer.last_name %>
+  </div>
+
+  <div class="address">
+    <div><%= @volunteer.address1 %></div>
+    <div><%= @volunteer.address2 %></div>
+    <div><%= @volunteer.address3 %></div>
+    <div><%= @volunteer.city %> <%= @volunteer.state %> <%= @volunteer.postal %></div>
+    <div><%= @volunteer.country %></div>
+  </div>
+
+  <div class="phones">
+    <% unless @volunteer.home_phone.empty? %>
+        <div><span class="info-label">Home phone:</span> <%= @volunteer.home_phone %></div>
+    <% end %>
+    <% unless @volunteer.work_phone.empty? %>
+        <div><span class="info-label">Work phone:</span> <%= @volunteer.work_phone %></div>
+    <% end %>
+    <% unless @volunteer.other_phone.empty? %>
+        <div><span class="info-label">Other phone:</span> <%= @volunteer.other_phone %></div>
+    <% end %>
+  </div>
+
+  <div class="email">
+    <% unless @volunteer.email.empty? %>
+        <div><span class="info-label">Email:</span> <%= @volunteer.email %></div>
+    <% end %>
+  </div>
+</div>
+
+<div id="training-show">
+  <div class="info"><%= render partial: "volunteer_trainings/show", locals: { training: @volunteer.volunteer_training } %></div>
+</div>
+
+<%= content_for :side do %>
+    <div><%= link_to 'Edit', edit_volunteer_path(@volunteer) %></div>
+    <div><%= link_to 'Back', volunteers_path %></div>
+<% end %>

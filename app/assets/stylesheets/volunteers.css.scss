@@ -1,0 +1,69 @@
+// Place all the styles related to the Volunteers controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.volunteers
+{
+  .volunteer
+  {
+    li.input
+    {
+      padding: 0;
+      margin:  0;
+    }
+
+    label
+    {
+      width:         20%;
+      padding:       0;
+      padding-right: 6px;
+      font-weight:   bold;
+      display:       inline;
+    }
+
+    #volunteer-info
+    {
+      input
+      {
+        width: 70%
+      }
+    }
+
+    #trainings
+    {
+      padding-top: 6px;
+      li.input { float: left; width: 30%; }
+    }
+    #commands
+    {
+      clear: left;
+    }
+
+    .label
+    {
+
+    }
+
+    .name
+    {
+      font-weight: bold;
+      font-size:   1.2em;
+    }
+
+    .info-label
+    {
+      font-weight: bold;
+    }
+
+    .info
+    {
+      display: inline
+    }
+
+    .check
+    {
+      float: right;
+    }
+
+  }
+}
