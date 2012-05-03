@@ -2,6 +2,7 @@ class Event < ActiveRecord::Base
   has_many :entries, dependent: :destroy, order: 'created_at ASC'
   validates_associated :entries
   accepts_nested_attributes_for :entries, allow_destroy: true
+  has_associated_audits
 
   STATUSES = ['Active', 'Closed']
 

@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
 
   before_filter :require_login
 
+  def banner
+    render partial: 'banner'
+  end
+
   private
 
   def is_authenticated?
@@ -23,15 +27,15 @@ class ApplicationController < ActionController::Base
   end
 
   def can_write_entries?
-    unless current_user and current_user.write_entries?
-      redirect_to :public
-    end
+    redirect_to :public unless current_user and current_user.write_entries?
+  end
+
+  def can_admin_users?
+    redirect_to :public unless current_user and current_user.can_admin_users?
   end
 
   def require_login
-    unless is_authenticated?
-      redirect_to public_url
-    end
+    redirect_to :public unless is_authenticated?
   end
 
   def current_user

@@ -1,4 +1,5 @@
 class Contact < ActiveRecord::Base
+  audited
   validates_format_of :cell_phone,
                       message: "must be a valid telephone number.",
                       with:    /^[\(\)0-9\- \+\.]{10,20}$/

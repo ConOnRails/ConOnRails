@@ -11,7 +11,8 @@
 <% background = "found" if params[:found] or (@lfi and @lfi.found?) %>
 <body class="<%= controller.controller_name %> <%= background %>">
 
-<%= render "banner" %>
+<div id="banner-placeholder"></div>
+<noscript><%= render "banner" %></noscript>
 <%= render "menubar" %>
 
 <%- flash.each do |key, msg| -%>
@@ -27,10 +28,8 @@
     </script>
 <%- end -%>
 
-<h1>Welcome to the first open Alpha Test of Con On Rails.</h1>
-
-<p>I have no version numbering scheme in mind yet, so we're going to call this version "Fred"</p>
-
+<h1>Welcome to the second open Alpha Test of Con On Rails.</h1>
+<p>This is version 0.75, "Agitated Antelope"</p>
 <div id="columns">
   <div id="side">
     <%= yield :side %>
@@ -41,7 +40,9 @@
 </div>
 
 <div id="indicia">
-  Con on Rails is Copyright &copy; 2011 Michael Scott Shappe, licensed under some license or other yet to be determined.
+  <div>Con on Rails is Copyright &copy; 2011 Michael Scott Shappe, licensed under
+    <a href="http://www.apache.org/licenses/LICENSE-2.0.html">The Apache License, 2.0.</a></div>
+  <div>Version 0.75 "Agitated Antelope"</div>
   <%= debug(params) if Rails.env.development? %>
 </div>
 </body>

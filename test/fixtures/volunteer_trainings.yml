@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  volunteer_id: 1
+  radio: false
+  ops_basics: false
+  first_contact: false
+  communications: false
+  dispatch: false
+  wandering_host: false
+  xo: false
+  ops_subhead: false
+  ops_head: false
+
+two:
+  volunteer_id: 1
+  radio: false
+  ops_basics: false
+  first_contact: false
+  communications: false
+  dispatch: false
+  wandering_host: false
+  xo: false
+  ops_subhead: false
+  ops_head: false

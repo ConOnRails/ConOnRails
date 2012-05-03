@@ -1,0 +1,8 @@
+<h1>Editing volunteer</h1>
+
+<%= render 'form' %>
+
+<% content_for :side do %>
+<div><%= link_to 'Show', @volunteer %> </div>
+<div><%= link_to 'Back', volunteers_path %></div>
+<% end %>
