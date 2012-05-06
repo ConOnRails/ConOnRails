@@ -73,7 +73,7 @@ a /* No links should have underlines ever */
     float: left;
     div
     {
-      margin-bottom: .5em;
+      margin-bottom: .2em;
       a
       {
         color: inherit;
@@ -83,8 +83,6 @@ a /* No links should have underlines ever */
   
   #emergency_button
   {
-    background-color: $emergency_bg;
-    color: $emergency_fg;
     float: right;
     width: 162px;
     height: 60px;
@@ -92,7 +90,6 @@ a /* No links should have underlines ever */
     padding-top: 8px;
     border: visible;
     border-radius: 10px;
-    
     a
     {
       font-family: Verdana, Geneva, sans-serif;
@@ -100,8 +97,18 @@ a /* No links should have underlines ever */
       font-weight: bold;
       color: white;
     }
+  }   
+  .not-emerg
+  {
+    background-color: $emergency_bg;
+    color: $emergency_fg;
   }
-  
+
+  .reverse
+  {
+    background-color: white;
+    a, a:visited, a:hover { color: $emergency_bg; }
+  }
 }
 
 .missing
@@ -249,7 +256,7 @@ a /* No links should have underlines ever */
   text-align: center;
 }
 
-.new_button
+.button
 {
   font-size: 18px;
   font-weight: bold;
