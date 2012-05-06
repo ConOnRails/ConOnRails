@@ -1,0 +1,39 @@
+// Place all the styles related to the Messages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import 'colors';
+.messages
+{
+  div.addressee
+  {
+    font-weight: bold;
+    font-size: 120%;
+  }
+  div.text
+  {
+  }
+  span.label
+  {
+    font-weight: bold;
+  }
+  span.active
+  {
+    color: $yellow;
+  }
+
+  .buttons
+  {
+    float: right;
+  }
+  .button
+  {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 12px;
+    padding: 12px;
+    border: thin solid black;
+    border-radius: 10px;
+    text-align: center;
+  }
+}

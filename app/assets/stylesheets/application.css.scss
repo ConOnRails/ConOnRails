@@ -3,9 +3,8 @@
 * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
 * the top of the compiled file, but it's generally better to create a new file per style scope.
 *= require formtastic
-*= require my_formtastic_changes
 *= require_self
-*= require_tree . 
+*= require_tree .
 */
 
 @import "colors";
@@ -21,9 +20,28 @@ body
   color: black;
 }
 
+h1,h2,h3,h4,h5,h6
+{
+  padding-top: 0;
+  margin-top: 0;
+}
 a /* No links should have underlines ever */
 {
   text-decoration: none;
+}
+
+.formtastic
+{
+  li.input
+  {
+    padding: 0;
+    margin: 0;
+  }
+
+  label
+  {
+    font-weight: bold;
+  }
 }
 
 #banner 
@@ -124,6 +142,7 @@ a /* No links should have underlines ever */
 {
   margin: 0;
   padding: 0;
+  margin-bottom: 1em;
   height: 5em;
   background-color: $nav_bar_bg;
   color: $nav_bar_fg;
@@ -172,17 +191,19 @@ a /* No links should have underlines ever */
 {
   #main 
   {
-    margin-left: 10em;
-    margin-right: 5em;
+  //  margin-left: 10em;
+  //  margin-right: 5em;
     min-height: 500px;
+    width: 80%;
+    float: left;
   }
-
 
   #side 
   {
     margin: 0;
     padding: 0;
     float: left;
+    width: 20%;
 
     ul 
     {
@@ -212,6 +233,7 @@ a /* No links should have underlines ever */
 }
 
 #indicia {
+  clear: both;
   padding: 10px;
   border-top: 2px solid;
   font: small-caps 10px/10px "Palatino", "Times New Roman", serif;

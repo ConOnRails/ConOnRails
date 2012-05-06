@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120501035447) do
+ActiveRecord::Schema.define(:version => 20120506011053) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -87,6 +87,18 @@ ActiveRecord::Schema.define(:version => 20120501035447) do
     t.boolean  "found",            :default => false
     t.boolean  "returned",         :default => false
     t.boolean  "reported_missing", :default => false
+  end
+
+  create_table "messages", :force => true do |t|
+    t.string   "for"
+    t.string   "phone_number"
+    t.string   "room_number"
+    t.string   "hotel"
+    t.integer  "user_id"
+    t.text     "message"
+    t.boolean  "is_active",    :default => true
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "roles", :force => true do |t|

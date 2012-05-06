@@ -11,8 +11,9 @@
 <% background = "found" if params[:found] or (@lfi and @lfi.found?) %>
 <body class="<%= controller.controller_name %> <%= background %>">
 
-<div id="banner-placeholder"></div>
+<div id="banner-placeholder">
 <noscript><%= render "banner" %></noscript>
+</div>
 <%= render "menubar" %>
 
 <%- flash.each do |key, msg| -%>

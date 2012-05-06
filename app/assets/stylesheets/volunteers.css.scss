@@ -2,68 +2,116 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.volunteers
+@import "colors";
+
+body.volunteers
 {
-  .volunteer
+  #create-user-for-vol
   {
-    li.input
-    {
-      padding: 0;
-      margin:  0;
+    border: thin solid blue;
+    padding: 1em;
+    span.ui-dialog-title {
+      background-color: $blue;
+      color: white;
+      padding: 1em;
+      margin: 0;
     }
+  }
 
-    label
-    {
-      width:         20%;
-      padding:       0;
-      padding-right: 6px;
-      font-weight:   bold;
-      display:       inline;
-    }
+  li.input
+  {
+    padding: 0;
+    margin:  0;
+  }
 
-    #volunteer-info
-    {
-      input
-      {
-        width: 70%
-      }
-    }
+  label
+  {
+    width:         20%;
+    padding:       0;
+    padding-right: 6px;
+    font-weight:   bold;
+    display:       inline;
+  }
 
-    #trainings
+  #volunteer-info
+  {
+    input
     {
-      padding-top: 6px;
-      li.input { float: left; width: 30%; }
+      width: 70%
     }
-    #commands
-    {
-      clear: left;
-    }
+  }
+
+  #user-info
+  {
+    border: thin solid black;
+    float: right;
+    width: 150px;
+  }
+
+  #training-show
+  {
+    width: 150px;
+    float: right;
+    border: thin solid black;
+    padding: .5em;
 
     .label
     {
-
-    }
-
-    .name
-    {
       font-weight: bold;
-      font-size:   1.2em;
+      float: left;
+      width: 80%;
     }
-
-    .info-label
-    {
-      font-weight: bold;
-    }
-
-    .info
-    {
-      display: inline
-    }
-
     .check
     {
-      float: right;
+      float: left;
+      width: 20%;
+      text-align: right;
     }
+  }
+
+  #trainings
+  {
+    padding-top: 6px;
+    .boolean label
+    {
+      padding: 6px;
+      width: 100%;
+    }
+    li.input
+    {
+      float: left;
+      width: 30%;
+    }
+  }
+  #commands
+  {
+    clear: left;
+  }
+
+  .label
+  {
 
   }
+
+  div.name
+  {
+    font-weight: bold;
+    font-size:   1.2em;
+  }
+
+  .info-label
+  {
+    font-weight: bold;
+  }
+
+  .info
+  {
+    display: inline
+  }
+
+  .check
+  {
+    float: right;
+  }
+
 }

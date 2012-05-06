@@ -1,25 +1,33 @@
 <div class="con_on_rails_form">
-	<%= semantic_form_for @user do |f| %>
-	  <%= f.inputs do %>
-		<%= f.input :name %>
-		<%= f.input :realname %>
-		<%= f.input :password %>
-		<%= f.input :password_confirmation %>
-	  	<%= f.input :roles %>
-	  <% end %>
-	  <%= f.actions %>
-	<% end %>
+  <% if @vol %>
+      <div>New user linked to
+        <% link_to @vol.name, @vol %></div>
+  <% else %>
+      <div>Unlinked user</div>
+  <% end %>
+  <%= semantic_form_for @user do |f| %>
+      <%= f.inputs do %>
+          <%= f.input :name %>
+          <%= f.input :realname %>
+          <%= f.input :password %>
+          <%= f.input :password_confirmation %>
+          <%= f.input :roles %>
+      <% end %>
+      <%= f.actions %>
+  <% end %>
 </div>
 <!--
-    <%= form_for(@user) do |f| %>
+<%= form_for(@user) do |f| %>
     <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
       
       <ul>
-	<% @user.errors.full_messages.each do |msg| %>
+
+        <% @user.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
-	<% end %>
+
+        <% end %>
       </ul>
     </div>
     <% end %>

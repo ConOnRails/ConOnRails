@@ -1,4 +1,20 @@
 FactoryGirl.define do
+  factory :message do
+    factory :valid_message do
+      self.for "Someone"
+      phone_number "666-666-6666"
+      message "Watch out for wombats"
+
+      factory :valid_message_with_user do
+        before_create do |message, eval|
+          message.user = FactoryGirl.create :peon
+        end
+      end
+
+    end
+
+  end
+
   factory :volunteer do
 
     factory :valid_volunteer do
@@ -9,13 +25,13 @@ FactoryGirl.define do
       home_phone "+1 666-666-6666"
       email "rxs@rxs.nowhere"
 
-      after_create do |vol,evaluator|
-        volunteer_training = FactoryGirl.build :valid_volunteer_training, volunteer: vol
+      after_create do |vol, evaluator|
+        volunteer_training     = FactoryGirl.build :valid_volunteer_training, volunteer: vol
         vol.volunteer_training = volunteer_training
       end
 
-      after_build do |vol,evaluator|
-        volunteer_training = FactoryGirl.build :valid_volunteer_training, volunteer: vol
+      after_build do |vol, evaluator|
+        volunteer_training     = FactoryGirl.build :valid_volunteer_training, volunteer: vol
         vol.volunteer_training = volunteer_training
       end
 

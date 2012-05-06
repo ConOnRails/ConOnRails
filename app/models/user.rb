@@ -1,4 +1,5 @@
-class User < ActiveRecord::Base    
+class User < ActiveRecord::Base
+  has_one :volunteer
   has_and_belongs_to_many :roles
   attr_accessible :name, :realname, :password, :password_confirmation, :role_ids
   has_associated_audits

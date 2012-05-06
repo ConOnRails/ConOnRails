@@ -83,4 +83,9 @@ class VolunteersController < ApplicationController
       format.json { head :ok }
     end
   end
+
+  def new_user
+    params[:volunteer_id] = params[:id]
+    redirect_to :new_user
+  end
 end
