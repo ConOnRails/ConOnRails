@@ -12,7 +12,7 @@
 <body class="<%= controller.controller_name %> <%= background %>">
 
 <div id="banner-placeholder">
-<noscript><%= render "banner" %></noscript>
+  <noscript><%= render "banner" %></noscript>
 </div>
 <%= render "menubar" %>
 
@@ -29,8 +29,11 @@
     </script>
 <%- end -%>
 
-<h1>Welcome to the second open Alpha Test of Con On Rails.</h1>
-<p>This is version 0.75, "Agitated Antelope"</p>
+<div id="welcome">
+  <h1>Welcome to the second open Alpha Test of Con On Rails.</h1>
+
+  <div>This is version 0.75, "Agitated Antelope"</div>
+</div>
 <div id="columns">
   <div id="side">
     <%= yield :side %>

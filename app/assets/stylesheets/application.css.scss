@@ -187,6 +187,14 @@ a /* No links should have underlines ever */
   font: bold smaller sans-serif;
 }
 
+#welcome
+{
+  border: thin solid $green;
+  background-color: $green_desat;
+  padding: 1em;
+  margin: 1em;
+  margin-bottom: 2em;
+}
 #columns 
 {
   #main 
