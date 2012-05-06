@@ -2,9 +2,13 @@
   <% if current_user %>
       <% count = Event.num_active %>
       <% emerg = Event.num_active_emergencies %>
+      <% msgs  = Message.num_active %>
       <div><%= pluralize count, "Active Issue" %></div>
       <% if emerg > 0 %>
           <div><%= pluralize emerg, "Emergency" %></div>
+      <% end %>
+      <% if msgs > 0 %>
+          <div><%= pluralize msgs, "Message" %></div>
       <% end %>
       <div><%= Time.now %>&mdash;User: <%= link_to current_user.name, current_user %></div>
   <% else %>

@@ -1,30 +1,28 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Name:</b>
+<div class="name">
   <%= @contact.name %>
-</p>
+</div>
 
-<p>
+<div>
   <b>Department:</b>
   <%= @contact.department %>
-</p>
+</div>
 
-<p>
+<div>
   <b>Cell phone:</b>
   <%= @contact.cell_phone %>
-</p>
+</div>
 
-<p>
+<div>
   <b>Hotel:</b>
   <%= @contact.hotel %>
-</p>
+</div>
 
-<p>
+<div>
   <b>Hotel room:</b>
   <%= @contact.hotel_room %>
-</p>
+</div>
 
-
-<%= link_to 'Edit', edit_contact_path(@contact) %> |
-<%= link_to 'Back', contacts_path %>
+<% content_for :side do %>
+<div><%= link_to 'Edit', edit_contact_path(@contact) %></div>
+<div><%= link_to 'Back', contacts_path %></div>
+<% end %>
