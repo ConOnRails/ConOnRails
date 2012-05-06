@@ -1,0 +1,7 @@
+<h1>Active messages</h1>
+
+<%=  render partial: "message", collection: @messages %>
+
+<%= content_for :side do %>
+<%= link_to 'New Message', new_message_path %>
+<% end %>

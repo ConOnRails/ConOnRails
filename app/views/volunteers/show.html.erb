@@ -1,4 +1,20 @@
+<!--div id="user-info">
+  <% if @volunteer.user.nil? %>
+      <button id="create-user-button">Create new user</button>
+  <% else %>
+      <div>Associated with: <strong><%= @volunteer.user.name %></strong></div>
+  <% end %>
+</div-->
+
+<div id="create-user-for-vol" title="Create new user">
+  WOMBAT
+</div>
+
 <div id="volunteer-info">
+  <div id="training-show">
+    <div class="info"><%= render partial: "volunteer_trainings/show", locals: { training: @volunteer.volunteer_training } %></div>
+  </div>
+
   <div class="name">
     <%= @volunteer.first_name %> <%= @volunteer.middle_name %> <%= @volunteer.last_name %>
   </div>
@@ -12,26 +28,22 @@
   </div>
 
   <div class="phones">
-    <% unless @volunteer.home_phone.empty? %>
+    <% unless @volunteer.home_phone.nil? or @volunteer.home_phone.empty? %>
         <div><span class="info-label">Home phone:</span> <%= @volunteer.home_phone %></div>
     <% end %>
-    <% unless @volunteer.work_phone.empty? %>
+    <% unless @volunteer.work_phone.nil? or @volunteer.work_phone.empty? %>
         <div><span class="info-label">Work phone:</span> <%= @volunteer.work_phone %></div>
     <% end %>
-    <% unless @volunteer.other_phone.empty? %>
+    <% unless @volunteer.other_phone.nil? or @volunteer.other_phone.empty? %>
         <div><span class="info-label">Other phone:</span> <%= @volunteer.other_phone %></div>
     <% end %>
   </div>
 
   <div class="email">
-    <% unless @volunteer.email.empty? %>
+    <% unless @volunteer.email.nil? or @volunteer.email.empty? %>
         <div><span class="info-label">Email:</span> <%= @volunteer.email %></div>
     <% end %>
   </div>
-</div>
-
-<div id="training-show">
-  <div class="info"><%= render partial: "volunteer_trainings/show", locals: { training: @volunteer.volunteer_training } %></div>
 </div>
 
 <%= content_for :side do %>

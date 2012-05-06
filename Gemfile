@@ -17,6 +17,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'therubyracer'
 gem 'formtastic', "~> 2.1.1"
 gem 'country-select'
