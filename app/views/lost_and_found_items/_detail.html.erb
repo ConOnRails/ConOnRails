@@ -16,12 +16,12 @@
   <div>Details:</div>
   <div><%= @lfi.details %></div>
   <% if @lfi.reported_missing? and !@lfi.found? %>
-      <div id="item_found_button" class="morf_button">
+      <div id="item_found_button" class="morf_button button">
         <%= link_to "Item Has Been Found", edit_lost_and_found_item_path(@lfi, found: true) %>
       </div>
   <% end %>
   <% if !@lfi.returned? %>
-      <div id="item_returned_button" class="morf_button">
+      <div id="item_returned_button" class="morf_button button">
         <%= link_to "Item Has Been Returned", edit_lost_and_found_item_path(@lfi, returned: true) %>
       </div>
   <% end %>

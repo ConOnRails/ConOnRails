@@ -38,7 +38,7 @@ class EventsController < ApplicationController
     else
       events = filter_hidden_if_needed
     end
-    render partial: 'event', content_type: 'text/html', collection: events, locals: { form: false, actives: @actives }
+    render partial: 'event', content_type: 'text/html', collection: events, locals: { form: false, actives: session[:actives] }
   end
 
   # GET /events
