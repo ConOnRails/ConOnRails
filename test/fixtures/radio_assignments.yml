@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  radio_id: 1
+  volunteer_id: 1
+
+two:
+  radio_id: 1
+  volunteer_id: 1

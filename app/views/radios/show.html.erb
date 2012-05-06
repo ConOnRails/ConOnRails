@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Number:</b>
+  <%= @radio.number %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @radio.notes %>
+</p>
+
+<p>
+  <b>Group:</b>
+  <%= @radio.group_id %>
+</p>
+
+<p>
+  <b>Image filename:</b>
+  <%= @radio.image_filename %>
+</p>
+
+
+<%= link_to 'Edit', edit_radio_path(@radio) %> |
+<%= link_to 'Back', radios_path %>
