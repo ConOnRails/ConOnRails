@@ -6,17 +6,13 @@
 
 .sessions
 {
-  #main
-  {
-    height: 270px;
-  }
-
   #columns
   {
     #side
     {
-      width: 500px;
-      margin-left: 7em;
+      float: left;
+      width: 600px;
+      #margin-left: 7em;
 
       #public_menu
       {
@@ -48,13 +44,15 @@
   
     #main
     {
+      float: right;
+      width: 260px;
+      height: 270px;
+
       #login_form
       {
-        float: right;
-        padding-left: 25px;
-        width: 260px;
-        height: 270px;
+        padding: 1em;
         background-color: $green_desat;
+        input { width: 90%; }
       }
       
       label
