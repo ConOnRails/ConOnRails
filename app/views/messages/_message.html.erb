@@ -1,0 +1,23 @@
+<div class="buttons">
+  <%= link_to "Message Received", close_message_path(message), class: "button"  %>
+  <%= link_to "Update", edit_message_path(message), class: "button" %>
+</div>
+<div class="addressee"><%=  message.for %> <% if message.is_active %><span class="active">ACTIVE</span><% end %></div>
+<div class="phone">
+  <span class="label">Phone</span>
+  <span class="value"><%=  message.phone_number %></span>
+</div>
+<div class="hotel">
+  <span class="label">Hotel</span>
+  <span class="value"><%=  message.hotel %></span>
+  <span class="label">Room number</span>
+  <span class="value"><%=  message.room_number %></span>
+</div>
+<div class="metadata">
+  <span class="date"><%=  message.updated_at %></span>
+  <span class="label">opened by</span>
+  <span class="value"><%= link_to message.user.name, message.user %></span>
+</div>
+<div class="text">
+  <%= message.message %>
+</div>

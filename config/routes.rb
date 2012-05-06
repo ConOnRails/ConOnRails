@@ -1,9 +1,20 @@
 ConOnRails::Application.routes.draw do
+  resources :messages do
+    member do
+      get 'close'
+    end
+  end
+
   resources :admin, only: [:index]
   resources :lost_and_found, only: [:index]
   resources :sessions, only: [:new, :create, :destroy]
 
-  resources :volunteers
+  resources :volunteers do
+    member do
+      post 'associate'
+      post 'new_user'
+    end
+  end
   resources :contacts, except: [:destroy]
   resources :events, except: [:destroy]   do
     collection do

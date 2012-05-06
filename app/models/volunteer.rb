@@ -1,5 +1,6 @@
 class Volunteer < ActiveRecord::Base
   has_one :volunteer_training, dependent: :destroy, autosave: true
+  belongs_to :user
   has_associated_audits
   validates :first_name, presence: true, allow_blank: false
   validates :last_name, presence: true, allow_blank: false
@@ -9,6 +10,10 @@ class Volunteer < ActiveRecord::Base
   validates_associated :volunteer_training
   validate :at_least_one_phone_number
   accepts_nested_attributes_for :volunteer_training
+
+  def name
+    return first_name + " " + middle_name + " " + last_name
+  end
 
   private
 
