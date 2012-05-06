@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120506011053) do
+ActiveRecord::Schema.define(:version => 20120506041114) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -56,15 +56,15 @@ ActiveRecord::Schema.define(:version => 20120506011053) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_active",   :default => true
-    t.boolean  "comment"
-    t.boolean  "flagged"
-    t.boolean  "post_con"
-    t.boolean  "quote"
-    t.boolean  "sticky"
-    t.boolean  "emergency"
-    t.boolean  "medical"
-    t.boolean  "hidden"
-    t.boolean  "secure"
+    t.boolean  "comment",     :default => false
+    t.boolean  "flagged",     :default => false
+    t.boolean  "post_con",    :default => false
+    t.boolean  "quote",       :default => false
+    t.boolean  "sticky",      :default => false
+    t.boolean  "emergency",   :default => false
+    t.boolean  "medical",     :default => false
+    t.boolean  "hidden",      :default => false
+    t.boolean  "secure",      :default => false
     t.boolean  "consuite"
     t.boolean  "hotel"
     t.boolean  "parties"
@@ -97,6 +97,30 @@ ActiveRecord::Schema.define(:version => 20120506011053) do
     t.integer  "user_id"
     t.text     "message"
     t.boolean  "is_active",    :default => true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "radio_assignments", :force => true do |t|
+    t.integer  "radio_id"
+    t.integer  "volunteer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "radio_groups", :force => true do |t|
+    t.string   "name"
+    t.string   "color"
+    t.text     "notes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "radios", :force => true do |t|
+    t.integer  "number"
+    t.string   "notes"
+    t.integer  "group_id"
+    t.string   "image_filename"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  number: 1
+  notes: MyString
+  group_id: 1
+  image_filename: MyString
+
+two:
+  number: 1
+  notes: MyString
+  group_id: 1
+  image_filename: MyString

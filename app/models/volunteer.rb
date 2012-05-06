@@ -1,5 +1,6 @@
 class Volunteer < ActiveRecord::Base
   has_one :volunteer_training, dependent: :destroy, autosave: true
+  has_many :radios, through: :radio_assignment
   belongs_to :user
   has_associated_audits
   validates :first_name, presence: true, allow_blank: false
