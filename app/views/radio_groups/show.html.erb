@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @radio_group.name %>
+</p>
+
+<p>
+  <b>Color:</b>
+  <%= @radio_group.color %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @radio_group.notes %>
+</p>
+
+
+<%= link_to 'Edit', edit_radio_group_path(@radio_group) %> |
+<%= link_to 'Back', radio_groups_path %>

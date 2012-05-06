@@ -1,0 +1,27 @@
+<h1>Listing radio_groups</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Color</th>
+    <th>Notes</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @radio_groups.each do |radio_group| %>
+  <tr>
+    <td><%= radio_group.name %></td>
+    <td><%= radio_group.color %></td>
+    <td><%= radio_group.notes %></td>
+    <td><%= link_to 'Show', radio_group %></td>
+    <td><%= link_to 'Edit', edit_radio_group_path(radio_group) %></td>
+    <td><%= link_to 'Destroy', radio_group, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Radio group', new_radio_group_path %>

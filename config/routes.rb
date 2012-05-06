@@ -1,4 +1,10 @@
 ConOnRails::Application.routes.draw do
+  resources :radio_groups
+
+  resources :radio_assignments
+
+  resources :radios
+
   resources :messages do
     member do
       get 'close'

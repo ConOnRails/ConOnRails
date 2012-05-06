@@ -1,0 +1,11 @@
+<%= semantic_form_for @radio_group do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :name %>
+    <%= f.input :color %>
+    <%= f.input :notes %>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit %>
+  <% end %>
+<% end %>
