@@ -18,6 +18,10 @@ class Event < ActiveRecord::Base
     return Event.count(conditions: "is_active == 't' and emergency == 't'")
   end
 
+  def self.num_active_medicals
+    return Event.count(conditions: "is_active == 't' and medical == 't'")
+  end
+
   def status
     return 'Active' if is_active?
     return 'Closed' unless is_active?

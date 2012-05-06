@@ -3,7 +3,8 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 @import 'colors';
-
+.lost_and_found
+{
 .morf
 {
   width: 250px;
@@ -32,6 +33,7 @@
   border: visible;
   border-radius: 10px;
   border: visible;
+  a { color: white; }
 }
 
 #missing
@@ -53,4 +55,5 @@
     background-color: $found_button_bg;
   }
   
+}
 }
