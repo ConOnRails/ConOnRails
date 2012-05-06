@@ -5,4 +5,8 @@ class Message < ActiveRecord::Base
                       message: "must be a valid telephone number.",
                       with:    /^[\(\)0-9\- \+\.]{10,20}$/
 
+ def self.num_active
+    return Message.count(conditions: "is_active == 't'")
+  end
+
 end
