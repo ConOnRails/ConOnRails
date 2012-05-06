@@ -14,4 +14,11 @@ module ApplicationHelper
     
     return style
   end
+
+  def get_emerg_button_style
+    style = "not-emerg"
+    style = "reverse" if Event.num_active_emergencies > 0
+
+    return style
+  end
 end
