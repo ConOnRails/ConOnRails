@@ -1,12 +1,12 @@
 <%= semantic_form_for @radio do |f| %>
-  <%= f.inputs do %>
-    <%= f.input :number %>
-    <%= f.input :notes %>
-    <%= f.input :group_id %>
-    <%= f.input :image_filename %>
-  <% end %>
+    <%= f.inputs do %>
+        <%= f.input :radio_group_id, as: :select, collection: RadioGroup.all, label: false %>
+        <%= f.input :number, label: false %>
+        <%= f.input :notes, label: false %>
+        <!--%= f.input :image_filename %-->
+    <% end %>
 
-  <%= f.actions do %>
-    <%= f.action :submit %>
-  <% end %>
+    <%= f.actions do %>
+        <%= f.action :submit %>
+    <% end %>
 <% end %>

@@ -42,6 +42,10 @@ class ApplicationController < ActionController::Base
     redirect_to :public unless current_user and current_user.can_assign_radios?
   end
 
+  def can_admin_or_assign_radios?
+    redirect_to :public unless current_user and ( current_user.can_assign_radios? or current_user.can_admin_radios? )
+  end
+
   def require_login
     redirect_to :public unless is_authenticated?
   end

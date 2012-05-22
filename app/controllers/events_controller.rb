@@ -25,27 +25,23 @@ class EventsController < ApplicationController
   def filter_hidden_if_needed
     @events = nil
     if user_can_see_hidden
-      @events = Event.order("updated_at desc")
+      @events = Event
     else
-      @events = Event.order("updated_at desc").find_all_by_hidden(false)
+      @events = Event.scoped_by_hidden(false)
     end
   end
 
   def subwombat
-    events = nil
-    if session[:actives]
-      events = Event.order("updated_at desc").find_all_by_hidden_and_is_active( false, true )
-    else
-      events = filter_hidden_if_needed
-    end
-    render partial: 'event', content_type: 'text/html', collection: events, locals: { form: false, actives: session[:actives] }
+    events = filter_hidden_if_needed.order(:updated_at)
+    events = events.scoped_by_is_active(true) if session[:actives]
+    render partial: 'events', content_type: 'text/html', locals: { events: events.page(params[:page]).per(3), form: false, actives: session[:actives] }
   end
 
   # GET /events
   # GET /events.json
   def index
     @title   = "Event Log"
-    @events  = filter_hidden_if_needed
+    @events  = filter_hidden_if_needed.page(params[:page]).per(3)
     @actives = false
     session[:actives] = nil
 
@@ -57,7 +53,9 @@ class EventsController < ApplicationController
 
   def active
     @title   = "Active Events"
-    @events  = Event.order("updated_at desc").find_all_by_hidden_and_is_active(false, true)
+    @events  = filter_hidden_if_needed.scoped_by_is_active(true).page(params[:page]).per(3)
+
+    #.order("updated_at desc").find_all_by_hidden_and_is_active(false, true)
     session[:actives] = true
     @actives = true
 

@@ -14,9 +14,10 @@
   .event_metadata
   {
     font-size:    9px/9px;
-    padding-left: 3px;
+    padding:      6px;
     margin-right: 6px;
-    border:       thin solid;
+    border-top:    thin solid;
+    border-bottom: thin solid;
 
     .medical
     {
