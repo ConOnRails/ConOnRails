@@ -34,6 +34,7 @@ FactoryGirl.define do
     factory :valid_radio_assignment do
       association :radio, factory: :valid_blue_radio
       association :volunteer, factory: :valid_volunteer
+      association :department, factory: :good_department
     end
   end
 

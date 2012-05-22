@@ -14,8 +14,8 @@
 <% @departments.each do |department| %>
   <tr>
     <td><%= department.name %></td>
-    <td><%= department.volunteer_id %></td>
-    <td><%= department.radio_group_id %></td>
+    <td><%= department.volunteer.name %></td>
+    <td><%= department.radio_group.name %></td>
     <td><%= department.radio_allotment %></td>
     <td><%= link_to 'Show', department %></td>
     <td><%= link_to 'Edit', edit_department_path(department) %></td>
@@ -26,4 +26,7 @@
 
 <br />
 
-<%= link_to 'New Department', new_department_path %>
+<% content_for :side do %>
+<div><%= link_to 'Back', :radio_admin_index %></div>
+<div><%= link_to 'New Department', new_department_path %></div>
+<% end %>

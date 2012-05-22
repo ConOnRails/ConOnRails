@@ -3,9 +3,6 @@ ConOnRails::Application.routes.draw do
   resources :departments
   resources :radio_assignments do
     get 'checkout'
-    member do
-      get 'checkin'
-    end
   end
   resources :radio_assignment_audits, only: [:index]
   resources :radio_admin, only: [:index]
