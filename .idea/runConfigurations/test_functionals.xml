@@ -20,8 +20,10 @@
     <RAKE_RUN_CONFIG_SETTINGS_ID NAME="RAKE_TASK_OPTION_DRYRUN" VALUE="false" />
     <RAKE_RUN_CONFIG_SETTINGS_ID NAME="RAKE_TASK_OPTION_PREREQS" VALUE="false" />
     <RunnerSettings RunnerId="RubyCover" />
+    <RunnerSettings RunnerId="RubyDebugRunner" />
     <RunnerSettings RunnerId="RubyRunner" />
     <ConfigurationWrapper RunnerId="RubyCover" />
+    <ConfigurationWrapper RunnerId="RubyDebugRunner" />
     <ConfigurationWrapper RunnerId="RubyRunner" />
     <method />
   </configuration>

@@ -61,6 +61,7 @@ class RadiosController < ApplicationController
   def update
     @radio = Radio.find(params[:id])
 
+    p params[:radio]
     respond_to do |format|
       if @radio.update_attributes(params[:radio])
         format.html { redirect_to @radio, notice: 'Radio was successfully updated.' }

@@ -4,6 +4,7 @@ class RadioAssignmentsController < ApplicationController
   # GET /radio_assignments
   # GET /radio_assignments.json
   def index
+    @radios = Radio.all
     @radio_assignments = RadioAssignment.all
 
     respond_to do |format|
@@ -38,7 +39,7 @@ class RadioAssignmentsController < ApplicationController
     @radio_assignment = RadioAssignment.new(params[:radio_assignment])
 
     respond_to do |format|
-      if @radio_assignment.save
+      if @radio_assignment.save and RadioAssignmentAudit.audit_checkout(@radio_assignment, current_user)
         format.html { redirect_to @radio_assignment, notice: 'Radio assignment was successfully created.' }
         format.json { render json: @radio_assignment, status: :created, location: @radio_assignment }
       else
@@ -70,6 +71,7 @@ class RadioAssignmentsController < ApplicationController
   def destroy
     @radio_assignment = RadioAssignment.find(params[:id])
     @radio_assignment.destroy
+    RadioAssignmentAudit.audit_checkin( @radio_assignment, current_user )
 
     respond_to do |format|
       format.html { redirect_to radio_assignments_url }

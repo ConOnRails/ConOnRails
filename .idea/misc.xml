@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="CppTools.Loader" reportImplicitCastToBool="false" reportNameReferencedOnce="false" version="3" currentProject="$PROJECT_DIR$/libv8/ruby/1.9.1/gems/erubis-2.7.0/benchmark/Makefile" compilerSelect="AUTO" />
   <component name="ExportToHTMLSettings">
     <option name="OPEN_IN_BROWSER" value="true" />
     <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/coverage" />
@@ -8,5 +9,6 @@
     <default-html-doctype>http://www.w3.org/1999/xhtml</default-html-doctype>
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="RVM: ruby-1.9.3-p125" project-jdk-type="RUBY_SDK" />
+  <component name="RegexUtilComponent" text="1900-01-01 2007/08/13 1900.01.01 1900 01 01 1900-01.01 1900 13 01 1900 02 31" flags="0" regex="(19|20)\d\d([- /.])(0[1-9]|1[012])\2(0[1-9]|[12][0-9]|3[01])" mode="0" />
 </project>
 

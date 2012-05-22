@@ -4,7 +4,6 @@ class RadioGroup < ActiveRecord::Base
   has_many :radios
   validates :name, presence: true, allow_blank: false
   validates :color, inclusion: { in: COLORS, message: "Please select a color!" }
-  validates_associated :radios
 
   def num_radios
     return self.radios.count
