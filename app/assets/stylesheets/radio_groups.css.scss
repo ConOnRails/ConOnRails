@@ -1,3 +1,22 @@
 // Place all the styles related to the RadioGroups controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.radio_groups
+{
+  #selected_color
+  {
+    border: thin solid black;
+    width:  2em;
+    height: 1em;
+    float:  right;
+  }
+  textarea
+  {
+    height: 6em;
+  }
+
+  @import "radio_colors";
+
+  td.radio_group_name { width: 200px; text-align: left; }
+}

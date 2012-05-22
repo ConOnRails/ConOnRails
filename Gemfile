@@ -18,10 +18,12 @@ end
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'rails3-jquery-autocomplete'
 gem 'therubyracer'
 gem 'formtastic', "~> 2.1.1"
 gem 'country-select'
-gem "audited-activerecord", "~> 3.0.0rc1"
+gem 'audited-activerecord', "~> 3.0.0rc1"
+gem 'kaminari'
 
 
 # Use unicorn as the web server

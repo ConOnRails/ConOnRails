@@ -1,27 +1,30 @@
-<h1>Listing radio_groups</h1>
-
+<h1>Choose a radio group to <%= @del_or_edit %></h1>
 <table>
   <tr>
     <th>Name</th>
-    <th>Color</th>
-    <th>Notes</th>
-    <th></th>
-    <th></th>
     <th></th>
   </tr>
 
-<% @radio_groups.each do |radio_group| %>
-  <tr>
-    <td><%= radio_group.name %></td>
-    <td><%= radio_group.color %></td>
-    <td><%= radio_group.notes %></td>
-    <td><%= link_to 'Show', radio_group %></td>
-    <td><%= link_to 'Edit', edit_radio_group_path(radio_group) %></td>
-    <td><%= link_to 'Destroy', radio_group, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+  <% @radio_groups.each do |radio_group| %>
+      <tr>
+        <td class="radio_group_name <%= radio_group.color %>"><%= link_to radio_group.name, radio_group %></td>
+        <td>
+          <% if @del_or_edit == "edit" %>
+              <%= link_to 'Edit', edit_radio_group_path(radio_group) %>
+          <% else %>
+              <%= link_to 'Delete', radio_group, method: :delete, confirm: 'Are you sure?' %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Radio group', new_radio_group_path %>
+<% content_for :side do %>
+    <div><%= link_to 'Back', admin_path %></div>
+    <div><%= link_to 'New Radio group', new_radio_group_path %></div>
+    <% if @del_or_edit == "edit" %>
+        <div><%= link_to 'Delete Radio group', delindex_radio_groups_path %></div>
+    <% end %>
+<% end %>

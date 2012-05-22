@@ -1,11 +1,18 @@
 <%= semantic_form_for @radio_group do |f| %>
-  <%= f.inputs do %>
-    <%= f.input :name %>
-    <%= f.input :color %>
-    <%= f.input :notes %>
-  <% end %>
+    <%= f.inputs do %>
+        <%= f.input :name %>
+        <div id="selected-color"></div><%= f.input :color, as: :select, collection: RadioGroup::COLORS %>
+        <%= f.input :notes %>
+    <% end %>
+    <script>
+        $( function () { $( "#radio_group_name" ).addClass( "<%= @radio_group.color %>" ); })
+        $( "#radio_group_color" ).change( function () {
+            $( "#radio_group_name" ).removeClass( "blue red yellow green" );
+            $( "#radio_group_name" ).addClass( $( "#radio_group_color option:selected" ).text() )
+        } )
+    </script>
 
-  <%= f.actions do %>
-    <%= f.action :submit %>
-  <% end %>
+    <%= f.actions do %>
+        <%= f.action :submit %>
+    <% end %>
 <% end %>

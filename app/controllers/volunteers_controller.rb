@@ -1,6 +1,49 @@
 class VolunteersController < ApplicationController
   before_filter :can_admin_users?
 
+  def attendees
+    if params[:term]
+      terms = params[:term].split
+      if terms.size == 1
+        like      = "#{terms[0]}%"
+        attendees = Attendee.order("FIRST_NAME").where("FIRST_NAME like ? or LAST_NAME like ?", like, like)
+      elsif terms.size == 2
+        first_like  = "#{terms[0]}%"
+        second_like = "#{terms[1]}%"
+        attendees   = Attendee.order("LAST_NAME").where("FIRST_NAME like ? and ( MIDDLE_NAME like ? or LAST_NAME like ? )",
+                                                        first_like, second_like, second_like)
+      elsif terms.size == 3
+        first_like  = "#{terms[0]}%"
+        second_like = "#{terms[1]}%"
+        third_like  = "#{terms[2]}%"
+        attendees   = Attendee.order("LAST_NAME").where("FIRST_NAME like ? and MIDDLE_NAME like ? and LAST_NAME like ?",
+                                                        first_like, second_like, third_like)
+      end
+    else
+      attendees = Attendee.all
+    end
+
+    @list = attendees.map { |a| Hash[id:         a.ATTENDEE_ID,
+                                    label:       a.name,
+                                    first_name:  a.FIRST_NAME,
+                                    middle_name: a.MIDDLE_NAME,
+                                    last_name:   a.LAST_NAME,
+                                    address1:    a.ADDRESS_LINE_1,
+                                    address2:    a.ADDRESS_LINE_2,
+                                    address3:    a.ADDRESS_LINE_3,
+                                    city:        a.ADDRESS_CITY,
+                                    state:       a.ADDRESS_STATE_CODE,
+                                    postal:      (a.ADDRESS_ZIP.empty? ? a.FOREIGN_POSTAL_CODE : a.ADDRESS_ZIP),
+                                    home_phone:  a.HOME_PHONE,
+                                    work_phone:  a.WORK_PHONE,
+                                    other_phone: a.OTHER_PHONE,
+                                    email:       a.EMAIL]
+    }
+
+    render json: @list
+
+  end
+
   # GET /volunteers
   # GET /volunteers.json
   def index
@@ -69,18 +112,6 @@ class VolunteersController < ApplicationController
         format.html { render action: "edit" }
         format.json { render json: @volunteer.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # DELETE /volunteers/1
-  # DELETE /volunteers/1.json
-  def destroy
-    @volunteer = Volunteer.find(params[:id])
-    @volunteer.destroy
-
-    respond_to do |format|
-      format.html { redirect_to volunteers_url }
-      format.json { head :ok }
     end
   end
 

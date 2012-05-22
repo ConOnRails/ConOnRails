@@ -1,29 +1,9 @@
 <h1>Listing radios</h1>
 
-<table>
-  <tr>
-    <th>Number</th>
-    <th>Notes</th>
-    <th>Group</th>
-    <th>Image filename</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<ol id="radio-list">
+<%= render partial: "radio", collection: @radios %>
+</ol>
 
-<% @radios.each do |radio| %>
-  <tr>
-    <td><%= radio.number %></td>
-    <td><%= radio.notes %></td>
-    <td><%= radio.group_id %></td>
-    <td><%= radio.image_filename %></td>
-    <td><%= link_to 'Show', radio %></td>
-    <td><%= link_to 'Edit', edit_radio_path(radio) %></td>
-    <td><%= link_to 'Destroy', radio, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
+<% content_for :side do %>
 <%= link_to 'New Radio', new_radio_path %>
+<% end %>

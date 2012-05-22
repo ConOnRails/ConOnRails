@@ -134,6 +134,26 @@ class VolunteersControllerTest < ActionController::TestCase
     put_update_fail nil
   end
 
+  test "can find an attendee" do
+    get :attendees, { term: "Micha" }, @user_session
+    assert_response :success
+    assert_equal "Michael", assigns(:list)[0][:first_name]
+
+    get :attendees, { term: "Micha Sco" }, @user_session
+    assert_equal "Scott", assigns(:list)[0][:middle_name]
+
+    get :attendees, { term: "Micha Shap"}, @user_session
+    assert_equal "Shappe", assigns(:list)[0][:last_name]
+
+    get :attendees, { term: "Shappe"}, @user_session
+    assert_equal "Michael", assigns(:list)[0][:first_name]
+
+    get :attendees, { term: "Micha Sco Shap"}, @user_session
+    assert_equal "Shappe", assigns(:list)[0][:last_name]
+
+    p assigns :list
+  end
+
   test "can futz with volunteer training and have it save" do
     victim = FactoryGirl.build :valid_volunteer
     p victim

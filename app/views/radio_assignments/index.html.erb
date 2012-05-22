@@ -1,25 +1,27 @@
-<h1>Listing radio_assignments</h1>
+<h1>Radio Assignments</h1>
+
+<div><%= link_to 'Check Out Radio', :new_radio_assignment %></div>
+
 
 <table>
   <tr>
+    <th>Radio Group</th>
     <th>Radio</th>
     <th>Volunteer</th>
-    <th></th>
-    <th></th>
+    <th>Since</th>
     <th></th>
   </tr>
 
 <% @radio_assignments.each do |radio_assignment| %>
   <tr>
-    <td><%= radio_assignment.radio_id %></td>
-    <td><%= radio_assignment.volunteer_id %></td>
-    <td><%= link_to 'Show', radio_assignment %></td>
-    <td><%= link_to 'Edit', edit_radio_assignment_path(radio_assignment) %></td>
-    <td><%= link_to 'Destroy', radio_assignment, confirm: 'Are you sure?', method: :delete %></td>
+    <td class="<%= radio_assignment.radio.radio_group.color %>"><%= radio_assignment.radio.radio_group.name %></td>
+    <td><%= radio_assignment.radio.name %></td>
+    <td><%= radio_assignment.volunteer.name %></td>
+    <td><%= radio_assignment.created_at.ctime %></td>
+    <td><%= link_to 'Check In Radio', checkin_radio_assignment_path(radio_assignment) %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Radio assignment', new_radio_assignment_path %>

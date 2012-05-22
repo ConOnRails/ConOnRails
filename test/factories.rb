@@ -1,4 +1,42 @@
 FactoryGirl.define do
+  factory :radio_group, class: RadioGroup do
+    factory :blue_man_group do
+      name "Blue"
+      color "blue"
+      notes "Blue!"
+
+      factory :many_blue_men_group do
+        after :create do |group, eval|
+          FactoryGirl.create_list( :one_of_many_blue_radios, 42, radio_group: group )
+        end
+      end
+    end
+
+    factory :red_handed do
+      name "Red"
+      color "red"
+      notes "RED!!!!!!"
+    end
+  end
+
+  factory :radio do
+    factory :valid_blue_radio do
+      number 42
+      association :radio_group, factory: :blue_man_group
+    end
+
+    factory :one_of_many_blue_radios do
+      sequence :number do |n| "Q#{n}" end
+    end
+  end
+
+  factory :radio_assignment do
+    factory :valid_radio_assignment do
+      association :radio, factory: :valid_blue_radio
+      association :volunteer, factory: :valid_volunteer
+    end
+  end
+
   factory :message do
     factory :valid_message do
       self.for "Someone"
@@ -6,9 +44,7 @@ FactoryGirl.define do
       message "Watch out for wombats"
 
       factory :valid_message_with_user do
-        before_create do |message, eval|
-          message.user = FactoryGirl.create :peon
-        end
+        association :user, factory: :peon
       end
 
     end
@@ -16,7 +52,6 @@ FactoryGirl.define do
   end
 
   factory :volunteer do
-
     factory :valid_volunteer do
       first_name "Rufus"
       middle_name "Xavier"
@@ -24,17 +59,7 @@ FactoryGirl.define do
       address1 "666 Sixth Street SE"
       home_phone "+1 666-666-6666"
       email "rxs@rxs.nowhere"
-
-      after_create do |vol, evaluator|
-        volunteer_training     = FactoryGirl.build :valid_volunteer_training, volunteer: vol
-        vol.volunteer_training = volunteer_training
-      end
-
-      after_build do |vol, evaluator|
-        volunteer_training     = FactoryGirl.build :valid_volunteer_training, volunteer: vol
-        vol.volunteer_training = volunteer_training
-      end
-
+      association :volunteer_training, factory: :valid_volunteer_training
     end
   end
 
@@ -105,6 +130,15 @@ FactoryGirl.define do
       modify_lost_and_found true
     end
 
+    factory :assign_radios_role do
+      name "can_assign_radios"
+      assign_radios true
+
+      factory :admin_radios_role do
+        name "can_admin_radios"
+        admin_radios true
+      end
+    end
   end
 
   factory :event do
@@ -113,7 +147,7 @@ FactoryGirl.define do
     factory :ordinary_event do
       hidden false
 
-      after_create do |event, evaluator|
+      after :create do |event, evaluator|
         entry = FactoryGirl.build :oneliner_entry, event: event, user: FactoryGirl.create(:dummy_user)
       end
     end
@@ -121,7 +155,7 @@ FactoryGirl.define do
     factory :hidden_event do
       hidden true
 
-      after_create do |event, evaluator|
+      after :create do |event, evaluator|
         entry = FactoryGirl.build :verbose_entry, event: event, user: FactoryGirl.create(:other_dummy_user)
       end
     end
@@ -203,6 +237,24 @@ FactoryGirl.define do
       owner_contact "MyText"
     end
   end
+
+  factory :department do
+    factory :good_department do
+      name "Operations"
+      radio_allotment 1
+      association :radio_group, factory: :blue_man_group
+      association :volunteer, factory: :valid_volunteer
+    end
+
+    factory :one_too_many do
+      name "Doom"
+      radio_allotment 1 # but the blue_man group only has one, so if this and good_department are defined, the second should fail
+      association :radio_group, factory: :blue_man_group
+      association :volunteer, factory: :valid_volunteer
+    end
+  end
+
+
 end
 
 

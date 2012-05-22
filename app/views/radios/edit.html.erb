@@ -2,5 +2,7 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @radio %> |
-<%= link_to 'Back', radios_path %>
+<% content_for :side do %>
+<div><%= link_to 'Show', @radio %> </div>
+<div><%= link_to 'Back', new_radio_path %></div>
+<% end %>

@@ -1,0 +1,4 @@
+<div id="eventlist">
+  <% events = events.reverse_order if actives %>
+  <%= render partial: 'event', collection: events, locals: { form: false, actives: actives } %>
+</div>

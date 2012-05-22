@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @department.name %>
+</p>
+
+<p>
+  <b>Volunteer:</b>
+  <%= @department.volunteer_id %>
+</p>
+
+<p>
+  <b>Radio group:</b>
+  <%= @department.radio_group_id %>
+</p>
+
+<p>
+  <b>Radio allotment:</b>
+  <%= @department.radio_allotment %>
+</p>
+
+
+<%= link_to 'Edit', edit_department_path(@department) %> |
+<%= link_to 'Back', departments_path %>

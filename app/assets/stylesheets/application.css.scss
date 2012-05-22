@@ -11,21 +11,24 @@
 
 body
 {
-  width: 1000px;
-  margin: auto;
-  padding: 0;
-  font-family: Verdana, Geneva, sans-serif;
-  font-size: 0.9em;
+  width:            1000px;
+  margin:           auto;
+  padding:          0;
+  font-family:      Verdana, Geneva, sans-serif;
+  font-size:        0.9em;
   background-color: white;
-  color: black;
+  color:            black;
 }
 
-h1,h2,h3,h4,h5,h6
+h1, h2, h3, h4, h5, h6
 {
   padding-top: 0;
-  margin-top: 0;
+  margin-top:  0;
 }
+
 a /* No links should have underlines ever */
+
+
 {
   text-decoration: none;
 }
@@ -35,7 +38,7 @@ a /* No links should have underlines ever */
   li.input
   {
     padding: 0;
-    margin: 0;
+    margin:  0;
   }
 
   label
@@ -44,33 +47,34 @@ a /* No links should have underlines ever */
   }
 }
 
-#banner 
+#banner
 {
-  position: relative;
-  height: 100px;
-  width: 100%;
+  position:    relative;
+  height:      100px;
+  width:       100%;
   padding-top: 1px;
-  
-  img {
+
+  img
+  {
     float: left;
   }
 
   #logo
   {
     background-color: black;
-    color: white;
-    padding: 10px 10px 10px 20px;
-    float: left;
-    width: 100px;
-    
+    color:            white;
+    padding:          10px 10px 10px 20px;
+    float:            left;
+    width:            100px;
+
   }
-  
+
   #banner_text
   {
     margin-left: 5em;
-    margin-top: .5em;
+    margin-top:  .5em;
     font-weight: bold;
-    float: left;
+    float:       left;
     div
     {
       margin-bottom: .2em;
@@ -80,34 +84,37 @@ a /* No links should have underlines ever */
       }
     }
   }
-  
+
   #emergency_button
   {
-    float: right;
-    width: 162px;
-    height: 60px;
-    padding-left: 20px;
-    padding-top: 8px;
-    border: visible;
+    float:         right;
+    width:         162px;
+    height:        60px;
+    padding-left:  20px;
+    padding-top:   8px;
+    border:        visible;
     border-radius: 10px;
     a
     {
       font-family: Verdana, Geneva, sans-serif;
-      font-size: 1.2em;
+      font-size:   1.2em;
       font-weight: bold;
-      color: white;
+      color:       white;
     }
-  }   
+  }
   .not-emerg
   {
     background-color: $emergency_bg;
-    color: $emergency_fg;
+    color:            $emergency_fg;
   }
 
   .reverse
   {
     background-color: white;
-    a, a:visited, a:hover { color: $emergency_bg; }
+    a, a:visited, a:hover
+    {
+      color: $emergency_bg;
+    }
   }
 }
 
@@ -124,176 +131,204 @@ a /* No links should have underlines ever */
 .normal#banner
 {
   background-color: $no_issues_bg;
-  color: $no_issues_fg;
+  color:            $no_issues_fg;
 }
 
 .active#banner
 {
   background-color: $active_issues_bg;
-  color: $active_issues_fg;
+  color:            $active_issues_fg;
 }
 
 .messages#banner
 {
   background-color: $messages_bg;
-  color: $messages_fg;
+  color:            $messages_fg;
 }
 
 .emergency#banner
 {
   background-color: $emergency_bg;
-  color: $emergency_fg;
+  color:            $emergency_fg;
 }
 
 #menubar
 {
-  margin: 0;
-  padding: 0;
-  margin-bottom: 1em;
-  height: 5em;
+  margin:           0;
+  padding:          0;
+  margin-bottom:    1em;
+  height:           5em;
   background-color: $nav_bar_bg;
-  color: $nav_bar_fg;
+  color:            $nav_bar_fg;
 
   ul
   {
-    width: 100%;
-    float: left;
-    padding: 0;
-    margin-left: 0;
+    width:         100%;
+    float:         left;
+    padding:       0;
+    margin-left:   0;
     border-bottom: 1px solid #778;
-    font: bold .9em Verdana, sans-serif;
-    
+    font:          bold .9em Verdana, sans-serif;
+
     li
     {
       list-style: none;
-      margin: 0;
-      float: left;
+      margin:     0;
+      float:      left;
 
       a
       {
-        padding: 12px 0.5em;
-        margin-left: 3px;
-        border: 1px solid #778;
-        border-bottom: none;
+        padding:          12px 0.5em;
+        margin-left:      3px;
+        border:           1px solid #778;
+        border-bottom:    none;
         background-color: $nav_bar_tab_bg;
-        color: $nav_bar_tab_fg;
-        display: block;
-        width: 7em;
+        color:            $nav_bar_tab_fg;
+        display:          block;
+        width:            7em;
       }
     }
   }
 
 }
 
-#notice {
-  color: black !important;
-  border: 2px solid red;
-  padding: 1em;
-  margin-bottom: 2em;
+#notice
+{
+  color:            black !important;
+  border:           2px solid red;
+  padding:          1em;
+  margin-bottom:    2em;
   background-color: #f0f0f0;
-  font: bold smaller sans-serif;
+  font:             bold smaller sans-serif;
 }
 
 #welcome
 {
-  border: thin solid $green;
+  border:           thin solid $green;
   background-color: $green_desat;
-  padding: 1em;
-  margin: 1em;
-  margin-bottom: 2em;
+  padding:          1em;
+  margin:           1em;
+  margin-bottom:    2em;
 }
-#columns 
+
+#columns
 {
-  #main 
+  #main
   {
-  //  margin-left: 10em;
-  //  margin-right: 5em;
+    //  margin-left: 10em;
+    //  margin-right: 5em;
     min-height: 500px;
-    width: 80%;
-    float: left;
+    width:      80%;
+    float:      left;
   }
 
-  #side 
+  #side
   {
-    margin: 0;
-    padding: 0;
-    float: left;
-    width: 20%;
+    margin:     0;
+    padding:    0;
+    float:      left;
+    width:      20%;
     min-height: 500px;
 
-    ul 
+    ul
     {
-      width: 100%;
-      float: left;
-      padding: 0;
+      width:       100%;
+      float:       left;
+      padding:     0;
       margin-left: 0;
-      font: bold .8em Verdana, sans-serif;
+      font:        bold .8em Verdana, sans-serif;
 
       li
       {
         list-style: none;
-        margin: .5em;
-        padding: .5em;
-        a {
-          padding: 12px 0.5em;
-          margin-left: .5em;
-          border: 1px solid $green_desat;          
+        margin:     .5em;
+        padding:    .5em;
+        a
+        {
+          padding:          12px 0.5em;
+          margin-left:      .5em;
+          border:           1px solid $green_desat;
           background-color: $sidebar_bg;
-          color: $sidebar_fg;
-          display: block;
-          width: 9em;
+          color:            $sidebar_fg;
+          display:          block;
+          width:            9em;
         }
       }
     }
   }
 }
 
-#indicia {
-  clear: both;
-  padding: 10px;
+#indicia
+{
+  clear:      both;
+  padding:    10px;
   border-top: 2px solid;
-  font: small-caps 10px/10px "Palatino", "Times New Roman", serif;
+  font:       small-caps 10px/10px "Palatino", "Times New Roman", serif;
   text-align: center;
 }
 
 .button
 {
-  font-size: 18px;
-  font-weight: bold;
-  width: 300px;
-  margin-top: 12px;
-  padding: 12px;
-  border: visible;
+  font-size:     18px;
+  font-weight:   bold;
+  width:         300px;
+  margin-top:    12px;
+  padding:       12px;
+  border:        visible;
   border-radius: 10px;
-  text-align: center;
+  text-align:    center;
 }
 
-.con_on_rails_form {
-  fieldset {
-    legend {
-      font-size: larger;
+.con_on_rails_form
+{
+  fieldset
+  {
+    legend
+    {
+      font-size:   larger;
       font-weight: bold;
     }
   }
 
-  form {
-    label {
-      width: 5em;
-      float: left;
+  form
+  {
+    label
+    {
+      width:        5em;
+      float:        left;
       margin-right: 0.1em;
-      display: block;
+      display:      block;
     }
 
-    select, textarea, input {
+    select, textarea, input
+    {
       margin-left: 0.5em;
     }
 
-    .submit {
+    .submit
+    {
       margin-left: 4em;
     }
 
-    br {
+    br
+    {
       display: none;
     }
   }
+}
+
+.ui-autocomplete
+{
+  background-color: $light_grey;
+  color:            black;
+  border:           thin solid black;
+  width:            200px;
+
+  li
+  {
+    list-style: none;
+    padding:    0;
+    margin:     0;
+  }
+
 }

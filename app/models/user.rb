@@ -56,5 +56,13 @@ class User < ActiveRecord::Base
   
   def modify_lost_and_found?
     find_perm "modify_lost_and_found?"
-  end  
+  end
+
+  def can_assign_radios?
+    find_perm "assign_radios"
+  end
+
+  def can_admin_radios?
+    find_perm "admin_radios"
+  end
 end

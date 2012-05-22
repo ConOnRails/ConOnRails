@@ -1,4 +1,15 @@
-<div id="eventlist">
-</div>
-<noscript><%= render partial: 'event', collection: @events, locals: { form: false, actives: @actives } %>
-</noscript>
+<%= render partial: 'events', locals: { events: @events, form: false, actives: @actives } %>
+<div id="event-paginator"><%= link_to_next_page @events, 'Next page' %></div>
+<%= javascript_tag do %>
+    var get_main, fill_main;
+    get_main = function()
+    {
+        $.get('/events/subwombat?page=' + <%= params[:page] ? params[:page] : 1 %>, fill_main );
+    };
+    fill_main = function( data )
+    {
+    $('#eventlist').html(data);
+    return setTimeout( 'get_main()', 10000);
+    };
+    get_main();
+<% end %>
