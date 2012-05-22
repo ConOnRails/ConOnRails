@@ -4,6 +4,7 @@
   <% if current_user and current_user.can_admin_radios? %>
       <li><%= link_to "Radios", :radios %></li>
       <li><%= link_to "Radio groups", :radio_groups %></li>
+      <li><%= link_to "Department radio allotments", :departments %></li>
       <li><%= link_to "Radio assignment log", :radio_assignment_audits %></li>
   <% end %>
   <% if current_user and current_user.can_assign_radios? %>

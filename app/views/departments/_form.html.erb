@@ -1,8 +1,8 @@
 <%= semantic_form_for @department do |f| %>
   <%= f.inputs do %>
     <%= f.input :name %>
-    <%= f.input :volunteer_id %>
-    <%= f.input :radio_group_id %>
+    <%= f.input :volunteer, label: "Person responsible" %>
+    <%= f.input :radio_group %>
     <%= f.input :radio_allotment %>
   <% end %>
 

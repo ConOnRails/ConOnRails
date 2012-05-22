@@ -18,7 +18,7 @@
     <td><%= radio_assignment.radio.name %></td>
     <td><%= radio_assignment.volunteer.name %></td>
     <td><%= radio_assignment.created_at.ctime %></td>
-    <td><%= link_to 'Check In Radio', checkin_radio_assignment_path(radio_assignment) %></td>
+    <td><%= link_to 'Check In Radio', radio_assignment, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>

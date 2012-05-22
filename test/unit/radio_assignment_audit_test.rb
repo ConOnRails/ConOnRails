@@ -2,8 +2,7 @@ require 'test_helper'
 
 class RadioAssignmentAuditTest < ActiveSupport::TestCase
   setup do
-    @radio     = FactoryGirl.create :valid_blue_radio
-    @volunteer = FactoryGirl.create :valid_volunteer
+    @assignment = FactoryGirl.build :valid_radio_assignment
     @user      = FactoryGirl.create :user
   end
 
@@ -12,7 +11,7 @@ class RadioAssignmentAuditTest < ActiveSupport::TestCase
   def can_create_audit( method, state )
     audit = nil
     assert_difference 'RadioAssignmentAudit.count' do
-      audit = RadioAssignmentAudit.send( 'audit_' + method, @radio, @volunteer, @user )
+      audit = RadioAssignmentAudit.send( 'audit_' + method, @assignment, @user )
     end
 
     assert_not_nil audit

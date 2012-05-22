@@ -6,15 +6,20 @@
     <th>Volunteer</th>
     <th>State</th>
     <th>At</th>
+    <th>By</th>
   </tr>
 
 <% @radio_assignment_audits.each do |a| %>
   <tr>
-    <td><%= link_to a.radio.name, a %></td>
+    <td><%= link_to a.radio.name, a.radio %></td>
     <td><%= link_to a.volunteer.name, a.volunteer %></td>
     <td><%= a.state %></td>
     <td><%= a.created_at %></td>
+    <td><%= link_to a.user.realname %></td>
   </tr>
 <% end %>
 </table>
 
+<% content_for :side do %>
+    <%=  link_to 'Back', :radio_admin_index %>
+<% end %>
