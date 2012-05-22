@@ -1,25 +1,19 @@
-<p id="notice"><%= notice %></p>
+<h1>Radio</h1>
+<div>
+  <span class="label">Radio Group:</span>
+  <span class="radio_group <%= @radio.radio_group.color %>"><%= @radio.radio_group.name %></span>
+</div>
+<div>
+  <span class="label">Number:</span>
+  <span class="radio_number"><%= @radio.number %></span>
+</div>
+<div>
+  <span class="label">Notes:</span>
+  <span class="radio_notes"><%= @radio.notes %></span>
+</div>
 
-<p>
-  <b>Number:</b>
-  <%= @radio.number %>
-</p>
-
-<p>
-  <b>Notes:</b>
-  <%= @radio.notes %>
-</p>
-
-<p>
-  <b>Group:</b>
-  <%= @radio.group_id %>
-</p>
-
-<p>
-  <b>Image filename:</b>
-  <%= @radio.image_filename %>
-</p>
-
-
-<%= link_to 'Edit', edit_radio_path(@radio) %> |
-<%= link_to 'Back', radios_path %>
+<% content_for :side do %>
+    <div><%= link_to 'Edit', edit_radio_path(@radio) %></div>
+    <div><%= link_to 'Delete', @radio, confirm: 'Are you sure?', method: :delete %></div>
+    <div><%= link_to 'Back', radios_path %></div>
+<% end %>

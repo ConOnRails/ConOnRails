@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120506041114) do
+ActiveRecord::Schema.define(:version => 20120519191319) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -40,6 +40,15 @@ ActiveRecord::Schema.define(:version => 20120506041114) do
     t.string   "cell_phone"
     t.string   "hotel"
     t.integer  "hotel_room"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "departments", :force => true do |t|
+    t.string   "name"
+    t.integer  "volunteer_id"
+    t.integer  "radio_group_id"
+    t.integer  "radio_allotment"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -101,6 +110,15 @@ ActiveRecord::Schema.define(:version => 20120506041114) do
     t.datetime "updated_at"
   end
 
+  create_table "radio_assignment_audits", :force => true do |t|
+    t.integer  "radio_id"
+    t.integer  "volunteer_id"
+    t.string   "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+  end
+
   create_table "radio_assignments", :force => true do |t|
     t.integer  "radio_id"
     t.integer  "volunteer_id"
@@ -117,9 +135,9 @@ ActiveRecord::Schema.define(:version => 20120506041114) do
   end
 
   create_table "radios", :force => true do |t|
-    t.integer  "number"
+    t.string   "number"
     t.string   "notes"
-    t.integer  "group_id"
+    t.integer  "radio_group_id"
     t.string   "image_filename"
     t.datetime "created_at"
     t.datetime "updated_at"

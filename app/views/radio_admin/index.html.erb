@@ -1,0 +1,16 @@
+<h1>Radio Administration</h1>
+
+<ul>
+  <% if current_user and current_user.can_admin_radios? %>
+      <li><%= link_to "Radios", :radios %></li>
+      <li><%= link_to "Radio groups", :radio_groups %></li>
+      <li><%= link_to "Radio assignment log", :radio_assignment_audits %></li>
+  <% end %>
+  <% if current_user and current_user.can_assign_radios? %>
+    <li><%= link_to "Assign radios", :radio_assignments %></li>
+  <% end %>
+</ul>
+
+<% content_for :side do %>
+    <div><%= link_to "Back", :admin_index %></div>
+<% end %>

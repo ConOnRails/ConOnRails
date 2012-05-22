@@ -37,6 +37,9 @@
 <div id="columns">
   <div id="side">
     <%= yield :side %>
+    <div id="shiftboard-thingy"><a href="http://www.shiftboard.com/ce" title="Online Scheduling" alt="Online Scheduling and People Management Tools">
+      <img width="95%" src="http://www.shiftboard.com/images/badges-logos/shiftboard-online-volunteer-management-scheduling-volunteer-empowered-white-arrow-255x90.png" border="0"></img></a></div>
+
   </div>
   <div id="main">
     <%= content_for?(:main) ? yield(:main) : yield %>

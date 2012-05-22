@@ -1,16 +1,20 @@
 class RadioGroupsController < ApplicationController
   before_filter :can_admin_radios?, only: [:new, :create, :edit, :update, :destroy]
-  before_filter :can_assign_radios?, only: [:index, :show ]
+  before_filter :can_assign_radios?, only: [:index, :show]
 
   # GET /radio_groups
   # GET /radio_groups.json
-  def index
+  def index( del_or_edit = "edit")
     @radio_groups = RadioGroup.all
-
+    @del_or_edit  = del_or_edit
     respond_to do |format|
-      format.html # index.html.erb
+      format.html { render "index"} # index.html.erb
       format.json { render json: @radio_groups }
     end
+  end
+
+  def delindex
+    index( "delete" )
   end
 
   # GET /radio_groups/1

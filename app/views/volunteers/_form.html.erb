@@ -1,3 +1,7 @@
+<%= field_set_tag "Search attendees" do %>
+    <%= text_field_tag :name, "", { id: "search-attendees" } %>
+<% end %>
+
 <%= semantic_form_for @volunteer do |f| %>
     <div id="volunteer-info">
       <%= f.inputs do %>
@@ -11,8 +15,8 @@
           <%= f.input :state %>
           <%= f.input :postal %>
           <li class="string input optional stringish"><label class="label">Country</label>
-            <%= country_select("volunteer", "country", ["United States", "Canada", "United Kingdom"], label: "Country" ) %>
-            </li>
+            <%= country_select("volunteer", "country", ["United States", "Canada", "United Kingdom"], label: "Country") %>
+          </li>
           <%= f.input :home_phone %>
           <%= f.input :work_phone %>
           <%= f.input :other_phone %>

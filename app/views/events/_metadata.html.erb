@@ -2,7 +2,7 @@
 <% tags = '' %>
 <% if event.is_active? %>
 	<% style << "active " %>
-	<% tags << "Current Active " %>
+	<% tags << "Active " %>
 <% end %>
 
 <% if event.medical? %>
@@ -23,5 +23,5 @@
 <span class="<%= style %>" ><%= tags %></span>
 
 <% if !form %>
-	<span class="update">&nbsp;&bull;&nbsp;<%= link_to 'Update or Append', edit_event_path(event) %></span>
+	<span class="update button">&nbsp;&bull;&nbsp;<%= link_to 'Update', edit_event_path(event) %></span>
 <% end %>

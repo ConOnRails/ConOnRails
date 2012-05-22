@@ -1,20 +1,13 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Name:</b>
+<div class="radio_group_name <%= @radio_group.color %>">
   <%= @radio_group.name %>
-</p>
+</div>
+<div class="label">Notes</div>
+<div class="radio_group_notes"><%= @radio_group.notes %>
+</div>
 
-<p>
-  <b>Color:</b>
-  <%= @radio_group.color %>
-</p>
-
-<p>
-  <b>Notes:</b>
-  <%= @radio_group.notes %>
-</p>
-
-
-<%= link_to 'Edit', edit_radio_group_path(@radio_group) %> |
-<%= link_to 'Back', radio_groups_path %>
+<% content_for :side do %>
+    <div><%= link_to 'Back', radio_groups_path %></div>
+    <div><%= link_to 'Create a radio group', new_radio_group_path %></div>
+    <div><%= link_to 'Delete a radio group', delindex_radio_groups_path %></div>
+    <div><%= link_to 'Edit', edit_radio_group_path(@radio_group) %></div>
+<% end %>

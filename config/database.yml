@@ -24,5 +24,11 @@ production:
   pool: 5
   timeout: 5000
 
+attendees:
+  adapter: sqlite3
+  database: db/attendees.sqlite3
+  pool: 5
+  timeout: 5000
+
 cucumber:
   <<: *test

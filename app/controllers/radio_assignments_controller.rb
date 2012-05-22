@@ -12,19 +12,8 @@ class RadioAssignmentsController < ApplicationController
     end
   end
 
-  # GET /radio_assignments/1
-  # GET /radio_assignments/1.json
-  def show
-    @radio_assignment = RadioAssignment.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @radio_assignment }
-    end
-  end
-
-  # GET /radio_assignments/new
-  # GET /radio_assignments/new.json
+  # GET /radio_assignments/checkout
+  # GET /radio_assignments/checkout.json
   def new
     @radio_assignment = RadioAssignment.new
 
@@ -32,6 +21,10 @@ class RadioAssignmentsController < ApplicationController
       format.html # new.html.erb
       format.json { render json: @radio_assignment }
     end
+  end
+
+  def checkin
+    @radio_assignment = RadioAssignment.find params[:id]
   end
 
   # GET /radio_assignments/1/edit
@@ -66,10 +59,11 @@ class RadioAssignmentsController < ApplicationController
         format.json { head :ok }
       else
         format.html { render action: "edit" }
-        format.json { render json: @radio_assignment.errors, status: :unprocessable_entity }
+        format.json { render json: @radio_asssignment.errors, status: :unprocessable_entity }
       end
     end
   end
+
 
   # DELETE /radio_assignments/1
   # DELETE /radio_assignments/1.json
