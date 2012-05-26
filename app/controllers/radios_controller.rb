@@ -10,7 +10,7 @@ class RadiosController < ApplicationController
     respond_with do |format|
       format.html do
         if request.xhr?
-          render partial: 'volunteers', locals: { radio: params[:radio]  }
+          render partial: 'volunteers', locals: { radio: params[:radio] }
         else
           redirect_to public_url
         end
@@ -20,8 +20,15 @@ class RadiosController < ApplicationController
 
   # GET /radios/1/select_department?volunteer=1
   def select_department
-    @radio = Radio.find(params[:id])
-    @volunteer = Volunteer.find(params[:volunteer])
+    respond_with do |format|
+      format.html do
+        if request.xhr?
+          render partial: 'select_department', locals: { radio: params[:id], volunteer: params[:volunteer] }
+        else
+          redirect_to public_url
+        end
+      end
+    end
   end
 
   # GET /radios
@@ -61,7 +68,7 @@ class RadiosController < ApplicationController
 
   # GET /radios/1/assign
   def checkout
-    @radio = Radio.find params[:id]
+    @radio            = Radio.find params[:id]
     @radio_assignment = RadioAssignment.new
   end
 

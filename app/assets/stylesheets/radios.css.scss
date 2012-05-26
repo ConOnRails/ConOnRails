@@ -21,6 +21,14 @@
     {
       float: left;
     }
+    #radio_assignment_department_input
+    {
+      width: 300px;
+      label
+      {
+        width: 50%;
+      }
+    }
   }
 
   #radio_group, .radio_group
@@ -39,7 +47,15 @@
   #radio_volunteer, .radio_volunteer
   {
     width: 300px;
+    text-align: left;
   }
+
+  div.radio_group, div.radio_number, div.radio_volunteer
+  {
+    float: left;
+    text-align: center;
+  }
+
   @import "radio_colors";
 
 }
