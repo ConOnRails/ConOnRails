@@ -14,8 +14,8 @@
 <% @departments.each do |department| %>
   <tr>
     <td><%= department.name %></td>
-    <td><%= department.volunteer.name %></td>
-    <td><%= department.radio_group.name %></td>
+    <td><%= department.volunteer ? department.volunteer.name : "" %></td>
+    <td><%= department.radio_group ? department.radio_group.name : "" %></td>
     <td><%= department.radio_allotment %></td>
     <td><%= link_to 'Show', department %></td>
     <td><%= link_to 'Edit', edit_department_path(department) %></td>
