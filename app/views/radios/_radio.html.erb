@@ -1,4 +1,16 @@
-<li class="radio_radio_group <%= radio.radio_group.color %>"><%= radio.radio_group.name %></li>
-<li class="radio_number"><%= radio.number %></li>
-<li class="radio_notes"><%= radio.notes %></li>
-<li class="radio_edit_button"><%= button_to "Edit", edit_radio_path(radio), method: :get %></li>
+<tr>
+  <td class="<%= radio.radio_group.color %>"><%= radio.radio_group.name %></td>
+  <td><%= radio.number %></td>
+  <td><%= radio.radio_assignment ? radio.radio_assignment.department.name : "" %></td>
+  <td><%= radio.radio_assignment ? radio.radio_assignment.volunteer.name : "" %></td>
+  <td><%= radio.state %></td>
+  <% if current_user and current_user.can_assign_radios? %>
+      <td>
+        <% if radio.state == "in" and radio.radio_assignment.nil? %>
+            <%= button_to "Check out", checkout_radio_path(radio), method: :get %>
+        <% else %>
+            <%= button_to "Check in", radio.radio_assignment, confirm: 'Are you sure?', method: :delete %>
+        <% end %>
+      </td>
+  <% end %>
+</tr>

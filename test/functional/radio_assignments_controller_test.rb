@@ -26,7 +26,7 @@ class RadioAssignmentsControllerTest < ActionController::TestCase
         post :create, { radio_assignment: @radio_assignment.attributes }, @user_session
       end
     end
-
+    assert_equal "out", assigns(:radio_assignment).radio.state
     assert_redirected_to radio_assignment_path(assigns(:radio_assignment))
   end
 
@@ -43,13 +43,16 @@ class RadioAssignmentsControllerTest < ActionController::TestCase
   end
 
   test "should destroy radio_assignment" do
+    radio = @radio_assignment.radio
+    radio.state = "out"
     @radio_assignment.save!
+    radio_id = radio.id
     assert_difference 'RadioAssignmentAudit.count' do
       assert_difference('RadioAssignment.count', -1) do
         delete :destroy, { id: @radio_assignment.to_param }, @user_session
       end
     end
-
+    assert_equal "in", Radio.find_by_id( radio_id ).state
     assert_redirected_to radio_assignments_path
   end
 end

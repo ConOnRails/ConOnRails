@@ -1,8 +1,15 @@
 .blue
-{ background-color: #0000FF; color: white; }
+{ background-color: #0000FF; color: white;
+  a, a:visited, a:hover, a:active { color: white; }
+}
 .green
-{ background-color: #00FF00; color: white; }
-.red
-{ background-color: #FF0000; color: white; }
+{ background-color: #00FF00; color: white;
+  a, a:visited, a:hover, a:active { color: white; }
+}.red
+{ background-color: #FF0000; color: white;
+   a, a:visited, a:hover, a:active { color: white; }
+ }
 .yellow
-{ background-color: #FFFF00; color: black; }
+{ background-color: #FFFF00; color: black;
+  a, a:visited, a:hover, a:active { color: white; }
+}

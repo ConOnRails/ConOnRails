@@ -23,32 +23,23 @@
     }
   }
 
-  ol#radio-list
+  #radio_group, .radio_group
   {
-    padding: 0;
-    clear: both;
-    float: none;
-    list-style: none;
+    width: 50px;
   }
-  select#radio_radio_group_id, li.radio_radio_group
+  #radio_number, .radio_number
   {
-    width:        75px;
-    margin-right: 6px;
-    padding: 0;
+    width: 75px;
+    text-align: left;
   }
-  input#radio_number, li.radio_number
+  #radio_department, .radio_department
   {
-    width:        75px;
-    margin-right: 6px;
-    padding: 0;
+    width: 150px;
   }
-  input#radio_notes, li.radio_notes
+  #radio_volunteer, .radio_volunteer
   {
-    width:        300px;
-    margin-right: 6px;
-    padding: 0;
+    width: 300px;
   }
-
   @import "radio_colors";
 
 }

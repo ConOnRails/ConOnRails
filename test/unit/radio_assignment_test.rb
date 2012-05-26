@@ -6,6 +6,7 @@ class RadioAssignmentTest < ActiveSupport::TestCase
   end
 
   test "can add assignment" do
+    p @valid_assignment
     assert_difference 'RadioAssignment.count' do
       @valid_assignment.save
     end

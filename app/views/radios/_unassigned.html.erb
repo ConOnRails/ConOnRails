@@ -1,0 +1,2 @@
+<%= render partial: "radio", locals: { radio: unassigned, edit: true } %>
+<li class="radio_edit_button"><%= button_to "Assign", assign_radio_path(unassigned), method: :get %></li>
