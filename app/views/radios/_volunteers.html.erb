@@ -1,17 +1,16 @@
 <table>
   <tr>
-    <th>First name</th>
-    <th>Middle name</th>
-    <th>Last name</th>
+    <th>Name</th>
   </tr>
 
   <% @volunteers.each do |volunteer| %>
       <tr>
-        <td><%= volunteer.first_name %></td>
-        <td><%= volunteer.middle_name %></td>
-        <td><%= volunteer.last_name %></td>
-        <td><%= link_to 'Select', { action: :select_department, id: radio, volunteer: volunteer.id }, method: :get %></td>
+        <td class="radio_volunteer"><%= volunteer.name %></td>
+        <td id="vol-<%= volunteer.id %>"><%= link_to 'Select', { action: :select_department, id: radio, volunteer: volunteer.id }, method: :get, remote: true %></td>
       </tr>
+      <script defer>
+          $( bind_volunteer( "<%= volunteer.id %>", "<%= volunteer.name %>" ) );
+      </script>
   <% end %>
 </table>
 
