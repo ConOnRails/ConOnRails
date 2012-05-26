@@ -1,8 +1,24 @@
 <h1>Listing radios</h1>
 
-<ol id="radio-list">
-<%= render partial: "radio", collection: @radios %>
-</ol>
+<table id="radio-list">
+  <colgroup id="radio_info">
+    <col id="radio_group" />
+    <col id="radio_number" />
+    <col id="radio_department" />
+    <col id="radio_volunteer" />
+    <col id="radio_status" />
+    <col id="radio_action" />
+  </colgroup>
+  <tr>
+    <th>Group</th>
+    <th>Number</th>
+    <th>Department</th>
+    <th>Volunteer</th>
+    <th>Status</th>
+    <th></th>
+  </tr>
+  <%= render partial: "radio", collection: @radios %>
+</table>
 
 <% content_for :side do %>
 <%= link_to 'New Radio', new_radio_path %>

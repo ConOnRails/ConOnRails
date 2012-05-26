@@ -2,12 +2,14 @@
 <table>
   <tr>
     <th>Name</th>
+    <th>Notes</th>
     <th></th>
   </tr>
 
   <% @radio_groups.each do |radio_group| %>
       <tr>
-        <td class="radio_group_name <%= radio_group.color %>"><%= link_to radio_group.name, radio_group %></td>
+        <td class="radio_group <%= radio_group.color %>"><%= link_to radio_group.name, radio_group %></td>
+        <td class="radio_group_notes"><%= radio_group.notes %></td>
         <td>
           <% if @del_or_edit == "edit" %>
               <%= link_to 'Edit', edit_radio_group_path(radio_group) %>

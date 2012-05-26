@@ -1,0 +1,17 @@
+<h1>Check out radio</h1>
+<div id="radio_summary">
+  <div class="<%= @radio.radio_group.color %>"><%= @radio.radio_group.name %></div>
+  <div><%= @radio.name %></div>
+</div>
+<%= form_tag ({ action: :search_volunteers, controller: :radios }), id: "volunteer_search", remote: true do %>
+    <%= hidden_field_tag :radio, @radio.id %>
+    <%= text_field_tag :first_name %>
+    <%= text_field_tag :last_name %>
+    <%= submit_tag "Find volunteer" %>
+<% end %>
+<script>
+    $( '#volunteer_search' ).bind( 'ajax:success', function ( evt, data, status, xhr ) {
+        $( '#matching_volunteers' ).html( xhr.responseText )
+    } )
+</script>
+<div id="matching_volunteers"></div>

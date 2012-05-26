@@ -1,15 +1,39 @@
 class RadiosController < ApplicationController
   before_filter :can_admin_radios?, only: [:new, :create, :edit, :update, :destroy]
-  before_filter :can_assign_radios?, only: [:index, :show ]
+  before_filter :can_assign_radios?, only: [:index, :show, :search_volunteers]
+  respond_to :html
+
+  # POST /radios/search_volunteers
+  def search_volunteers
+    @volunteers = Volunteer.radio_volunteer(params[:first_name],
+                                            params[:last_name])
+    respond_with do |format|
+      format.html do
+        if request.xhr?
+          render partial: 'volunteers', locals: { radio: params[:radio]  }
+        else
+          redirect_to public_url
+        end
+      end
+    end
+  end
+
+  # GET /radios/1/select_department?volunteer=1
+  def select_department
+    @radio = Radio.find(params[:id])
+    @volunteer = Volunteer.find(params[:volunteer])
+  end
 
   # GET /radios
   # GET /radios.json
   def index
-    @radios = Radio.all
+    @radios = Radio.order(:radio_group_id, :state)
+
+    p @radios
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @radios }
+      format.json { render json: Radio.all }
     end
   end
 
@@ -33,6 +57,16 @@ class RadiosController < ApplicationController
       format.html # new.html.erb
       format.json { render json: @radio }
     end
+  end
+
+  # GET /radios/1/assign
+  def checkout
+    @radio = Radio.find params[:id]
+    @radio_assignment = RadioAssignment.new
+  end
+
+  def checkin
+    @radio = Radio.find params[:id]
   end
 
   # GET /radios/1/edit
@@ -60,8 +94,10 @@ class RadiosController < ApplicationController
   # PUT /radios/1.json
   def update
     @radio = Radio.find(params[:id])
+    if params[:radio_assignment]
+      @radio.radio_assignment = RadioAssignment.new params[:radio_assignment]
+    end
 
-    p params[:radio]
     respond_to do |format|
       if @radio.update_attributes(params[:radio])
         format.html { redirect_to @radio, notice: 'Radio was successfully updated.' }

@@ -5,15 +5,23 @@ class Volunteer < ActiveRecord::Base
   has_associated_audits
   validates :first_name, presence: true, allow_blank: false
   validates :last_name, presence: true, allow_blank: false
-  validates_format_of [ :home_phone, :work_phone, :other_phone ],  allow_blank: true, allow_nil: true,
-                      message: "must be a valid telephone number.",
-                      with:    /^[\(\)0-9\- \+\.]{10,20}$/
+  validates_format_of [:home_phone, :work_phone, :other_phone], allow_blank: true, allow_nil: true,
+                      message:                                               "must be a valid telephone number.",
+                      with:                                                  /^[\(\)0-9\- \+\.]{10,20}$/
   validates_associated :volunteer_training
   validate :at_least_one_phone_number
   accepts_nested_attributes_for :volunteer_training
+  scope :radio_volunteer, ->(first, last) {
+    joins(:volunteer_training).
+        order(:last_name).where("first_name like ? and last_name like ? and radio = ?",
+                                "#{first}%",
+                                "#{last}%",
+                                true) }
 
   def name
-    return first_name + " " + middle_name + " " + last_name
+    return (first_name ? first_name + " " : "") +
+        (middle_name ? middle_name + " " : "") +
+        (last_name ? last_name : "")
   end
 
   private

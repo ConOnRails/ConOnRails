@@ -11,7 +11,17 @@ ConOnRails::Application.routes.draw do
       get 'delindex'
     end
   end
-  resources :radios
+  resources :radios do
+    member do
+      get 'checkout'
+      get 'checkin'
+      get 'select_department'
+      put 'create_assignment'
+    end
+    collection do
+      post 'search_volunteers' #This is cheating
+    end
+  end
 
   resources :messages do
     member do

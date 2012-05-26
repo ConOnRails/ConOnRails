@@ -7,7 +7,7 @@ FactoryGirl.define do
 
       factory :many_blue_men_group do
         after :create do |group, eval|
-          FactoryGirl.create_list( :one_of_many_blue_radios, 42, radio_group: group )
+          FactoryGirl.create_list(:one_of_many_blue_radios, 42, radio_group: group)
         end
       end
     end
@@ -16,17 +16,31 @@ FactoryGirl.define do
       name "Red"
       color "red"
       notes "RED!!!!!!"
+
+      factory :many_red_hands do
+        after :create do |group, eval|
+          FactoryGirl.create_list(:one_of_many_red_radios, 14, radio_group: group)
+        end
+      end
     end
   end
 
   factory :radio do
+    state "in"
+
     factory :valid_blue_radio do
-      number 42
+      number "42"
       association :radio_group, factory: :blue_man_group
     end
-
     factory :one_of_many_blue_radios do
-      sequence :number do |n| "Q#{n}" end
+      sequence :number do |n|
+        "Q#{n}"
+      end
+    end
+    factory :one_of_many_red_radios do
+      sequence :number do |n|
+        "R#{n}"
+      end
     end
   end
 
@@ -60,6 +74,23 @@ FactoryGirl.define do
       address1 "666 Sixth Street SE"
       home_phone "+1 666-666-6666"
       email "rxs@rxs.nowhere"
+      association :volunteer_training, factory: :valid_volunteer_training
+    end
+
+    factory :many_valid_volunteers do
+      sequence :first_name do |n|
+        "Wombat#{n}"
+      end
+      sequence :last_name do |n|
+        "Feathers#{n}"
+      end
+      sequence :address1 do |n|
+        "#{n} East #{n} Street"
+      end
+      sequence(:home_phone) { |n| "+1 666-666-" + Kernel.sprintf("%04d", n) }
+      sequence :email do |n|
+        "yak#{n}@yak.yk"
+      end
       association :volunteer_training, factory: :valid_volunteer_training
     end
   end

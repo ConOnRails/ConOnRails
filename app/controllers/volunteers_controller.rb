@@ -1,5 +1,6 @@
 class VolunteersController < ApplicationController
   before_filter :can_admin_users?
+  respond_to :html, :json
 
   def attendees
     if params[:term]
@@ -23,25 +24,24 @@ class VolunteersController < ApplicationController
       attendees = Attendee.all
     end
 
-    @list = attendees.map { |a| Hash[id:         a.ATTENDEE_ID,
-                                    label:       a.name,
-                                    first_name:  a.FIRST_NAME,
-                                    middle_name: a.MIDDLE_NAME,
-                                    last_name:   a.LAST_NAME,
-                                    address1:    a.ADDRESS_LINE_1,
-                                    address2:    a.ADDRESS_LINE_2,
-                                    address3:    a.ADDRESS_LINE_3,
-                                    city:        a.ADDRESS_CITY,
-                                    state:       a.ADDRESS_STATE_CODE,
-                                    postal:      (a.ADDRESS_ZIP.empty? ? a.FOREIGN_POSTAL_CODE : a.ADDRESS_ZIP),
-                                    home_phone:  a.HOME_PHONE,
-                                    work_phone:  a.WORK_PHONE,
-                                    other_phone: a.OTHER_PHONE,
-                                    email:       a.EMAIL]
+    @list = attendees.map { |a| Hash[id:          a.ATTENDEE_ID,
+                                     label:       a.name,
+                                     first_name:  a.FIRST_NAME,
+                                     middle_name: a.MIDDLE_NAME,
+                                     last_name:   a.LAST_NAME,
+                                     address1:    a.ADDRESS_LINE_1,
+                                     address2:    a.ADDRESS_LINE_2,
+                                     address3:    a.ADDRESS_LINE_3,
+                                     city:        a.ADDRESS_CITY,
+                                     state:       a.ADDRESS_STATE_CODE,
+                                     postal:      (a.ADDRESS_ZIP.empty? ? a.FOREIGN_POSTAL_CODE : a.ADDRESS_ZIP),
+                                     home_phone:  a.HOME_PHONE,
+                                     work_phone:  a.WORK_PHONE,
+                                     other_phone: a.OTHER_PHONE,
+                                     email:       a.EMAIL]
     }
 
     render json: @list
-
   end
 
   # GET /volunteers
