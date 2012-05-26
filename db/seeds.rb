@@ -5,12 +5,25 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+$LOAD_PATH.unshift File.expand_path('..', __FILE__)
+require 'factory_girl_rails'
 
 Entry.delete_all
 Event.delete_all
 User.delete_all
 Role.delete_all
 LostAndFoundItem.delete_all
+Radio.delete_all
+RadioGroup.delete_all
+RadioAssignment.delete_all
+RadioAssignmentAudit.delete_all
+Volunteer.delete_all
+
+if $RAILS_ENV == 'development'
+  Factory :many_blue_men_group
+  Factory :many_red_hands
+  llama = FactoryGirl.create_list(:many_valid_volunteers, 42)
+end
 
 # Seed an admin user
 user = User.create!({ name:                  "admin",

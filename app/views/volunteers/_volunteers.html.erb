@@ -1,0 +1,19 @@
+<table>
+  <tr>
+    <th>First name</th>
+    <th>Middle name</th>
+    <th>Last name</th>
+  </tr>
+
+  <% @volunteers.each do |volunteer| %>
+      <tr>
+        <td><%= volunteer.first_name %></td>
+        <td><%= volunteer.middle_name %></td>
+        <td><%= volunteer.last_name %></td>
+        <td><%= link_to 'Show', volunteer %></td>
+        <td><%= link_to 'Edit', edit_volunteer_path(volunteer) %></td>
+        <td><%= link_to 'Destroy', volunteer, confirm: 'Are you sure?', method: :delete %></td>
+      </tr>
+  <% end %>
+</table>
+

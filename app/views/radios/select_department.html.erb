@@ -1,0 +1,18 @@
+<div id="radio_summary">
+  <div class="<%= @radio.radio_group.color %>"><%= @radio.radio_group.name %></div>
+  <div><%= @radio.name %></div>
+</div>
+<div id="volunteer_summary">
+  <div class="name">
+    <%= @volunteer.first_name %> <%= @volunteer.middle_name %> <%= @volunteer.last_name %>
+  </div>
+</div>
+<%= semantic_form_for RadioAssignment.new do |f| %>
+    <%= f.inputs do %>
+        <%= f.input :radio_id, as: :hidden, value: @radio.id %>
+        <%= f.input :volunteer_id, as: :hidden, value: @volunteer.id %>
+        <%= f.input :department %>
+        <%= f.action :submit %>
+
+    <% end %>
+<% end %>
