@@ -1,6 +1,12 @@
 <h1>Listing departments</h1>
 
 <table>
+  <colgroup>
+    <col id="radio_department" />
+    <col id="radio_volunteer" />
+    <col id="radio_group" />
+    <col id="department_radio_allotment" />
+  </colgroup>
   <tr>
     <th>Name</th>
     <th>Volunteer</th>
@@ -13,9 +19,9 @@
 
 <% @departments.each do |department| %>
   <tr>
-    <td><%= department.name %></td>
-    <td><%= department.volunteer ? department.volunteer.name : "" %></td>
-    <td><%= department.radio_group ? department.radio_group.name : "" %></td>
+    <td class="radio_department"><%= department.name %></td>
+    <td class="radio_volunteer"><%= department.volunteer ? department.volunteer.name : "" %></td>
+    <td class="radio_group <%= department.radio_group.color %>"><%= department.radio_group ? department.radio_group.name : "" %></td>
     <td><%= department.radio_allotment %></td>
     <td><%= link_to 'Show', department %></td>
     <td><%= link_to 'Edit', edit_department_path(department) %></td>

@@ -20,10 +20,13 @@ class RadiosController < ApplicationController
 
   # GET /radios/1/select_department?volunteer=1
   def select_department
+    radio = Radio.find params[:id]
     respond_with do |format|
       format.html do
         if request.xhr?
-          render partial: 'select_department', locals: { radio: params[:id], volunteer: params[:volunteer] }
+          render partial: 'select_department', locals: { radio: params[:id],
+                                                         radio_group: radio.radio_group.id,
+                                                         volunteer: params[:volunteer] }
         else
           redirect_to public_url
         end
