@@ -8,8 +8,8 @@
         <td class="radio_volunteer"><%= volunteer.name %></td>
         <td id="vol-<%= volunteer.id %>"><%= link_to 'Select', { action: :select_department, id: radio, volunteer: volunteer.id }, method: :get, remote: true %></td>
       </tr>
-      <script defer>
-          $( bind_volunteer( "<%= volunteer.id %>", "<%= volunteer.name %>" ) );
+      <script>
+          $( window.radios.bind_volunteer( "<%= volunteer.id %>", "<%= volunteer.name %>" ) );
       </script>
   <% end %>
 </table>

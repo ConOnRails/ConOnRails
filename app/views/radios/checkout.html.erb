@@ -9,23 +9,5 @@
     <%= text_field_tag :last_name %>
     <%= submit_tag "Find volunteer" %>
 <% end %>
-<script>
-    $( '#volunteer_search' ).bind( 'ajax:success', function ( evt, data, status, xhr ) {
-        $( '#matching_volunteers' ).html( xhr.responseText )
-    } );
 
-
-    var form = $( 'form#volunteer_search' );
-    var div = $( '<div class="radio_volunteer" id="radio_volunteer"></div>' );
-
-    var bind_action = function ( evt, data, status, xhr ) {
-        form.replaceWith( div );
-        $( '#matching_volunteers' ).html( xhr.responseText );
-    };
-
-    var bind_volunteer = function ( id, name ) {
-        div.html( name );
-        $( '#vol-' + id ).bind( 'ajax:success', bind_action );
-    };
-</script>
 <div id="matching_volunteers"></div>

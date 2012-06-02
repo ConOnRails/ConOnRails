@@ -2,7 +2,7 @@
     <%= f.inputs do %>
         <%= f.input :radio %>
         <%= f.input :volunteer %>
-        <%= f.input :department %>
+        <%= f.input :department, collection: Department.where( radio_group_id: @radio_assignment.radio.radio_group.id ) %>
     <% end %>
 
     <%= f.actions do %>
