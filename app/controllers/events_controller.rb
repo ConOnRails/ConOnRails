@@ -1,11 +1,6 @@
 class EventsController < ApplicationController
   before_filter :can_write_entries?, only: [:new, :create, :edit, :update]
-
-  protected
-
-  def user_can_see_hidden
-    return current_user == nil ? false : current_user.read_hidden_entries?
-  end
+#  respond_to :html, :json
 
   public
 
@@ -22,47 +17,22 @@ class EventsController < ApplicationController
     entry.user  = current_user
   end
 
-  def filter_hidden_if_needed
-    @events = nil
-    if user_can_see_hidden
-      @events = Event
-    else
-      @events = Event.scoped_by_hidden(false)
-    end
-  end
-
-  def subwombat
-    events = filter_hidden_if_needed.order(:updated_at)
-    events = events.scoped_by_is_active(true) if session[:actives]
-    render partial: 'events', content_type: 'text/html', locals: { events: events.page(params[:page]).per(3), form: false, actives: session[:actives] }
-  end
-
   # GET /events
   # GET /events.json
   def index
     @title   = "Event Log"
-    @events  = filter_hidden_if_needed.page(params[:page]).per(3)
-    @actives = false
-    session[:actives] = nil
+    @events  = Event.build_filter( current_user, params ).page( params[:page] )
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @events }
-    end
-  end
-
-  def active
-    @title   = "Active Events"
-    @events  = filter_hidden_if_needed.scoped_by_is_active(true).page(params[:page]).per(3)
-
-    #.order("updated_at desc").find_all_by_hidden_and_is_active(false, true)
-    session[:actives] = true
-    @actives = true
-
-    respond_to do |format|
-      format.html { render "index" }
-      format.json { render json: @events }
-    end
+#    respond_with do |format|
+#      format.html do
+#        if request.xhr?
+#          render partial: 'events'
+#        else
+#          render action: 'index'
+#        end
+#      end
+#      format.json { render json: @events }
+#   end
   end
 
   # GET /events/1

@@ -5,8 +5,8 @@
 
 	<ul class="entries">
 		<% entries = event.entries %>
-		<% if actives %>
-			<% entries = entries.reverse_order %>
+		<% if params[:active] %>
+			<% entries = entries.reverse %>
 		<% end %>
 		<% entries = entries.reject &:new_record? %>
 		<%= render partial: 'entry', collection: entries, locals: { event: event } %>

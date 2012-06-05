@@ -1,15 +1,9 @@
-<%= render partial: 'events', locals: { events: @events, form: false, actives: @actives } %>
-<div id="event-paginator"><%= link_to_next_page @events, 'Next page' %></div>
-<%= javascript_tag do %>
-    var get_main, fill_main;
-    get_main = function()
-    {
-        $.get('/events/subwombat?page=' + <%= params[:page] ? params[:page] : 1 %>, fill_main );
-    };
-    fill_main = function( data )
-    {
-    $('#eventlist').html(data);
-    return setTimeout( 'get_main()', 10000);
-    };
-    get_main();
-<% end %>
+<div id="paginator"><%= paginate @events, remote: true %></div>
+<div id="eventlist">
+</div>
+
+<script>
+    window.events.active = <%= params[:active].nil? ? false : params[:active] %>
+    window.events.page = <%= params[:page].nil? ? "1" : params[:page] %>
+    window.events.getMain()
+</script>
