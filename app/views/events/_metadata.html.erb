@@ -24,4 +24,6 @@
 
 <% if !form %>
 	<span class="update button">&nbsp;&bull;&nbsp;<%= link_to 'Update', edit_event_path(event) %></span>
+    <span class="updated_at"><%= event.updated_at.getlocal.ctime %></span>
 <% end %>
+

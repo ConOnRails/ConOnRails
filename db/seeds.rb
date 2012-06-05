@@ -43,6 +43,8 @@ role = Role.create!({ name:                    "Head",
                       assign_shifts:           true,
                       modify_lost_and_found:   true,
                       read_hidden_entries:     true,
+                      make_hidden_entries:     true,
+                      rw_secure:               true,
                       write_entries:           true
                     })
 user.roles << role
@@ -59,6 +61,9 @@ Role.create!({ name:                    "Subhead",
                assign_radios:           true,
                assign_shifts:           true,
                modify_lost_and_found:   true,
+               read_hidden_entries:     true,
+               make_hidden_entries:     true,
+               rw_secure:               true,
                write_entries:           true
              })
 Role.create!({ name:                    "XO",
@@ -91,30 +96,20 @@ Role.create!({ name:                    "Comm 2",
 testuser = User.create!({ name:     "test", realname: "Test User",
                           password: "testme", password_confirmation: "testme" })
 
-event = Event.create!(
-    { })
+(0..25).each do |i|
+  event = Event.create!(
+      { })
+  (0..rand(1..42)).each do |j|
+    Entry.create!(
+        {
+            user: user,
+            event: event,
+            description: Faker::Lorem.paragraphs(3).join('\n')
+        }
+    )
+  end
+end
 
-Entry.create!(
-    { user:  user,
-      event: event,
-      description:
-             %{
-            Never let the llamas loose.
-            Never ever ever.
-            Never let the llamas loose.
-            Even wearing leather.
-            } })
-Entry.create!(
-    { user:  user,
-      event: event,
-      description:
-             %{
-                Kawaita hitome de
-                Dare katma itekure
-                The real folk blues
-                Honto no kana shimi ga
-                Shiritaidake
-                } })
 
 LostAndFoundItem.create!(
     {

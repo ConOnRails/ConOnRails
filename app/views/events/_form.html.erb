@@ -26,8 +26,8 @@
           <%= f.input :sticky %>
           <%= f.input :emergency %>
           <%= f.input :medical %>
-          <%= f.input :hidden %>
-          <%= f.input :secure %>
+          <%= f.input :hidden if current_user and current_user.can_make_hidden_entries? %>
+          <%= f.input :secure if current_user and current_user.rw_secure? %>
       <% end %>
     </div>
 

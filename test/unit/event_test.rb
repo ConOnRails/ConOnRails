@@ -98,4 +98,26 @@ class EventTest < ActiveSupport::TestCase
     make_an_emergency
     assert_equal 1, Event.num_active_emergencies
   end
+
+  test "can build filters" do
+    user = FactoryGirl.create :user
+    role = FactoryGirl.create :write_entries_role
+    user.roles << role
+
+    filter = Event.build_permissions user
+    assert_equal 2, filter.size
+    assert_equal false, filter[:hidden]
+    assert_equal false, filter[:secure]
+
+    user.roles << FactoryGirl.create( :rw_secure_role )
+    filter = Event.build_permissions user
+    assert_equal 1, filter.size
+    assert_nil filter[:secure]
+    assert_equal false, filter[:hidden]
+
+    user.roles << FactoryGirl.create( :read_hidden_entries_role )
+    filter = Event.build_permissions user
+    assert_equal 0, filter.size
+  end
+
 end

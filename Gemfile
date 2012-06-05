@@ -24,7 +24,11 @@ gem 'formtastic', "~> 2.1.1"
 gem 'country-select'
 gem 'audited-activerecord', "~> 3.0.0rc1"
 gem 'kaminari'
+gem 'faker'
 
+group :development do
+  gem 'rails-dev-boost', :git => 'git://github.com/thedarkone/rails-dev-boost.git', :require => 'rails_development_boost'
+end
 
 # Use unicorn as the web server
 # gem 'unicorn'

@@ -47,10 +47,9 @@ ConOnRails::Application.routes.draw do
   resources :contacts, except: [:destroy]
   resources :events, except: [:destroy] do
     collection do
-      get 'subwombat'
+      get 'review'
     end
   end
-
   resources :roles
   resources :users
 
@@ -62,7 +61,7 @@ ConOnRails::Application.routes.draw do
     end
   end
 
-  root to: 'events#active'
+  root controller: :events, action: :index, active: true
   match '/public', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy'
   match '/lost_and_found', to: 'lost_and_found#index'
