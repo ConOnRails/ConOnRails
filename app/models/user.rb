@@ -65,4 +65,12 @@ class User < ActiveRecord::Base
   def can_admin_radios?
     find_perm "admin_radios"
   end
+
+  def can_make_hidden_entries?
+    find_perm "make_hidden_entries?"
+  end
+
+  def rw_secure?
+    find_perm "rw_secure?"
+  end
 end

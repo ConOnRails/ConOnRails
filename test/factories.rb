@@ -156,6 +156,15 @@ FactoryGirl.define do
       read_hidden_entries true
     end
 
+    factory :make_hidden_entries_role do
+      name "make_hidden_entries"
+      make_hidden_entries true
+    end
+    factory :rw_secure_role do
+      name "rw_secure"
+      rw_secure true
+    end
+
     factory :can_admin_lost_and_found_user do
       name "can_admin_lost_and_found"
       add_lost_and_found true
