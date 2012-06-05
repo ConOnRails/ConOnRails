@@ -1,0 +1,7 @@
+var update = function () {
+    window.events.page = <%= params[:page].nil? ? "1" : params[:page] %>;
+    $( '#eventlist' ).html( '<%= escape_javascript render(@events, form: false) %>' );
+    $( '#paginator' ).html( '<%= escape_javascript(paginate(@events, remote: true).to_s) %>' )
+}
+
+update();

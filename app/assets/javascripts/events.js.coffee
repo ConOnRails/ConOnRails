@@ -5,14 +5,25 @@
 window.events = {}
 window.events.getMain = () ->
   $.ajax({
-         url: '/events',
+         url:     '/events',
          dataType: 'script',
          data: {
-          "page": window.events.page,
-          "active": window.events.active },
+            "page": window.events.page,
+            "active": window.events.active },
          success: ->
-           setTimeout('window.events.getMain()', 10000)
-        }
+           window.events.tick = setTimeout('window.events.getMain()', 10000)
+         }
   )
+
+window.events.getReview = (filters) ->
+  $.ajax({
+         url:      '/events/review',
+         dataType: 'script',
+         data: {
+            "page": window.events.page,
+            "filters": filters }
+         }
+  )
+
 
 

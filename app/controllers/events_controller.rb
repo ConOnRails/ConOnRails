@@ -20,19 +20,12 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @title   = "Event Log"
-    @events  = Event.build_filter( current_user, params ).page( params[:page] )
+    @events = Event.build_filter(current_user, params).order(:updated_at).reverse_order.page(params[:page])
+  end
 
-#    respond_with do |format|
-#      format.html do
-#        if request.xhr?
-#          render partial: 'events'
-#        else
-#          render action: 'index'
-#        end
-#      end
-#      format.json { render json: @events }
-#   end
+  def review
+    p params
+    @events = Event.build_filter(current_user, params).order(:updated_at).page(params[:page])
   end
 
   # GET /events/1

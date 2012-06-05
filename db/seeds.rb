@@ -7,6 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 $LOAD_PATH.unshift File.expand_path('..', __FILE__)
 require 'factory_girl_rails'
+require 'faker'
 
 Entry.delete_all
 Event.delete_all
@@ -93,18 +94,22 @@ Role.create!({ name:                    "Comm 2",
                modify_lost_and_found:   true,
                write_entries:           true })
 
-testuser = User.create!({ name:     "test", realname: "Test User",
-                          password: "testme", password_confirmation: "testme" })
+User.create!({ name:     "test", realname: "Test User",
+               password: "testme", password_confirmation: "testme" })
 
 (0..25).each do |i|
   event = Event.create!(
-      { })
-  (0..rand(1..42)).each do |j|
+      {
+          is_active: rand(1..6) == 6 ? false : true,
+          hidden:    rand(1..20) > 18 ? true : false
+      }
+  )
+  (0..rand(1..8)).each do |j|
     Entry.create!(
         {
-            user: user,
-            event: event,
-            description: Faker::Lorem.paragraphs(3).join('\n')
+            user:        user,
+            event:       event,
+            description: Faker::Lorem.paragraphs(3)
         }
     )
   end

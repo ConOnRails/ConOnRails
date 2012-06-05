@@ -1,0 +1,42 @@
+<div id="filters">
+  <%= radio_button_tag :active, "active" %>
+  <%= label_tag :active_active, "Active" %>
+  <%= radio_button_tag :active, "closed" %>
+  <%= label_tag :active_closed, "Closed" %>
+  <%= radio_button_tag :active, "all", default: true %>
+  <%= label_tag :active_all, "All" %>
+  <%= check_box_tag :emergency %>
+  <%= label_tag :emergency, "Emergency" %>
+  <%= check_box_tag :medical %>
+  <%= label_tag :medical, "Medical" %>
+  <% if current_user and current_user.find_perm(:read_hidden_entries) %>
+      <%= check_box_tag :hidden %>
+      <%= label_tag :hidden, "Hidden" %>
+  <% end %>
+  <% if current_user and current_user.find_perm(:rw_secure) %>
+      <%= check_box_tag :secure %>
+      <%= label_tag :secure, "Secure" %>
+  <% end %>
+
+  <script>
+      $( $( '#filters' ).change(
+              function ( event ) {
+                  window.events.getReview( {
+                                               "active":    $( '#filters input:radio[name=active]:checked' ).val(),
+                                               "emergency": $( '#filters input:checkbox[name=emergency]:checked' ).val(),
+                                               "medical":   $( '#filters input:checkbox[name=medical]:checked' ).val(),
+                                               "hidden":    $( '#filters input:checkbox[name=hidden]:checked' ).val(),
+                                               "secure":    $( '#filters input:checkbox[name=secure]:checked' ).val()
+                                           } )
+              } ) );
+  </script>
+</div>
+<div id="paginator"><%= paginate @events, remote: true %></div>
+<div id="eventlist">
+</div>
+
+<script>
+    window.events.active = <%= params[:active].nil? ? false : params[:active] %>
+    window.events.page = <%= params[:page].nil? ? "1" : params[:page] %>
+    $( window.events.getReview() )
+</script>
