@@ -11,6 +11,7 @@ class Volunteer < ActiveRecord::Base
   validates_associated :volunteer_training
   validate :at_least_one_phone_number
   accepts_nested_attributes_for :volunteer_training
+  scope :radio_volunteers, -> { joins(:volunteer_training).order(:last_name).where("radio = ?", true)}
   scope :radio_volunteer, ->(first, last) {
     joins(:volunteer_training).
         order(:last_name).where("first_name like ? and last_name like ? and radio = ?",
