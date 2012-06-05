@@ -15,21 +15,37 @@ class Event < ActiveRecord::Base
   end
 
   def self.build_page_flags(params, filter)
-    order = "updated_at ASC"
     if params[:active] == true or params[:active] == "true"
       filter[:is_active] = true
-      order = "updated_at DESC"
     end
-    return order
+
+    if params[:filters]
+      if params[:filters][:active] == "active"
+        filter[:is_active] = true
+      elsif params[:filters][:active] == "closed"
+        filter[:is_active] = false
+      end
+      if params[:filters][:emergency] == "1"
+        filter[:emergency] = true
+      end
+      if params[:filters][:medical] == "1"
+        filter[:medical] = true
+      end
+      if params[:filters][:hidden] == "1"
+        filter[:hidden] = true
+      end
+      if params[:filters][:secure] == "1"
+        filter[:secure] = true
+      end
+    end
   end
 
   def self.build_filter(user, params)
     # Filter based on permissions
     filter          = build_permissions(user)
     # Filter based on page flags
-    order = build_page_flags(params, filter)
-    p filter
-    Event.where(filter).order(order)
+    build_page_flags(params, filter)
+    Event.where(filter)
   end
 
   def self.user_can_see_hidden(user)

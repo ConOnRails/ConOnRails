@@ -1,5 +1,25 @@
 ConOnRails::Application.routes.draw do
 
+  root controller: :events, action: :index, active: true
+  match '/public', to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy'
+  match '/lost_and_found', to: 'lost_and_found#index'
+  match '/admin', to: 'admin#index'
+  match '/banner', to: 'application#banner'
+
+  resources :events, except: [:destroy] do
+    collection do
+      get 'review'
+    end
+  end
+  resources :lost_and_found, only: [:index]
+  resources :lost_and_found_items, except: [:index, :destroy] do
+    collection do
+      get 'searchform'
+      post 'search'
+    end
+  end
+
   resources :departments
   resources :radio_assignments do
     get 'checkout'
@@ -30,7 +50,6 @@ ConOnRails::Application.routes.draw do
   end
 
   resources :admin, only: [:index]
-  resources :lost_and_found, only: [:index]
   resources :sessions, only: [:new, :create, :destroy]
 
   resources :volunteers do
@@ -45,29 +64,8 @@ ConOnRails::Application.routes.draw do
   end
 
   resources :contacts, except: [:destroy]
-  resources :events, except: [:destroy] do
-    collection do
-      get 'review'
-    end
-  end
   resources :roles
   resources :users
-
-# events cannot be destroyed (and neither can entries). We consider this a legal record
-  resources :lost_and_found_items, except: [:index, :destroy] do
-    collection do
-      get 'searchform'
-      post 'search'
-    end
-  end
-
-  root controller: :events, action: :index, active: true
-  match '/public', to: 'sessions#new'
-  match '/signout', to: 'sessions#destroy'
-  match '/lost_and_found', to: 'lost_and_found#index'
-  match '/admin', to: 'admin#index'
-  match '/banner', to: 'application#banner'
-
 
 # The priority is based upon order of creation:
 # first created -> highest priority.
