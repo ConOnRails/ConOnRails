@@ -1,11 +1,14 @@
 class Event < ActiveRecord::Base
   has_many :entries, dependent: :destroy, order: 'created_at ASC'
+  has_many :event_flag_histories, dependent: :destroy, order: 'created_at ASC'
   validates_associated :entries
   accepts_nested_attributes_for :entries, allow_destroy: true
   has_associated_audits
+  audited
   paginates_per 10
 
-  STATUSES = ['Active', 'Closed']
+  STATUSES = %w[ Active Closed ]
+  FLAGS    = %w[ is_active comment flagged post_con quote sticky emergency medical hidden secure consuite hotel parties volunteers dealers dock merchandise ]
 
   def self.build_permissions(user)
     filter = { }
@@ -42,7 +45,7 @@ class Event < ActiveRecord::Base
 
   def self.build_filter(user, params)
     # Filter based on permissions
-    filter          = build_permissions(user)
+    filter = build_permissions(user)
     # Filter based on page flags
     build_page_flags(params, filter)
     Event.where(filter)
@@ -86,4 +89,9 @@ class Event < ActiveRecord::Base
   def self.statuses
     return STATUSES
   end
+
+  def self.flags
+    return FLAGS
+  end
+
 end

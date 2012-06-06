@@ -119,5 +119,4 @@ class EventTest < ActiveSupport::TestCase
     filter = Event.build_permissions user
     assert_equal 0, filter.size
   end
-
 end

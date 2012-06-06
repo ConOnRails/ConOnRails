@@ -9,6 +9,7 @@ $LOAD_PATH.unshift File.expand_path('..', __FILE__)
 require 'factory_girl_rails'
 require 'faker'
 
+Audit.delete_all
 Entry.delete_all
 Event.delete_all
 User.delete_all
@@ -111,6 +112,13 @@ User.create!({ name:     "test", realname: "Test User",
             event:       event,
             description: Faker::Lorem.paragraphs(3)
         }
+    )
+    EventFlagHistory.create!(
+        event.attributes,
+            {
+                user:  user,
+                event: event
+            }
     )
   end
 end

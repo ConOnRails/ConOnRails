@@ -1,14 +1,28 @@
 <div class="event">
-	<div class="event_metadata">
-		<%= render partial: 'metadata', locals: { event: event, form: form } %>
-	</div>
+  <div class="event_metadata">
+    <%= render partial: 'metadata', locals: { event: event, form: form } %>
+  </div>
 
-	<ul class="entries">
-		<% entries = event.entries %>
-		<% if params[:active] %>
-			<% entries = entries.reverse %>
-		<% end %>
-		<% entries = entries.reject &:new_record? %>
-		<%= render partial: 'entry', collection: entries, locals: { event: event } %>
-	</ul>
+  <div id="event_flag_history">
+    <div id="efh_header">Flag History</div>
+    <% event.event_flag_histories.each do |h| %>
+        at <%= h.created_at.getlocal.ctime %> by <%= h.user.realname %>
+        <ul>
+          <% Event.flags.each do |f| %>
+              <% if h[f] == true %>
+                  <li><%= f %></li>
+              <% end %>
+          <% end %>
+        </ul>
+    <% end %>
+  </div>
+
+  <ul class="entries">
+    <% entries = event.entries %>
+    <% if params[:active] %>
+        <% entries = entries.reverse %>
+    <% end %>
+    <% entries = entries.reject &:new_record? %>
+    <%= render partial: 'entry', collection: entries, locals: { event: event } %>
+  </ul>
 </div>

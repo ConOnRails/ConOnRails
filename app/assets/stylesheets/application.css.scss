@@ -90,17 +90,7 @@ a /* No links should have underlines ever */
     float:         right;
     width:         162px;
     height:        60px;
-    padding-left:  20px;
-    padding-top:   8px;
-    border:        visible;
-    border-radius: 10px;
-    a
-    {
-      font-family: Verdana, Geneva, sans-serif;
-      font-size:   1.2em;
-      font-weight: bold;
-      color:       white;
-    }
+    margin-right:  6px;
   }
   .not-emerg
   {
@@ -111,13 +101,27 @@ a /* No links should have underlines ever */
   .reverse
   {
     background-color: white;
-    a, a:visited, a:hover
+    a, a:link, a:active, a:visited, a:hover,
     {
       color: $emergency_bg;
     }
   }
 }
 
+.button
+{
+  a
+  {
+    font-family: Verdana, Geneva, sans-serif;
+    font-size:   1.2em;
+    font-weight: bold;
+  }
+  width:         300px;
+  margin-top:    6px;
+  padding:       12px;
+  border-radius: 10px;
+  text-align:    center;
+}
 .missing
 {
   background-color: $missing_bg;
@@ -265,18 +269,6 @@ a /* No links should have underlines ever */
   border-top: 2px solid;
   font:       small-caps 10px/10px "Palatino", "Times New Roman", serif;
   text-align: center;
-}
-
-.button
-{
-  font-size:     18px;
-  font-weight:   bold;
-  width:         300px;
-  margin-top:    12px;
-  padding:       12px;
-  border:        visible;
-  border-radius: 10px;
-  text-align:    center;
 }
 
 .con_on_rails_form

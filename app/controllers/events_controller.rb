@@ -17,6 +17,12 @@ class EventsController < ApplicationController
     entry.user  = current_user
   end
 
+  def build_flag_history_from_params(event, params)
+    hist       = event.event_flag_histories.build(params)
+    hist.event = event
+    hist.user  = current_user
+  end
+
   # GET /events
   # GET /events.json
   def index
@@ -46,6 +52,7 @@ class EventsController < ApplicationController
   def new
     @event = Event.new
     @entry = build_new_entry @event
+
     if params[:emergency] == '1'
       @event.emergency = true
     end
@@ -60,6 +67,7 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(params[:event])
     build_entry_from_params(@event, params[:entry])
+    build_flag_history_from_params(@event, params[:event])
 
     respond_to do |format|
       if @event.save
@@ -85,6 +93,7 @@ class EventsController < ApplicationController
   def update
     @event = Event.find(params[:id])
     build_entry_from_params(@event, params[:entry]) if params[:entry][:description] != ''
+    build_flag_history_from_params @event, params[:event]
 
     respond_to do |format|
       if @event.update_attributes(params[:event])
