@@ -7,6 +7,8 @@ ConOnRails::Application.routes.draw do
   match '/admin', to: 'admin#index'
   match '/banner', to: 'application#banner'
 
+  resources :audits, only: [:index]
+
   resources :events, except: [:destroy] do
     collection do
       get 'review'
@@ -21,7 +23,7 @@ ConOnRails::Application.routes.draw do
   end
 
   resources :departments
-  resources :radio_assignments do
+  resources :radio_assignments, only: [ :create, :destroy ] do
     get 'checkout'
   end
   resources :radio_assignment_audits, only: [:index]

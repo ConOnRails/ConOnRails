@@ -34,6 +34,7 @@
     <div id="entries">
       <%= render partial: 'new_entry', locals: { event: @event, entry: Entry.new } %>
     </div>
+
     <div id="event_options_bottom">
       <%= f.inputs class: "department_flags" do %>
           <%= f.input :consuite %>

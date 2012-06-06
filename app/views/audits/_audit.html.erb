@@ -1,0 +1,14 @@
+<tr>
+  <td><%= audit.created_at.getlocal.ctime %></td>
+  <td>
+    <% case audit.auditable_type
+         when "Entry" %>
+        <%= link_to "Entry for Event #{audit.associated_id}", Event.find(audit.associated_id) %>
+    <% when "Event" %>
+        <%= link_to "Event #{audit.auditable_id}", Event.find(audit.auditable_id) %>
+    <% when "LostAndFoundItem" %>
+        <%= link_to "Lost/Found", LostAndFoundItem.find(audit.auditable_id) %>
+    <% end %>
+  </td>
+  <td><%= audit.audited_changes %></td>
+</tr>

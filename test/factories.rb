@@ -1,3 +1,5 @@
+require 'faker'
+
 FactoryGirl.define do
   factory :radio_group, class: RadioGroup do
     factory :blue_man_group do
@@ -206,44 +208,11 @@ FactoryGirl.define do
 #    user FactoryGirl.create :dummy_user
 
     factory :oneliner_entry do
-      description "MyText is full of llama meat llama meat llama meat"
+      description Faker::Lorem.sentence
     end
 
     factory :verbose_entry do
-      description "" "
-      Kimi o ai no
-      Aishiteta to nageku ni wa
-      Amari ni mo toki  wa sugi te shimatta
-      Mada kokoro no hokorobi o
-      Iyasenumama kaze ga fuiteru
-
-      Hitotsu no me de asu o mite
-      Hitotsu no me de kinou mitsumeteru
-      Kimi no ai no yurikagode
-      Mo ichido yasurakani nemuretara
-
-      Kawaita hitomi de dareka na itekure
-
-      The real folk blues
-      Honto no kanashimi ga shiritaidake
-      Doro no kawa ni sukatta jinsei mo warukuwanai
-      Ichido kiri de owarunara
-
-      Kibou ni michita zetsuboto
-      Wanagashikakerareteru kono chansu
-      Nani ga yoku te warui no ka
-      Koin no omoi to kuramitaita
-
-      Dore dake ikireba iyasareru no darou
-
-      The real folk blues
-      Honto no yorokobi ga shiritai dake
-      Hikaru mono no subete ga ougen to wa kagiranai
-      The real folk blues
-      Honto no kanashimi ga shiritaidake
-      Doro no kawa ni sukatta jinsei mo warukuwanai
-      Ichido kiri de owarunara
-      " ""
+      description Faker::Lorem.paragraphs
     end
   end
 
