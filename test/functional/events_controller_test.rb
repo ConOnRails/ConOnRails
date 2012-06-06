@@ -53,10 +53,14 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test "should create event" do
-    assert_difference('Event.count') do
-      post :create, { event: FactoryGirl.attributes_for(:ordinary_event),
-                      entry: FactoryGirl.attributes_for(:verbose_entry) },
-           { user_id: @user.id }
+    assert_difference('EventFlagHistory.count') do
+      assert_difference('Entry.count') do
+        assert_difference('Event.count') do
+          post :create, { event: FactoryGirl.attributes_for(:ordinary_event),
+                          entry: FactoryGirl.attributes_for(:verbose_entry) },
+               { user_id: @user.id }
+        end
+      end
     end
 
     assert_redirected_to event_path(assigns(:event))
@@ -125,4 +129,4 @@ class EventsControllerTest < ActionController::TestCase
                       entry: FactoryGirl.attributes_for(:verbose_entry) }
     end
   end
-end 
+end

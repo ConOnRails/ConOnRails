@@ -7,9 +7,6 @@
       <li><%= link_to "Department radio allotments", :departments %></li>
       <li><%= link_to "Radio assignment log", :radio_assignment_audits %></li>
   <% end %>
-  <% if current_user and current_user.can_assign_radios? %>
-    <li><%= link_to "Assign radios", :radio_assignments %></li>
-  <% end %>
 </ul>
 
 <% content_for :side do %>

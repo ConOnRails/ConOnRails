@@ -73,4 +73,8 @@ class User < ActiveRecord::Base
   def rw_secure?
     find_perm "rw_secure?"
   end
+
+  def username
+    name
+  end
 end

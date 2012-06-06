@@ -1,0 +1,18 @@
+<h1>The Master Log</h1>
+<div id="paginator"><%= paginate @audits, remote: true %></div>
+<div id="filters">
+  <%= form_tag :audits, method: :get, remote: true do %>
+      <%= datetime_select :start_date, :item, start_year: DateTime.now.year %>
+      <%= submit_tag "Filter" %>
+  <% end %>
+</div>
+<table id="audit_table">
+  <colgroup>
+    <col id="created_at">
+    <col id="audited_changes">
+  </colgroup>
+  <tbody id="audit_table_body">
+  <%= render @audits %>
+  </tbody>
+
+</table>

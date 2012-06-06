@@ -18,4 +18,11 @@ class RadioAssignment < ActiveRecord::Base
   def RadioAssignment.department_count(dept_id)
     RadioAssignment.where( department_id: dept_id ).count
   end
+
+  def checkin( user )
+    RadioAssignmentAudit.audit_checkin(self, user)
+    self.radio.state = "in"
+    self.radio.save
+    destroy
+  end
 end
