@@ -70,6 +70,10 @@ class User < ActiveRecord::Base
     find_perm "make_hidden_entries?"
   end
 
+  def can_admin_duty_board?
+    find_perm "admin_duty_board"
+  end
+
   def rw_secure?
     find_perm "rw_secure?"
   end

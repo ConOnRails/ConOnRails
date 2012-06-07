@@ -11,7 +11,9 @@
 
 body
 {
-  width:            1000px;
+  max-width:        1000px;
+  max-height:       750px;
+
   margin:           auto;
   padding:          0;
   font-family:      Verdana, Geneva, sans-serif;
@@ -110,7 +112,7 @@ a /* No links should have underlines ever */
 
 .button
 {
-  a
+  a, a:link, a:active, a:visited, a:hover
   {
     font-family: Verdana, Geneva, sans-serif;
     font-size:   1.2em;
@@ -121,7 +123,10 @@ a /* No links should have underlines ever */
   padding:       12px;
   border-radius: 10px;
   text-align:    center;
+  background-color: $light_grey;
+  color: white;
 }
+
 .missing
 {
   background-color: $missing_bg;

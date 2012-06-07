@@ -1,0 +1,2 @@
+module DutyBoardHelper
+end

@@ -1,5 +1,9 @@
 ConOnRails::Application.routes.draw do
 
+  get "duty_board/index"
+
+  resources :duty_board_slots
+
   root controller: :events, action: :index, active: true
   match '/public', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy'
