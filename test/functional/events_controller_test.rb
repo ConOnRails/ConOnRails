@@ -9,11 +9,13 @@ class EventsControllerTest < ActionController::TestCase
     @read_hidden_role = FactoryGirl.create :read_hidden_entries_role
     @user.roles << @admin_role
     @peon_user = FactoryGirl.create :peon
+    @user_session = { user_id: @user.id, current_role: @admin_role.name }
+    @peon_session = { user_id: @peon_user.id, current_role: "peon" }
   end
 
   # We're going to use these in a couple of places to stress test permissions
   def get_index(user)
-    get :index, { }, { user_id: user.id }
+    get :index, { }, @user_session
     assert_response :success
     assert_not_nil assigns :events
     assert_not_equal 0, assigns["events"].count
@@ -38,17 +40,17 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test "should get new" do
-    get :new, { }, { user_id: @user.id }
+    get :new, { }, @user_session
     assert_response :success
   end
 
   test "should get new emergency" do
-    get :new, { emergency: '1' }, { user_id: @user.id }
+    get :new, { emergency: '1' }, @user_session
     assert_equal true, assigns(:event).emergency
   end
 
   test "peon user cannot get new" do
-    get :new, { }, { user_id: @peon_user.id }
+    get :new, { }, @peon_session
     assert_redirected_to :public
   end
 
@@ -58,62 +60,63 @@ class EventsControllerTest < ActionController::TestCase
         assert_difference('Event.count') do
           post :create, { event: FactoryGirl.attributes_for(:ordinary_event),
                           entry: FactoryGirl.attributes_for(:verbose_entry) },
-               { user_id: @user.id }
+               @user_session
         end
       end
     end
 
     assert_redirected_to event_path(assigns(:event))
+    assert_equal @admin_role.name, assigns(:event).entries[0].rolename
   end
 
   test "peon user cannot create event" do
     assert_no_difference('Event.count') do
       post :create, { event: FactoryGirl.attributes_for(:ordinary_event),
                       entry: FactoryGirl.attributes_for(:verbose_entry) },
-           { user_id: @peon_user.id }
+           @peon_session
     end
   end
 
   test "should show event" do
-    get :show, { id: @event.to_param }, { user_id: @user.id }
+    get :show, { id: @event.to_param }, @user_session
     assert_response :success
   end
 
   test "peon user can show event" do
-    get :show, { id: @event.to_param }, { user_id: @peon_user.id }
+    get :show, { id: @event.to_param }, @peon_session
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, { id: @event.to_param }, { user_id: @user.id }
+    get :edit, { id: @event.to_param }, @user_session
     assert_response :success
   end
 
   test "peon user cannot edit" do
-    get :edit, { id: @event.to_param }, { user_id: @peon_user.id }
+    get :edit, { id: @event.to_param }, @peon_session
     assert_redirected_to :public
   end
 
   test "should update event" do
     put :update, { id:    @event.to_param, event: FactoryGirl.attributes_for(:ordinary_event),
-                   entry: FactoryGirl.attributes_for(:verbose_entry) }, { user_id: @user.id }
+                   entry: FactoryGirl.attributes_for(:verbose_entry) }, @user_session
     assert_redirected_to event_path(assigns(:event))
   end
 
   test "peon user cannot update event" do
     put :update, { id:    @event.to_param, event: FactoryGirl.attributes_for(:ordinary_event),
-                   entry: FactoryGirl.attributes_for(:verbose_entry) }, { user_id: @peon_user.id }
+                   entry: FactoryGirl.attributes_for(:verbose_entry) }, @peon_session
     assert_redirected_to :public
   end
 
   test "should update event with no additional entry" do
-    put :update, { id: @event.to_param, event: @event.attributes, entry: { description: '' } }, { user_id: @user.id }
+    put :update, { id: @event.to_param, event: @event.attributes, entry: { description: '' } }, @user_session
     assert_redirected_to event_path(assigns(:event))
   end
 
   test "creating an event with blank initial entry fails" do
     assert_no_difference 'Event.count' do
-      post :create, { event: @event.attributes, entry: { description: '' } }, { user_id: @user.id }
+      post :create, { event: @event.attributes, entry: { description: '' } }, @user_session
     end
   end
 

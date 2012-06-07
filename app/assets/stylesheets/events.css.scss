@@ -38,13 +38,14 @@
     {
       a
       {
-        background-color: $green;
         color:            white;
       }
       a:hover
       {
         background-color: $green_desat;
       }
+      background-color: $green;
+      padding: .5em;
     }
   }
 

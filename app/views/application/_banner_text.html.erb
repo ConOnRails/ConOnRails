@@ -17,7 +17,7 @@
       <% end %>
  
       <div><%= pluralize count, "Active Issue" %></div>
-      <div><%= Time.now.ctime %>&mdash;User: <%= link_to current_user.name, current_user %></div>
+      <div><%= Time.now.ctime %>&mdash;User: <%= link_to current_user.name, current_user %> as <%= current_role %></div>
   <% else %>
       <h1>CONVergence Operations Log</h1>
 

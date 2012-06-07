@@ -53,6 +53,8 @@ class LostAndFoundItemsController < ApplicationController
 
   def create
     @lfi = LostAndFoundItem.new params[:lost_and_found_item]
+    @lfi.user = current_user
+    @lfi.rolename = current_role
 
     respond_to do |format|
       if @lfi.save
@@ -75,6 +77,8 @@ class LostAndFoundItemsController < ApplicationController
 
   def update
     @lfi = LostAndFoundItem.find params[:id]
+    @lfi.user = current_user
+    @lfi.rolename = current_role
 
     respond_to do |format|
       if @lfi.update_attributes params[:lost_and_found_item]

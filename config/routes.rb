@@ -7,6 +7,7 @@ ConOnRails::Application.routes.draw do
   root controller: :events, action: :index, active: true
   match '/public', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy'
+  match '/sessions/getroles', to: 'sessions#getroles'
   match '/lost_and_found', to: 'lost_and_found#index'
   match '/admin', to: 'admin#index'
   match '/banner', to: 'application#banner'
