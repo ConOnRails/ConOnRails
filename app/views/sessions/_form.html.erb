@@ -1,17 +1,35 @@
 <div id="login_form">
-	<h1>Log In</h1>
-	<%= form_tag sessions_path do %>
+  <h1>Log In</h1>
+  <%= form_tag sessions_path do %>
 
-	<div class="field">
-		<div><%= label_tag :name %></div>
-		<div><%= text_field_tag :name %></div>
-	</div>
-	<div class="field">
-		<div><%= label_tag :password %></div>
-		<div><%= password_field_tag :password %></div>
-	</div>
-	<div class="actions">
-		<%= submit_tag "Log in" %>
-	</div>
-	<% end %>
+      <div class="field">
+        <div><%= label_tag :name %></div>
+        <div><%= text_field_tag :name %></div>
+      </div>
+      <div class="field">
+        <div><%= label_tag :password %></div>
+        <div><%= password_field_tag :password %></div>
+      </div>
+      <div class="field">
+        <div><%= label_tag :role %></div>
+        <div id="role"><%= select_tag :role, options_from_collection_for_select(Role.all, :name, :name) %></div>
+      </div>
+      <div class="actions">
+        <%= submit_tag "Log in" %>
+      </div>
+  <% end %>
 </div>
+<script>
+    $(
+            $( '#name' ).blur( function ( evt ) {
+                $.ajax('/sessions/getroles',
+                            {
+                                dataType: 'script',
+                                data:
+                                {
+                                    name: $('#name' ).val()
+                                }
+                            })
+            } )
+    )
+</script>

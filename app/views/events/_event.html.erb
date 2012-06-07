@@ -4,9 +4,13 @@
   </div>
 
   <div id="event_flag_history">
+    <% efh = event.event_flag_histories %>
+    <% if params[:active] %>
+        <% efh = efh.reverse %>
+    <% end %>
     <div id="efh_header">Flag History</div>
-    <% event.event_flag_histories.each do |h| %>
-        at <%= h.created_at.getlocal.ctime %> by <%= h.user.realname %>
+    <% efh.each do |h| %>
+        at <%= h.created_at.getlocal.ctime %> by <%= h.user.realname %> as <%= h.rolename %>
         <ul>
           <% Event.flags.each do |f| %>
               <% if h[f] == true %>

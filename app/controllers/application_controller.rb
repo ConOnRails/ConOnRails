@@ -62,5 +62,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  helper_method :can_write_entries?, :is_authenticated?, :can_admin_anything?, :current_user, :num_events
+  def current_role
+    session[:current_role] if is_authenticated?
+  end
+
+  helper_method :can_write_entries?, :is_authenticated?, :can_admin_anything?, :current_user, :current_role, :num_events
 end

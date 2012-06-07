@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120606212254) do
+ActiveRecord::Schema.define(:version => 20120607042245) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(:version => 20120606212254) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "event_id"
+    t.string   "rolename"
   end
 
   create_table "event_flag_histories", :force => true do |t|
@@ -91,6 +92,7 @@ ActiveRecord::Schema.define(:version => 20120606212254) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.datetime "orig_time"
+    t.string   "rolename"
   end
 
   create_table "events", :force => true do |t|
@@ -128,6 +130,8 @@ ActiveRecord::Schema.define(:version => 20120606212254) do
     t.boolean  "found",            :default => false
     t.boolean  "returned",         :default => false
     t.boolean  "reported_missing", :default => false
+    t.integer  "user_id"
+    t.string   "rolename"
   end
 
   create_table "messages", :force => true do |t|
