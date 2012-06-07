@@ -97,7 +97,10 @@ a /* No links should have underlines ever */
   .not-emerg
   {
     background-color: $emergency_bg;
-    color:            $emergency_fg;
+    a, a:link, a:active, a:visited, a:hover,
+    {
+      color:            $emergency_fg
+    };
   }
 
   .reverse

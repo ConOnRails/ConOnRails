@@ -5,22 +5,25 @@ class EventsController < ApplicationController
   public
 
   def build_new_entry(event)
-    entry       = event.entries.build
-    entry.event = event
-    entry.user  = current_user
+    entry          = event.entries.build
+    entry.event    = event
+    entry.user     = current_user
+    entry.rolename = current_role
     return entry
   end
 
   def build_entry_from_params(event, params)
-    entry       = event.entries.build(params)
-    entry.event = event
-    entry.user  = current_user
+    entry          = event.entries.build(params)
+    entry.event    = event
+    entry.user     = current_user
+    entry.rolename = current_role
   end
 
   def build_flag_history_from_params(event, params)
-    hist       = event.event_flag_histories.build(params)
-    hist.event = event
-    hist.user  = current_user
+    hist          = event.event_flag_histories.build(params)
+    hist.event    = event
+    hist.user     = current_user
+    hist.rolename = current_role
   end
 
   # GET /events

@@ -1,4 +1,5 @@
 class LostAndFoundItem < ActiveRecord::Base
+  belongs_to :user
   audited
 
   @@valid_categories = {

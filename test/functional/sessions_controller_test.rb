@@ -3,6 +3,7 @@ require 'test_helper'
 class SessionsControllerTest < ActionController::TestCase
   setup do
     @user = FactoryGirl.create :peon
+    @role = FactoryGirl.create :write_entries_role
   end
 
   test "should get new" do
@@ -36,5 +37,14 @@ class SessionsControllerTest < ActionController::TestCase
     get :destroy, { }, { user_id: @user.id }
     assert_nil session[:user_id]
     assert_redirected_to :root
+  end
+
+  test "can get roles for a given username" do
+    @user.roles << @role
+    @user.save!
+
+    get :getroles, { format: :js, name: @user.name }
+    assert_not_nil assigns :rolenames
+    assert_equal @role.name, assigns(:rolenames)[0]
   end
 end

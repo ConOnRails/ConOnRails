@@ -3,6 +3,11 @@
 
   <div id="header">
     <div><strong>Item ID:</strong> <%= @lfi.id %> <strong>Category:</strong> <%= @lfi.category %></div>
+    <div><strong>Last updated at</strong> <%= @lfi.updated_at %>
+      <% if @lfi.user %>
+          by <%= link_to @lfi.user.realname, @lfi.user %> as <%= @lfi.rolename %>
+      <% end %>
+    </div>
     <div><strong>Description:</strong> <%= @lfi.description %></div>
     <% if @lfi.reported_missing %>
         <div><strong>Where Last Seen:</strong> <%= @lfi.where_last_seen %></div>
