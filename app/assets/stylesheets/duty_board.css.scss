@@ -1,0 +1,28 @@
+// Place all the styles related to the duty_board controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import 'colors';
+.duty_board
+{
+  padding: 12px;
+  height: 760px;
+  width: 1000px;
+
+  background-color: $blue;
+  color: $yellow;
+  .department_slot
+  {
+    min_height: 10em;
+    border: thin solid;
+    float: left;
+    width: 48%;
+
+    .duty_board_assignment
+    {
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 110%;
+    }
+  }
+}

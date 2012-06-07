@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Con On Rails<%= title %></title>
+  <%= stylesheet_link_tag "application" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<% background = "" %>
+<body class="<%= controller.controller_name %> <%= background %>">
+<div id="main">
+  <%= content_for?(:main) ? yield(:main) : yield %>
+</div>
+</body>
+</html>

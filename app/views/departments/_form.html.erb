@@ -1,12 +1,18 @@
 <%= semantic_form_for @department do |f| %>
-  <%= f.inputs do %>
-    <%= f.input :name %>
-    <%= f.input :volunteer, label: "Person responsible", collection: Volunteer.radio_volunteers %>
-    <%= f.input :radio_group %>
-    <%= f.input :radio_allotment %>
-  <% end %>
+    <%= f.inputs do %>
+        <%= f.input :name %>
+        <%= f.input :volunteer, label: "Person responsible", collection: Volunteer.radio_volunteers %>
+        <%= f.input :radio_group %>
+        <%= f.input :radio_allotment %>
+    <% end %>
 
-  <%= f.actions do %>
-    <%= f.action :submit %>
-  <% end %>
+    <%= f.actions do %>
+        <%= f.action :submit %>
+    <% end %>
+<% end %>
+
+<% content_for :side do %>
+    <div><%= link_to "Volunteers", volunteers_path, target: '_blank' %></div>
+    <div><%= link_to "Radio Groups", radio_groups_path, target: '_blank' %></div>
+
 <% end %>

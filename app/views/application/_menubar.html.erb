@@ -13,6 +13,7 @@
         <% end %>
         <!--li><a href="/equipment">Equipment</a></li-->
         <li><%= link_to "Review", review_events_path %></li>
+        <li><%= link_to "Duty Board", duty_board_index_path, target: '_blank' %></li>
         <% if can_admin_anything? %>
             <li><%= link_to "Admin", admin_path %></li>
         <% end %>
