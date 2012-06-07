@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @duty_board_slot.name %>
+</p>
+
+<p>
+  <b>Department:</b>
+  <%= @duty_board_slot.department_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_duty_board_slot_path(@duty_board_slot) %> |
+<%= link_to 'Back', duty_board_slots_path %>
