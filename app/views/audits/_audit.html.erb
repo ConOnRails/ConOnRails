@@ -10,5 +10,9 @@
         <%= link_to "Lost/Found", LostAndFoundItem.find(audit.auditable_id) %>
     <% end %>
   </td>
+  <td>
+    <% user = User.find audit.user_id  if audit.user_id%>
+    <%= link_to user.username, user if user %>
+  </td>
   <td><%= audit.audited_changes %></td>
 </tr>
