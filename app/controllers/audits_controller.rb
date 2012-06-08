@@ -1,4 +1,6 @@
 class AuditsController < ApplicationController
+  before_filter :can_read_audits?
+
   private
   def make_date(date_array)
     return Time.local(date_array["item(1i)"].to_i,

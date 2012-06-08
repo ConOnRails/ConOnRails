@@ -23,6 +23,9 @@
 
 <h1>System</h1>
 <ul>
-  <li><%= link_to "View system log", audits_url %></li>
+  <% if current_user and current_user.can_read_audits? %>
+      <li><%= link_to "View system log", audits_url %></li>
+      <li><%= link_to "View login/out log", login_log_index_url %></li>
+  <% end %>
   <li>Create backup (not yet implemented)</li>
 </ul>	

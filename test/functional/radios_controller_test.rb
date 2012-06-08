@@ -83,14 +83,13 @@ class RadiosControllerTest < ActionController::TestCase
 
   test "can search volunteers" do
     @radio.save!
-    post :search_volunteers, { first_name: @volunteer.first_name, last_name: @volunteer.last_name, radio: @radio.to_param }, @user_session
+    xhr :post, :search_volunteers, { first_name: @volunteer.first_name, last_name: @volunteer.last_name, radio: @radio.to_param }, @user_session
     assert_response :success
   end
 
   test "can select department" do
     @radio.save!
-    get :select_department, { id: @radio.to_param, volunteer: @volunteer.to_param }, @user_session
+    xhr :get, :select_department, { id: @radio.to_param, volunteer: @volunteer.to_param }, @user_session
     assert_response :success
-    assert_not_nil assigns :department
   end
 end

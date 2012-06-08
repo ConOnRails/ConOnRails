@@ -9,7 +9,6 @@ $LOAD_PATH.unshift File.expand_path('..', __FILE__)
 require 'factory_girl_rails'
 require 'faker'
 
-Audit.delete_all
 Entry.delete_all
 Event.delete_all
 User.delete_all
@@ -39,8 +38,9 @@ role = Role.create!({ name:                    "Head",
                       modify_lost_and_found:   true,
                       read_hidden_entries:     true,
                       make_hidden_entries:     true,
+                      read_audits:             true,
                       rw_secure:               true,
-                      write_entries:           true
+                      write_entries:           true,
                     })
 user.roles << role
 user.save!
@@ -59,6 +59,7 @@ Role.create!({ name:                    "Subhead",
                read_hidden_entries:     true,
                make_hidden_entries:     true,
                rw_secure:               true,
+               read_audits:             true,
                write_entries:           true
              })
 Role.create!({ name:                    "XO",
@@ -90,6 +91,8 @@ Role.create!({ name:                    "Comm 2",
 
 case Rails.env
   when "development"
+    Audit.delete_all  # Audit log has to be cleared by explicit act of god in production
+
     Factory :many_blue_men_group
     Factory :many_red_hands
     llama = FactoryGirl.create_list(:many_valid_volunteers, 42)
