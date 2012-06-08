@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120607042245) do
+ActiveRecord::Schema.define(:version => 20120608024200) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -117,6 +117,15 @@ ActiveRecord::Schema.define(:version => 20120607042245) do
     t.boolean  "merchandise"
   end
 
+  create_table "login_logs", :force => true do |t|
+    t.string   "user_name"
+    t.string   "role_name"
+    t.string   "comment"
+    t.string   "ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "lost_and_found_items", :force => true do |t|
     t.string   "category"
     t.string   "description"
@@ -199,6 +208,7 @@ ActiveRecord::Schema.define(:version => 20120607042245) do
     t.datetime "updated_at"
     t.boolean  "make_hidden_entries",     :default => false
     t.boolean  "rw_secure",               :default => false
+    t.boolean  "read_audits",             :default => false
   end
 
   create_table "roles_users", :id => false, :force => true do |t|

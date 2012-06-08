@@ -167,6 +167,16 @@ FactoryGirl.define do
       rw_secure true
     end
 
+    factory :read_audits_role do
+      name "read_audits"
+      read_audits true
+    end
+
+    factory :admin_duty_board_role do
+      name "admin_duty_board"
+      admin_duty_board true
+    end
+
     factory :can_admin_lost_and_found_user do
       name "can_admin_lost_and_found"
       add_lost_and_found true
@@ -261,6 +271,13 @@ FactoryGirl.define do
       radio_allotment 1 # but the blue_man group only has one, so if this and good_department are defined, the second should fail
       association :radio_group, factory: :blue_man_group
       association :volunteer, factory: :valid_volunteer
+    end
+  end
+
+  factory :duty_board_slot do
+    factory :valid_duty_board_slot do
+      name Faker::Name.name
+      association :department, factory: :good_department
     end
   end
 

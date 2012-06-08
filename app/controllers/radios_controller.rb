@@ -12,7 +12,7 @@ class RadiosController < ApplicationController
         if request.xhr?
           render partial: 'volunteers', locals: { radio: params[:radio] }
         else
-          redirect_to public_url
+          redirect_to public_path
         end
       end
     end
@@ -24,11 +24,11 @@ class RadiosController < ApplicationController
     respond_with do |format|
       format.html do
         if request.xhr?
-          render partial: 'select_department', locals: { radio: params[:id],
+          render partial: 'select_department', locals: { radio:       params[:id],
                                                          radio_group: radio.radio_group.id,
-                                                         volunteer: params[:volunteer] }
+                                                         volunteer:   params[:volunteer] }
         else
-          redirect_to public_url
+          redirect_to public_path
         end
       end
     end

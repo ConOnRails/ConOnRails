@@ -1,5 +1,7 @@
 ConOnRails::Application.routes.draw do
 
+  get "login_log/index"
+
   get "duty_board/index"
 
   resources :duty_board_slots

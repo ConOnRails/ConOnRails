@@ -8,10 +8,12 @@
         <%= link_to "Event #{audit.auditable_id}", Event.find(audit.auditable_id) %>
     <% when "LostAndFoundItem" %>
         <%= link_to "Lost/Found", LostAndFoundItem.find(audit.auditable_id) %>
+    <% when "LoginLog" %>
+        Login/Out
     <% end %>
   </td>
   <td>
-    <% user = User.find audit.user_id  if audit.user_id%>
+    <% user = User.find audit.user_id if audit.user_id %>
     <%= link_to user.username, user if user %>
   </td>
   <td><%= audit.audited_changes %></td>
