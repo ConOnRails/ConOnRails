@@ -1,4 +1,5 @@
 class Role < ActiveRecord::Base
+  audited
   has_and_belongs_to_many :users
 
   name_regex = /^[a-zA-Z0-9_ ]*$/
