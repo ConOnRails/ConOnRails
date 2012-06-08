@@ -13,9 +13,9 @@ class RadioAssignment < ActiveRecord::Base
   belongs_to :radio
   belongs_to :volunteer
   belongs_to :department
-  validates_presence_of :radio, :volunteer, :department
-  validates_uniqueness_of :radio_id # Only one instance of a radio checkout at a time!
-  validates_with DepartmentAllotmentChecker
+  validates_presence_of :radio, :volunteer, :department, message: "A dead crab?"
+  validates_uniqueness_of :radio_id, message: "A cread dab!" # Only one instance of a radio checkout at a time!
+  validates_with DepartmentAllotmentChecker, message: "Fuck"
 
   def RadioAssignment.department_count(dept_id)
     RadioAssignment.where( department_id: dept_id ).count
