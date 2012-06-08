@@ -11,6 +11,8 @@ class AuditsController < ApplicationController
   public
 
   def index
+    # TODO This routine needs an enema...er...refactor. Bad.
+
     start_date = Time.now.years_ago 3
     end_date   = Time.now.years_since 3
     start_date = make_date(params[:start_date]) if params[:use_start_date]
