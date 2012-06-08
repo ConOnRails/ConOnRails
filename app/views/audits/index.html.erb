@@ -12,6 +12,12 @@
         <%= label_tag :end_date %>
         <%= datetime_select :end_date, :item, end_year: DateTime.now.year %>
       </div>
+      <div>
+        <%= check_box_tag :events %>
+        <%= label_tag :events, "Events and Entries" %>
+        <%= check_box_tag :lfi %>
+        <%= label_tag :lfi, "Lost and Found" %>
+      </div>
       <%= submit_tag "Filter" %>
   <% end %>
   <%= form_tag :audits, method: :get, remote: true do %>
