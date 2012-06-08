@@ -1,4 +1,6 @@
 class Radio < ActiveRecord::Base
+  audited
+
   belongs_to :radio_group
   has_one :radio_assignment
   validates_associated :radio_group

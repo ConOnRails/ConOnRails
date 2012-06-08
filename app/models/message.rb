@@ -1,4 +1,6 @@
 class Message < ActiveRecord::Base
+  audited
+
   belongs_to :user
   validates_presence_of :for, :message, :user
   validates_format_of :phone_number,  allow_blank: true, allow_nil: true,

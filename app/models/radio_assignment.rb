@@ -8,6 +8,8 @@ class DepartmentAllotmentChecker < ActiveModel::Validator
 end
 
 class RadioAssignment < ActiveRecord::Base
+  audited
+
   belongs_to :radio
   belongs_to :volunteer
   belongs_to :department

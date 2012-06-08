@@ -1,10 +1,10 @@
 class Event < ActiveRecord::Base
+  audited
+  has_associated_audits
   has_many :entries, dependent: :destroy, order: 'created_at ASC'
   has_many :event_flag_histories, dependent: :destroy, order: 'created_at ASC'
   validates_associated :entries
   accepts_nested_attributes_for :entries, allow_destroy: true
-  has_associated_audits
-  audited
   paginates_per 10
 
   STATUSES = %w[ Active Closed ]

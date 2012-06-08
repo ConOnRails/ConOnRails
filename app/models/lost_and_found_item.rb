@@ -1,6 +1,7 @@
 class LostAndFoundItem < ActiveRecord::Base
-  belongs_to :user
   audited
+
+  belongs_to :user
 
   @@valid_categories = {
       badge:             "Badge",
