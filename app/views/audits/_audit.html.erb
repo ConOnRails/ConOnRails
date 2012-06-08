@@ -13,7 +13,7 @@
     <% end %>
   </td>
   <td>
-    <% user = User.find audit.user_id if audit.user_id %>
+    <% user = User.find_by_id audit.user_id if audit.user_id %>
     <%= link_to user.username, user if user %>
   </td>
   <td><%= audit.audited_changes %></td>
