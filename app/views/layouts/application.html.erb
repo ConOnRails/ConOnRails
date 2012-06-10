@@ -38,6 +38,7 @@
 <div id="columns">
   <div id="side">
     <%= yield :side %>
+    <div><%= link_to "Change Password", change_password_user_path(current_user) if current_user %></div>
     <hr width="80%" />
     <div id="shiftboard-thingy">
       <a href="http://www.shiftboard.com/ce" title="Online Scheduling" alt="Online Scheduling and People Management Tools">

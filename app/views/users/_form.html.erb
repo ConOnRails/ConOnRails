@@ -7,11 +7,23 @@
   <% end %>
   <%= semantic_form_for @user do |f| %>
       <%= f.inputs do %>
-          <%= f.input :name %>
-          <%= f.input :realname %>
+          <% if current_user.can_admin_users? %>
+              <%= f.input :name %>
+              <%= f.input :realname %>
+          <% else %>
+              <div><strong>Username:</strong> <%= @user.name %></div>
+              <div><strong>Real Name:</strong> <%= @user.realname %></div>
+          <% end %>
           <%= f.input :password %>
           <%= f.input :password_confirmation %>
-          <%= f.input :roles %>
+          <% if current_user.can_admin_users? %>
+              <%= f.input :roles %>
+          <% else %>
+              <table id="roleslist">
+                <%= render partial: "roles/roleheader" %>
+                <%= render @user.roles %>
+              </table>
+          <% end %>
       <% end %>
       <%= f.actions %>
   <% end %>
