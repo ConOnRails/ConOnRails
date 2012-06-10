@@ -83,7 +83,11 @@ ConOnRails::Application.routes.draw do
 
   resources :contacts, except: [:destroy]
   resources :roles
-  resources :users
+  resources :users do
+    member do
+      get :change_password
+    end
+  end
 
 # The priority is based upon order of creation:
 # first created -> highest priority.

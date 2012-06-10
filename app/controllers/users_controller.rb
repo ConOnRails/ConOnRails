@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :redirect_if_cannot_admin
+  before_filter :redirect_if_cannot_admin, except: [:change_password]
 
   def redirect_if_cannot_admin
     unless current_user and current_user.can_admin_users?
@@ -48,6 +48,10 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    @user = User.find(params[:id])
+  end
+
+  def change_password
     @user = User.find(params[:id])
   end
 
