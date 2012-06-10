@@ -9,7 +9,9 @@ window.events.getMain = () ->
          dataType: 'script',
          data: {
             "page": window.events.page,
-            "active": window.events.active },
+            "active": window.events.active,
+            "filters[sticky]": window.events.sticky
+         },
          success: ->
            window.events.tick = setTimeout('window.events.getMain()', 10000)
          }

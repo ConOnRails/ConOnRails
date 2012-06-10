@@ -5,7 +5,9 @@
 </div>
 <%= form_tag ({ action: :search_volunteers, controller: :radios }), id: "volunteer_search", remote: true do %>
     <%= hidden_field_tag :radio, @radio.id %>
+    <%= label_tag :first_name %>
     <%= text_field_tag :first_name %>
+    <%= label_tag :last_name %>
     <%= text_field_tag :last_name %>
     <%= submit_tag "Find volunteer" %>
 <% end %>

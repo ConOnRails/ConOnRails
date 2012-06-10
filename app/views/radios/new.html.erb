@@ -5,7 +5,8 @@
 </div>
 
 <ol id="radio-list">
-  <%= render partial: 'radio', collection: Radio.all %>
+  <% @radios = Radio.all %>
+  <%= render partial: 'radios' %>
 </ol>
 <% content_for :side do %>
     <%= link_to 'Back', radios_path %>
