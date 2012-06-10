@@ -279,10 +279,17 @@ FactoryGirl.define do
     end
   end
 
+  factory :duty_board_group do
+    factory :valid_duty_board_group do
+      name Faker::Name.name
+      row 1
+      column 1
+    end
+  end
   factory :duty_board_slot do
     factory :valid_duty_board_slot do
       name Faker::Name.name
-      association :department, factory: :good_department
+      association :duty_board_group, factory: :valid_duty_board_group
     end
   end
 

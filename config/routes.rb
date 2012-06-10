@@ -6,6 +6,8 @@ ConOnRails::Application.routes.draw do
     end
   end
 
+  resources :duty_board_groups, except: [:show]
+
   resources :duty_board_slots do
     member do
       post :clear_assignment

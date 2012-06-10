@@ -4,8 +4,10 @@ class DutyBoardController < ApplicationController
   # DutyBoardAssignements...yeah. Just a mess. I'm sure there's a better way, and eventually, I'll do it that way.
 
   skip_before_filter :require_login, only: [:index]
+
   def index
-    @departments = Department.all
+    @duty_board_groups = DutyBoardGroup.order(:row, :column)
+
   end
 
   def assign_slot

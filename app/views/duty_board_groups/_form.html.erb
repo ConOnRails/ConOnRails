@@ -1,0 +1,14 @@
+<%= semantic_form_for @duty_board_group do |f| %>
+    <%= f.inputs do %>
+        <%= f.input :name %>
+        <%= f.input :row, as: :select, collection: DutyBoardGroup.row_range %>
+        <%= f.input :column, as: :select, collection: DutyBoardGroup.col_range %>
+    <% end %>
+    <%= f.actions do %>
+        <%= f.submit %>
+    <% end %>
+<% end %>
+
+<% content_for :side do %>
+    <div><%= link_to "Back", duty_board_groups_path%></div>
+<% end %>

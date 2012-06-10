@@ -19,6 +19,9 @@ RadioGroup.delete_all
 RadioAssignment.delete_all
 RadioAssignmentAudit.delete_all
 Volunteer.delete_all
+DutyBoardAssignment.delete_all
+DutyBoardSlot.delete_all
+DutyBoardGroup.delete_all
 
 # Seed an admin user
 user = User.create!({ name:                  "admin",
@@ -88,6 +91,37 @@ Role.create!({ name:                    "Comm 2",
                assign_duty_board_slots: true,
                modify_lost_and_found:   true,
                write_entries:           true })
+
+DutyBoardGroup.create! name: "Ops Leaders", row: 1, column: 1 do |dbg|
+  DutyBoardSlot.create! name: "Ops Head", duty_board_group: dbg
+  DutyBoardSlot.create! name: "Ops Subhead1", duty_board_group: dbg
+  DutyBoardSlot.create! name: "Ops Subhead2", duty_board_group: dbg
+end
+DutyBoardGroup.create! name: "General Leadership", row: 1, column: 2 do |dbg|
+  DutyBoardSlot.create! name: "Exec On Duty", duty_board_group: dbg
+  DutyBoardSlot.create! name: "Facilities", duty_board_group: dbg
+end
+DutyBoardGroup.create! name: "On Bridge", row: 2, column: 1 do |dbg|
+  DutyBoardSlot.create! name: "XO", duty_board_group: dbg
+  DutyBoardSlot.create! name: "Dispatch Officer", duty_board_group: dbg
+  DutyBoardSlot.create! name: "Comm1 (Dispatch Logger)", duty_board_group: dbg
+  DutyBoardSlot.create! name: "Comm2 (General Logger)", duty_board_group: dbg
+  DutyBoardSlot.create! name: "First Contact", duty_board_group: dbg
+  DutyBoardSlot.create! name: "Gopher", duty_board_group: dbg
+end
+DutyBoardGroup.create! name: "Wandering", row: 2, column: 2 do |dbg|
+  DutyBoardSlot.create! name: "Wandering Host 1 (Floating)", duty_board_group: dbg
+  DutyBoardSlot.create! name: "Wandering Host 2 (Parties)", duty_board_group: dbg
+  DutyBoardSlot.create! name: "Wandering Host 3 (North Tower)", duty_board_group: dbg
+  DutyBoardSlot.create! name: "Wandering Host 4 (South Tower)", duty_board_group: dbg
+  DutyBoardSlot.create! name: "Wandering Host 5 (Parties)", duty_board_group: dbg
+  DutyBoardSlot.create! name: "Wandering Host 6 (South Tower)", duty_board_group: dbg
+  DutyBoardSlot.create! name: "Wandering Host 7 (Floating)", duty_board_group: dbg
+  DutyBoardSlot.create! name: "Wandering Host 8 (Floating)", duty_board_group: dbg
+  DutyBoardSlot.create! name: "Wandering Host 9 (Ethereal)", duty_board_group: dbg
+end
+
+#########
 
 case Rails.env
   when "development"

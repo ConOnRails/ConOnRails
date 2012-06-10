@@ -12,6 +12,7 @@
   <% end %>
   <li><%= link_to "Phone List", contacts_url %></li>
   <% if current_user and current_user.can_admin_duty_board? %>
+      <li><%= link_to "Duty Board Groups", duty_board_groups_path %></li>
       <li><%= link_to "Duty Board Slots", duty_board_slots_url %></li>
   <% end %>
   <li><%= link_to "Volunteers", volunteers_url %></li>

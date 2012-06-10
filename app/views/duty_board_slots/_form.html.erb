@@ -1,7 +1,7 @@
 <%= semantic_form_for @duty_board_slot do |f| %>
   <%= f.inputs do %>
     <%= f.input :name %>
-    <%= f.input :department %>
+    <%= f.input :duty_board_group %>
   <% end %>
 
   <%= f.actions do %>
@@ -10,6 +10,6 @@
 <% end %>
 
 <% content_for :side do %>
-<div><%= link_to "Manage Departments", departments_path %></div>
+<div><%= link_to "Manage Duty Board Groups", duty_board_groups_path %></div>
 <div><%= link_to "Back", duty_board_slots_path %></div>
 <% end %>
