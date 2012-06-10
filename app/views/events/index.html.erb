@@ -5,5 +5,14 @@
 <script>
     window.events.active = <%= params[:active].nil? ? false : params[:active] %>
     window.events.page = <%= params[:page].nil? ? "1" : params[:page] %>
+    window.events.sticky = <%= params[:sticky].nil? ? false : params[:sticky] %>
     window.events.getMain()
 </script>
+
+<% content_for :side do %>
+    <% if params[:sticky] %>
+        <div id="unsticky_link"><%= link_to "Actives", events_path %></div>
+    <% else %>
+        <div id="sticky_link"><%= link_to "Stickies", events_path({ sticky: "true" }) %></div>
+    <% end %>
+<% end %>

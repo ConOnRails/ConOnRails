@@ -2,7 +2,11 @@
     <%= f.inputs do %>
         <%= f.input :radio_id, as: :hidden, value: radio %>
         <%= f.input :volunteer_id, as: :hidden, value: volunteer %>
-        <%= f.input :department, collection: Department.where( radio_group_id: radio_group ) %>
-        <%= f.action :submit %>
+        <% if Department.where(radio_group_id: radio_group).count == 0 %>
+            <div>You have no <%= link_to "departments", departments_path %> associated with this group</div>
+        <% else %>
+            <%= f.input :department, collection: Department.where(radio_group_id: radio_group) %>
+        <% end %>
+        <%= f.action :submit, label: "Check Out" %>
     <% end %>
 <% end %>

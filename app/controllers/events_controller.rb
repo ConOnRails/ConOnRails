@@ -37,6 +37,15 @@ class EventsController < ApplicationController
     @events = Event.build_filter(current_user, params).order(:updated_at).page(params[:page])
   end
 
+  def sticky
+    zog = {}
+    zog[:filters] ||= {}
+    zog[:filters][:sticky] = "true"
+    @events = Event.build_filter(current_user, zog).order(:updated_at).page(params[:page])
+    render action: :review, params: zog
+  end
+
+
   # GET /events/1
   # GET /events/1.json
   def show
