@@ -294,9 +294,9 @@ FactoryGirl.define do
   end
 
   factory :duty_board_assignment do
-    factory:valid_duty_board_assignment do
-      association :volunteer, factory: :valid_volunteer
+    factory :valid_duty_board_assignment do
       association :duty_board_slot, factory: :valid_duty_board_slot
+      name Faker::Name.name
       notes Faker::Lorem.sentence
     end
   end

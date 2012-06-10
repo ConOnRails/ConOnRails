@@ -67,6 +67,7 @@ class DutyBoardSlotsController < ApplicationController
             @duty_board_slot.duty_board_assignment.update_attributes(params[:duty_board_assignment])
           else
             @duty_board_slot.build_duty_board_assignment params[:duty_board_assignment]
+            @duty_board_slot.save!
           end
 
           format.html { redirect_to duty_board_index_path, notice: 'Duty board slot was successfully updated' }

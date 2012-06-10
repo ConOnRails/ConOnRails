@@ -5,7 +5,7 @@
               id:         duty_board_slot.to_param %> :
   <% if duty_board_slot.duty_board_assignment %>
       <div class="volunteer_name">
-        <%= duty_board_slot.duty_board_assignment ? duty_board_slot.duty_board_assignment.volunteer.name : "" %>
+        <%= duty_board_slot.duty_board_assignment ? duty_board_slot.duty_board_assignment.name : "" %>
         <% if duty_board_slot.duty_board_assignment.notes %>
             <sup>*</sup>
             <span class="popup"><%= duty_board_slot.duty_board_assignment.notes %></span>
