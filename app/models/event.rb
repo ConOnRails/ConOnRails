@@ -29,6 +29,7 @@ class Event < ActiveRecord::Base
   end
 
   def self.build_page_flag(user, filter, field, set)
+    p field
     if filter[field] == "true" and has_permission user, field
       set[field] = true
     elsif filter[field] == "false"

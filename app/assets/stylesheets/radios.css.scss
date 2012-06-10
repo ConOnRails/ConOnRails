@@ -8,7 +8,7 @@
   {
     fieldset
     {
-      float: left;
+      //float: left;
     }
     fieldset.actions
     {
@@ -31,11 +31,17 @@
     }
   }
 
-
+  .input
+  {
+    label.label
+    {
+      width: 100%;
+    }
+  }
   div.radio_group, div.radio_number, div.radio_volunteer
   {
-    float: left;
-    text-align: center;
+    //float: left;
+    //text-align: center;
   }
 
 }
@@ -44,19 +50,22 @@
 {
   width: 50px;
 }
+
 #radio_number, .radio_number
 {
-  width: 75px;
+  width:      75px;
   text-align: left;
 }
+
 #radio_department, .radio_department
 {
-  width: 150px;
+  width:      150px;
   text-align: left;
 }
+
 #radio_volunteer, .radio_volunteer
 {
-  width: 300px;
+  width:      300px;
   text-align: left;
 }
 

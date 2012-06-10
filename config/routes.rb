@@ -28,6 +28,7 @@ ConOnRails::Application.routes.draw do
   resources :events, except: [:destroy] do
     collection do
       get 'review'
+      get 'sticky'
     end
   end
   resources :lost_and_found, only: [:index]

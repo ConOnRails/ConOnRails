@@ -1,25 +1,25 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Name:</b>
+<div>
+  <strong>Name:</strong>
   <%= @department.name %>
-</p>
+</div>
 
-<p>
-  <b>Volunteer:</b>
-  <%= @department.volunteer.name %>
-</p>
+<div>
+  <strong>Volunteer:</strong>
+  <%= @department.volunteer ? @department.volunteer.name : "None" %>
+</div>
 
-<p>
-  <b>Radio group:</b>
+<div>
+  <strong>Radio group:</strong>
   <%= @department.radio_group.name %>
-</p>
+</div>
 
-<p>
-  <b>Radio allotment:</b>
+<div>
+  <strong>Radio allotment:</strong>
   <%= @department.radio_allotment %>
-</p>
+</div>
 
-
-<%= link_to 'Edit', edit_department_path(@department) %> |
-<%= link_to 'Back', departments_path %>
+<% content_for :side do %>
+    <div><%= link_to "Back", :departments %></div>
+    <div><%= link_to "Radio Groups", :radio_groups %></div>
+    <div><%= link_to "Radios", :radios %></div>
+<% end %>
