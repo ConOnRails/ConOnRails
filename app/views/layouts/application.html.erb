@@ -6,9 +6,6 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
-<% background = "" %>
-<% background = "missing" if params[:reported_missing] or (@lfi and @lfi.reported_missing?) %>
-<% background = "found" if params[:found] or (@lfi and @lfi.found?) %>
 <body class="<%= controller.controller_name %> <%= background %>">
 
 <div id="banner-placeholder">
@@ -34,13 +31,17 @@
 
   <div>This is version 0.80, "Bemused Badger"</div>
 </div>
+<script>
+  $( '#welcome' ).fadeOut( 10000 )
+</script>
+
 <div id="columns">
   <div id="side">
     <%= yield :side %>
+    <hr width="80%" />
     <div id="shiftboard-thingy">
       <a href="http://www.shiftboard.com/ce" title="Online Scheduling" alt="Online Scheduling and People Management Tools">
         Shiftboard</a></div>
-
   </div>
   <div id="main">
     <%= content_for?(:main) ? yield(:main) : yield %>

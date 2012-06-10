@@ -11,9 +11,9 @@ class ApplicationController < ActionController::Base
 
   def is_authenticated?
     if session[:user_id] != nil
-      return true
+      true
     else
-      return false
+      false
     end
   end
 
@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
       user = User.find session[:user_id]
       ret  = user.can_admin_anything?
     end
-    return ret
+    ret
   end
 
   def can_write_entries?
@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
   end
 
   def can_admin_or_assign_radios?
-    redirect_to :public unless current_user and ( current_user.can_assign_radios? or current_user.can_admin_radios? )
+    redirect_to :public unless current_user and (current_user.can_assign_radios? or current_user.can_admin_radios?)
   end
 
   def can_admin_duty_board?
@@ -60,9 +60,9 @@ class ApplicationController < ActionController::Base
 
   def current_user
     if is_authenticated?
-      return User.find(session[:user_id])
+      User.find(session[:user_id])
     else
-      return nil
+      nil
     end
   end
 
@@ -70,5 +70,5 @@ class ApplicationController < ActionController::Base
     session[:current_role] if is_authenticated?
   end
 
-  helper_method :can_write_entries?, :is_authenticated?, :can_admin_anything?, :current_user, :current_role, :num_events
+  helper_method :can_write_entries?, :is_authenticated?, :can_admin_anything?, :current_user, :current_role
 end

@@ -29,4 +29,9 @@ module ApplicationHelper
       '<span style="color: #cc0000">x</span>'
     end
   end
+
+  def background
+    "missing" if params[:reported_missing] or (@lfi and @lfi.reported_missing?)
+    "found" if params[:found] or (@lfi and @lfi.found?)
+  end
 end

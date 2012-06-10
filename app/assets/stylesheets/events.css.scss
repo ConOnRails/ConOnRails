@@ -13,9 +13,9 @@
 
   .event_metadata
   {
-    font-size:    10px;
-    padding:      6px;
-    margin-right: 6px;
+    font-size:     10px;
+    padding:       6px;
+    margin-right:  6px;
     border-top:    thin solid;
     border-bottom: thin solid;
 
@@ -38,14 +38,14 @@
     {
       a
       {
-        color:            white;
+        color: white;
       }
       a:hover
       {
         background-color: $green_desat;
       }
       background-color: $green;
-      padding: .5em;
+      padding:          .5em;
     }
   }
 
@@ -107,19 +107,19 @@
     fieldset.status
     {
       padding: 0;
-      margin: 0;
+      margin:  0;
       ol
       {
         ol.choices-group
         {
-          padding:            0;
+          padding:    0;
           list-style: none;
 
           .choice
           {
-            margin: 0;
+            margin:  0;
             padding: 0;
-            display: inline;
+            //display: inline;
 
             label
             {
@@ -140,7 +140,7 @@
           display: inline;
           label
           {
-            margin: 0;
+            margin:  0;
             padding: 0;
           }
         }
@@ -172,34 +172,33 @@
     }
   }
 
-  #event_flag_history
+  .event_flag_history
   {
-    float: right;
-    border: thin solid black;
-    padding: 3px;
-    margin: 6px;
+    float:     right;
+    border:    thin solid black;
+    padding:   3px;
+    margin:    6px;
     font-size: 80%;
 
-    #efh_header
+    .efh_header
     {
       font-weight: bold;
     }
     ul
     {
-      padding: 0;
-      margin: 0;
+      padding:    0;
+      margin:     0;
       list-style: none;
       li
       {
-        display: inline;
-        padding: 0;
-        margin: 0;
+        display:   inline;
+        padding:   0;
+        margin:    0;
         font-size: 80%;
 
       }
     }
   }
-
 
   #entry_description_input
   {
@@ -213,13 +212,34 @@
 
   .buttons
   {
-    display:       block;
-    clear:         both;
-//    padding-left:  .5em;
-//,    padding-top:   .5em;
-//    margin-bottom: 1em;
-//    border:        thin solid black;
-//    border-radius: 10px;
+    display: block;
+    clear:   both;
+    //    padding-left:  .5em;
+    //,    padding-top:   .5em;
+    //    margin-bottom: 1em;
+    //    border:        thin solid black;
+    //    border-radius: 10px;
+  }
+
+  // Filter stuff
+  #filters
+  {
+    fieldset
+    {
+      width: auto;
+      float: left;
+    }
+    ol
+    {
+      list-style-type: none;
+      padding:         0;
+      margin:          0;
+      li
+      {
+        font-size: 70%;
+      }
+    }
   }
 }
+
 
