@@ -44,6 +44,10 @@
         <div><span class="info-label">Email:</span> <%= @volunteer.email %></div>
     <% end %>
   </div>
+
+  <% if @volunteer.user %>
+      <div>User: <%= @volunteer.user.name %></div>
+  <% end %>
 </div>
 
 <%= content_for :side do %>
