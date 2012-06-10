@@ -116,15 +116,15 @@ ActiveRecord::Schema.define(:version => 20120610133115) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_active",   :default => true
-    t.boolean  "comment",     :default => false
-    t.boolean  "flagged",     :default => false
-    t.boolean  "post_con",    :default => false
-    t.boolean  "quote",       :default => false
-    t.boolean  "sticky",      :default => false
-    t.boolean  "emergency",   :default => false
-    t.boolean  "medical",     :default => false
-    t.boolean  "hidden",      :default => false
-    t.boolean  "secure",      :default => false
+    t.boolean  "comment"
+    t.boolean  "flagged"
+    t.boolean  "post_con"
+    t.boolean  "quote"
+    t.boolean  "sticky"
+    t.boolean  "emergency"
+    t.boolean  "medical"
+    t.boolean  "hidden"
+    t.boolean  "secure"
     t.boolean  "consuite"
     t.boolean  "hotel"
     t.boolean  "parties"
