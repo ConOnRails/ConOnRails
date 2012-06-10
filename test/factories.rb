@@ -177,6 +177,11 @@ FactoryGirl.define do
       admin_duty_board true
     end
 
+    factory :assign_duty_board_role do
+      name "assign_duty_board"
+      assign_duty_board_slots true
+    end
+
     factory :can_admin_lost_and_found_user do
       name "can_admin_lost_and_found"
       add_lost_and_found true
@@ -281,6 +286,13 @@ FactoryGirl.define do
     end
   end
 
+  factory :duty_board_assignment do
+    factory:valid_duty_board_assignment do
+      association :volunteer, factory: :valid_volunteer
+      association :duty_board_slot, factory: :valid_duty_board_slot
+      notes Faker::Lorem.sentence
+    end
+  end
 
 end
 

@@ -62,12 +62,35 @@ class DutyBoardSlotsController < ApplicationController
 
     respond_to do |format|
       if @duty_board_slot.update_attributes(params[:duty_board_slot])
-        format.html { redirect_to @duty_board_slot, notice: 'Duty board slot was successfully updated.' }
+        if params[:duty_board_assignment]
+          if @duty_board_slot.duty_board_assignment
+            @duty_board_slot.duty_board_assignment.update_attributes(params[:duty_board_assignment])
+          else
+            @duty_board_slot.build_duty_board_assignment params[:duty_board_assignment]
+          end
+
+          format.html { redirect_to duty_board_index_path, notice: 'Duty board slot was successfully updated' }
+        else
+          format.html { redirect_to @duty_board_slot, notice: 'Duty board slot was successfully updated.' }
+        end
         format.json { head :ok }
       else
         format.html { render action: "edit" }
         format.json { render json: @duty_board_slot.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  # POST /duty_board_slots/1/clear_assignment
+  def clear_assignment
+    @duty_board_slot = DutyBoardSlot.find params[:id]
+
+    if @duty_board_slot.duty_board_assignment
+      @duty_board_slot.duty_board_assignment.destroy
+    end
+
+    respond_to do |format|
+      format.html { redirect_to duty_board_index_path, notice: 'Duty board slot was successfully cleared' }
     end
   end
 

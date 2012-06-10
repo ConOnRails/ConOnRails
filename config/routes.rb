@@ -1,10 +1,16 @@
 ConOnRails::Application.routes.draw do
 
-  get "login_log/index"
+  resources :duty_board, only: [:index] do
+    member do
+      get :assign_slot
+    end
+  end
 
-  get "duty_board/index"
-
-  resources :duty_board_slots
+  resources :duty_board_slots do
+    member do
+      post :clear_assignment
+    end
+  end
 
   root controller: :events, action: :index, active: true
   match '/public', to: 'sessions#new'
@@ -15,6 +21,7 @@ ConOnRails::Application.routes.draw do
   match '/banner', to: 'application#banner'
 
   resources :audits, only: [:index]
+  resources :login_log, only: [:index]
 
   resources :events, except: [:destroy] do
     collection do
@@ -30,7 +37,7 @@ ConOnRails::Application.routes.draw do
   end
 
   resources :departments
-  resources :radio_assignments, only: [ :create, :destroy ] do
+  resources :radio_assignments, only: [:create, :destroy] do
     get 'checkout'
   end
   resources :radio_assignment_audits, only: [:index]
