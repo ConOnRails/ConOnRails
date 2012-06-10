@@ -1,6 +1,9 @@
 <div class="con_on_rails_form">
   <%= semantic_form_for @user do |f| %>
       <%= f.inputs do %>
+          <% if @user.volunteer %>
+              <%= f.input :volunteer, as: :hidden, value: @user.volunteer.id %>
+          <% end %>
           <% if current_user.can_admin_users? %>
               <%= f.input :name %>
               <%= f.input :realname %>
@@ -22,43 +25,3 @@
       <%= f.actions %>
   <% end %>
 </div>
-<!--
-<%= form_for(@user) do |f| %>
-    <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-      
-      <ul>
-
-        <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-
-        <% end %>
-      </ul>
-    </div>
-    <% end %>
-
-    <fieldset>
-      <legend>User details</legend>
-      <div class="field">
-	<%= f.label :name %><br />
-	  <%= f.text_field :name %>
-      </div>
-      <div class="field">
-	<%= f.label :realname %><br />
-	  <%= f.text_field :realname %>
-      </div>
-      <div class="field">
-	<%= f.label :password %><br />
-	  <%= f.password_field :password %>
-      </div>
-      <div class="field">
-	<%= f.label :password_confirmation, "Confirm" %><br />
-	  <%= f.password_field :password_confirmation %>
-      </div>
-      <div class="actions">
-	<%= f.submit %>
-      </div>
-    </fieldset>
-    <% end %>
-</div> -->

@@ -92,7 +92,7 @@ class VolunteersController < ApplicationController
     respond_to do |format|
       if @volunteer.save
         if params[:make_user_after_save]
-          format.html { redirect_to new_user_path({realname: @volunteer.name, volunteer_id: @volunteer.id}), notice: "Volunteer created, create a user"}
+          format.html { redirect_to new_user_path({ realname: @volunteer.name, volunteer_id: @volunteer.id }), notice: "Volunteer created, create a user" }
         else
           format.html { redirect_to @volunteer, notice: 'Volunteer was successfully created.' }
           format.json { render json: @volunteer, status: :created, location: @volunteer }
@@ -111,8 +111,12 @@ class VolunteersController < ApplicationController
 
     respond_to do |format|
       if @volunteer.update_attributes(params[:volunteer])
-        format.html { redirect_to @volunteer, notice: 'Volunteer was successfully updated.' }
-        format.json { head :ok }
+        if params[:make_user_after_save]
+          format.html { redirect_to new_user_path({ realname: @volunteer.name, volunteer_id: @volunteer.id }), notice: "Volunteer created, create a user" }
+        else
+          format.html { redirect_to @volunteer, notice: 'Volunteer was successfully updated.' }
+          format.json { head :ok }
+        end
       else
         format.html { render action: "edit" }
         format.json { render json: @volunteer.errors, status: :unprocessable_entity }
