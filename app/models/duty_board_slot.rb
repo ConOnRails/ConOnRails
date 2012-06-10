@@ -1,9 +1,9 @@
 class DutyBoardSlot < ActiveRecord::Base
   audited
 
-  belongs_to :department
+  belongs_to :duty_board_group
   validates_presence_of :name
   validates_uniqueness_of :name
-  validates_presence_of :department
+  validates_presence_of :duty_board_group
   has_one :duty_board_assignment
 end
