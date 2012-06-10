@@ -21,12 +21,9 @@
           <%= f.input :work_phone %>
           <%= f.input :other_phone %>
           <%= f.input :email %>
+          <%= f.input :user %>
           <%= label_tag :make_user_after_save, "Make User after Save" %>
-          <% if @volunteer.user %>
-              <div>Associated with username <%= @volunteer.user.name %></div>
-          <% else %>
-              <%= check_box_tag :make_user_after_save %>
-          <% end %>
+          <%= check_box_tag :make_user_after_save %>
       <% end %>
     </div>
     <div id="trainings">
