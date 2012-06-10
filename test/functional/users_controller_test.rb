@@ -13,6 +13,8 @@ class UsersControllerTest < ActionController::TestCase
     @peon_role = FactoryGirl.create :role
     @peon_user.roles << @peon_role
 
+    @volunteer = FactoryGirl.create :valid_volunteer
+
     @input_attributes = {
         name:                  "mikey",
         realname:              "Mi Key",
@@ -58,6 +60,17 @@ class UsersControllerTest < ActionController::TestCase
     assert_redirected_to user_path(assigns(:user))
   end
 
+  test "should create user with associated volunteer" do
+    @input_attributes[:volunteer] = @volunteer.id
+    assert_difference('User.count') do
+      post :create, { user: @input_attributes }, { user_id: @user.id}
+    end
+
+    assert_equal @volunteer.id, assigns(:user).volunteer.id
+    assert_redirected_to user_path(assigns :user)
+
+  end
+
   test "cannot create user with incomplete data" do
     assert_no_difference('User.count') do
       post :create, { user: { name: "" } }, { user_id: @user.id }
@@ -96,6 +109,14 @@ class UsersControllerTest < ActionController::TestCase
     put :update, { id: @user.to_param, user: { realname: "wombat" } }, { user_id: @user.id }
     assert assigns(:user).valid?
     assert_equal "wombat", assigns(:user).realname
+    assert_redirected_to user_path(assigns(:user))
+  end
+
+  test "should update user with associated volunteer" do
+    put :update, { id: @user.to_param, user: { realname: "wombat", volunteer: @volunteer.id } }, { user_id: @user.id }
+    assert assigns(:user).valid?
+    assert_equal "wombat", assigns(:user).realname
+    assert_equal @volunteer.id, assigns(:user).volunteer.id
     assert_redirected_to user_path(assigns(:user))
   end
 

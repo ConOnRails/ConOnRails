@@ -36,7 +36,6 @@ class UsersController < ApplicationController
     @user = User.new
     @user.volunteer = Volunteer.find_by_id params[:volunteer_id]
 
-
     if params[:realname]
       @user.realname = params[:realname]
     end
@@ -60,6 +59,8 @@ class UsersController < ApplicationController
   # POST /admin/users.json
   def create
     @user = User.new(params[:user])
+    @volunteer = Volunteer.find_by_id(params[:user][:volunteer])
+    @user.volunteer = @volunteer if @volunteer
 
     respond_to do |format|
       if @user.save
@@ -76,6 +77,9 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
+    @volunteer = Volunteer.find_by_id(params[:user][:volunteer])
+    @user.volunteer = @volunteer if @volunteer
+
     respond_to do |format|
       if @user.update_attributes(params[:user])
         format.html { redirect_to @user, notice: "User #{@user.name} was successfully updated." }
