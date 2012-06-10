@@ -1,10 +1,4 @@
 <div class="con_on_rails_form">
-  <% if @vol %>
-      <div>New user linked to
-        <% link_to @vol.name, @vol %></div>
-  <% else %>
-      <div>Unlinked user</div>
-  <% end %>
   <%= semantic_form_for @user do |f| %>
       <%= f.inputs do %>
           <% if current_user.can_admin_users? %>
