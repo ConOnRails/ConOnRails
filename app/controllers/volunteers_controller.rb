@@ -91,8 +91,12 @@ class VolunteersController < ApplicationController
 
     respond_to do |format|
       if @volunteer.save
-        format.html { redirect_to @volunteer, notice: 'Volunteer was successfully created.' }
-        format.json { render json: @volunteer, status: :created, location: @volunteer }
+        if params[:make_user_after_save]
+          format.html { redirect_to new_user_path({realname: @volunteer.name, volunteer_id: @volunteer.id}), notice: "Volunteer created, create a user"}
+        else
+          format.html { redirect_to @volunteer, notice: 'Volunteer was successfully created.' }
+          format.json { render json: @volunteer, status: :created, location: @volunteer }
+        end
       else
         format.html { render action: "new" }
         format.json { render json: @volunteer.errors, status: :unprocessable_entity }

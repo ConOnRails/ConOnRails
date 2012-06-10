@@ -7,7 +7,7 @@ class DutyBoardAssignmentTest < ActiveSupport::TestCase
   end
 
   def new_assignment(num_words = 3)
-    yield DutyBoardAssignment.new volunteer:       @volunteer,
+    yield DutyBoardAssignment.new name:            Faker::Name.name,
                                   duty_board_slot: @dbs,
                                   notes:           Faker::Lorem.sentence(num_words)
   end
@@ -15,7 +15,7 @@ class DutyBoardAssignmentTest < ActiveSupport::TestCase
   test "must have volunteer dbs but not necessarily notes" do
     DutyBoardAssignment.new do |dba|
       assert dba.invalid?, "DBA should have been invalid"
-      assert dba.errors[:volunteer].any?
+      assert dba.errors[:name].any?
       assert dba.errors[:duty_board_slot].any?
     end
   end

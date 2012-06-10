@@ -9,7 +9,7 @@ class DutyBoardSlotsControllerTest < ActionController::TestCase
     @duty_board_slot                  = FactoryGirl.build :valid_duty_board_slot
     vol                               = FactoryGirl.create :valid_volunteer
     @duty_board_assignment_attributes = {
-        volunteer_id:       vol.id,
+        name:               Faker::Name.name,
         duty_board_slot_id: @duty_board_slot.id,
         notes:              Faker::Lorem.sentence
     }
@@ -62,8 +62,8 @@ class DutyBoardSlotsControllerTest < ActionController::TestCase
                    duty_board_assignment: @duty_board_assignment_attributes },
         @user_session
     assert_redirected_to duty_board_index_path
-    assert_equal @duty_board_assignment_attributes[:volunteer_id],
-                 assigns(:duty_board_slot).duty_board_assignment.volunteer.id
+    assert_equal @duty_board_assignment_attributes[:name],
+                 assigns(:duty_board_slot).duty_board_assignment.name
   end
 
   test "can update duty board slot with new information" do

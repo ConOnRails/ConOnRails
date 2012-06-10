@@ -33,12 +33,13 @@ class UsersController < ApplicationController
   # GET /users/new
   # GET /users/new.json
   def new
-    @vol = nil
-    if ( params[:volunteer_id] )
-      @vol = Volunteer.find params[:volunteer_id]
-    end
     @user = User.new
-    @user.volunteer = @vol
+    @user.volunteer = Volunteer.find_by_id params[:volunteer_id]
+
+
+    if params[:realname]
+      @user.realname = params[:realname]
+    end
 
     respond_to do |format|
       format.html # new.html.erb
