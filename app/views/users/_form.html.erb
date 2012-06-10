@@ -2,7 +2,8 @@
   <%= semantic_form_for @user do |f| %>
       <%= f.inputs do %>
           <% if @user.volunteer %>
-              <%= f.input :volunteer, as: :hidden, value: @user.volunteer.id %>
+              <div><strong>Volunteer:</strong> <%= link_to @user.volunteer.name, @user.volunteer %></div>
+                <%= f.input :volunteer, as: :hidden, value: @user.volunteer.id %>
           <% end %>
           <% if current_user.can_admin_users? %>
               <%= f.input :name %>
@@ -24,4 +25,4 @@
       <% end %>
       <%= f.actions %>
   <% end %>
-</div>
+  </div>
