@@ -1,6 +1,0 @@
-<% if department.duty_board_slots.count > 0 %>
-    <div class="department_slot">
-      <div class="department_header">On duty for <%= department.name %></div>
-      <%= render partial: 'duty_board_slot', collection: department.duty_board_slots %>
-    </div>
-<% end %>

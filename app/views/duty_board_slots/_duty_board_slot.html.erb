@@ -1,5 +1,5 @@
 <tr>
   <td><%= duty_board_slot.name %></td>
-  <td><%= link_to duty_board_slot.department.name, duty_board_slot.department %></td>
+  <td><%= link_to duty_board_slot.duty_board_group.name, duty_board_slot.duty_board_group %></td>
   <td><%= link_to "x", duty_board_slot, confirm: 'Are you sure?', method: :delete %></td>
 </tr>

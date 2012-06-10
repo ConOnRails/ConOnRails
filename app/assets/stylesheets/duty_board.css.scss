@@ -15,12 +15,23 @@
   {
     color: $yellow;
   }
-  .department_slot
+  h1
   {
-    min_height: 10em;
+    text-align: center;
+  }
+  #duty_board
+  {
+    width: 100%;
+  }
+
+  .duty_board_group
+  {
+    min-height: 5em;
     border: thin solid;
     float: left;
     width: 48%;
+    text-align: left;
+    padding: 6px;
 
     .duty_board_assignment
     {

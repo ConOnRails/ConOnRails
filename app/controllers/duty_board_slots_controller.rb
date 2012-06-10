@@ -4,7 +4,7 @@ class DutyBoardSlotsController < ApplicationController
   # GET /duty_board_slots
   # GET /duty_board_slots.json
   def index
-    @duty_board_slots = DutyBoardSlot.order(:department_id, :name)
+    @duty_board_slots = DutyBoardSlot.order(:duty_board_group_id, :name)
 
     respond_to do |format|
       format.html # index.html.erb
