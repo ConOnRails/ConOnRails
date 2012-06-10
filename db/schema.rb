@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120608024200) do
+ActiveRecord::Schema.define(:version => 20120609231137) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -49,6 +49,14 @@ ActiveRecord::Schema.define(:version => 20120608024200) do
     t.integer  "volunteer_id"
     t.integer  "radio_group_id"
     t.integer  "radio_allotment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "duty_board_assignments", :force => true do |t|
+    t.integer  "volunteer_id"
+    t.integer  "duty_board_slot_id"
+    t.string   "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

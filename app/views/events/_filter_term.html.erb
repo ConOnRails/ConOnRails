@@ -1,0 +1,10 @@
+<%= field_set_tag term do %>
+    <ol>
+      <% [:true, :false, :all].each do |tfa| %>
+          <li>
+            <%= radio_button_tag term, tfa %>
+            <%= label_tag "#{term}_#{tfa}", tfa.capitalize %>
+          </li>
+      <% end %>
+    </ol>
+<% end %>

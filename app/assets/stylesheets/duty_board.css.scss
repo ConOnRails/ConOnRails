@@ -11,6 +11,10 @@
 
   background-color: $blue;
   color: $yellow;
+  a, a:hover, a:visited, a:active
+  {
+    color: $yellow;
+  }
   .department_slot
   {
     min_height: 10em;
@@ -23,6 +27,32 @@
       font-size: 16px;
       font-weight: bold;
       line-height: 110%;
+
+      .volunteer_name
+      {
+        color: white;
+        display: inline;
+        .popup
+        {
+          display: none;
+        }
+      }
+      .volunteer_name:hover
+      {
+        .popup
+        {
+          display:block;
+          position:absolute;
+          left:10%;
+          width:80%;
+          padding:5px;
+          background:gray;
+          color:white;
+          border:2px inset green;
+          white-space: normal;
+          z-index:100;
+        }
+      }
     }
   }
 }

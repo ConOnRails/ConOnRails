@@ -24,8 +24,6 @@
 
         li.input
         {
-          width:       600px;
-
           padding:     0;
           padding-top: 3px;
           margin:      0;
@@ -39,21 +37,9 @@
     }
   }
 
-  #lost_and_found_item_owner_contact_input
+  textarea
   {
-    textarea
-    {
-      height: 100px;
-    }
-  }
-
-  #lost_and_found_item_details_input
-  {
-    width: 750px;
-    textarea
-    {
-      height: 200px;
-    }
+    height: 100px;
   }
 
   #lost_and_found_search_form

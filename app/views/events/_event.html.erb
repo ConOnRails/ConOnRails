@@ -3,22 +3,19 @@
     <%= render partial: 'metadata', locals: { event: event, form: form } %>
   </div>
 
-  <div id="event_flag_history">
-    <% efh = event.event_flag_histories %>
-    <% if params[:active] %>
-        <% efh = efh.reverse %>
-    <% end %>
-    <div id="efh_header">Flag History</div>
-    <% efh.each do |h| %>
-        at <%= h.created_at.getlocal.ctime %> by <%= h.user.realname %> as <%= h.rolename %>
-        <ul>
-          <% Event.flags.each do |f| %>
-              <% if h[f] == true %>
-                  <li><%= f %></li>
-              <% end %>
-          <% end %>
-        </ul>
-    <% end %>
+  <div class="event_flag_history" id="event_flag_history_<%= event.id %>">
+
+    <div class="efh_header" id="efh_header_<%= event.id %>">Flag History</div>
+    <div id="efh_list_<%= event.id %>">
+      <%= render partial:    'event_flag_history',
+                 collection: params[:active] ? event.event_flag_histories.reverse :
+                         event.event_flag_histories %>
+    </div>
+    <script>
+        $( '#efh_header_<%= event.id %>' ).click( function () {
+            $( '#efh_list_<%=event.id%>' ).toggle()
+        } );
+    </script>
   </div>
 
   <ul class="entries">

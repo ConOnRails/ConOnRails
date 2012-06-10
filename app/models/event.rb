@@ -17,38 +17,65 @@ class Event < ActiveRecord::Base
     return filter
   end
 
-  def self.build_page_flags(params, filter)
+  def self.has_permission(user, field)
+    case field
+      when :hidden
+        user.read_hidden_entries?
+      when :secure
+        user.rw_secure?
+      else
+        true
+    end
+  end
+
+  def self.build_page_flag(user, filter, field, set)
+    if filter[field] == "true" and has_permission user, field
+      set[field] = true
+    elsif filter[field] == "false"
+      set[field] = false
+    end
+    # The key here is that the ABSENCE of any field in the set means we don't filter either way
+  end
+
+  def self.build_page_flags(user, params, ands, ors)
     if params[:active] == true or params[:active] == "true"
-      filter[:is_active] = true
+      ors[:is_active] = true
+      ors[:sticky]    = true
     end
 
     if params[:filters]
-      if params[:filters][:active] == "active"
-        filter[:is_active] = true
-      elsif params[:filters][:active] == "closed"
-        filter[:is_active] = false
-      end
-      if params[:filters][:emergency] == "1"
-        filter[:emergency] = true
-      end
-      if params[:filters][:medical] == "1"
-        filter[:medical] = true
-      end
-      if params[:filters][:hidden] == "1"
-        filter[:hidden] = true
-      end
-      if params[:filters][:secure] == "1"
-        filter[:secure] = true
+      FLAGS.each do |flag|
+        build_page_flag(user, params[:filters], flag, ands)
       end
     end
   end
 
+  def self.build_or(ors)
+    ors.inject("") do |filtertext, pair|
+      filtertext << "#{pair[0]} = #{pair[1] == true ? "'t'" : "'f'" } OR "
+    end.chomp(" OR ")
+  end
+
+  def self.build_and(ands)
+    ands.inject("") do |filtertext, pair|
+      filtertext << "#{pair[0]} = #{pair[1] == true ? "'t'" : "'f'"} AND "
+    end.chomp(" AND ")
+  end
+
+  def self.build_where(ands, ors)
+    "#{build_and ands} #{ ors.count > 0 ?
+        "#{ands.count > 0 ? "AND" : "" } ( #{build_or ors} )" : ""} "
+  end
+
   def self.build_filter(user, params)
     # Filter based on permissions
-    filter = build_permissions(user)
+    ands = build_permissions(user)
+
     # Filter based on page flags
-    build_page_flags(params, filter)
-    Event.where(filter)
+    ors  = { }
+    build_page_flags(user, params, ands, ors)
+
+    Event.where(build_where ands, ors)
   end
 
   def self.user_can_see_hidden(user)
