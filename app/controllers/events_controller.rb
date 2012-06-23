@@ -103,8 +103,8 @@ class EventsController < ApplicationController
   # PUT /events/1.json
   def update
     @event = Event.find(params[:id])
-    build_entry_from_params(@event, params[:entry]) if params[:entry][:description] != ''
-    build_flag_history_from_params @event, params[:event]
+    build_entry_from_params(@event, params[:entry]) if params[:entry] and params[:entry][:description] != ''
+    build_flag_history_from_params @event, params[:event] if params[:event] and @event.flags_differ? params[:event]
 
     respond_to do |format|
       if @event.update_attributes(params[:event])

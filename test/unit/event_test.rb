@@ -119,4 +119,15 @@ class EventTest < ActiveSupport::TestCase
     filter = Event.build_permissions user
     assert_equal 0, filter.size
   end
+
+  test "can detect flag changes" do
+    params = { hidden: true, secure: false }
+    assert @event.flags_differ? params
+  end
+
+  test "can detect flags don't change" do
+    params = { hidden: false }
+    assert_equal false, @other_event.flags_differ?(params)
+  end
+
 end
