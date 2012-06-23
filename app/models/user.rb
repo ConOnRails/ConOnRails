@@ -76,6 +76,10 @@ class User < ActiveRecord::Base
     find_perm "admin_duty_board"
   end
 
+  def can_assign_duty_board_slots?
+    find_perm "assign_duty_board_slots" 
+  end
+
   def can_read_audits?
     find_perm "read_audits"
   end
