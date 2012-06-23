@@ -110,7 +110,7 @@ class RadiosController < ApplicationController
 
     respond_to do |format|
       if @radio.update_attributes(params[:radio])
-        format.html { redirect_to @radio, notice: 'Radio was successfully updated.' }
+        format.html { redirect_to radios_path, notice: 'Radio was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
