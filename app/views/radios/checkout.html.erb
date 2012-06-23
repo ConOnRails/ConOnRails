@@ -1,8 +1,20 @@
 <h1>Check out radio</h1>
-<div id="radio_summary">
-  <div class="radio_group <%= @radio.radio_group.color %>"><%= @radio.radio_group.name %></div>
-  <div class="radio_number"><%= @radio.name %></div>
-</div>
+<table id="radio_summary">
+  <thead>
+  <tr>
+    <th>Radio Group</th>
+    <th>Radio Number</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td class="radio_group <%= @radio.radio_group.color %>"><%= @radio.radio_group.name %></td>
+    <td class="radio_number"><%= @radio.name %></td>
+    <td class="radio_volunteer" id="radio_volunteer"></td>
+  </tr>
+  </tbody>
+</table>
+<h2>First, find a volunteer</h2>
 <%= form_tag ({ action: :search_volunteers, controller: :radios }), id: "volunteer_search", remote: true do %>
     <%= hidden_field_tag :radio, @radio.id %>
     <%= label_tag :first_name %>
@@ -13,3 +25,7 @@
 <% end %>
 
 <div id="matching_volunteers"></div>
+
+<% content_for :side do %>
+    <%= render partial: 'sidebar' %>
+<%end%>
