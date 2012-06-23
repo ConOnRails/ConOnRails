@@ -1,6 +1,12 @@
 <tr>
   <td class="<%= radio.radio_group.color %>"><%= radio.radio_group.name %></td>
-  <td><%= radio.number %></td>
+  <td>
+    <% if current_user and current_user.can_admin_radios? %>
+        <%= link_to radio.number, edit_radio_path(radio) %>
+    <% else %>
+        <%= radio.number %>
+    <% end %>
+  </td>
   <td><%= radio.radio_assignment ? radio.radio_assignment.department.name : "" %></td>
   <td><%= radio.radio_assignment ? radio.radio_assignment.volunteer.name : "" %></td>
   <td><%= radio.state %></td>

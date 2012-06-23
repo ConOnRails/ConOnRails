@@ -27,7 +27,7 @@ class RadiosControllerTest < ActionController::TestCase
       post :create, { radio: @radio.attributes }, @user_session
     end
 
-    assert_redirected_to radios_path #radio_path(assigns(:radio))
+    assert_redirected_to radios_path
   end
 
   test "should show radio" do
@@ -45,7 +45,7 @@ class RadiosControllerTest < ActionController::TestCase
   test "should update radio" do
     @radio.save!
     put :update, { id: @radio.to_param, radio: @radio.attributes }, @user_session
-    assert_redirected_to radio_path(assigns(:radio))
+    assert_redirected_to radios_path
   end
 
   test "should destroy radio" do
@@ -70,7 +70,7 @@ class RadiosControllerTest < ActionController::TestCase
     assert_difference 'RadioAssignment.count' do
       put :update, { id: @radio.to_param, radio: @radio.attributes, radio_assignment: @assignment.attributes }, @user_session
     end
-    assert_redirected_to radio_path(assigns :radio)
+    assert_redirected_to radios_path
   end
 
   test "should get checkin form" do
