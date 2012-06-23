@@ -14,6 +14,9 @@
         <!--li><a href="/equipment">Equipment</a></li-->
         <li><%= link_to "Review", review_events_path %></li>
         <li><%= link_to "Duty Board", duty_board_index_path, target: '_blank' %></li>
+        <% if current_user and current_user.can_assign_radios? %>
+            <li><%= link_to "Radios", radios_path %></li>
+        <% end %>
         <% if can_admin_anything? %>
             <li><%= link_to "Admin", admin_path %></li>
         <% end %>

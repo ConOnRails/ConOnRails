@@ -6,8 +6,8 @@
   <%= render "banner_text" %>
 
   <% if is_authenticated? %>
-      <div id="emergency_button" class="button <%= get_emerg_button_style %>">
-        <a href="/events/new?emergency=1">Open a New Emergency</a>
+      <div id="emergency_button">
+        <a href="/events/new?emergency=1" class="button <%= get_emerg_button_style %>">Open a New Emergency</a>
       </div>
   <% end %>
 </div>

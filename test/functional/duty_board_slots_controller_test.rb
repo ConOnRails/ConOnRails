@@ -51,7 +51,7 @@ class DutyBoardSlotsControllerTest < ActionController::TestCase
     @duty_board_slot.save!
     put :update, { id: @duty_board_slot.to_param, duty_board_slot: @duty_board_slot.attributes },
         @user_session
-    assert_redirected_to duty_board_slot_path(assigns(:duty_board_slot))
+    assert_redirected_to duty_board_slots_path
   end
 
   test "should update empty duty board slot with duty board assignment" do

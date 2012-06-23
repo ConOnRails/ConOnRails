@@ -27,7 +27,7 @@ class RadiosControllerTest < ActionController::TestCase
       post :create, { radio: @radio.attributes }, @user_session
     end
 
-    assert_redirected_to radio_path(assigns(:radio))
+    assert_redirected_to radios_path #radio_path(assigns(:radio))
   end
 
   test "should show radio" do

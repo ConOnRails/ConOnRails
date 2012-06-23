@@ -31,7 +31,7 @@ module ApplicationHelper
   end
 
   def background
-    "missing" if params[:reported_missing] or (@lfi and @lfi.reported_missing?)
-    "found" if params[:found] or (@lfi and @lfi.found?)
+    return "missing" if params[:reported_missing] or (@lfi and @lfi.reported_missing?)
+    return "found" if params[:found] or (@lfi and @lfi.found?)
   end
 end

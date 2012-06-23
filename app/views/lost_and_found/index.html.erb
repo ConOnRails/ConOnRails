@@ -1,13 +1,15 @@
 <div id="missing" class="morf">
-	<div id="missing_button" class="morf_button">
-		<%= link_to "Missing Item", searchform_lost_and_found_items_path( reported_missing: true ) %>
-	</div>
-	I do not have the item in my hand
+  <div class="button">
+    <%= link_to "Missing Item", searchform_lost_and_found_items_path(reported_missing: true),
+                class: "button item_missing_button" %>
+  </div>
+  I do not have the item in my hand
 </div>
 
 <div id="found" class="morf">
-	<div id="found_button" class="morf_button">
-		<%= link_to "Found Item", searchform_lost_and_found_items_path( found: true )  %>
-	</div>
-	I have the item in my hand
+  <div class="button">
+    <%= link_to "Found Item", searchform_lost_and_found_items_path(found: true),
+                class: "button item_found_button" %>
+  </div>
+  I have the item in my hand
 </div>
