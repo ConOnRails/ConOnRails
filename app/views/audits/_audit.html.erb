@@ -15,7 +15,11 @@
                 Event <%= audit.auditable_id %> (deleted!)
            <% end %>
       <% when "LostAndFoundItem" %>
-           <%= link_to "Lost/Found", LostAndFoundItem.find(audit.auditable_id) %>
+           <% if LostAndFoundItem.find_by_id(audit.auditable_id).present? %>
+                <%= link_to "Lost/Found", LostAndFoundItem.find(audit.auditable_id) %>
+           <% else %>
+                Lost/Found <%= audit.auditable_id %> (deleted!)
+           <% end %>  
       <% when "LoginLog" %>
            Login/Out
     <% end %>
