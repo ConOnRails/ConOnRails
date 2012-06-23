@@ -18,7 +18,7 @@ class EventsControllerTest < ActionController::TestCase
     get :index, { }, @user_session
     assert_response :success
     assert_not_nil assigns :events
-    assert_not_equal 0, assigns["events"].count
+    assert_not_equal 0, assigns[:events].count
   end
 
   test "any user can get index" do

@@ -7,7 +7,7 @@
 
 <h1>Administration</h1>
 <ul>
-  <% if current_user and (current_user.can_admin_radios? or current_user.can_assign_radios?) %>
+  <% if current_user and (current_user.can_admin_radios?) %>
       <li><%= link_to "Radios", radio_admin_index_url %></li>
   <% end %>
   <li><%= link_to "Phone List", contacts_url %></li>

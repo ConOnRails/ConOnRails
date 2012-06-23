@@ -33,7 +33,6 @@ class EventsController < ApplicationController
   end
 
   def review
-    p params
     @events = Event.build_filter(current_user, params).order(:updated_at).page(params[:page])
   end
 
