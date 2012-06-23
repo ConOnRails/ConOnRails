@@ -3,13 +3,21 @@
   <td>
     <% case audit.auditable_type
          when "Entry" %>
-        <%= link_to "Entry for Event #{audit.associated_id}", Event.find(audit.associated_id) %>
-    <% when "Event" %>
-        <%= link_to "Event #{audit.auditable_id}", Event.find(audit.auditable_id) %>
-    <% when "LostAndFoundItem" %>
-        <%= link_to "Lost/Found", LostAndFoundItem.find(audit.auditable_id) %>
-    <% when "LoginLog" %>
-        Login/Out
+           <% if Event.find_by_id(audit.associated_id).present? %>	
+		<%= link_to "Entry for Event #{audit.associated_id}", Event.find(audit.associated_id) %>
+           <% else %>
+                Entry for <%= audit.associated_id %> (deleted!)
+           <% end %>
+      <% when "Event" %>
+           <% if Event.find_by_id(audit.auditable_id).present? %>
+		<%= link_to "Event #{audit.auditable_id}", Event.find(audit.auditable_id) %>
+           <% else %>
+                Event <%= audit.auditable_id %> (deleted!)
+           <% end %>
+      <% when "LostAndFoundItem" %>
+           <%= link_to "Lost/Found", LostAndFoundItem.find(audit.auditable_id) %>
+      <% when "LoginLog" %>
+           Login/Out
     <% end %>
   </td>
   <td>
