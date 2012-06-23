@@ -4,7 +4,9 @@
   as <%= event_flag_history.rolename %>
   <ul>
     <% Event.flags.each do |f| %>
-        <% if event_flag_history[f] == true %>
+        <% if f == "is_active" and event_flag_history[f] == false %>
+            <li>CLOSED</li>
+        <% elsif event_flag_history[f] == true %>
             <li><%= f %></li>
         <% end %>
     <% end %>

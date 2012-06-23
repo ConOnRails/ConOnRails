@@ -103,6 +103,18 @@ class EventsControllerTest < ActionController::TestCase
     assert_redirected_to event_path(assigns(:event))
   end
 
+  test "updating event with changed flags generates a new EventFlagHistory entry" do
+    assert_difference 'EventFlagHistory.count' do
+      put :update, { id: @event.to_param, event: { sticky: true } }, @user_session
+    end
+  end
+
+  test "updating event with unchanged flags generates NO new EFH entry" do
+    assert_no_difference 'EventFlagHistory.count' do
+      put :update, { id: @event.to_param }, @user_session
+    end
+  end
+
   test "peon user cannot update event" do
     put :update, { id:    @event.to_param, event: FactoryGirl.attributes_for(:ordinary_event),
                    entry: FactoryGirl.attributes_for(:verbose_entry) }, @peon_session
