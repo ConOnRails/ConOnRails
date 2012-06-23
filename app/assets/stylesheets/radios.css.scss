@@ -38,17 +38,12 @@
       width: 100%;
     }
   }
-  div.radio_group, div.radio_number, div.radio_volunteer
-  {
-    //float: left;
-    //text-align: center;
-  }
-
 }
 
 #radio_group, .radio_group
 {
   width: 50px;
+  text-align: center;
 }
 
 #radio_number, .radio_number
@@ -69,5 +64,9 @@
   text-align: left;
 }
 
+#1radio_summary
+{
+  margin-bottom: 6px;
+}
 @import "radio_colors";
 
