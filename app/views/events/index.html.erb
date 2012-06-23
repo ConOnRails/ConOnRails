@@ -11,7 +11,7 @@
 
 <% content_for :side do %>
     <% if params[:sticky] %>
-        <div id="unsticky_link"><%= link_to "Actives", events_path %></div>
+        <div id="unsticky_link"><%= link_to "Actives", root_path %></div>
     <% else %>
         <div id="sticky_link"><%= link_to "Stickies", events_path({ sticky: "true" }) %></div>
     <% end %>
