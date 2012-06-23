@@ -4,14 +4,15 @@
 
 $ ->
   form = $('#volunteer_search')
-  div = $('<div class="radio_volunteer" id="radio_volunteer"></div>')
+  div = $('<td class="radio_volunteer" id="radio_volunteer"></div>')
 
   $('#volunteer_search').bind('ajax:success', (evt, data, status, xhr) ->
     $('#matching_volunteers').html(xhr.responseText))
 
   bind_action = (evt, data, status, xhr) ->
-    div.html(evt.data.name)
-    form.replaceWith(div)
+    $('#radio_volunteer').html(evt.data.name)
+    form.hide()
+    $('h2').text('Now select a department')
     $('#matching_volunteers').html(xhr.responseText)
 
   window.radios = {}

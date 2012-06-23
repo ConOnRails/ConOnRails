@@ -146,6 +146,12 @@ a.button
   text-align:    center;
 }
 
+a.small-button
+{
+  padding: 4px;
+  font-size: .8em;
+}
+
 .missing
 {
   background-color: $missing_bg;
