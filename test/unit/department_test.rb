@@ -12,12 +12,14 @@ class DepartmentTest < ActiveSupport::TestCase
     end
   end
 
-  test "department must have volunteer" do
-    @good_department.volunteer = nil
-    assert_no_difference 'Department.count' do
-      dept = @good_department.save
-    end
-  end
+  # This requirement is removed for now.
+  #
+  #test "department must have volunteer" do
+  #  @good_department.volunteer = nil
+  #  assert_no_difference 'Department.count' do
+  #    dept = @good_department.save
+  #  end
+  #end
 
   test "department must have radio_group" do
     @good_department.radio_group = nil
@@ -33,11 +35,4 @@ class DepartmentTest < ActiveSupport::TestCase
       redundant_department.save
     end
   end
-
-  #test "department cannot claim more radios than are left in the group" do
-  #  @good_department.save!
-  #  assert_no_difference 'Department.count' do
-  #    FactoryGirl.create :one_too_many
-  #  end
-  #end
 end

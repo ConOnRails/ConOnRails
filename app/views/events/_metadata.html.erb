@@ -23,7 +23,7 @@
 <span class="<%= style %>" ><%= tags %></span>
 
 <% if !form %>
-	<span class="button update"><%= link_to 'Update', edit_event_path(event) %></span>
+	<span><%= link_to 'Update', edit_event_path(event), class: 'button update' %></span>
     <span class="updated_at"><%= event.updated_at.getlocal.ctime %></span>
 <% end %>
 

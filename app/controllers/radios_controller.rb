@@ -91,7 +91,7 @@ class RadiosController < ApplicationController
 
     respond_to do |format|
       if @radio.save
-        format.html { redirect_to @radio, notice: 'Radio was successfully created.' }
+        format.html { redirect_to radios_path, notice: 'Radio was successfully created.' }
         format.json { render json: @radio, status: :created, location: @radio }
       else
         format.html { render action: "new" }

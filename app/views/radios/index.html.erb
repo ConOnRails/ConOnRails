@@ -1,7 +1,14 @@
 <h1>Listing radios</h1>
 
-<% render partial: 'radios' %>
+<% if current_user and current_user.can_admin_radios? %>
+    <div class='button'><%= link_to 'New Radio', new_radio_path, class: 'button' %></div>
+<% end %>
+
+<%= render 'radios', collection: @radios %>
+
+<% if current_user and current_user.can_admin_radios? %>
+    <div class='button'><%= link_to 'New Radio', new_radio_path, class: 'button' %></div>
+<% end %>
 
 <% content_for :side do %>
-<%= link_to 'New Radio', new_radio_path %>
 <% end %>

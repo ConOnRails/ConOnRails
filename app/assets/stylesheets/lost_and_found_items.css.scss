@@ -109,12 +109,10 @@
       }
       .view_button
       {
-        font-size:     18px;
-        font-weight:   bold;
-        padding:       12px;
-        margin-left:   36px;
-        border:        visible;
-        border-radius: 10px;
+        font-size:   18px;
+        font-weight: bold;
+        padding:     12px;
+        margin-left: 36px;
       }
     }
     .summary
@@ -127,41 +125,59 @@
       }
     }
   }
+}
 
-  .missing
+.missing
+{
+  background: $missing_bg;
+}
+
+.found
+{
+  background: $found_bg;
+}
+
+div.button, div.view_button
+{
+ .item_missing_button
   {
-    background: $missing_bg;
+    &:link, &:visited, &:active
+    {
+      background-color: $missing_button_bg;
+      color:            black;
+    }
+    &:hover
+    {
+      color:            $missing_button_bg;
+      background-color: white;
+    }
   }
 
-  .found
+  .item_found_button
   {
-    background: $found_bg;
+    &:link, &:visited, &:active
+    {
+      background-color: $found_button_bg;
+      color:            white;
+    }
+    &:hover
+    {
+      color:            $found_button_bg;
+      background-color: white;
+    }
   }
 
-  #item_missing_button
+  .item_returned_button
   {
-    background:  $missing_button_bg;
-    font-weight: bold;
-    font-size:   14pt;
-    line-height: 110%;
-    float:       left;
-  }
-
-  #item_found_button
-  {
-    background:  $found_button_bg;
-    font-weight: bold;
-    font-size:   14pt;
-    line-height: 110%;
-    float:       left;
-  }
-
-  #item_returned_button
-  {
-    background:  white;
-    font-weight: bold;
-    font-size:   14pt;
-    line-height: 110%;
-    float:       left;
+    &:link, &:visited, &:active
+    {
+      background-color: white;
+      color:            black;
+    }
+    &:hover
+    {
+      color:            black;
+      background-color: white;
+    }
   }
 }

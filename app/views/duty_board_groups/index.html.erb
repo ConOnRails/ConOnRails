@@ -6,7 +6,7 @@
   </tr>
   <%= render @duty_board_groups %>
 </table>
-<div class="button"><%= link_to "New Duty Board Group", new_duty_board_group_path %></div>
+<div><%= link_to "New Duty Board Group", new_duty_board_group_path, class: 'button' %></div>
 
 <% content_for :side do %>
     <div><%= link_to "Duty Board Slots", :duty_board_slots %></div>

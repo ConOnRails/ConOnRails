@@ -204,6 +204,7 @@ FactoryGirl.define do
 
     factory :ordinary_event do
       hidden false
+      secure false
 
       after :create do |event, evaluator|
         entry = FactoryGirl.build :oneliner_entry, event: event, user: FactoryGirl.create(:dummy_user)
@@ -212,6 +213,7 @@ FactoryGirl.define do
 
     factory :hidden_event do
       hidden true
+      secure false
 
       after :create do |event, evaluator|
         entry = FactoryGirl.build :verbose_entry, event: event, user: FactoryGirl.create(:other_dummy_user)

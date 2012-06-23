@@ -35,17 +35,18 @@
     <div id="shiftboard-thingy">
       <a href="http://www.shiftboard.com/ce" title="Online Scheduling" alt="Online Scheduling and People Management Tools">
         Shiftboard</a></div>
+    <div id="welcome">
+      <h3>Welcome to the first second BETA Test of Con On Rails.</h3>
+
+      <div>This is version 0.90, "Contankerous Cuckoo"</div>
+    </div>
   </div>
   <div id="main">
     <%= content_for?(:main) ? yield(:main) : yield %>
   </div>
 </div>
 
-<div id="welcome">
-  <h1>Welcome to the first open BETA Test of Con On Rails.</h1>
 
-  <div>This is version 0.80, "Bemused Badger"</div>
-</div>
 <script>
   $( '#welcome' ).fadeOut( 10000 )
 </script>
