@@ -103,6 +103,14 @@ class Event < ActiveRecord::Base
     return Event.count(conditions: "is_active == 't' and medical == 't'")
   end
 
+  def flags_differ?(params)
+    params.each do |p|
+      return true if p.first == "status" and p.second != self.status
+      return true if p.first != "status" and self[p.first] != ( p.last == "1" ? true : false )
+    end
+    false
+  end
+
   def status
     return 'Active' if is_active?
     return 'Closed' unless is_active?
