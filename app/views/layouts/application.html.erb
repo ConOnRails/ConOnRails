@@ -26,14 +26,6 @@
     </script>
 <%- end -%>
 
-<div id="welcome">
-  <h1>Welcome to the first open BETA Test of Con On Rails.</h1>
-
-  <div>This is version 0.80, "Bemused Badger"</div>
-</div>
-<script>
-  $( '#welcome' ).fadeOut( 10000 )
-</script>
 
 <div id="columns">
   <div id="side">
@@ -48,6 +40,15 @@
     <%= content_for?(:main) ? yield(:main) : yield %>
   </div>
 </div>
+
+<div id="welcome">
+  <h1>Welcome to the first open BETA Test of Con On Rails.</h1>
+
+  <div>This is version 0.80, "Bemused Badger"</div>
+</div>
+<script>
+  $( '#welcome' ).fadeOut( 10000 )
+</script>
 
 <div id="indicia">
   <div>Con on Rails is Copyright &copy; 2011, 2012 Michael Scott Shappe, DeNae Leverentz, Thomas Keeley, licensed under
