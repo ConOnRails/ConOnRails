@@ -6,7 +6,7 @@
   </tr>
 
   <% @volunteers.each do |volunteer| %>
-      <tr>
+      <tr class="<%= cycle( 'even', 'odd' ) %>">
         <td><%= volunteer.first_name %></td>
         <td><%= volunteer.middle_name %></td>
         <td><%= volunteer.last_name %></td>
