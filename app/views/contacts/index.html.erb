@@ -12,20 +12,41 @@
     <th></th>
   </tr>
 
-<% @contacts.each do |contact| %>
-  <tr>
-    <td><%= contact.name %></td>
-    <td><%= contact.department %></td>
-    <td><%= contact.cell_phone %></td>
-    <td><%= contact.hotel %></td>
-    <td><%= contact.hotel_room %></td>
-    <td><%= link_to 'Show', contact %></td>
-    <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
-    <td><%= link_to 'Destroy', contact, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+  <% @contacts.each do |contact| %>
+      <tr class="<%= cycle('even', 'odd') %>">
+        <td><%= link_to contact.name, contact %></td>
+        <td><%= contact.department %></td>
+        <td><%= contact.cell_phone %></td>
+        <td><%= contact.hotel %></td>
+        <td><%= contact.hotel_room %></td>
+        <% if current_user and current_user.can_admin_users? %>
+            <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
+            <td><%= link_to 'Destroy', contact, confirm: 'Are you sure?', method: :delete %></td>
+        <% end %>
+        <% if current_user and current_user.write_entries? %>
+            <td><%= link_to 'Leave Message', new_message_path(message: { for:          contact.name,
+                                                                         phone_number: contact.cell_phone,
+                                                                         room_number:  contact.hotel_room,
+                                                                         hotel:        contact.hotel }) %></td>
+        <% end %>
+      </tr>
+  <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Contact', new_contact_path %>
+<div class="button">
+  <%= link_to 'New Contact', new_contact_path, class: 'button' %>
+</div>
+
+<% content_for :side do %>
+    <div>
+      <%= link_to "Users", users_path %>
+    </div>
+    <div>
+      <%= link_to "Volunteers", volunteers_path %>
+    </div>
+    <div>
+      <%= link_to "Messages", messages_path %>
+    </div>
+<% end %>

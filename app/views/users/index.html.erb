@@ -5,9 +5,19 @@
   <tr>
     <th class="username">Name</th>
     <th class="realname">Real name</th>
+    <th>Associated Volunteer Record</th>
   </tr>
 
   <%= render @users %>
 </table>
 
 <div class="button"><%= link_to 'New User', new_user_path, class: 'button' %></div>
+
+<% content_for :side do %>
+    <div>
+      <%= link_to "Volunteers", volunteers_path %>
+    </div>
+    <div>
+      <%= link_to "Contacts", contacts_path %>
+    </div>
+<% end %>

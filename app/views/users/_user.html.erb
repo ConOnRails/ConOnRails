@@ -1,4 +1,7 @@
-<tr class="<%= cycle( 'even', 'odd' ) %>">
-   <td class="username"><%= link_to user.name, user %></td>
-   <td class="realname"><%= user.realname %></td>
+<tr class="<%= cycle('even', 'odd') %>">
+  <td class="username"><%= link_to user.name, user %></td>
+  <td class="realname"><%= user.realname %></td>
+  <% if user.volunteer.present? %>
+      <td class="volunteer"><%= link_to user.volunteer.name, user.volunteer %></td>
+  <% end %>
 </tr>

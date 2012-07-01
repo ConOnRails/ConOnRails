@@ -1,5 +1,6 @@
 class Message < ActiveRecord::Base
   audited
+  paginates_per 10
 
   belongs_to :user
   validates_presence_of :for, :message, :user

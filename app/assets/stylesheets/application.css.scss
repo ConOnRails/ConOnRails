@@ -116,12 +116,18 @@ a /* No links should have underlines ever */
   }
 }
 
+.odd
+{
+  background-color: $light-grey;
+}
+
 div.button
 {
   margin-top:    24px;
   margin-bottom: 12px;
 
 }
+
 a.button
 {
  // width:         300px;
@@ -144,6 +150,23 @@ a.button
 
   border-radius: 10px;
   text-align:    center;
+}
+
+.odd
+{
+  a.button
+  {
+    &:link, &:active, &:visited
+    {
+      background-color: white;
+      color: $light_grey;
+    }
+    &:hover
+    {
+      color: $light_grey;
+      background-color: black;
+    }
+  }
 }
 
 a.small-button

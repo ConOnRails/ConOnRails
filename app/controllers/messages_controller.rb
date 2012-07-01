@@ -2,7 +2,7 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.json
   def index
-    @messages = Message.find_all_by_is_active( true )
+    @messages = Message.where( is_active: true ).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -24,7 +24,7 @@ class MessagesController < ApplicationController
   # GET /messages/new
   # GET /messages/new.json
   def new
-    @message = Message.new
+    @message = Message.new(params[:message])
 
     respond_to do |format|
       format.html # new.html.erb
@@ -45,7 +45,7 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.save
-        format.html { redirect_to @message, notice: 'Message was successfully created.' }
+        format.html { redirect_to messages_path, notice: 'Message was successfully created.' }
         format.json { render json: @message, status: :created, location: @message }
       else
         format.html { render action: "new" }
@@ -61,7 +61,7 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.update_attributes(params[:message])
-        format.html { redirect_to @message, notice: 'Message was successfully updated.' }
+        format.html { redirect_to messages_path, notice: 'Message was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
