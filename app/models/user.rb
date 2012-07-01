@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   audited
   has_associated_audits
+  paginates_per 25
 
   has_one :volunteer
   has_and_belongs_to_many :roles
