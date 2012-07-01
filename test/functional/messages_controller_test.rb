@@ -27,7 +27,7 @@ class MessagesControllerTest < ActionController::TestCase
       post :create, { message: @complete_message.attributes }, @user_session
     end
 
-    assert_redirected_to message_path(assigns(:message))
+    assert_redirected_to messages_path
   end
 
   test "should show message" do
@@ -42,7 +42,7 @@ class MessagesControllerTest < ActionController::TestCase
 
   test "should update message" do
     put :update, { id: @complete_message.to_param, message: @complete_message.attributes }, @user_session
-    assert_redirected_to message_path(assigns(:message))
+    assert_redirected_to messages_path
   end
 
   test "should destroy message" do
