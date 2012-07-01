@@ -1,6 +1,10 @@
 <h1>Listing volunteers</h1>
 
+<div id="paginator"><%= paginate @volunteers %></div>
+
 <%= render partial: 'volunteers' %>
 <br />
 
-<%= link_to 'New Volunteer', new_volunteer_path %>
+<div class="button">
+  <%= link_to 'New Volunteer', new_volunteer_path, class: 'button' %>
+</div>

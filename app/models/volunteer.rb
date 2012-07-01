@@ -1,6 +1,7 @@
 class Volunteer < ActiveRecord::Base
   audited
   has_associated_audits
+  paginates_per 25
 
   has_one :volunteer_training, dependent: :destroy, autosave: true
   has_many :radios, through: :radio_assignment
