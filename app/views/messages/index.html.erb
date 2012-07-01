@@ -1,7 +1,16 @@
 <h1>Active messages</h1>
+<h2>Note: You should peruse the at-con contact list first. You can create new messages for people on that list from that
+  screen.</h2>
 
-<%=  render partial: "message", collection: @messages %>
+<div id="paginator"><%= paginate @messages %></div>
+<%= render partial: "message", collection: @messages %>
+
+<div class="button">
+  <%= link_to 'New Message', new_message_path, class: 'button' %>
+</div>
 
 <%= content_for :side do %>
-<%= link_to 'New Message', new_message_path %>
+    <div>
+      <%= link_to "Contacts", contacts_path %>
+    </div>
 <% end %>

@@ -1,18 +1,21 @@
 <table>
   <tr>
-    <th>First name</th>
-    <th>Middle name</th>
-    <th>Last name</th>
+    <th>Name</th>
+    <th>Associated Username</th>
   </tr>
 
   <% @volunteers.each do |volunteer| %>
-      <tr class="<%= cycle( 'even', 'odd' ) %>">
-        <td><%= volunteer.first_name %></td>
-        <td><%= volunteer.middle_name %></td>
-        <td><%= volunteer.last_name %></td>
-        <td><%= link_to 'Show', volunteer %></td>
-        <td><%= link_to 'Edit', edit_volunteer_path(volunteer) %></td>
-        <td><%= link_to 'Destroy', volunteer, confirm: 'Are you sure?', method: :delete %></td>
+      <tr class="<%= cycle('even', 'odd') %>">
+        <td><%= link_to volunteer.name, volunteer %></td>
+        <td>
+          <% if volunteer.user.present? %>
+              <%= link_to volunteer.user.name, volunteer.user %>
+          <% end %>
+        </td>
+        <% if current_user and current_user.can_admin_users? %>
+            <td><%= link_to 'Edit', edit_volunteer_path(volunteer) %></td>
+            <td><%= link_to 'Destroy', volunteer, confirm: 'Are you sure?', method: :delete %></td>
+        <% end %>
       </tr>
   <% end %>
 </table>
