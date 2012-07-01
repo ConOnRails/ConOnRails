@@ -8,3 +8,12 @@
 <div class="button">
   <%= link_to 'New Volunteer', new_volunteer_path, class: 'button' %>
 </div>
+
+<% content_for :side do %>
+    <div>
+      <%= link_to "Users", users_path %>
+    </div>
+    <div>
+      <%= link_to "Contacts", contacts_path %>
+    </div>
+<% end %>
