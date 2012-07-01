@@ -47,7 +47,7 @@ class VolunteersController < ApplicationController
   # GET /volunteers
   # GET /volunteers.json
   def index
-    @volunteers = Volunteer.all
+    @volunteers = Volunteer.page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
