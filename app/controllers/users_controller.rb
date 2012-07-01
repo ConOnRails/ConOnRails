@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   # GET /admin/users.json
   def index
     @title = "Users"
-    @users = User.order(:name)
+    @users = User.order(:name).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
