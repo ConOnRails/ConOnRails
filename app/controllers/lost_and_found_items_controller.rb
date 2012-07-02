@@ -28,7 +28,8 @@ class LostAndFoundItemsController < ApplicationController
     categories = build_categories_from_params
     like       = process_keywords(params[:keywords])
 
-    @lfis = LostAndFoundItem.where returned: false
+    @lfis = LostAndFoundItem.page params[:page]
+    @lfis = @lfis.where returned: false unless params[:show_returned].present?
     @lfis = @lfis.where(like) unless like == ''
     @lfis = @lfis.where(category: categories) unless categories == []
 

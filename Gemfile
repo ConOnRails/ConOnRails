@@ -25,6 +25,7 @@ gem 'country-select'
 gem 'audited-activerecord', "~> 3.0.0rc1"
 gem 'kaminari'
 gem 'faker'
+gem 'capistrano'
 
 group :development do
   gem 'rails-dev-boost', :git => 'git://github.com/thedarkone/rails-dev-boost.git', :require => 'rails_development_boost'

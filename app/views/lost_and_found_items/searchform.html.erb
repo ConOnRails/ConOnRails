@@ -8,6 +8,10 @@
               <li><%= checkbox k, v %></li>
           <% end %>
         </ol>
+        <div>
+          <%= check_box_tag :show_returned %>
+          <%= label_tag "Show Returned" %>
+        </div>
     <% end %>
     <%= label_tag :keywords, "Keyword(s)" %>
     <%= text_field_tag :keywords %>
