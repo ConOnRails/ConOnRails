@@ -255,10 +255,10 @@ FactoryGirl.define do
 
     factory :returned do
       found true
-      reported_missing true
+      reported_missing false
       returned true
       category "Badge"
-      description "Emus, Begonias and Flakes"
+      description "Llamas, Begonias and Flakes"
       where_found "MyString"
       owner_name "MyString"
       owner_contact "MyText"
