@@ -225,10 +225,15 @@
   // Filter stuff
   #filters
   {
-    fieldset
+    fieldset#filter_set
     {
-      width: auto;
-      float: left;
+      width: 80%;
+
+      fieldset
+      {
+        width: auto;
+        padding: 0;
+      }
     }
     ol
     {
@@ -238,6 +243,8 @@
       li
       {
         font-size: 70%;
+        float: left;
+        margin-right: 3px;
       }
     }
   }
