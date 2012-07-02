@@ -5,6 +5,7 @@
     <th>Name</th>
     <th>Department</th>
     <th>Cell phone</th>
+    <th>Can Text?</th>
     <th>Hotel</th>
     <th>Hotel room</th>
     <th></th>
@@ -17,17 +18,18 @@
         <td><%= link_to contact.name, contact %></td>
         <td><%= contact.department %></td>
         <td><%= contact.cell_phone %></td>
+        <td><%= contact.can_text? ? "Yes" : "No" %></td>
         <td><%= contact.hotel %></td>
         <td><%= contact.hotel_room %></td>
-        <% if current_user and current_user.can_admin_users? %>
-            <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
-            <td><%= link_to 'Destroy', contact, confirm: 'Are you sure?', method: :delete %></td>
-        <% end %>
         <% if current_user and current_user.write_entries? %>
             <td><%= link_to 'Leave Message', new_message_path(message: { for:          contact.name,
                                                                          phone_number: contact.cell_phone,
                                                                          room_number:  contact.hotel_room,
                                                                          hotel:        contact.hotel }) %></td>
+        <% end %>
+        <% if current_user and current_user.can_admin_users? %>
+            <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
+            <td><%= link_to 'Destroy', contact, confirm: 'Are you sure?', method: :delete %></td>
         <% end %>
       </tr>
   <% end %>
