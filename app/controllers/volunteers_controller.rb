@@ -47,7 +47,7 @@ class VolunteersController < ApplicationController
   # GET /volunteers
   # GET /volunteers.json
   def index
-    @volunteers = Volunteer.page(params[:page])
+    @volunteers = Volunteer.order(:last_name).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
