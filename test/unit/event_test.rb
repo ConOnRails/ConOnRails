@@ -122,6 +122,8 @@ class EventTest < ActiveSupport::TestCase
 
   test "can detect flag changes" do
     params = { hidden: true, secure: false }
+    p params
+    p @event
     assert @event.flags_differ? params
   end
 
