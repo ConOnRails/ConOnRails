@@ -37,7 +37,7 @@ class ContactsControllerTest < ActionController::TestCase
       post :create, { contact: @contact.attributes }, session
     end
 
-    assert_redirected_to contact_path(assigns(:contact))
+    assert_redirected_to contacts_path
   end
 
   def create_contact_auth_fail(session)
@@ -76,7 +76,7 @@ class ContactsControllerTest < ActionController::TestCase
 
   def update_contact_success(session)
     put :update, { id: @contact.to_param, contact: @contact.attributes }, session
-    assert_redirected_to contact_path(assigns(:contact))
+    assert_redirected_to contacts_path
   end
 
   def update_contact_auth_fail(session)
