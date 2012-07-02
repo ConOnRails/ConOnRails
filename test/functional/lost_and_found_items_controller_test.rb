@@ -4,6 +4,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
   setup do
     @missing    = FactoryGirl.create :lost
     @found      = FactoryGirl.create :found
+    @returned   = FactoryGirl.create :returned
     @incomplete = FactoryGirl.build :incomplete
     @user       = FactoryGirl.create :user
     @admin_role = FactoryGirl.create :can_admin_lost_and_found_user
@@ -102,6 +103,12 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     assert_template :index
     assert_not_nil assigns :lfis
     assert_equal 2, @controller.lfis.length
+  end
+
+  test "can force search to include returned" do
+    get :search, { reported_missing: true, keywords: "Llamas", show_returned: true }, { user_id: @user.id}
+    assert_response :success
+    assert_equal 3, @controller.lfis.length
   end
 
   test "peon cannot create new lost" do
