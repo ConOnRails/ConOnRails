@@ -106,7 +106,8 @@ class Event < ActiveRecord::Base
   def flags_differ?(params)
     params.each do |p|
       return true if p.first == "status" and p.second != self.status
-      return true if p.first != "status" and self[p.first] != ( p.last == "1" ? true : false )
+      return true if p.first != "status" and
+          self[p.first] != ( (p.last == "1" or p.last == true) ? true : false )
     end
     false
   end
