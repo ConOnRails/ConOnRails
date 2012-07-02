@@ -14,7 +14,7 @@ class UserTest < ActiveSupport::TestCase
     if input_attributes == {}
       user = User.new
     else
-      user = User.create( input_attributes )
+      user = User.new( input_attributes )
     end
 
     assert user.invalid?
@@ -22,7 +22,7 @@ class UserTest < ActiveSupport::TestCase
   
   setup do
     @input_attributes = {
-        name: "mikey",
+        name: "uncle-mikey",
         realname: "Mi Key",
         password: GoodPassword,
         password_confirmation: GoodPassword,
@@ -35,7 +35,7 @@ class UserTest < ActiveSupport::TestCase
   end
   
   test "create a new user" do
-    User.create! @input_attributes
+    assert User.new(@input_attributes).valid?
   end
     
   test "user's name should be unique" do
