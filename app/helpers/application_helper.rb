@@ -6,6 +6,14 @@ module ApplicationHelper
     end
   end
 
+  def version_number
+    0.97
+  end
+
+  def version_name
+    "Delirious Diplodocus of Doom"
+  end
+
   def get_banner_style
     style = "normal"
     style = "active" if Event.num_active > 0
