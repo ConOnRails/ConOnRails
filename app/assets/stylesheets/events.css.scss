@@ -52,23 +52,30 @@
 
   ul.entries
   {
+    padding:             0;
     margin-left:         1em;
     min-height:          5em;
 
-    list-style-type:     square;
+    list-style-type:     circle;
     list-style-position: outside;
     li.entry
     {
       margin-bottom: 1em;
 
-      .date
+      .entry_metadata
       {
-        display: inline;
+        font-weight: bold;
+        color:       $dark_grey;
+        .date
+        {
+          display: inline;
+        }
+        .volunteer
+        {
+          display: inline;
+        }
       }
-      .volunteer
-      {
-        display: inline;
-      }
+
     }
   }
 
@@ -213,11 +220,13 @@
 
   .buttons
   {
-    display: block;
-    clear:   both;
+    display:       block;
+    clear:         both;
+    margin-bottom: 1em;
+    margin-top:    .5em;
     //    padding-left:  .5em;
     //,    padding-top:   .5em;
-    //    margin-bottom: 1em;
+
     //    border:        thin solid black;
     //    border-radius: 10px;
   }
@@ -231,7 +240,7 @@
 
       fieldset
       {
-        width: auto;
+        width:   auto;
         padding: 0;
       }
     }
@@ -242,8 +251,8 @@
       margin:          0;
       li
       {
-        font-size: 70%;
-        float: left;
+        font-size:    70%;
+        float:        left;
         margin-right: 3px;
       }
     }

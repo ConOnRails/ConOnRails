@@ -1,7 +1,7 @@
 <%= content_for :side do %>
     <div id="filters">
       <%= link_to "Show/Hide Filters", "#", id: :show_hide_filters %>
-      <%= field_set_tag "Filters", id: "filter_set" do %>
+      <%= field_set_tag("Filters", id: "filter_set") do %>
           <% Event.flags.each do |flag| %>
               <%= render partial: 'filter_term', locals: { term: flag } %>
           <% end %>
