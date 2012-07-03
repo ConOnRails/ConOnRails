@@ -29,9 +29,10 @@ h1, h2, h3, h4, h5, h6
 }
 
 a /* No links should have underlines ever */
+
 {
   text-decoration: none;
-  color: $dark_grey;
+  color:           $dark_grey;
 }
 
 .formtastic
@@ -88,22 +89,23 @@ a /* No links should have underlines ever */
 
   #emergency_button
   {
-    float:         right;
-    margin-right:  6px;
+    float:  right;
+    margin-right: 6px;
   }
 
   .not-emerg, .reverse
   {
-    width:         162px;
-    height:        100px;
+    width:  162px;
+    height: 100px;
   }
   .not-emerg
   {
     background-color: $emergency_bg;
     &:link, &:active, &:visited, &:hover,
     {
-      color:            $emergency_fg
-    };
+      color: $emergency_fg
+    }
+  ;
   }
 
   .reverse
@@ -130,21 +132,20 @@ div.button
 
 a.button
 {
- // width:         300px;
   padding:       12px;
 
-  font-family: Verdana, Geneva, sans-serif;
-  font-size:   1.2em;
-  font-weight: bold;
+  font-family:   Verdana, Geneva, sans-serif;
+  font-size:     1.2em;
+  font-weight:   bold;
 
   &:link, &:active, &:visited
   {
     background-color: $light_grey;
-    color: white;
+    color:            white;
   }
   &:hover
   {
-    color: $light_grey;
+    color:            $light_grey;
     background-color: black;
   }
 
@@ -159,11 +160,11 @@ a.button
     &:link, &:active, &:visited
     {
       background-color: white;
-      color: $light_grey;
+      color:            $light_grey;
     }
     &:hover
     {
-      color: $light_grey;
+      color:            $light_grey;
       background-color: black;
     }
   }
@@ -171,7 +172,7 @@ a.button
 
 a.small-button
 {
-  padding: 4px;
+  padding:   4px;
   font-size: .8em;
 }
 
