@@ -27,7 +27,7 @@ hardwired for CONvergence will need to be made configurable.
 Michael Scott Shappe
 <mshappe@camelopard-consulting.com>
 
-PS. I ***still*** haven't pasted the right bits into the source files yet, but: Copyright &copy; 2011,2012 Thomas Keeley, DeNae
+PS. I ***still*** pasted the right bits into the source files yet, but: Copyright &copy; 2011,2012 Thomas Keeley, DeNae
 Leverentz and Michael Scott Shappe. Licensed under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
 
 
