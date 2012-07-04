@@ -4,8 +4,9 @@ class Attendee < ActiveRecord::Base
   set_primary_key "attendee_id"
 
   def name
+    return nil if self.blank?
     return self.FIRST_NAME + " " +
-        ( self.MIDDLE_NAME.empty? ? "" : self.MIDDLE_NAME + " " ) +
+        ( self.MIDDLE_NAME.blank? ? "" : self.MIDDLE_NAME + " " ) +
         self.LAST_NAME
   end
 end
