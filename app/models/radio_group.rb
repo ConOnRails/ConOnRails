@@ -1,5 +1,5 @@
 class RadioGroup < ActiveRecord::Base
-  COLORS = [ "blue", "red", "yellow", "green" ]
+  COLORS = [ "blue", "red", "yellow", "green", "black" ]
 
   audited
   has_many :radios
