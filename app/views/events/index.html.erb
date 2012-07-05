@@ -6,6 +6,7 @@
     window.events.active = <%= params[:active].nil? ? false : params[:active] %>
     window.events.page = <%= params[:page].nil? ? "1" : params[:page] %>
     window.events.sticky = <%= params[:sticky].nil? ? false : params[:sticky] %>
+    window.events.secure = <%= params[:secure].nil? ? false : params[:secure] %>
     window.events.getMain()
 </script>
 
@@ -14,5 +15,13 @@
         <div id="unsticky_link"><%= link_to "Actives", root_path %></div>
     <% else %>
         <div id="sticky_link"><%= link_to "Stickies", events_path({ sticky: "true" }) %></div>
+    <% end %>
+
+    <% if current_user.rw_secure? %>
+        <% if params[:secure] %>
+            <div id="unsecure_link"><%= link_to "Actives", root_path %></div>
+        <% else %>
+            <div id="secure_link"><%= link_to "Secure and Hidden Actives", events_path({ secure: "true" }) %></div>
+        <% end %>
     <% end %>
 <% end %>

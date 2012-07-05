@@ -29,7 +29,6 @@ class Event < ActiveRecord::Base
   end
 
   def self.build_page_flag(user, filter, field, set)
-    p field
     if filter[field] == "true" and has_permission user, field
       set[field] = true
     elsif filter[field] == "false"
@@ -41,7 +40,15 @@ class Event < ActiveRecord::Base
   def self.build_page_flags(user, params, ands, ors)
     if params[:active] == true or params[:active] == "true"
       ors[:is_active] = true
-      ors[:sticky]    = true
+      ors[:sticky] = true
+      ands[:secure] = false
+      ands[:hidden] = false
+    end
+
+    if params[:secure] == true or params[:secure] == "true"
+      ands[:is_active] = true
+      ors[:secure] = true
+      ors[:hidden] = true
     end
 
     if params[:filters]
