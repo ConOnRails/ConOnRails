@@ -13,7 +13,7 @@ class RadioAssignmentsController < ApplicationController
         format.html { redirect_to radios_url, notice: 'Radio assignment was successfully created.' }
         format.json { render json: @radio_assignment, status: :created, location: @radio_assignment }
       else
-        format.html { render action: "new" }
+        format.html { redirect_to checkout_radio_url @radio_assignment.radio, error: "Radio not assigned" }
         format.json { render json: @radio_assignment.errors, status: :unprocessable_entity }
       end
     end

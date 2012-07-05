@@ -1,5 +1,5 @@
 <tr>
-  <td class="<%= radio.radio_group.color %>"><%= radio.radio_group.name %></td>
+  <td class="<%= radio.radio_group.color if radio.radio_group.present? %>"><%= radio.radio_group.name if radio.radio_group.present? %></td>
   <td>
     <% if current_user and current_user.can_admin_radios? %>
         <%= link_to radio.number, edit_radio_path(radio) %>
