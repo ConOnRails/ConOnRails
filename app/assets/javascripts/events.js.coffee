@@ -10,6 +10,7 @@ window.events.getMain = () ->
          data: {
             "page": window.events.page,
             "active": window.events.active,
+            "secure": window.events.secure,
             "filters[sticky]": window.events.sticky
          },
          success: ->
