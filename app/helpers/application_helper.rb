@@ -7,11 +7,11 @@ module ApplicationHelper
   end
 
   def version_number
-    1.1
+    1.2
   end
 
   def version_name
-    "Delirious Diplodocus of Drunken Dangerous Doom"
+    "Delirious Diplodocus of Drunken Deranged Dangerous Doom"
   end
 
   def version_type
