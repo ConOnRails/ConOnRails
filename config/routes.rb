@@ -36,6 +36,7 @@ ConOnRails::Application.routes.draw do
     collection do
       get 'searchform'
       post 'search'
+      get 'search'
     end
   end
 
