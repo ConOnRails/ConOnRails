@@ -11,17 +11,23 @@
 </script>
 
 <% content_for :side do %>
-    <% if params[:sticky] %>
-        <div id="unsticky_link"><%= link_to "Actives", root_path %></div>
+    <% if params[:active] %>
+       <div><strong>Viewing Actives</strong></div>
+       <div id="sticky_link"><%= link_to "View Stickies", events_path({ sticky: "true" }) %></div>
+       <% if current_user.rw_secure? %>
+           <div id="secure_link"><%= link_to "View Secure and Hidden Actives", events_path({ secure: "true" }) %></div>
+       <% end %>
+    <% elsif params[:sticky] %>
+       <div id="unsticky_link"><%= link_to "View Actives", root_path %></div>
+       <div><strong>Viewing Stickies</strong></div>
+       <% if current_user.rw_secure? %>
+           <div id="secure_link"><%= link_to "View Secure and Hidden Actives", events_path({ secure: "true" }) %></div>
+       <% end %>
+    <% elsif current_user.rw_secure? and params[:secure] %>
+       <div id="unsticky_link"><%= link_to "View Actives", root_path %></div>
+       <div id="secure_link"><%= link_to "View Secure and Hidden Actives", events_path({ secure: "true" }) %></div>
+       <div><strong>Viewing Secure and Hidden Actives</div>
     <% else %>
-        <div id="sticky_link"><%= link_to "Stickies", events_path({ sticky: "true" }) %></div>
-    <% end %>
-
-    <% if current_user.rw_secure? %>
-        <% if params[:secure] %>
-            <div id="unsecure_link"><%= link_to "Actives", root_path %></div>
-        <% else %>
-            <div id="secure_link"><%= link_to "Secure and Hidden Actives", events_path({ secure: "true" }) %></div>
-        <% end %>
+       <div>I HAVE NO IDEA WHAT TO DO NOW!</div>
     <% end %>
 <% end %>
