@@ -25,7 +25,7 @@
        <% end %>
     <% elsif current_user.rw_secure? and params[:secure] %>
        <div id="unsticky_link"><%= link_to "View Actives", root_path %></div>
-       <div id="secure_link"><%= link_to "View Secure and Hidden Actives", events_path({ secure: "true" }) %></div>
+       <div id="sticky_link"><%= link_to "View Stickies", events_path({ sticky: "true" }) %></div>
        <div><strong>Viewing Secure and Hidden Actives</div>
     <% else %>
        <div>I HAVE NO IDEA WHAT TO DO NOW!</div>
