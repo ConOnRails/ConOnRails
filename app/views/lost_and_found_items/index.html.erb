@@ -1,5 +1,11 @@
 <div id="paginator"><%= paginate @lfis %></div>
 
+<%= form_tag :search_lost_and_found_items, method: :post, id: "lost_and_found_search_form" do %>
+    <%= label_tag :id, "Jump to an ID" %>
+    <%= text_field_tag :id %>
+    <%= button_tag "Submit" %>
+<% end %>
+
 <% @lfis.each do |lfi| %>
     <div class="lfi <%= lfi.type %>">
       <div class="id_line">
@@ -28,5 +34,5 @@
 <% end %>
 
 <div class="button"><%= link_to buttontext, new_lost_and_found_item_path(newparams),
-                                                  class: "button #{buttontype}"%>
+                                class: "button #{buttontype}" %>
 </div>

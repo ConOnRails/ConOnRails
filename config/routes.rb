@@ -37,6 +37,7 @@ ConOnRails::Application.routes.draw do
       get 'searchform'
       post 'search'
       get 'search'
+      get 'open_inventory'
     end
   end
 
