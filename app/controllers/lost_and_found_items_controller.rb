@@ -29,6 +29,13 @@ class LostAndFoundItemsController < ApplicationController
     like       = process_keywords(params[:keywords])
 
     @lfis = LostAndFoundItem.page params[:page]
+
+    # HACK this should be a separate function eventually
+    if params[:id].present?
+      @lfi = LostAndFoundItem.find_by_id(params[:id])
+      return redirect_to lost_and_found_item_path(@lfi) if @lfi.present?
+    end
+
     @lfis = @lfis.where returned: false unless params[:show_returned].present?
     @lfis = @lfis.where(like) unless like == ''
     @lfis = @lfis.where(category: categories) unless categories == []
@@ -37,6 +44,17 @@ class LostAndFoundItemsController < ApplicationController
       format.html { render 'index' }
       format.json { render json: @lfis }
     end
+  end
+
+  def open_inventory
+    @lfis = LostAndFoundItem.page params[:page]
+    @lfis = @lfis.where found: true, returned: false
+
+    respond_to do |format|
+      format.html { render 'index'}
+      format.json { render json: @lfis }
+    end
+
   end
 
   def new
