@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120701234311) do
+ActiveRecord::Schema.define(:version => 20120702232742) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -33,6 +33,13 @@ ActiveRecord::Schema.define(:version => 20120701234311) do
   add_index "audits", ["auditable_id", "auditable_type"], :name => "auditable_index"
   add_index "audits", ["created_at"], :name => "index_audits_on_created_at"
   add_index "audits", ["user_id", "user_type"], :name => "user_index"
+
+  create_table "chat_messages", :force => true do |t|
+    t.integer  "user_id"
+    t.text     "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "contacts", :force => true do |t|
     t.string   "name"
@@ -118,15 +125,15 @@ ActiveRecord::Schema.define(:version => 20120701234311) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_active",   :default => true
-    t.boolean  "comment"
-    t.boolean  "flagged"
-    t.boolean  "post_con"
-    t.boolean  "quote"
-    t.boolean  "sticky"
-    t.boolean  "emergency"
-    t.boolean  "medical"
-    t.boolean  "hidden"
-    t.boolean  "secure"
+    t.boolean  "comment",     :default => false
+    t.boolean  "flagged",     :default => false
+    t.boolean  "post_con",    :default => false
+    t.boolean  "quote",       :default => false
+    t.boolean  "sticky",      :default => false
+    t.boolean  "emergency",   :default => false
+    t.boolean  "medical",     :default => false
+    t.boolean  "hidden",      :default => false
+    t.boolean  "secure",      :default => false
     t.boolean  "consuite"
     t.boolean  "hotel"
     t.boolean  "parties"
@@ -172,6 +179,8 @@ ActiveRecord::Schema.define(:version => 20120701234311) do
     t.boolean  "is_active",    :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "can_text",     :default => false
+    t.string   "position"
   end
 
   create_table "radio_assignment_audits", :force => true do |t|
