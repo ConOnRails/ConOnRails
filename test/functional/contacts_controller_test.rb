@@ -34,7 +34,7 @@ class ContactsControllerTest < ActionController::TestCase
 
   def create_contact_success(session)
     assert_difference('Contact.count') do
-      post :create, { contact: @contact.attributes }, session
+      post :create, { contact: FactoryGirl.attributes_for(:valid_contact) }, session
     end
 
     assert_redirected_to contacts_path
@@ -75,7 +75,7 @@ class ContactsControllerTest < ActionController::TestCase
   end
 
   def update_contact_success(session)
-    put :update, { id: @contact.to_param, contact: @contact.attributes }, session
+    put :update, { id: @contact.to_param, contact: FactoryGirl.attributes_for(:valid_contact) }, session
     assert_redirected_to contacts_path
   end
 

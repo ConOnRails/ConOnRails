@@ -1,135 +1,159 @@
 require 'test_helper'
 
 class EventTest < ActiveSupport::TestCase
-  setup do
-    @event       = FactoryGirl.create :event
-    @other_event = FactoryGirl.create :ordinary_event
-  end
 
-  def make_one_inactive
-    @event.is_active = false
-    @event.save
-    assert !@event.is_active?
-  end
+  should have_many :entries
+  should have_many :event_flag_histories
 
-  def make_an_emergency
-    @event.emergency = true
-    @event.save
-    assert @event.emergency
-  end
+  context "an ordinary event" do
+    setup do
+      @event = FactoryGirl.create :ordinary_event
+    end
 
-  test "active flag should be true by default" do
-    assert @event.is_active?
-  end
+    should "be active by default" do
+      assert @event.is_active?
+    end
 
-  test "type flags should be false by default" do
-    assert !@event.comment?
-    assert !@event.flagged?
-    assert !@event.post_con?
-    assert !@event.quote?
-    assert !@event.sticky?
-    assert !@event.emergency?
-    assert !@event.medical?
-    assert !@event.hidden?
-    assert !@event.secure?
-  end
+    should "have false type flags by default" do
+      assert !@event.comment?
+      assert !@event.flagged?
+      assert !@event.post_con?
+      assert !@event.quote?
+      assert !@event.sticky?
+      assert !@event.emergency?
+      assert !@event.medical?
+      assert !@event.hidden?
+      assert !@event.secure?
+    end
 
-  test "department flags should be false by default" do
-    assert !@event.consuite?
-    assert !@event.hotel?
-    assert !@event.parties?
-    assert !@event.volunteers?
-    assert !@event.dealers?
-    assert !@event.dock?
-    assert !@event.merchandise?
-  end
+    should "have false department flags by default" do
+      assert !@event.consuite?
+      assert !@event.hotel?
+      assert !@event.parties?
+      assert !@event.volunteers?
+      assert !@event.dealers?
+      assert !@event.dock?
+      assert !@event.merchandise?
+    end
 
-  test "can revoke active status" do
-    assert @event.is_active?
-    @event.is_active = false
-    assert !@event.is_active?
-  end
+    should "have correct textual status" do
+      assert_equal 'Active', @event.status
+      @event.is_active = false
+      assert_equal 'Closed', @event.status
+    end
 
-  test "textual status is 'active' or 'closed'" do
-    assert @event.is_active?
-    assert_equal @event.status, 'Active'
-    @event.is_active = false
-    assert !@event.is_active?
-    assert_equal @event.status, 'Closed'
-  end
+    should "set textual status and get right flags" do
+      @event.status = 'Closed'
+      assert !@event.is_active?
+      @event.status = 'Active'
+      assert @event.is_active?
+    end
 
-  test "list of available status makes sense" do
-    statuses = Event.statuses
-    assert_not_nil statuses
-    assert_equal statuses, ['Active', 'Closed']
-  end
+    should "raise exception on invalid status text" do
+      assert_raise Exception do
+        @event.status = 'Fudgewidget'
+      end
+    end
 
-  test "can set status by text" do
-    assert @event.is_active?
-    @event.status = 'Closed'
-    assert !@event.is_active?, "Well, that didn't work"
-  end
+    should "detect flag changes" do
+      params = { hidden: true, secure: false }
+      assert @event.flags_differ? params
+      params = { hidden: false }
+      assert_equal false, @event.flags_differ?(params)
+    end
 
-  test "setting bad status text raises exception" do
-    assert @event.is_active?
-    assert_raise Exception do
-      @event.status = 'Fudgewidget'
+    context "an additional ordinary event" do
+      setup do
+        @second_event = FactoryGirl.create :event
+      end
+
+      should "have two active events" do
+        assert_equal 2, Event.num_active
+      end
+
+      context "one event made inactive" do
+        setup do
+          @second_event.is_active = false
+          @second_event.save!
+        end
+
+        should "have one inactive" do
+          assert_equal 1, Event.num_inactive
+        end
+      end
+
+      context "one event is an emergency" do
+        setup do
+          @second_event.emergency = true
+          @second_event.save!
+        end
+
+        should "have one active emergency" do
+          assert_equal 1, Event.num_active_emergencies
+        end
+
+        context "emergency is closed" do
+          setup do
+            @second_event.status = 'Closed'
+            @second_event.save!
+          end
+
+          should "have no active emergencies" do
+            assert_equal 0, Event.num_active_emergencies
+          end
+        end
+      end
+
+      context "one event is an medical" do
+        setup do
+          @second_event.medical = true
+          @second_event.save!
+        end
+
+        should "have one active medical" do
+          assert_equal 1, Event.num_active_medicals
+        end
+
+        context "medical is closed" do
+          setup do
+            @second_event.status = 'Closed'
+            @second_event.save!
+          end
+
+          should "have no active medicals" do
+            assert_equal 0, Event.num_active_medicals
+          end
+        end
+      end
+
+      context "stuff we want to filter" do
+        setup do
+          @user = FactoryGirl.create :user
+
+          @role = FactoryGirl.create :write_entries_role
+          @user.roles << @role
+
+          @filter = Event.build_permissions @user
+        end
+
+        should "have a correctly constructed filter" do
+
+          assert_equal 2, @filter.size
+          assert_equal false, @filter[:hidden]
+          assert_equal false, @filter[:secure]
+
+          @user.roles << FactoryGirl.create(:rw_secure_role)
+          @filter = Event.build_permissions @user
+          assert_equal 1, @filter.size
+          assert_nil @filter[:secure]
+          assert_equal false, @filter[:hidden]
+
+          @user.roles << FactoryGirl.create(:read_hidden_entries_role)
+          @filter = Event.build_permissions @user
+          assert_equal 0, @filter.size
+        end
+      end
+
     end
   end
-
-  test "correct attributes are exposed" do
-    event = Event.create!(@event.attributes)
-  end
-
-  test "can determine number of events" do
-    assert_equal 2, Event.count
-  end
-
-  test "can determine number of active events" do
-    assert_equal 2, Event.num_active
-  end
-
-  test "can determine number of inactive events" do
-    make_one_inactive
-    assert_equal 1, Event.num_inactive
-  end
-
-  test "can determine number of active emergencies" do
-    make_an_emergency
-    assert_equal 1, Event.num_active_emergencies
-  end
-
-  test "can build filters" do
-    user = FactoryGirl.create :user
-    role = FactoryGirl.create :write_entries_role
-    user.roles << role
-
-    filter = Event.build_permissions user
-    assert_equal 2, filter.size
-    assert_equal false, filter[:hidden]
-    assert_equal false, filter[:secure]
-
-    user.roles << FactoryGirl.create( :rw_secure_role )
-    filter = Event.build_permissions user
-    assert_equal 1, filter.size
-    assert_nil filter[:secure]
-    assert_equal false, filter[:hidden]
-
-    user.roles << FactoryGirl.create( :read_hidden_entries_role )
-    filter = Event.build_permissions user
-    assert_equal 0, filter.size
-  end
-
-  test "can detect flag changes" do
-    params = { hidden: true, secure: false }
-    p params
-    p @event
-    assert @event.flags_differ? params
-  end
-
-  test "can detect flags don't change" do
-    params = { hidden: false }
-    assert_equal false, @other_event.flags_differ?(params)
-  end
-
 end

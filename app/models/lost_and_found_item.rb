@@ -25,6 +25,10 @@ class LostAndFoundItem < ActiveRecord::Base
       other_not_listed:  "Other Not Listed"
   }
 
+  def self.valid_categories
+    @@valid_categories
+  end
+
   scope :found, where(found: true)
   scope :missing, where(reported_missing: true)
 

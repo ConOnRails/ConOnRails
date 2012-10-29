@@ -1,11 +1,9 @@
 require 'test_helper'
 
-class EntryTest < ActiveSupport::TestCase  
-  test "entry attributes must not be empty" do
-      entry = Entry.new
-      assert entry.invalid?
-      assert entry.errors[:description].any?
-      assert entry.errors[:user].any?
-      assert entry.errors[:event].any?
-  end
+class EntryTest < ActiveSupport::TestCase
+  should belong_to :event
+  should belong_to :user
+  should validate_presence_of :description
+  should validate_presence_of :user
+  should validate_presence_of :event
 end
