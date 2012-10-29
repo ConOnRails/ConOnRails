@@ -1,4 +1,6 @@
 class Contact < ActiveRecord::Base
+  attr_accessible :name, :cell_phone, :department, :hotel, :hotel_room, :can_text
+
   audited
   validates_format_of :cell_phone,
                       message: "must be a valid telephone number.",

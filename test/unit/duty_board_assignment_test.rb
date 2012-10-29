@@ -1,36 +1,8 @@
 require 'test_helper'
 
 class DutyBoardAssignmentTest < ActiveSupport::TestCase
-  setup do
-    @volunteer = FactoryGirl.create :valid_volunteer
-    @dbs       = FactoryGirl.create :valid_duty_board_slot
-  end
-
-  def new_assignment(num_words = 3)
-    yield DutyBoardAssignment.new name:            Faker::Name.name,
-                                  duty_board_slot: @dbs,
-                                  notes:           Faker::Lorem.sentence(num_words)
-  end
-
-  test "must have volunteer dbs but not necessarily notes" do
-    DutyBoardAssignment.new do |dba|
-      assert dba.invalid?, "DBA should have been invalid"
-      assert dba.errors[:name].any?
-      assert dba.errors[:duty_board_slot].any?
-    end
-  end
-
-  test "valid construction" do
-    new_assignment do |dba|
-      assert dba.valid?, "DBA should have been valid"
-    end
-  end
-
-  test "notes shouldn't be too long" do
-    new_assignment 1000 do |dba|
-      p dba
-      assert dba.invalid?, "DBA should have been invalid"
-      assert dba.errors[:notes].any?
-    end
-  end
+  should belong_to :duty_board_slot
+  should validate_presence_of(:name).with_message /must have a name/
+  should validate_presence_of(:duty_board_slot).with_message /must associate/
+  should ensure_length_of(:notes).is_at_most 255
 end

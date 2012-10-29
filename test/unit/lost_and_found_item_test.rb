@@ -5,100 +5,54 @@ class LostAndFoundItemTest < ActiveSupport::TestCase
   setup do
     @lost = FactoryGirl.build :lost
     @found = FactoryGirl.build :found
+    @both = FactoryGirl.build :lost, found: true
     @returned = FactoryGirl.build :returned
   end
 
-  test "default construction should be invalid" do
-    lfi = LostAndFoundItem.create
-    assert lfi.invalid?, "Vole"
-    assert lfi.errors[:category].any?
-    assert lfi.errors[:description].any?
-    assert lfi.errors[:reported_missing].any?
-    assert lfi.errors[:found].any?
-  end
-  
-  test "cannot create an item that is both missing and found" do
-    # Note: this is ONLY a workflow issue on create. Items can be UPDATED as
-    # either missing or found if created with the other, and then both will
-    # be true, but an item can only be CREATED as missing or found
-    attrs = @lost.attributes
-    attrs[:found] = true
-    lfi = LostAndFoundItem.create(attrs)
-    assert lfi.invalid?
-    assert lfi.errors[:reported_missing].any?
-    assert lfi.errors[:found].any?
-  end
-  
-  test "item created missing MUST have where_last_seen owner_name owner_contact" do
-    doom = @lost.attributes
-    doom.delete "where_last_seen"
-    doom.delete "owner_name"
-    doom.delete "owner_contact"
-    lfi = LostAndFoundItem.create doom
-    assert lfi.invalid?
-    assert lfi.errors[:where_last_seen].any?
-    assert lfi.errors[:owner_name].any?
-  end
-  
-  test "item created missing MUST NOT have where_found" do
-    doom = @lost.attributes
-    doom[:where_found] ="Doomland"
-    lfi = LostAndFoundItem.create doom
-    assert lfi.invalid?
-    assert lfi.errors[:where_found].any?
-  end
-  
-  test "item created found MUST have where_found" do
-    doom = @found.attributes
-    doom.delete "where_found"
-    lfi = LostAndFoundItem.create doom
-    assert lfi.invalid?
-    assert lfi.errors[:where_found]
-  end
-  
-  test "item created found MUST NOT have where_last_seen" do
-    doom = @found.attributes
-    doom[:where_last_seen] = "Doomland"
-    lfi = LostAndFoundItem.create doom
-    assert lfi.invalid?
-    assert lfi.errors[:where_last_seen].any?
-  end
-  
-  test "item updated missing MUST have where_last_seen other fields irrelevant" do
-    doom = @found.attributes
-    lfi = LostAndFoundItem.create!(doom)
-    lfi.reported_missing = true
-    lfi.save
-    assert lfi.invalid?
-    assert lfi.errors[:where_last_seen].any?
-  end
-  
-  test "item updated found MUST have where_found other fields irrelevant" do
-    doom = @lost.attributes
-    lfi = LostAndFoundItem.create(doom)
-    lfi.found = true
-    lfi.save
-    assert lfi.invalid?
-    assert lfi.errors[:where_found].any?
+  should validate_presence_of :category
+  #should ensure_inclusion_of(:category).in_array LostAndFoundItem.valid_categories.keys
+  should validate_presence_of :description
+
+  should "not be able to create with both missing and found" do
+    assert @both.invalid?
   end
 
-  test "category must be valid" do
-    doom = @lost.attributes
-    doom["category"] = "Llamarama"
-    lfi = LostAndFoundItem.create(doom)
-    assert lfi.invalid?
-    assert lfi.errors[:category].any?
+  context "lost" do
+    subject { @lost }
+
+    should validate_presence_of :where_last_seen
+    should validate_presence_of :owner_name
+
+    should "be marked missing and not the others" do
+      assert subject.reported_missing?
+      assert !subject.found?
+      assert !subject.returned?
+    end
   end
-  
-  test "missing items report 'missing' type" do
-    assert_equal @lost.type, 'missing'
+
+  context "found" do
+    subject { @found }
+
+    should validate_presence_of :where_found
+
+    should "be marked found and not the others" do
+      assert subject.found?
+      assert !subject.reported_missing?
+      assert !subject.returned?
+    end
   end
-  
-  test "found items report 'found' type" do
-    assert_equal @found.type, 'found'
-  end
-  
-  test "returned items report 'returned' type" do
-    assert_equal @returned.type, 'returned'
-  end
+
 end
+
+#  test "missing items report 'missing' type" do
+#    assert_equal @lost.type, 'missing'
+#  end
+#
+#  test "found items report 'found' type" do
+#    assert_equal @found.type, 'found'
+#  end
+#
+#  test "returned items report 'returned' type" do
+#    assert_equal @returned.type, 'returned'
+#  end
+#end

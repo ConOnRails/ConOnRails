@@ -106,15 +106,16 @@ FactoryGirl.define do
   end
 
   factory :contact do
+    factory :valid_contact do
+      name "Wom Bat"
+      department "Lingerie"
+      cell_phone "+1 123 456 7890"
+      hotel "Ritz"
+      hotel_room 666
+      can_text true
+    end
   end
 
-  factory :valid_contact, class: Contact do
-    name "Wom Bat"
-    department "Lingerie"
-    cell_phone "+1 123 456 7890"
-    hotel "Ritz"
-    hotel_room 666
-  end
 
   factory :user do
     name "wombat"
@@ -267,7 +268,7 @@ FactoryGirl.define do
 
   factory :department do
     factory :good_department do
-      name "Operations"
+      name Faker::Name.name
       radio_allotment 1
       association :radio_group, factory: :blue_man_group
       association :volunteer, factory: :valid_volunteer
