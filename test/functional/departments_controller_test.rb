@@ -23,7 +23,7 @@ class DepartmentsControllerTest < ActionController::TestCase
 
   test "should create department" do
     assert_difference('Department.count') do
-      post :create, { department: @valid_department.attributes }, @user_session
+      post :create, { department: FactoryGirl.attributes_for(:good_department) }, @user_session
     end
 
     assert_redirected_to department_path(assigns(:department))
@@ -43,7 +43,7 @@ class DepartmentsControllerTest < ActionController::TestCase
 
   test "should update department" do
     @valid_department.save!
-    put :update, { id: @valid_department.to_param, department: @valid_department.attributes }, @user_session
+    put :update, { id: @valid_department.to_param, department: FactoryGirl.attributes_for(:good_department) }, @user_session
     assert_redirected_to department_path(assigns(:department))
   end
 

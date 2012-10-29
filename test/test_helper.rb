@@ -48,13 +48,8 @@ end
 ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
-gem 'minitest'
-gem 'minitest-reporters'
-
-MiniTest::Unit.runner = MiniTest::SuiteRunner.new
-if ENV["RM_INFO"] || ENV["TEAMCITY_VERSION"]
-  MiniTest::Unit.runner.reporters << MiniTest::Reporters::RubyMineReporter.new
-end
+require 'minitest/reporters'
+MiniTest::Reporters.use!
 
 
 class ActiveSupport::TestCase
