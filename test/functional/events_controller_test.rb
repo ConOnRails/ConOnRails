@@ -122,13 +122,13 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test "should update event with no additional entry" do
-    put :update, { id: @event.to_param, event: @event.attributes, entry: { description: '' } }, @user_session
+    put :update, { id: @event.to_param, event: FactoryGirl.attributes_for(:ordinary_event), entry: { description: '' } }, @user_session
     assert_redirected_to event_path(assigns(:event))
   end
 
   test "creating an event with blank initial entry fails" do
     assert_no_difference 'Event.count' do
-      post :create, { event: @event.attributes, entry: { description: '' } }, @user_session
+      post :create, { event: FactoryGirl.attributes_for(:ordinary_event), entry: { description: '' } }, @user_session
     end
   end
 

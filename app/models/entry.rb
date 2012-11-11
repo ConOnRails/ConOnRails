@@ -1,4 +1,6 @@
 class Entry < ActiveRecord::Base
+  attr_accessible :description
+
   audited associated_with: :event
   audited associated_with: :user
 

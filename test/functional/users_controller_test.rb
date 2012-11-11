@@ -62,9 +62,8 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should create user with associated volunteer" do
-    @input_attributes[:volunteer] = @volunteer.id
     assert_difference('User.count') do
-      post :create, { user: @input_attributes }, { user_id: @user.id}
+      post :create, { user: @input_attributes, volunteer: @volunteer.id }, { user_id: @user.id }
     end
 
     assert_equal @volunteer.id, assigns(:user).volunteer.id
@@ -114,7 +113,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should update user with associated volunteer" do
-    put :update, { id: @user.to_param, user: { realname: "wombat", volunteer: @volunteer.id } }, { user_id: @user.id }
+    put :update, { id: @user.to_param, user: { realname: "wombat" }, volunteer: @volunteer.id }, { user_id: @user.id }
     assert assigns(:user).valid?
     assert_equal "wombat", assigns(:user).realname
     assert_equal @volunteer.id, assigns(:user).volunteer.id

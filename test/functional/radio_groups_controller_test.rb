@@ -24,7 +24,7 @@ class RadioGroupsControllerTest < ActionController::TestCase
 
   test "should create radio_group" do
     assert_difference('RadioGroup.count') do
-      post :create, { radio_group: @radio_group.attributes }, @user_session
+      post :create, { radio_group: FactoryGirl.attributes_for(:red_handed)}, @user_session
     end
 
     assert_redirected_to radio_group_path(assigns(:radio_group))
@@ -41,7 +41,7 @@ class RadioGroupsControllerTest < ActionController::TestCase
   end
 
   test "should update radio_group" do
-    put :update, { id: @radio_group.to_param, radio_group: @radio_group.attributes }, @user_session
+    put :update, { id: @radio_group.to_param, radio_group: FactoryGirl.attributes_for(:red_handed)}, @user_session
     assert_redirected_to radio_group_path(assigns(:radio_group))
   end
 

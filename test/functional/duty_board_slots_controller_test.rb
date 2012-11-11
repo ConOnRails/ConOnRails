@@ -29,7 +29,7 @@ class DutyBoardSlotsControllerTest < ActionController::TestCase
 
   test "should create duty_board_slot" do
     assert_difference('DutyBoardSlot.count') do
-      post :create, { duty_board_slot: @duty_board_slot.attributes }, @user_session
+      post :create, { duty_board_slot: FactoryGirl.attributes_for(:valid_duty_board_slot) }, @user_session
     end
 
     assert_redirected_to duty_board_slots_path
@@ -49,7 +49,7 @@ class DutyBoardSlotsControllerTest < ActionController::TestCase
 
   test "should update duty_board_slot" do
     @duty_board_slot.save!
-    put :update, { id: @duty_board_slot.to_param, duty_board_slot: @duty_board_slot.attributes },
+    put :update, { id: @duty_board_slot.to_param, duty_board_slot: FactoryGirl.attributes_for(:valid_duty_board_slot) },
         @user_session
     assert_redirected_to duty_board_slots_path
   end
@@ -58,7 +58,7 @@ class DutyBoardSlotsControllerTest < ActionController::TestCase
     @duty_board_slot.save!
 
     put :update, { id:                    @duty_board_slot.to_param,
-                   duty_board_slot:       @duty_board_slot.attributes,
+                   duty_board_slot:       FactoryGirl.attributes_for(:valid_duty_board_slot),
                    duty_board_assignment: @duty_board_assignment_attributes },
         @user_session
     assert_redirected_to duty_board_index_path
@@ -71,7 +71,7 @@ class DutyBoardSlotsControllerTest < ActionController::TestCase
     @duty_board_slot.save!
 
     put :update, { id:                    @duty_board_slot.to_param,
-                   duty_board_slot:       @duty_board_slot.attributes,
+                   duty_board_slot:       FactoryGirl.attributes_for(:valid_duty_board_slot),
                    duty_board_assignment: { notes: "Yak" } },
         @user_session
     assert_redirected_to duty_board_index_path

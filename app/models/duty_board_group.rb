@@ -1,4 +1,5 @@
 class DutyBoardGroup < ActiveRecord::Base
+  attr_accessible :name, :row, :column
   audited
 
   ROW_RANGE = (1..4)
