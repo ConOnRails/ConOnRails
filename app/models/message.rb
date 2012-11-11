@@ -1,4 +1,5 @@
 class Message < ActiveRecord::Base
+  attr_accessible :is_active, :for, :message, :phone_number, :room_number, :hotel, :can_text, :position
   audited
   paginates_per 10
 

@@ -59,7 +59,7 @@ class UsersController < ApplicationController
   # POST /admin/users.json
   def create
     @user = User.new(params[:user])
-    @volunteer = Volunteer.find_by_id(params[:user][:volunteer])
+    @volunteer = Volunteer.find_by_id(params[:volunteer])
     @user.volunteer = @volunteer if @volunteer
 
     respond_to do |format|
@@ -77,7 +77,7 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
-    @volunteer = Volunteer.find_by_id(params[:user][:volunteer])
+    @volunteer = Volunteer.find_by_id(params[:volunteer])
     @user.volunteer = @volunteer if @volunteer
 
     respond_to do |format|

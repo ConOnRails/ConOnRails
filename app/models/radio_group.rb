@@ -1,4 +1,6 @@
 class RadioGroup < ActiveRecord::Base
+  attr_accessible :name, :color, :notes
+
   COLORS = [ "blue", "red", "yellow", "green", "black" ]
 
   audited

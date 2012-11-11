@@ -9,3 +9,13 @@ Gemfile.lock
 
 .rvmrc*
 public/assets/*
+
+contact.csv
+
+coverage/.last_run.json
+
+production.backup.sql
+
+sst/
+
+test/.DS_Store

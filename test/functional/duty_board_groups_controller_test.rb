@@ -21,7 +21,7 @@ class DutyBoardGroupsControllerTest < ActionController::TestCase
 
   test 'post create' do
     assert_difference 'DutyBoardGroup.count' do
-      post :create, { duty_board_group: @duty_board_group.attributes }, @user_session
+      post :create, { duty_board_group: FactoryGirl.attributes_for(:valid_duty_board_group) }, @user_session
     end
     assert_redirected_to duty_board_groups_path
   end
@@ -34,7 +34,7 @@ class DutyBoardGroupsControllerTest < ActionController::TestCase
 
   test "put update" do
     @duty_board_group.save!
-    put :update, { id: @duty_board_group.id, duty_board_group: @duty_board_group.attributes }, @user_session
+    put :update, { id: @duty_board_group.id, duty_board_group: FactoryGirl.attributes_for(:valid_duty_board_group) }, @user_session
 
     assert_redirected_to duty_board_groups_path
   end

@@ -119,13 +119,13 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
 
   test "can create new lost" do
     assert_difference 'LostAndFoundItem.count' do
-      post :create, { lost_and_found_item: @missing.attributes }, { user_id: @user.id }
+      post :create, { lost_and_found_item: FactoryGirl.attributes_for(:lost) }, { user_id: @user.id }
     end
   end
 
   test "cannot create incomplete entry" do
     assert_no_difference 'LostAndFoundItem.count' do
-      post :create, { lost_and_found_item: @incomplete.attributes }, { user_id: @user.id }
+      post :create, { lost_and_found_item: FactoryGirl.attributes_for(:incomplete) }, { user_id: @user.id }
     end
     assert_template :edit
   end
