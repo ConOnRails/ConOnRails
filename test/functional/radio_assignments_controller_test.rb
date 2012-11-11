@@ -5,6 +5,8 @@ class RadioAssignmentsControllerTest < ActionController::TestCase
     @radio_assignment = FactoryGirl.build :valid_radio_assignment
     @user             = FactoryGirl.create :user
     @role             = FactoryGirl.create :assign_radios_role
+    @radio            = FactoryGirl.create :valid_blue_radio
+    @department       = FactoryGirl.create :good_department
     @user.roles << @role
     @user_session = { user_id: @user.id }
   end
@@ -12,7 +14,7 @@ class RadioAssignmentsControllerTest < ActionController::TestCase
   test "should create radio_assignment" do
     assert_difference('RadioAssignmentAudit.count') do
       assert_difference('RadioAssignment.count') do
-        post :create, { radio_assignment: @radio_assignment.attributes }, @user_session
+        post :create, { radio_assignment: FactoryGirl.attributes_for(:valid_radio_assignment, radio_id: @radio.id, department_id: @department) }, @user_session
       end
     end
     assert_equal "out", assigns(:radio_assignment).radio.state

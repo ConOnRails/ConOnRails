@@ -1,4 +1,5 @@
 class DutyBoardAssignment < ActiveRecord::Base
+  attr_accessible :name, :duty_board_slot_id, :notes
   audited
 
   belongs_to :duty_board_slot

@@ -24,7 +24,7 @@ class MessagesControllerTest < ActionController::TestCase
 
   test "should create message" do
     assert_difference('Message.count') do
-      post :create, { message: @complete_message.attributes }, @user_session
+      post :create, { message: FactoryGirl.attributes_for(:valid_message_with_user) }, @user_session
     end
 
     assert_redirected_to messages_path
@@ -41,7 +41,7 @@ class MessagesControllerTest < ActionController::TestCase
   end
 
   test "should update message" do
-    put :update, { id: @complete_message.to_param, message: @complete_message.attributes }, @user_session
+    put :update, { id: @complete_message.to_param, message: FactoryGirl.attributes_for(:valid_message_with_user) }, @user_session
     assert_redirected_to messages_path
   end
 

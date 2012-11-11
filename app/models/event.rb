@@ -1,4 +1,5 @@
 class Event < ActiveRecord::Base
+  attr_accessible :is_active, :hidden, :secure, :sticky
   audited
   has_associated_audits
   has_many :entries, dependent: :destroy, order: 'created_at ASC'

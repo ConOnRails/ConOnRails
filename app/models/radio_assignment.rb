@@ -9,6 +9,8 @@ class DepartmentAllotmentChecker < ActiveModel::Validator
 end
 
 class RadioAssignment < ActiveRecord::Base
+  attr_accessible :radio_id, :volunteer_id, :department_id, :state
+
   audited
 
   belongs_to :radio

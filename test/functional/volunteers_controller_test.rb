@@ -36,7 +36,7 @@ class VolunteersControllerTest < ActionController::TestCase
 
   def post_create_success( session )
     assert_difference('Volunteer.count') do
-      post :create, { volunteer: @volunteer.attributes }, session
+      post :create, { volunteer: FactoryGirl.attributes_for(:valid_volunteer) }, session
     end
 
     assert_redirected_to volunteer_path(assigns(:volunteer))
@@ -71,7 +71,7 @@ class VolunteersControllerTest < ActionController::TestCase
   end
 
   def put_update_success( session )
-    put :update, { id: @volunteer.to_param, volunteer: @volunteer.attributes }, session
+    put :update, { id: @volunteer.to_param, volunteer: FactoryGirl.attributes_for(:valid_volunteer) }, session
     assert_redirected_to volunteer_path(assigns(:volunteer))
   end
 

@@ -6,6 +6,7 @@ class RadiosControllerTest < ActionController::TestCase
     @radio = FactoryGirl.build :valid_blue_radio
     @user  = FactoryGirl.create :user
     @role  = FactoryGirl.create :admin_radios_role
+    @department = FactoryGirl.create :good_department
     @user.roles << @role
     @user_session = { user_id: @user.id }
     @volunteer = FactoryGirl.create :valid_volunteer
@@ -68,7 +69,8 @@ class RadiosControllerTest < ActionController::TestCase
     @radio.state = "out"
 
     assert_difference 'RadioAssignment.count' do
-      put :update, { id: @radio.to_param, radio: @radio.attributes, radio_assignment: @assignment.attributes }, @user_session
+      put :update, { id: @radio.to_param, radio: FactoryGirl.attributes_for(:valid_blue_radio),
+                     radio_assignment: FactoryGirl.attributes_for(:valid_radio_assignment, department_id: @department.id) }, @user_session
     end
     assert_redirected_to radios_path
   end

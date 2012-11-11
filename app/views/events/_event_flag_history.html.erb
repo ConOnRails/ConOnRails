@@ -1,5 +1,5 @@
 <div class="event_flags_history_item">
-  at <%= event_flag_history.created_at.getlocal.ctime %>
+  at <%= event_flag_history.new_record? ? "now" :   event_flag_history.created_at.getlocal.ctime %>
   by <%= event_flag_history.user.realname %>
   as <%= event_flag_history.rolename %>
   <ul>

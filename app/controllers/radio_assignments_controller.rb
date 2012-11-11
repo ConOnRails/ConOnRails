@@ -4,7 +4,9 @@ class RadioAssignmentsController < ApplicationController
   # POST /radio_assignments
   # POST /radio_assignments.json
   def create
+    p params[:radio_assignment]
     @radio_assignment             = RadioAssignment.new(params[:radio_assignment])
+    p @radio_assignment
     @radio_assignment.radio.state = "out"
     respond_to do |format|
       if  @radio_assignment.save and
