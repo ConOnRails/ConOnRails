@@ -6,7 +6,6 @@ class UsersControllerTest < ActionController::TestCase
 
   setup do
     @user = FactoryGirl.create :user
-    p @user.valid?
     @role = FactoryGirl.create :admin_users_role
     @user.roles << @role
 

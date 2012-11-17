@@ -1,5 +1,7 @@
 class Event < ActiveRecord::Base
-  attr_accessible :is_active, :hidden, :secure, :sticky
+  attr_accessible :is_active, :comment, :flagged, :post_con, :quote, :sticky, :emergency,
+                  :medical, :hidden, :secure, :consuite, :hotel, :parties, :volunteers,
+                  :dealers, :dock, :merchandise
   audited
   has_associated_audits
   has_many :entries, dependent: :destroy, order: 'created_at ASC'

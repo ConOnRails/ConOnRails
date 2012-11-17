@@ -202,11 +202,24 @@ FactoryGirl.define do
 
   factory :event do
     is_active true
+    comment false
+    flagged false
+    post_con false
+    quote false
+    sticky false
+    emergency false
+    medical false
+    hidden false
+    secure false
+    consuite false
+    hotel false
+    parties false
+    volunteers false
+    dealers false
+    dock false
+    merchandise false
 
     factory :ordinary_event do
-      hidden false
-      secure false
-
       after :create do |event, evaluator|
         entry = FactoryGirl.build :oneliner_entry, event: event, user: FactoryGirl.create(:dummy_user)
       end

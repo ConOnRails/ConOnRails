@@ -6,7 +6,6 @@ class RadioAssignmentTest < ActiveSupport::TestCase
   end
 
   test "can add assignment" do
-    va = RadioAssignment.new @valid_assignment.attributes
-    assert va.valid?
+    assert @valid_assignment.valid?
   end
 end
