@@ -6,6 +6,7 @@ class DutyBoardSlotsControllerTest < ActionController::TestCase
     @role = FactoryGirl.create :admin_duty_board_role
     @user.roles << @role
     @user_session                     = { user_id: @user.id, current_role: @role.name }
+    @duty_board_group                 = FactoryGirl.create :blue_man_group
     @duty_board_slot                  = FactoryGirl.build :valid_duty_board_slot
     vol                               = FactoryGirl.create :valid_volunteer
     @duty_board_assignment_attributes = {
@@ -29,7 +30,7 @@ class DutyBoardSlotsControllerTest < ActionController::TestCase
 
   test "should create duty_board_slot" do
     assert_difference('DutyBoardSlot.count') do
-      post :create, { duty_board_slot: FactoryGirl.attributes_for(:valid_duty_board_slot) }, @user_session
+      post :create, { duty_board_slot: FactoryGirl.attributes_for(:valid_duty_board_slot, duty_board_group_id: @duty_board_group.id) }, @user_session
     end
 
     assert_redirected_to duty_board_slots_path
