@@ -40,6 +40,8 @@ class LostAndFoundItemsController < ApplicationController
     @lfis = @lfis.where(like) unless like == ''
     @lfis = @lfis.where(category: categories) unless categories == []
 
+    p @lfis.to_sql
+
     respond_to do |format|
       format.html { render 'index' }
       format.json { render json: @lfis }
@@ -51,7 +53,7 @@ class LostAndFoundItemsController < ApplicationController
     @lfis = @lfis.where found: true, returned: false
 
     respond_to do |format|
-      format.html { render 'index'}
+      format.html { render 'index' }
       format.json { render json: @lfis }
     end
 
@@ -71,8 +73,8 @@ class LostAndFoundItemsController < ApplicationController
   end
 
   def create
-    @lfi = LostAndFoundItem.new params[:lost_and_found_item]
-    @lfi.user = current_user
+    @lfi          = LostAndFoundItem.new params[:lost_and_found_item]
+    @lfi.user     = current_user
     @lfi.rolename = current_role
 
     respond_to do |format|
@@ -95,8 +97,8 @@ class LostAndFoundItemsController < ApplicationController
   end
 
   def update
-    @lfi = LostAndFoundItem.find params[:id]
-    @lfi.user = current_user
+    @lfi          = LostAndFoundItem.find params[:id]
+    @lfi.user     = current_user
     @lfi.rolename = current_role
 
     respond_to do |format|
@@ -127,23 +129,21 @@ class LostAndFoundItemsController < ApplicationController
   end
 
   def process_search_all(keywords)
-    like = ''
-    keywords.each do |k|
-      like += "%#{k}%"
-    end
-    like = "\"description\" LIKE '#{like}'"
+    ["\"description\" LIKE ?", keywords.inject('') { |like, k|
+      like += "%#{k}%" }
+    ]
   end
 
   def process_search_any(keywords)
-    like = ''
+    like  = []
+    query = 'description LIKE ?'
     keywords.each do |k|
-      if k == keywords.first
-        like = "\"description\" LIKE '%#{k}%'"
-      else
-        like += " OR \"description\" LIKE '%#{k}%'"
+      like << "%#{k}%"
+      unless k == keywords.first
+        query += " OR \"description\" LIKE ?"
       end
     end
-    return like
+    [query].concat like
   end
 
   def process_keywords(keyword_params)
