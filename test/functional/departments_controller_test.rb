@@ -4,6 +4,7 @@ class DepartmentsControllerTest < ActionController::TestCase
   setup do
     @department = FactoryGirl.build :department
     @valid_department = FactoryGirl.build :good_department
+    @group = FactoryGirl.create :blue_man_group
     @user = FactoryGirl.create :user
     @role = FactoryGirl.create :admin_radios_role
     @user.roles << @role
@@ -23,7 +24,7 @@ class DepartmentsControllerTest < ActionController::TestCase
 
   test "should create department" do
     assert_difference('Department.count') do
-      post :create, { department: FactoryGirl.attributes_for(:good_department) }, @user_session
+      post :create, { department: FactoryGirl.attributes_for(:good_department, radio_group_id: @group.id) }, @user_session
     end
 
     assert_redirected_to department_path(assigns(:department))

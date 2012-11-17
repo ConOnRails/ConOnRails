@@ -2,39 +2,39 @@ require 'test_helper'
 
 class VolunteersControllerTest < ActionController::TestCase
   setup do
-    @user = FactoryGirl.create :user
+    @user      = FactoryGirl.create :user
     @peon_user = FactoryGirl.create :peon
-    @role = FactoryGirl.create :admin_users_role
+    @role      = FactoryGirl.create :admin_users_role
     @user.roles << @role
-    @volunteer = FactoryGirl.create :valid_volunteer
+    @volunteer    = FactoryGirl.create :valid_volunteer
     @user_session = { user_id: @user.id }
     @peon_session = { user_id: @peon_user.id }
   end
 
-  def get_index_success( session )
-    get :index, {}, session
+  def get_index_success(session)
+    get :index, { }, session
     assert_response :success
     assert_not_nil assigns(:volunteers)
   end
 
-  def get_index_fail( session )
+  def get_index_fail(session)
     get :index
     assert_redirected_to :public
     assert_nil assigns(:volunteers)
   end
 
-  def get_new_success( session )
-    get :new, {}, session
+  def get_new_success(session)
+    get :new, { }, session
     assert_not_nil assigns(:volunteer).volunteer_training
     assert_response :success
   end
 
-  def get_new_fail( session )
-    get :new, {}, session
+  def get_new_fail(session)
+    get :new, { }, session
     assert_redirected_to :public
   end
 
-  def post_create_success( session )
+  def post_create_success(session)
     assert_difference('Volunteer.count') do
       post :create, { volunteer: FactoryGirl.attributes_for(:valid_volunteer) }, session
     end
@@ -42,7 +42,7 @@ class VolunteersControllerTest < ActionController::TestCase
     assert_redirected_to volunteer_path(assigns(:volunteer))
   end
 
-  def post_create_auth_fail( session )
+  def post_create_auth_fail(session)
     assert_no_difference('Volunteer.count') do
       post :create, { volunteer: @volunteer.attributes }, session
     end
@@ -50,32 +50,32 @@ class VolunteersControllerTest < ActionController::TestCase
     assert_redirected_to :public
   end
 
-  def get_show_success( session )
+  def get_show_success(session)
     get :show, { id: @volunteer.to_param }, session
     assert_response :success
   end
 
-  def get_show_fail( session )
+  def get_show_fail(session)
     get :show, { id: @volunteer.to_param }, session
     assert_redirected_to :public
   end
 
-  def get_edit_success( session )
+  def get_edit_success(session)
     get :edit, { id: @volunteer.to_param }, session
     assert_response :success
   end
 
-  def get_edit_fail( session )
+  def get_edit_fail(session)
     get :edit, { id: @volunteer.to_param }, session
     assert_redirected_to :public
   end
 
-  def put_update_success( session )
+  def put_update_success(session)
     put :update, { id: @volunteer.to_param, volunteer: FactoryGirl.attributes_for(:valid_volunteer) }, session
     assert_redirected_to volunteer_path(assigns(:volunteer))
   end
 
-  def put_update_fail( session )
+  def put_update_fail(session)
     put :update, { id: @volunteer.to_param, volunteer: @volunteer.attributes }, session
     assert_redirected_to :public
   end
@@ -142,21 +142,14 @@ class VolunteersControllerTest < ActionController::TestCase
     get :attendees, { term: "Micha Sco" }, @user_session
     assert_equal "Scott", assigns(:list)[0][:middle_name]
 
-    get :attendees, { term: "Micha Shap"}, @user_session
+    get :attendees, { term: "Micha Shap" }, @user_session
     assert_equal "Shappe", assigns(:list)[0][:last_name]
 
-    get :attendees, { term: "Shappe"}, @user_session
+    get :attendees, { term: "Shappe" }, @user_session
     assert_equal "Michael", assigns(:list)[0][:first_name]
 
-    get :attendees, { term: "Micha Sco Shap"}, @user_session
+    get :attendees, { term: "Micha Sco Shap" }, @user_session
     assert_equal "Shappe", assigns(:list)[0][:last_name]
-
-    p assigns :list
   end
 
-  test "can futz with volunteer training and have it save" do
-    victim = FactoryGirl.build :valid_volunteer
-    p victim
-    p victim.volunteer_training
-  end
 end
