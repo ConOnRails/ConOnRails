@@ -89,6 +89,14 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     assert_equal 2, @controller.lfis.length
   end
 
+  test "can safely search with quotes or apostrophe in search term" do
+    get :search, { reported_missing: true, keywords: "Llama's"}, { user_id: @user.id }
+    assert_response :success
+    assert_template :index
+    assert_not_nil assigns :lfis
+    # TODO: Nothing to find right now
+  end
+
   test "can search by all of multiple keywords" do
     get :search, { reported_missing: true, search_type: "all", keywords: "Llamas Tigers" }, { user_id: @user.id }
     assert_response :success
@@ -97,12 +105,30 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     assert_equal 1, @controller.lfis.length
   end
 
+  test "can search by all of multiple keywords with an apostrophe" do
+    get :search, { reported_missing: true, search_type: "all", keywords: "Llama's Tigers" }, { user_id: @user.id }
+    assert_response :success
+    assert_template :index
+    assert_not_nil assigns :lfis
+    # TODO: Nothing to find right now
+
+  end
+
+
   test "can search for any of multiple keywords" do
     get :search, { reported_found: true, search_type: "any", keywords: "Llamas Tigers" }, { user_id: @user.id }
     assert_response :success
     assert_template :index
     assert_not_nil assigns :lfis
     assert_equal 2, @controller.lfis.length
+  end
+
+  test "can search for any of multiple keywords with an apostrophe" do
+    get :search, { reported_found: true, search_type: "any", keywords: "Llama's Tigers" }, { user_id: @user.id }
+    assert_response :success
+    assert_template :index
+    assert_not_nil assigns :lfis
+    # TODO assert_equal 2, @controller.lfis.length
   end
 
   test "can force search to include returned" do
