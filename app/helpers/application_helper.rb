@@ -22,14 +22,14 @@ module ApplicationHelper
     style = "normal"
     style = "active" if Event.num_active > 0
     style = "messages" if Message.num_active > 0
-    style = "emergency" if Event.num_active_emergencies > 0
+    style = "emergency" if Event.num_active_emergencies > 0 or Event.num_active_medicals > 0
     
     return style
   end
 
   def get_emerg_button_style
     style = "not-emerg"
-    style = "reverse" if Event.num_active_emergencies > 0
+    style = "reverse" if Event.num_active_emergencies > 0 or Event.num_active_medicals > 0
 
     return style
   end
