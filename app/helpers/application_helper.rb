@@ -1,5 +1,5 @@
 module ApplicationHelper
-  
+
   def title
     if not @title.nil?
       " | #{ @title }"
@@ -23,7 +23,7 @@ module ApplicationHelper
     style = "active" if Event.num_active > 0
     style = "messages" if Message.num_active > 0
     style = "emergency" if Event.num_active_emergencies > 0 or Event.num_active_medicals > 0
-    
+
     return style
   end
 
@@ -34,7 +34,7 @@ module ApplicationHelper
     return style
   end
 
-  def check_bool( val )
+  def check_bool(val)
     if val == true
       '<span style="color: #00cc00">&#x2713;</span>'
     else
@@ -45,5 +45,10 @@ module ApplicationHelper
   def background
     return "missing" if params[:reported_missing] or (@lfi and @lfi.reported_missing?)
     return "found" if params[:found] or (@lfi and @lfi.found?)
+  end
+
+  def markdown(text)
+    Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(filter_html: true, hard_wrap: true, safe_links_only: true),
+                            no_intra_emphasis: true, tables: true, autolink: true, strikethrough: true).render(text).html_safe
   end
 end

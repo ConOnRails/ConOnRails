@@ -5,5 +5,5 @@
     <div class="volunteer"><%= created_or_updated %> by <%= link_to entry.user.realname, entry.user %>
       as <%= entry.rolename %></div>
   </div>
-  <div class="description"><%= entry.description %></div>
+  <div class="description"><%= markdown entry.description %></div>
 </li>
