@@ -7,15 +7,15 @@ module ApplicationHelper
   end
 
   def version_number
-    1.21
+    1.90
   end
 
   def version_name
-    "Delirious Diplodocus of Drunken Deranged Delicious Dangerous Doom"
+    "Egregious Emu"
   end
 
   def version_type
-    :release # :alpha, :beta
+    :alpha #:release:beta
   end
 
   def get_banner_style
