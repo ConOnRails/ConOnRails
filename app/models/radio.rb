@@ -1,4 +1,6 @@
 class Radio < ActiveRecord::Base
+  attr_accessible :radio_group_id, :number, :state, :notes
+
   audited
 
   belongs_to :radio_group
