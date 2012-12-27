@@ -25,7 +25,7 @@ class RadiosControllerTest < ActionController::TestCase
 
   test "should create radio" do
     assert_difference('Radio.count') do
-      post :create, { radio: @radio.attributes }, @user_session
+      post :create, { radio: FactoryGirl.attributes_for(:valid_blue_radio) }, @user_session
     end
 
     assert_redirected_to radios_path
@@ -45,7 +45,7 @@ class RadiosControllerTest < ActionController::TestCase
 
   test "should update radio" do
     @radio.save!
-    put :update, { id: @radio.to_param, radio: @radio.attributes }, @user_session
+    put :update, { id: @radio.to_param, radio: { notes: Faker::Lorem.paragraph } }, @user_session
     assert_redirected_to radios_path
   end
 
@@ -69,14 +69,17 @@ class RadiosControllerTest < ActionController::TestCase
     @radio.state = "out"
 
     assert_difference 'RadioAssignment.count' do
-      put :update, { id: @radio.to_param, radio: FactoryGirl.attributes_for(:valid_blue_radio),
-                     radio_assignment: FactoryGirl.attributes_for(:valid_radio_assignment, department_id: @department.id) }, @user_session
+      put :update, { id: @radio.to_param, radio: { state: @radio.state },
+                     radio_assignment: FactoryGirl.attributes_for(:valid_radio_assignment,
+                                                                  radio_id: @radio.id,
+                                                                  volunteer_id: @volunteer.id,
+                                                                  department_id: @department.id) }, @user_session
     end
     assert_redirected_to radios_path
   end
 
   test "should get checkin form" do
-    @radio.radio_assignment = RadioAssignment.new @assignment.attributes
+    @radio.radio_assignment = @assignment
     @radio.save!
 
     get :checkin, { id: @radio.to_param }, @user_session

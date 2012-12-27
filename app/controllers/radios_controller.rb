@@ -119,8 +119,8 @@ class RadiosController < ApplicationController
     end
   end
 
-  # DELETE /radios/1
-  # DELETE /radios/1.json
+# DELETE /radios/1
+# DELETE /radios/1.json
   def destroy
     @radio = Radio.find(params[:id])
     @radio.destroy
@@ -130,4 +130,5 @@ class RadiosController < ApplicationController
       format.json { head :ok }
     end
   end
+
 end

@@ -40,8 +40,6 @@ class LostAndFoundItemsController < ApplicationController
     @lfis = @lfis.where(like) unless like == ''
     @lfis = @lfis.where(category: categories) unless categories == []
 
-    p @lfis.to_sql
-
     respond_to do |format|
       format.html { render 'index' }
       format.json { render json: @lfis }
