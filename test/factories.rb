@@ -281,7 +281,7 @@ FactoryGirl.define do
 
   factory :department do
     factory :good_department do
-      name Faker::Name.name
+      sequence(:name) { Faker::Name.name }
       radio_allotment 1
       association :radio_group, factory: :blue_man_group
       association :volunteer, factory: :valid_volunteer

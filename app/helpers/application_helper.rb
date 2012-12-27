@@ -49,6 +49,6 @@ module ApplicationHelper
 
   def markdown(text)
     Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(filter_html: true, hard_wrap: true, safe_links_only: true),
-                            no_intra_emphasis: true, tables: true, autolink: true, strikethrough: true).render(text).html_safe
+                            no_intra_emphasis: true, tables: true, autolink: true, strikethrough: true).render(text).html_safe unless text.blank?
   end
 end
