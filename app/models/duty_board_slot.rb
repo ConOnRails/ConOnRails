@@ -1,5 +1,5 @@
 class DutyBoardSlot < ActiveRecord::Base
-  attr_accessible :name, :duty_board_group_id
+  attr_accessible :name, :duty_board_group, :duty_board_group_id
   audited
 
   belongs_to :duty_board_group
