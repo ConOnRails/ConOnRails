@@ -1,8 +1,9 @@
 ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
+#require 'test/unit/rails/test_help'
 require 'rails/test_help'
 #require 'minitest/reporters'
-#MiniTest::Reporters.use! [MiniTest::Reporters::SpecReporter.new]
+#MiniTest::Reporters.use! [MiniTest::Reporters::ProgressReporter.new]
 
 
 class ActiveSupport::TestCase
@@ -10,7 +11,7 @@ class ActiveSupport::TestCase
   #
   # Note: You'll currently still have to declare fixtures explicitly in integration tests
   # -- they do not yet inherit this setting
-  fixtures :all
+  #fixtures :all
 
   # Add more helper methods to be used by all tests here...
   def get_root_not_logged_in
