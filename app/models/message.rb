@@ -10,7 +10,7 @@ class Message < ActiveRecord::Base
                       with:    /^[\(\)0-9\- \+\.]{10,20}$/
 
  def self.num_active
-    return Message.count(conditions: "is_active == 't'")
+    return Message.where { is_active == true }.count
   end
 
 end
