@@ -36,9 +36,10 @@ class LostAndFoundItemsController < ApplicationController
       return redirect_to lost_and_found_item_path(@lfi) if @lfi.present?
     end
 
-    @lfis = @lfis.where returned: false unless params[:show_returned].present?
-    @lfis = @lfis.where(like) unless like == ''
-    @lfis = @lfis.where(category: categories) unless categories == []
+    @lfis = @lfis.where { returned == false } unless params[:show_returned].present? && params[:show_returned] == true
+    @lfis = @lfis.where { description.like_any my { params[:keywords].split.collect { |s| "%#{s}%"} } } if params[:search_type] == 'any' unless params[:keywords].blank?
+    @lfis = @lfis.where { description.like_all my { params[:keywords].split.collect { |s| "%#{s}%"} } } if params[:search_type] == 'all' unless params[:keywords].blank?
+    @lfis = @lfis.where { category >> my { categories }  } unless categories == []
 
     respond_to do |format|
       format.html { render 'index' }
