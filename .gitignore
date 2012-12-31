@@ -19,3 +19,5 @@ production.backup.sql
 sst/
 
 test/.DS_Store
+config/database.yml
+db/data.yml
