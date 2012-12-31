@@ -98,19 +98,19 @@ class Event < ActiveRecord::Base
   end
 
   def self.num_active
-    return Event.count(conditions: "is_active == 't'")
+    return Event.where { is_active == true }.count
   end
 
   def self.num_inactive
-    return Event.count(conditions: "is_active != 't'")
+    return Event.where { is_active != true }.count
   end
 
   def self.num_active_emergencies
-    return Event.count(conditions: "is_active == 't' and emergency == 't'")
+    return Event.where { (is_active == true) & (emergency == true) }.count
   end
 
   def self.num_active_medicals
-    return Event.count(conditions: "is_active == 't' and medical == 't'")
+    return Event.where { (is_active == true) &  (medical == true) }.count
   end
 
   def flags_differ?(params)
