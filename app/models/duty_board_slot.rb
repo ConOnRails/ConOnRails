@@ -6,5 +6,5 @@ class DutyBoardSlot < ActiveRecord::Base
   has_one :duty_board_assignment
   validates_presence_of :name
   validates_uniqueness_of :name
-  validates_presence_of :duty_board_group
+  validates_presence_of :duty_board_group_id
 end
