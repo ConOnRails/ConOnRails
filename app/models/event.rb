@@ -43,15 +43,15 @@ class Event < ActiveRecord::Base
   def self.build_page_flags(user, params, ands, ors)
     if params[:active] == true or params[:active] == "true"
       ors[:is_active] = true
-      ors[:sticky] = true
-      ands[:secure] = false
-      ands[:hidden] = false
+      ors[:sticky]    = true
+      ands[:secure]   = false
+      ands[:hidden]   = false
     end
 
     if params[:secure] == true or params[:secure] == "true"
       ands[:is_active] = true
-      ors[:secure] = true
-      ors[:hidden] = true
+      ors[:secure]     = true
+      ors[:hidden]     = true
     end
 
     if params[:filters]
@@ -62,9 +62,12 @@ class Event < ActiveRecord::Base
   end
 
   def self.build_or(ors)
-    ors.inject("") do |filtertext, pair|
-      filtertext << "#{pair[0]} = #{pair[1] == true ? "'t'" : "'f'" } OR "
-    end.chomp(" OR ")
+    ors.inject(where { }) do |filtertext, pair|
+      where { (my { filtertext }) | (my { pair[0] } == my { pair[1] }) }
+    end
+
+    #  filtertext << "#{pair[0]} = #{pair[1] == true ? "'t'" : "'f'" } OR "
+    #end.chomp(" OR ")
   end
 
   def self.build_and(ands)
@@ -74,19 +77,36 @@ class Event < ActiveRecord::Base
   end
 
   def self.build_where(ands, ors)
+    p ors
+    p build_or(ors).to_sql
     "#{build_and ands} #{ ors.count > 0 ?
         "#{ands.count > 0 ? "AND" : "" } ( #{build_or ors} )" : ""} "
   end
 
   def self.build_filter(user, params)
-    # Filter based on permissions
-    ands = build_permissions(user)
+    ### Filter based on permissions
+    #ands = build_permissions(user)
+    ##
+    ### Filter based on page flags
+    #ors  = { }
+    #build_page_flags(user, params, ands, ors)
+    #
+    #Event.where(build_where ands, ors)
 
-    # Filter based on page flags
-    ors  = { }
-    build_page_flags(user, params, ands, ors)
+    foo = Event.where { |e|
+      if params[:active] == true or params[:active] == "true"
+        ((e.is_active == true) | (e.sticky == true )) &
+        ((e.secure == false) & (e.hidden == false))
+      end
+      if params[:secure] == true or params[:secure] == "true"
+        ((e.secure == true) | (e.hidden == true) ) &
+        (e.is_active == true)
+      end
+    }
 
-    Event.where(build_where ands, ors)
+    p foo.to_sql
+    foo
+
   end
 
   def self.user_can_see_hidden(user)
@@ -110,14 +130,14 @@ class Event < ActiveRecord::Base
   end
 
   def self.num_active_medicals
-    return Event.where { (is_active == true) &  (medical == true) }.count
+    return Event.where { (is_active == true) & (medical == true) }.count
   end
 
   def flags_differ?(params)
     params.each do |p|
       return true if p.first == "status" and p.second != self.status
       return true if p.first != "status" and
-          self[p.first] != ( (p.last == "1" or p.last == true) ? true : false )
+          self[p.first] != ((p.last == "1" or p.last == true) ? true : false)
     end
     false
   end
