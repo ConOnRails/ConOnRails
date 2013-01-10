@@ -152,6 +152,28 @@ class EventTest < ActiveSupport::TestCase
           @filter = Event.build_permissions @user
           assert_equal 0, @filter.size
         end
+
+        context "filtering active true" do
+          setup do
+            @params = { active: true  }
+            @zog = Event.build_filter(@user, @params)
+          end
+
+          should "have stuff" do
+             assert_equal 2, @zog.count
+          end
+        end
+        context "filtering secure true" do
+          setup do
+            @params = { secure: true }
+            @zog = Event.build_filter(@user, @params)
+          end
+
+          should "have stuff" do
+            assert_equal 0, @zog.count # Except we don't really ahve stuff yet
+          end
+
+        end
       end
 
     end
