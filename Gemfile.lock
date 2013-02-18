@@ -204,7 +204,7 @@ DEPENDENCIES
   jquery-rails (~> 2.1)
   jquery-ui-rails (~> 3.0)
   kaminari (~> 0.14)
-  libv8 (~> 3.11)
+  libv8 (= 3.11.8.13)
   minitest
   minitest-reporters
   mysql2 (~> 0.3)

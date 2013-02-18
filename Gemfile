@@ -29,7 +29,7 @@ gem 'audited-activerecord', '~>3.0'
 gem 'kaminari', '~>0.14'
 gem 'capistrano', '~>2.14'
 gem 'redcarpet', '~>2.2'
-gem 'libv8', '~>3.11'
+gem 'libv8', '=3.11.8.13'
 gem 'therubyracer', '~>0.11', require: 'v8'
 
 group :development do
