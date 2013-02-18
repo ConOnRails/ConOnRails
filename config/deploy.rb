@@ -30,8 +30,19 @@ set :rails_env, :production
 
 server 'zim.itasca.net', :app, :web, :primary => true
 
+after 'deploy:update_code', 'deploy:symlink_db'
+
+namespace :deploy do
+  desc "Symlinks the database.yml"
+  task :symlink_db, :roles => :app do
+    run "ln -nfs #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml"
+  end
+end
+
 # if you want to clean up old releases on each deploy uncomment this:
 after "deploy:restart", "deploy:cleanup"
+
+
 
 # if you're still using the script/reaper helper you will need
 # these http://github.com/rails/irs_process_scripts
