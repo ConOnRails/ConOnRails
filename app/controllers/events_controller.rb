@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   before_filter :can_write_entries?, only: [:new, :create, :edit, :update]
+  before_filter :get_filtered_events, only: [:index, :review]
 #  respond_to :html, :json
 
   public
@@ -29,7 +30,8 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @events = Event.build_filter(current_user, params).order(:updated_at).reverse_order.page(params[:page])
+    @events = @events.page(params[:page])
+    #@events = Event.build_filter(current_user, params).order(:updated_at).reverse_order.page(params[:page])
   end
 
   def review
@@ -123,4 +125,33 @@ class EventsController < ApplicationController
       end
     end
   end
+
+  protected
+
+  def get_filtered_events
+    @events = Event
+    @events = @events.where { |e| e.hidden == false } if does_not_want_hidden or cannot_see_hidden
+    @events = @events.where { |e| e.secure == false } if does_not_want_secure or cannot_see_secure
+  end
+
+  def does_not_want_hidden
+    return true unless params[:filters].present? && params[:filters][:hidden].present? && params[:filters][:hidden] == true
+    false
+  end
+
+  def does_not_want_secure
+    return true unless params[:filters].present? && params[:filters][:secure].present? && params[:filters][:secure] == true
+    false
+  end
+
+  def cannot_see_hidden
+    return true unless current_user.can_read_hidden?
+    false
+  end
+
+  def cannot_see_secure
+    return true unless current_user.can_read_secure?
+    false
+  end
+
 end
