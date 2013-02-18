@@ -1,3 +1,17 @@
+set :rvm_ruby_string, ENV['GEM_HOME'].gsub(/.*\//,"")
+set :rvm_install_ruby_params, '--1.9'      # for jruby/rbx default to 1.9 mode
+set :rvm_install_pkgs, %w[libyaml openssl] # package list from https://rvm.io/packages
+set :rvm_install_ruby_params, '--with-opt-dir=/usr/local/rvm/usr' # package support
+set :rvm_type, :system
+set :rvm_install_with_sudo, true
+
+before 'deploy:setup', 'rvm:install_rvm'   # install RVM
+#before 'deploy:setup', 'rvm:install_pkgs'  # install RVM packages before Ruby
+before 'deploy:setup', 'rvm:install_ruby'  # install Ruby and create gemset, or:
+before 'deploy:setup', 'rvm:create_gemset' # only create gemset
+#before 'deploy:setup', 'rvm:import_gemset' # import gemset from file
+
+
 require 'bundler/capistrano'
 require 'rvm/capistrano'
 
@@ -10,7 +24,6 @@ set :repository, "git@github.com:ConOnRails/ConOnRails.git"
 set :user, 'cononrails'
 set :group, 'cononrails'
 set :use_sudo, false
-set :rvm_type, :system
 
 set :deploy_via, :remote_cache
 set :rails_env, :production
