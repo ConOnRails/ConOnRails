@@ -1,4 +1,5 @@
 require 'bundler/capistrano'
+require 'rvm/capistrano'
 
 set :stages, %w(production development)
 set :default_stage, :development
