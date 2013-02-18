@@ -13,6 +13,27 @@ class Event < ActiveRecord::Base
   STATUSES = %w[ Active Closed ]
   FLAGS    = %w[ is_active comment flagged post_con quote sticky emergency medical hidden secure consuite hotel parties volunteers dealers dock merchandise ]
 
+  def self.build_filter(user, params)
+    x = Event.where { }
+    p user.read_hidden_entries?
+    x = x.where { |e| e.hidden == false } unless user.read_hidden_entries?
+    x = x.where { |e| e.secure == false } unless user.rw_secure?
+
+
+### Filter based on permissions
+#ands = build_permissions(user)
+##
+### Filter based on page flags
+#ors  = { }
+#build_page_flags(user, params, ands, ors)
+#
+#Event.where(build_where ands, ors)
+
+    p x.to_sql
+
+    x
+  end
+
   def self.build_permissions(user)
     filter = { }
     filter[:hidden] = false unless user.read_hidden_entries?
@@ -81,32 +102,6 @@ class Event < ActiveRecord::Base
     p build_or(ors).to_sql
     "#{build_and ands} #{ ors.count > 0 ?
         "#{ands.count > 0 ? "AND" : "" } ( #{build_or ors} )" : ""} "
-  end
-
-  def self.build_filter(user, params)
-    ### Filter based on permissions
-    #ands = build_permissions(user)
-    ##
-    ### Filter based on page flags
-    #ors  = { }
-    #build_page_flags(user, params, ands, ors)
-    #
-    #Event.where(build_where ands, ors)
-
-    foo = Event.where { |e|
-      if params[:active] == true or params[:active] == "true"
-        ((e.is_active == true) | (e.sticky == true )) &
-        ((e.secure == false) & (e.hidden == false))
-      end
-      if params[:secure] == true or params[:secure] == "true"
-        ((e.secure == true) | (e.hidden == true) ) &
-        (e.is_active == true)
-      end
-    }
-
-    p foo.to_sql
-    foo
-
   end
 
   def self.user_can_see_hidden(user)

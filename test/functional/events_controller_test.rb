@@ -4,18 +4,58 @@ class EventsControllerTest < ActionController::TestCase
   setup do
     @event            = FactoryGirl.create :ordinary_event
     @hidden_event     = FactoryGirl.create :hidden_event
+    @secure_event     = FactoryGirl.create :ordinary_event, secure: true
     @user             = FactoryGirl.create :user
     @admin_role       = FactoryGirl.create :write_entries_role
     @read_hidden_role = FactoryGirl.create :read_hidden_entries_role
+    @rw_secure_role   = FactoryGirl.create :rw_secure_role
     @user.roles << @admin_role
-    @peon_user = FactoryGirl.create :peon
+    @user.roles << @read_hidden_role
+    @user.roles << @rw_secure_role
+    @peon_user    = FactoryGirl.create :user
     @user_session = { user_id: @user.id, current_role: @admin_role.name }
     @peon_session = { user_id: @peon_user.id, current_role: "peon" }
   end
 
+  context 'filters' do
+    context 'user not logged in' do
+      setup do
+        get :index
+      end
+
+      should redirect_to("public face") { public_url }
+    end
+
+    context 'peon user logged in' do
+      setup do
+        get :index, {}, @peon_session
+      end
+
+      should respond_with :success
+      should render_template 'index'
+      should 'not show hidden, secure' do
+        assert_equal 1, assigns[:events].count
+      end
+    end
+
+    context 'not-peon user logged in' do
+      setup do
+        get :index, { filters: { hidden: true, secure: true } }, @user_session
+      end
+
+      should respond_with :success
+      should render_template 'index'
+      should 'show hidden, secure' do
+        assert_equal 3, assigns[:events].count
+      end
+    end
+
+  end
+
+
   # We're going to use these in a couple of places to stress test permissions
   def get_index(user)
-    get :index, { }, @user_session
+    get :index, {}, @user_session
     assert_response :success
     assert_not_nil assigns :events
     assert_not_equal 0, assigns[:events].count
@@ -25,22 +65,8 @@ class EventsControllerTest < ActionController::TestCase
     get_index @peon_user
   end
 
-  test "peon user should get index without hidden" do
-    get_index @peon_user
-    assert_equal 1, assigns["events"].count
-  end
-
-  test "user with show_hidden should get index with hidden" do
-    # This is to test not only the specific permission, but also that stacked
-    # roles are appropriately additive!
-    @user.roles << @read_hidden_role
-    @user.save!
-    get_index @user
-    assert_equal 2, assigns["events"].count
-  end
-
   test "should get new" do
-    get :new, { }, @user_session
+    get :new, {}, @user_session
     assert_response :success
   end
 
@@ -50,7 +76,7 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test "peon user cannot get new" do
-    get :new, { }, @peon_session
+    get :new, {}, @peon_session
     assert_redirected_to :public
   end
 
