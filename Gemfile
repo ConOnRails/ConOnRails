@@ -51,7 +51,7 @@ group :test do
   gem 'test-unit'
   gem 'database_cleaner'
   gem 'libv8', '~>3.15'
-  gem 'therubyracer', '~>0.11', require 'v8'
+  gem 'therubyracer', '~>0.11', require: 'v8'
 
   #gem 'turn'
 
