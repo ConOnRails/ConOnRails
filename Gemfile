@@ -29,6 +29,8 @@ gem 'audited-activerecord', '~>3.0'
 gem 'kaminari', '~>0.14'
 gem 'capistrano', '~>2.14'
 gem 'redcarpet', '~>2.2'
+gem 'libv8', '~>3.15'
+gem 'therubyracer', '~>0.11', require: 'v8'
 
 group :development do
   gem 'rb-fsevent', '~> 0.9.1'
@@ -50,8 +52,6 @@ group :test do
   gem 'shoulda'
   gem 'test-unit'
   gem 'database_cleaner'
-  gem 'libv8', '~>3.15'
-  gem 'therubyracer', '~>0.11', require: 'v8'
 
   #gem 'turn'
 
