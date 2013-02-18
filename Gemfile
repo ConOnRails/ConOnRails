@@ -23,8 +23,6 @@ gem 'bcrypt-ruby', '~>3.0'
 gem 'jquery-rails', '~>2.1'
 gem 'jquery-ui-rails', '~>3.0'
 gem 'rails3-jquery-autocomplete', '~>1.0'
-gem 'libv8', '~>3.15'
-gem 'therubyracer', '~>0.11'
 gem 'formtastic', '~>2.2'
 gem 'country-select', '~>1.1'
 gem 'audited-activerecord', '~>3.0'
@@ -52,6 +50,8 @@ group :test do
   gem 'shoulda'
   gem 'test-unit'
   gem 'database_cleaner'
+  gem 'libv8', '~>3.15'
+  gem 'therubyracer', '~>0.11', require 'v8'
 
   #gem 'turn'
 
