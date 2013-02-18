@@ -10,6 +10,7 @@ set :repository, "git@github.com:ConOnRails/ConOnRails.git"
 set :user, 'cononrails'
 set :group, 'cononrails'
 set :use_sudo, false
+set :rvm_type, :system
 
 set :deploy_via, :remote_cache
 set :rails_env, :production
