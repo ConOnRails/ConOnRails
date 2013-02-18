@@ -22,7 +22,7 @@ end
 gem 'bcrypt-ruby', '~>3.0'
 gem 'jquery-rails', '~>2.1'
 gem 'jquery-ui-rails', '~>3.0'
-gem 'rails3-jquery-autocomplete', '~>1.0'
+#gem 'rails3-jquery-autocomplete', '~>1.0'
 gem 'formtastic', '~>2.2'
 gem 'country-select', '~>1.1'
 gem 'audited-activerecord', '~>3.0'
