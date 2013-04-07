@@ -115,6 +115,19 @@ class EventsControllerTest < ActionController::TestCase
           end
         end
       end
+
+      context 'GET :review with multiple \'true\' filters' do
+        setup do
+          FactoryGirl.create :ordinary_event, hotel: true
+          FactoryGirl.create :ordinary_event, parties: true
+          get :review, { filter: { hotel: true, parties: true, sticky: true }}
+        end
+
+        should respond_with :success
+        should "have three events" do
+          assert_equal 3, assigns(:events).count
+        end
+      end
     end
 
     multiple_contexts :peon_context, :typical_context do

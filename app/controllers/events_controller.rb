@@ -3,7 +3,7 @@ class EventsController < ApplicationController
   before_filter :can_write_entries?, only: [:new, :create, :edit, :update]
   #before_filter :get_filtered_events, only: [:review]
 
-#  respond_to :html, :json
+  #  respond_to :html, :json
 
   public
 
@@ -14,14 +14,14 @@ class EventsController < ApplicationController
         where { |e| e.sticky == false }.
         where { |e| e.secure == false }.
         where { |e| e.hidden == false }.
-        page(params[:page])
+        page(params[:page]).order{ |e| e.updated_at.desc }
   end
 
   def sticky
     @events = Event.where { |e| e.sticky == true }.
         where { |e| e.secure == false }.
         where { |e| e.hidden == false }.
-        page(params[:page])
+        page(params[:page]).order{ |e| e.updated_at.desc }
     render :index
   end
 
@@ -30,7 +30,7 @@ class EventsController < ApplicationController
       @events = Event.where { |e| e.is_active == true }.
           where { |e| e.sticky == false }.
           where { |e| (e.secure == true) | (e.hidden == true) }.
-          page(params[:page])
+          page(params[:page]).order{ |e| e.updated_at.desc }
       render :index
     else
       redirect_to root_url
@@ -38,19 +38,14 @@ class EventsController < ApplicationController
   end
 
   def review
-    @events = Event
+    query = params[:filter].reduce(Squeel::Nodes::Stub.new(:created_at).eq(nil)) do |query, key|
+      query |= Squeel::Nodes::KeyPath.new(key.first.to_sym).eq(key.second)
+    end if params[:filter].present?
+
+    @events = Event.where { query }
     @events = @events.where { |e| e.hidden == false } if cannot_see_hidden
     @events = @events.where { |e| e.secure == false } if cannot_see_secure
-
-    params[:filter].each do |key, value|
-      # I'd prefer to find some clever way to stick to Squeel syntax here, but there really isn't one.
-      @events = @events.where("#{key} = ?", value)
-
-    end if params[:filter].present?
-    # @events = Event.build_filter(current_user, params).order(:updated_at).page(params[:page])
-
-    @events = @events.order(:updated_at).page(params[:page])
-
+    @events = @events.order { |e| e.updated_at.asc }.page(params[:page])
   end
 
 
