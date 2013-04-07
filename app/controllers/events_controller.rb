@@ -41,9 +41,16 @@ class EventsController < ApplicationController
     @events = Event
     @events = @events.where { |e| e.hidden == false } if cannot_see_hidden
     @events = @events.where { |e| e.secure == false } if cannot_see_secure
+
+    params[:filter].each do |key, value|
+      # I'd prefer to find some clever way to stick to Squeel syntax here, but there really isn't one.
+      @events = @events.where("#{key} = ?", value)
+
+    end if params[:filter].present?
     # @events = Event.build_filter(current_user, params).order(:updated_at).page(params[:page])
 
-    @events = @events.page(params[:page])
+    @events = @events.order(:updated_at).page(params[:page])
+
   end
 
 

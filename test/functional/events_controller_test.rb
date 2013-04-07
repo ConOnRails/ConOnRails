@@ -97,6 +97,24 @@ class EventsControllerTest < ActionController::TestCase
           assert_equal Event.count, assigns(:events).count
         end
       end
+
+      [:flagged, :post_con, :quote, :sticky, :emergency,
+       :medical, :hidden, :secure, :consuite, :hotel, :parties, :volunteers,
+       :dealers, :dock, :merchandise].each do |f|
+        context "GET :review with #{f} true" do
+          setup do
+            @event.send("#{f}=".to_sym, true)
+            @event.save!
+            get :review, { filter: { f => true } }
+          end
+
+          should respond_with :success
+          should "have one event for #{f}" do
+            assert_equal ([:sticky, :secure, :hidden].include?(f) ? 2 : 1), assigns(:events).count
+            assert assigns(:events).first.send("#{f}?".to_sym)
+          end
+        end
+      end
     end
 
     multiple_contexts :peon_context, :typical_context do
@@ -120,6 +138,30 @@ class EventsControllerTest < ActionController::TestCase
           assigns(:events).each do |e|
             assert !e.secure
             assert !e.hidden
+          end
+        end
+      end
+
+      [:flagged, :post_con, :quote, :sticky, :emergency,
+       :medical, :hidden, :secure, :consuite, :hotel, :parties, :volunteers,
+       :dealers, :dock, :merchandise].each do |f|
+        context "GET :review with #{f} true" do
+          setup do
+            @event.send("#{f}=".to_sym, true)
+            @event.save!
+            get :review, { filter: { f => true } }
+          end
+
+          should respond_with :success
+          should "have one event for #{f}" do
+            assert_equal (if f == :sticky then
+                            2
+                          elsif [:secure, :hidden].include?(f)
+                            0
+                          else
+                            1
+                          end), assigns(:events).count
+            assert assigns(:events).first.send("#{f}?".to_sym) if assigns(:events).present?
           end
         end
       end
