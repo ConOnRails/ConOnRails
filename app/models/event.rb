@@ -13,6 +13,10 @@ class Event < ActiveRecord::Base
   STATUSES = %w[ Active Closed ]
   FLAGS    = %w[ is_active comment flagged post_con quote sticky emergency medical hidden secure consuite hotel parties volunteers dealers dock merchandise ]
 
+  def self.index
+    where { |e| (e.is_active == true) & (e.secure == true) & (e.hidden == true) }
+  end
+
   def self.build_filter(user, params)
     x = Event.where { }
     p user.read_hidden_entries?

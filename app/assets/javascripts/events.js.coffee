@@ -5,13 +5,10 @@
 window.events = {}
 window.events.getMain = () ->
   $.ajax({
-         url:     '/events',
+         url:       window.events.path,
          dataType: 'script',
          data: {
-            "page": window.events.page,
-            "active": window.events.active,
-            "secure": window.events.secure,
-            "filters[sticky]": window.events.sticky
+            "page": window.events.page
          },
          success: ->
            window.events.tick = setTimeout('window.events.getMain()', 10000)
