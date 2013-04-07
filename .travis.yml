@@ -1,5 +1,12 @@
 language: ruby
 rvm:
   - "1.9.3"
-# uncomment this line if your project needs to run something other than `rake`:
-script: bundle exec rake test
+env:
+  - DB="mysql"
+before_script:
+  - cp config/database.travis.yml config/database.yml
+  - mysql -e 'create database con_on_rails_test'
+script:
+  - RAILS_ENV=test bundle exec rake db:migrate --trace
+  - bundle exec rake db:test:prepare
+  - bundle exec rake
