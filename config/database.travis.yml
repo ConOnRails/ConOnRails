@@ -1,21 +1,32 @@
-common: &common
+sqlite: &sqlite
+  adapter: sqlite3
+  database: db/<%= Rails.env %>.sqlite3
+
+mysql: &mysql
   adapter: mysql2
   username: root
+  password:
+  database: myapp_<%= Rails.env %>
+
+postgresql: &postgresql
+  adapter: postgresql
+  username: postgres
+  password:
+  database: myapp_<%= Rails.env %>
+  min_messages: ERROR
+
+defaults: &defaults
   pool: 5
   timeout: 5000
+  host: localhost
+  <<: *<%= ENV['DB'] || "postgresql" %>
 
 development:
-  <<: *common
-  database: con_on_rails_development
+  <<: *defaults
 
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
-test: &test
-  <<: *common
-  database: con_on_rails_test
+test:
+  <<: *defaults
 
 production:
-  <<: *common
-  database: con_on_rails_production
-
+  <<: *defaults
+  # TODO: Add erb-echo of credentials
