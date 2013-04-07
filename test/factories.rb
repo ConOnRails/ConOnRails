@@ -125,6 +125,30 @@ FactoryGirl.define do
   factory :role do
     name "peon"
 
+    factory :superuser_role do
+      name "superuser"
+      admin_users true
+      write_entries true
+      read_hidden_entries true
+      make_hidden_entries true
+      rw_secure true
+      read_audits true
+      admin_duty_board true
+      assign_duty_board_slots true
+      add_lost_and_found true
+      modify_lost_and_found true
+      assign_radios true
+      admin_radios true
+    end
+
+    factory :typical_role do
+      name "typical"
+      write_entries true
+      assign_duty_board_slots true
+      add_lost_and_found true
+      assign_radios true
+    end
+
     factory :admin_users_role do
       name "admin_users"
       admin_users true
