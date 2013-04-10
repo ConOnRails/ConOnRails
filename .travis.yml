@@ -7,6 +7,7 @@ before_script:
   - cp config/database.travis.yml config/database.yml
   - mysql -e 'create database con_on_rails_test'
 script:
+  - cat config/database.yml
   - RAILS_ENV=test bundle exec rake db:migrate --trace
   - bundle exec rake db:test:prepare
   - RAILS_ENV=test bundle exec rake --trace
