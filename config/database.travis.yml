@@ -6,7 +6,6 @@ mysql: &mysql
   adapter: mysql2
   username: root
   password:
-  database: con_on_rails_<%= Rails.env %>
 
 #postgresql: &postgresql
 #  adapter: postgresql
@@ -26,6 +25,7 @@ defaults: &defaults
 
 test:
   <<: *defaults
+  database: con_on_rails_test
 
 #production:
 #  <<: *defaults
