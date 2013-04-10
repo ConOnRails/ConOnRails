@@ -10,4 +10,4 @@ script:
   - cat config/database.yml
   - RAILS_ENV=test bundle exec rake db:migrate --trace
   - bundle exec rake db:test:prepare
-  - RAILS_ENV=test bundle exec rake --trace
+  - RAILS_ENV=test bundle exec rake test --trace
