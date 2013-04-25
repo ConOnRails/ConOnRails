@@ -6,6 +6,7 @@ env:
 before_script:
   - cp config/database.travis.yml config/database.yml
   - mysql -e 'create database con_on_rails_test'
+  - sqlite3 -batch db/attendees.sqlite3 db/attendees.seed
 script:
   - cat config/database.yml
   - RAILS_ENV=test bundle exec rake db:migrate --trace
