@@ -8,6 +8,7 @@ class AttendeeTest < ActiveSupport::TestCase
   end
 
   test "can get composite name" do
+    skip "Cannot test in this environment" unless Attendee.connected?
     a = Attendee.find_by_LAST_NAME( "Shappe" )
     assert_equal "Michael Scott Shappe", a.name
   end
