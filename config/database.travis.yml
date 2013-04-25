@@ -11,5 +11,5 @@ test:
 
 attendees:
   adapter: sqlite3
-  database: ":memory:"
+  database: "db/attendees.sqlite3"
   timeout: 500
