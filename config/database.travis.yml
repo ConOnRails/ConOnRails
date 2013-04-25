@@ -9,3 +9,7 @@ test:
   host: localhost
   database: con_on_rails_test
 
+attendees:
+  adapter: sqlite3
+  database: ":memory:"
+  timeout: 500
