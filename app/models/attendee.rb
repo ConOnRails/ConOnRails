@@ -2,7 +2,7 @@ class Attendee < ActiveRecord::Base
   begin
     establish_connection :attendees
   rescue => e
-    Rails.logger.warning "Attendee database not connected: #{e.message}"
+    Rails.logger.warn "Attendee database not connected: #{e.message}"
   end
 
   self.table_name = "2012"
