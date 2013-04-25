@@ -1,6 +1,13 @@
 require 'faker'
 
 FactoryGirl.define do
+  factory :attendee do
+    FIRST_NAME { Faker::Name.first_name }
+    MIDDLE_NAME { Faker::Name.first_name }
+    LAST_NAME { Faker::Name.last_name }
+  end
+
+
   factory :radio_group, class: RadioGroup do
     factory :blue_man_group do
       name "Blue"
