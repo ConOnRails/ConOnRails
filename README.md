@@ -1,4 +1,5 @@
 # Con On Rails
+![Build Status](https://travis-ci.org/ConOnRails/ConOnRails.png)
 
 This is ConOnRails, an application for managing the operations of a small-to-medium sized convention.
 
