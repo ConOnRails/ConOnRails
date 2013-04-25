@@ -1,0 +1,151 @@
+PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE dbo_ATTENDEE (
+  ATTENDEE_ID                 integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+  FIRST_NAME                  char(50) NOT NULL,
+  MIDDLE_NAME                 char(50),
+  LAST_NAME                   char(50) NOT NULL,
+  DATE_OF_BIRTH               timestamp,
+  COMMENTS                    char(100),
+  EMAIL                       char(255),
+  BAD_EMAIL_IND               boolean,
+  HOME_PHONE                  char(15),
+  WORK_PHONE                  char(15),
+  OTHER_PHONE                 char(15),
+  ADDRESS_LINE_1              char(75),
+  ADDRESS_LINE_2              char(50),
+  ADDRESS_LINE_3              char(50),
+  ADDRESS_CITY                char(50),
+  ADDRESS_STATE_CODE          char(2),
+  ADDRESS_ZIP                 char(20),
+  FOREIGN_POSTAL_CODE         char(12),
+  BAD_ADDRESS_IND             boolean,
+  BAD_ADDRESS_DATE            timestamp,
+  COUNTRY_CODE                char(3),
+  NO_SEND_IND                 boolean,
+  ADDRESS_TYPE_ID             integer,
+  PR_OPT_OUT_IND              boolean,
+  SSMA_TimeStamp              blob NOT NULL,
+  CREATE_APPLICATION_NAME     char(50),
+  CREATE_DATE                 timestamp,
+  UPDATE_APPLICATION_NAME     char(50),
+  UPDATE_DATE                 timestamp,
+  INTERNATIONAL_ADDRESS_INFO  text,
+  DECEASED                    boolean
+);
+INSERT INTO "dbo_ATTENDEE" VALUES(20255,'Michael','Scott','Shappe','9999-12-31 23:59:59','','unclemikey@gmail.com',0,'(612) 326-4269',NULL,'(612) 750-1841','7533 Bloomington Ave S','','','Richfield','MN','55423','55423',0,NULL,'USA',1,1,0,X'000000000009EF3F','CVG_REG','2010-10-17 12:45:46','B6AB5E6A-1FA3-4D7B-A9AF-9889A41C8424','2012-07-01 21:50:55',NULL,0);
+CREATE TABLE dbo_ATTENDEE_REG (
+  ATTENDEE_ID                  integer NOT NULL,
+  YEAR                         integer NOT NULL,
+  DATE_CREATED                 timestamp NOT NULL,
+  AMT_PAID                     numeric(19) NOT NULL,
+  WEB_TRANSACTION_ID           char(50),
+  PAYMENT_TYPE_ID              integer NOT NULL,
+  COMMENTS                     char(255),
+  ATTENDEE_EMAILED_IND         boolean,
+  REG_TYPE_ID                  integer NOT NULL,
+  DATE_MODIFIED                timestamp,
+  DATE_EMAIL_SENT              timestamp,
+  SSMA_TimeStamp               blob NOT NULL,
+  CREATE_APPLICATION_NAME      char(50),
+  CREATE_DATE                  timestamp,
+  UPDATE_APPLICATION_NAME      char(50),
+  UPDATE_DATE                  timestamp,
+  ASL_IND                      boolean,
+  SEND_ART_SHOW_INFO           boolean,
+  WEB_TRANSACTION_DATE_ISSUED  timestamp,
+  REGISTRATION_PICKED_UP_IND   boolean,
+  REGISTRATION_PICKED_UP_BY    char(50),
+  REGISTRATION_PICKED_UP_DATE  timestamp,
+  VOLUNTEER_INTEREST           boolean,
+  SPECIAL_PRICING              boolean,
+  SPECIAL_PRICING_REASON       char(50),
+  PRIMARY KEY (ATTENDEE_ID, YEAR),
+  /* Foreign keys */
+  FOREIGN KEY (ATTENDEE_ID)
+    REFERENCES dbo_ATTENDEE(ATTENDEE_ID)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+);
+INSERT INTO "dbo_ATTENDEE_REG" VALUES(20255,2012,'2011-11-02 16:00:23',45,'2007',58,'',0,71,'2012-07-01 21:50:55',NULL,X'000000000009EF40','B6AB5E6A-1FA3-4D7B-A9AF-9889A41C8424',NULL,'B6AB5E6A-1FA3-4D7B-A9AF-9889A41C8424',NULL,NULL,0,NULL,1,'','2012-07-01 21:50:55',0,0,'');
+CREATE TABLE dbo_BADGE (
+  ATTENDEE_ID              integer,
+  YEAR                     integer NOT NULL,
+  BADGE_NUMBER             integer NOT NULL,
+  BADGE_NAME               char(32) NOT NULL,
+  BADGE_PRINTED_IND        boolean,
+  SSMA_TimeStamp           blob NOT NULL,
+  CREATE_APPLICATION_NAME  char(50),
+  CREATE_DATE              timestamp,
+  UPDATE_APPLICATION_NAME  char(50),
+  UPDATE_DATE              timestamp,
+  PRIMARY KEY (YEAR, BADGE_NUMBER)
+);
+INSERT INTO "dbo_BADGE" VALUES(20255,2012,1218,'Uncle Mikey',0,X'0000000000090CCB','B6AB5E6A-1FA3-4D7B-A9AF-9889A41C8424','2011-02-18 13:26:36',NULL,NULL);
+CREATE TABLE dbo_BAN (
+  ATTENDEE_ID              integer NOT NULL,
+  YEAR                     integer NOT NULL,
+  DATE_CREATED             timestamp,
+  ACTIVE_IND               boolean,
+  COMMENTS                 text,
+  SSMA_TimeStamp           blob NOT NULL,
+  CREATE_APPLICATION_NAME  char(50),
+  CREATE_DATE              timestamp,
+  UPDATE_APPLICATION_NAME  char(50),
+  UPDATE_DATE              timestamp,
+  PRIMARY KEY (ATTENDEE_ID, YEAR)
+);
+CREATE TABLE dbo_REGISTRATION_TYPE (
+  REG_TYPE_ID       integer NOT NULL,
+  YEAR              integer NOT NULL,
+  REG_TYPE          char(50),
+  MIN_BADGE_NUMBER  integer,
+  MAX_BADGE_NUMBER  integer,
+  MIN_PAYMENT_AMT   numeric(19),
+  MAX_PAYMENT_AMT   numeric(19),
+  PRIMARY KEY (REG_TYPE_ID, YEAR)
+);
+INSERT INTO "dbo_REGISTRATION_TYPE" VALUES(71,2012,'Adult',1000,5999,NULL,NULL);
+INSERT INTO "dbo_REGISTRATION_TYPE" VALUES(72,2012,'Teen',6000,7999,NULL,NULL);
+INSERT INTO "dbo_REGISTRATION_TYPE" VALUES(73,2012,'Youth',8000,8999,NULL,NULL);
+INSERT INTO "dbo_REGISTRATION_TYPE" VALUES(74,2012,'Child',9000,9500,NULL,NULL);
+INSERT INTO "dbo_REGISTRATION_TYPE" VALUES(75,2012,'Dealer',1000,5999,NULL,NULL);
+INSERT INTO "dbo_REGISTRATION_TYPE" VALUES(76,2012,'Party',1000,5999,NULL,NULL);
+INSERT INTO "dbo_REGISTRATION_TYPE" VALUES(77,2012,'Comp',1000,5999,NULL,NULL);
+INSERT INTO "dbo_REGISTRATION_TYPE" VALUES(78,2012,'GOH',1000,5999,NULL,NULL);
+DELETE FROM sqlite_sequence;
+INSERT INTO "sqlite_sequence" VALUES('dbo_ATTENDEE',30378);
+CREATE VIEW "2012" AS SELECT
+	dbo_ATTENDEE.ATTENDEE_ID,
+	dbo_ATTENDEE.FIRST_NAME,
+	dbo_ATTENDEE.MIDDLE_NAME,
+	dbo_ATTENDEE.LAST_NAME,
+	dbo_ATTENDEE.COMMENTS,
+	dbo_ATTENDEE.EMAIL,
+	dbo_ATTENDEE.HOME_PHONE,
+	dbo_ATTENDEE.WORK_PHONE,
+	dbo_ATTENDEE.OTHER_PHONE,
+	dbo_ATTENDEE.ADDRESS_LINE_1,
+	dbo_ATTENDEE.ADDRESS_LINE_2,
+	dbo_ATTENDEE.ADDRESS_LINE_3,
+	dbo_ATTENDEE.ADDRESS_CITY,
+	dbo_ATTENDEE.ADDRESS_STATE_CODE,
+	dbo_ATTENDEE.ADDRESS_ZIP,
+	dbo_ATTENDEE.FOREIGN_POSTAL_CODE,
+	dbo_ATTENDEE.COUNTRY_CODE,
+	dbo_BADGE.BADGE_NUMBER,
+	dbo_BADGE.BADGE_NAME
+FROM
+	dbo_ATTENDEE dbo_ATTENDEE,
+	dbo_ATTENDEE_REG dbo_ATTENDEE_REG,
+	dbo_BADGE dbo_BADGE,
+	dbo_REGISTRATION_TYPE dbo_REGISTRATION_TYPE
+WHERE
+	dbo_ATTENDEE.ATTENDEE_ID = dbo_ATTENDEE_REG.ATTENDEE_ID AND
+	dbo_ATTENDEE.ATTENDEE_ID = dbo_BADGE.ATTENDEE_ID AND
+	dbo_ATTENDEE_REG.ATTENDEE_ID = dbo_BADGE.ATTENDEE_ID AND
+	dbo_ATTENDEE_REG.YEAR = 2012 AND
+	dbo_ATTENDEE_REG.YEAR = dbo_BADGE.YEAR AND
+	dbo_ATTENDEE_REG.REG_TYPE_ID = dbo_REGISTRATION_TYPE.REG_TYPE_ID AND
+	dbo_BADGE.YEAR = dbo_REGISTRATION_TYPE.YEAR;
+COMMIT;
