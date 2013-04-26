@@ -9,7 +9,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     @user       = FactoryGirl.create :user
     @admin_role = FactoryGirl.create :can_admin_lost_and_found_user
     @user.roles << @admin_role
-    @peon_user = FactoryGirl.create :peon
+    @peon_user = FactoryGirl.create :user
     @peon_role = FactoryGirl.create :role
     @peon_user.roles << @peon_role
     @change_this = { description: "Beware the viscous giraffe" }

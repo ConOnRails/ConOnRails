@@ -29,4 +29,47 @@ class ActiveSupport::TestCase
     assert_template "sessions/new"
     yield sess if block_given?
   end
+
+  def sign_in(user, role)
+    session[:user_id]      = user.id
+    session[:current_role] = role.name
+  end
+
+  def admin_context
+    @admin      = FactoryGirl.create :user
+    @admin_role = FactoryGirl.create :superuser_role
+    @admin.roles << @admin_role
+    @admin.save!
+
+    sign_in @admin, @admin_role
+  end
+
+  def typical_context
+    @user = FactoryGirl.create :user
+    @role = FactoryGirl.create :typical_role
+    @user.roles << @role
+    @user.save!
+
+    sign_in @user, @role
+  end
+
+  def peon_context
+    sign_in FactoryGirl.create(:user), FactoryGirl.create(:role)
+  end
+
+  def self.multiple_contexts(*contexts, &blk)
+    contexts.each do |context|
+      self.user_context context, &blk
+    end
+  end
+
+  def self.user_context(context, &blk)
+    context "as #{context}" do
+      setup do
+        send context if respond_to? context
+      end
+
+      merge_block &blk
+    end
+  end
 end
