@@ -1,147 +1,333 @@
 require 'test_helper'
 
 class EventsControllerTest < ActionController::TestCase
-  setup do
-    @event            = FactoryGirl.create :ordinary_event
-    @hidden_event     = FactoryGirl.create :hidden_event
-    @user             = FactoryGirl.create :user
-    @admin_role       = FactoryGirl.create :write_entries_role
-    @read_hidden_role = FactoryGirl.create :read_hidden_entries_role
-    @user.roles << @admin_role
-    @peon_user = FactoryGirl.create :peon
-    @user_session = { user_id: @user.id, current_role: @admin_role.name }
-    @peon_session = { user_id: @peon_user.id, current_role: "peon" }
-  end
 
-  # We're going to use these in a couple of places to stress test permissions
-  def get_index(user)
-    get :index, { }, @user_session
-    assert_response :success
-    assert_not_nil assigns :events
-    assert_not_equal 0, assigns[:events].count
-  end
+  context "Given some events" do
+    setup do
+      @event        = FactoryGirl.create :ordinary_event
+      @sticky_event = FactoryGirl.create :ordinary_event, sticky: true
+      @hidden_event = FactoryGirl.create :ordinary_event, hidden: true
+      @secure_event = FactoryGirl.create :ordinary_event, secure: true
+    end
 
-  test "any user can get index" do
-    get_index @peon_user
-  end
+    multiple_contexts :admin_context, :typical_context, :peon_context do
+      context 'GET :index' do
+        setup do
+          get :index
+        end
 
-  test "peon user should get index without hidden" do
-    get_index @peon_user
-    assert_equal 1, assigns["events"].count
-  end
+        should respond_with :success
 
-  test "user with show_hidden should get index with hidden" do
-    # This is to test not only the specific permission, but also that stacked
-    # roles are appropriately additive!
-    @user.roles << @read_hidden_role
-    @user.save!
-    get_index @user
-    assert_equal 2, assigns["events"].count
-  end
+        should 'have one, ordinary event' do
+          assert_equal 1, assigns[:events].count
+          assigns[:events].each do |e|
+            assert e.is_active
+            assert !e.sticky
+            assert !e.secure
+            assert !e.hidden
+          end
+        end
+      end
 
-  test "should get new" do
-    get :new, { }, @user_session
-    assert_response :success
-  end
+      context 'GET :sticky' do
+        setup do
+          get :sticky
+        end
 
-  test "should get new emergency" do
-    get :new, { emergency: '1' }, @user_session
-    assert_equal true, assigns(:event).emergency
-  end
+        should respond_with :success
 
-  test "peon user cannot get new" do
-    get :new, { }, @peon_session
-    assert_redirected_to :public
-  end
+        should 'have one, sticky event' do
+          assert_equal 1, assigns[:events].count
+          assigns[:events].each do |e|
+            assert e.sticky
+            assert !e.secure
+            assert !e.hidden
+          end
+        end
+      end
 
-  test "should create event" do
-    assert_difference('EventFlagHistory.count') do
-      assert_difference('Entry.count') do
-        assert_difference('Event.count') do
-          post :create, { event: FactoryGirl.attributes_for(:ordinary_event),
-                          entry: FactoryGirl.attributes_for(:verbose_entry) },
-               @user_session
+      context 'GET :show for an ordinary event' do
+        setup do
+          get :show, { id: @event.to_param }, @admin_session
+        end
+
+        should respond_with :success
+        should render_template :show
+      end
+
+      context 'GET :show for a sticky event' do
+        setup do
+          get :show, { id: @sticky_event.to_param }, @admin_session
+        end
+
+        should respond_with :success
+        should render_template :show
+      end
+    end
+
+    user_context :admin_context do
+      context 'GET :secure' do
+        setup do
+          get :secure
+        end
+        should respond_with :success
+
+        should 'have two events, one secure, one hidden' do
+          assert_equal 2, assigns[:events].count
+          assigns[:events].each do |e|
+            assert e.is_active
+            assert !e.sticky
+            assert e.secure || e.hidden
+          end
+        end
+      end
+
+      context 'GET :review with no filters' do
+        setup do
+          get :review
+        end
+
+        should respond_with :success
+        should 'have all possible events' do
+          assert_equal Event.count, assigns(:events).count
+        end
+      end
+
+      [:flagged, :post_con, :quote, :sticky, :emergency,
+       :medical, :hidden, :secure, :consuite, :hotel, :parties, :volunteers,
+       :dealers, :dock, :merchandise].each do |f|
+        context "GET :review with #{f} true" do
+          setup do
+            @event.send("#{f}=".to_sym, true)
+            @event.save!
+            get :review, { filters: { f => 'true' } } # we'll get string, not bool
+          end
+
+          should respond_with :success
+          should "have one event for #{f}" do
+            assert_equal ([:sticky, :secure, :hidden].include?(f) ? 2 : 1), assigns(:events).count
+            assert assigns(:events).first.send("#{f}?".to_sym)
+          end
+        end
+      end
+
+      context 'GET :review with multiple \'true\' filters' do
+        setup do
+          FactoryGirl.create :ordinary_event, hotel: true, parties: true
+          get :review, { filters: { hotel: true, parties: true }}
+        end
+
+        should respond_with :success
+        should "have one events" do
+          assert_equal 1, assigns(:events).count
+        end
+      end
+
+      context 'GET :review with mixed filters' do
+        setup do
+          FactoryGirl.create :ordinary_event, hotel: true
+          FactoryGirl.create :ordinary_event, parties: true
+          get :review, { filters: { hotel: true, parties: false, sticky: 'all' }}
+        end
+
+        should respond_with :success
+        should "have one events" do
+          assert_equal 1, assigns(:events).count
         end
       end
     end
 
-    assert_redirected_to event_path(assigns(:event))
-    assert_equal @admin_role.name, assigns(:event).entries[0].rolename
-  end
+    multiple_contexts :peon_context, :typical_context do
+      context 'GET :secure' do
+        setup do
+          get :secure
+        end
 
-  test "peon user cannot create event" do
-    assert_no_difference('Event.count') do
-      post :create, { event: FactoryGirl.attributes_for(:ordinary_event),
-                      entry: FactoryGirl.attributes_for(:verbose_entry) },
-           @peon_session
+        should respond_with :redirect
+        should redirect_to('actives') { root_path }
+      end
+
+      context 'GET :review with no filters' do
+        setup do
+          get :review
+        end
+
+        should respond_with :success
+        should 'have not have any hidden or secure events' do
+          assert_equal 2, assigns(:events).count
+          assigns(:events).each do |e|
+            assert !e.secure
+            assert !e.hidden
+          end
+        end
+      end
+
+      [:flagged, :post_con, :quote, :sticky, :emergency,
+       :medical, :hidden, :secure, :consuite, :hotel, :parties, :volunteers,
+       :dealers, :dock, :merchandise].each do |f|
+        context "GET :review with #{f} true" do
+          setup do
+            @event.send("#{f}=".to_sym, true)
+            @event.save!
+            get :review, { filters: { f => true } }
+          end
+
+          should respond_with :success
+          should "have one event for #{f}" do
+            assert_equal (if f == :sticky then
+                            2
+                          elsif [:secure, :hidden].include?(f)
+                            0
+                          else
+                            1
+                          end), assigns(:events).count
+            assert assigns(:events).first.send("#{f}?".to_sym) if assigns(:events).present?
+          end
+        end
+      end
     end
+
+    multiple_contexts :admin_context, :typical_context do
+      context 'GET :new' do
+        setup do
+          get :new
+        end
+
+        should respond_with :success
+        should render_template :new
+      end
+
+      context 'GET :new emergency' do
+        setup do
+          get :new, { emergency: '1' }
+        end
+
+        should respond_with :success
+        should render_template :new
+        should 'have an emergency-flagged event' do
+          assert_equal true, assigns(:event).emergency
+        end
+      end
+
+      context 'POST :create' do
+        setup do
+          post :create, { event: FactoryGirl.attributes_for(:ordinary_event),
+                          entry: FactoryGirl.attributes_for(:verbose_entry) }
+        end
+
+        should respond_with :redirect
+        should redirect_to('the item') { event_url assigns(:event) }
+      end
+
+      context 'GET :edit' do
+        setup do
+          get :edit, { id: @event.to_param }
+        end
+
+        should respond_with :success
+        should render_template :edit
+      end
+
+      context 'PUT :update' do
+        setup do
+          put :update, { id:    @event.to_param, event: FactoryGirl.attributes_for(:ordinary_event),
+                         entry: FactoryGirl.attributes_for(:verbose_entry) }
+        end
+
+        should respond_with :redirect
+        should redirect_to('the item') { event_url @event }
+      end
+
+      context 'PUT :update with changed flags' do
+        setup do
+          @num_history = EventFlagHistory.count
+          put :update, { id: @event.to_param, event: { sticky: true } }
+        end
+
+        should 'generate new history entry' do
+          assert_equal @num_history + 1, EventFlagHistory.count
+        end
+      end
+
+      context 'PUT :update without changed flags' do
+        setup do
+          @num_history = EventFlagHistory.count
+          put :update, { id: @event.to_param }
+        end
+
+        should 'not generate new history entry' do
+          assert_equal @num_history, EventFlagHistory.count
+        end
+      end
+    end
+
+    user_context :peon_context do
+      context 'GET :new' do
+        setup do
+          get :new
+        end
+
+        should respond_with :redirect
+        should redirect_to('public') { public_url }
+      end
+
+      context 'POST :create' do
+        setup do
+          post :create, { event: FactoryGirl.attributes_for(:ordinary_event),
+                          entry: FactoryGirl.attributes_for(:verbose_entry) }
+        end
+
+        should respond_with :redirect
+        should redirect_to('public') { public_url }
+      end
+
+      context 'GET :edit' do
+        setup do
+          get :edit, { id: @event.to_param }
+        end
+
+        should respond_with :redirect
+        should redirect_to('public') { public_url }
+      end
+
+      context 'PUT :update' do
+        setup do
+          put :update, { id:    @event.to_param, event: FactoryGirl.attributes_for(:ordinary_event),
+                         entry: FactoryGirl.attributes_for(:verbose_entry) }
+        end
+
+        should respond_with :redirect
+        should redirect_to('public') { public_url }
+      end
+    end
+
   end
 
-  test "should show event" do
-    get :show, { id: @event.to_param }, @user_session
-    assert_response :success
-  end
 
-  test "peon user can show event" do
-    get :show, { id: @event.to_param }, @peon_session
-    assert_response :success
-  end
+=begin
 
-  test "should get edit" do
-    get :edit, { id: @event.to_param }, @user_session
-    assert_response :success
-  end
-
-  test "peon user cannot edit" do
-    get :edit, { id: @event.to_param }, @peon_session
-    assert_redirected_to :public
-  end
-
-  test "should update event" do
-    put :update, { id:    @event.to_param, event: FactoryGirl.attributes_for(:ordinary_event),
-                   entry: FactoryGirl.attributes_for(:verbose_entry) }, @user_session
+  test 'should update event with no additional entry' do
+    put :update, { id: @event.to_param, event: FactoryGirl.attributes_for(:ordinary_event), entry: { description: '' } }, @admin_session
     assert_redirected_to event_path(assigns(:event))
   end
 
-  test "updating event with changed flags generates a new EventFlagHistory entry" do
-    assert_difference 'EventFlagHistory.count' do
-      put :update, { id: @event.to_param, event: { sticky: true } }, @user_session
-    end
-  end
-
-  test "updating event with unchanged flags generates NO new EFH entry" do
-    assert_no_difference 'EventFlagHistory.count' do
-      put :update, { id: @event.to_param }, @user_session
-    end
-  end
-
-  test "peon user cannot update event" do
-    put :update, { id:    @event.to_param, event: FactoryGirl.attributes_for(:ordinary_event),
-                   entry: FactoryGirl.attributes_for(:verbose_entry) }, @peon_session
-    assert_redirected_to :public
-  end
-
-  test "should update event with no additional entry" do
-    put :update, { id: @event.to_param, event: FactoryGirl.attributes_for(:ordinary_event), entry: { description: '' } }, @user_session
-    assert_redirected_to event_path(assigns(:event))
-  end
-
-  test "creating an event with blank initial entry fails" do
+  test 'creating an event with blank initial entry fails' do
     assert_no_difference 'Event.count' do
-      post :create, { event: FactoryGirl.attributes_for(:ordinary_event), entry: { description: '' } }, @user_session
+      post :create, { event: FactoryGirl.attributes_for(:ordinary_event), entry: { description: '' } }, @admin_session
     end
   end
 
-  test "creating an event with NO initial entry fails" do
+  test 'creating an event with NO initial entry fails' do
     assert_no_difference 'Event.count' do
       post :create, { event: FactoryGirl.attributes_for(:ordinary_event) }, { user_id: @user_id }
     end
   end
 
-  test "creating an event while not logged in fails" do
+  test 'creating an event while not logged in fails' do
     assert_no_difference 'Event.count' do
       post :create, { event: FactoryGirl.attributes_for(:ordinary_event),
                       entry: FactoryGirl.attributes_for(:verbose_entry) }
     end
   end
+=end
 end

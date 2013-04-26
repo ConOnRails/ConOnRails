@@ -29,6 +29,7 @@ ConOnRails::Application.routes.draw do
     collection do
       get 'review'
       get 'sticky'
+      get 'secure'
     end
   end
   resources :lost_and_found, only: [:index]

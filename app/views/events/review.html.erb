@@ -30,11 +30,11 @@
     </div>
 <% end %>
 <div id="paginator"><%= paginate @events, remote: true %></div>
-<div id="eventlist">
+<div id="event_list">
 </div>
 
 <script>
     window.events.active = <%= params[:active].nil? ? false : params[:active] %>
     window.events.page = <%= params[:page].nil? ? "1" : params[:page] %>
-    $( window.events.getReview() )
+    window.events.getReview()
 </script>

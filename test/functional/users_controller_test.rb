@@ -9,7 +9,7 @@ class UsersControllerTest < ActionController::TestCase
     @role = FactoryGirl.create :admin_users_role
     @user.roles << @role
 
-    @peon_user = FactoryGirl.create :peon
+    @peon_user = FactoryGirl.create :user
     @peon_role = FactoryGirl.create :role
     @peon_user.roles << @peon_role
 

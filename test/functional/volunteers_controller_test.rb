@@ -3,7 +3,7 @@ require 'test_helper'
 class VolunteersControllerTest < ActionController::TestCase
   setup do
     @user      = FactoryGirl.create :user
-    @peon_user = FactoryGirl.create :peon
+    @peon_user = FactoryGirl.create :user
     @role      = FactoryGirl.create :admin_users_role
     @user.roles << @role
     @volunteer    = FactoryGirl.create :valid_volunteer
