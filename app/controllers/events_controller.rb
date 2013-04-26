@@ -38,14 +38,23 @@ class EventsController < ApplicationController
   end
 
   def review
-    query = params[:filter].reduce(Squeel::Nodes::Stub.new(:created_at).eq(nil)) do |query, key|
-      query |= Squeel::Nodes::KeyPath.new(key.first.to_sym).eq(key.second)
-    end if params[:filter].present?
+    query = params[:filters].reduce(Squeel::Nodes::Stub.new(:created_at).not_eq(nil)) do |query, key|
+      query = query.& Squeel::Nodes::KeyPath.new(key.first.to_sym).eq(fix_bool key.second) unless key.second == 'all'
+      query
+    end if params[:filters].present?
 
     @events = Event.where { query }
     @events = @events.where { |e| e.hidden == false } if cannot_see_hidden
     @events = @events.where { |e| e.secure == false } if cannot_see_secure
     @events = @events.order { |e| e.updated_at.asc }.page(params[:page])
+  end
+
+  def fix_bool val
+    if val.is_a? String
+      return true if val == 'true'
+      return false if val == 'false'
+    end
+    val
   end
 
 

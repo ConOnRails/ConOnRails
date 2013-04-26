@@ -17,7 +17,6 @@ class EventsControllerTest < ActionController::TestCase
         end
 
         should respond_with :success
-        should assign_to :events
 
         should 'have one, ordinary event' do
           assert_equal 1, assigns[:events].count
@@ -36,7 +35,6 @@ class EventsControllerTest < ActionController::TestCase
         end
 
         should respond_with :success
-        should assign_to :events
 
         should 'have one, sticky event' do
           assert_equal 1, assigns[:events].count
@@ -55,7 +53,6 @@ class EventsControllerTest < ActionController::TestCase
 
         should respond_with :success
         should render_template :show
-        should assign_to :event
       end
 
       context 'GET :show for a sticky event' do
@@ -65,7 +62,6 @@ class EventsControllerTest < ActionController::TestCase
 
         should respond_with :success
         should render_template :show
-        should assign_to :event
       end
     end
 
@@ -75,7 +71,6 @@ class EventsControllerTest < ActionController::TestCase
           get :secure
         end
         should respond_with :success
-        should assign_to :events
 
         should 'have two events, one secure, one hidden' do
           assert_equal 2, assigns[:events].count
@@ -105,7 +100,7 @@ class EventsControllerTest < ActionController::TestCase
           setup do
             @event.send("#{f}=".to_sym, true)
             @event.save!
-            get :review, { filter: { f => true } }
+            get :review, { filters: { f => 'true' } } # we'll get string, not bool
           end
 
           should respond_with :success
@@ -118,14 +113,26 @@ class EventsControllerTest < ActionController::TestCase
 
       context 'GET :review with multiple \'true\' filters' do
         setup do
-          FactoryGirl.create :ordinary_event, hotel: true
-          FactoryGirl.create :ordinary_event, parties: true
-          get :review, { filter: { hotel: true, parties: true, sticky: true }}
+          FactoryGirl.create :ordinary_event, hotel: true, parties: true
+          get :review, { filters: { hotel: true, parties: true }}
         end
 
         should respond_with :success
-        should "have three events" do
-          assert_equal 3, assigns(:events).count
+        should "have one events" do
+          assert_equal 1, assigns(:events).count
+        end
+      end
+
+      context 'GET :review with mixed filters' do
+        setup do
+          FactoryGirl.create :ordinary_event, hotel: true
+          FactoryGirl.create :ordinary_event, parties: true
+          get :review, { filters: { hotel: true, parties: false, sticky: 'all' }}
+        end
+
+        should respond_with :success
+        should "have one events" do
+          assert_equal 1, assigns(:events).count
         end
       end
     end
@@ -162,7 +169,7 @@ class EventsControllerTest < ActionController::TestCase
           setup do
             @event.send("#{f}=".to_sym, true)
             @event.save!
-            get :review, { filter: { f => true } }
+            get :review, { filters: { f => true } }
           end
 
           should respond_with :success
@@ -197,7 +204,6 @@ class EventsControllerTest < ActionController::TestCase
 
         should respond_with :success
         should render_template :new
-        should assign_to :event
         should 'have an emergency-flagged event' do
           assert_equal true, assigns(:event).emergency
         end
@@ -209,7 +215,6 @@ class EventsControllerTest < ActionController::TestCase
                           entry: FactoryGirl.attributes_for(:verbose_entry) }
         end
 
-        should assign_to :event
         should respond_with :redirect
         should redirect_to('the item') { event_url assigns(:event) }
       end
@@ -219,7 +224,6 @@ class EventsControllerTest < ActionController::TestCase
           get :edit, { id: @event.to_param }
         end
 
-        should assign_to :event
         should respond_with :success
         should render_template :edit
       end
@@ -230,7 +234,6 @@ class EventsControllerTest < ActionController::TestCase
                          entry: FactoryGirl.attributes_for(:verbose_entry) }
         end
 
-        should assign_to :event
         should respond_with :redirect
         should redirect_to('the item') { event_url @event }
       end
