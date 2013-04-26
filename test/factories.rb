@@ -68,7 +68,7 @@ FactoryGirl.define do
       message "Watch out for wombats"
 
       factory :valid_message_with_user do
-        association :user, factory: :peon
+        association :user
       end
 
     end
@@ -123,33 +123,38 @@ FactoryGirl.define do
     end
   end
 
-
   factory :user do
-    name "wombat"
-    realname "Wom Bat"
+    sequence(:name) { |n| "user#{n}" }
+    sequence(:realname) { Faker::Name.name }
     password "batwom"
-  end
-
-  factory :peon, class: User do
-    name "peon"
-    realname "Peon"
-    password "peon69"
-  end
-
-  factory :dummy_user, class: User do
-    name "dummy"
-    realname "Dummy"
-    password "dummy42"
-  end
-
-  factory :other_dummy_user, class: User do
-    name "ymmud"
-    realname "Ymmud"
-    password "24ymmud"
   end
 
   factory :role do
     name "peon"
+
+    factory :superuser_role do
+      name "superuser"
+      admin_users true
+      write_entries true
+      read_hidden_entries true
+      make_hidden_entries true
+      rw_secure true
+      read_audits true
+      admin_duty_board true
+      assign_duty_board_slots true
+      add_lost_and_found true
+      modify_lost_and_found true
+      assign_radios true
+      admin_radios true
+    end
+
+    factory :typical_role do
+      name "typical"
+      write_entries true
+      assign_duty_board_slots true
+      add_lost_and_found true
+      assign_radios true
+    end
 
     factory :admin_users_role do
       name "admin_users"
@@ -228,7 +233,7 @@ FactoryGirl.define do
 
     factory :ordinary_event do
       after :create do |event, evaluator|
-        entry = FactoryGirl.build :oneliner_entry, event: event, user: FactoryGirl.create(:dummy_user)
+        entry = FactoryGirl.build :oneliner_entry, event: event
       end
     end
 
@@ -237,13 +242,13 @@ FactoryGirl.define do
       secure false
 
       after :create do |event, evaluator|
-        entry = FactoryGirl.build :verbose_entry, event: event, user: FactoryGirl.create(:other_dummy_user)
+        entry = FactoryGirl.build :verbose_entry, event: event
       end
     end
   end
 
   factory :entry do
-#    user FactoryGirl.create :dummy_user
+    association :user
 
     factory :oneliner_entry do
       description Faker::Lorem.sentence

@@ -3,7 +3,7 @@ require 'test_helper'
 class RolesUsersTest < ActiveSupport::TestCase
   setup do
     @user1 = FactoryGirl.create :user
-    @user2 = FactoryGirl.create :peon
+    @user2 = FactoryGirl.create :user
     @role1 = FactoryGirl.create :write_entries_role
     @role2 = FactoryGirl.create :role
   end

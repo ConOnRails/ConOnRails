@@ -4,7 +4,7 @@ class ContactsControllerTest < ActionController::TestCase
   setup do
     @user      = FactoryGirl.create :user
     @contact   = FactoryGirl.create :valid_contact
-    @peon_user = FactoryGirl.create :peon
+    @peon_user = FactoryGirl.create :user
     @role      = FactoryGirl.create :write_entries_role
     @user.roles << @role
     @user_session      = { user_id: @user.id }
