@@ -50,16 +50,9 @@ group :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'shoulda'
-  gem 'test-unit'
   gem 'database_cleaner'
 
   #gem 'turn'
-
-  # Pretty printed test output
-  #
-  #  gem 'minitest'
-  #
-  #  gem 'ruby-progressbar'
 
   #
   #  gem 'simplecov'

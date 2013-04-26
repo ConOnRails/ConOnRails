@@ -1,33 +1,33 @@
 <div id="paginator"><%= paginate @events, remote: true %></div>
-<div id="eventlist">
+<div id="event_list">
 </div>
 
 <script>
-    window.events.active = <%= params[:active].nil? ? false : params[:active] %>
-    window.events.page = <%= params[:page].nil? ? "1" : params[:page] %>
-    window.events.sticky = <%= params[:sticky].nil? ? false : params[:sticky] %>
-    window.events.secure = <%= params[:secure].nil? ? false : params[:secure] %>
+    window.events.page = <%= params[:page].nil? ? '1' : params[:page] %>
+    window.events.path = "<%= url_for(false) %>"
     window.events.getMain()
 </script>
-
 <% content_for :side do %>
-    <% if params[:active] %>
-       <div><strong>Viewing Actives</strong></div>
-       <div id="sticky_link"><%= link_to "View Stickies", events_path({ sticky: "true" }) %></div>
-       <% if current_user.rw_secure? %>
-           <div id="secure_link"><%= link_to "View Secure and Hidden Actives", events_path({ secure: "true" }) %></div>
-       <% end %>
-    <% elsif params[:sticky] %>
-       <div id="unsticky_link"><%= link_to "View Actives", root_path %></div>
-       <div><strong>Viewing Stickies</strong></div>
-       <% if current_user.rw_secure? %>
-           <div id="secure_link"><%= link_to "View Secure and Hidden Actives", events_path({ secure: "true" }) %></div>
-       <% end %>
-    <% elsif current_user.rw_secure? and params[:secure] %>
-       <div id="unsticky_link"><%= link_to "View Actives", root_path %></div>
-       <div id="sticky_link"><%= link_to "View Stickies", events_path({ sticky: "true" }) %></div>
-       <div><strong>Viewing Secure and Hidden Actives</div>
-    <% else %>
-       <div>I HAVE NO IDEA WHAT TO DO NOW!</div>
+    <% case url_for(false) %>
+        <% when root_path %>
+            <div><strong>Viewing Actives</strong></div>
+            <div id="sticky_link"><%= link_to 'View Stickies', sticky_events_path %></div>
+            <% if current_user.rw_secure? %>
+                <div id="secure_link"><%= link_to 'View Secure and Hidden Actives', secure_events_path %></div>
+            <% end %>
+        <% when sticky_events_path %>
+            <div id="unsticky_link"><%= link_to 'View Actives', root_path %></div>
+            <div><strong>Viewing Stickies</strong></div>
+            <% if current_user.rw_secure? %>
+                <div id="secure_link"><%= link_to 'View Secure and Hidden Actives', secure_events_path %></div>
+            <% end %>
+        <% when secure_events_path %>
+            <% if current_user.rw_secure? %>
+                <div id="unsticky_link"><%= link_to 'View Actives', root_path %></div>
+                <div id="sticky_link"><%= link_to 'View Stickies', sticky_events_path %></div>
+                <div><strong>Viewing Secure and Hidden Actives</strong></div>
+            <% end %>
+        <% else %>
+            <div>I HAVE NO IDEA WHAT TO DO NOW!</div>
     <% end %>
 <% end %>

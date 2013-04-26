@@ -126,33 +126,55 @@ class EventTest < ActiveSupport::TestCase
         end
       end
 
-      context "stuff we want to filter" do
-        setup do
-          @user = FactoryGirl.create :user
-
-          @role = FactoryGirl.create :write_entries_role
-          @user.roles << @role
-
-          @filter = Event.build_permissions @user
-        end
-
-        should "have a correctly constructed filter" do
-
-          assert_equal 2, @filter.size
-          assert_equal false, @filter[:hidden]
-          assert_equal false, @filter[:secure]
-
-          @user.roles << FactoryGirl.create(:rw_secure_role)
-          @filter = Event.build_permissions @user
-          assert_equal 1, @filter.size
-          assert_nil @filter[:secure]
-          assert_equal false, @filter[:hidden]
-
-          @user.roles << FactoryGirl.create(:read_hidden_entries_role)
-          @filter = Event.build_permissions @user
-          assert_equal 0, @filter.size
-        end
-      end
+      #context "stuff we want to filter" do
+      #  setup do
+      #    @user = FactoryGirl.create :user
+      #
+      #    @role = FactoryGirl.create :write_entries_role
+      #    @user.roles << @role
+      #
+      #    @filter = Event.build_permissions @user
+      #  end
+      #
+      #  should "have a correctly constructed filter" do
+      #
+      #    assert_equal 2, @filter.size
+      #    assert_equal false, @filter[:hidden]
+      #    assert_equal false, @filter[:secure]
+      #
+      #    @user.roles << FactoryGirl.create(:rw_secure_role)
+      #    @filter = Event.build_permissions @user
+      #    assert_equal 1, @filter.size
+      #    assert_nil @filter[:secure]
+      #    assert_equal false, @filter[:hidden]
+      #
+      #    @user.roles << FactoryGirl.create(:read_hidden_entries_role)
+      #    @filter = Event.build_permissions @user
+      #    assert_equal 0, @filter.size
+      #  end
+      #
+      #  context "filtering active true" do
+      #    setup do
+      #      @params = { active: true  }
+      #      @zog = Event.build_filter(@user, @params)
+      #    end
+      #
+      #    should "have stuff" do
+      #       assert_equal 2, @zog.count
+      #    end
+      #  end
+      #  context "filtering secure true" do
+      #    setup do
+      #      @params = { secure: true }
+      #      @zog = Event.build_filter(@user, @params)
+      #    end
+      #
+      #    should "have stuff" do
+      #      assert_equal 0, @zog.count # Except we don't really ahve stuff yet
+      #    end
+      #
+      #  end
+      #end
 
     end
   end

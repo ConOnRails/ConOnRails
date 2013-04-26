@@ -53,6 +53,7 @@ class User < ActiveRecord::Base
   def read_hidden_entries?
     find_perm "read_hidden_entries?"
   end
+  alias :can_read_hidden? :read_hidden_entries?
 
   def add_lost_and_found?
     find_perm "add_lost_and_found?"
@@ -89,6 +90,7 @@ class User < ActiveRecord::Base
   def rw_secure?
     find_perm "rw_secure?"
   end
+  alias :can_read_secure? :rw_secure?
 
   def username
     name
