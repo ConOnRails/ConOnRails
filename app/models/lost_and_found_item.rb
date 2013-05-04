@@ -32,6 +32,7 @@ class LostAndFoundItem < ActiveRecord::Base
 
   scope :found, where(found: true)
   scope :missing, where(reported_missing: true)
+  scope :inventory, where(found: true, returned: false)
 
   validates :category, presence: true, allow_blank: false, inclusion: { in: @@valid_categories.values }
   validates :description, presence: true, allow_blank: false
