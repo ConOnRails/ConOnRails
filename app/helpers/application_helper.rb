@@ -7,11 +7,11 @@ module ApplicationHelper
   end
 
   def version_number
-    1.93
+    1.94
   end
 
   def version_name
-    "Embellished Eccentric Egregious Emu"
+    "Entertained Embellished Eccentric Egregious Emu"
   end
 
   def version_type
