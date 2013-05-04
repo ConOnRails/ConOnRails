@@ -1,10 +1,10 @@
-<div id="paginator"><%= paginate @lfis %></div>
-
 <%= form_tag :search_lost_and_found_items, method: :post, id: "lost_and_found_search_form" do %>
     <%= label_tag :id, "Jump to an ID" %>
     <%= text_field_tag :id %>
     <%= button_tag "Submit" %>
 <% end %>
+
+<div id="paginator"><%= paginate @lfis %></div>
 
 <% @lfis.each do |lfi| %>
     <div class="lfi <%= lfi.type %>">
@@ -21,7 +21,7 @@
     </div>
 <% end %>
 
-<% newparams = { } %>
+<% newparams = {} %>
 <% if params[:reported_missing] %>
     <% buttontype = "item_missing_button" %>
     <% buttontext = "Create new missing item" %>
@@ -36,3 +36,9 @@
 <div class="button"><%= link_to buttontext, new_lost_and_found_item_path(newparams),
                                 class: "button #{buttontype}" %>
 </div>
+
+<% content_for :side do %>
+    <% if current_user.modify_lost_and_found? %>
+        <%= link_to 'Open Inventory', open_inventory_lost_and_found_items_path %>
+    <% end %>
+<% end %>

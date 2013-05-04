@@ -25,3 +25,9 @@
     <% end %>
     <%= button_tag "Submit" %>
 <% end %>
+
+<% content_for :side do %>
+    <% if current_user.modify_lost_and_found? %>
+        <%= link_to 'Open Inventory', open_inventory_lost_and_found_items_path %>
+    <% end %>
+<% end %>

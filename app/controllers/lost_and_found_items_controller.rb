@@ -1,7 +1,9 @@
 class LostAndFoundItemsController < ApplicationController
+  attr_reader :lfis, :lfi
+
   before_filter :user_can_add_lost_and_found, only: [:new, :create]
   before_filter :user_can_modify_lost_and_found, only: [:edit, :update]
-  attr_reader :lfis, :lfi
+  before_filter :build_categories_from_params, only: [:search]
 
   protected
 
@@ -25,21 +27,13 @@ class LostAndFoundItemsController < ApplicationController
   end
 
   def search
-    categories = build_categories_from_params
-    like       = process_keywords(params[:keywords])
-
+    return jump if params[:id].present?
     @lfis = LostAndFoundItem.page params[:page]
 
-    # HACK this should be a separate function eventually
-    if params[:id].present?
-      @lfi = LostAndFoundItem.find_by_id(params[:id])
-      return redirect_to lost_and_found_item_path(@lfi) if @lfi.present?
-    end
-
     @lfis = @lfis.where { returned == false } unless params[:show_returned].present? && params[:show_returned] == true
-    @lfis = @lfis.where { description.like_any my { params[:keywords].split.collect { |s| "%#{s}%"} } } if params[:search_type] == 'any' unless params[:keywords].blank?
-    @lfis = @lfis.where { description.like_all my { params[:keywords].split.collect { |s| "%#{s}%"} } } if params[:search_type] == 'all' unless params[:keywords].blank?
-    @lfis = @lfis.where { category >> my { categories }  } unless categories == []
+    @lfis = @lfis.where { description.like_any my { wrap_keywords_for_like } } if params[:search_type] == 'any' unless params[:keywords].blank?
+    @lfis = @lfis.where { description.like_all my { wrap_keywords_for_like } } if params[:search_type] == 'all' unless params[:keywords].blank?
+    @lfis = @lfis.where { category >> my { @categories } } unless @categories.blank?
 
     respond_to do |format|
       format.html { render 'index' }
@@ -48,8 +42,7 @@ class LostAndFoundItemsController < ApplicationController
   end
 
   def open_inventory
-    @lfis = LostAndFoundItem.page params[:page]
-    @lfis = @lfis.where found: true, returned: false
+    @lfis = LostAndFoundItem.inventory.page params[:page]
 
     respond_to do |format|
       format.html { render 'index' }
@@ -78,9 +71,7 @@ class LostAndFoundItemsController < ApplicationController
 
     respond_to do |format|
       if @lfi.save
-        type = "Missing" if @lfi.reported_missing?
-        type = "Found" if @lfi.found?
-        format.html { redirect_to @lfi, notice: "#{type} item was successfully created." }
+        format.html { redirect_to @lfi, notice: "#{@lfi.Type} item was successfully created." }
         format.json { render json: @lfi, status: :created, location: @lfi }
       else
         format.html { render action: "edit", lfi: @lfi }
@@ -102,10 +93,8 @@ class LostAndFoundItemsController < ApplicationController
 
     respond_to do |format|
       if @lfi.update_attributes params[:lost_and_found_item]
-        type = "Missing" if @lfi.reported_missing?
-        type = "Found" if @lfi.found?
         type = "Returned" if @lfi.returned?
-        format.html { redirect_to @lfi, notice: "#{type} item was successfully updated." }
+        format.html { redirect_to @lfi, notice: "#{@lfi.Type} item was successfully updated." }
         format.json { render json: @lfi, status: :created, location: @lfi }
       else
         format.html { render action: "edit", lfi: @lfi, notide: "#{type} could not be saved." }
@@ -114,52 +103,24 @@ class LostAndFoundItemsController < ApplicationController
     end
   end
 
+  protected
+  def jump
+    @lfi = LostAndFoundItem.find_by_id(params[:id])
+    return redirect_to lost_and_found_item_path(@lfi) if @lfi.present?
+    render 'invalid'
+  end
+
+  def wrap_keywords_for_like
+    params[:keywords].split.collect { |s| "%#{s}%" }
+  end
+
   private
 
   def build_categories_from_params
-    ret = []
-
-    LostAndFoundItem.categories.each do |k, v|
-      ks = k.to_s
-      ret << v if params.has_key? ks
-    end
-
-    return ret
+    @categories ||= (LostAndFoundItem.categories.collect do |k, v|
+      next unless params.has_key? k.to_s
+      v
+    end).compact
   end
-
-  def process_search_all(keywords)
-    ["\"description\" LIKE ?", keywords.inject('') { |like, k|
-      like += "%#{k}%" }
-    ]
-  end
-
-  def process_search_any(keywords)
-    like  = []
-    query = 'description LIKE ?'
-    keywords.each do |k|
-      like << "%#{k}%"
-      unless k == keywords.first
-        query += " OR \"description\" LIKE ?"
-      end
-    end
-    [query].concat like
-  end
-
-  def process_keywords(keyword_params)
-    like = ""
-
-    if params.has_key? :keywords and params[:keywords] != ''
-      keywords = params[:keywords].split
-
-      if params[:search_type] == 'all'
-        like = process_search_all(keywords)
-      elsif params[:search_type] == 'any'
-        like = process_search_any(keywords)
-      end
-    end
-
-    return like
-  end
-
 
 end
