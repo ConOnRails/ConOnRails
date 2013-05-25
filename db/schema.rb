@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120701234311) do
+ActiveRecord::Schema.define(:version => 20130525174214) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -115,18 +115,18 @@ ActiveRecord::Schema.define(:version => 20120701234311) do
   end
 
   create_table "events", :force => true do |t|
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
-    t.boolean  "is_active",   :default => true
-    t.boolean  "comment",     :default => false
-    t.boolean  "flagged",     :default => false
-    t.boolean  "post_con",    :default => false
-    t.boolean  "quote",       :default => false
-    t.boolean  "sticky",      :default => false
-    t.boolean  "emergency",   :default => false
-    t.boolean  "medical",     :default => false
-    t.boolean  "hidden",      :default => false
-    t.boolean  "secure",      :default => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.boolean  "is_active",       :default => true
+    t.boolean  "comment",         :default => false
+    t.boolean  "flagged",         :default => false
+    t.boolean  "post_con",        :default => false
+    t.boolean  "quote",           :default => false
+    t.boolean  "sticky",          :default => false
+    t.boolean  "emergency",       :default => false
+    t.boolean  "medical",         :default => false
+    t.boolean  "hidden",          :default => false
+    t.boolean  "secure",          :default => false
     t.boolean  "consuite"
     t.boolean  "hotel"
     t.boolean  "parties"
@@ -134,6 +134,8 @@ ActiveRecord::Schema.define(:version => 20120701234311) do
     t.boolean  "dealers"
     t.boolean  "dock"
     t.boolean  "merchandise"
+    t.string   "merged_from_ids"
+    t.boolean  "merged"
   end
 
   create_table "login_logs", :force => true do |t|

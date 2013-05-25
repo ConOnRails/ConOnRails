@@ -33,6 +33,7 @@ gem 'libv8', '=3.11.8.13'
 gem 'therubyracer', '~>0.11', require: 'v8'
 
 group :development do
+  gem 'annotate'
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'rails-dev-boost', :git => 'git://github.com/thedarkone/rails-dev-boost.git', :require => 'rails_development_boost'
   #gem 'ruby-debug19', :require => 'ruby-debug'
