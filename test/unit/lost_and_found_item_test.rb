@@ -1,3 +1,24 @@
+# == Schema Information
+#
+# Table name: lost_and_found_items
+#
+#  id               :integer          not null, primary key
+#  category         :string(255)
+#  description      :string(255)
+#  details          :text
+#  where_last_seen  :string(255)
+#  where_found      :string(255)
+#  owner_name       :string(255)
+#  owner_contact    :text
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  found            :boolean          default(FALSE)
+#  returned         :boolean          default(FALSE)
+#  reported_missing :boolean          default(FALSE)
+#  user_id          :integer
+#  rolename         :string(255)
+#
+
 require 'test_helper'
 
 class LostAndFoundItemTest < ActiveSupport::TestCase
