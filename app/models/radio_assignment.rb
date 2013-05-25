@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: radio_assignments
+#
+#  id            :integer          not null, primary key
+#  radio_id      :integer
+#  volunteer_id  :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  department_id :integer
+#
+
 class DepartmentAllotmentChecker < ActiveModel::Validator
   def validate(record)
      if RadioAssignment.department_count(record.department.id) + 1 >

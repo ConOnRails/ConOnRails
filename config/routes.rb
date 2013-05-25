@@ -30,6 +30,7 @@ ConOnRails::Application.routes.draw do
       get 'review'
       get 'sticky'
       get 'secure'
+      post 'merge_events'
     end
   end
   resources :lost_and_found, only: [:index]

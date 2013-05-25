@@ -1,3 +1,11 @@
+# == Schema Information
+#
+# Table name: roles_users
+#
+#  role_id :integer
+#  user_id :integer
+#
+
 require 'test_helper'
 
 class RolesUsersTest < ActiveSupport::TestCase
