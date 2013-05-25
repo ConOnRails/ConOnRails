@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: entries
+#
+#  id          :integer          not null, primary key
+#  description :text
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  user_id     :integer
+#  event_id    :integer
+#  rolename    :string(255)
+#
+
 class Entry < ActiveRecord::Base
   attr_accessible :description
 
