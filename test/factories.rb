@@ -233,7 +233,7 @@ FactoryGirl.define do
 
     factory :ordinary_event do
       after :create do |event, evaluator|
-        entry = FactoryGirl.build :oneliner_entry, event: event
+        entry = FactoryGirl.create :oneliner_entry, event: event
       end
     end
 
@@ -251,7 +251,7 @@ FactoryGirl.define do
     association :user
 
     factory :oneliner_entry do
-      description Faker::Lorem.sentence
+      sequence(:description) { Faker::Lorem.sentence }
     end
 
     factory :verbose_entry do
