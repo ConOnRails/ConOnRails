@@ -1,13 +1,24 @@
-# Screw it. Right now, I only care about one database, and for some reason, the official tricks aren't working.
-
-test:
+mysql: &mysql
   adapter: mysql2
   username: root
   password:
+  database: con_on_rails_&lt;%= Rails.env %&gt;
+
+postgresql: &postgresql
+  adapter: postgresql
+  username: postgres
+  password:
+  database: con_on_rails_&lt;%= Rails.env %&gt;
+  min_messages: ERROR
+
+defaults: &defaults
   pool: 5
   timeout: 5000
   host: localhost
-  database: con_on_rails_test
+  <<: <%= ENV['DB'] || 'mysql' %>
+
+test:
+  <<: *defaults
 
 attendees:
   adapter: sqlite3
