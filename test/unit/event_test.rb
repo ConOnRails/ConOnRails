@@ -1,3 +1,29 @@
+# == Schema Information
+#
+# Table name: events
+#
+#  id          :integer          not null, primary key
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  is_active   :boolean          default(TRUE)
+#  comment     :boolean          default(FALSE)
+#  flagged     :boolean          default(FALSE)
+#  post_con    :boolean          default(FALSE)
+#  quote       :boolean          default(FALSE)
+#  sticky      :boolean          default(FALSE)
+#  emergency   :boolean          default(FALSE)
+#  medical     :boolean          default(FALSE)
+#  hidden      :boolean          default(FALSE)
+#  secure      :boolean          default(FALSE)
+#  consuite    :boolean
+#  hotel       :boolean
+#  parties     :boolean
+#  volunteers  :boolean
+#  dealers     :boolean
+#  dock        :boolean
+#  merchandise :boolean
+#
+
 require 'test_helper'
 
 class EventTest < ActiveSupport::TestCase
@@ -64,7 +90,7 @@ class EventTest < ActiveSupport::TestCase
 
     context "an additional ordinary event" do
       setup do
-        @second_event = FactoryGirl.create :event
+        @second_event = FactoryGirl.create :ordinary_event
       end
 
       should "have two active events" do
@@ -126,56 +152,28 @@ class EventTest < ActiveSupport::TestCase
         end
       end
 
-      #context "stuff we want to filter" do
-      #  setup do
-      #    @user = FactoryGirl.create :user
-      #
-      #    @role = FactoryGirl.create :write_entries_role
-      #    @user.roles << @role
-      #
-      #    @filter = Event.build_permissions @user
-      #  end
-      #
-      #  should "have a correctly constructed filter" do
-      #
-      #    assert_equal 2, @filter.size
-      #    assert_equal false, @filter[:hidden]
-      #    assert_equal false, @filter[:secure]
-      #
-      #    @user.roles << FactoryGirl.create(:rw_secure_role)
-      #    @filter = Event.build_permissions @user
-      #    assert_equal 1, @filter.size
-      #    assert_nil @filter[:secure]
-      #    assert_equal false, @filter[:hidden]
-      #
-      #    @user.roles << FactoryGirl.create(:read_hidden_entries_role)
-      #    @filter = Event.build_permissions @user
-      #    assert_equal 0, @filter.size
-      #  end
-      #
-      #  context "filtering active true" do
-      #    setup do
-      #      @params = { active: true  }
-      #      @zog = Event.build_filter(@user, @params)
-      #    end
-      #
-      #    should "have stuff" do
-      #       assert_equal 2, @zog.count
-      #    end
-      #  end
-      #  context "filtering secure true" do
-      #    setup do
-      #      @params = { secure: true }
-      #      @zog = Event.build_filter(@user, @params)
-      #    end
-      #
-      #    should "have stuff" do
-      #      assert_equal 0, @zog.count # Except we don't really ahve stuff yet
-      #    end
-      #
-      #  end
-      #end
+      context 'can be merged with the original' do
+        setup do
+          @user = FactoryGirl.create :user
+          # make one of them an emergency
+          @second_event.emergency = true
+          @second_event.save!
+          @original_event_flags = @event.flags
+          @original_2d_event_flags = @second_event.flags
+          @new_event = Event.merge_events([@event.id, @second_event.id], @user.id)
+          @event.reload
+          @second_event.reload
+        end
 
+        should 'have a new merged element' do
+          assert_equal @event.entries.count + @second_event.entries.count + 1, @new_event.entries.count
+          assert_match /^Merged with/, @new_event.entries.order(:id).last.description
+          assert @event.merged?
+          assert @second_event.merged?
+          assert_equal [@event.id, @second_event.id], @new_event.merged_from_ids
+          assert_equal Event.flags_union(@original_event_flags, @original_2d_event_flags), @new_event.flags
+        end
+      end
     end
   end
 end
