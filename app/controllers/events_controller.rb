@@ -14,14 +14,14 @@ class EventsController < ApplicationController
         where { |e| e.sticky == false }.
         where { |e| e.secure == false }.
         where { |e| e.hidden == false }.
-        page(params[:page]).order{ |e| e.updated_at.desc }
+        page(params[:page]).order { |e| e.updated_at.desc }
   end
 
   def sticky
     @events = Event.where { |e| e.sticky == true }.
         where { |e| e.secure == false }.
         where { |e| e.hidden == false }.
-        page(params[:page]).order{ |e| e.updated_at.desc }
+        page(params[:page]).order { |e| e.updated_at.desc }
     render :index
   end
 
@@ -30,7 +30,7 @@ class EventsController < ApplicationController
       @events = Event.where { |e| e.is_active == true }.
           where { |e| e.sticky == false }.
           where { |e| (e.secure == true) | (e.hidden == true) }.
-          page(params[:page]).order{ |e| e.updated_at.desc }
+          page(params[:page]).order { |e| e.updated_at.desc }
       render :index
     else
       redirect_to root_url
@@ -134,6 +134,14 @@ class EventsController < ApplicationController
         #format.html { render action: "edit" }
         #format.json { render json: @event.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def merge_events
+    @event = Event.merge_events(params[:merge_ids], current_user, current_role)
+    respond_to do |format|
+      format.html { redirect_to edit_event_path(@event), notice: 'Event was merged. Check and save.' }
+      format.json { render json: @event, status: :merged, location: @event }
     end
   end
 

@@ -160,14 +160,14 @@ class EventTest < ActiveSupport::TestCase
           @second_event.save!
           @original_event_flags = @event.flags
           @original_2d_event_flags = @second_event.flags
-          @new_event = Event.merge_events([@event.id, @second_event.id], @user.id)
+          @new_event = Event.merge_events([@event.id, @second_event.id], @user, 'vole')
           @event.reload
           @second_event.reload
         end
 
         should 'have a new merged element' do
           assert_equal @event.entries.count + @second_event.entries.count + 1, @new_event.entries.count
-          assert_match /^Merged with/, @new_event.entries.order(:id).last.description
+          assert_match /^Merged by #{@user.username} as 'vole'/, @new_event.entries.order(:id).last.description
           assert @event.merged?
           assert @second_event.merged?
           assert_equal [@event.id, @second_event.id], @new_event.merged_from_ids
