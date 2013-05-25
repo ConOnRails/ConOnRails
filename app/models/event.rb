@@ -41,7 +41,7 @@ class Event < ActiveRecord::Base
   STATUSES = %w[ Active Closed Merged ]
   FLAGS    = %w[ is_active comment flagged post_con quote sticky emergency medical hidden secure consuite hotel parties volunteers dealers dock merchandise ]
 
-  def self.merge_events(event_ids, user_id, role_name = nil)
+  def self.merge_events(event_ids, user, role_name = nil)
     new_event = Event.create! do |new_event|
       new_event.merged_from_ids = event_ids
     end
@@ -52,7 +52,7 @@ class Event < ActiveRecord::Base
       ev.set_and_save_status 'Merged'
     end
 
-    new_event.add_entry 'Merged with ' + event_ids.join(', '), user_id, role_name
+    new_event.add_entry "Merged by #{user.username} as '#{role_name}' from #{event_ids.join(', ')}", user.id, role_name
 
     new_event.save!
     new_event.reload
