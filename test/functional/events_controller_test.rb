@@ -259,6 +259,21 @@ class EventsControllerTest < ActionController::TestCase
           assert_equal @num_history, EventFlagHistory.count
         end
       end
+
+      context 'A second ordinary event' do
+        setup do
+          @merge_me = FactoryGirl.create :ordinary_event
+        end
+
+        context 'POST :merge two events' do
+          setup do
+            post :merge_events, merge_ids: [@event.id, @merge_me.id]
+          end
+
+          should respond_with :redirect
+          should redirect_to('edit the merged item') { edit_event_url assigns(:event) }
+        end
+      end
     end
 
     user_context :peon_context do
