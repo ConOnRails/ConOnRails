@@ -1,5 +1,6 @@
 <h1>Listing users</h1>
 
+<div class="button"><%= link_to 'New User', new_user_path, class: 'button' %></div>
 <div id="paginator"><%= paginate @users %></div>
 <table>
   <tr>
@@ -11,6 +12,7 @@
   <%= render @users %>
 </table>
 
+<div id="paginator"><%= paginate @users %></div>
 <div class="button"><%= link_to 'New User', new_user_path, class: 'button' %></div>
 
 <% content_for :side do %>

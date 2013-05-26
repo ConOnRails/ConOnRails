@@ -2,6 +2,7 @@
 <div id="paginator"><%= paginate @events, remote: true %></div>
 <div id="event_list">
 </div>
+<div id="paginator"><%= paginate @events, remote: true %></div>
 
 <script>
     window.events.page = <%= params[:page].nil? ? '1' : params[:page] %>
