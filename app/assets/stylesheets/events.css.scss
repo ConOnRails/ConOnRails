@@ -231,6 +231,17 @@
     //    border-radius: 10px;
   }
 
+  #big-log-button
+  {
+    margin-bottom: 2em;
+    width: 500px;
+
+    a.button {
+      width: 500px;
+      background-color: $blue;
+    }
+  }
+
   // Filter stuff
   #filters
   {
