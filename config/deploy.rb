@@ -2,7 +2,7 @@ set :rvm_ruby_string, ENV['GEM_HOME'].gsub(/.*\//,"")
 set :rvm_install_ruby_params, '--1.9'      # for jruby/rbx default to 1.9 mode
 set :rvm_install_pkgs, %w[libyaml openssl] # package list from https://rvm.io/packages
 set :rvm_install_ruby_params, '--with-opt-dir=/usr/local/rvm/usr' # package support
-set :rvm_ruby_string, 'ruby-2.0.0-p0'
+set :rvm_ruby_string, 'ruby-2.0.0-p195'
 set :rvm_type, :system
 set :rvm_install_with_sudo, true
 
