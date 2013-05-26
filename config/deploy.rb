@@ -29,7 +29,7 @@ set :use_sudo, false
 set :deploy_via, :remote_cache
 set :rails_env, :production
 
-server 'zim.itasca.net', :app, :web, :primary => true
+server 'zim.itasca.net', :app, :web, :db, :primary => true
 
 after 'deploy:update_code', 'deploy:symlink_db'
 

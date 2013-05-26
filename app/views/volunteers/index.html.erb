@@ -1,12 +1,37 @@
-<h1>Listing volunteers</h1>
+<h1>Volunteers</h1>
 
-<div class="button">
-  <%= link_to 'New Volunteer', new_volunteer_path, class: 'button' %>
+<div class="button"><%= link_to 'New Volunteer', new_volunteer_path, class: 'button' %></div>
+<div>
+  <div id="paginator"><%= paginate @volunteers %></div>
+  <div id="search"><%= search_form_for @q do |f| %>
+        <%= f.label :first_name_cont %>
+        <%= f.text_field :first_name_cont %>
+        <%= f.label :last_name_cont %>
+        <%= f.text_field :last_name_cont %>
+        <%= f.submit %>
+    <% end %>
+  </div>
 </div>
-<div id="paginator"><%= paginate @volunteers %></div>
 
-<%= render partial: 'volunteers' %>
-<br />
+<table>
+  <tr>
+    <th><%= sort_link @q, :first_name %></th>
+    <th><%= sort_link @q, :last_name %></th>
+    <th><%= sort_link @q, :user_name, 'Associated Username' %></th>
+  </tr>
+
+  <% @volunteers.each do |volunteer| %>
+      <tr class="<%= cycle('even', 'odd') %>">
+        <td colspan=2><%= link_to volunteer.name, volunteer %></td>
+        <td>
+          <% if volunteer.user.present? %>
+              <%= link_to volunteer.user.name, volunteer.user %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+</table>
+
 
 <div id="paginator"><%= paginate @volunteers %></div>
 <div class="button">

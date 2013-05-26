@@ -145,6 +145,10 @@ GEM
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
     rake (10.0.4)
+    ransack (0.7.2)
+      actionpack (~> 3.0)
+      activerecord (~> 3.0)
+      polyamorous (~> 0.5.0)
     rb-fsevent (0.9.3)
     rdoc (3.12.2)
       json (~> 1.4)
@@ -212,6 +216,7 @@ DEPENDENCIES
   pg
   rails (~> 3.2)
   rails-dev-boost!
+  ransack
   rb-fsevent (~> 0.9.1)
   redcarpet (~> 2.2)
   rvm-capistrano (~> 1.2)

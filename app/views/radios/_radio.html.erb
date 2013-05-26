@@ -1,4 +1,4 @@
-<tr>
+<tr class="<%= cycle('even', 'odd') %>">
   <td class="<%= radio.radio_group.color if radio.radio_group.present? %>"><%= radio.radio_group.name if radio.radio_group.present? %></td>
   <td>
     <% if current_user and current_user.can_admin_radios? %>
@@ -8,14 +8,14 @@
     <% end %>
   </td>
   <td><%= radio.radio_assignment ? radio.radio_assignment.department.name : "" %></td>
-  <td><%= radio.radio_assignment ? radio.radio_assignment.volunteer.name : "" %></td>
+  <td colspan=2><%= radio.radio_assignment ? radio.radio_assignment.volunteer.name : "" %></td>
   <td><%= radio.state %></td>
   <% if current_user and current_user.can_assign_radios? %>
       <td>
         <% if radio.state == "in" and radio.radio_assignment.nil? %>
-            <%= button_to "Check out", checkout_radio_path(radio), method: :get %>
+            <%= link_to "Check&nbsp;out".html_safe, checkout_radio_path(radio), method: :get, class: 'button small-button' %>
         <% else %>
-            <%= button_to "Check in", radio.radio_assignment, confirm: 'Are you sure?', method: :delete %>
+            <%= link_to "Check&nbsp;in".html_safe, radio.radio_assignment, confirm: 'Are you sure?', method: :delete, class: 'button small-button' %>
         <% end %>
       </td>
   <% end %>

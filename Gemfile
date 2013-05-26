@@ -8,9 +8,6 @@ gem 'rails', '~>3.2'
 gem 'sqlite3', '~>1.3'
 gem 'mysql2', '~>0.3'
 gem 'pg'
-gem 'squeel', '~>1.0'
-gem 'yaml_db', '~>0.2'
-gem 'rvm-capistrano', '~>1.2'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -20,18 +17,21 @@ group :assets do
   gem 'uglifier' #, ">= 1.0.3"
 end
 
+gem 'audited-activerecord', '~>3.0'
 gem 'bcrypt-ruby', '~>3.0'
+gem 'capistrano', '~>2.14'
+gem 'country-select', '~>1.1'
+gem 'formtastic', '~>2.2'
 gem 'jquery-rails', '~>2.1'
 gem 'jquery-ui-rails', '~>3.0'
-#gem 'rails3-jquery-autocomplete', '~>1.0'
-gem 'formtastic', '~>2.2'
-gem 'country-select', '~>1.1'
-gem 'audited-activerecord', '~>3.0'
 gem 'kaminari', '~>0.14'
-gem 'capistrano', '~>2.14'
-gem 'redcarpet', '~>2.2'
+gem 'ransack'
 gem 'libv8', '=3.11.8.13'
+gem 'redcarpet', '~>2.2'
+gem 'rvm-capistrano', '~>1.2'
+gem 'squeel', '~>1.0'
 gem 'therubyracer', '~>0.11', require: 'v8'
+gem 'yaml_db', '~>0.2'
 
 group :development do
   gem 'annotate'
@@ -48,11 +48,11 @@ group :development, :test do
 end
 
 group :test do
-  gem 'minitest-reporters'
+  gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'faker'
+  gem 'minitest-reporters'
   gem 'shoulda'
-  gem 'database_cleaner'
 
   #gem 'turn'
 
