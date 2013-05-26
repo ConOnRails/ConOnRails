@@ -60,6 +60,11 @@ class RadiosController < ApplicationController
   # GET /radios/new
   # GET /radios/new.json
   def new
+    # We include the index list in the new page for this one, so we need to provide Ransack bits
+
+    @q = Radio.search params[:q]
+    @radios = @q.result.page(params[:page])
+
     @radio = Radio.new
 
     respond_to do |format|
