@@ -32,6 +32,7 @@
 <div id="paginator"><%= paginate @events, remote: true %></div>
 <div id="event_list">
 </div>
+<div id="paginator"><%= paginate @events, remote: true %></div>
 
 <script>
     window.events.active = <%= params[:active].nil? ? false : params[:active] %>
