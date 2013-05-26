@@ -35,18 +35,17 @@
       font-weight: bold;
     }
 
-    .update
+    a.update
     {
-      a
-      {
-        color: white;
-      }
-      a:hover
-      {
-        background-color: $green_desat;
-      }
+      padding:       .5em;
       background-color: $green;
-      padding:          .5em;
+      color:            white;
+      &:hover
+      {
+        color:            $green;
+        background-color: white;
+        border:           thin solid $green;
+      }
     }
   }
 
@@ -234,11 +233,22 @@
   #big-log-button
   {
     margin-bottom: 2em;
-    width: 500px;
+    width:         500px;
 
-    a.button {
-      width: 500px;
-      background-color: $blue;
+    a.button
+    {
+      &:link, &:active, &:visited
+      {
+        background-color: $blue;
+        color:            white;
+      }
+      &:hover
+      {
+        color:            $blue;
+        background-color: white;
+        border:           thin solid $blue;
+      }
+
     }
   }
 
