@@ -16,26 +16,29 @@
 
       #public_menu
       {
-        background-color: white;
-
         ul
         {
           list-style-type: none;
           li
           {
-            background-color: $green;
             color: white;
             text-align: center;
             a
             {
+              background-color: $green;
+              color: white;
               font-size: 1.4em;
               font-weight: bold;
-              color: white;
               display: block;
               padding-left: 15px;
-              padding-top: 6px;
-              padding-bottom: 20px;
               width: inherit;
+
+              &:hover
+              {
+                color: $green;
+                background-color: white;
+                border: thin solid $green;
+              }
             }
           }
         }      
