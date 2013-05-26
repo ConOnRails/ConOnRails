@@ -8,7 +8,8 @@
     <% end %>
   </td>
   <td><%= radio.radio_assignment ? radio.radio_assignment.department.name : "" %></td>
-  <td colspan=2><%= radio.radio_assignment ? radio.radio_assignment.volunteer.name : "" %></td>
+  <td><%= radio.radio_assignment ? radio.radio_assignment.volunteer.first_name : "" %></td>
+  <td><%= radio.radio_assignment ? radio.radio_assignment.volunteer.last_name : "" %></td>
   <td><%= radio.state %></td>
   <% if current_user and current_user.can_assign_radios? %>
       <td>
