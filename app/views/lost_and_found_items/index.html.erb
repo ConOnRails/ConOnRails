@@ -37,6 +37,8 @@
                                 class: "button #{buttontype}" %>
 </div>
 
+<div id="paginator"><%= paginate @lfis %></div>
+
 <% content_for :side do %>
     <% if current_user.modify_lost_and_found? %>
         <%= link_to 'Open Inventory', open_inventory_lost_and_found_items_path %>
