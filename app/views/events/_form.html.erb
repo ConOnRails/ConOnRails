@@ -16,7 +16,11 @@
 <%= semantic_form_for @event do |f| %>
     <div id="event_options_side">
       <%= f.inputs class: "status" do %>
-          <%= f.input :status, as: :radio, collection: Event.statuses, label: false %>
+          <% if @event.merged? %>
+              Merged
+          <% else %>
+              <%= f.input :status, as: :radio, collection: Event.statuses[0..1], label: false %>
+          <% end %>
       <% end %>
       <%= f.inputs class: "type_flags" do %>
           <%= f.input :comment %>
@@ -28,8 +32,8 @@
           <%= f.input :medical %>
           <%= f.input :hidden if current_user and current_user.can_make_hidden_entries? %>
           <%= f.input :secure if current_user and current_user.rw_secure? %>
-          <%= f.input :hidden, as: :hidden, input_html: { value: false }  unless current_user and current_user.can_make_hidden_entries? %>
-          <%= f.input :secure, as: :hidden, input_html: { value: false }  unless current_user and current_user.rw_secure? %>
+          <%= f.input :hidden, as: :hidden, input_html: { value: false } unless current_user and current_user.can_make_hidden_entries? %>
+          <%= f.input :secure, as: :hidden, input_html: { value: false } unless current_user and current_user.rw_secure? %>
       <% end %>
     </div>
 
