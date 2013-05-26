@@ -1,4 +1,15 @@
-<h1>Listing departments</h1>
+<h1>Departments</h1>
+
+<div class="button"><%= link_to 'New Department', new_department_path, class: 'button' %></div>
+<div style="height: 50px; vertical-align: middle">
+  <div id="paginator" class="pull-left"><%= paginate @departments %></div>
+  <div id="search"><%= search_form_for @q do |f| %>
+        <%= f.label :name_cont %>
+        <%= f.text_field :name_cont %>
+        <%= f.submit %>
+    <% end %>
+  </div>
+</div>
 
 <table>
   <colgroup>
@@ -8,27 +19,31 @@
     <col id="department_radio_allotment" />
   </colgroup>
   <tr>
-    <th>Name</th>
-    <th>Volunteer</th>
-    <th>Radio group</th>
-    <th>Radio allotment</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th><%= sort_link @q, :name %></th>
+    <th><%= sort_link @q, :volunteer_name, 'Volunteer Name' %></th>
+    <th><%= sort_link @q, :radio_group_name, 'Radio Group' %></th>
+    <th><%= sort_link @q, :radio_allotment %></th>
   </tr>
 
   <% @departments.each do |department| %>
       <tr>
-        <td class="radio_department"><%= department.name %></td>
+        <td class="radio_department"><%= link_to department.name, department %></td>
         <td class="radio_volunteer"><%= department.volunteer ? department.volunteer.name : "" %></td>
         <td class="radio_group <%= department.radio_group ? department.radio_group.color : "" %>"><%= department.radio_group ? department.radio_group.name : "" %></td>
         <td><%= department.radio_allotment %></td>
-        <td><%= link_to 'Show', department %></td>
-        <td><%= link_to 'Edit', edit_department_path(department) %></td>
-        <td><%= link_to 'Destroy', department, confirm: 'Are you sure?', method: :delete %></td>
       </tr>
   <% end %>
 </table>
+
+<div style="height: 50px; vertical-align: middle">
+  <div id="paginator" class="pull-left"><%= paginate @departments %></div>
+  <div id="search"><%= search_form_for @q do |f| %>
+        <%= f.label :name_cont %>
+        <%= f.text_field :name_cont %>
+        <%= f.submit %>
+    <% end %>
+  </div>
+</div>
 
 <div class="button"><%= link_to 'New Department', new_department_path, class: 'button' %></div>
 

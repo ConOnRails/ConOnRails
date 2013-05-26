@@ -46,16 +46,60 @@ h1, h2, h3, h4, h5, h6
   margin-top:  0;
 }
 
-a /* No links should have underlines ever */
+table
+{
+  width: 100%;
+}
 
+th
+{
+  border-bottom: thin solid $dark-grey;
+  width: auto;
+}
 
+td
+{
+  width: auto;
+}
 
-
-
-
+a
 {
   text-decoration: none;
   color:           $dark_grey;
+
+  &:hover
+  {
+    color:            white;
+    background-color: $dark_grey;
+  }
+}
+
+a.sort_link
+{
+  color: $bright_blue;
+  &:hover
+  {
+    background-color: $bright_blue;
+    color:            white;
+  }
+}
+
+#search
+{
+  float:          right;
+  height:         18px;
+  padding-bottom: 1em;
+  padding-top:    1em;
+}
+
+.pull-left
+{
+  float: left;
+}
+
+.clearfix
+{
+  clear: both;
 }
 
 .formtastic
@@ -189,12 +233,13 @@ a.button
     &:link, &:active, &:visited
     {
       background-color: white;
-      color:            $light_grey;
+      color:            $dark_grey;
+      border:           thin solid $dark_grey;
     }
     &:hover
     {
-      color:            $light_grey;
-      background-color: black;
+      color:            white;
+      background-color: $dark_grey;
     }
   }
 }

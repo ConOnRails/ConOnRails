@@ -1,18 +1,32 @@
+<div>
+  <div id="paginator pull-left"><%= paginate @radios %></div>
+  <div id="search"><%= search_form_for @q do |f| %>
+        <%= f.label :radio_assignment_volunteer_first_name_cont, 'First name contains' %>
+        <%= f.text_field :radio_assignment_volunteer_first_name_cont %>
+        <%= f.label :radio_assignment_volunteer_last_name_cont, 'Last name contains' %>
+        <%= f.text_field :radio_assignment_volunteer_last_name_cont %>
+        <%= f.submit %>
+    <% end %>
+  </div>
+</div>
+
 <table id="radio-list">
   <colgroup id="radio_info">
     <col id="radio_group" />
     <col id="radio_number" />
     <col id="radio_department" />
     <col id="radio_volunteer" />
+    <col id="radio_volunteer" />
     <col id="radio_status" />
     <col id="radio_action" />
   </colgroup>
   <tr>
-    <th>Group</th>
-    <th>Number</th>
-    <th>Department</th>
-    <th>Volunteer</th>
-    <th>Status</th>
+    <th><%= sort_link @q, :radio_group_name, 'Group' %></th>
+    <th><%= sort_link @q, :number %></th>
+    <th><%= sort_link @q, :radio_assignment_volunteer_department_name, 'Department' %></th>
+    <th><%= sort_link @q, :radio_assignment_volunteer_volunteer_first_name, 'First Name' %></th>
+    <th><%= sort_link @q, :radio_assignment_volunteer_volunteer_last_name, 'Last Name' %></th>
+    <th><%= sort_link @q, :state %></th>
     <th></th>
   </tr>
   <%= render partial: "radio", collection: @radios %>

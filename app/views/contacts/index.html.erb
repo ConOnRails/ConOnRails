@@ -1,15 +1,24 @@
-<h1>Listing contacts</h1>
+<h1>Contacts</h1>
 
-<table>
+<div class="button"><%= link_to 'New Contact', new_contact_path, class: 'button' %></div>
+<div style="height: 50px; vertical-align: middle">
+  <div id="paginator" class="pull-left"><%= paginate @contacts %></div>
+  <div id="search"><%= search_form_for @q do |f| %>
+        <%= f.label :name_cont %>
+        <%= f.text_field :name_cont %>
+        <%= f.submit %>
+    <% end %>
+  </div>
+</div>
+
+<table class="clearfix">
   <tr>
-    <th>Name</th>
-    <th>Department</th>
-    <th>Cell phone</th>
-    <th>Can Text?</th>
-    <th>Hotel</th>
-    <th>Hotel room</th>
-    <th></th>
-    <th></th>
+    <th><%= sort_link @q, :name, 'Name' %></th>
+    <th><%= sort_link @q, :department, 'Department' %></th>
+    <th><%= sort_link @q, :cell_phone, 'Cell phone' %></th>
+    <th><%= sort_link @q, :can_text?, 'Can Text?' %></th>
+    <th><%= sort_link @q, :hotel, 'Hotel' %></th>
+    <th><%= sort_link @q, :hotel_room, 'Hotel room' %></th>
     <th></th>
   </tr>
 
@@ -22,21 +31,25 @@
         <td><%= contact.hotel %></td>
         <td><%= contact.hotel_room %></td>
         <% if current_user and current_user.write_entries? %>
-            <td><%= link_to 'Leave Message', new_message_path(message: { for:          contact.name,
-                                                                         phone_number: contact.cell_phone,
-                                                                         room_number:  contact.hotel_room,
-                                                                         hotel:        contact.hotel }) %></td>
-        <% end %>
-        <% if current_user and current_user.can_admin_users? %>
-            <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
-            <td><%= link_to 'Destroy', contact, confirm: 'Are you sure?', method: :delete %></td>
+            <td><%= link_to ("Leave&nbsp;Message").html_safe, new_message_path(message: { for:          contact.name,
+                                                                                          phone_number: contact.cell_phone,
+                                                                                          room_number:  contact.hotel_room,
+                                                                                          hotel:        contact.hotel }),
+                            class: 'button small-button' %></td>
         <% end %>
       </tr>
   <% end %>
 </table>
 
-<br />
-
+<div style="height: 50px; vertical-align: middle">
+  <div id="paginator" class="pull-left"><%= paginate @contacts %></div>
+  <div id="search"><%= search_form_for @q do |f| %>
+        <%= f.label :name_cont %>
+        <%= f.text_field :name_cont %>
+        <%= f.submit %>
+    <% end %>
+  </div>
+</div>
 <div class="button">
   <%= link_to 'New Contact', new_contact_path, class: 'button' %>
 </div>
