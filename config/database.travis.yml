@@ -15,7 +15,7 @@ defaults: &defaults
   pool: 5
   timeout: 5000
   host: localhost
-  <<: <%= ENV['DB'] || 'mysql' %>
+  <<: *<%= ENV['DB'] || 'mysql' %>
 
 test:
   <<: *defaults
