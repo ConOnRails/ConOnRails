@@ -29,7 +29,7 @@
       <tr>
         <td class="radio_department"><%= link_to department.name, department %></td>
         <td class="radio_volunteer"><%= department.volunteer ? department.volunteer.name : "" %></td>
-        <td class="radio_group <%= department.radio_group ? department.radio_group.color : "" %>"><%= department.radio_group ? department.radio_group.name : "" %></td>
+        <td class="radio_group <%= department.radio_group ? department.radio_group.color : "" %>"><%= department.radio_group ? link_to(department.radio_group.name, department.radio_group) : "" %></td>
         <td><%= department.radio_allotment %></td>
       </tr>
   <% end %>
