@@ -115,6 +115,7 @@ GEM
     net-ssh (2.6.6)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
+    pg (0.15.1)
     polyamorous (0.5.0)
       activerecord (~> 3.0)
     polyglot (0.3.3)
@@ -208,6 +209,7 @@ DEPENDENCIES
   minitest
   minitest-reporters
   mysql2 (~> 0.3)
+  pg
   rails (~> 3.2)
   rails-dev-boost!
   rb-fsevent (~> 0.9.1)

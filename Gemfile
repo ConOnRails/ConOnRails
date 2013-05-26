@@ -7,6 +7,7 @@ gem 'rails', '~>3.2'
 
 gem 'sqlite3', '~>1.3'
 gem 'mysql2', '~>0.3'
+gem 'pg'
 gem 'squeel', '~>1.0'
 gem 'yaml_db', '~>0.2'
 gem 'rvm-capistrano', '~>1.2'
