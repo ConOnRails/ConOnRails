@@ -37,9 +37,8 @@ class RadiosController < ApplicationController
   # GET /radios
   # GET /radios.json
   def index
-    @radios = Radio.order(:radio_group_id, :state)
-
-    p @radios
+    @q = Radio.search params[:q]
+    @radios = @q.result.page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

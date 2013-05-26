@@ -2,7 +2,8 @@ class DepartmentsController < ApplicationController
   # GET /departments
   # GET /departments.json
   def index
-    @departments = Department.order :radio_group_id, :name
+    @q = Department.search params[:q]
+    @departments = @q.result.page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
