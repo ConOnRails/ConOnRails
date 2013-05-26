@@ -46,14 +46,9 @@ class Event < ActiveRecord::Base
       new_event.merged_from_ids = event_ids
     end
 
-    Event.where { id >> event_ids }.find_each do |ev|
-      new_event.flags = Event.flags_union(new_event.flags, ev.flags)
-      ev.copy_entries new_event
-      ev.set_and_save_status 'Merged'
-    end
-
+    new_event.merge_entries event_ids
+    new_event.merge_flags event_ids
     new_event.add_entry "Merged by #{user.username} as '#{role_name}' from #{event_ids.join(', ')}", user.id, role_name
-
     new_event.save!
     new_event.reload
   end
@@ -112,6 +107,13 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def merge_flags(event_ids)
+    Event.where { id >> event_ids }.find_each do |ev|
+      self.flags = Event.flags_union(self.flags, ev.flags)
+      ev.set_and_save_status 'Merged'
+    end
+  end
+
   def self.flags_union(a, b)
     FLAGS.inject(HashWithIndifferentAccess.new) do |map, flag|
       map[flag.to_sym] = a[flag] | b[flag]
@@ -119,10 +121,10 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def copy_entries(new_event)
-    self.entries.find_each do |entry|
+  def merge_entries(event_ids)
+    Entry.where { |e| e.event_id >> event_ids }.order('created_at ASC').find_each do |entry|
       new_entry = entry.dup
-      new_event.entries << new_entry
+      self.entries << new_entry
     end
   end
 
