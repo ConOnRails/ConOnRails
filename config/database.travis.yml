@@ -5,7 +5,7 @@ mysql: &mysql
   database: con_on_rails_&lt;%= Rails.env %&gt;
 
 postgresql: &postgresql
-  adapter: postgresql
+  adapter: pg
   username: postgres
   password:
   database: con_on_rails_&lt;%= Rails.env %&gt;
