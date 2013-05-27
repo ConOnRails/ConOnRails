@@ -54,7 +54,7 @@ table
 th
 {
   border-bottom: thin solid $dark-grey;
-  width: auto;
+  width:         auto;
 }
 
 td
@@ -64,8 +64,9 @@ td
 
 a
 {
-  text-decoration: none;
-  color:           $dark_grey;
+  text-decoration:  none;
+  color:            $dark_grey;
+  background-color: transparent;
 
   &:hover
   {
@@ -202,52 +203,86 @@ div.button
 
 }
 
-a.button
+a.tab
+{
+  border-top-right-radius: 10px;
+  border-top-left-radius:  10px;
+  padding:                 12px 0.5em;
+  margin-left:             3px;
+  border:                  1px solid #778;
+  border-bottom:           none;
+  background-color:        $nav_bar_tab_bg;
+  color:                   $nav_bar_tab_fg;
+  display:                 block;
+  width:                   7em;
+
+  &:hover
+  {
+    color:            $nav_bar_tab_bg;
+    background-color: $nav_bar_tab_fg;
+    border:           thin solid $nav_bar_tab_bg;
+  }
+}
+
+a.button, input[type="submit"]
 {
   padding:       12px;
 
   font-family:   Verdana, Geneva, sans-serif;
   font-size:     1.2em;
   font-weight:   bold;
-
-  &:link, &:active, &:visited
-  {
-    background-color: $dark_grey;
-    color:            white;
-  }
-  &:hover
-  {
-    color:            $dark_grey;
-    background-color: white;
-    border:           thin solid black;
-  }
-
   border-radius: 10px;
   text-align:    center;
-}
-
-.odd
-{
-  a.button
-  {
-    &:link, &:active, &:visited
-    {
-      background-color: white;
-      color:            $dark_grey;
-      border:           thin solid $dark_grey;
-    }
-    &:hover
-    {
-      color:            white;
-      background-color: $dark_grey;
-    }
-  }
 }
 
 a.small-button
 {
   padding:   4px;
   font-size: .8em;
+}
+
+a.button
+{
+
+  background-color: $dark_grey;
+  color:            white;
+
+  &:hover
+  {
+    color:            $dark_grey;
+    background-color: white;
+    border:           thin solid $dark_grey;
+  }
+}
+
+input[type="submit"]
+{
+  background-color: $green;
+  color:            white;
+
+  &:hover
+  {
+    color:            $green;
+    background-color: white;
+    border:           thin solid $green;
+  }
+
+}
+
+.odd
+{
+  a.button
+  {
+    background-color: white;
+    color:            $dark_grey;
+    border:           thin solid $dark_grey;
+
+    &:hover
+    {
+      color:            white;
+      background-color: $dark_grey;
+    }
+  }
 }
 
 .missing
@@ -289,7 +324,7 @@ a.small-button
   margin:           0;
   padding:          0;
   margin-bottom:    1em;
-  height:           5em;
+  height:           4em;
   background-color: $nav_bar_bg;
   color:            $nav_bar_fg;
 
@@ -307,25 +342,6 @@ a.small-button
       list-style: none;
       margin:     0;
       float:      left;
-
-      a
-      {
-        padding:          12px 0.5em;
-        margin-left:      3px;
-        border:           1px solid #778;
-        border-bottom:    none;
-        background-color: $nav_bar_tab_bg;
-        color:            $nav_bar_tab_fg;
-        display:          block;
-        width:            7em;
-
-        &:hover
-        {
-          color:            $nav_bar_tab_bg;
-          background-color: $nav_bar_tab_fg;
-          border:           thin solid $nav_bar_tab_bg;
-        }
-      }
     }
   }
 
@@ -373,7 +389,7 @@ a.small-button
     a
     {
       margin-right:     .5em;
-      background-color: $sidebar_bg;
+      background-color: inherit;
       color:            $sidebar_fg;
       display:          block;
 
