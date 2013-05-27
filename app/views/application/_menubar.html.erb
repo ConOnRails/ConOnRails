@@ -1,27 +1,26 @@
 <% if is_authenticated? %>
     <div id="menubar">
       <ul>
-        <li><%= link_to "Main", root_path %></li>
+        <li><%= link_to "Main", root_path, class: 'tab' %></li>
         <% if current_user and current_user.write_entries? %>
-            <li><%= link_to "Log Event", new_event_path %></li>
+            <li><%= link_to "Log Event", new_event_path, class: 'tab' %></li>
         <% end %>
         <% if current_user and current_user.add_lost_and_found? %>
-            <li><%= link_to "Lost/Found", lost_and_found_path %></li>
+            <li><%= link_to "Lost/Found", lost_and_found_path, class: 'tab' %></li>
         <% end %>
         <% if current_user and current_user.write_entries? %>
-            <li><%= link_to "Messages", messages_path %></li>
+            <li><%= link_to "Messages", messages_path, class: 'tab' %></li>
         <% end %>
         <!--li><a href="/equipment">Equipment</a></li-->
-        <li><%= link_to "Review", review_events_path %></li>
-        <li><%= link_to "Duty Board", duty_board_index_path, target: '_blank' %></li>
+        <li><%= link_to "Review", review_events_path, class: 'tab' %></li>
+        <li><%= link_to "Duty Board", duty_board_index_path, target: '_blank', class: 'tab' %></li>
         <% if current_user and current_user.can_assign_radios? %>
-            <li><%= link_to "Radios", radios_path %></li>
+            <li><%= link_to "Radios", radios_path, class: 'tab' %></li>
         <% end %>
         <% if can_admin_anything? %>
-            <li><%= link_to "Admin", admin_path %></li>
+            <li><%= link_to "Admin", admin_path, class: 'tab' %></li>
         <% end %>
-        <li><%= link_to "Log Out", signout_path %></li>
-        <li><a target="_new" href="https://github.com/conOnRails/ConOnRails/issues">Bug Report</a></li>
+        <li><%= link_to "Log Out", signout_path, class: 'tab' %></li>
       </ul>
     </div>
 <% end %>

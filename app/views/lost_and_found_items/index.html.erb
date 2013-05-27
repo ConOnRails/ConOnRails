@@ -34,7 +34,7 @@
 <% end %>
 
 <div class="button"><%= link_to buttontext, new_lost_and_found_item_path(newparams),
-                                class: "button #{buttontype}" %>
+                                class: "button #{buttontype}" if buttontext.present? %>
 </div>
 
 <div id="paginator"><%= paginate @lfis %></div>
