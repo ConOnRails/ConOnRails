@@ -1,5 +1,5 @@
 common: &common
-  adapter: mysql2
+  adapter: postgresql
   username: con_on_rails
   password: traaains
   pool: 5
