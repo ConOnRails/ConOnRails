@@ -36,6 +36,14 @@ class EventsController < ApplicationController
     end
   end
 
+  def search_entries
+    @events = Event
+    @events = @events.where { |e| (e.secure == false) & (e.hidden == false) } unless current_user.can_read_secure?
+    @events = @events.where { |e| (e.is_active == true) | (e.sticky == true) } unless params[:show_closed]
+    @events = @events.search_entries params[:q]
+    render :search_results
+  end
+
   def review
     query = params[:filters].reduce(Squeel::Nodes::Stub.new(:created_at).not_eq(nil)) do |query, key|
       query = query.& Squeel::Nodes::KeyPath.new(key.first.to_sym).eq(fix_bool key.second) unless key.second == 'all'

@@ -8,6 +8,11 @@ class EventsControllerTest < ActionController::TestCase
       @sticky_event = FactoryGirl.create :ordinary_event, sticky: true
       @hidden_event = FactoryGirl.create :ordinary_event, hidden: true
       @secure_event = FactoryGirl.create :ordinary_event, secure: true
+
+      # We'll want these for search tests later
+      FactoryGirl.create :entry, description: 'Voles are in control', event: @event
+      FactoryGirl.create :entry, description: 'There\'s a vole in your mind', event: @secure_event
+
     end
 
     multiple_contexts :admin_context, :typical_context, :peon_context do
@@ -66,6 +71,20 @@ class EventsControllerTest < ActionController::TestCase
     end
 
     user_context :admin_context do
+      context 'POST :search_entries' do
+        setup do
+          post :search_entries, q: 'vole'
+        end
+
+        should respond_with :success
+        should render_template :search_results
+
+        should 'Only have both entry because we can see secure' do
+          assert_equal 2, assigns(:events).count
+        end
+      end
+
+
       context 'GET :secure' do
         setup do
           get :secure
@@ -138,6 +157,19 @@ class EventsControllerTest < ActionController::TestCase
     end
 
     multiple_contexts :peon_context, :typical_context do
+      context 'POST :search_entries' do
+        setup do
+          post :search_entries, q: 'vole'
+        end
+
+        should respond_with :success
+        should render_template :search_results
+
+        should 'Only have one entry because we cannot see secure' do
+          assert_equal 1, assigns(:events).count
+        end
+      end
+
       context 'GET :secure' do
         setup do
           get :secure

@@ -1,0 +1,8 @@
+<div id="search"><%= form_tag :search_entries_events, method: :post, id: "events_entries_search_form" do %>
+      <%= label_tag :description, "Search events" %>
+      <%= text_field_tag :q %>
+      <%= check_box_tag :show_closed %>
+      <%= label_tag :show_closed, "Include Closed Events" %>
+      <%= submit_tag "Search" %>
+  <% end %>
+</div>

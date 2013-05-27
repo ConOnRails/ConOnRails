@@ -174,6 +174,27 @@ class EventTest < ActiveSupport::TestCase
           assert_equal Event.flags_union(@original_event_flags, @original_2d_event_flags), @new_event.flags
         end
       end
+
+      context 'can search' do
+        setup do
+          # We need entries with specific text to test searching
+          @entry1 = FactoryGirl.create :entry, description: "Yak fodder", event: @event
+          @entry2 = FactoryGirl.create :entry, description: "Moose pudding", event: @second_event
+        end
+
+        context 'search for specific text' do
+          setup do
+            @foo = Event.search_entries 'Yak'
+          end
+
+          should 'yield only the correct event' do
+            p @foo
+            assert_equal 1, @foo.count
+            assert_equal @event, @foo.first
+          end
+        end
+
+      end
     end
   end
 end
