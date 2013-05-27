@@ -28,13 +28,16 @@ body.volunteers
     margin:  0;
   }
 
-  label
+  #new_volunteer, #edit_volunteer
   {
-    width:         20%;
-    padding:       0;
-    padding-right: 6px;
-    font-weight:   bold;
-    display:       inline;
+    label
+    {
+      width:         20%;
+      padding:       0;
+      padding-right: 6px;
+      font-weight:   bold;
+      display:       inline;
+    }
   }
 
   #volunteer-info

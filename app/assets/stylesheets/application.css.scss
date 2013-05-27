@@ -35,7 +35,6 @@ nav
   .page
   {
     padding:         .5em;
-    border:          thin solid black;
     border-collapse: collapse;
   }
 }
@@ -91,6 +90,13 @@ a.sort_link
   height:         18px;
   padding-bottom: 1em;
   padding-top:    1em;
+
+  input[type='submit']
+  {
+    margin: 0;
+    padding:   4px;
+    font-size: .8em;
+  }
 }
 
 .pull-left
@@ -198,7 +204,7 @@ a.sort_link
 
 div.button
 {
-  margin-top:    24px;
+  margin-top:    12px;
   margin-bottom: 12px;
 
 }

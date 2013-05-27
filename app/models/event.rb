@@ -25,6 +25,8 @@
 #
 
 class Event < ActiveRecord::Base
+  include PgSearch
+
   serialize :merged_from_ids
 
   attr_accessible :is_active, :comment, :flagged, :post_con, :quote, :sticky, :emergency,
@@ -37,6 +39,11 @@ class Event < ActiveRecord::Base
   validates_associated :entries
   accepts_nested_attributes_for :entries, allow_destroy: true
   paginates_per 10
+
+  pg_search_scope :search_entries, using: { tsearch: { prefix: true } },
+                  associated_against:     {
+                      entries: :description
+                  }
 
   STATUSES = %w[ Active Closed Merged ]
   FLAGS    = %w[ is_active comment flagged post_con quote sticky emergency medical hidden secure consuite hotel parties volunteers dealers dock merchandise ]

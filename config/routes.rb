@@ -31,6 +31,7 @@ ConOnRails::Application.routes.draw do
       get 'sticky'
       get 'secure'
       post 'merge_events'
+      post 'search_entries'
     end
   end
   resources :lost_and_found, only: [:index]
