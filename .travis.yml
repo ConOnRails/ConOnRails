@@ -3,11 +3,9 @@ rvm:
   - 1.9.3
   - 2.0.0-p0
 env:
-  - DB=mysql
   - DB=postgresql
 before_script:
   - cp config/database.travis.yml config/database.yml
-  - mysql -e 'create database con_on_rails_test'
   - psql -c 'create database con_on_rails_test' -U postgres
   - sqlite3 -batch db/attendees.sqlite3 < db/attendees.seed
 script:
