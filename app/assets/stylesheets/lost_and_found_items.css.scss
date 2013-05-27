@@ -138,6 +138,19 @@
 .missing
 {
   background: $missing_bg;
+
+  input[type='submit']
+  {
+    color:            black;
+    background-color: $missing_button_bg;
+
+    &:hover
+    {
+      background-color: black;
+      color:            $missing_button_bg;
+      border:           thin solid $missing_button_bg;
+    }
+  }
 }
 
 .found
@@ -147,45 +160,44 @@
 
 div.button, div.view_button
 {
- .item_missing_button
+  .item_missing_button
   {
-    &:link, &:visited, &:active
-    {
-      background-color: $missing_button_bg;
-      color:            black;
-    }
+    background-color: $missing_button_bg;
+    color:            black;
+
     &:hover
     {
       color:            $missing_button_bg;
-      background-color: white;
+      background-color: black;
+      border:           thin solid $missing_button_bg;
     }
   }
 
   .item_found_button
   {
-    &:link, &:visited, &:active
-    {
-      background-color: $found_button_bg;
-      color:            white;
-    }
+
+    background-color: $found_button_bg;
+    color:            white;
+
     &:hover
     {
       color:            $found_button_bg;
       background-color: white;
+      border:           thin solid $found_button_bg;
     }
   }
 
   .item_returned_button
   {
-    &:link, &:visited, &:active
-    {
-      background-color: white;
-      color:            black;
-    }
+    background-color: $blue;
+    color:            white;
+
     &:hover
     {
-      color:            black;
+      color:            $blue;
       background-color: white;
+      border:           thin solid $blue;
     }
   }
+
 }
