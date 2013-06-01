@@ -8,12 +8,13 @@
             <%= f.input :owner_name, label: "Owner Name:" %>
             <%= f.input :owner_contact, label: "Owner Contact:" %>
         <% end %>
-        <% if @lfi.found %>
+        <% if @lfi.found || @lfi.returned %>
             <%= f.input :found, as: :hidden, input_html: { value: true } %>
             <%= f.input :where_found, label: "Where Found:" %>
         <% end %>
         <% if @lfi.returned %>
             <%= f.input :returned, as: :hidden, value: true %>
+            <%= f.input :who_claimed, label: "Claimed by:" %>
         <% end %>
         <%= f.input :details, as: :text %>
     <% end %>

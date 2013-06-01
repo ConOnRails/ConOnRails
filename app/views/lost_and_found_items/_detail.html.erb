@@ -17,8 +17,11 @@
     <% if @lfi.found %>
         <div><strong>Where Found:</strong> <%= @lfi.where_found %></div>
     <% end %>
+    <% if @lfi.returned %>
+        <div><strong>Claimed by:</strong> <%= @lfi.who_claimed %></div>
+    <% end %>
   </div>
-  <div>Details:</div>
+  <div><strong>Details:</strong></div>
   <div><%= markdown @lfi.details %></div>
 
   <div class="morf_button button">
