@@ -148,10 +148,18 @@ class EventsController < ApplicationController
 
   def merge_events
     @event = Event.merge_events(params[:merge_ids], current_user, current_role)
-    respond_to do |format|
-      format.html { redirect_to edit_event_path(@event), notice: 'Event was merged. Check and save.' }
-      format.json { render json: @event, status: :merged, location: @event }
+    if @event.present?
+      respond_to do |format|
+        format.html { redirect_to edit_event_path(@event), notice: 'Event was merged. Check and save.' }
+        format.json { render json: @event, status: :merged, location: @event }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to request.referrer, notice: 'No IDs selected for merge. Nothing done.' }
+        format.json { render json: { message: 'No IDs selected for merge', status: :unprocessable_entity } }
+      end
     end
+
   end
 
   protected

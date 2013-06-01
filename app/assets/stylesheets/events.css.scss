@@ -49,6 +49,30 @@
     }
   }
 
+  .merge-button
+  {
+  }
+
+  .cancel-merge
+  {
+    color: $dark_grey;
+    background-color: white;
+    border: thin solid $dark_grey;
+
+    &:hover
+    {
+      color: white;
+      background-color: $dark_grey;
+    }
+  }
+
+  .merge-check
+  {
+    float: left;
+    margin-right: 1em;
+    font-weight: bold;
+  }
+
   ul.entries
   {
     padding:             0;
@@ -230,11 +254,18 @@
     //    border-radius: 10px;
   }
 
+  #event-buttons
+  {
+    margin-top: 12px;
+    height: 2.5em;
+
+    span
+    {
+    }
+  }
+
   #big-log-button
   {
-    margin-bottom: 2em;
-    width:         500px;
-
     a.button
     {
       &:link, &:active, &:visited

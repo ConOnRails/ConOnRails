@@ -86,14 +86,14 @@ a.sort_link
 
 #search
 {
-  float:          right;
+  text-align:     right;
   height:         18px;
   padding-bottom: 1em;
   padding-top:    1em;
 
   input[type='submit']
   {
-    margin: 0;
+    margin:    0;
     padding:   4px;
     font-size: .8em;
   }
@@ -102,6 +102,11 @@ a.sort_link
 .pull-left
 {
   float: left;
+}
+
+.pull-right
+{
+  float: right;
 }
 
 .clearfix
@@ -232,13 +237,22 @@ a.tab
 
 a.button, input[type="submit"]
 {
-  padding:       12px;
+  padding:            12px;
+  margin:             0px;
+  box-sizing:         content-box;
+  white-space:        normal;
+  -webkit-appearance: none;
+  display:            inline;
+  height:             auto;
+  line-height:        normal;
+  border-width:       1px;
+  border-style:       soild;
 
-  font-family:   Verdana, Geneva, sans-serif;
-  font-size:     1.2em;
-  font-weight:   bold;
-  border-radius: 10px;
-  text-align:    center;
+  font-family:        Verdana, Geneva, sans-serif;
+  font-size:          1.2em;
+  font-weight:        bold;
+  border-radius:      10px;
+  text-align:         center;
 }
 
 a.small-button
@@ -261,7 +275,7 @@ a.button
   }
 }
 
-input[type="submit"]
+a.submit-button, input[type="submit"],
 {
   background-color: $green;
   color:            white;
