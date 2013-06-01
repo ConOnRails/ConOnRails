@@ -50,8 +50,6 @@ class VolunteersController < ApplicationController
     @q = Volunteer.search params[:q]
     @volunteers = @q.result.page(params[:page])
 
-    p @q
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @volunteers }
