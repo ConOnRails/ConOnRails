@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130525174214) do
+ActiveRecord::Schema.define(:version => 20130601230846) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -162,6 +162,7 @@ ActiveRecord::Schema.define(:version => 20130525174214) do
     t.boolean  "reported_missing", :default => false
     t.integer  "user_id"
     t.string   "rolename"
+    t.string   "who_claimed"
   end
 
   create_table "messages", :force => true do |t|
