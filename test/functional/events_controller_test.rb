@@ -133,7 +133,7 @@ class EventsControllerTest < ActionController::TestCase
       context 'GET :review with multiple \'true\' filters' do
         setup do
           FactoryGirl.create :ordinary_event, hotel: true, parties: true
-          get :review, { filters: { hotel: true, parties: true }}
+          get :review, { filters: { hotel: true, parties: true } }
         end
 
         should respond_with :success
@@ -146,7 +146,7 @@ class EventsControllerTest < ActionController::TestCase
         setup do
           FactoryGirl.create :ordinary_event, hotel: true
           FactoryGirl.create :ordinary_event, parties: true
-          get :review, { filters: { hotel: true, parties: false, sticky: 'all' }}
+          get :review, { filters: { hotel: true, parties: false, sticky: 'all' } }
         end
 
         should respond_with :success
