@@ -9,6 +9,7 @@ window.events.getMain = () ->
          dataType: 'script',
          data: {
             "page": window.events.page
+            "merge_mode": window.events.merge_mode
          },
          success: ->
            window.events.tick = setTimeout('window.events.getMain()', 10000)

@@ -1,15 +1,24 @@
-<div id="big-log-button" class="button"><%= link_to 'Log New Event', new_event_path, class: 'button update' %></div>
-<div id="paginator pull-left"><%= paginate @events, remote: true %></div>
 <%= render partial: 'search_form' %>
-<div id="event_list">
-</div>
-<div id="paginator"><%= paginate @events, remote: true %></div>
+
+<%= form_tag merge_events_events_path, method: :post, id: 'merge-form' do %>
+    <div id="event-buttons" class="button">
+      <span id="big-log-button"><%= link_to 'Log New Event', new_event_path, class: 'button update' %></span>
+      <span id="merge-mode-toggle"></span>
+      <span id="merge-mode-submit"></span>
+    </div>
+
+    <div id="paginator pull-left"><%= paginate @events, remote: true %></div>
+    <div id="event_list"></div>
+    <div id="paginator"><%= paginate @events, remote: true %></div>
+<% end %>
 
 <script>
     window.events.page = <%= params[:page].nil? ? '1' : params[:page] %>
     window.events.path = "<%= url_for(false) %>"
+    window.events.merge_mode = <%= params[:merge_mode].presence %>
     window.events.getMain()
 </script>
+
 <% content_for :side do %>
     <% case url_for(false) %>
 <% when root_path %>

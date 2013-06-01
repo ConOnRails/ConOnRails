@@ -61,6 +61,7 @@ class User < ActiveRecord::Base
   def write_entries?
     find_perm "write_entries?"
   end
+  alias :can_write_entries? :write_entries?
   
   def read_hidden_entries?
     find_perm "read_hidden_entries?"

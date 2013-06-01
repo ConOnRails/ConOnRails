@@ -1,29 +1,14 @@
-<% style = '' %>
-<% tags = '' %>
-<% if event.is_active? %>
-	<% style << "active " %>
-	<% tags << "Active " %>
+<% if !form && params[:merge_mode] == 'true' %>
+    <span class="merge-check">
+      <%= check_box_tag "merge_ids[]", event.id %>
+      <%= label_tag "merge_ids[]", 'Merge' %>
+    </span>
 <% end %>
 
-<% if event.medical? %>
-	<% style << "medical "%>
-	<% tags << "Medical " %> 
-<% end %>
-
-<% if event.emergency? %>
-	<% style << "emergency "%>
-	<% tags << "Emergency"%>
-<% elsif event.sticky? %>
-	<% style << "sticky "%>
-	<% tags << "Sticky " %>
-<% else %>
-	<% tags << "Issue" %>
-<% end %>
-
-<span class="<%= style %>" ><%= tags %></span>
+<span class="<%= event_style event %>"><%= event_tags event %></span>
 
 <% if !form %>
-	<span style="float: right"><%= link_to 'Update This Event', edit_event_path(event), class: 'button update' %></span>
+    <span style="float: right"><%= link_to 'Update This Event', edit_event_path(event), class: 'button update' %></span>
     <span class="updated_at"><%= event.updated_at.getlocal.ctime %></span>
 <% end %>
 
