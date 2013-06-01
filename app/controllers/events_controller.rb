@@ -37,6 +37,8 @@ class EventsController < ApplicationController
   end
 
   def search_entries
+    @q = params[:q] # We'll use this to re-fill the search blank
+
     @events = Event
     @events = @events.where { |e| (e.secure == false) & (e.hidden == false) } unless current_user.can_read_secure?
     @events = @events.where { |e| (e.is_active == true) | (e.sticky == true) } unless params[:show_closed]
