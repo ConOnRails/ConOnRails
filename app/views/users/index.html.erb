@@ -1,11 +1,19 @@
 <h1>Listing users</h1>
 
 <div class="button"><%= link_to 'New User', new_user_path, class: 'button' %></div>
+<div id="search"><%= search_form_for @q do |f| %>
+      <%= f.label :name_cont, 'Username' %>
+      <%= f.text_field :name_cont %>
+      <%= f.label :realname, 'Real name' %>
+      <%= f.text_field :realname_cont %>
+      <%= f.submit %>
+  <% end %>
+</div>
 <div id="paginator"><%= paginate @users %></div>
 <table>
   <tr>
-    <th class="username">Name</th>
-    <th class="realname">Real name</th>
+    <th class="username"><%= sort_link @q, :name %></th>
+    <th class="realname"><%= sort_link @q, :realname, 'Real Name' %></th>
     <th>Associated Volunteer Record</th>
   </tr>
 
