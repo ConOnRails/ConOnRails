@@ -107,11 +107,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
 
   test "can search by all of multiple keywords with an apostrophe" do
     get :search, { reported_missing: true, search_type: "all", keywords: "Llama's Tigers" }, { user_id: @user.id }
-    assert_response :success
-    assert_template :index
-    assert_not_nil assigns :lfis
-    # TODO: Nothing to find right now
-
+    assert_response :redirect # we don't actually have one of these. We just want to make sure apostrophe doesn't go boom.
   end
 
 
