@@ -1,5 +1,5 @@
 <h1>Active messages</h1>
-<div id="search">
+<div id="search-left">
   <%= search_form_for @qc, url: contacts_path do |f| %>
       <%= f.label :name_cont, 'Contact name contains (case sensitive)' %>
       <%= f.text_field :name_cont %>
