@@ -3,12 +3,26 @@ module EventsHelper
     params[:filters][term].presence if params[:filters].present?
   end
 
-  def merge_button(review_mode=false)
+  def merge_button
     link_to merge_mode_toggle_text,
-            review_mode ? review_events_path(toggle_merge_mode.merge({ filters: params[:filters] })) : events_path(toggle_merge_mode),
+            merge_button_path,
             remote: true,
             class:  "button merge-button #{merge_toggle_class}"
   end
+
+  def merge_button_path
+    case params[:action].to_sym
+      when :sticky
+        sticky_events_path(toggle_merge_mode)
+      when :secure
+        secure_events_path(toggle_merge_mode)
+      when :review
+        review_events_path(toggle_merge_mode.merge({ filters: params[:filters] }))
+      else
+        events_path(toggle_merge_mode)
+    end
+  end
+
 
   def merge_submit
     return nil if params[:merge_mode] != 'true'
@@ -16,7 +30,7 @@ module EventsHelper
     #           class: 'button merge-button'
     link_to 'Merge',
             '#',
-            class: 'button submit-button',
+            class:   'button submit-button',
             onclick: 'document.getElementById("merge-form").submit()'
   end
 

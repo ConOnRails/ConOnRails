@@ -46,7 +46,7 @@ class Event < ActiveRecord::Base
                   }
 
   STATUSES = %w[ Active Closed Merged ]
-  FLAGS    = %w[ is_active comment flagged post_con quote sticky emergency medical hidden secure consuite hotel parties volunteers dealers dock merchandise ]
+  FLAGS    = %w[ is_active merged comment flagged post_con quote sticky emergency medical hidden secure consuite hotel parties volunteers dealers dock merchandise ]
 
   def self.merge_events(event_ids, user, role_name = nil)
     return if event_ids.blank?
