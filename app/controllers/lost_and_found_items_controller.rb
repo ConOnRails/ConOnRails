@@ -30,7 +30,7 @@ class LostAndFoundItemsController < ApplicationController
     return jump if params[:id].present?
     @lfis = LostAndFoundItem.page params[:page]
 
-    @lfis = @lfis.where { returned == false } unless params[:show_returned].present? && params[:show_returned] == true
+    @lfis = @lfis.where { returned == false } unless params[:show_returned].present? && params[:show_returned]# == true
     @lfis = @lfis.where { description.like_any my { wrap_keywords_for_like } } if params[:search_type] == 'any' unless params[:keywords].blank?
     @lfis = @lfis.where { description.like_all my { wrap_keywords_for_like } } if params[:search_type] == 'all' unless params[:keywords].blank?
     @lfis = @lfis.where { category >> my { @categories } } unless @categories.blank?
