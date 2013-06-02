@@ -1,14 +1,15 @@
 /* The palette */
 $green: rgba(0, 102, 0, 1);
-$yellow: rgba(255, 204, 0, 1);
 $green_desat: rgba(0, 102, 0, .29);
+$yellow: rgba(255, 204, 0, 1);
 $yellow_desat: rgba(255, 204, 0, .38);
+$bright_yellow: rgba(255, 255, 0, 1);
 $blue: rgba(0, 0, 102, 1);
+$blue_desat: rgba(153, 182, 232, 1);
+$bright_blue: rgba(0, 0, 255, 1);
 $red: rgba(204, 0, 0, 1);
 $light_grey: rgba(153, 153, 153, 1);
 $dark_grey: rgba(51, 51, 51, 1);
-$bright_yellow: rgba(255, 255, 0, 1);
-$bright_blue: rgba(0, 0, 255, 1);
 
 /* The assignments */
 $no_issues_bg: $green;
@@ -19,6 +20,8 @@ $found_button_bg: $green;
 $found_bg: $green_desat;
 $missing_button_bg: $yellow;
 $missing_bg: $yellow_desat;
+$returned_button_bg: $blue;
+$returned_bg: $blue_desat;
 $nav_bar_bg: $light_grey;
 $nav_bar_tab_bg: $dark_grey;
 $sidebar_bg: white;
