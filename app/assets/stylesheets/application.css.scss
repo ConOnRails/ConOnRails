@@ -84,9 +84,8 @@ a.sort_link
   }
 }
 
-#search
+#search #search-left
 {
-  text-align:     right;
   height:         18px;
   padding-bottom: 1em;
   padding-top:    1em;
@@ -97,6 +96,12 @@ a.sort_link
     padding:   4px;
     font-size: .8em;
   }
+}
+
+#search
+{
+  text-align:     right;
+
 }
 
 .pull-left
@@ -214,7 +219,7 @@ div.button
 
 }
 
-a.tab
+a.tab, .selected:hover
 {
   border-top-right-radius: 10px;
   border-top-left-radius:  10px;
@@ -227,12 +232,13 @@ a.tab
   display:                 block;
   width:                   7em;
 
-  &:hover
+  &:hover, .selected
   {
     color:            $nav_bar_tab_bg;
     background-color: $nav_bar_tab_fg;
     border:           thin solid $nav_bar_tab_bg;
   }
+
 }
 
 a.button, input[type="submit"]
