@@ -21,8 +21,8 @@ module EventsHelper
   end
 
   def merge_mode_toggle_text
-    return 'Cancel Merge Mode' if params[:merge_mode] == 'true'
-    'Merge Mode'
+    return 'Cancel Merge' if params[:merge_mode] == 'true'
+    'Merge Events'
   end
 
   def toggle_merge_mode
