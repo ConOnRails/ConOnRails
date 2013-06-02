@@ -3,6 +3,7 @@
 <div class="button"><%= link_to 'New Contact', new_contact_path, class: 'button' %></div>
 <div style="height: 50px; vertical-align: middle">
   <div id="paginator" class="pull-left"><%= paginate @contacts %></div>
+  <div style="text-align: right">Note: name and username searches are CASE SENSITIVE.</div>
   <div id="search"><%= search_form_for @q do |f| %>
         <%= f.label :name_cont %>
         <%= f.text_field :name_cont %>

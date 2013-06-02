@@ -3,6 +3,7 @@
 <div class="button"><%= link_to 'New Volunteer', new_volunteer_path, class: 'button' %></div>
 <div>
   <div id="paginator"><%= paginate @volunteers %></div>
+  <div style="text-align: right">Note: name and username searches are CASE SENSITIVE.</div>
   <div id="search"><%= search_form_for @q do |f| %>
         <%= f.label :first_name_cont %>
         <%= f.text_field :first_name_cont %>
