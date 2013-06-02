@@ -133,6 +133,7 @@ class Event < ActiveRecord::Base
   def merge_entries(event_ids)
     Entry.where { |e| e.event_id >> event_ids }.order('created_at ASC').find_each do |entry|
       new_entry = entry.dup
+      new_entry.created_at = entry.created_at
       self.entries << new_entry
     end
   end

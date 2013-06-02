@@ -22,7 +22,8 @@ window.events.getReview = (filters) ->
          dataType: 'script',
          data: {
             "page": window.events.page,
-            "filters": filters }
+            "filters": filters
+            }
          }
   )
 
