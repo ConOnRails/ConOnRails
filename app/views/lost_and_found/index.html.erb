@@ -14,6 +14,8 @@
   I have the item in my hand
 </div>
 
+<h3 style="text-align: center" class="clearfix"><strong>NOTE:</strong> You <strong>must</strong> search for for the missing or found item
+  to ensure it is not already recorded <strong>before</strong> you can create a new entry.</h3>
 <% content_for :side do %>
     <% if current_user.modify_lost_and_found? %>
         <%= link_to 'Open Inventory', open_inventory_lost_and_found_items_path %>

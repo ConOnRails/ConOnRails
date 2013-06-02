@@ -7,13 +7,10 @@
           <% LostAndFoundItem.categories.each do |k, v| %>
               <li><%= checkbox k, v %></li>
           <% end %>
+          <%= checkbox :show_returned, 'Returned' %>
         </ol>
-        <div>
-          <%= check_box_tag :show_returned %>
-          <%= label_tag "Show Returned" %>
-        </div>
     <% end %>
-    <%= label_tag :keywords, "Keyword(s)" %>
+    <%= label_tag :keywords, "Search Keyword(s)" %>
     <%= text_field_tag :keywords %>
     <%= field_set_tag "", id: "lost_and_found_search_options" do %>
         <ol>
@@ -23,8 +20,10 @@
             <%= radio_button_tag :search_type, "any" %></li>
         </ol>
     <% end %>
-    <%= submit_tag "Submit" %>
+    <%= submit_tag "Search", class: "lost-and-found-search-button" %>
 <% end %>
+<blockquote style="text-align: center;"><strong>NOTE:</strong> This page does <strong>not</strong> and <strong>cannot</strong> create a new
+  Lost and Found entry. You <strong>must</strong> search for an existing entry before you can create a new one.</blockquote>
 
 <% content_for :side do %>
     <%= link_to 'Back', lost_and_found_path %>
