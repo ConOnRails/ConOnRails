@@ -1,3 +1,7 @@
 <h1>Edit <%= @lfi.type %> item </h1>
 
 <%= render "form" %>
+
+<% content_for :side do %>
+    <%= link_to 'Back', @lfi %>
+<% end %>

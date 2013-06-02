@@ -1,6 +1,10 @@
 <div id="item">
   <h2><%= @lfi.Type %> Item Details</h2>
 
+  <div class="button">
+    <%= link_to 'Edit Details', edit_lost_and_found_item_path(@lfi), class: 'button' %>
+  </div>
+
   <div id="header">
     <div><strong>Item ID:</strong> <%= @lfi.id %> <strong>Category:</strong> <%= @lfi.category %></div>
     <div><strong>Last updated at</strong> <%= @lfi.updated_at %>
