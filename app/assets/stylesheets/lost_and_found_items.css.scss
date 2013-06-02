@@ -199,5 +199,11 @@ div.button, div.view_button
       border:           thin solid $blue;
     }
   }
+}
 
+input[type='submit'].lost-and-found-search-button
+{
+  font-size: 24px;
+  padding-right: 24px;
+  padding-left: 24px;
 }
