@@ -20,7 +20,7 @@
                           function ( event ) {
                               window.events.getReview( {
                                                            <% Event.flags.each do |flag| %>
-                                                           "<%= flag %>": $( '#filters input:radio[name=<%= flag %>]:checked' ).val(),
+                                                              "<%= flag %>": $( '#filters input:radio[name=<%= flag %>]:checked' ).val(),
                                                            <% end %>
                                                        } )
                           }
@@ -29,13 +29,25 @@
       </script>
     </div>
 <% end %>
-<div id="paginator"><%= paginate @events, remote: true %></div>
-<div id="event_list">
-</div>
-<div id="paginator"><%= paginate @events, remote: true %></div>
+<%= form_tag merge_events_events_path, method: :post, id: 'merge-form' do %>
+    <div id="event-buttons" class="button">
+      <span id="merge-mode-toggle"></span>
+      <span id="merge-mode-submit"></span>
+    </div>
+
+    <div id="paginator"><%= paginate @events, remote: true %></div>
+    <div id="event_list">
+    </div>
+    <div id="paginator"><%= paginate @events, remote: true %></div>
+<% end %>
 
 <script>
     window.events.active = <%= params[:active].nil? ? false : params[:active] %>
     window.events.page = <%= params[:page].nil? ? "1" : params[:page] %>
-    window.events.getReview()
+    window.events.merge_mode = <%= params[:merge_mode].presence %>
+    window.events.getReview( {
+                                 <% Event.flags.each do |flag| %>
+                                    "<%= flag %>": $( '#filters input:radio[name=<%= flag %>]:checked' ).val(),
+                                 <% end %>
+                             })
 </script>

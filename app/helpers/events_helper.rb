@@ -3,9 +3,9 @@ module EventsHelper
     params[:filters][term].presence if params[:filters].present?
   end
 
-  def merge_button
+  def merge_button(review_mode=false)
     link_to merge_mode_toggle_text,
-            events_path(toggle_merge_mode),
+            review_mode ? review_events_path(toggle_merge_mode.merge({ filters: params[:filters] })) : events_path(toggle_merge_mode),
             remote: true,
             class:  "button merge-button #{merge_toggle_class}"
   end
