@@ -43,8 +43,9 @@ module ApplicationHelper
   end
 
   def background
+    return "returned" if params[:returned] or (@lfi and @lfi.returned?)
     return "missing" if params[:reported_missing] or (@lfi and @lfi.reported_missing?)
-    return "found" if params[:found] or (@lfi and @lfi.found?)
+     "found" if params[:found] or (@lfi and @lfi.found?)
   end
 
   def markdown(text)
