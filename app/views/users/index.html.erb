@@ -1,6 +1,7 @@
 <h1>Listing users</h1>
 
 <div class="button"><%= link_to 'New User', new_user_path, class: 'button' %></div>
+<div style="text-align: right">Note: name and username searches are CASE SENSITIVE.</div>
 <div id="search"><%= search_form_for @q do |f| %>
       <%= f.label :name_cont, 'Username' %>
       <%= f.text_field :name_cont %>

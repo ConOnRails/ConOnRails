@@ -7,15 +7,15 @@ module ApplicationHelper
   end
 
   def version_number
-    "1.9.6"
+    "1.9.7"
   end
 
   def version_name
-    "Entertained Embellished Egregious Effective Eccentric Ebulient Emu"
+    "Entertained Embellished Egregious Effective Educational Eccentric Ebulient Emu"  # 2.0 will be Flamingo
   end
 
   def version_type
-    :alpha #:release:beta
+    :beta #:release:beta
   end
 
   def get_banner_style
