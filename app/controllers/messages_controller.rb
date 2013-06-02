@@ -2,6 +2,7 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.json
   def index
+    @qc = Contact.search params[:qc]
     @messages = Message.where( is_active: true ).page(params[:page])
 
     respond_to do |format|
