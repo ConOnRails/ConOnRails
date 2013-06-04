@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130601230846) do
+ActiveRecord::Schema.define(:version => 20130604214326) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(:version => 20130601230846) do
     t.integer  "user_id"
     t.datetime "orig_time"
     t.string   "rolename"
+    t.boolean  "merged"
   end
 
   create_table "events", :force => true do |t|
@@ -177,6 +178,14 @@ ActiveRecord::Schema.define(:version => 20130601230846) do
     t.datetime "updated_at",                     :null => false
   end
 
+  create_table "positions", :force => true do |t|
+    t.string   "name"
+    t.integer  "sequence"
+    t.integer  "schedule_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "radio_assignment_audits", :force => true do |t|
     t.integer  "radio_id"
     t.integer  "volunteer_id"
@@ -240,12 +249,31 @@ ActiveRecord::Schema.define(:version => 20130601230846) do
 
   add_index "roles_users", ["role_id", "user_id"], :name => "index_roles_users_on_role_id_and_user_id", :unique => true
 
+  create_table "schedules", :force => true do |t|
+    t.string   "name"
+    t.datetime "from"
+    t.datetime "until"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "slots", :force => true do |t|
+    t.datetime "from"
+    t.datetime "until"
+    t.integer  "position_id"
+    t.integer  "volunteer_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "realname"
     t.string   "password_digest"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.boolean  "admin_schedule"
+    t.boolean  "assign_slots"
   end
 
   add_index "users", ["name"], :name => "index_users_on_name", :unique => true
