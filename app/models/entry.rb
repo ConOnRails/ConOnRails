@@ -12,14 +12,13 @@
 #
 
 class Entry < ActiveRecord::Base
-  attr_accessible :description
+  attr_accessible :description, :event, :user
 
   audited associated_with: :event
   audited associated_with: :user
 
   belongs_to :event
   belongs_to :user
-
 
   validates :description, presence: true, allow_blank: false
   validates :user, presence: true, allow_blank: false
