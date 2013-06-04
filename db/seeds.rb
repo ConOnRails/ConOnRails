@@ -124,12 +124,11 @@ DutyBoardSlot.create! name: "Wandering Host 9 (Ethereal)", duty_board_group: dbg
 
 case Rails.env
   when "development"
-    Audit.delete_all  # Audit log has to be cleared by explicit act of god in production
+    Audit.delete_all # Audit log has to be cleared by explicit act of god in production
 
-    Factory :many_blue_men_group
-    Factory :many_red_hands
+    FactoryGirl.create :many_blue_men_group
+    FactoryGirl.create :many_red_hands
     llama = FactoryGirl.create_list(:many_valid_volunteers, 42)
-
 
 
     User.create!({ name:     "test", realname: "Test User",
@@ -150,8 +149,9 @@ case Rails.env
                 description: Faker::Lorem.paragraphs(3)
             }
         )
+
         EventFlagHistory.create!(
-            event.attributes,
+            event.attributes.reject { |k, v| k == 'merged_from_ids' },
             {
                 user:  user,
                 event: event
