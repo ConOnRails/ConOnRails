@@ -7,4 +7,8 @@ class Vsp < ActiveRecord::Base
 
   scope :people, where { |v| (v.party == nil) | (v.party == false) }
   scope :parties, where { |v| v.party == true }
+
+  def name_and_note
+    "#{self.name}" + (self.notes.present? ? " (#{self.notes})" : '' )
+  end
 end
