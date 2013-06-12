@@ -14,14 +14,14 @@ p
 
 ul
   - @people.each do |p|
-    li= link_to p.name, edit_vsp_path(p)
+    li= link_to p.name_and_note, edit_vsp_path(p)
 
 p
   strong Parties:
 
 ul
   - @parties.each do |p|
-    li= link_to p.name, edit_vsp_path(p)
+    li= link_to p.name_and_note, edit_vsp_path(p)
 
 .button
   = link_to 'New VSP', new_vsp_path, class: 'button'
