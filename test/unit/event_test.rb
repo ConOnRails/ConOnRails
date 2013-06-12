@@ -2,26 +2,29 @@
 #
 # Table name: events
 #
-#  id          :integer          not null, primary key
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  is_active   :boolean          default(TRUE)
-#  comment     :boolean          default(FALSE)
-#  flagged     :boolean          default(FALSE)
-#  post_con    :boolean          default(FALSE)
-#  quote       :boolean          default(FALSE)
-#  sticky      :boolean          default(FALSE)
-#  emergency   :boolean          default(FALSE)
-#  medical     :boolean          default(FALSE)
-#  hidden      :boolean          default(FALSE)
-#  secure      :boolean          default(FALSE)
-#  consuite    :boolean
-#  hotel       :boolean
-#  parties     :boolean
-#  volunteers  :boolean
-#  dealers     :boolean
-#  dock        :boolean
-#  merchandise :boolean
+#  id              :integer          not null, primary key
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  is_active       :boolean          default(TRUE)
+#  comment         :boolean          default(FALSE)
+#  flagged         :boolean          default(FALSE)
+#  post_con        :boolean          default(FALSE)
+#  quote           :boolean          default(FALSE)
+#  sticky          :boolean          default(FALSE)
+#  emergency       :boolean          default(FALSE)
+#  medical         :boolean          default(FALSE)
+#  hidden          :boolean          default(FALSE)
+#  secure          :boolean          default(FALSE)
+#  consuite        :boolean
+#  hotel           :boolean
+#  parties         :boolean
+#  volunteers      :boolean
+#  dealers         :boolean
+#  dock            :boolean
+#  merchandise     :boolean
+#  merged_from_ids :string(255)
+#  merged          :boolean
+#  nerf_herders    :boolean
 #
 
 require 'test_helper'
@@ -60,6 +63,7 @@ class EventTest < ActiveSupport::TestCase
       assert !@event.dealers?
       assert !@event.dock?
       assert !@event.merchandise?
+      assert !@event.nerf_herders?
     end
 
     should "have correct textual status" do

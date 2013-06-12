@@ -7,11 +7,11 @@ module ApplicationHelper
   end
 
   def version_number
-    "1.9.7"
+    "2.0.0rc1"
   end
 
   def version_name
-    "Entertained Embellished Egregious Effective Educational Eccentric Ebulient Emu"  # 2.0 will be Flamingo
+    "Almost Flamingo"
   end
 
   def version_type
@@ -52,4 +52,13 @@ module ApplicationHelper
     Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(filter_html: true, hard_wrap: true, safe_links_only: true),
                             no_intra_emphasis: true, tables: true, autolink: true, strikethrough: true).render(text).html_safe unless text.blank?
   end
+
+  def tab(text, path, target='_self')
+    link_to text, path, class: "tab #{tab_selected}", target: target
+  end
+
+  def tab_selected
+
+  end
+
 end
