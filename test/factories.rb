@@ -329,6 +329,11 @@ FactoryGirl.define do
     end
   end
 
+  factory :vsp do
+    sequence(:name) { Faker::Name.name }
+    party false
+    notes { Faker::Lorem.sentence }
+  end
 end
 
 

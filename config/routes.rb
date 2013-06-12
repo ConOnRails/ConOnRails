@@ -87,6 +87,7 @@ ConOnRails::Application.routes.draw do
     end
   end
 
+  resources :vsps, except: [:show, :destroy]
   resources :contacts, except: [:destroy]
   resources :roles
   resources :users do

@@ -17,6 +17,7 @@
 #  reported_missing :boolean          default(FALSE)
 #  user_id          :integer
 #  rolename         :string(255)
+#  who_claimed      :string(255)
 #
 
 class LostAndFoundItem < ActiveRecord::Base

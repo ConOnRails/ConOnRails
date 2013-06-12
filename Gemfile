@@ -30,6 +30,7 @@ gem 'pg_search'
 gem 'redcarpet', '~>2.2'
 gem 'rvm-capistrano', '~>1.2'
 gem 'squeel', '~>1.0'
+gem 'slim'
 gem 'therubyracer', '~>0.11', require: 'v8'
 gem 'yaml_db', '~>0.2'
 

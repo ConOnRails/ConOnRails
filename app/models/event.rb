@@ -2,26 +2,29 @@
 #
 # Table name: events
 #
-#  id          :integer          not null, primary key
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  is_active   :boolean          default(TRUE)
-#  comment     :boolean          default(FALSE)
-#  flagged     :boolean          default(FALSE)
-#  post_con    :boolean          default(FALSE)
-#  quote       :boolean          default(FALSE)
-#  sticky      :boolean          default(FALSE)
-#  emergency   :boolean          default(FALSE)
-#  medical     :boolean          default(FALSE)
-#  hidden      :boolean          default(FALSE)
-#  secure      :boolean          default(FALSE)
-#  consuite    :boolean
-#  hotel       :boolean
-#  parties     :boolean
-#  volunteers  :boolean
-#  dealers     :boolean
-#  dock        :boolean
-#  merchandise :boolean
+#  id              :integer          not null, primary key
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  is_active       :boolean          default(TRUE)
+#  comment         :boolean          default(FALSE)
+#  flagged         :boolean          default(FALSE)
+#  post_con        :boolean          default(FALSE)
+#  quote           :boolean          default(FALSE)
+#  sticky          :boolean          default(FALSE)
+#  emergency       :boolean          default(FALSE)
+#  medical         :boolean          default(FALSE)
+#  hidden          :boolean          default(FALSE)
+#  secure          :boolean          default(FALSE)
+#  consuite        :boolean
+#  hotel           :boolean
+#  parties         :boolean
+#  volunteers      :boolean
+#  dealers         :boolean
+#  dock            :boolean
+#  merchandise     :boolean
+#  merged_from_ids :string(255)
+#  merged          :boolean
+#  nerf_herders    :boolean
 #
 
 class Event < ActiveRecord::Base
@@ -31,7 +34,7 @@ class Event < ActiveRecord::Base
 
   attr_accessible :is_active, :comment, :flagged, :post_con, :quote, :sticky, :emergency,
                   :medical, :hidden, :secure, :consuite, :hotel, :parties, :volunteers,
-                  :dealers, :dock, :merchandise, :status
+                  :dealers, :dock, :merchandise, :nerf_herders, :status
   audited
   has_associated_audits
   has_many :entries, dependent: :destroy, order: 'created_at ASC'
@@ -46,7 +49,7 @@ class Event < ActiveRecord::Base
                   }
 
   STATUSES = %w[ Active Closed Merged ]
-  FLAGS    = %w[ is_active merged comment flagged post_con quote sticky emergency medical hidden secure consuite hotel parties volunteers dealers dock merchandise ]
+  FLAGS    = %w[ is_active merged comment flagged post_con quote sticky emergency medical hidden secure consuite hotel parties volunteers dealers dock merchandise nerf_herders ]
 
   def self.merge_events(event_ids, user, role_name = nil)
     return if event_ids.blank?
