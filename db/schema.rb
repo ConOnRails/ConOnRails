@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130604214326) do
+ActiveRecord::Schema.define(:version => 20130612012707) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -90,29 +90,30 @@ ActiveRecord::Schema.define(:version => 20130604214326) do
 
   create_table "event_flag_histories", :force => true do |t|
     t.integer  "event_id"
-    t.boolean  "is_active",   :default => false
-    t.boolean  "comment",     :default => false
-    t.boolean  "flagged",     :default => false
-    t.boolean  "post_con",    :default => false
-    t.boolean  "quote",       :default => false
-    t.boolean  "sticky",      :default => false
-    t.boolean  "emergency",   :default => false
-    t.boolean  "medical",     :default => false
-    t.boolean  "hidden",      :default => false
-    t.boolean  "secure",      :default => false
-    t.boolean  "consuite",    :default => false
-    t.boolean  "hotel",       :default => false
-    t.boolean  "parties",     :default => false
-    t.boolean  "volunteers",  :default => false
-    t.boolean  "dealers",     :default => false
-    t.boolean  "dock",        :default => false
-    t.boolean  "merchandise", :default => false
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.boolean  "is_active",    :default => false
+    t.boolean  "comment",      :default => false
+    t.boolean  "flagged",      :default => false
+    t.boolean  "post_con",     :default => false
+    t.boolean  "quote",        :default => false
+    t.boolean  "sticky",       :default => false
+    t.boolean  "emergency",    :default => false
+    t.boolean  "medical",      :default => false
+    t.boolean  "hidden",       :default => false
+    t.boolean  "secure",       :default => false
+    t.boolean  "consuite",     :default => false
+    t.boolean  "hotel",        :default => false
+    t.boolean  "parties",      :default => false
+    t.boolean  "volunteers",   :default => false
+    t.boolean  "dealers",      :default => false
+    t.boolean  "dock",         :default => false
+    t.boolean  "merchandise",  :default => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
     t.integer  "user_id"
     t.datetime "orig_time"
     t.string   "rolename"
     t.boolean  "merged"
+    t.boolean  "nerf_herders", :default => false
   end
 
   create_table "events", :force => true do |t|
@@ -137,6 +138,7 @@ ActiveRecord::Schema.define(:version => 20130604214326) do
     t.boolean  "merchandise"
     t.string   "merged_from_ids"
     t.boolean  "merged"
+    t.boolean  "nerf_herders"
   end
 
   create_table "login_logs", :force => true do |t|
@@ -176,14 +178,6 @@ ActiveRecord::Schema.define(:version => 20130604214326) do
     t.boolean  "is_active",    :default => true
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
-  end
-
-  create_table "positions", :force => true do |t|
-    t.string   "name"
-    t.integer  "sequence"
-    t.integer  "schedule_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
   end
 
   create_table "radio_assignment_audits", :force => true do |t|
@@ -249,31 +243,12 @@ ActiveRecord::Schema.define(:version => 20130604214326) do
 
   add_index "roles_users", ["role_id", "user_id"], :name => "index_roles_users_on_role_id_and_user_id", :unique => true
 
-  create_table "schedules", :force => true do |t|
-    t.string   "name"
-    t.datetime "from"
-    t.datetime "until"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "slots", :force => true do |t|
-    t.datetime "from"
-    t.datetime "until"
-    t.integer  "position_id"
-    t.integer  "volunteer_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "realname"
     t.string   "password_digest"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
-    t.boolean  "admin_schedule"
-    t.boolean  "assign_slots"
   end
 
   add_index "users", ["name"], :name => "index_users_on_name", :unique => true
@@ -311,6 +286,14 @@ ActiveRecord::Schema.define(:version => 20130604214326) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.integer  "user_id"
+  end
+
+  create_table "vsps", :force => true do |t|
+    t.string   "name"
+    t.boolean  "party"
+    t.string   "notes"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end

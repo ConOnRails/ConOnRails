@@ -1,8 +1,5 @@
 <ul>
-  <li><a href="https://github.com/ConOnRails/ConOnRails/issues?sort=created&direction=desc&state=open">Bug Report at
-    GitHub</a></li>
-  <li>Look up badge information (not yet implemented)</li>
-  <li>VSP list (not yet implemented)</li>
+  <!--li>Look up badge information (not yet implemented)</li-->
 </ul>
 
 <h1>Administration</h1>
@@ -20,6 +17,9 @@
       <li><%= link_to "Users", users_url %></li>
       <li><%= link_to "Roles", roles_url %></li>
   <% end %>
+  <% if current_user and current_user.can_read_audits? %>
+      <li><%= link_to 'VSP list', vsps_path %></li>
+    <% end %>
 </ul>
 
 <h1>System</h1>

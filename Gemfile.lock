@@ -173,6 +173,9 @@ GEM
     shoulda-matchers (1.5.6)
       activesupport (>= 3.0.0)
       bourne (~> 1.3)
+    slim (1.3.6)
+      temple (~> 0.5.5)
+      tilt (~> 1.3.3)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -183,6 +186,7 @@ GEM
       activerecord (~> 3.0)
       activesupport (~> 3.0)
       polyamorous (~> 0.5.0)
+    temple (0.5.5)
     therubyracer (0.11.4)
       libv8 (~> 3.11.8.12)
       ref
@@ -231,6 +235,7 @@ DEPENDENCIES
   rvm-capistrano (~> 1.2)
   sass-rails
   shoulda
+  slim
   sqlite3 (~> 1.3)
   squeel (~> 1.0)
   therubyracer (~> 0.11)

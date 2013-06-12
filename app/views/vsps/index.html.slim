@@ -1,0 +1,31 @@
+h1 Very Special People
+
+p
+| To be banned from the convention, one must present a clear and present danger to the populace of CONvergence, or have created a grave and grievous affront to the organization.
+
+p
+| Ops may pull a badge for a night of the convention, or send someone home from the convention for grave enough error.  A full ban from the convention (and potentially all Convergence Events happenings) is the purview of the Board of Directors.
+
+p
+| The following people have been banned from the convention.
+
+p
+  strong Names:
+
+ul
+  - @people.each do |p|
+    li= link_to p.name, edit_vsp_path(p)
+
+p
+  strong Parties:
+
+ul
+  - @parties.each do |p|
+    li= link_to p.name, edit_vsp_path(p)
+
+.button
+  = link_to 'New VSP', new_vsp_path, class: 'button'
+
+- content_for :side do
+  = link_to 'Back', admin_path
+

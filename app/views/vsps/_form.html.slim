@@ -1,0 +1,8 @@
+= semantic_form_for @vsp do |f|
+  = f.input :name
+  = f.input :party, label: "Is this a party? (default is a person)"
+  = f.input :notes
+  = f.submit
+
+- content_for :side do
+  = link_to 'Back', vsps_path
