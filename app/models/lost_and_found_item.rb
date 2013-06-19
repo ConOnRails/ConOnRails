@@ -28,9 +28,9 @@ class LostAndFoundItem < ActiveRecord::Base
   belongs_to :user
 
   @@valid_categories = {
-      badge:             "Badge",
-      bag:               "Bag",
-      bottle:            "Bottle",
+      badge:             "Badges",
+      bag:               "Bags",
+      bottle:            "Bottles",
       clothing:          "Clothing",
       costume_jewelry:   "Costume Jewelry",
       electronics:       "Electronics",
@@ -39,13 +39,13 @@ class LostAndFoundItem < ActiveRecord::Base
       jewelry:           "Jewelry",
       keys:              "Keys",
       media:             "Media",
-      money:             "Money",
-      paper:             "Paper",
-      phone:             "Phone",
+      money:             "Money/Cards/ID",
+      paper:             "Paper (incl. Reg Packets)",
+      phone:             "Phones",
       small_electronics: "Small Electronics",
-      toy:               "Toy",
+      toy:               "Toys",
       wallet:            "Wallet",
-      weapon:            "Weapon",
+      weapon:            "Weapons/Props",
       other_not_listed:  "Other Not Listed"
   }
 
