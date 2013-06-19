@@ -10,7 +10,7 @@
     <div class="lfi <%= lfi.type %>">
       <div class="id_line">
         <div class="label">Item ID:</div>
-        <div class="item_id"><%= lfi.id %></div>
+        <div class="item_id"><%= lfi.id %>&mdash;<%= lfi.category %></div>
         <div class="view_button"><%= link_to "View", lfi, class: "item_#{lfi.type}_button button" %></div>
       </div>
 
