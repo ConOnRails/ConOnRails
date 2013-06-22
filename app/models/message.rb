@@ -23,7 +23,7 @@ class Message < ActiveRecord::Base
   validates_presence_of :for, :message, :user
   validates_format_of :phone_number,  allow_blank: true, allow_nil: true,
                       message: "must be a valid telephone number.",
-                      with:    /^[\(\)0-9\- \+\.]{10,20}$/
+                      with:    /\A[\(\)0-9\- \+\.]{10,20}\z/
 
  def self.num_active
     return Message.where { is_active == true }.count
