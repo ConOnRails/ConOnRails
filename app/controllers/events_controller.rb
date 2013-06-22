@@ -11,13 +11,13 @@ class EventsController < ApplicationController
   # GET /events.json
   def index
     @events = Event.for_index.
-        page(params[:page]).order { |e| e.updated_at.desc }
+        order { |e| e.updated_at.desc }.page(params[:page])
     respond_with @events
   end
 
   def sticky
     @events = Event.for_sticky.
-        page(params[:page]).order { |e| e.updated_at.desc }
+        order { |e| e.updated_at.desc }.page(params[:page])
     respond_with @events do |format|
       format.html { render :index }
       format.js { render :index }
@@ -27,7 +27,7 @@ class EventsController < ApplicationController
   def secure
     (redirect_to(root_url) and return) unless current_user.can_read_secure?
     @events = Event.for_secure.
-        page(params[:page]).order { |e| e.updated_at.desc }
+        order { |e| e.updated_at.desc }.page(params[:page])
     respond_with @events do |format|
       format.html { render :index }
       format.js { render :index }
