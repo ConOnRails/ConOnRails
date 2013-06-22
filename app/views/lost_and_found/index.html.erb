@@ -18,6 +18,6 @@
   to ensure it is not already recorded <strong>before</strong> you can create a new entry.</h3>
 <% content_for :side do %>
     <% if current_user.modify_lost_and_found? %>
-        <%= link_to 'Open Inventory', open_inventory_lost_and_found_items_path %>
+        <%= link_to 'Open Inventory', lost_and_found_items_path(inventory: true) %>
     <% end %>
 <% end %>
