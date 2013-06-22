@@ -8,26 +8,21 @@ class ContactsController < ApplicationController
   # GET /contacts
   # GET /contacts.json
   def index
-     respond_with @contacts
   end
 
   # GET /contacts/1
   # GET /contacts/1.json
   def show
-    respond_with @contact
   end
 
   # GET /contacts/new
   # GET /contacts/new.json
   def new
     @contact = Contact.new
-
-    respond_with @contact
   end
 
   # GET /contacts/1/edit
   def edit
-    respond_with @contact
   end
 
   # POST /contacts

@@ -1,7 +1,7 @@
 <div class="<%= cycle('even', 'odd') %>">
   <div class="buttons">
     <div class="button">
-      <%= link_to "Message Received", close_message_path(message), class: "button" %>
+      <%= link_to "Message Received", message_path(message, message: { is_active: false }), method: :put, class: "button" %>
       <%= link_to "Update", edit_message_path(message), class: "button" %></div>
   </div>
   <div class="addressee"><%= message.for %>

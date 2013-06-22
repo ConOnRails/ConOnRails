@@ -1,37 +1,24 @@
 class DutyBoardSlotsController < ApplicationController
   before_filter :can_admin_duty_board?
 
+  respond_to :html, :json
+
   # GET /duty_board_slots
   # GET /duty_board_slots.json
   def index
     @duty_board_slots = DutyBoardSlot.order(:duty_board_group_id, :name)
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @duty_board_slots }
-    end
   end
 
   # GET /duty_board_slots/1
   # GET /duty_board_slots/1.json
   def show
     @duty_board_slot = DutyBoardSlot.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @duty_board_slot }
-    end
   end
 
   # GET /duty_board_slots/new
   # GET /duty_board_slots/new.json
   def new
     @duty_board_slot = DutyBoardSlot.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @duty_board_slot }
-    end
   end
 
   # GET /duty_board_slots/1/edit
@@ -43,16 +30,8 @@ class DutyBoardSlotsController < ApplicationController
   # POST /duty_board_slots.json
   def create
     @duty_board_slot = DutyBoardSlot.new(params[:duty_board_slot])
-
-    respond_to do |format|
-      if @duty_board_slot.save
-        format.html { redirect_to :duty_board_slots, notice: 'Duty board slot was successfully created.' }
-        format.json { render json: @duty_board_slot, status: :created, location: @duty_board_slot }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @duty_board_slot.errors, status: :unprocessable_entity }
-      end
-    end
+    flash[:notice] = 'Duty board slot was successfully created.' if @duty_board_slot.save
+    respond_with @duty_board_slot, location: :duty_board_slots
   end
 
   # PUT /duty_board_slots/1
@@ -60,7 +39,7 @@ class DutyBoardSlotsController < ApplicationController
   def update
     @duty_board_slot = DutyBoardSlot.find(params[:id])
 
-    respond_to do |format|
+    respond_with @duty_board_lot, location: :duty_board_slots do |format|
       if @duty_board_slot.update_attributes(params[:duty_board_slot])
         if params[:duty_board_assignment]
           if @duty_board_slot.duty_board_assignment
@@ -69,14 +48,10 @@ class DutyBoardSlotsController < ApplicationController
             @duty_board_slot.build_duty_board_assignment params[:duty_board_assignment]
             @duty_board_slot.save!
           end
-          format.html { redirect_to duty_board_index_path, notice: 'Duty board slot was successfully updated' }
+          flash[:notice] = 'Duty board slot was successfully updated'
         else
-          format.html { redirect_to :duty_board_slots, notice: 'Duty board slot was successfully updated' }
+          flash[:notice] = 'Duty board slot was successfully updated'
         end
-        format.json { head :ok }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @duty_board_slot.errors, status: :unprocessable_entity }
       end
     end
   end

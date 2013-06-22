@@ -1,5 +1,5 @@
 class DepartmentsController < ApplicationController
-  before_filter :can_write_entries?, only: [:new, :create, :edit, :update, :destroy]
+  before_filter :can_admin_radios?, only: [:new, :create, :edit, :update, :destroy]
   before_filter :find_departments, only: :index
   before_filter :find_department, only: [:show, :edit, :update, :destroy]
 
@@ -8,25 +8,21 @@ class DepartmentsController < ApplicationController
   # GET /departments
   # GET /departments.json
   def index
-    respond_with @departments
   end
 
   # GET /departments/1
   # GET /departments/1.json
   def show
-    respond_with @department
   end
 
   # GET /departments/new
   # GET /departments/new.json
   def new
     @department = Department.new
-    respond_with @department
   end
 
   # GET /departments/1/edit
   def edit
-    respond_with @department
   end
 
   # POST /departments
