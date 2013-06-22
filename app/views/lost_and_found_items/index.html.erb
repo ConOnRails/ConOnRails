@@ -1,4 +1,4 @@
-<%= form_tag :search_lost_and_found_items, method: :post, id: "lost_and_found_search_form" do %>
+<%= form_tag :lost_and_found_items, method: :get, id: "lost_and_found_search_form" do %>
     <%= label_tag :id, "Jump to an ID" %>
     <%= text_field_tag :id %>
     <%= button_tag "Submit" %>
@@ -42,6 +42,6 @@
 <% content_for :side do %>
     <%= link_to 'Back', searchform_lost_and_found_items_path(params) %>
     <% if current_user.modify_lost_and_found? %>
-        <%= link_to 'Open Inventory', open_inventory_lost_and_found_items_path %>
+        <%= link_to 'Open Inventory', lost_and_found_items_path(inventory: true) %>
     <% end %>
 <% end %>
