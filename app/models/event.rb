@@ -49,7 +49,9 @@ class Event < ActiveRecord::Base
                   associated_against:     {
                       entries: :description
                   }
+
   scope :active, where { |e| e.is_active == true }
+  scope :actives_and_stickies_or_all, lambda { |c| where { |e| (e.is_active == true) | (e.sticky == true) unless c } }
   scope :closed, where { |e| e.is_active == false }
   scope :hidden, where { |e| e.hidden == true }
   scope :hidden_or_secure, where { |e| (e.hidden == true) | (e.secure == true) }
@@ -62,9 +64,29 @@ class Event < ActiveRecord::Base
   scope :for_index, active.not_sticky.not_secure.not_hidden
   scope :for_sticky, sticky.not_secure.not_hidden
   scope :for_secure, active.not_sticky.hidden_or_secure
+  scope :for_review, lambda { |filters, user|
+    query_from_filters(filters).protect_sensitive_events(user)
+  }
+
+  scope :protect_sensitive_events, lambda { |user|
+    where { |e| (e.hidden == false unless user_can_see_hidden(user)) }.
+        where { |e| (e.secure == false unless user_can_rw_secure(user)) }
+  }
 
   STATUSES = %w[ Active Closed Merged ]
   FLAGS    = %w[ is_active merged comment flagged post_con quote sticky emergency medical hidden secure consuite hotel parties volunteers dealers dock merchandise nerf_herders ]
+
+
+  def self.query_from_filters(filters)
+    query = build_from_filters filters
+    Event.where { query }
+  end
+
+  def self.search(q, user, show_closed=false)
+    protect_sensitive_events(user).
+        actives_and_stickies_or_all(show_closed).
+        search_entries(q)
+  end
 
   def self.merge_events(event_ids, user, role_name = nil)
     return if event_ids.blank?
@@ -150,7 +172,7 @@ class Event < ActiveRecord::Base
 
   def merge_entries(event_ids)
     Entry.where { |e| e.event_id >> event_ids }.order('created_at ASC').find_each do |entry|
-      new_entry = entry.dup
+      new_entry            = entry.dup
       new_entry.created_at = entry.created_at
       self.entries << new_entry
     end
@@ -189,6 +211,22 @@ class Event < ActiveRecord::Base
 
   def self.flags
     return FLAGS
+  end
+
+  protected
+  def self.build_from_filters(filters)
+    filters.reduce(Squeel::Nodes::Stub.new(:created_at).not_eq(nil)) do |query, key|
+      query = query.& Squeel::Nodes::KeyPath.new(key.first.to_sym).eq(fix_bool key.second) unless key.second == 'all'
+      query
+    end if filters.present?
+  end
+
+  def self.fix_bool val
+    if val.is_a? String
+      return true if val == 'true'
+      return false if val == 'false'
+    end
+    val
   end
 
 end

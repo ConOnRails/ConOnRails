@@ -77,7 +77,7 @@ class EventsControllerTest < ActionController::TestCase
         end
 
         should respond_with :success
-        should render_template :search_results
+        should render_template :search_entries
 
         should 'Only have both entry because we can see secure' do
           assert_equal 2, assigns(:events).count
@@ -163,7 +163,7 @@ class EventsControllerTest < ActionController::TestCase
         end
 
         should respond_with :success
-        should render_template :search_results
+        should render_template :search_entries
 
         should 'Only have one entry because we cannot see secure' do
           assert_equal 1, assigns(:events).count
