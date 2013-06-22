@@ -1,4 +1,6 @@
 class LostAndFoundItemsController < ApplicationController
+  respond_to :html, :json
+
   attr_reader :lfis, :lfi
 
   before_filter :user_can_add_lost_and_found, only: [:new, :create]
@@ -26,46 +28,26 @@ class LostAndFoundItemsController < ApplicationController
   def searchform
   end
 
-  def search
+  def index
     return jump if params[:id].present?
-    @lfis = LostAndFoundItem.page params[:page]
+    @lfis = LostAndFoundItem.inventory(params[:inventory]).page params[:page]
 
     @lfis = @lfis.where { returned == false } unless params[:show_returned].present? && params[:show_returned] # == true
     @lfis = @lfis.where { description.like_any my { wrap_keywords_for_like } } if params[:search_type] == 'any' unless params[:keywords].blank?
     @lfis = @lfis.where { description.like_all my { wrap_keywords_for_like } } if params[:search_type] == 'all' unless params[:keywords].blank?
     @lfis = @lfis.where { category >> my { @categories } } unless @categories.blank?
 
-    if @lfis.count > 0
-      respond_to do |format|
-        format.html { render 'index' }
-        format.json { render json: @lfis }
-      end
-    else
-      respond_to do |format|
+    respond_with @lfis do |format|
+      if @lfis.count == 0
         format.html { redirect_to searchform_lost_and_found_items_path, notice: "Request returned no results" }
-        format.json { render json: @lfis, status: :not_found }
       end
     end
-
-  end
-
-  def open_inventory
-    @lfis = LostAndFoundItem.inventory.page params[:page]
-
-    respond_to do |format|
-      format.html { render 'index' }
-      format.json { render json: @lfis }
-    end
-
   end
 
   def new
     @lfi                  = LostAndFoundItem.new
     @lfi.reported_missing = params[:reported_missing]
     @lfi.found            = params[:found]
-  end
-
-  def index
   end
 
   def show

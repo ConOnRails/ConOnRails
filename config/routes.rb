@@ -35,12 +35,9 @@ ConOnRails::Application.routes.draw do
     end
   end
   resources :lost_and_found, only: [:index]
-  resources :lost_and_found_items, except: [:index, :destroy] do
+  resources :lost_and_found_items, except: [:destroy] do
     collection do
       get 'searchform'
-      post 'search'
-      get 'search'
-      get 'open_inventory'
     end
   end
 
