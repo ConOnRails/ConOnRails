@@ -1,8 +1,6 @@
 class LostAndFoundItemsController < ApplicationController
   respond_to :html, :json
 
-  attr_reader :lfis, :lfi
-
   before_filter :user_can_add_lost_and_found, only: [:new, :create]
   before_filter :user_can_modify_lost_and_found, only: [:edit, :update]
   before_filter :build_categories_from_params, only: [:search]
@@ -59,15 +57,9 @@ class LostAndFoundItemsController < ApplicationController
     @lfi.user     = current_user
     @lfi.rolename = current_role
 
-    respond_to do |format|
-      if @lfi.save
-        format.html { redirect_to @lfi, notice: "#{@lfi.Type} item was successfully created." }
-        format.json { render json: @lfi, status: :created, location: @lfi }
-      else
-        format.html { render action: "edit", lfi: @lfi }
-        format.json { render json: @lfi.errors, status: :unprocessable_entity }
-      end
-    end
+    flash[:notice] = "#{@lfi.Type} item was successfully created." if @lfi.save
+
+    respond_with @lfi
   end
 
   def edit
@@ -81,16 +73,8 @@ class LostAndFoundItemsController < ApplicationController
     @lfi.user     = current_user
     @lfi.rolename = current_role
 
-    respond_to do |format|
-      if @lfi.update_attributes params[:lost_and_found_item]
-        type = "Returned" if @lfi.returned?
-        format.html { redirect_to @lfi, notice: "#{@lfi.Type} item was successfully updated." }
-        format.json { render json: @lfi, status: :created, location: @lfi }
-      else
-        format.html { render action: "edit", lfi: @lfi, notide: "#{type} could not be saved." }
-        format.json { render json: @lfi.errors, status: :unprocessable_entity }
-      end
-    end
+    flash[:notice] = "#{@lfi.Type} item was successfully updated." if @lfi.update_attributes params[:lost_and_found_item]
+    respond_with @lfi
   end
 
   protected
