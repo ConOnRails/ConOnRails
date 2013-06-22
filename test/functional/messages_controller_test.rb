@@ -55,7 +55,7 @@ class MessagesControllerTest < ActionController::TestCase
 
   test "can close message" do
     assert @complete_message.is_active?
-    get :close, { id: @complete_message.to_param }, @user_session
+    put :update, { id: @complete_message.to_param, message: { is_active: false } }, @user_session
     assert assigns( :message ).is_active? == false
   end
 end

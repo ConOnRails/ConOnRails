@@ -12,7 +12,7 @@
 #
 
 class Department < ActiveRecord::Base
-  attr_accessible :name, :radio_allotment, :radio_group_id
+  attr_accessible :name, :radio_allotment, :radio_group_id, :volunteer_id
 
   audited
   belongs_to :volunteer

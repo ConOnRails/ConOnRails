@@ -62,7 +62,7 @@ class DutyBoardSlotsControllerTest < ActionController::TestCase
                    duty_board_slot:       FactoryGirl.attributes_for(:valid_duty_board_slot),
                    duty_board_assignment: @duty_board_assignment_attributes },
         @user_session
-    assert_redirected_to duty_board_index_path
+    assert_redirected_to duty_board_slots_path
     assert_equal @duty_board_assignment_attributes[:name],
                  assigns(:duty_board_slot).duty_board_assignment.name
   end
@@ -75,7 +75,7 @@ class DutyBoardSlotsControllerTest < ActionController::TestCase
                    duty_board_slot:       FactoryGirl.attributes_for(:valid_duty_board_slot),
                    duty_board_assignment: { notes: "Yak" } },
         @user_session
-    assert_redirected_to duty_board_index_path
+    assert_redirected_to duty_board_slots_path
     assert_equal "Yak", assigns(:duty_board_slot).duty_board_assignment.notes
   end
 
