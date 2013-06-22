@@ -30,23 +30,38 @@
 class Event < ActiveRecord::Base
   include PgSearch
 
-  serialize :merged_from_ids
-
-  attr_accessible :is_active, :comment, :flagged, :post_con, :quote, :sticky, :emergency,
-                  :medical, :hidden, :secure, :consuite, :hotel, :parties, :volunteers,
-                  :dealers, :dock, :merchandise, :nerf_herders, :status
   audited
   has_associated_audits
+  serialize :merged_from_ids
+
   has_many :entries, dependent: :destroy, order: 'created_at ASC'
   has_many :event_flag_histories, dependent: :destroy, order: 'created_at ASC'
   validates_associated :entries
   accepts_nested_attributes_for :entries, allow_destroy: true
+
+  attr_accessible :is_active, :comment, :flagged, :post_con, :quote, :sticky, :emergency,
+                  :medical, :hidden, :secure, :consuite, :hotel, :parties, :volunteers,
+                  :dealers, :dock, :merchandise, :nerf_herders, :status
+
   paginates_per 10
 
   pg_search_scope :search_entries, using: { tsearch: { prefix: true } },
                   associated_against:     {
                       entries: :description
                   }
+  scope :active, where { |e| e.is_active == true }
+  scope :closed, where { |e| e.is_active == false }
+  scope :hidden, where { |e| e.hidden == true }
+  scope :hidden_or_secure, where { |e| (e.hidden == true) | (e.secure == true) }
+  scope :not_hidden, where { |e| e.hidden == false }
+  scope :sticky, where { |e| e.sticky == true }
+  scope :not_sticky, where { |e| e.sticky == false }
+  scope :secure, where { |e| e.secure == true }
+  scope :not_secure, where { |e| e.secure == false }
+
+  scope :for_index, active.not_sticky.not_secure.not_hidden
+  scope :for_sticky, sticky.not_secure.not_hidden
+  scope :for_secure, active.not_sticky.hidden_or_secure
 
   STATUSES = %w[ Active Closed Merged ]
   FLAGS    = %w[ is_active merged comment flagged post_con quote sticky emergency medical hidden secure consuite hotel parties volunteers dealers dock merchandise nerf_herders ]
