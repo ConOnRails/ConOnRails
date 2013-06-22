@@ -64,28 +64,6 @@ class RadiosControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should checkout a radio" do
-    @radio.save!
-    @radio.state = "out"
-
-    assert_difference 'RadioAssignment.count' do
-      put :update, { id: @radio.to_param, radio: { state: @radio.state },
-                     radio_assignment: FactoryGirl.attributes_for(:valid_radio_assignment,
-                                                                  radio_id: @radio.id,
-                                                                  volunteer_id: @volunteer.id,
-                                                                  department_id: @department.id) }, @user_session
-    end
-    assert_redirected_to radios_path
-  end
-
-  test "should get checkin form" do
-    @radio.radio_assignment = @assignment
-    @radio.save!
-
-    get :checkin, { id: @radio.to_param }, @user_session
-    assert_response :success
-  end
-
   test "can search volunteers" do
     @radio.save!
     xhr :post, :search_volunteers, { first_name: @volunteer.first_name, last_name: @volunteer.last_name, radio: @radio.to_param }, @user_session

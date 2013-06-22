@@ -100,7 +100,7 @@ a.sort_link
 
 #search
 {
-  text-align:     right;
+  text-align: right;
 
 }
 
@@ -218,7 +218,7 @@ div.button
   margin-bottom: 12px;
 }
 
-a.tab, .selected:hover
+a.tab
 {
   border-top-right-radius: 10px;
   border-top-left-radius:  10px;
@@ -236,8 +236,14 @@ a.tab, .selected:hover
     color:            $nav_bar_tab_bg;
     background-color: $nav_bar_tab_fg;
     border:           thin solid $nav_bar_tab_bg;
-  }
 
+    .selected:hover
+    {
+      background-color: $nav_bar_tab_bg;
+      color:            $nav_bar_tab_fg;
+      border:           none;
+    }
+  }
 }
 
 a.button, input[type="submit"]

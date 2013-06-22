@@ -264,7 +264,7 @@ FactoryGirl.define do
 
     factory :lost do
       reported_missing true
-      category "Badge"
+      category "Badges"
       description "Llamas and Tigers and Bears"
       where_last_seen "MyString"
       owner_name "MyString"
@@ -273,7 +273,7 @@ FactoryGirl.define do
     factory :found do
       found true
       description "Wombats and Llamas and Snakes"
-      category "Badge"
+      category "Badges"
       where_found "MyString"
       owner_name "MyString"
       owner_contact "MyText"
@@ -283,7 +283,7 @@ FactoryGirl.define do
       found true
       reported_missing false
       returned true
-      category "Badge"
+      category "Badges"
       description "Llamas, Begonias and Flakes"
       where_found "MyString"
       owner_name "MyString"

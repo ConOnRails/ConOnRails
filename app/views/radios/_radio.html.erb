@@ -16,8 +16,9 @@
         <% if radio.state == "in" and radio.radio_assignment.nil? %>
             <%= link_to "Check&nbsp;out".html_safe, checkout_radio_path(radio), method: :get, class: 'button small-button' %>
         <% else %>
+            <%= link_to "Transfer".html_safe, checkout_radio_path(radio), method: :get, class: 'button small-button' %>
             <%= link_to "Check&nbsp;in".html_safe, radio.radio_assignment, confirm: 'Are you sure?', method: :delete, class: 'button small-button' %>
-        <% end %>
+      <% end %>
       </td>
   <% end %>
 </tr>

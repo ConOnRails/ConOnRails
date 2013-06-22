@@ -15,7 +15,7 @@ class RadioAssignmentsControllerTest < ActionController::TestCase
   test "should create radio_assignment" do
     assert_difference('RadioAssignmentAudit.count') do
       assert_difference('RadioAssignment.count') do
-        post :create, { radio_assignment: FactoryGirl.attributes_for(:valid_radio_assignment, volunteer_id: @volunteer.id, radio_id: @radio.id, department_id: @department) }, @user_session
+        post :create, { radio_assignment: FactoryGirl.attributes_for(:valid_radio_assignment, volunteer_id: @volunteer.id, radio_id: @radio.id, department_id: @department.id) }, @user_session
       end
     end
     assert_equal "out", assigns(:radio_assignment).radio.state
@@ -23,7 +23,7 @@ class RadioAssignmentsControllerTest < ActionController::TestCase
   end
 
   test "should destroy radio_assignment" do
-    radio = @radio_assignment.radio
+    radio       = @radio_assignment.radio
     radio.state = "out"
     @radio_assignment.save!
     radio_id = radio.id
@@ -32,7 +32,33 @@ class RadioAssignmentsControllerTest < ActionController::TestCase
         delete :destroy, { id: @radio_assignment.to_param }, @user_session
       end
     end
-    assert_equal "in", Radio.find_by_id( radio_id ).state
+    assert_equal "in", Radio.find_by_id(radio_id).state
     assert_redirected_to radios_path
+  end
+
+  user_context :admin_user do
+    context 'PUT :update' do
+      setup do
+        radio       = @radio_assignment.radio
+        radio.state = "out"
+        @radio_assignment.save!
+        RadioAssignmentAudit.audit_checkout(@radio_assignment, @user)
+
+        @audit_count = RadioAssignmentAudit.count
+        @count       = RadioAssignment.count
+
+        put :update, { id: @radio_assignment.id, radio_assignment: { volunteer_id: @volunteer.id, department_id: @department.id } }, @user_session
+      end
+
+      should respond_with :redirect
+      should redirect_to('radios') { radios_path }
+
+      should 'have right counts' do
+        assert_no_match /NOT/, flash[:notice]
+        assert_equal @count, RadioAssignment.count
+        # There should be a check in and check out audit in addition to the original checkout.
+        assert_equal @audit_count + 2, RadioAssignmentAudit.count
+      end
+    end
   end
 end

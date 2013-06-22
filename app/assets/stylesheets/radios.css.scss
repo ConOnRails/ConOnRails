@@ -42,7 +42,7 @@
 
 #radio_group, .radio_group
 {
-  width: 50px;
+  width:      50px;
   text-align: center;
 }
 
@@ -60,13 +60,19 @@
 
 #radio_volunteer, .radio_volunteer
 {
-  width:      300px;
+  width:      150px;
   text-align: left;
 }
 
-#1radio_summary
+#radio_summary
 {
   margin-bottom: 6px;
 }
+
+#radio_action
+{
+  width: 150px;
+}
+
 @import "radio_colors";
 

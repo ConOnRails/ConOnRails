@@ -1,4 +1,4 @@
-<%= semantic_form_for RadioAssignment.new do |f| %>
+<%= semantic_form_for @radio_assignment do |f| %>
     <%= f.inputs do %>
         <%= f.input :radio_id, as: :hidden, input_html: { value: radio } %>
         <%= f.input :volunteer_id, as: :hidden, input_html: { value: volunteer } %>
@@ -7,6 +7,6 @@
         <% else %>
             <%= f.input :department, collection: Department.where(radio_group_id: radio_group) %>
         <% end %>
-        <%= f.action :submit, label: "Check Out" %>
+        <%= f.action :submit, label: @radio_assignment.new_record? ? "Check Out" : "Transfer" %>
     <% end %>
 <% end %>
