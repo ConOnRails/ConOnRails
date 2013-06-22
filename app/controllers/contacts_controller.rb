@@ -1,27 +1,20 @@
 class ContactsController < ApplicationController
-  before_filter :can_write_entries?, only: [ :new, :create, :edit, :update, :delete ]
+  before_filter :can_write_entries?, only: [:new, :create, :edit, :update]
+  before_filter :find_contacts, only: [:index]
+  before_filter :find_contact, only: [:show, :edit, :update]
+
+  respond_to :html, :json
 
   # GET /contacts
   # GET /contacts.json
   def index
-    @q = Contact.search params[:q]
-    @contacts = @q.result.page(params[:page])
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @contacts }
-    end
+     respond_with @contacts
   end
 
   # GET /contacts/1
   # GET /contacts/1.json
   def show
-    @contact = Contact.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @contact }
-    end
+    respond_with @contact
   end
 
   # GET /contacts/new
@@ -29,46 +22,37 @@ class ContactsController < ApplicationController
   def new
     @contact = Contact.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @contact }
-    end
+    respond_with @contact
   end
 
   # GET /contacts/1/edit
   def edit
-    @contact = Contact.find(params[:id])
+    respond_with @contact
   end
 
   # POST /contacts
   # POST /contacts.json
   def create
     @contact = Contact.new(params[:contact])
-
-    respond_to do |format|
-      if @contact.save
-        format.html { redirect_to contacts_path, notice: 'Contact was successfully created.' }
-        format.json { render json: @contact, status: :created, location: @contact }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @contact.errors, status: :unprocessable_entity }
-      end
-    end
+    flash[:notice] = 'Contact was successfully created.' if @contact.save
+    respond_with @contact, location: contacts_path
   end
 
   # PUT /contacts/1
   # PUT /contacts/1.json
   def update
-    @contact = Contact.find(params[:id])
+    flash[:notice] = 'Contact was successfully updated.' if @contact.update_attributes(params[:contact])
+    respond_with @contact, location: contacts_path
+  end
 
-    respond_to do |format|
-      if @contact.update_attributes(params[:contact])
-        format.html { redirect_to contacts_path, notice: 'Contact was successfully updated.' }
-        format.json { head :ok }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @contact.errors, status: :unprocessable_entity }
-      end
-    end
+  protected
+
+  def find_contacts
+    @q        = Contact.search params[:q]
+    @contacts = @q.result.page(params[:page])
+  end
+
+  def find_contact
+    @contact = Contact.find(params[:id])
   end
 end
