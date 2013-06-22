@@ -1,84 +1,64 @@
 class DepartmentsController < ApplicationController
+  before_filter :can_write_entries?, only: [:new, :create, :edit, :update, :destroy]
+  before_filter :find_departments, only: :index
+  before_filter :find_department, only: [:show, :edit, :update, :destroy]
+
+  respond_to :html, :json
+
   # GET /departments
   # GET /departments.json
   def index
-    @q = Department.search params[:q]
-    @departments = @q.result.page(params[:page])
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @departments }
-    end
+    respond_with @departments
   end
 
   # GET /departments/1
   # GET /departments/1.json
   def show
-    @department = Department.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @department }
-    end
+    respond_with @department
   end
 
   # GET /departments/new
   # GET /departments/new.json
   def new
     @department = Department.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @department }
-    end
+    respond_with @department
   end
 
   # GET /departments/1/edit
   def edit
-    @department = Department.find(params[:id])
+    respond_with @department
   end
 
   # POST /departments
   # POST /departments.json
   def create
     @department = Department.new(params[:department])
-
-    respond_to do |format|
-      if @department.save
-        format.html { redirect_to @department, notice: 'Department was successfully created.' }
-        format.json { render json: @department, status: :created, location: @department }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @department.errors, status: :unprocessable_entity }
-      end
-    end
+    flash[:notice] = 'Department was successfully created.' if @department.save
+    respond_with @department
   end
 
   # PUT /departments/1
   # PUT /departments/1.json
   def update
-    @department = Department.find(params[:id])
-
-    respond_to do |format|
-      if @department.update_attributes(params[:department])
-        format.html { redirect_to @department, notice: 'Department was successfully updated.' }
-        format.json { head :ok }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @department.errors, status: :unprocessable_entity }
-      end
-    end
+    flash[:notice] = 'Department was successfully updated.' if @department.update_attributes(params[:department])
+    respond_with @department
   end
 
   # DELETE /departments/1
   # DELETE /departments/1.json
   def destroy
-    @department = Department.find(params[:id])
     @department.destroy
+    respond_with @department
+  end
 
-    respond_to do |format|
-      format.html { redirect_to departments_url }
-      format.json { head :ok }
-    end
+  protected
+
+  def find_departments
+    @q           = Department.search params[:q]
+    @departments = @q.result.page(params[:page])
+  end
+
+  def find_department
+    @department = Department.find(params[:id])
   end
 end
