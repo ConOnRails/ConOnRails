@@ -86,7 +86,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     assert_response :success
     assert_template :index
     assert_not_nil assigns :lfis
-    assert_equal 2, @controller.lfis.length
+    assert_equal 2, assigns(:lfis).length
   end
 
   test "can safely search with quotes or apostrophe in search term" do
@@ -102,7 +102,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     assert_response :success
     assert_template :index
     assert_not_nil assigns :lfis
-    assert_equal 1, @controller.lfis.length
+    assert_equal 1, assigns(:lfis).length
   end
 
   test "can search by all of multiple keywords with an apostrophe" do
@@ -116,7 +116,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     assert_response :success
     assert_template :index
     assert_not_nil assigns :lfis
-    assert_equal 2, @controller.lfis.length
+    assert_equal 2, assigns(:lfis).length
   end
 
   test "can search for any of multiple keywords with an apostrophe" do
@@ -130,7 +130,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
   test "can force search to include returned" do
     get :index, { reported_missing: true, keywords: "Llamas", show_returned: true }, { user_id: @user.id}
     assert_response :success
-    assert_equal 3, @controller.lfis.length
+    assert_equal 3, assigns(:lfis).length
   end
 
   test "peon cannot create new lost" do
@@ -149,7 +149,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     assert_no_difference 'LostAndFoundItem.count' do
       post :create, { lost_and_found_item: FactoryGirl.attributes_for(:incomplete) }, { user_id: @user.id }
     end
-    assert_template :edit
+    assert_template :new
   end
 
   test "peon cannot edit lost" do
