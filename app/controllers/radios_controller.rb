@@ -20,12 +20,13 @@ class RadiosController < ApplicationController
 
   # GET /radios/1/select_department?volunteer=1
   def select_department
-    radio = Radio.find params[:id]
+    @radio = Radio.find params[:id]
+    @radio_assignment = @radio.radio_assignment || RadioAssignment.new
     respond_with do |format|
       format.html do
         if request.xhr?
           render partial: 'select_department', locals: { radio:       params[:id],
-                                                         radio_group: radio.radio_group.id,
+                                                         radio_group: @radio.radio_group.id,
                                                          volunteer:   params[:volunteer] }
         else
           redirect_to public_path
@@ -73,14 +74,15 @@ class RadiosController < ApplicationController
     end
   end
 
-  # GET /radios/1/assign
+  # GET /radios/1/checkout -- just gets the form
   def checkout
     @radio            = Radio.find params[:id]
     @radio_assignment = RadioAssignment.new
   end
 
-  def checkin
-    @radio = Radio.find params[:id]
+  def transfer
+    @radio            = Radio.find params[:id]
+    @radio_assignment = @radio.radio_assignment
   end
 
   # GET /radios/1/edit

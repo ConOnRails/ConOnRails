@@ -37,7 +37,7 @@ class RadioAssignmentAudit < ActiveRecord::Base
 
 protected
   def RadioAssignmentAudit.new_record( a, u, s )
-    attr = a.attributes
+    attr = a.attributes.reject { |k, v| [:created_at, :updated_at].include? k.to_sym }
     attr[:user] = u
     attr[:state] = s
     RadioAssignmentAudit.create! attr

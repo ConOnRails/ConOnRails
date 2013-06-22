@@ -36,10 +36,25 @@ class RadioAssignment < ActiveRecord::Base
     RadioAssignment.where( department_id: dept_id ).count
   end
 
+  def self.checkout(params, user)
+    assignment = RadioAssignment.new params
+    assignment.radio.state = 'out'
+    assignment.radio.save
+    assignment.save
+    RadioAssignmentAudit.audit_checkout assignment, user
+    assignment
+  end
+
   def checkin( user )
     RadioAssignmentAudit.audit_checkin(self, user)
     self.radio.state = "in"
     self.radio.save
     destroy
+  end
+
+  def transfer(params, user)
+    radio_id = self.radio_id
+    self.checkin user
+    RadioAssignment.checkout params.merge({radio_id: radio_id}), user
   end
 end

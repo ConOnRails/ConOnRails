@@ -45,9 +45,7 @@ ConOnRails::Application.routes.draw do
   end
 
   resources :departments
-  resources :radio_assignments, only: [:create, :destroy] do
-    get 'checkout'
-  end
+  resources :radio_assignments, only: [:create, :update, :destroy]
   resources :radio_assignment_audits, only: [:index]
   resources :radio_admin, only: [:index]
   resources :radio_groups do
@@ -58,9 +56,8 @@ ConOnRails::Application.routes.draw do
   resources :radios do
     member do
       get 'checkout'
-      get 'checkin'
       get 'select_department'
-      put 'create_assignment'
+     # put 'create_assignment'
     end
     collection do
       post 'search_volunteers' #This is cheating
