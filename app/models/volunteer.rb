@@ -23,8 +23,8 @@
 #
 
 class Volunteer < ActiveRecord::Base
-  attr_accessible :first_name, :middle_name, :last_name, :address1, :address2, :address3, :city, :state, :postal
-  attr_accessible :country, :home_phone, :work_phone, :other_phone, :email, :user_id
+  attr_accessible :first_name, :middle_name, :last_name, :address1, :address2, :address3, :city, :state, :postal,
+                  :country, :home_phone, :work_phone, :other_phone, :email, :user_id, :volunteer_training_attributes
   audited
   has_associated_audits
   paginates_per 25
