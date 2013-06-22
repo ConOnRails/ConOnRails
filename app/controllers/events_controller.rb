@@ -9,26 +9,19 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @events = Event.where { |e| e.is_active == true }.
-        where { |e| e.sticky == false }.
-        where { |e| e.secure == false }.
-        where { |e| e.hidden == false }.
+    @events = Event.for_index.
         page(params[:page]).order { |e| e.updated_at.desc }
   end
 
   def sticky
-    @events = Event.where { |e| e.sticky == true }.
-        where { |e| e.secure == false }.
-        where { |e| e.hidden == false }.
+    @events = Event.for_sticky.
         page(params[:page]).order { |e| e.updated_at.desc }
     render :index
   end
 
   def secure
     if current_user.can_read_secure?
-      @events = Event.where { |e| e.is_active == true }.
-          where { |e| e.sticky == false }.
-          where { |e| (e.secure == true) | (e.hidden == true) }.
+      @events = Event.for_secure.
           page(params[:page]).order { |e| e.updated_at.desc }
       render :index
     else
