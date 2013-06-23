@@ -3,6 +3,9 @@ class VolunteersController < ApplicationController
   respond_to :html, :json
 
   def attendees
+    # DEAD LETTER for 2013
+
+=begin
     if params[:term]
       terms = params[:term].split
       if terms.size == 1
@@ -41,30 +44,21 @@ class VolunteersController < ApplicationController
                                      email:       a.EMAIL]
     }
 
+=end
     render json: @list
   end
 
   # GET /volunteers
   # GET /volunteers.json
   def index
-    @q = Volunteer.search params[:q]
+    @q          = Volunteer.search params[:q]
     @volunteers = @q.result.page(params[:page])
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @volunteers }
-    end
   end
 
   # GET /volunteers/1
   # GET /volunteers/1.json
   def show
     @volunteer = Volunteer.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @volunteer }
-    end
   end
 
   # GET /volunteers/new
@@ -72,12 +66,6 @@ class VolunteersController < ApplicationController
   def new
     @volunteer = Volunteer.new
     @volunteer.build_volunteer_training
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.js
-      format.json { render json: @volunteer }
-    end
   end
 
   # GET /volunteers/1/edit
@@ -89,18 +77,14 @@ class VolunteersController < ApplicationController
   # POST /volunteers.json
   def create
     @volunteer = Volunteer.new(params[:volunteer])
-
-    respond_to do |format|
+    respond_with @volunteer do |format|
       if @volunteer.save
         if params[:make_user_after_save]
-          format.html { redirect_to new_user_path({ realname: @volunteer.name, volunteer_id: @volunteer.id }), notice: "Volunteer created, create a user" }
+          flash[:notice] = "Volunteer created, create a user"
+          format.html { redirect_to new_user_path({ realname: @volunteer.name, volunteer_id: @volunteer.id }) }
         else
-          format.html { redirect_to @volunteer, notice: 'Volunteer was successfully created.' }
-          format.json { render json: @volunteer, status: :created, location: @volunteer }
+          flash[:notice] = 'Volunteer was successfully created.'
         end
-      else
-        format.html { render action: "new" }
-        format.json { render json: @volunteer.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -109,18 +93,14 @@ class VolunteersController < ApplicationController
   # PUT /volunteers/1.json
   def update
     @volunteer = Volunteer.find(params[:id])
-
-    respond_to do |format|
+    respond_with @volunteer do |format|
       if @volunteer.update_attributes(params[:volunteer])
         if params[:make_user_after_save]
-          format.html { redirect_to new_user_path({ realname: @volunteer.name, volunteer_id: @volunteer.id }), notice: "Volunteer created, create a user" }
+          flash[:notice] = "Volunteer created, create a user"
+          format.html { redirect_to new_user_path({ realname: @volunteer.name, volunteer_id: @volunteer.id }) }
         else
-          format.html { redirect_to @volunteer, notice: 'Volunteer was successfully updated.' }
-          format.json { head :ok }
+          flash[:notice] = 'Volunteer was successfully updated.'
         end
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @volunteer.errors, status: :unprocessable_entity }
       end
     end
   end

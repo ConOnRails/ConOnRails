@@ -1,7 +1,7 @@
 class RadiosController < ApplicationController
   before_filter :can_admin_radios?, only: [:new, :create, :edit, :update, :destroy]
   before_filter :can_assign_radios?, only: [:index, :show, :search_volunteers]
-  respond_to :html
+  respond_to :html, :json
 
   # POST /radios/search_volunteers
   def search_volunteers
@@ -20,7 +20,7 @@ class RadiosController < ApplicationController
 
   # GET /radios/1/select_department?volunteer=1
   def select_department
-    @radio = Radio.find params[:id]
+    @radio            = Radio.find params[:id]
     @radio_assignment = @radio.radio_assignment || RadioAssignment.new
     respond_with do |format|
       format.html do
@@ -38,40 +38,23 @@ class RadiosController < ApplicationController
   # GET /radios
   # GET /radios.json
   def index
-    @q = Radio.search params[:q]
+    @q      = Radio.search params[:q]
     @radios = @q.result.page(params[:page])
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: Radio.all }
-    end
   end
 
   # GET /radios/1
   # GET /radios/1.json
   def show
     @radio = Radio.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @radio }
-    end
   end
 
   # GET /radios/new
   # GET /radios/new.json
   def new
     # We include the index list in the new page for this one, so we need to provide Ransack bits
-
-    @q = Radio.search params[:q]
+    @q      = Radio.search params[:q]
     @radios = @q.result.page(params[:page])
-
-    @radio = Radio.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @radio }
-    end
+    @radio  = Radio.new
   end
 
   # GET /radios/1/checkout -- just gets the form
@@ -94,16 +77,8 @@ class RadiosController < ApplicationController
   # POST /radios.json
   def create
     @radio = Radio.new(params[:radio])
-
-    respond_to do |format|
-      if @radio.save
-        format.html { redirect_to radios_path, notice: 'Radio was successfully created.' }
-        format.json { render json: @radio, status: :created, location: @radio }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @radio.errors, status: :unprocessable_entity }
-      end
-    end
+    flash[:notice] = 'Radio was successfully created.' if @radio.save
+    respond_with @radio, location: radios_path
   end
 
   # PUT /radios/1
@@ -113,16 +88,8 @@ class RadiosController < ApplicationController
     if params[:radio_assignment]
       @radio.radio_assignment = RadioAssignment.new params[:radio_assignment]
     end
-
-    respond_to do |format|
-      if @radio.update_attributes(params[:radio])
-        format.html { redirect_to radios_path, notice: 'Radio was successfully updated.' }
-        format.json { head :ok }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @radio.errors, status: :unprocessable_entity }
-      end
-    end
+    flash[:notice] = 'Radio was successfully updated.' if @radio.update_attributes(params[:radio])
+    respond_with @radio, location: radios_path
   end
 
 # DELETE /radios/1
@@ -130,11 +97,7 @@ class RadiosController < ApplicationController
   def destroy
     @radio = Radio.find(params[:id])
     @radio.destroy
-
-    respond_to do |format|
-      format.html { redirect_to radios_url }
-      format.json { head :ok }
-    end
+    respond_with @radio, location: radios_path
   end
 
 end
