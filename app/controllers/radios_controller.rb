@@ -38,7 +38,9 @@ class RadiosController < ApplicationController
   # GET /radios
   # GET /radios.json
   def index
-    @q      = Radio.search params[:q]
+
+    @q = Radio.search params[:q]
+    @q.sorts = ['radio_group_name', 'state desc'] if @q.sorts.empty?
     @radios = @q.result.page(params[:page])
   end
 

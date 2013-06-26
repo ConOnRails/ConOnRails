@@ -73,9 +73,13 @@
 
 #radio_action
 {
-  width: 150px;
+  width: 200px;
 }
 
+a.check-in, a.check-out, a.transfer
+{
+  font-size: 1em;
+}
 a.check-in, .odd a.check-in
 {
   background-color: $green;
