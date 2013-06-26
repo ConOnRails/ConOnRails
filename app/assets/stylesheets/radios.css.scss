@@ -2,6 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import 'colors';
+
 .radios
 {
   form
@@ -72,6 +74,45 @@
 #radio_action
 {
   width: 150px;
+}
+
+a.check-in, .odd a.check-in
+{
+  background-color: $green;
+  color: white;
+
+  &:hover
+  {
+    color: $green;
+    background-color: white;
+    border: thin solid $green;
+  }
+}
+
+a.check-out, .odd a.check-out
+{
+  background-color: $yellow;
+  color: black;
+
+  &:hover
+  {
+    color: $yellow;
+    background-color: black;
+    border: thin solid $yellow;
+  }
+}
+
+a.transfer, .odd a.transfer
+{
+  background-color: $blue;
+  color: white;
+
+  &:hover
+  {
+    color: $blue;
+    background-color: white;
+    border: thin solid $blue;
+  }
 }
 
 @import "radio_colors";
