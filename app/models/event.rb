@@ -27,8 +27,12 @@
 #  nerf_herders    :boolean
 #
 
+require Rails.root + 'app/queries/event_queries'
+
+
 class Event < ActiveRecord::Base
   include PgSearch
+  include Queries::EventQueries
 
   audited
   has_associated_audits
@@ -50,23 +54,7 @@ class Event < ActiveRecord::Base
                       entries: :description
                   }
 
-  scope :active, where { |e| e.is_active == true }
   scope :actives_and_stickies_or_all, lambda { |c| where { |e| (e.is_active == true) | (e.sticky == true) unless c } }
-  scope :closed, where { |e| e.is_active == false }
-  scope :hidden, where { |e| e.hidden == true }
-  scope :hidden_or_secure, where { |e| (e.hidden == true) | (e.secure == true) }
-  scope :not_hidden, where { |e| e.hidden == false }
-  scope :sticky, where { |e| e.sticky == true }
-  scope :not_sticky, where { |e| e.sticky == false }
-  scope :secure, where { |e| e.secure == true }
-  scope :not_secure, where { |e| e.secure == false }
-
-  scope :for_index, active.not_sticky.not_secure.not_hidden
-  scope :for_sticky, sticky.not_secure.not_hidden
-  scope :for_secure, active.not_sticky.hidden_or_secure
-  scope :for_review, lambda { |filters, user|
-    query_from_filters(filters).protect_sensitive_events(user)
-  }
 
   scope :protect_sensitive_events, lambda { |user|
     where { |e| (e.hidden == false unless user_can_see_hidden(user)) }.
@@ -75,12 +63,6 @@ class Event < ActiveRecord::Base
 
   STATUSES = %w[ Active Closed Merged ]
   FLAGS    = %w[ is_active merged comment flagged post_con quote sticky emergency medical hidden secure consuite hotel parties volunteers dealers dock merchandise nerf_herders ]
-
-
-  def self.query_from_filters(filters)
-    query = build_from_filters filters
-    Event.where { query }
-  end
 
   def self.search(q, user, show_closed=false)
     protect_sensitive_events(user).
@@ -214,19 +196,7 @@ class Event < ActiveRecord::Base
   end
 
   protected
-  def self.build_from_filters(filters)
-    filters.reduce(Squeel::Nodes::Stub.new(:created_at).not_eq(nil)) do |query, key|
-      query = query.& Squeel::Nodes::KeyPath.new(key.first.to_sym).eq(fix_bool key.second) unless key.second == 'all'
-      query
-    end if filters.present?
-  end
 
-  def self.fix_bool val
-    if val.is_a? String
-      return true if val == 'true'
-      return false if val == 'false'
-    end
-    val
-  end
+
 
 end

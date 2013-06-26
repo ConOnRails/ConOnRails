@@ -1,4 +1,7 @@
+require Rails.root + 'app/queries/event_queries'
+
 class EventsController < ApplicationController
+  include Queries::EventQueries
 
   before_filter :can_write_entries?, only: [:new, :create, :edit, :update]
 
@@ -10,13 +13,13 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @events = Event.for_index.
+    @events = IndexQuery.new(Event).query.
         order { |e| e.updated_at.desc }.page(params[:page])
     respond_with @events
   end
 
   def sticky
-    @events = Event.for_sticky.
+    @events = StickyQuery.new(Event).query.
         order { |e| e.updated_at.desc }.page(params[:page])
     respond_with @events do |format|
       format.html { render :index }
@@ -26,7 +29,7 @@ class EventsController < ApplicationController
 
   def secure
     (redirect_to(root_url) and return) unless current_user.can_read_secure?
-    @events = Event.for_secure.
+    @events = SecureQuery.new(Event).query.
         order { |e| e.updated_at.desc }.page(params[:page])
     respond_with @events do |format|
       format.html { render :index }
@@ -35,13 +38,13 @@ class EventsController < ApplicationController
   end
 
   def search_entries
-    @q = params[:q] # We'll use this to re-fill the search blank
+    @q      = params[:q] # We'll use this to re-fill the search blank
     @events = Event.search(@q, current_user, params[:show_closed])
     respond_with @events
   end
 
   def review
-    @events = Event.for_review(params[:filters], current_user).
+    @events = FiltersQuery.new(Event, params[:filters]).query.protect_sensitive_events(current_user).
         order { |e| e.updated_at.asc }.page(params[:page])
     respond_with @events
   end
