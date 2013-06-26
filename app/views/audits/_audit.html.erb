@@ -22,6 +22,8 @@
            <% end %>  
       <% when "LoginLog" %>
            Login/Out
+      <% else %>
+            <%= audit.auditable_type %> <%= audit.auditable_id %>
     <% end %>
   </td>
   <td>
