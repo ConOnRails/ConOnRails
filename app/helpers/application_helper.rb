@@ -7,11 +7,11 @@ module ApplicationHelper
   end
 
   def version_number
-    "2.0.0rc3"
+    "2.0.0rc4"
   end
 
   def version_name
-    "Flamingo Tech Rehearsal"
+    "Flamingo Dress Rehearsal"
   end
 
   def version_type
