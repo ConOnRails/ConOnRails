@@ -1,5 +1,6 @@
 # Con On Rails
 [![Build Status](https://travis-ci.org/ConOnRails/ConOnRails.png)](https://travis-ci.org/ConOnRails/ConOnRails)
+[![Code Climate](https://codeclimate.com/repos/51c6072456b10216f3002623/badges/d00b997b8c2dfd2d14b2/gpa.png)](https://codeclimate.com/repos/51c6072456b10216f3002623/feed)
 
 This is ConOnRails, an application for managing the operations of a small-to-medium sized convention.
 
