@@ -109,4 +109,13 @@ class VolunteersController < ApplicationController
     params[:volunteer_id] = params[:id]
     redirect_to :new_user
   end
+
+  def clear_all_radio_training
+    Volunteer.find_each do |v|
+      v.volunteer_training.radio = false
+      v.save!
+    end
+
+    redirect_to :volunteers
+  end
 end

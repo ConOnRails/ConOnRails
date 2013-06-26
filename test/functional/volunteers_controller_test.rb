@@ -12,7 +12,7 @@ class VolunteersControllerTest < ActionController::TestCase
   end
 
   def get_index_success(session)
-    get :index, { }, session
+    get :index, {}, session
     assert_response :success
     assert_not_nil assigns(:volunteers)
   end
@@ -24,13 +24,13 @@ class VolunteersControllerTest < ActionController::TestCase
   end
 
   def get_new_success(session)
-    get :new, { }, session
+    get :new, {}, session
     assert_not_nil assigns(:volunteer).volunteer_training
     assert_response :success
   end
 
   def get_new_fail(session)
-    get :new, { }, session
+    get :new, {}, session
     assert_redirected_to :public
   end
 
@@ -133,6 +133,31 @@ class VolunteersControllerTest < ActionController::TestCase
     put_update_fail @peon_session
     put_update_fail nil
   end
+
+  context "five volunteers with radio training" do
+    setup do
+      @volunteers = FactoryGirl.create_list :valid_volunteer, 5
+      @volunteers.each do |v|
+        v.volunteer_training.radio = true
+        v.volunteer_training.save
+        v.reload
+      end
+    end
+
+    context 'be able to clear all at once' do
+      setup do
+        get :clear_all_radio_training, {}, @user_session
+      end
+
+      should redirect_to :volunteers
+      should 'have no radio training' do
+        Volunteer.find_each do |v|
+          assert !v.volunteer_training.radio
+        end
+      end
+    end
+  end
+
 
   test "can find an attendee" do
 =begin

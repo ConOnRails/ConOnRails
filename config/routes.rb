@@ -82,6 +82,7 @@ ConOnRails::Application.routes.draw do
     end
     collection do
       get 'attendees'
+      get 'clear_all_radio_training'
     end
   end
 
