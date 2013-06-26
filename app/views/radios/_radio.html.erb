@@ -7,17 +7,17 @@
         <%= radio.number %>
     <% end %>
   </td>
-  <td><%= radio.radio_assignment ? radio.radio_assignment.department.name : "" %></td>
-  <td><%= radio.radio_assignment ? radio.radio_assignment.volunteer.first_name : "" %></td>
-  <td><%= radio.radio_assignment ? radio.radio_assignment.volunteer.last_name : "" %></td>
+  <td><%= radio.radio_assignment && radio.radio_assignment.department ? radio.radio_assignment.department.name : "" %></td>
+  <td><%= radio.radio_assignment && radio.radio_assignment.volunteer ? radio.radio_assignment.volunteer.first_name : "" %></td>
+  <td><%= radio.radio_assignment && radio.radio_assignment.volunteer ? radio.radio_assignment.volunteer.last_name : "" %></td>
   <td><%= radio.state %></td>
   <% if current_user and current_user.can_assign_radios? %>
       <td>
         <% if radio.state == "in" and radio.radio_assignment.nil? %>
-            <%= link_to "Check&nbsp;out".html_safe, checkout_radio_path(radio), method: :get, class: 'button small-button' %>
+            <%= link_to "Check&nbsp;out".html_safe, checkout_radio_path(radio), method: :get, class: 'button small-button check-out' %>
         <% else %>
-            <%= link_to "Transfer".html_safe, checkout_radio_path(radio), method: :get, class: 'button small-button' %>
-            <%= link_to "Check&nbsp;in".html_safe, radio.radio_assignment, confirm: 'Are you sure?', method: :delete, class: 'button small-button' %>
+            <%= link_to "Transfer".html_safe, checkout_radio_path(radio), method: :get, class: 'button small-button transfer' %>
+            <%= link_to "Check&nbsp;in".html_safe, radio.radio_assignment, confirm: 'Are you sure?', method: :delete, class: 'button small-button check-in' %>
       <% end %>
       </td>
   <% end %>
