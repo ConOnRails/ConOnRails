@@ -90,11 +90,12 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
   end
 
   test "can safely search with quotes or apostrophe in search term" do
+    @missing.description = "Llama's"
+    @missing.save!
     get :index, { reported_missing: true, keywords: "Llama's"}, { user_id: @user.id }
     assert_response :success
     assert_template :index
     assert_not_nil assigns :lfis
-    # TODO: Nothing to find right now
   end
 
   test "can search by all of multiple keywords" do

@@ -3,7 +3,7 @@ class LostAndFoundItemsController < ApplicationController
 
   before_filter :user_can_add_lost_and_found, only: [:new, :create]
   before_filter :user_can_modify_lost_and_found, only: [:edit, :update]
-  before_filter :build_categories_from_params, only: [:search]
+  before_filter :build_categories_from_params, only: [:index]
 
   protected
 
@@ -28,12 +28,12 @@ class LostAndFoundItemsController < ApplicationController
 
   def index
     return jump if params[:id].present?
-    @lfis = LostAndFoundItem.inventory(params[:inventory]).page params[:page]
+    search_type = params[:search_type] || 'any'
 
-    @lfis = @lfis.where { returned == false } unless params[:show_returned].present? && params[:show_returned] # == true
-    @lfis = @lfis.where { description.like_any my { wrap_keywords_for_like } } if params[:search_type] == 'any' unless params[:keywords].blank?
-    @lfis = @lfis.where { description.like_all my { wrap_keywords_for_like } } if params[:search_type] == 'all' unless params[:keywords].blank?
-    @lfis = @lfis.where { category >> my { @categories } } unless @categories.blank?
+    @lfis = LostAndFoundItem.inventory(params[:inventory]).page(params[:page]).
+        where { |l| l.returned == false unless params[:show_returned] }.
+        where { |l| l.description.send(('like_'+search_type).to_sym, wrap_keywords_for_like) unless params[:keywords].blank? }.
+        where { |l| l.category >> @categories unless @categories.blank? }
 
     respond_with @lfis do |format|
       if @lfis.count == 0
@@ -91,10 +91,24 @@ class LostAndFoundItemsController < ApplicationController
   private
 
   def build_categories_from_params
-    @categories ||= (LostAndFoundItem.categories.collect do |k, v|
+    @categories ||= fix_old_categories((LostAndFoundItem.categories.collect do |k, v|
       next unless params.has_key? k.to_s
       v
-    end).compact
+    end).compact).flatten
   end
 
+  def fix_old_categories(cats)
+    @map ||= {
+        'Badges'         => ['Badge', 'Badges'],
+        'Bags'           => ['Bag', 'Bags'],
+        'Bottles'        => ['Bottle', 'Bottles'],
+        'Money/Cards/ID' => ['Money', 'Money/Cards/ID'],
+        'Phones'         => ['Phone', 'Phones'],
+        'Weapons/Props'  => ['Weapon', 'Weapons/Props']
+    }
+
+    cats.collect do |c|
+      @map[c] || c
+    end
+  end
 end
