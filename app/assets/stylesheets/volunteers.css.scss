@@ -12,13 +12,14 @@ body.volunteers
   }
   #create-user-for-vol
   {
-    border: thin solid blue;
+    border:  thin solid blue;
     padding: 1em;
-    span.ui-dialog-title {
+    span.ui-dialog-title
+    {
       background-color: $blue;
-      color: white;
-      padding: 1em;
-      margin: 0;
+      color:            white;
+      padding:          1em;
+      margin:           0;
     }
   }
 
@@ -51,27 +52,27 @@ body.volunteers
   #user-info
   {
     border: thin solid black;
-    float: right;
-    width: 150px;
+    float:  right;
+    width:  150px;
   }
 
   #training-show
   {
-    width: 150px;
-    float: right;
-    border: thin solid black;
+    width:   150px;
+    float:   right;
+    border:  thin solid black;
     padding: .5em;
 
     .label
     {
       font-weight: bold;
-      float: left;
-      width: 80%;
+      float:       left;
+      width:       80%;
     }
     .check
     {
-      float: left;
-      width: 20%;
+      float:      left;
+      width:      20%;
       text-align: right;
     }
   }
@@ -82,7 +83,7 @@ body.volunteers
     .boolean label
     {
       padding: 6px;
-      width: 100%;
+      width:   100%;
     }
     li.input
     {
@@ -121,4 +122,16 @@ body.volunteers
     float: right;
   }
 
+  a.clear-all
+  {
+    background-color: $emergency_bg;
+    color:            $emergency_fg;
+
+    &:hover
+    {
+      color: $emergency_bg;
+      background-color: $emergency_fg;
+      border: thin solid $emergency_bg;
+    }
+  }
 }
