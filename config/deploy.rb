@@ -16,7 +16,7 @@ before 'deploy:setup', 'rvm:create_gemset' # only create gemset
 require 'bundler/capistrano'
 require 'rvm/capistrano'
 
-set :stages, %w(production development)
+set :stages, %w(production development con)
 set :default_stage, :development
 require 'capistrano/ext/multistage'
 
@@ -28,8 +28,6 @@ set :use_sudo, false
 
 set :deploy_via, :remote_cache
 set :rails_env, :production
-
-server 'zim.itasca.net', :app, :web, :db, :primary => true
 
 after 'deploy:update_code', 'deploy:symlink_db'
 
