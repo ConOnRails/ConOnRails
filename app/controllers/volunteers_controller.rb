@@ -1,5 +1,7 @@
 class VolunteersController < ApplicationController
   before_filter :can_admin_users?
+  before_filter :set_volunteers, only: [:index]
+  before_filter :set_volunteer, only: [:show, :edit, :update]
   respond_to :html, :json
 
   def attendees
@@ -51,14 +53,11 @@ class VolunteersController < ApplicationController
   # GET /volunteers
   # GET /volunteers.json
   def index
-    @q          = Volunteer.search params[:q]
-    @volunteers = @q.result.page(params[:page])
   end
 
   # GET /volunteers/1
   # GET /volunteers/1.json
   def show
-    @volunteer = Volunteer.find(params[:id])
   end
 
   # GET /volunteers/new
@@ -70,39 +69,19 @@ class VolunteersController < ApplicationController
 
   # GET /volunteers/1/edit
   def edit
-    @volunteer = Volunteer.find(params[:id])
   end
 
   # POST /volunteers
   # POST /volunteers.json
   def create
     @volunteer = Volunteer.new(params[:volunteer])
-    respond_with @volunteer do |format|
-      if @volunteer.save
-        if params[:make_user_after_save]
-          flash[:notice] = "Volunteer created, create a user"
-          format.html { redirect_to new_user_path({ realname: @volunteer.name, volunteer_id: @volunteer.id }) }
-        else
-          flash[:notice] = 'Volunteer was successfully created.'
-        end
-      end
-    end
+    make_user_if_needed if @volunteer.save
   end
 
   # PUT /volunteers/1
   # PUT /volunteers/1.json
   def update
-    @volunteer = Volunteer.find(params[:id])
-    respond_with @volunteer do |format|
-      if @volunteer.update_attributes(params[:volunteer])
-        if params[:make_user_after_save]
-          flash[:notice] = "Volunteer created, create a user"
-          format.html { redirect_to new_user_path({ realname: @volunteer.name, volunteer_id: @volunteer.id }) }
-        else
-          flash[:notice] = 'Volunteer was successfully updated.'
-        end
-      end
-    end
+    make_user_if_needed if @volunteer.update_attributes(params[:volunteer])
   end
 
   def new_user
@@ -117,5 +96,27 @@ class VolunteersController < ApplicationController
     end
 
     redirect_to :volunteers
+  end
+
+  protected
+
+  def make_user_if_needed
+    respond_with @volunteer do |format|
+      if params[:make_user_after_save]
+        flash[:notice] = "Volunteer created, create a user"
+        format.html { redirect_to new_user_path({ realname: @volunteer.name, volunteer_id: @volunteer.id }) }
+      else
+        flash[:notice] = 'Volunteer was successfully created.'
+      end
+    end
+  end
+
+  def set_volunteers
+    @q          = Volunteer.search params[:q]
+    @volunteers = @q.result.page(params[:page])
+  end
+
+  def set_volunteer
+    @volunteer = Volunteer.find(params[:id])
   end
 end
