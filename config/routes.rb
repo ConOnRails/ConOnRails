@@ -11,6 +11,7 @@ ConOnRails::Application.routes.draw do
   resources :admin, only: [:index]
   resources :audits, only: [:index]
   resources :contacts, except: [:destroy]
+  resources :conventions, except: [:destroy]
   resources :departments
 
   resources :duty_board, only: [:index] do

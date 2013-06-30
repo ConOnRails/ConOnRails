@@ -7,30 +7,149 @@ FactoryGirl.define do
     LAST_NAME { Faker::Name.last_name }
   end
 
+  factory :convention do
+    sequence(:name) { |n| Faker::Name.name + "#{n}"}
+    start_date DateTime.now
+    end_date DateTime.now + 5.days
+  end
 
-  factory :radio_group, class: RadioGroup do
-    factory :blue_man_group do
-      name "Blue"
-      color "blue"
-      notes "Blue!"
+  factory :department do
+    factory :good_department do
+      sequence(:name) { Faker::Name.name }
+      radio_allotment 1
+      association :radio_group, factory: :blue_man_group
+      association :volunteer, factory: :valid_volunteer
+    end
 
-      factory :many_blue_men_group do
-        after :create do |group, eval|
-          FactoryGirl.create_list(:one_of_many_blue_radios, 42, radio_group: group)
-        end
+    factory :one_too_many do
+      name "Doom"
+      radio_allotment 1 # but the blue_man group only has one, so if this and good_department are defined, the second should fail
+      association :radio_group, factory: :blue_man_group
+      association :volunteer, factory: :valid_volunteer
+    end
+  end
+
+  factory :duty_board_assignment do
+    factory :valid_duty_board_assignment do
+      association :duty_board_slot, factory: :valid_duty_board_slot
+      name Faker::Name.name
+      notes Faker::Lorem.sentence
+    end
+  end
+
+  factory :duty_board_group do
+    factory :valid_duty_board_group do
+      name Faker::Name.name
+      row 1
+      column 1
+    end
+  end
+  factory :duty_board_slot do
+    factory :valid_duty_board_slot do
+      name Faker::Name.name
+      association :duty_board_group, factory: :valid_duty_board_group
+    end
+  end
+
+  factory :entry do
+    association :user
+
+    factory :oneliner_entry do
+      sequence(:description) { Faker::Lorem.sentence }
+    end
+
+    factory :verbose_entry do
+      description Faker::Lorem.paragraphs
+    end
+  end
+
+  factory :event do
+    is_active true
+    comment false
+    flagged false
+    post_con false
+    quote false
+    sticky false
+    emergency false
+    medical false
+    hidden false
+    secure false
+    consuite false
+    hotel false
+    parties false
+    volunteers false
+    dealers false
+    dock false
+    merchandise false
+
+    factory :ordinary_event do
+      after :create do |event, evaluator|
+        entry = FactoryGirl.create :oneliner_entry, event: event
       end
     end
 
-    factory :red_handed do
-      name "Red"
-      color "red"
-      notes "RED!!!!!!"
+    factory :hidden_event do
+      hidden true
+      secure false
 
-      factory :many_red_hands do
-        after :create do |group, eval|
-          FactoryGirl.create_list(:one_of_many_red_radios, 14, radio_group: group)
-        end
+      after :create do |event, evaluator|
+        entry = FactoryGirl.build :verbose_entry, event: event
       end
+    end
+  end
+
+  factory :lost_and_found_item do
+    factory :incomplete
+
+    factory :lost do
+      reported_missing true
+      category "Badges"
+      description "Llamas and Tigers and Bears"
+      where_last_seen "MyString"
+      owner_name "MyString"
+    end
+
+    factory :found do
+      found true
+      description "Wombats and Llamas and Snakes"
+      category "Badges"
+      where_found "MyString"
+      owner_name "MyString"
+      owner_contact "MyText"
+    end
+
+    factory :returned do
+      found true
+      reported_missing false
+      returned true
+      category "Badges"
+      description "Llamas, Begonias and Flakes"
+      where_found "MyString"
+      owner_name "MyString"
+      owner_contact "MyText"
+    end
+  end
+
+  factory :message do
+    factory :valid_message do
+      self.for "Someone"
+      phone_number "666-666-6666"
+      message "Watch out for wombats"
+
+      factory :valid_message_with_user do
+        association :user
+      end
+    end
+  end
+
+  factory :contact do
+    factory :valid_contact do
+      name "Wom Bat"
+      department "Lingerie"
+      cell_phone "+1 123 456 7890"
+      hotel "Ritz"
+      hotel_room 666
+      can_text true
     end
   end
 
@@ -61,72 +180,30 @@ FactoryGirl.define do
     end
   end
 
-  factory :message do
-    factory :valid_message do
-      self.for "Someone"
-      phone_number "666-666-6666"
-      message "Watch out for wombats"
+  factory :radio_group, class: RadioGroup do
+    factory :blue_man_group do
+      name "Blue"
+      color "blue"
+      notes "Blue!"
 
-      factory :valid_message_with_user do
-        association :user
+      factory :many_blue_men_group do
+        after :create do |group, eval|
+          FactoryGirl.create_list(:one_of_many_blue_radios, 42, radio_group: group)
+        end
       end
-
     end
 
-  end
+    factory :red_handed do
+      name "Red"
+      color "red"
+      notes "RED!!!!!!"
 
-  factory :volunteer do
-    factory :valid_volunteer do
-      first_name "Rufus"
-      middle_name "Xavier"
-      last_name "Sassparilla"
-      address1 "666 Sixth Street SE"
-      home_phone "+1 666-666-6666"
-      email "rxs@rxs.nowhere"
-      association :volunteer_training, factory: :valid_volunteer_training
-    end
-
-    factory :many_valid_volunteers do
-      sequence :first_name do |n|
-        "Wombat#{n}"
+      factory :many_red_hands do
+        after :create do |group, eval|
+          FactoryGirl.create_list(:one_of_many_red_radios, 14, radio_group: group)
+        end
       end
-      sequence :last_name do |n|
-        "Feathers#{n}"
-      end
-      sequence :address1 do |n|
-        "#{n} East #{n} Street"
-      end
-      sequence(:home_phone) { |n| "+1 666-666-" + Kernel.sprintf("%04d", n) }
-      sequence :email do |n|
-        "yak#{n}@yak.yk"
-      end
-      association :volunteer_training, factory: :valid_volunteer_training
     end
-  end
-
-  factory :volunteer_training do
-
-    factory :valid_volunteer_training do
-      radio true
-      communications true
-    end
-  end
-
-  factory :contact do
-    factory :valid_contact do
-      name "Wom Bat"
-      department "Lingerie"
-      cell_phone "+1 123 456 7890"
-      hotel "Ritz"
-      hotel_room 666
-      can_text true
-    end
-  end
-
-  factory :user do
-    sequence(:name) { |n| "user#{n}" }
-    sequence(:realname) { Faker::Name.name }
-    password "batwom"
   end
 
   factory :role do
@@ -212,120 +289,46 @@ FactoryGirl.define do
     end
   end
 
-  factory :event do
-    is_active true
-    comment false
-    flagged false
-    post_con false
-    quote false
-    sticky false
-    emergency false
-    medical false
-    hidden false
-    secure false
-    consuite false
-    hotel false
-    parties false
-    volunteers false
-    dealers false
-    dock false
-    merchandise false
+  factory :user do
+    sequence(:name) { |n| "user#{n}" }
+    sequence(:realname) { Faker::Name.name }
+    password "batwom"
+  end
 
-    factory :ordinary_event do
-      after :create do |event, evaluator|
-        entry = FactoryGirl.create :oneliner_entry, event: event
+  factory :volunteer do
+    factory :valid_volunteer do
+      first_name "Rufus"
+      middle_name "Xavier"
+      last_name "Sassparilla"
+      address1 "666 Sixth Street SE"
+      home_phone "+1 666-666-6666"
+      email "rxs@rxs.nowhere"
+      association :volunteer_training, factory: :valid_volunteer_training
+    end
+
+    factory :many_valid_volunteers do
+      sequence :first_name do |n|
+        "Wombat#{n}"
       end
-    end
-
-    factory :hidden_event do
-      hidden true
-      secure false
-
-      after :create do |event, evaluator|
-        entry = FactoryGirl.build :verbose_entry, event: event
+      sequence :last_name do |n|
+        "Feathers#{n}"
       end
+      sequence :address1 do |n|
+        "#{n} East #{n} Street"
+      end
+      sequence(:home_phone) { |n| "+1 666-666-" + Kernel.sprintf("%04d", n) }
+      sequence :email do |n|
+        "yak#{n}@yak.yk"
+      end
+      association :volunteer_training, factory: :valid_volunteer_training
     end
   end
 
-  factory :entry do
-    association :user
+  factory :volunteer_training do
 
-    factory :oneliner_entry do
-      sequence(:description) { Faker::Lorem.sentence }
-    end
-
-    factory :verbose_entry do
-      description Faker::Lorem.paragraphs
-    end
-  end
-
-  factory :lost_and_found_item do
-    factory :incomplete
-
-    factory :lost do
-      reported_missing true
-      category "Badges"
-      description "Llamas and Tigers and Bears"
-      where_last_seen "MyString"
-      owner_name "MyString"
-    end
-
-    factory :found do
-      found true
-      description "Wombats and Llamas and Snakes"
-      category "Badges"
-      where_found "MyString"
-      owner_name "MyString"
-      owner_contact "MyText"
-    end
-
-    factory :returned do
-      found true
-      reported_missing false
-      returned true
-      category "Badges"
-      description "Llamas, Begonias and Flakes"
-      where_found "MyString"
-      owner_name "MyString"
-      owner_contact "MyText"
-    end
-  end
-
-  factory :department do
-    factory :good_department do
-      sequence(:name) { Faker::Name.name }
-      radio_allotment 1
-      association :radio_group, factory: :blue_man_group
-      association :volunteer, factory: :valid_volunteer
-    end
-
-    factory :one_too_many do
-      name "Doom"
-      radio_allotment 1 # but the blue_man group only has one, so if this and good_department are defined, the second should fail
-      association :radio_group, factory: :blue_man_group
-      association :volunteer, factory: :valid_volunteer
-    end
-  end
-
-  factory :duty_board_group do
-    factory :valid_duty_board_group do
-      name Faker::Name.name
-      row 1
-      column 1
-    end
-  end
-  factory :duty_board_slot do
-    factory :valid_duty_board_slot do
-      name Faker::Name.name
-      association :duty_board_group, factory: :valid_duty_board_group
-    end
-  end
-
-  factory :duty_board_assignment do
-    factory :valid_duty_board_assignment do
-      association :duty_board_slot, factory: :valid_duty_board_slot
-      name Faker::Name.name
-      notes Faker::Lorem.sentence
+    factory :valid_volunteer_training do
+      radio true
+      communications true
     end
   end
 

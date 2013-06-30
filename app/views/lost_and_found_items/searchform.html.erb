@@ -2,6 +2,7 @@
 <%= form_tag :lost_and_found_items, method: :get, id: "lost_and_found_search_form" do %>
     <%= hidden_field_tag "reported_missing", params[:reported_missing] if params[:reported_missing] %>
     <%= hidden_field_tag "found", params[:found] if params[:found] %>
+    <%= filter_by_convention %>
     <%= field_set_tag "", id: "lost_and_found_checkboxes" do %>
         <ol>
           <% LostAndFoundItem.categories.each do |k, v| %>

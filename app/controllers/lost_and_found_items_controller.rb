@@ -30,16 +30,10 @@ class LostAndFoundItemsController < ApplicationController
     return jump if params[:id].present?
     search_type = params[:search_type] || 'any'
 
-    @lfis = LostAndFoundItem.inventory(params[:inventory]).page(params[:page]).
+    @lfis = limit_by_convention LostAndFoundItem.inventory(params[:inventory]).page(params[:page]).
         where { |l| l.returned == false unless params[:show_returned] }.
         where { |l| l.description.send(('like_'+search_type).to_sym, wrap_keywords_for_like) unless params[:keywords].blank? }.
         where { |l| l.category >> @categories unless @categories.blank? }
-
-    respond_with @lfis do |format|
-      if @lfis.count == 0
-        format.html { redirect_to searchform_lost_and_found_items_path, notice: "Request returned no results" }
-      end
-    end
   end
 
   def new

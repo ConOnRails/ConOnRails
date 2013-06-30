@@ -1,5 +1,6 @@
 <%= content_for :side do %>
     <div id="filters">
+      <%= filter_by_convention %>
       <%= link_to "Show/Hide Filters", "#", id: :show_hide_filters %>
       <%= field_set_tag("Filters", id: "filter_set") do %>
           <% Event.flags.each do |flag| %>

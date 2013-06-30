@@ -8,11 +8,12 @@ window.events.getMain = () ->
          url:       window.events.path,
          dataType: 'script',
          data: {
-            "page": window.events.page
-            "merge_mode": window.events.merge_mode
+            "page": window.events.page,
+            "merge_mode": window.events.merge_mode,
+            "show_older": $('#show_older').is(':checked')
          },
          success: ->
-           window.events.tick = setTimeout('window.events.getMain()', 10000)
+           setTimeout((-> window.events.getMain()), 10000)
          }
   )
 
@@ -22,7 +23,8 @@ window.events.getReview = (filters) ->
          dataType: 'script',
          data: {
             "page": window.events.page,
-            "filters": filters
+            "filters": filters,
+            "convention": $('#convention').val()
             }
          }
   )

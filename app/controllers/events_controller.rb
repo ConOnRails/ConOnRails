@@ -19,7 +19,8 @@ class EventsController < ApplicationController
   end
 
   def sticky
-    @events = StickyQuery.new(Event).query.
+    params[:convention] = Convention.most_recent.id if (params[:convention].blank? && params[:show_older] == 'false')
+    @events = limit_by_convention StickyQuery.new(Event).query.
         order { |e| e.updated_at.desc }.page(params[:page])
     respond_with @events do |format|
       format.html { render :index }
@@ -39,12 +40,12 @@ class EventsController < ApplicationController
 
   def search_entries
     @q      = params[:q] # We'll use this to re-fill the search blank
-    @events = Event.search(@q, current_user, params[:show_closed])
+    @events = limit_by_convention Event.search(@q, current_user, params[:show_closed])
     respond_with @events
   end
 
   def review
-    @events = FiltersQuery.new(Event, params[:filters]).query.protect_sensitive_events(current_user).
+    @events = limit_by_convention FiltersQuery.new(Event, params[:filters]).query.protect_sensitive_events(current_user).
         order { |e| e.updated_at.asc }.page(params[:page])
     respond_with @events
   end
