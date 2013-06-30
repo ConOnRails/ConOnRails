@@ -192,7 +192,6 @@ class EventTest < ActiveSupport::TestCase
           end
 
           should 'yield only the correct event' do
-            p @foo
             assert_equal 1, @foo.count
             assert_equal @event, @foo.first
           end

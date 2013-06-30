@@ -1,13 +1,9 @@
-function updateMergeIds()
-{
-};
-
 var update = function () {
     window.events.page = <%= params[:page].nil? ? "1" : params[:page] %>;
     $( 'form #event_list' ).html( '<%= escape_javascript render(@events, form: false) %>' );
     $( '#paginator' ).html( '<%= escape_javascript(paginate(@events, remote: true).to_s) %>' );
     $( '#merge-mode-toggle' ).html( '<%= escape_javascript(merge_button) %>' );
     $( '#merge-mode-submit' ).html( '<%= escape_javascript(merge_submit) %>' );
-}
+};
 
 update();

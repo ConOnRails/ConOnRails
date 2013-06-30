@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130612012707) do
+ActiveRecord::Schema.define(:version => 20130630155628) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -44,6 +44,14 @@ ActiveRecord::Schema.define(:version => 20130612012707) do
     t.datetime "updated_at",                    :null => false
     t.boolean  "can_text",   :default => false
     t.string   "position"
+  end
+
+  create_table "conventions", :force => true do |t|
+    t.string   "name"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "departments", :force => true do |t|
@@ -180,14 +188,6 @@ ActiveRecord::Schema.define(:version => 20130612012707) do
     t.datetime "updated_at",                     :null => false
   end
 
-  create_table "positions", :force => true do |t|
-    t.string   "name"
-    t.integer  "sequence"
-    t.integer  "schedule_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
   create_table "radio_assignment_audits", :force => true do |t|
     t.integer  "radio_id"
     t.integer  "volunteer_id"
@@ -242,7 +242,6 @@ ActiveRecord::Schema.define(:version => 20130612012707) do
     t.boolean  "make_hidden_entries",     :default => false
     t.boolean  "rw_secure",               :default => false
     t.boolean  "read_audits",             :default => false
-    t.boolean  "assign_slots"
   end
 
   create_table "roles_users", :id => false, :force => true do |t|
@@ -251,23 +250,6 @@ ActiveRecord::Schema.define(:version => 20130612012707) do
   end
 
   add_index "roles_users", ["role_id", "user_id"], :name => "index_roles_users_on_role_id_and_user_id", :unique => true
-
-  create_table "schedules", :force => true do |t|
-    t.string   "name"
-    t.datetime "from"
-    t.datetime "til"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "slots", :force => true do |t|
-    t.datetime "from"
-    t.datetime "til"
-    t.integer  "position_id"
-    t.integer  "volunteer_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
 
   create_table "users", :force => true do |t|
     t.string   "name"

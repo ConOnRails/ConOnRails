@@ -1,0 +1,21 @@
+<h1>Conventions</h1>
+
+<table>
+  <tr>
+    <th><%= sort_link @q, :name %></th>
+    <th><%= sort_link @q, :start_date %></th>
+    <th><%= sort_link @q, :end_date %></th>
+  </tr>
+
+<% @conventions.each do |convention| %>
+  <tr>
+    <td><%= link_to convention.name, edit_convention_path(convention) %></td>
+    <td><%= convention.start_date %></td>
+    <td><%= convention.end_date %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Convention', new_convention_path, class: 'button' %>
