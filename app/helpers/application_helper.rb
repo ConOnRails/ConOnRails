@@ -7,15 +7,15 @@ module ApplicationHelper
   end
 
   def version_number
-    "2.0.0rc5"
+    "2.0.0"
   end
 
   def version_name
-    "Flamingo Second Dress Rehearsal"
+    "Flamingo"
   end
 
   def version_type
-    :beta #:release:beta
+    :release #:release:beta
   end
 
   def get_banner_style
