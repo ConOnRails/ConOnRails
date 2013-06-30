@@ -24,23 +24,23 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "no index for peons" do
-    get :index, { }, { user_id: @peon_user.id }
+    get :index, {}, { user_id: @peon_user.id }
     assert_redirected_to public_url
   end
 
   test "should get index" do
-    get :index, { }, { user_id: @user.id }
+    get :index, {}, { user_id: @user.id }
     assert_response :success
     assert_not_nil assigns(:users)
   end
 
   test "peons cannot get new" do
-    get :new, { }, { user_id: @peon_user.id }
+    get :new, {}, { user_id: @peon_user.id }
     assert_redirected_to public_url
   end
 
   test "should get new" do
-    get :new, { }, { user_id: @user.id }
+    get :new, {}, { user_id: @user.id }
     assert_response :success
   end
 
@@ -62,12 +62,11 @@ class UsersControllerTest < ActionController::TestCase
 
   test "should create user with associated volunteer" do
     assert_difference('User.count') do
-      post :create, { user: @input_attributes, volunteer: @volunteer.id }, { user_id: @user.id }
+      post :create, { user: @input_attributes.merge({ volunteer: @volunteer.id }) }, { user_id: @user.id }
     end
 
     assert_equal @volunteer.id, assigns(:user).volunteer.id
     assert_redirected_to user_path(assigns :user)
-
   end
 
   test "cannot create user with incomplete data" do

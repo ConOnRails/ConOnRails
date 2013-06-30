@@ -40,8 +40,8 @@ class UsersController < ApplicationController
   # POST /admin/users
   # POST /admin/users.json
   def create
-    @user      = User.new(params[:user])
-    @volunteer = Volunteer.find_by_id(params[:volunteer])
+    @user      = User.new(params[:user].reject { |k,v| k == 'volunteer'})
+    @volunteer = Volunteer.find_by_id(params[:user][:volunteer])
     @user.volunteer = @volunteer if @volunteer
 
     flash[:notice] = "User #{@user.name} was successfully created." if @user.save

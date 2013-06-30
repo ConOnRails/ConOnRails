@@ -11,7 +11,7 @@
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :name, :realname, :password, :password_confirmation, :role_ids
+  attr_accessible :name, :realname, :password, :password_confirmation, :role_ids, :volunteer
 
   audited
   has_associated_audits
