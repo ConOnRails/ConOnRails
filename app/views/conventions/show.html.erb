@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @convention.name %>
+</p>
+
+<p>
+  <b>Start date:</b>
+  <%= @convention.start_date %>
+</p>
+
+<p>
+  <b>End date:</b>
+  <%= @convention.end_date %>
+</p>
+
+
+<%= link_to 'Edit', edit_convention_path(@convention) %> |
+<%= link_to 'Back', conventions_path %>

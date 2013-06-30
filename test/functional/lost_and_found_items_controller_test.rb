@@ -92,7 +92,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
   test "can safely search with quotes or apostrophe in search term" do
     @missing.description = "Llama's"
     @missing.save!
-    get :index, { reported_missing: true, keywords: "Llama's"}, { user_id: @user.id }
+    get :index, { reported_missing: true, keywords: "Llama's" }, { user_id: @user.id }
     assert_response :success
     assert_template :index
     assert_not_nil assigns :lfis
@@ -108,7 +108,11 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
 
   test "can search by all of multiple keywords with an apostrophe" do
     get :index, { reported_missing: true, search_type: "all", keywords: "Llama's Tigers" }, { user_id: @user.id }
-    assert_response :redirect # we don't actually have one of these. We just want to make sure apostrophe doesn't go boom.
+    assert_response :success
+    assert_template :index
+    assert_not_nil assigns :lfis
+    assert_equal 0, assigns(:lfis).count
+    # we don't actually have one of these. We just want to make sure apostrophe doesn't go boom.
   end
 
 
@@ -129,7 +133,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
   end
 
   test "can force search to include returned" do
-    get :index, { reported_missing: true, keywords: "Llamas", show_returned: true }, { user_id: @user.id}
+    get :index, { reported_missing: true, keywords: "Llamas", show_returned: true }, { user_id: @user.id }
     assert_response :success
     assert_equal 3, assigns(:lfis).length
   end
@@ -180,4 +184,18 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     assert assigns(:lfi).invalid?
     assert_template :edit
   end
+
+  test 'will limit by convention if conventions defined and in use' do
+    @convention         = create :convention    # defaults to 5 days
+    @missing.created_at = DateTime.now + 2.days # force this into range
+    @found.created_at   = DateTime.now + 7.days # force this out of range
+    @missing.save!
+    @found.save!
+
+    get :index, { convention: @convention.id }, { user_id: @user.id }
+    assert_response :success
+    assert_template :index
+    assert_equal 1, assigns(:lfis).count
+  end
+
 end

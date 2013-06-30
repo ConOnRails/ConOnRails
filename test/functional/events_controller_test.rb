@@ -79,8 +79,28 @@ class EventsControllerTest < ActionController::TestCase
         should respond_with :success
         should render_template :search_entries
 
-        should 'Only have both entry because we can see secure' do
+        should 'Have both entries because we can see secure' do
           assert_equal 2, assigns(:events).count
+        end
+      end
+
+      context 'POST :search_entries with convention limit' do
+        setup do
+          @convention = create :convention
+          @event.created_at = DateTime.now + 2.days # in range
+          @secure_event.created_at = DateTime.now + 7.days #out of range
+          @event.save!
+          @secure_event.save!
+
+          post :search_entries, q: 'vole', convention: @convention.id
+
+        end
+
+        should respond_with :success
+        should render_template :search_entries
+
+        should 'Have one event' do
+          assert_equal 1, assigns(:events).count
         end
       end
 

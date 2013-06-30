@@ -70,5 +70,12 @@ class ApplicationController < ActionController::Base
     session[:current_role] if is_authenticated?
   end
 
+  def limit_by_convention(query)
+    return query if params[:convention].blank? || params[:convention] == 'all'
+
+    con = Convention.find params[:convention]
+    query.where { |x| (x.created_at >= con.start_date) & (x.created_at <= con.end_date) }
+  end
+
   helper_method :can_write_entries?, :is_authenticated?, :can_admin_anything?, :current_user, :current_role
 end
