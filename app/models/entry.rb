@@ -12,7 +12,7 @@
 #
 
 class Entry < ActiveRecord::Base
-  attr_accessible :description, :event, :user
+  attr_accessible :description, :event, :user, :rolename
 
   audited associated_with: :event
   audited associated_with: :user

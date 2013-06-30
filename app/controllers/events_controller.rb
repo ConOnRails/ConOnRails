@@ -3,7 +3,10 @@ require Rails.root + 'app/queries/event_queries'
 class EventsController < ApplicationController
   include Queries::EventQueries
 
+  before_filter :can_read_secure?, only: [:secure]
   before_filter :can_write_entries?, only: [:new, :create, :edit, :update]
+  before_filter :set_event, only: [:show, :edit, :update]
+  before_filter :set_convention_param, only: [:sticky]
 
   respond_to :html, :json
   respond_to :js, only: [:index, :sticky, :secure, :review]
@@ -19,9 +22,8 @@ class EventsController < ApplicationController
   end
 
   def sticky
-    params[:convention] = Convention.most_recent.id if (params[:convention].blank? && params[:show_older] == 'false')
     @events = limit_by_convention StickyQuery.new(Event).query.
-        order { |e| e.updated_at.desc }.page(params[:page])
+                                      order { |e| e.updated_at.desc }.page(params[:page])
     respond_with @events do |format|
       format.html { render :index }
       format.js { render :index }
@@ -29,7 +31,6 @@ class EventsController < ApplicationController
   end
 
   def secure
-    (redirect_to(root_url) and return) unless current_user.can_read_secure?
     @events = SecureQuery.new(Event).query.
         order { |e| e.updated_at.desc }.page(params[:page])
     respond_with @events do |format|
@@ -46,7 +47,7 @@ class EventsController < ApplicationController
 
   def review
     @events = limit_by_convention FiltersQuery.new(Event, params[:filters]).query.protect_sensitive_events(current_user).
-        order { |e| e.updated_at.asc }.page(params[:page])
+                                      order { |e| e.updated_at.asc }.page(params[:page])
     respond_with @events
   end
 
@@ -54,10 +55,7 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
-    @event = Event.find(params[:id])
     @entry = build_new_entry @event
-
-    respond_with @event
   end
 
   # GET /events/new
@@ -67,15 +65,12 @@ class EventsController < ApplicationController
     @event = Event.new
     @event.emergency = true if params[:emergency] == '1'
     @entry = build_new_entry @event
-
-    respond_with @event
   end
 
   def create
-    @event = Event.new(params[:event])
+    @event = Event.create(params[:event])
     build_entry_from_params(@event, params[:entry])
-    build_flag_history_from_params(@event, params[:event])
-
+    build_flag_history_from_params(@event, params[:event], true)
     flash[:notice] = 'Event was successfully created.' if @event.save
 
     respond_with @event
@@ -86,15 +81,13 @@ class EventsController < ApplicationController
 
 # GET /events/1/edit
   def edit
-    @event = Event.find(params[:id])
   end
 
 # PUT /events/1
 # PUT /events/1.json
   def update
-    @event = Event.find(params[:id])
-    build_entry_from_params(@event, params[:entry]) if params[:entry] and params[:entry][:description] != ''
-    build_flag_history_from_params @event, params[:event] if params[:event] and @event.flags_differ? params[:event]
+    build_entry_from_params(@event, params[:entry])
+    build_flag_history_from_params @event, params[:event]
 
     flash[:notice] = 'Event was successfully updated.' if @event.update_attributes(params[:event])
     respond_with @event
@@ -113,24 +106,25 @@ class EventsController < ApplicationController
   protected
 
   def build_new_entry(event)
-    entry          = event.entries.build
-    entry.event    = event
-    entry.user     = current_user
-    entry.rolename = current_role
-    return entry
+    event.entries.build event: event, user: current_user, rolename: current_role
   end
 
   def build_entry_from_params(event, params)
-    entry          = event.entries.build(params)
-    entry.event    = event
-    entry.user     = current_user
-    entry.rolename = current_role
+    return unless params and params[:description] != ''
+    event.entries.build(params.merge({ event: event, user: current_user, rolename: current_role }))
   end
 
-  def build_flag_history_from_params(event, params)
-    hist          = event.event_flag_histories.build(params)
-    hist.event    = event
-    hist.user     = current_user
-    hist.rolename = current_role
+  def build_flag_history_from_params(event, params, always=false)
+    return unless always or (params and @event.flags_differ? params)
+    event.event_flag_histories.build(params.merge({ event: event, user: current_user, rolename: current_role }))
   end
+
+  def set_convention_param
+    params[:convention] = Convention.most_recent.id if (params[:convention].blank? && params[:show_older] == 'false')
+  end
+
+  def set_event
+    @event = Event.find(params[:id])
+  end
+
 end
