@@ -107,6 +107,7 @@ class VolunteersController < ApplicationController
         format.html { redirect_to new_user_path({ realname: @volunteer.name, volunteer_id: @volunteer.id }) }
       else
         flash[:notice] = 'Volunteer was successfully created.'
+        format.html { respond_with @volunteer, location: volunteers_path }
       end
     end
   end
