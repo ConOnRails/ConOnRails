@@ -38,7 +38,6 @@ class RadiosController < ApplicationController
   # GET /radios
   # GET /radios.json
   def index
-
     @q = Radio.search params[:q]
     @q.sorts = ['radio_group_name', 'state desc'] if @q.sorts.empty?
     @radios = @q.result.page(params[:page])
@@ -55,6 +54,7 @@ class RadiosController < ApplicationController
   def new
     # We include the index list in the new page for this one, so we need to provide Ransack bits
     @q      = Radio.search params[:q]
+    @q.sorts = ['radio_group_name', 'state desc'] if @q.sorts.empty?
     @radios = @q.result.page(params[:page])
     @radio  = Radio.new
   end
