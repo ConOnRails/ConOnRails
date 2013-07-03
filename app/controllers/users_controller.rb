@@ -53,7 +53,7 @@ class UsersController < ApplicationController
   def update
     @user      = User.find(params[:id])
     @volunteer = Volunteer.find_by_id(params[:volunteer])
-    @user.volunteer = @volunteer if @volunteer
+    @user.volunteer_id = @volunteer.id if @volunteer
     flash[:notice] = "User #{@user.name} was successfully updated." if @user.update_attributes(params[:user])
     respond_with @user
   end
