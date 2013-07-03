@@ -79,6 +79,9 @@ class RadiosController < ApplicationController
   # POST /radios.json
   def create
     @radio = Radio.new(params[:radio])
+    @q      = Radio.search params[:q]
+    @q.sorts = ['radio_group_name', 'state desc'] if @q.sorts.empty?
+    @radios = @q.result.page(params[:page])
     flash[:notice] = 'Radio was successfully created.' if @radio.save
     respond_with @radio, location: radios_path
   end
