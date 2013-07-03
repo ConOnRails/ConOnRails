@@ -39,7 +39,7 @@ class DutyBoardSlotsController < ApplicationController
   def update
     @duty_board_slot = DutyBoardSlot.find(params[:id])
 
-    respond_with @duty_board_lot, location: :duty_board_slots do |format|
+    respond_with @duty_board_lot, location: :duty_board_index do |format|
       if @duty_board_slot.update_attributes(params[:duty_board_slot])
         if params[:duty_board_assignment]
           if @duty_board_slot.duty_board_assignment
