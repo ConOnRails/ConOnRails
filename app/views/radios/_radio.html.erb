@@ -18,7 +18,11 @@
         <% else %>
             <%= link_to "Transfer".html_safe, checkout_radio_path(radio), method: :get, class: 'button small-button transfer' %>
             <%= link_to "Check&nbsp;in".html_safe, radio.radio_assignment, confirm: 'Are you sure?', method: :delete, class: 'button small-button check-in' %>
-      <% end %>
+        <% end %>
+
+        <% if current_user && current_user.can_admin_radios? %>
+            <%= link_to "Delete".html_safe, radio_path(radio), method: :delete, confirm: 'Are you sure?', class: 'button small-button' %>
+        <% end %>
       </td>
   <% end %>
 </tr>
