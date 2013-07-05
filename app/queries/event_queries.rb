@@ -12,7 +12,7 @@ module Queries
         elsif name.to_s =~ /^(.*)_or_(.*)/ && Event::FLAGS.include?($1) && Event::FLAGS.include?($2)
           kp1 = Squeel::Nodes::KeyPath.new($1.to_sym).eq(true)
           kp2 = Squeel::Nodes::KeyPath.new($2.to_sym).eq(true)
-          args[0].where { kp1 | kp2 }
+          args[0].where { (kp1 | kp2) }
         end
       end
     end
@@ -31,7 +31,7 @@ module Queries
 
     class SecureQuery < EventQuery
       def query
-        not_sticky hidden_or_secure initial_query
+        is_active not_sticky hidden_or_secure initial_query
       end
     end
 
