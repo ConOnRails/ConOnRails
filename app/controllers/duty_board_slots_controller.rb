@@ -1,5 +1,6 @@
 class DutyBoardSlotsController < ApplicationController
-  before_filter :can_admin_duty_board?
+  before_filter :can_admin_duty_board?, except: [:update]
+  before_filter :can_assign_duty_board_slots?, only: [:update]
 
   respond_to :html, :json
 
