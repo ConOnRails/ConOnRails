@@ -50,6 +50,10 @@ class ApplicationController < ActionController::Base
     redirect_to :public unless current_user and current_user.can_admin_duty_board?
   end
 
+  def can_assign_duty_board_slots?
+    redirect_to :public unless current_user and current_user.can_assign_duty_board_slots?
+  end
+
   def can_read_audits?
     redirect_to :public unless current_user and current_user.can_read_audits?
   end
