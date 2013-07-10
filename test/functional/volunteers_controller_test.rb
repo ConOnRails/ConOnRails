@@ -39,7 +39,7 @@ class VolunteersControllerTest < ActionController::TestCase
       post :create, { volunteer: FactoryGirl.attributes_for(:valid_volunteer) }, session
     end
 
-    assert_redirected_to volunteer_path(assigns(:volunteer))
+    assert_redirected_to volunteers_path
   end
 
   def post_create_auth_fail(session)
@@ -72,7 +72,7 @@ class VolunteersControllerTest < ActionController::TestCase
 
   def put_update_success(session)
     put :update, { id: @volunteer.to_param, volunteer: FactoryGirl.attributes_for(:valid_volunteer) }, session
-    assert_redirected_to volunteer_path(assigns(:volunteer))
+    assert_redirected_to volunteers_path
   end
 
   def put_update_fail(session)
