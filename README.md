@@ -20,7 +20,7 @@ Version 2.0.0, "Flamingo" was released on 29 June 2013, on the run up to CONverg
 
 It is the long-term goal of this project to be useful to other conventions, but we recognize that, in order to do 
 that, lots of things that are currently hardwired for CONvergence will need to be made configurable. This is an ongoing
-effort.
+effort. For more information, please see our document on [Contributing](https://github.com/ConOnRails/ConOnRails/blob/master/doc/CONTRIBUTING.md).
 
 Michael Scott Shappe
 <mshappe@camelopard-consulting.com>
