@@ -1,17 +1,17 @@
 module ApplicationHelper
 
   def title
-    if not @title.nil?
+    unless @title.nil?
       " | #{ @title }"
     end
   end
 
   def version_number
-    "2.0.0"
+    "2.0.1"
   end
 
   def version_name
-    "Flamingo"
+    "Flamingo Hangover"
   end
 
   def version_type
