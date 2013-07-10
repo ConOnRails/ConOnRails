@@ -51,9 +51,8 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.json
   def update
-    @user      = User.find(params[:id])
-    @volunteer = Volunteer.find_by_id(params[:volunteer])
-    @user.volunteer_id = @volunteer.id if @volunteer
+    @user           = User.find(params[:id])
+    @user.volunteer = Volunteer.find_by_id(params[:volunteer])
     flash[:notice] = "User #{@user.name} was successfully updated." if @user.update_attributes(params[:user])
     respond_with @user
   end

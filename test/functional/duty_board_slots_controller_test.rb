@@ -3,9 +3,9 @@ require 'test_helper'
 class DutyBoardSlotsControllerTest < ActionController::TestCase
   setup do
     @user = FactoryGirl.create :user
-    @role = FactoryGirl.create :admin_duty_board_role
-    @user.roles << @role
-    @user_session                     = { user_id: @user.id, current_role: @role.name }
+    @user.roles << FactoryGirl.create(:admin_duty_board_role)
+    @user.roles << FactoryGirl.create(:assign_duty_board_role)
+    @user_session                     = { user_id: @user.id, current_role: @user.roles.first.name }
     @duty_board_group                 = FactoryGirl.create :blue_man_group
     @duty_board_slot                  = FactoryGirl.build :valid_duty_board_slot
     vol                               = FactoryGirl.create :valid_volunteer
@@ -52,7 +52,7 @@ class DutyBoardSlotsControllerTest < ActionController::TestCase
     @duty_board_slot.save!
     put :update, { id: @duty_board_slot.to_param, duty_board_slot: FactoryGirl.attributes_for(:valid_duty_board_slot) },
         @user_session
-    assert_redirected_to duty_board_slots_path
+    assert_redirected_to duty_board_index_path
   end
 
   test "should update empty duty board slot with duty board assignment" do
@@ -62,7 +62,7 @@ class DutyBoardSlotsControllerTest < ActionController::TestCase
                    duty_board_slot:       FactoryGirl.attributes_for(:valid_duty_board_slot),
                    duty_board_assignment: @duty_board_assignment_attributes },
         @user_session
-    assert_redirected_to duty_board_slots_path
+    assert_redirected_to duty_board_index_path
     assert_equal @duty_board_assignment_attributes[:name],
                  assigns(:duty_board_slot).duty_board_assignment.name
   end
@@ -75,7 +75,7 @@ class DutyBoardSlotsControllerTest < ActionController::TestCase
                    duty_board_slot:       FactoryGirl.attributes_for(:valid_duty_board_slot),
                    duty_board_assignment: { notes: "Yak" } },
         @user_session
-    assert_redirected_to duty_board_slots_path
+    assert_redirected_to duty_board_index_path
     assert_equal "Yak", assigns(:duty_board_slot).duty_board_assignment.notes
   end
 
