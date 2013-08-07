@@ -5,72 +5,82 @@ class EventsControllerTest < ActionController::TestCase
   context "Given some events" do
     setup do
       @event        = FactoryGirl.create :ordinary_event
-      @sticky_event = FactoryGirl.create :ordinary_event, sticky: true
-      @hidden_event = FactoryGirl.create :ordinary_event, hidden: true
-      @secure_event = FactoryGirl.create :ordinary_event, secure: true
 
       # We'll want these for search tests later
       FactoryGirl.create :entry, description: 'Voles are in control', event: @event
-      FactoryGirl.create :entry, description: 'There\'s a vole in your mind', event: @secure_event
-
     end
 
     multiple_contexts :admin_context, :typical_context, :peon_context do
-      context 'GET :index' do
-        setup do
-          get :index
-        end
+      context 'Only ordinary events' do
+        context 'GET :index' do
+          setup do
+            get :index
+          end
 
-        should respond_with :success
+          should respond_with :success
 
-        should 'have one, ordinary event' do
-          assert_equal 1, assigns[:events].count
-          assigns[:events].each do |e|
-            assert e.is_active
-            assert !e.sticky
-            assert !e.secure
-            assert !e.hidden
+          should 'have one, ordinary event' do
+            assert_equal 1, assigns[:events].count
+            assigns[:events].each do |e|
+              assert e.is_active
+              assert !e.sticky
+              assert !e.secure
+              assert !e.hidden
+            end
           end
         end
+
+        context 'GET :show for an ordinary event' do
+          setup do
+            get :show, { id: @event.to_param }, @admin_session
+          end
+
+          should respond_with :success
+          should render_template :show
+        end
       end
 
-      context 'GET :sticky' do
+      context 'Also a sticky event' do
         setup do
-          get :sticky
+          @sticky_event = FactoryGirl.create :ordinary_event, sticky: true
         end
 
-        should respond_with :success
+        context 'GET :sticky' do
+          setup do
+            get :sticky
+          end
 
-        should 'have one, sticky event' do
-          assert_equal 1, assigns[:events].count
-          assigns[:events].each do |e|
-            assert e.sticky
-            assert !e.secure
-            assert !e.hidden
+          should respond_with :success
+
+          should 'have one, sticky event' do
+            assert_equal 1, assigns[:events].count
+            assigns[:events].each do |e|
+              assert e.sticky
+              assert !e.secure
+              assert !e.hidden
+            end
           end
         end
-      end
 
-      context 'GET :show for an ordinary event' do
-        setup do
-          get :show, { id: @event.to_param }, @admin_session
+
+        context 'GET :show for a sticky event' do
+          setup do
+            get :show, { id: @sticky_event.to_param }, @admin_session
+          end
+
+          should respond_with :success
+          should render_template :show
         end
-
-        should respond_with :success
-        should render_template :show
-      end
-
-      context 'GET :show for a sticky event' do
-        setup do
-          get :show, { id: @sticky_event.to_param }, @admin_session
-        end
-
-        should respond_with :success
-        should render_template :show
       end
     end
 
     user_context :admin_context do
+      setup do
+        @hidden_event = FactoryGirl.create :ordinary_event, hidden: true
+        @secure_event = FactoryGirl.create :ordinary_event, secure: true
+        FactoryGirl.create :entry, description: 'There\'s a vole in your mind', event: @secure_event
+      end
+
       context 'POST :search_entries' do
         setup do
           post :search_entries, q: 'vole'
@@ -144,7 +154,7 @@ class EventsControllerTest < ActionController::TestCase
 
           should respond_with :success
           should "have one event for #{f}" do
-            assert_equal ([:sticky, :secure, :hidden].include?(f) ? 2 : 1), assigns(:events).count
+            assert_equal ([:secure, :hidden].include?(f) ? 2 : 1), assigns(:events).count
             assert assigns(:events).first.send("#{f}?".to_sym)
           end
         end
@@ -205,8 +215,8 @@ class EventsControllerTest < ActionController::TestCase
         end
 
         should respond_with :success
-        should 'have not have any hidden or secure events' do
-          assert_equal 2, assigns(:events).count
+        should 'not have any hidden or secure events' do
+          assert_equal 1, assigns(:events).count
           assigns(:events).each do |e|
             assert !e.secure
             assert !e.hidden
@@ -226,13 +236,7 @@ class EventsControllerTest < ActionController::TestCase
 
           should respond_with :success
           should "have one event for #{f}" do
-            assert_equal (if f == :sticky then
-                            2
-                          elsif [:secure, :hidden].include?(f)
-                            0
-                          else
-                            1
-                          end), assigns(:events).count
+            assert_equal ([:secure, :hidden].include?(f) ? 0 : 1), assigns(:events).count
             assert assigns(:events).first.send("#{f}?".to_sym) if assigns(:events).present?
           end
         end
@@ -367,34 +371,5 @@ class EventsControllerTest < ActionController::TestCase
         should redirect_to('public') { public_url }
       end
     end
-
   end
-
-
-=begin
-
-  test 'should update event with no additional entry' do
-    put :update, { id: @event.to_param, event: FactoryGirl.attributes_for(:ordinary_event), entry: { description: '' } }, @admin_session
-    assert_redirected_to event_path(assigns(:event))
-  end
-
-  test 'creating an event with blank initial entry fails' do
-    assert_no_difference 'Event.count' do
-      post :create, { event: FactoryGirl.attributes_for(:ordinary_event), entry: { description: '' } }, @admin_session
-    end
-  end
-
-  test 'creating an event with NO initial entry fails' do
-    assert_no_difference 'Event.count' do
-      post :create, { event: FactoryGirl.attributes_for(:ordinary_event) }, { user_id: @user_id }
-    end
-  end
-
-  test 'creating an event while not logged in fails' do
-    assert_no_difference 'Event.count' do
-      post :create, { event: FactoryGirl.attributes_for(:ordinary_event),
-                      entry: FactoryGirl.attributes_for(:verbose_entry) }
-    end
-  end
-=end
 end

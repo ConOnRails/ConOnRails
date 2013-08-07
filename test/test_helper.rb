@@ -13,6 +13,18 @@ class ActiveSupport::TestCase
   # -- they do not yet inherit this setting
   #fixtures :all
 
+  self.use_transactional_fixtures = false
+  DatabaseCleaner.strategy = :transaction
+
+  setup do
+    DatabaseCleaner.start
+  end
+
+  teardown do
+    DatabaseCleaner.clean
+  end
+
+
   # Add more helper methods to be used by all tests here...
   def get_root_not_logged_in
     get root_url
