@@ -40,20 +40,28 @@ class UsersController < ApplicationController
   # POST /admin/users
   # POST /admin/users.json
   def create
-    @user      = User.new(params[:user].reject { |k,v| k == 'volunteer'})
+    user_params = params[:user].reject { |k, v| k == 'volunteer' }
     @volunteer = Volunteer.find_by_id(params[:user][:volunteer])
-    @user.volunteer = @volunteer if @volunteer
 
-    flash[:notice] = "User #{@user.name} was successfully created." if @user.save
+    if @volunteer.present?
+      @user = @volunteer.create_user user_params
+      @volunteer.save
+    else
+      @user = User.create user_params
+    end
+    flash[:notice] = "User #{@user.name} was successfully created." if @user.persisted?
     respond_with @user
   end
 
   # PUT /users/1
   # PUT /users/1.json
   def update
-    @user           = User.find(params[:id])
-    @user.volunteer = Volunteer.find_by_id(params[:volunteer])
-    flash[:notice] = "User #{@user.name} was successfully updated." if @user.update_attributes(params[:user])
+    @user = User.find(params[:id])
+
+    if @user.update_attributes(params[:user]) && update_volunteer
+      flash[:notice] = "User #{@user.name} was successfully updated."
+    end
+
     respond_with @user
   end
 
@@ -70,6 +78,13 @@ class UsersController < ApplicationController
   def redirect_if_cannot_admin
     unless current_user and current_user.can_admin_users?
       redirect_to public_url
+    end
+  end
+
+  def update_volunteer
+    @volunteer = Volunteer.find_by_id(params[:volunteer])
+    if @volunteer.present? and (@volunteer.user_id.blank? or @volunteer.user_id != @user.id)
+      @volunteer.update_attribute(:user_id, @user.id)
     end
   end
 end
