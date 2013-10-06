@@ -12,7 +12,7 @@
 
 class DutyBoardGroup < ActiveRecord::Base
   attr_accessible :name, :row, :column
-#  audited
+  has_paper_trail
 
   ROW_RANGE = (1..4)
   COL_RANGE = (1..2)

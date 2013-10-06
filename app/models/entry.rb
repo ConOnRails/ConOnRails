@@ -13,9 +13,7 @@
 
 class Entry < ActiveRecord::Base
   attr_accessible :description, :event, :user, :rolename
-
-#  audited associated_with: :event
-#  audited associated_with: :user
+  has_paper_trail
 
   belongs_to :event
   belongs_to :user

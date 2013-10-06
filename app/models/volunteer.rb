@@ -25,8 +25,8 @@
 class Volunteer < ActiveRecord::Base
   attr_accessible :first_name, :middle_name, :last_name, :address1, :address2, :address3, :city, :state, :postal,
                   :country, :home_phone, :work_phone, :other_phone, :email, :user_id, :volunteer_training_attributes
-#  audited
-#  has_associated_audits
+  has_paper_trail
+
   paginates_per 25
 
   has_one :volunteer_training, dependent: :destroy, autosave: true
