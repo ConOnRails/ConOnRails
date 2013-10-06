@@ -12,9 +12,8 @@
 
 class User < ActiveRecord::Base
   attr_accessible :name, :realname, :password, :password_confirmation, :role_ids, :volunteer
+  has_paper_trail
 
-#  audited
-#  has_associated_audits
   paginates_per 25
 
   has_one :volunteer

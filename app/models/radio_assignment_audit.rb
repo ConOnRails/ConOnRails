@@ -13,6 +13,7 @@
 #
 
 class RadioAssignmentAudit < ActiveRecord::Base
+  has_paper_trail
 
   belongs_to :radio
   belongs_to :volunteer

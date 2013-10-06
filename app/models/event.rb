@@ -34,8 +34,8 @@ class Event < ActiveRecord::Base
   include PgSearch
   include Queries::EventQueries
 
-#  audited
-#  has_associated_audits
+  has_paper_trail
+
   serialize :merged_from_ids
 
   has_many :entries, -> { order :created_at }, dependent: :destroy

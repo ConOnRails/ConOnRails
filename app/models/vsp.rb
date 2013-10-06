@@ -1,7 +1,6 @@
 class Vsp < ActiveRecord::Base
-#  audited
-
   attr_accessible :name, :notes, :party
+  has_paper_trail
 
   validates :name, presence: true, uniqueness: true
 
