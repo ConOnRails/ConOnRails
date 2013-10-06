@@ -14,7 +14,7 @@
 
 <% content_for :side do %>
     <div><%= link_to 'Edit', edit_radio_path(@radio) %></div>
-    <div><%= link_to 'Delete', @radio, confirm: 'Are you sure?', method: :delete %></div>
+    <div><%= link_to 'Delete', @radio, data: { confirm: 'Are you sure?' }, method: :delete %></div>
     <hr/>
     <%= render partial: 'sidebar' %>
 <% end %>

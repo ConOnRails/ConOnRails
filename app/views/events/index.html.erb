@@ -21,14 +21,14 @@
 
 <script>
     window.events.page = <%= params[:page].nil? ? '1' : params[:page] %>
-    window.events.path = "<%= url_for(false) %>"
+    window.events.path = "<%= url_for(only_path: true) %>"
     window.events.merge_mode = <%= params[:merge_mode].presence || false %>
     window.events.getMain();
     $( '#show_older' ).change( function () { window.events.getMain() } );
 </script>
 
 <% content_for :side do %>
-    <% case url_for(false) %>
+    <% case url_for() %>
       <% when root_path %>
         <div><strong>Viewing Active</strong></div>
         <% if current_user.rw_secure? %>

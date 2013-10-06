@@ -12,5 +12,5 @@
 
     <% end %>
 <% end %>
-<%= button_to "Clear Assignment", clear_assignment_duty_board_slot_path(@duty_board_slot), confirm: 'Are you sure?' %>
+<%= button_to "Clear Assignment", clear_assignment_duty_board_slot_path(@duty_board_slot), data: { confirm: 'Are you sure?' } %>
 <div id="create_volunteer"></div>
