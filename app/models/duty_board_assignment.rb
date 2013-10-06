@@ -13,7 +13,7 @@
 
 class DutyBoardAssignment < ActiveRecord::Base
   attr_accessible :name, :duty_board_slot_id, :notes
-  audited
+#  audited
 
   belongs_to :duty_board_slot
   validates_presence_of :name, message: "You must have a name"

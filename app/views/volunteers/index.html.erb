@@ -1,7 +1,7 @@
 <h1>Volunteers</h1>
 
 <div class="button"><%= link_to 'New Volunteer', new_volunteer_path, class: 'button' %>
-<%= link_to 'Clear all Radio Training', clear_all_radio_training_volunteers_path, class: 'button clear-all', confirm: 'Are you sure?!' %></div>
+<%= link_to 'Clear all Radio Training', clear_all_radio_training_volunteers_path, class: 'button clear-all', data: { confirm: 'Are you sure?!' } %></div>
 <div>
   <div id="paginator"><%= paginate @volunteers %></div>
   <div style="text-align: right">Note: name and username searches are CASE SENSITIVE.</div>
