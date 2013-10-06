@@ -31,12 +31,13 @@
 #
 
 class EventFlagHistory < ActiveRecord::Base
-  belongs_to :event
-  belongs_to :user
-
   attr_accessible :event, :event_id, :is_active, :comment, :flagged, :post_con, :quote, :sticky, :emergency,
                   :medical, :hidden, :secure, :consuite, :hotel, :parties, :volunteers, :dealers, :dock,
                   :merchandise, :user, :user_id, :orig_time, :rolename, :merged, :nerf_herders, :status
+  has_paper_trail
+
+  belongs_to :event
+  belongs_to :user
 
   def status=(string)
     raise Exception if string != 'Active' and string != 'Closed'

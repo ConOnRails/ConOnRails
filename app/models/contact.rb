@@ -16,6 +16,7 @@
 
 class Contact < ActiveRecord::Base
   attr_accessible :name, :cell_phone, :department, :position, :hotel, :hotel_room, :can_text
+  has_paper_trail
 
   #audited
   validates_format_of :cell_phone,

@@ -14,17 +14,16 @@ gem 'sass-rails'   #, "~> 3.2.3"
 gem 'coffee-rails' #, "~> 3.2.1"
 gem 'uglifier' #, ">= 1.0.3"
 
-#gem 'audited-activerecord'#, '~>3.0'
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'capistrano'#, '~>2.14'
-#gem 'country-select'#, '~>1.1'
 gem 'countries'
 gem 'country_select'
 gem 'formtastic', github: 'justinfrench/formtastic', branch: '2.3-stable'
 gem 'jquery-rails'#, '~>2.1'
 gem 'jquery-ui-rails'#, '~>3.0'
 gem 'kaminari'#, '~>0.14'
-gem 'protected_attributes' # FIXME
+gem 'protected_attributes' # FIXME, Also, must appear before paper_trail
+gem 'paper_trail', '>= 3.0.0.beta1'
 gem 'ransack'
 gem 'libv8', '=3.11.8.13'
 gem 'pg_search'

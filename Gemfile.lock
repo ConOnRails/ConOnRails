@@ -115,6 +115,8 @@ GEM
     net-ssh (2.7.0)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
+    paper_trail (3.0.0.beta1)
+      activerecord (>= 3.0, < 5.0)
     pg (0.17.0)
     pg_search (0.7.0)
       activerecord (>= 3.1)
@@ -229,6 +231,7 @@ DEPENDENCIES
   kaminari
   libv8 (= 3.11.8.13)
   minitest-reporters
+  paper_trail (>= 3.0.0.beta1)
   pg
   pg_search
   protected_attributes
