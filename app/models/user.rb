@@ -13,15 +13,15 @@
 class User < ActiveRecord::Base
   attr_accessible :name, :realname, :password, :password_confirmation, :role_ids, :volunteer
 
-  audited
-  has_associated_audits
+#  audited
+#  has_associated_audits
   paginates_per 25
 
   has_one :volunteer
   has_and_belongs_to_many :roles
 
-  name_regex = /^[a-zA-Z0-9_\-]*$/
-  password_regex = /^[a-zA-Z0-9!@#$\%^&*()\-_ ]*$/
+  name_regex = /\A[a-zA-Z0-9_\-]*\z/
+  password_regex = /\A[a-zA-Z0-9!@#$\%^&*()\-_ ]*\z/
     
   validates :name, presence: true, 
                    allow_blank: false, 

@@ -14,7 +14,7 @@
 class Department < ActiveRecord::Base
   attr_accessible :name, :radio_allotment, :radio_group_id, :volunteer_id
 
-  audited
+#  audited
   belongs_to :volunteer
   belongs_to :radio_group
   validates_presence_of :name

@@ -15,7 +15,7 @@ class RadioGroup < ActiveRecord::Base
 
   COLORS = [ "blue", "red", "yellow", "green", "black" ]
 
-  audited
+#  audited
   has_many :radios
   validates :name, presence: true, allow_blank: false
   validates :color, inclusion: { in: COLORS, message: "Please select a color!" }
