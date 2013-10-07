@@ -11,7 +11,6 @@
 #
 
 class DutyBoardGroup < ActiveRecord::Base
-  attr_accessible :name, :row, :column
   has_paper_trail
 
   ROW_RANGE = (1..4)

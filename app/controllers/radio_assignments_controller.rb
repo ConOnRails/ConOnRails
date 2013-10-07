@@ -8,12 +8,12 @@ class RadioAssignmentsController < ApplicationController
   # POST /radio_assignments
   # POST /radio_assignments.json
   def create
-    @radio_assignment = RadioAssignment.checkout(params[:radio_assignment], current_user)
+    @radio_assignment = RadioAssignment.checkout(radio_assignment_params, current_user)
     respond_with @radio_assignment, location: radios_url
   end
 
   def update
-    @radio_assignment.transfer params[:radio_assignment], current_user
+    @radio_assignment.transfer radio_assignment_params, current_user
     respond_with @radio_assignment, location: radios_url
   end
 
@@ -32,5 +32,9 @@ class RadioAssignmentsController < ApplicationController
 
   def find_assignment
     @radio_assignment = RadioAssignment.find(params[:id]) if params[:id]
+  end
+
+  def radio_assignment_params
+    params.require(:radio_assignment).permit!
   end
 end

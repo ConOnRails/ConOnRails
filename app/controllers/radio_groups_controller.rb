@@ -35,7 +35,7 @@ class RadioGroupsController < ApplicationController
   # POST /radio_groups
   # POST /radio_groups.json
   def create
-    @radio_group = RadioGroup.new(params[:radio_group])
+    @radio_group = RadioGroup.new radio_group_params
     flash[:notice] = 'Radio group was successfully created.' if @radio_group.save
     respond_with @radio_group
   end
@@ -44,7 +44,7 @@ class RadioGroupsController < ApplicationController
   # PUT /radio_groups/1.json
   def update
     @radio_group = RadioGroup.find(params[:id])
-    flash[:notice] = 'Radio group was successfully updated.' if @radio_group.update_attributes(params[:radio_group])
+    flash[:notice] = 'Radio group was successfully updated.' if @radio_group.update_attributes radio_group_params
     respond_with @radio_group
   end
 
@@ -54,5 +54,11 @@ class RadioGroupsController < ApplicationController
     @radio_group = RadioGroup.find(params[:id])
     @radio_group.destroy
     respond_with @radio_group, location: radio_groups_path
+  end
+
+  protected
+
+  def radio_group_params
+    params.require(:radio_group).permit :name, :color, :notes
   end
 end

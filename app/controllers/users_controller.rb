@@ -40,8 +40,8 @@ class UsersController < ApplicationController
   # POST /admin/users
   # POST /admin/users.json
   def create
-    user_params = params[:user].reject { |k, v| k == 'volunteer' }
-    @volunteer = Volunteer.find_by_id(params[:user][:volunteer])
+    # user_params = params[:user].reject { |k, v| k == 'volunteer' }
+    @volunteer  = Volunteer.find_by_id(params[:user][:volunteer])
 
     if @volunteer.present?
       @user = @volunteer.create_user user_params
@@ -58,7 +58,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
 
-    if @user.update_attributes(params[:user]) && update_volunteer
+    if @user.update_attributes(user_params) && update_volunteer
       flash[:notice] = "User #{@user.name} was successfully updated."
     end
 
@@ -82,9 +82,13 @@ class UsersController < ApplicationController
   end
 
   def update_volunteer
-    @volunteer = Volunteer.find_by_id(params[:volunteer])
+    @volunteer = Volunteer.find_by_id(params[:volunteer_id])
     if @volunteer.present? and (@volunteer.user_id.blank? or @volunteer.user_id != @user.id)
       @volunteer.update_attribute(:user_id, @user.id)
     end
+  end
+
+  def user_params
+    params.require(:user).permit :name, :realname, :password, :password_confirmation, { role_ids: [] }, :volunteer_id
   end
 end

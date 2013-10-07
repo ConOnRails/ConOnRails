@@ -68,9 +68,9 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = Event.create(params[:event])
-    build_entry_from_params(@event, params[:entry])
-    build_flag_history_from_params(@event, params[:event], true)
+    @event = Event.create event_params
+    build_entry_from_params @event, entry_params
+    build_flag_history_from_params @event, event_params, true
     flash[:notice] = 'Event was successfully created.' if @event.save
 
     respond_with @event
@@ -86,15 +86,22 @@ class EventsController < ApplicationController
 # PUT /events/1
 # PUT /events/1.json
   def update
-    build_entry_from_params(@event, params[:entry])
-    build_flag_history_from_params @event, params[:event]
+    # strong_parameters balks a bit at the permissiveness of this. Might want to consider restructuring a bit
 
-    flash[:notice] = 'Event was successfully updated.' if @event.update_attributes(params[:event])
+    build_entry_from_params @event, entry_params if params.has_key? :entry #this can be blank!
+    build_flag_history_from_params @event, event_params if params.has_key? :event # this can also be blank if nothing changed!
+
+    if params.has_key? :event
+      flash[:notice] = 'Event was successfully updated.' if @event.update_attributes event_params
+    else
+      flash[:notice] = 'Event was successfully updated.' if @event.save
+    end
+
     respond_with @event
   end
 
   def merge_events
-    @event = Event.merge_events(params[:merge_ids], current_user, current_role)
+    @event = Event.merge_events merge_id_params, current_user, current_role
     if @event.present?
       flash[:notice] = 'Event was merged. Check and save.'
       respond_with @event, location: edit_event_path(@event)
@@ -125,6 +132,20 @@ class EventsController < ApplicationController
 
   def set_event
     @event = Event.find(params[:id])
+  end
+
+  def event_params
+    params.require(:event).permit :is_active, :comment, :flagged, :post_con, :quote, :sticky, :emergency,
+                                  :medical, :hidden, :secure, :consuite, :hotel, :parties, :volunteers,
+                                  :dealers, :dock, :merchandise, :nerf_herders, :status
+  end
+
+  def entry_params
+    params.require(:entry).permit :description, :event, :user, :rolename
+  end
+
+  def merge_id_params
+    params.require(:merge_ids)
   end
 
 end
