@@ -28,7 +28,7 @@ class ContactsController < ApplicationController
   # POST /contacts
   # POST /contacts.json
   def create
-    @contact = Contact.new(params[:contact])
+    @contact = Contact.new contact_params
     flash[:notice] = 'Contact was successfully created.' if @contact.save
     respond_with @contact, location: contacts_path
   end
@@ -36,7 +36,7 @@ class ContactsController < ApplicationController
   # PUT /contacts/1
   # PUT /contacts/1.json
   def update
-    flash[:notice] = 'Contact was successfully updated.' if @contact.update_attributes(params[:contact])
+    flash[:notice] = 'Contact was successfully updated.' if @contact.update_attributes contact_params
     respond_with @contact, location: contacts_path
   end
 
@@ -50,4 +50,9 @@ class ContactsController < ApplicationController
   def find_contact
     @contact = Contact.find(params[:id])
   end
+
+  def contact_params
+    params.require(:contact).permit :name, :cell_phone, :department, :position, :hotel, :hotel_room, :can_text
+  end
+
 end

@@ -11,7 +11,6 @@
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :name, :realname, :password, :password_confirmation, :role_ids, :volunteer
   has_paper_trail
 
   paginates_per 25

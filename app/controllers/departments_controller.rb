@@ -28,7 +28,7 @@ class DepartmentsController < ApplicationController
   # POST /departments
   # POST /departments.json
   def create
-    @department = Department.new(params[:department])
+    @department = Department.new department_params
     flash[:notice] = 'Department was successfully created.' if @department.save
     respond_with @department
   end
@@ -36,7 +36,7 @@ class DepartmentsController < ApplicationController
   # PUT /departments/1
   # PUT /departments/1.json
   def update
-    flash[:notice] = 'Department was successfully updated.' if @department.update_attributes(params[:department])
+    flash[:notice] = 'Department was successfully updated.' if @department.update_attributes department_params
     respond_with @department
   end
 
@@ -56,5 +56,9 @@ class DepartmentsController < ApplicationController
 
   def find_department
     @department = Department.find(params[:id])
+  end
+
+  def department_params
+    params.require(:department).permit :name, :radio_allotment, :radio_group_id, :volunteer_id
   end
 end

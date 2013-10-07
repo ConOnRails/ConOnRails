@@ -21,7 +21,6 @@ class DepartmentAllotmentChecker < ActiveModel::Validator
 end
 
 class RadioAssignment < ActiveRecord::Base
-  attr_accessible :radio_id, :volunteer_id, :department_id, :state
   has_paper_trail
 
   belongs_to :radio

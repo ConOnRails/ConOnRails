@@ -30,7 +30,7 @@ class DutyBoardSlotsController < ApplicationController
   # POST /duty_board_slots
   # POST /duty_board_slots.json
   def create
-    @duty_board_slot = DutyBoardSlot.new(params[:duty_board_slot])
+    @duty_board_slot = DutyBoardSlot.new duty_board_slot_params
     flash[:notice] = 'Duty board slot was successfully created.' if @duty_board_slot.save
     respond_with @duty_board_slot, location: :duty_board_slots
   end
@@ -41,12 +41,12 @@ class DutyBoardSlotsController < ApplicationController
     @duty_board_slot = DutyBoardSlot.find(params[:id])
 
     respond_with @duty_board_slot, location: :duty_board_index do |format|
-      if @duty_board_slot.update_attributes(params[:duty_board_slot])
+      if @duty_board_slot.update_attributes duty_board_slot_params
         if params[:duty_board_assignment]
           if @duty_board_slot.duty_board_assignment
-            @duty_board_slot.duty_board_assignment.update_attributes(params[:duty_board_assignment])
+            @duty_board_slot.duty_board_assignment.update_attributes duty_board_assignment_params
           else
-            @duty_board_slot.build_duty_board_assignment params[:duty_board_assignment]
+            @duty_board_slot.build_duty_board_assignment duty_board_assignment_params
             @duty_board_slot.save!
           end
           flash[:notice] = 'Duty board slot was successfully updated'
@@ -80,5 +80,15 @@ class DutyBoardSlotsController < ApplicationController
       format.html { redirect_to duty_board_slots_url }
       format.json { head :ok }
     end
+  end
+
+  protected
+
+  def duty_board_slot_params
+    params.require(:duty_board_slot).permit :name, :duty_board_group_id
+  end
+
+  def duty_board_assignment_params
+    params.require(:duty_board_assignment).permit :name, :duty_board_slot_id, :notes
   end
 end

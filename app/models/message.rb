@@ -15,7 +15,6 @@
 #
 
 class Message < ActiveRecord::Base
-  attr_accessible :is_active, :for, :message, :phone_number, :room_number, :hotel, :can_text, :position
   has_paper_trail
 
   paginates_per 10

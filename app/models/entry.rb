@@ -12,7 +12,6 @@
 #
 
 class Entry < ActiveRecord::Base
-  attr_accessible :description, :event, :user, :rolename
   has_paper_trail
 
   belongs_to :event

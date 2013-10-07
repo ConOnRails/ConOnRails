@@ -8,7 +8,6 @@ class NotTimeTravelingValidator < ActiveModel::EachValidator
 end
 
 class Convention < ActiveRecord::Base
-  attr_accessible :end_date, :name, :start_date
   has_paper_trail
 
   validates :name, presence: true, uniqueness: true
