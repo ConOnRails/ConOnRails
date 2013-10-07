@@ -13,12 +13,12 @@ class VspsController < ApplicationController
   end
 
   def create
-    @vsp = Vsp.create params[:vsp]
+    @vsp = Vsp.create vsp_params
     respond_with @vsp, location: vsps_path
   end
 
   def update
-    if @vsp.update_attributes params[:vsp]
+    if @vsp.update_attributes vsp_params
       respond_with @vsp, location: vsps_path
     else
       respond_with @vsp
@@ -42,5 +42,9 @@ class VspsController < ApplicationController
 
   def reject_peons
     redirect_to root_url unless current_user.can_read_audits?
+  end
+
+  def vsp_params
+    params.require(:vsp).permit :name, :notes, :party
   end
 end

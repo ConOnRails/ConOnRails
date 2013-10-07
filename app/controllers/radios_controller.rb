@@ -78,7 +78,7 @@ class RadiosController < ApplicationController
   # POST /radios
   # POST /radios.json
   def create
-    @radio = Radio.new(params[:radio])
+    @radio = Radio.new radio_params
     @q      = Radio.search params[:q]
     @q.sorts = ['radio_group_name', 'state desc'] if @q.sorts.empty?
     @radios = @q.result.page(params[:page])
@@ -93,7 +93,7 @@ class RadiosController < ApplicationController
     if params[:radio_assignment]
       @radio.radio_assignment = RadioAssignment.new params[:radio_assignment]
     end
-    flash[:notice] = 'Radio was successfully updated.' if @radio.update_attributes(params[:radio])
+    flash[:notice] = 'Radio was successfully updated.' if @radio.update_attributes radio_params
     respond_with @radio, location: radios_path
   end
 
@@ -103,6 +103,12 @@ class RadiosController < ApplicationController
     @radio = Radio.find(params[:id])
     @radio.destroy
     respond_with @radio, location: radios_path
+  end
+
+  protected
+
+  def radio_params
+    params.require(:radio).permit :radio_group, :number, :state, :notes
   end
 
 end

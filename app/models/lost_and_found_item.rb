@@ -21,7 +21,6 @@
 #
 
 class LostAndFoundItem < ActiveRecord::Base
-  attr_accessible :reported_missing, :category, :description, :where_last_seen, :owner_name, :owner_contact, :where_found, :details, :found, :returned, :who_claimed
   has_paper_trail
 
   belongs_to :user

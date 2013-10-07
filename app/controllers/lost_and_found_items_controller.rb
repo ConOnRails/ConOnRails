@@ -47,7 +47,7 @@ class LostAndFoundItemsController < ApplicationController
   end
 
   def create
-    @lfi          = LostAndFoundItem.new params[:lost_and_found_item]
+    @lfi          = LostAndFoundItem.new lfi_params
     @lfi.user     = current_user
     @lfi.rolename = current_role
 
@@ -67,7 +67,7 @@ class LostAndFoundItemsController < ApplicationController
     @lfi.user     = current_user
     @lfi.rolename = current_role
 
-    flash[:notice] = "#{@lfi.Type} item was successfully updated." if @lfi.update_attributes params[:lost_and_found_item]
+    flash[:notice] = "#{@lfi.Type} item was successfully updated." if @lfi.update_attributes lfi_params
     respond_with @lfi
   end
 
@@ -104,5 +104,11 @@ class LostAndFoundItemsController < ApplicationController
     cats.collect do |c|
       @map[c] || c
     end
+  end
+
+  def lfi_params
+      params.require(:lost_and_found_item).permit :reported_missing, :category, :description, :where_last_seen,
+                                                  :owner_name, :owner_contact, :where_found, :details, :found, :returned,
+                                                  :who_claimed
   end
 end

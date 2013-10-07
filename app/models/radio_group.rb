@@ -11,7 +11,6 @@
 #
 
 class RadioGroup < ActiveRecord::Base
-  attr_accessible :name, :color, :notes
   has_paper_trail
 
   COLORS = [ "blue", "red", "yellow", "green", "black" ]

@@ -43,10 +43,6 @@ class Event < ActiveRecord::Base
   validates_associated :entries
   accepts_nested_attributes_for :entries, allow_destroy: true
 
-  attr_accessible :is_active, :comment, :flagged, :post_con, :quote, :sticky, :emergency,
-                  :medical, :hidden, :secure, :consuite, :hotel, :parties, :volunteers,
-                  :dealers, :dock, :merchandise, :nerf_herders, :status
-
   paginates_per 10
 
   pg_search_scope :search_entries, using: { tsearch: { prefix: true } },

@@ -74,14 +74,14 @@ class VolunteersController < ApplicationController
   # POST /volunteers
   # POST /volunteers.json
   def create
-    @volunteer = Volunteer.new(params[:volunteer])
+    @volunteer = Volunteer.new volunteer_params
     make_user_if_needed if @volunteer.save
   end
 
   # PUT /volunteers/1
   # PUT /volunteers/1.json
   def update
-    make_user_if_needed if @volunteer.update_attributes(params[:volunteer])
+    make_user_if_needed if @volunteer.update_attributes volunteer_params
   end
 
   def new_user
@@ -119,5 +119,13 @@ class VolunteersController < ApplicationController
 
   def set_volunteer
     @volunteer = Volunteer.find(params[:id])
+  end
+
+  def volunteer_params
+    params.require(:volunteer).permit :first_name, :middle_name, :last_name, :address1, :address2, :address3, :city, :state, :postal,
+                                      :country, :home_phone, :work_phone, :other_phone, :email, :user_id,
+                                      { volunteer_training_attributes: [:volunter_id, :radio, :ops_basics, :first_contact,
+                                                                        :communications, :dispatch,
+                                                                        :wandering_host, :xo, :ops_subhead, :ops_head] }
   end
 end

@@ -22,7 +22,6 @@ gem 'formtastic', github: 'justinfrench/formtastic', branch: '2.3-stable'
 gem 'jquery-rails'#, '~>2.1'
 gem 'jquery-ui-rails'#, '~>3.0'
 gem 'kaminari'#, '~>0.14'
-gem 'protected_attributes' # FIXME, Also, must appear before paper_trail
 gem 'paper_trail', '>= 3.0.0.beta1'
 gem 'ransack'
 gem 'libv8', '=3.11.8.13'

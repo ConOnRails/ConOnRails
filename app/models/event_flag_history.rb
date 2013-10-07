@@ -31,9 +31,6 @@
 #
 
 class EventFlagHistory < ActiveRecord::Base
-  attr_accessible :event, :event_id, :is_active, :comment, :flagged, :post_con, :quote, :sticky, :emergency,
-                  :medical, :hidden, :secure, :consuite, :hotel, :parties, :volunteers, :dealers, :dock,
-                  :merchandise, :user, :user_id, :orig_time, :rolename, :merged, :nerf_herders, :status
   has_paper_trail
 
   belongs_to :event
