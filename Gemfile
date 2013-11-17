@@ -15,7 +15,8 @@ gem 'coffee-rails' #, "~> 3.2.1"
 gem 'uglifier' #, ">= 1.0.3"
 
 gem 'bcrypt-ruby', '~> 3.0.0'
-gem 'capistrano'#, '~>2.14'
+gem 'capistrano-rails'#, '~>2.14'
+gem 'capistrano-rvm'
 gem 'countries'
 gem 'country_select'
 gem 'formtastic', github: 'justinfrench/formtastic', branch: '2.3-stable'
@@ -27,9 +28,10 @@ gem 'ransack'
 gem 'libv8', '=3.11.8.13'
 gem 'pg_search'
 gem 'redcarpet'#, '~>2.2'
-gem 'rvm-capistrano'#, '~>1.2'
-gem 'squeel'#, '~>1.0'
+#gem 'rvm1-capistrano3'#, '~>1.2'
 gem 'slim'
+gem 'squeel'#, '~>1.0'
+gem 'sshkit'
 gem 'therubyracer'#, '~>0.11', require: 'v8'
 gem 'yaml_db'#, '~>0.2'
 
