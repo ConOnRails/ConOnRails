@@ -16,7 +16,7 @@ ConOnRails is derived conceptually from ConInABox by Thomas Keeley, who acted as
 is derived entirely from the designs of DeNae Leverentz, who acted as our user experience expert and project manager. 
 All coding to date has been done by Michael Scott Shappe.
 
-Version 2.0.0, "Flamingo" was released on 29 June 2013, on the run up to CONvergence 2013.
+Version 3.0.0, "Giraffe" was released on 17 November 2013. The main change is an update to Rails 4.0.1 and Ruby 2.0.0!
 
 It is the long-term goal of this project to be useful to other conventions, but we recognize that, in order to do 
 that, lots of things that are currently hardwired for CONvergence will need to be made configurable. This is an ongoing
