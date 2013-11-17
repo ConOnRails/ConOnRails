@@ -7,11 +7,11 @@ module ApplicationHelper
   end
 
   def version_number
-    "2.0.5"
+    "3.0.0"
   end
 
   def version_name
-    "Flamingo Hangover Cure"
+    "Giraffe"
   end
 
   def version_type
