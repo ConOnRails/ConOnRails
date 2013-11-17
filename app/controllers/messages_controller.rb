@@ -17,7 +17,8 @@ class MessagesController < ApplicationController
   # GET /messages/new
   # GET /messages/new.json
   def new
-    @message = Message.new(params[:message])
+    p params
+    @message = Message.new (params.has_key?(:message) ? message_params : nil)
   end
 
   # GET /messages/1/edit
@@ -28,7 +29,7 @@ class MessagesController < ApplicationController
   # POST /messages
   # POST /messages.json
   def create
-    @message      = Message.new(params[:message])
+    @message      = Message.new message_params
     @message.user = current_user
     flash[:notice] = 'Message was successfully created.' if @message.save
     respond_with @message, location: messages_path
@@ -38,7 +39,7 @@ class MessagesController < ApplicationController
   # PUT /messages/1.json
   def update
     @message = Message.find(params[:id])
-    flash[:notice] = 'Message was successfully updated.' if @message.update_attributes(params[:message])
+    flash[:notice] = 'Message was successfully updated.' if @message.update_attributes message_params
     respond_with @message, location: messages_path
   end
 
@@ -48,5 +49,11 @@ class MessagesController < ApplicationController
     @message = Message.find(params[:id])
     @message.destroy
     respond_with @message, location: messages_path
+  end
+
+  protected
+
+  def message_params
+    params.require(:message).permit :is_active, :for, :message, :phone_number, :room_number, :hotel, :can_text, :position
   end
 end

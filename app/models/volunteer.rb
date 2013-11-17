@@ -23,10 +23,8 @@
 #
 
 class Volunteer < ActiveRecord::Base
-  attr_accessible :first_name, :middle_name, :last_name, :address1, :address2, :address3, :city, :state, :postal,
-                  :country, :home_phone, :work_phone, :other_phone, :email, :user_id, :volunteer_training_attributes
-  audited
-  has_associated_audits
+  has_paper_trail
+
   paginates_per 25
 
   has_one :volunteer_training, dependent: :destroy, autosave: true
@@ -37,7 +35,7 @@ class Volunteer < ActiveRecord::Base
   validates :last_name, presence: true, allow_blank: false
   validates_format_of [:home_phone, :work_phone, :other_phone], allow_blank: true, allow_nil: true,
                       message:                                               "must be a valid telephone number.",
-                      with:                                                  /^[\(\)0-9\- \+\.]{10,20}$/
+                      with:                                                  /\A[\(\)0-9\- \+\.]{10,20}\z/
   validates_associated :volunteer_training
   validate :at_least_one_phone_number
   accepts_nested_attributes_for :volunteer_training

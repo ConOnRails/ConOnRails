@@ -29,7 +29,7 @@ class VspsControllerTest < ActionController::TestCase
     context 'POST :update' do
       setup do
         @vsp = FactoryGirl.create :vsp
-        post :update, id: @vsp.id, notes: 'Wombat'
+        post :update, id: @vsp.id, vsp: { notes: 'Wombat' }
       end
 
       should respond_with :redirect

@@ -150,13 +150,6 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     end
   end
 
-  test "cannot create incomplete entry" do
-    assert_no_difference 'LostAndFoundItem.count' do
-      post :create, { lost_and_found_item: FactoryGirl.attributes_for(:incomplete) }, { user_id: @user.id }
-    end
-    assert_template :new
-  end
-
   test "peon cannot edit lost" do
     get :edit, { id: @missing.id }, { user_id: @peon_user.id }
     assert_redirected_to :lost_and_found

@@ -29,7 +29,7 @@ class RolesController < ApplicationController
   # POST /roles
   # POST /roles.json
   def create
-    @role = Role.new(params[:role])
+    @role = Role.new role_params
     flash[:notice] = 'Role was successfully created.' if @role.save
     respond_with @role
   end
@@ -38,7 +38,7 @@ class RolesController < ApplicationController
   # PUT /roles/1.json
   def update
     @role = Role.find(params[:id])
-    flash[:notice] = 'Role was successfully updated.' if @role.update_attributes(params[:role])
+    flash[:notice] = 'Role was successfully updated.' if @role.update_attributes role_params
     respond_with @role
   end
 
@@ -58,4 +58,9 @@ class RolesController < ApplicationController
     end
   end
 
+  def role_params
+    params.require(:role).permit :name, :write_entries, :add_lost_and_found, :admin_duty_board, :admin_radios, :admin_schedule,
+                                 :admin_users, :assign_duty_board_slots, :assign_radios, :assign_shifts, :modify_lost_and_found,
+                                 :read_hidden_entries, :make_hidden_entries, :read_audits, :rw_secure
+  end
 end

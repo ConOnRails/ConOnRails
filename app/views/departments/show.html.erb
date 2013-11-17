@@ -23,5 +23,5 @@
     <div><%= link_to "Radio Groups", :radio_groups %></div>
     <div><%= link_to "Radios", :radios %></div>
     <div><%= link_to "Edit", edit_department_path(@department) if current_user.can_admin_radios? %></div>
-    <div><%= link_to "Delete", department_path(@department), confirm: 'Are you sure?', method: :delete if current_user.can_admin_radios? %> </div>
+    <div><%= link_to "Delete", department_path(@department), data: { confirm: 'Are you sure?' }, method: :delete if current_user.can_admin_radios? %> </div>
 <% end %>
