@@ -59,7 +59,7 @@ FactoryGirl.define do
     end
 
     factory :verbose_entry do
-      description Faker::Lorem.paragraphs
+      description Faker::Lorem.paragraphs.join('\n')
     end
   end
 
@@ -293,6 +293,7 @@ FactoryGirl.define do
     sequence(:name) { |n| "user#{n}" }
     sequence(:realname) { Faker::Name.name }
     password "batwom"
+    password_confirmation "batwom"
   end
 
   factory :volunteer do

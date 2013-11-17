@@ -15,9 +15,9 @@
 #
 
 class Contact < ActiveRecord::Base
-  attr_accessible :name, :cell_phone, :department, :position, :hotel, :hotel_room, :can_text
+  has_paper_trail
 
-  audited
+  #audited
   validates_format_of :cell_phone,
                       message: "must be a valid telephone number.",
                       with:    /\A[\(\)0-9\- \+\.]{10,20}\z/

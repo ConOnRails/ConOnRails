@@ -21,9 +21,7 @@
 #
 
 class LostAndFoundItem < ActiveRecord::Base
-  attr_accessible :reported_missing, :category, :description, :where_last_seen, :owner_name, :owner_contact, :where_found, :details, :found, :returned, :who_claimed
-
-  audited
+  has_paper_trail
 
   belongs_to :user
 
@@ -53,9 +51,9 @@ class LostAndFoundItem < ActiveRecord::Base
     @@valid_categories
   end
 
-  scope :found, where(found: true)
-  scope :missing, where(reported_missing: true)
-  scope :inventory, lambda { |i| where(found: true, returned: false) if i }
+  scope :found, -> { where(found: true) }
+  scope :missing, -> { where(reported_missing: true) }
+  scope :inventory, -> (i) { where(found: true, returned: false) if i }
 
   validates :category, presence: true, allow_blank: false, inclusion: { in: @@valid_categories.values }
   validates :description, presence: true, allow_blank: false

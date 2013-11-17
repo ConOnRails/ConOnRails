@@ -34,18 +34,14 @@ class Event < ActiveRecord::Base
   include PgSearch
   include Queries::EventQueries
 
-  audited
-  has_associated_audits
+  has_paper_trail
+
   serialize :merged_from_ids
 
-  has_many :entries, dependent: :destroy, order: 'created_at ASC'
-  has_many :event_flag_histories, dependent: :destroy, order: 'created_at ASC'
+  has_many :entries, -> { order :created_at }, dependent: :destroy
+  has_many :event_flag_histories, -> { order :created_at }, dependent: :destroy
   validates_associated :entries
   accepts_nested_attributes_for :entries, allow_destroy: true
-
-  attr_accessible :is_active, :comment, :flagged, :post_con, :quote, :sticky, :emergency,
-                  :medical, :hidden, :secure, :consuite, :hotel, :parties, :volunteers,
-                  :dealers, :dock, :merchandise, :nerf_herders, :status
 
   paginates_per 10
 

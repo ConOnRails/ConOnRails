@@ -13,7 +13,7 @@ window.events.getMain = () ->
             "show_older": $('#show_older').is(':checked')
          },
          success: ->
-           setTimeout((-> window.events.getMain()), (window.events.merge_mode ? 120 * 1000 : 10000))
+           setTimeout((-> window.events.getMain()), if window.events.merge_mode == true then 120 * 1000 else 10000)
          }
   )
 

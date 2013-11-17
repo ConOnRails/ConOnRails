@@ -17,11 +17,11 @@
             <%= link_to "Check&nbsp;out".html_safe, checkout_radio_path(radio), method: :get, class: 'button small-button check-out' %>
         <% else %>
             <%= link_to "Transfer".html_safe, checkout_radio_path(radio), method: :get, class: 'button small-button transfer' %>
-            <%= link_to "Check&nbsp;in".html_safe, radio_assignment_path(radio.radio_assignment), method: :delete, confirm: 'Are you sure?', class: 'button small-button check-in' %>
+            <%= link_to "Check&nbsp;in".html_safe, radio_assignment_path(radio.radio_assignment), method: :delete, data: { confirm: 'Are you sure?' }, class: 'button small-button check-in' %>
         <% end %>
 
         <% if current_user && current_user.can_admin_radios? %>
-            <%= link_to "Delete".html_safe, radio_path(radio), method: :delete, confirm: 'Are you sure?', class: 'button small-button' %>
+            <%= link_to "Delete".html_safe, radio_path(radio), method: :delete, data: { confirm: 'Are you sure?' }, class: 'button small-button' %>
         <% end %>
       </td>
   <% end %>

@@ -11,11 +11,11 @@
 #
 
 class RadioGroup < ActiveRecord::Base
-  attr_accessible :name, :color, :notes
+  has_paper_trail
 
   COLORS = [ "blue", "red", "yellow", "green", "black" ]
 
-  audited
+#  audited
   has_many :radios
   validates :name, presence: true, allow_blank: false
   validates :color, inclusion: { in: COLORS, message: "Please select a color!" }

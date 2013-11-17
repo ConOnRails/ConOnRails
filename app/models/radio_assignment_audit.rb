@@ -13,6 +13,7 @@
 #
 
 class RadioAssignmentAudit < ActiveRecord::Base
+  has_paper_trail
 
   belongs_to :radio
   belongs_to :volunteer
@@ -21,8 +22,6 @@ class RadioAssignmentAudit < ActiveRecord::Base
   validates_presence_of :radio
   validates_presence_of :department
   validates_presence_of :user
-
-  attr_accessible :radio_id, :volunteer_id, :state, :user_id, :department_id
 
   def RadioAssignmentAudit.audit_checkin( radio_assignment, user )
     RadioAssignmentAudit.new_record radio_assignment, user, :in

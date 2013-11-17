@@ -14,8 +14,8 @@
 <%= render "menubar" %>
 
 <%- flash.each do |key, msg| -%>
-    <div id="<%= key %>">
-      <p style="float:right;"><%= link_to_function 'X', "$('##{key}').fadeOut(0)" %></p>
+    <div id="<%= key %>" class="flash">
+      <p style="float:right;"><%= link_to 'X', '#', html_options: { id: "click-#{key}"} %></p>
 
       <p><%= msg %></p>
 
@@ -23,6 +23,7 @@
     </div>
     <script type="text/javascript">
         $( '#<%= key %>' ).fadeOut( 10000 );
+        $( '#click-<%= key %>' ).click( function() { $( '#<%= key %>').fadeOut(0) } );
     </script>
 <%- end -%>
 
