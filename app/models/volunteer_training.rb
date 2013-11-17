@@ -18,9 +18,6 @@
 #
 
 class VolunteerTraining < ActiveRecord::Base
+  has_paper_trail
   belongs_to :volunteer
-  audited associated_with: :volunteer
-
-  attr_accessible :volunter_id, :radio, :ops_basics, :first_contact, :communications, :dispatch,
-                  :wandering_host, :xo, :ops_subhead, :ops_head
 end

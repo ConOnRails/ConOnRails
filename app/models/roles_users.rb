@@ -7,5 +7,5 @@
 #
 
 class RolesUsers < ActiveRecord::Base
-  attr_accessible :role_id, :user_id
+  has_paper_trail
 end

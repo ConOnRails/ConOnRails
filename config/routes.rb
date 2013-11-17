@@ -1,12 +1,12 @@
 ConOnRails::Application.routes.draw do
   root controller: :events, action: :index, active: true
 
-  match '/public', to: 'sessions#new'
-  match '/signout', to: 'sessions#destroy'
-  match '/sessions/getroles', to: 'sessions#getroles'
-  match '/lost_and_found', to: 'lost_and_found#index'
-  match '/admin', to: 'admin#index'
-  match '/banner', to: 'application#banner'
+  get '/public', to: 'sessions#new'
+  get '/signout', to: 'sessions#destroy'
+  get '/sessions/getroles', to: 'sessions#getroles'
+  get '/lost_and_found', to: 'lost_and_found#index'
+  get '/admin', to: 'admin#index'
+  get '/banner', to: 'application#banner'
 
   resources :admin, only: [:index]
   resources :audits, only: [:index]
