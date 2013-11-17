@@ -1,60 +1,43 @@
-set :rvm_ruby_string, ENV['GEM_HOME'].gsub(/.*\//,"")
-set :rvm_install_ruby_params, '--1.9'      # for jruby/rbx default to 1.9 mode
-set :rvm_install_pkgs, %w[libyaml openssl] # package list from https://rvm.io/packages
-set :rvm_install_ruby_params, '--with-opt-dir=/usr/local/rvm/usr' # package support
-set :rvm_ruby_string, 'ruby-2.0.0-p195'
+set :application, 'ConOnRails'
+set :repo_url, 'git@github.com:ConOnRails/ConOnRails.git'
 set :rvm_type, :system
-set :rvm_install_with_sudo, true
+set :rvm_ruby_version, '2.0.0-p195'
+set :rvm_custom_path, '/usr/local/rvm'
 
-before 'deploy:setup', 'rvm:install_rvm'   # install RVM
-#before 'deploy:setup', 'rvm:install_pkgs'  # install RVM packages before Ruby
-before 'deploy:setup', 'rvm:install_ruby'  # install Ruby and create gemset, or:
-before 'deploy:setup', 'rvm:create_gemset' # only create gemset
-#before 'deploy:setup', 'rvm:import_gemset' # import gemset from file
+ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
+# set :deploy_to, '/var/www/my_app'
+set :scm, :git
 
-require 'bundler/capistrano'
-require 'rvm/capistrano'
+set :format, :pretty
+set :log_level, :debug
+set :pty, true
 
-set :stages, %w(production development con)
-set :default_stage, :development
-require 'capistrano/ext/multistage'
+set :linked_files, %w{config/database.yml}
+set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
-set :application, "ConOnRails"
-set :repository, "git@github.com:ConOnRails/ConOnRails.git"
-set :user, 'cononrails'
-set :group, 'cononrails'
-set :use_sudo, false
-
-set :deploy_via, :remote_cache
-set :rails_env, :production
-
-after 'deploy:update_code', 'deploy:symlink_db'
+# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+set :keep_releases, 5
 
 namespace :deploy do
-  desc "Symlinks the database.yml"
-  task :symlink_db, :roles => :app do
-    run "ln -nfs #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml"
+
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      # Your restart mechanism here, for example:
+      execute :touch, release_path.join('tmp/restart.txt')
+    end
   end
-end
 
-# if you want to clean up old releases on each deploy uncomment this:
-after "deploy:restart", "deploy:cleanup"
-
-
-
-# if you're still using the script/reaper helper you will need
-# these http://github.com/rails/irs_process_scripts
-
-# If you are using Passenger mod_rails uncomment this:
-namespace :deploy do
-  task :start do
-    ;
+  after :restart, :clear_cache do
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+      # Here we can do anything such as:
+      within release_path do
+         execute :rake, 'cache:clear'
+      end
+    end
   end
-  task :stop do
-    ;
-  end
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    run "#{try_sudo} touch #{File.join(current_path, 'tmp', 'restart.txt')}"
-  end
+
+  after :finishing, 'deploy:cleanup'
+
 end
