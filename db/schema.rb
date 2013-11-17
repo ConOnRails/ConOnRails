@@ -15,8 +15,6 @@ ActiveRecord::Schema.define(version: 20131006224848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
-  enable_extension "pg_trgm"
 
   create_table "audits", force: true do |t|
     t.integer  "auditable_id"
@@ -45,8 +43,8 @@ ActiveRecord::Schema.define(version: 20131006224848) do
     t.string   "cell_phone"
     t.string   "hotel"
     t.integer  "hotel_room"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "can_text",   default: false
     t.string   "position"
   end
@@ -55,8 +53,8 @@ ActiveRecord::Schema.define(version: 20131006224848) do
     t.string   "name"
     t.datetime "start_date"
     t.datetime "end_date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "departments", force: true do |t|
@@ -64,15 +62,15 @@ ActiveRecord::Schema.define(version: 20131006224848) do
     t.integer  "volunteer_id"
     t.integer  "radio_group_id"
     t.integer  "radio_allotment"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "duty_board_assignments", force: true do |t|
     t.integer  "duty_board_slot_id"
     t.string   "notes"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "name"
     t.string   "string"
   end
@@ -81,21 +79,21 @@ ActiveRecord::Schema.define(version: 20131006224848) do
     t.string   "name"
     t.integer  "row"
     t.integer  "column"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "duty_board_slots", force: true do |t|
     t.string   "name"
     t.integer  "duty_board_group_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "entries", force: true do |t|
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "event_id"
     t.string   "rolename"
@@ -120,8 +118,8 @@ ActiveRecord::Schema.define(version: 20131006224848) do
     t.boolean  "dealers",      default: false
     t.boolean  "dock",         default: false
     t.boolean  "merchandise",  default: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "user_id"
     t.datetime "orig_time"
     t.string   "rolename"
@@ -130,8 +128,8 @@ ActiveRecord::Schema.define(version: 20131006224848) do
   end
 
   create_table "events", force: true do |t|
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "is_active",       default: true
     t.boolean  "comment",         default: false
     t.boolean  "flagged",         default: false
@@ -159,8 +157,8 @@ ActiveRecord::Schema.define(version: 20131006224848) do
     t.string   "role_name"
     t.string   "comment"
     t.string   "ip"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "lost_and_found_items", force: true do |t|
@@ -171,8 +169,8 @@ ActiveRecord::Schema.define(version: 20131006224848) do
     t.string   "where_found"
     t.string   "owner_name"
     t.text     "owner_contact"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "found",            default: false
     t.boolean  "returned",         default: false
     t.boolean  "reported_missing", default: false
@@ -189,16 +187,16 @@ ActiveRecord::Schema.define(version: 20131006224848) do
     t.integer  "user_id"
     t.text     "message"
     t.boolean  "is_active",    default: true
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "radio_assignment_audits", force: true do |t|
     t.integer  "radio_id"
     t.integer  "volunteer_id"
     t.string   "state"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "department_id"
   end
@@ -206,8 +204,8 @@ ActiveRecord::Schema.define(version: 20131006224848) do
   create_table "radio_assignments", force: true do |t|
     t.integer  "radio_id"
     t.integer  "volunteer_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "department_id"
   end
 
@@ -215,8 +213,8 @@ ActiveRecord::Schema.define(version: 20131006224848) do
     t.string   "name"
     t.string   "color"
     t.text     "notes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "radios", force: true do |t|
@@ -224,8 +222,8 @@ ActiveRecord::Schema.define(version: 20131006224848) do
     t.string   "notes"
     t.integer  "radio_group_id"
     t.string   "image_filename"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "state",          default: "in"
   end
 
@@ -242,8 +240,8 @@ ActiveRecord::Schema.define(version: 20131006224848) do
     t.boolean  "assign_shifts"
     t.boolean  "assign_duty_board_slots"
     t.boolean  "admin_duty_board"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "make_hidden_entries",     default: false
     t.boolean  "rw_secure",               default: false
     t.boolean  "read_audits",             default: false
@@ -260,8 +258,8 @@ ActiveRecord::Schema.define(version: 20131006224848) do
     t.string   "name"
     t.string   "realname"
     t.string   "password_digest"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "users", ["name"], name: "index_users_on_name", unique: true, using: :btree
@@ -288,8 +286,8 @@ ActiveRecord::Schema.define(version: 20131006224848) do
     t.boolean  "xo",             default: false
     t.boolean  "ops_subhead",    default: false
     t.boolean  "ops_head",       default: false
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "volunteers", force: true do |t|
@@ -307,8 +305,8 @@ ActiveRecord::Schema.define(version: 20131006224848) do
     t.string   "work_phone"
     t.string   "other_phone"
     t.string   "email"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "user_id"
   end
 
@@ -316,8 +314,8 @@ ActiveRecord::Schema.define(version: 20131006224848) do
     t.string   "name"
     t.boolean  "party"
     t.string   "notes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
