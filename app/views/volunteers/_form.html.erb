@@ -22,6 +22,8 @@
           <%= f.input :other_phone %>
           <%= f.input :email %>
           <%= f.input :user %>
+          <%= label_tag :can_have_multiple_radios, "Can Have Multiple Radios?" %>
+          <%= f.check_box :can_have_multiple_radios %>
           <%= label_tag :make_user_after_save, "Make User after Save" %>
           <%= check_box_tag :make_user_after_save %>
       <% end %>
