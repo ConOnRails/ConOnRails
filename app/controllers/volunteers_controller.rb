@@ -122,7 +122,7 @@ class VolunteersController < ApplicationController
   end
 
   def volunteer_params
-    params.require(:volunteer).permit :first_name, :middle_name, :last_name, :address1, :address2, :address3, :city, :state, :postal,
+    params.require(:volunteer).permit :can_have_multiple_radios, :first_name, :middle_name, :last_name, :address1, :address2, :address3, :city, :state, :postal,
                                       :country, :home_phone, :work_phone, :other_phone, :email, :user_id,
                                       { volunteer_training_attributes: [:volunter_id, :radio, :ops_basics, :first_contact,
                                                                         :communications, :dispatch,
