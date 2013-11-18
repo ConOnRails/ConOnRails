@@ -10,7 +10,7 @@ class RadiosController < ApplicationController
     respond_with do |format|
       format.html do
         if request.xhr?
-          render partial: 'volunteers', locals: { radio: params[:radio] }
+          render partial: 'volunteers', locals: {radio: params[:radio]}
         else
           redirect_to public_path
         end
@@ -25,9 +25,9 @@ class RadiosController < ApplicationController
     respond_with do |format|
       format.html do
         if request.xhr?
-          render partial: 'select_department', locals: { radio:       params[:id],
-                                                         radio_group: @radio.radio_group.id,
-                                                         volunteer:   params[:volunteer] }
+          render partial: 'select_department', locals: {radio:       params[:id],
+                                                        radio_group: @radio.radio_group.id,
+                                                        volunteer:   params[:volunteer]}
         else
           redirect_to public_path
         end
@@ -53,7 +53,7 @@ class RadiosController < ApplicationController
   # GET /radios/new.json
   def new
     # We include the index list in the new page for this one, so we need to provide Ransack bits
-    @q      = Radio.search params[:q]
+    @q = Radio.search params[:q]
     @q.sorts = ['radio_group_name', 'state desc'] if @q.sorts.empty?
     @radios = @q.result.page(params[:page])
     @radio  = Radio.new
@@ -79,7 +79,7 @@ class RadiosController < ApplicationController
   # POST /radios.json
   def create
     @radio = Radio.new radio_params
-    @q      = Radio.search params[:q]
+    @q     = Radio.search params[:q]
     @q.sorts = ['radio_group_name', 'state desc'] if @q.sorts.empty?
     @radios = @q.result.page(params[:page])
     flash[:notice] = 'Radio was successfully created.' if @radio.save
@@ -108,7 +108,7 @@ class RadiosController < ApplicationController
   protected
 
   def radio_params
-    params.require(:radio).permit :radio_group, :number, :state, :notes
+    params.require(:radio).permit :radio_group_id, :number, :state, :notes
   end
 
 end

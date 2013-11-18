@@ -25,7 +25,8 @@ class RadiosControllerTest < ActionController::TestCase
 
   test "should create radio" do
     assert_difference('Radio.count') do
-      post :create, { radio: FactoryGirl.attributes_for(:valid_blue_radio) }, @user_session
+      @group = mock 'RadioGroup'
+      post :create, { radio: FactoryGirl.attributes_for(:valid_blue_radio).merge(radio_group_id: 1) }, @user_session
     end
 
     assert_redirected_to radios_path

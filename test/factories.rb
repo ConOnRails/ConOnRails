@@ -157,7 +157,7 @@ FactoryGirl.define do
     state "in"
 
     factory :valid_blue_radio do
-      sequence(:number) { Random.rand(69).to_i }
+      sequence(:number) { |n| n }
       association :radio_group, factory: :blue_man_group
     end
     factory :one_of_many_blue_radios do

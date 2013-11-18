@@ -17,10 +17,12 @@ class Radio < ActiveRecord::Base
 
   belongs_to :radio_group
   has_one :radio_assignment
-  validates_associated :radio_group
-  validates_presence_of :number
-  validates_inclusion_of :state, in: %w( in out retired )
-  validates_uniqueness_of :number, scope: :radio_group_id
+
+  validates :number, presence: true, uniqueness: true
+  validates :radio_group_id, presence: true
+  validates :radio_group, associated: true
+  validates :state, presence: true, inclusion:{ in: %w( in out retired ) }
+
   scope :assigned, -> { where { |r| r.state == 'out' } }
   scope :unassigned, -> { where { |r| r.state == 'in' } }
 
