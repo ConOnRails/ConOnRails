@@ -1,5 +1,6 @@
 class RadioAssignmentsController < ApplicationController
-  respond_to :html, :json
+  respond_to :html, :json, only: :destroy
+  respond_to :js, only: [:create, :update]
 
   before_filter :can_assign_radios?
   before_filter :find_assignment
@@ -9,13 +10,24 @@ class RadioAssignmentsController < ApplicationController
   # POST /radio_assignments.json
   def create
     @radio_assignment = RadioAssignment.checkout(radio_assignment_params, current_user)
-    respond_with @radio_assignment, location: radios_url
+    respond_with do |format|
+      if @radio_assignment.valid?
+        format.js { render 'success' }
+      else
+        format.js { render 'error' }
+      end
+    end
   end
 
   def update
-    @radio_assignment.transfer radio_assignment_params, current_user
-    respond_with @radio_assignment, location: radios_url
-  end
+    @radio_assignment = @radio_assignment.transfer radio_assignment_params, current_user
+    respond_with do |format|
+      if @radio_assignment.valid?
+        format.js { render 'success' }
+      else
+        format.js { render 'error' }
+      end
+    end  end
 
 # DELETE /radio_assignments/1
 # DELETE /radio_assignments/1.json
