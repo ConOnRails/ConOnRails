@@ -7,7 +7,7 @@ class RadioAssignmentsControllerTest < ActionController::TestCase
     @role             = FactoryGirl.create :assign_radios_role
     @radio            = FactoryGirl.create :valid_blue_radio
     @department       = FactoryGirl.create :good_department, radio_allotment: 2
-    @volunteer        = FactoryGirl.create :valid_volunteer
+    @volunteer        = FactoryGirl.create :valid_volunteer, can_have_multiple_radios: true
     @user.roles << @role
     @user_session = { user_id: @user.id }
   end
@@ -63,7 +63,7 @@ class RadioAssignmentsControllerTest < ActionController::TestCase
           assert_no_match /NOT/, flash[:notice]
           assert_equal @count, RadioAssignment.count
           # There should be a check in and check out audit in addition to the original checkout.
-          assert_equal @audit_count + 2, RadioAssignmentAudit.count
+          assert_equal @audit_count + 1, RadioAssignmentAudit.count
         end
       end
 

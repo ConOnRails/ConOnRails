@@ -45,6 +45,10 @@
     <% end %>
   </div>
 
+  <% if @volunteer.can_have_multiple_radios? %>
+      <div><span class="info-label" style="color: red">Can have multiple radios</span></div>
+  <% end %>
+
   <% if @volunteer.user %>
       <div>User: <%= @volunteer.user.name %></div>
   <% end %>

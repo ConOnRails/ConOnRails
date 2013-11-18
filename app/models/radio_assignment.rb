@@ -30,7 +30,7 @@ class RadioAssignment < ActiveRecord::Base
   validates :radio, presence: true
   validates :radio_id, uniqueness: true
   validates :volunteer, presence: true
-  validates :volunteer_id, uniqueness: true
+  validates :volunteer_id, uniqueness: true, unless: -> (x) { x.volunteer.present? && x.volunteer.can_have_multiple_radios? }
   validates :department, presence: true
   validates_with DepartmentAllotmentChecker, message: "All of this department's radios are allotted"
 

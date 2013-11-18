@@ -25,6 +25,14 @@
 require 'test_helper'
 
 class VolunteerTest < ActiveSupport::TestCase
+  should have_one :volunteer_training
+  should have_many(:radio_assignments)
+  should have_many(:radios).through(:radio_assignments)
+  should belong_to :user
+
+  should validate_presence_of :first_name
+  should validate_presence_of :last_name
+
   setup do
     @valid = FactoryGirl.attributes_for :valid_volunteer
     @blank = FactoryGirl.attributes_for :volunteer
