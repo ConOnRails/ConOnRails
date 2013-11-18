@@ -1,1 +1,9 @@
-$( '#errors' ).html( "The selected department already has all its allotted radios checked out.");
+<% if @radio_assignment.errors.include?(:department) %>
+$( '#errors' ).html( "The selected department already has all the radios it's permitted.");
+<% elsif @radio_assignment.errors.include?(:volunteer_id) %>
+$( '#errors' ).html( "<%= escape_javascript(@radio_assignment.volunteer.name) %> is already assigned a radio.");
+<% else %>
+    <% @radio_assignment.errors.full_messages.each do |e| %>
+    $( '#errors').append("Unexpected error: <%= escape_javascript(e) %>")
+    <% end %>
+<% end %>
