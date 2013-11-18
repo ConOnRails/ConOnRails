@@ -6,7 +6,7 @@ class RadioAssignmentsControllerTest < ActionController::TestCase
     @user             = FactoryGirl.create :user
     @role             = FactoryGirl.create :assign_radios_role
     @radio            = FactoryGirl.create :valid_blue_radio
-    @department       = FactoryGirl.create :good_department
+    @department       = FactoryGirl.create :good_department, radio_allotment: 2
     @volunteer        = FactoryGirl.create :valid_volunteer
     @user.roles << @role
     @user_session = { user_id: @user.id }
@@ -15,11 +15,13 @@ class RadioAssignmentsControllerTest < ActionController::TestCase
   test "should create radio_assignment" do
     assert_difference('RadioAssignmentAudit.count') do
       assert_difference('RadioAssignment.count') do
-        post :create, { radio_assignment: FactoryGirl.attributes_for(:valid_radio_assignment, volunteer_id: @volunteer.id, radio_id: @radio.id, department_id: @department.id) }, @user_session
+        xhr :post, :create,
+            { radio_assignment: FactoryGirl.attributes_for(:valid_radio_assignment, volunteer_id: @volunteer.id, radio_id: @radio.id, department_id: @department.id), format: :js },
+            @user_session
       end
     end
     assert_equal "out", assigns(:radio_assignment).radio.state
-    assert_redirected_to radios_path
+    assert_response :ok
   end
 
   test "should destroy radio_assignment" do
@@ -46,18 +48,34 @@ class RadioAssignmentsControllerTest < ActionController::TestCase
 
         @audit_count = RadioAssignmentAudit.count
         @count       = RadioAssignment.count
-
-        put :update, { id: @radio_assignment.id, radio_assignment: { volunteer_id: @volunteer.id, department_id: @department.id } }, @user_session
       end
 
-      should respond_with :redirect
-      should redirect_to('radios') { radios_path }
+      context 'With 2 radios permitted' do
+        setup do
+          xhr :put, :update,
+              { id: @radio_assignment.id, radio_assignment: { volunteer_id: @volunteer.id, department_id: @department.id }, format: :js },
+              @user_session
+        end
+        should respond_with :ok
+        should render_template 'success'
 
-      should 'have right counts' do
-        assert_no_match /NOT/, flash[:notice]
-        assert_equal @count, RadioAssignment.count
-        # There should be a check in and check out audit in addition to the original checkout.
-        assert_equal @audit_count + 2, RadioAssignmentAudit.count
+        should 'have right counts' do
+          assert_no_match /NOT/, flash[:notice]
+          assert_equal @count, RadioAssignment.count
+          # There should be a check in and check out audit in addition to the original checkout.
+          assert_equal @audit_count + 2, RadioAssignmentAudit.count
+        end
+      end
+
+      context 'With 1 radio permitted' do
+        setup do
+          @department.update_attribute(:radio_allotment, 1)
+          xhr :put, :update,
+              { id: @radio_assignment.id, radio_assignment: { volunteer_id: @volunteer.id, department_id: @department.id }, format: :js },
+              @user_session
+        end
+        should respond_with :ok
+        should render_template 'error'
       end
     end
   end

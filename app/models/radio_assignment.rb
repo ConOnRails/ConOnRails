@@ -26,8 +26,10 @@ class RadioAssignment < ActiveRecord::Base
   belongs_to :radio
   belongs_to :volunteer
   belongs_to :department
-  validates_presence_of :radio, :volunteer, :department, message: "A dead crab?"
-  validates_uniqueness_of :radio_id, message: "A cread dab!" # Only one instance of a radio checkout at a time!
+
+  validates :radio, presence: true, uniqueness: true
+  validates :volunteer, presence: true
+  validates :department, presence: true
   validates_with DepartmentAllotmentChecker, message: "All of this department's radios are allotted"
 
   def RadioAssignment.department_count(dept_id)
@@ -36,18 +38,22 @@ class RadioAssignment < ActiveRecord::Base
 
   def self.checkout(params, user)
     assignment = RadioAssignment.new params
-    assignment.radio.state = 'out'
-    assignment.radio.save
-    assignment.save
-    RadioAssignmentAudit.audit_checkout assignment, user
+    if assignment.valid?
+      assignment.save
+      assignment.radio.state = 'out'
+      assignment.radio.save
+      RadioAssignmentAudit.audit_checkout assignment, user
+    end
     assignment
   end
 
   def checkin( user )
     RadioAssignmentAudit.audit_checkin(self, user)
-    self.radio.state = "in"
-    self.radio.save
-    destroy
+    self.destroy
+    if self.destroyed?
+      self.radio.state = "in"
+      self.radio.save
+    end
   end
 
   def transfer(params, user)
