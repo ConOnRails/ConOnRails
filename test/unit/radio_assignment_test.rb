@@ -13,11 +13,12 @@
 require 'test_helper'
 
 class RadioAssignmentTest < ActiveSupport::TestCase
-  setup do
-    @valid_assignment = FactoryGirl.build :valid_radio_assignment
-  end
-
-  test "can add assignment" do
-    assert @valid_assignment.valid?
-  end
+  should belong_to :radio
+  should belong_to :volunteer
+  should belong_to :department
+  should validate_presence_of :radio
+  should validate_uniqueness_of :radio_id
+  should validate_presence_of :volunteer
+  should validate_uniqueness_of :volunteer_id
+  should validate_presence_of :department
 end

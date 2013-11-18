@@ -12,11 +12,11 @@
 
 class DepartmentAllotmentChecker < ActiveModel::Validator
   def validate(record)
-     if RadioAssignment.department_count(record.department.id) + 1 >
-         record.department.radio_allotment
-       record.errors[:department] << "All of this department's radios are allotted"
-       record.errors[:radio] << "All of this department's radios are allotted"
-     end
+    if record.department.present? &&
+        RadioAssignment.department_count(record.department_id) + 1 > record.department.radio_allotment
+      record.errors[:department] << "All of this department's radios are allotted"
+      record.errors[:radio] << "All of this department's radios are allotted"
+    end
   end
 end
 
@@ -27,13 +27,15 @@ class RadioAssignment < ActiveRecord::Base
   belongs_to :volunteer
   belongs_to :department
 
-  validates :radio, presence: true, uniqueness: true
+  validates :radio, presence: true
+  validates :radio_id, uniqueness: true
   validates :volunteer, presence: true
+  validates :volunteer_id, uniqueness: true
   validates :department, presence: true
   validates_with DepartmentAllotmentChecker, message: "All of this department's radios are allotted"
 
   def RadioAssignment.department_count(dept_id)
-    RadioAssignment.where( department_id: dept_id ).count
+    RadioAssignment.where(department_id: dept_id).count
   end
 
   def self.checkout(params, user)
@@ -47,7 +49,7 @@ class RadioAssignment < ActiveRecord::Base
     assignment
   end
 
-  def checkin( user )
+  def checkin(user)
     RadioAssignmentAudit.audit_checkin(self, user)
     self.destroy
     if self.destroyed?
@@ -57,8 +59,12 @@ class RadioAssignment < ActiveRecord::Base
   end
 
   def transfer(params, user)
-    radio_id = self.radio_id
-    self.checkin user
-    RadioAssignment.checkout params.merge({radio_id: radio_id}), user
+    #radio_id = self.radio_id
+    #self.checkin user
+    #RadioAssignment.checkout params.merge({ radio_id: radio_id }), user
+    if self.update_attributes(params)
+      RadioAssignmentAudit.audit_checkout(self, user)
+    end
+    self
   end
 end
