@@ -53,8 +53,8 @@ ActiveRecord::Schema.define(version: 20131118025035) do
     t.string   "name"
     t.datetime "start_date"
     t.datetime "end_date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "departments", force: true do |t|
@@ -131,15 +131,15 @@ ActiveRecord::Schema.define(version: 20131118025035) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_active",       default: true
-    t.boolean  "comment"
-    t.boolean  "flagged"
-    t.boolean  "post_con"
-    t.boolean  "quote"
-    t.boolean  "sticky"
-    t.boolean  "emergency"
-    t.boolean  "medical"
-    t.boolean  "hidden"
-    t.boolean  "secure"
+    t.boolean  "comment",         default: false
+    t.boolean  "flagged",         default: false
+    t.boolean  "post_con",        default: false
+    t.boolean  "quote",           default: false
+    t.boolean  "sticky",          default: false
+    t.boolean  "emergency",       default: false
+    t.boolean  "medical",         default: false
+    t.boolean  "hidden",          default: false
+    t.boolean  "secure",          default: false
     t.boolean  "consuite"
     t.boolean  "hotel"
     t.boolean  "parties"
@@ -315,8 +315,8 @@ ActiveRecord::Schema.define(version: 20131118025035) do
     t.string   "name"
     t.boolean  "party"
     t.string   "notes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

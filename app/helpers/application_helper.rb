@@ -15,7 +15,7 @@ module ApplicationHelper
   end
 
   def version_type
-    :release #:release:beta
+    :beta #:release:beta
   end
 
   def get_banner_style

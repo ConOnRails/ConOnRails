@@ -6,4 +6,6 @@ get_banner = () ->
 
 fill_banner = ( data ) ->
   $('#banner-placeholder').html( data );
+###
   setTimeout((-> get_banner()), 10000)
+###
