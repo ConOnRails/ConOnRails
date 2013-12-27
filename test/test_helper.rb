@@ -1,5 +1,6 @@
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
+require 'minitest/mock'
 require 'minitest/reporters'
 MiniTest::Reporters.use! #[MiniTest::Reporters::ProgressReporter.new]
 
@@ -87,3 +88,5 @@ class ActiveSupport::TestCase
     end
   end
 end
+
+require 'mocha/setup'
