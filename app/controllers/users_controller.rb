@@ -1,21 +1,9 @@
 class UsersController < ApplicationController
-  before_filter :redirect_if_cannot_admin, except: [:change_password]
-
   respond_to :html, :json
 
-  # GET /admin/users
-  # GET /admin/users.json
-  def index
-    @title = "Users"
-    @q     = User.search params[:q]
-    @users = @q.result.page(params[:page])
-  end
-
-  # GET /users/1
-  # GET /users/1.json
-  def show
-    @user = User.find(params[:id])
-  end
+  before_filter :redirect_if_cannot_admin, except: [:change_password]
+  before_filter :find_user, only: [:show, :edit, :update, :destroy, :change_password]
+  before_filter :find_users, only: :index
 
   # GET /users/new
   # GET /users/new.json
@@ -26,15 +14,6 @@ class UsersController < ApplicationController
     if params[:realname]
       @user.realname = params[:realname]
     end
-  end
-
-  # GET /users/1/edit
-  def edit
-    @user = User.find(params[:id])
-  end
-
-  def change_password
-    @user = User.find(params[:id])
   end
 
   # POST /admin/users
@@ -56,8 +35,6 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.json
   def update
-    @user = User.find(params[:id])
-
     if @user.update_attributes(user_params) && update_volunteer
       flash[:notice] = "User #{@user.name} was successfully updated."
     end
@@ -68,12 +45,20 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user = User.find(params[:id])
     @user.destroy
     respond_with @user, location: users_path
   end
 
   protected
+
+  def find_user
+    @user = User.find(params[:id])
+  end
+
+  def find_users
+    @q     = User.search params[:q]
+    @users = @q.result.page(params[:page])
+  end
 
   def redirect_if_cannot_admin
     unless current_user and current_user.can_admin_users?

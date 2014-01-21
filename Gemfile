@@ -31,7 +31,7 @@ gem 'redcarpet'#, '~>2.2'
 gem 'slim'
 gem 'squeel'#, '~>1.0'
 gem 'sshkit'
-gem 'therubyracer'#, '~>0.12', require: 'v8'
+gem 'therubyracer', '~>0.12', require: 'v8'
 gem 'yaml_db'#, '~>0.2'
 
 group :development do
@@ -60,6 +60,6 @@ group :test do
   #gem 'turn'
 
   #
-  #  gem 'simplecov'
-  #  gem 'simplecov-html'
+  gem 'simplecov'
+  gem 'simplecov-html'
 end

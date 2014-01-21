@@ -5,24 +5,10 @@ class DepartmentsController < ApplicationController
 
   respond_to :html, :json
 
-  # GET /departments
-  # GET /departments.json
-  def index
-  end
-
-  # GET /departments/1
-  # GET /departments/1.json
-  def show
-  end
-
-  # GET /departments/new
+   # GET /departments/new
   # GET /departments/new.json
   def new
     @department = Department.new
-  end
-
-  # GET /departments/1/edit
-  def edit
   end
 
   # POST /departments

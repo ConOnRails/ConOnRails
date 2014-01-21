@@ -50,25 +50,12 @@ class VolunteersController < ApplicationController
     render json: @list
   end
 
-  # GET /volunteers
-  # GET /volunteers.json
-  def index
-  end
-
-  # GET /volunteers/1
-  # GET /volunteers/1.json
-  def show
-  end
 
   # GET /volunteers/new
   # GET /volunteers/new.json
   def new
     @volunteer = Volunteer.new
     @volunteer.build_volunteer_training
-  end
-
-  # GET /volunteers/1/edit
-  def edit
   end
 
   # POST /volunteers

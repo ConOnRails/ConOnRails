@@ -6,24 +6,10 @@ class ConventionsController < ApplicationController
   before_filter :set_convention, only: [:show, :edit, :update]
   before_filter :build_convention, only: [:create]
 
-  # GET /conventions
-  # GET /conventions.json
-  def index
-  end
-
-  # GET /conventions/1
-  # GET /conventions/1.json
-  def show
-  end
-
   # GET /conventions/new
   # GET /conventions/new.json
   def new
     @convention = Convention.new
-  end
-
-  # GET /conventions/1/edit
-  def edit
   end
 
   # POST /conventions

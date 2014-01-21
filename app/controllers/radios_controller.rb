@@ -1,7 +1,10 @@
 class RadiosController < ApplicationController
+  respond_to :html, :json
+
   before_filter :can_admin_radios?, only: [:new, :create, :edit, :update, :destroy]
   before_filter :can_assign_radios?, only: [:index, :show, :search_volunteers]
-  respond_to :html, :json
+  before_filter :find_radio, only: [:show, :edit, :update, :destroy, :checkout, :transfer]
+  before_filter :find_radios, only: [:index, :new, :create]
 
   # POST /radios/search_volunteers
   def search_volunteers
@@ -35,53 +38,25 @@ class RadiosController < ApplicationController
     end
   end
 
-  # GET /radios
-  # GET /radios.json
-  def index
-    @q = Radio.search params[:q]
-    @q.sorts = ['radio_group_name', 'state desc'] if @q.sorts.empty?
-    @radios = @q.result.page(params[:page])
-  end
-
-  # GET /radios/1
-  # GET /radios/1.json
-  def show
-    @radio = Radio.find(params[:id])
-  end
-
   # GET /radios/new
   # GET /radios/new.json
   def new
-    # We include the index list in the new page for this one, so we need to provide Ransack bits
-    @q = Radio.search params[:q]
-    @q.sorts = ['radio_group_name', 'state desc'] if @q.sorts.empty?
-    @radios = @q.result.page(params[:page])
-    @radio  = Radio.new
+     @radio  = Radio.new
   end
 
   # GET /radios/1/checkout -- just gets the form
   def checkout
-    @radio            = Radio.find params[:id]
     @radio_assignment = RadioAssignment.new
   end
 
   def transfer
-    @radio            = Radio.find params[:id]
     @radio_assignment = @radio.radio_assignment
-  end
-
-  # GET /radios/1/edit
-  def edit
-    @radio = Radio.find(params[:id])
   end
 
   # POST /radios
   # POST /radios.json
   def create
     @radio = Radio.new radio_params
-    @q     = Radio.search params[:q]
-    @q.sorts = ['radio_group_name', 'state desc'] if @q.sorts.empty?
-    @radios = @q.result.page(params[:page])
     flash[:notice] = 'Radio was successfully created.' if @radio.save
     respond_with @radio, location: radios_path
   end
@@ -89,7 +64,6 @@ class RadiosController < ApplicationController
   # PUT /radios/1
   # PUT /radios/1.json
   def update
-    @radio = Radio.find(params[:id])
     if params[:radio_assignment]
       @radio.radio_assignment = RadioAssignment.new params[:radio_assignment]
     end
@@ -100,12 +74,21 @@ class RadiosController < ApplicationController
 # DELETE /radios/1
 # DELETE /radios/1.json
   def destroy
-    @radio = Radio.find(params[:id])
     @radio.destroy
     respond_with @radio, location: radios_path
   end
 
   protected
+
+  def find_radio
+    @radio = Radio.find(params[:id])
+  end
+
+  def find_radios
+    @q = Radio.search params[:q]
+    @q.sorts = ['radio_group_name', 'state desc'] if @q.sorts.empty?
+    @radios = @q.result.page(params[:page])
+  end
 
   def radio_params
     params.require(:radio).permit :radio_group_id, :number, :state, :notes
