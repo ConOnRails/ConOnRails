@@ -76,13 +76,6 @@ class EventsController < ApplicationController
     respond_with @event
   end
 
-  def create_emergency
-  end
-
-# GET /events/1/edit
-  def edit
-  end
-
 # PUT /events/1
 # PUT /events/1.json
   def update

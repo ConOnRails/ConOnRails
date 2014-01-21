@@ -1,29 +1,13 @@
 class MessagesController < ApplicationController
   respond_to :html, :json
 
-  # GET /messages
-  # GET /messages.json
-  def index
-    @qc       = Contact.search params[:qc]
-    @messages = Message.where(is_active: true).page(params[:page])
-  end
-
-  # GET /messages/1
-  # GET /messages/1.json
-  def show
-    @message = Message.find(params[:id])
-  end
+  before_filter :find_messages, only: :index
+  before_filter :find_message, only: [:show, :edit, :update, :destroy]
 
   # GET /messages/new
   # GET /messages/new.json
   def new
-    p params
     @message = Message.new (params.has_key?(:message) ? message_params : nil)
-  end
-
-  # GET /messages/1/edit
-  def edit
-    @message = Message.find(params[:id])
   end
 
   # POST /messages
@@ -38,7 +22,6 @@ class MessagesController < ApplicationController
   # PUT /messages/1
   # PUT /messages/1.json
   def update
-    @message = Message.find(params[:id])
     flash[:notice] = 'Message was successfully updated.' if @message.update_attributes message_params
     respond_with @message, location: messages_path
   end
@@ -46,12 +29,20 @@ class MessagesController < ApplicationController
   # DELETE /messages/1
   # DELETE /messages/1.json
   def destroy
-    @message = Message.find(params[:id])
     @message.destroy
     respond_with @message, location: messages_path
   end
 
   protected
+
+  def find_message
+    @message = Message.find(params[:id])
+  end
+
+  def find_messages
+    @qc       = Contact.search params[:qc]
+    @messages = Message.where(is_active: true).page(params[:page])
+  end
 
   def message_params
     params.require(:message).permit :is_active, :for, :message, :phone_number, :room_number, :hotel, :can_text, :position

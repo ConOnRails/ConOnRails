@@ -4,6 +4,7 @@ class LostAndFoundItemsController < ApplicationController
   before_filter :user_can_add_lost_and_found, only: [:new, :create]
   before_filter :user_can_modify_lost_and_found, only: [:edit, :update]
   before_filter :build_categories_from_params, only: [:index]
+  before_filter :find_lfi, only: [:show, :edit, :update]
 
   protected
 
@@ -23,9 +24,6 @@ class LostAndFoundItemsController < ApplicationController
 
   public
 
-  def searchform
-  end
-
   def index
     return jump if params[:id].present?
     search_type = params[:search_type] || 'any'
@@ -42,28 +40,21 @@ class LostAndFoundItemsController < ApplicationController
     @lfi.found            = params[:found]
   end
 
-  def show
-    @lfi = LostAndFoundItem.find(params[:id])
-  end
-
   def create
     @lfi          = LostAndFoundItem.new lfi_params
     @lfi.user     = current_user
     @lfi.rolename = current_role
 
     flash[:notice] = "#{@lfi.Type} item was successfully created." if @lfi.save
-
     respond_with @lfi
   end
 
   def edit
-    @lfi = LostAndFoundItem.find params[:id]
     @lfi.found = true if params[:found] == 'true'
     @lfi.returned = true if params[:returned] =='true'
   end
 
   def update
-    @lfi          = LostAndFoundItem.find params[:id]
     @lfi.user     = current_user
     @lfi.rolename = current_role
 
@@ -89,6 +80,10 @@ class LostAndFoundItemsController < ApplicationController
       next unless params.has_key? k.to_s
       v
     end).compact).flatten
+  end
+
+  def find_lfi
+    @lfi = LostAndFoundItem.find params[:id]
   end
 
   def fix_old_categories(cats)

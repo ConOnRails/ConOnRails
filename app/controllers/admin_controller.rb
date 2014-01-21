@@ -5,7 +5,4 @@ class AdminController < ApplicationController
     redirect_to public_url unless can_admin_anything?
   end
 
-  def index
-  end
-
 end
