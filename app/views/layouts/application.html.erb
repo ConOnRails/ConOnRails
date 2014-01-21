@@ -13,6 +13,11 @@
 </div>
 <%= render "menubar" %>
 
+<% unless version_type == :release %>
+    <%= label_tag 'pause-banner', 'Pause Banner' %>
+    <%= check_box_tag 'pause-banner', 0, false, class: 'pause-banner' %>
+<% end %>
+
 <%- flash.each do |key, msg| -%>
     <div id="<%= key %>" class="flash">
       <p style="float:right;"><%= link_to 'X', '#', html_options: { id: "click-#{key}"} %></p>
