@@ -8,6 +8,7 @@ class VspsControllerTest < ActionController::TestCase
       end
 
       should respond_with :success
+      should render_template :index
     end
 
     context 'GET :new' do
@@ -16,24 +17,52 @@ class VspsControllerTest < ActionController::TestCase
       end
 
       should respond_with :success
+      should render_template :new
     end
 
     context 'POST :create' do
-      setup do
-        post :create, vsp: FactoryGirl.attributes_for(:vsp)
+      context 'blank attributes' do
+        setup do
+          post :create, vsp: { name: '' }
+        end
+        should respond_with :success
+        should render_template :new
+        should_not set_the_flash.to %r[created successfully!$]
       end
-      should respond_with :redirect
-      should redirect_to('vsp list') { vsps_path }
+
+      context 'correct attributes' do
+        setup do
+          post :create, vsp: FactoryGirl.attributes_for(:vsp)
+        end
+        should respond_with :redirect
+        should redirect_to('vsp list') { vsps_path }
+        should set_the_flash.to %r[created successfully!$]
+      end
     end
 
-    context 'POST :update' do
+    context 'PATCH :update' do
       setup do
         @vsp = FactoryGirl.create :vsp
-        post :update, id: @vsp.id, vsp: { notes: 'Wombat' }
       end
 
-      should respond_with :redirect
-      should redirect_to('vsp list') { vsps_path }
+      context 'bad params' do
+        setup do
+          patch :update, id: @vsp.id, vsp: { name: '' }
+        end
+        should respond_with :success
+        should render_template :edit
+        should_not set_the_flash.to %r[updated successfully!$]
+      end
+
+      context 'good params' do
+        setup do
+          patch :update, id: @vsp.id, vsp: { notes: 'Wombat' }
+        end
+
+        should respond_with :redirect
+        should redirect_to('vsp list') { vsps_path }
+        should set_the_flash.to %r[updated successfully!$]
+      end
     end
 
     context 'GET :edit' do
@@ -43,6 +72,7 @@ class VspsControllerTest < ActionController::TestCase
       end
 
       should respond_with :success
+      should render_template :edit
     end
   end
 
@@ -53,6 +83,7 @@ class VspsControllerTest < ActionController::TestCase
           get x, id: 42
         end
         should respond_with :redirect
+        should redirect_to('root') { root_path }
       end
     end
 
@@ -62,13 +93,15 @@ class VspsControllerTest < ActionController::TestCase
       end
 
       should respond_with :redirect
+      should redirect_to('root') { root_path }
     end
 
-    context 'PUT :update' do
+    context 'PATCH :update' do
       setup do
-        put :update, id: 42
+        patch :update, id: 42
       end
       should respond_with :redirect
+      should redirect_to('root') { root_path }
     end
 
   end

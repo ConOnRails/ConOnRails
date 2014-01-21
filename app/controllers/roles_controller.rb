@@ -1,29 +1,14 @@
 class RolesController < ApplicationController
-  before_filter :redirect_if_cannot_admin
-
   respond_to :html, :json
 
-  # GET /roles
-  # GET /roles.json
-  def index
-    @roles = Role.all
-  end
-
-  # GET /roles/1
-  # GET /roles/1.json
-  def show
-    @role = Role.find(params[:id])
-  end
+  before_filter :redirect_if_cannot_admin
+  before_filter :find_role, only: [:show, :edit, :update, :destroy]
+  before_filter :find_roles, only: [:index]
 
   # GET /roles/new
   # GET /roles/new.json
   def new
     @role = Role.new
-  end
-
-  # GET /roles/1/edit
-  def edit
-    @role = Role.find(params[:id])
   end
 
   # POST /roles
@@ -37,7 +22,6 @@ class RolesController < ApplicationController
   # PUT /roles/1
   # PUT /roles/1.json
   def update
-    @role = Role.find(params[:id])
     flash[:notice] = 'Role was successfully updated.' if @role.update_attributes role_params
     respond_with @role
   end
@@ -45,12 +29,19 @@ class RolesController < ApplicationController
   # DELETE /roles/1
   # DELETE /roles/1.json
   def destroy
-    @role = Role.find(params[:id])
     @role.destroy
     respond_with @role, location: roles_path
   end
 
   protected
+
+  def find_role
+    @role = Role.find(params[:id])
+  end
+
+  def find_roles
+    @roles = Role.all
+  end
 
   def redirect_if_cannot_admin
     unless current_user and current_user.can_admin_users?

@@ -5,7 +5,6 @@ class RadioAssignmentsController < ApplicationController
   before_filter :can_assign_radios?
   before_filter :find_assignment
 
-
   # POST /radio_assignments
   # POST /radio_assignments.json
   def create
