@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-  - 2.0.0-p247
+  - 2.0.0-p353
 env:
   - DB=postgresql
 before_script:
