@@ -7,7 +7,7 @@ module ApplicationHelper
   end
 
   def version_number
-    "3.0.1"
+    "3.0.2"
   end
 
   def version_name
@@ -15,14 +15,14 @@ module ApplicationHelper
   end
 
   def version_type
-    :release #:release:beta
+    :beta #:release:beta
   end
 
   def get_banner_style
     style = "normal"
-    style = "active" if Event.num_active > 0
+    style = "active" if Event.current_convention.num_active > 0
     style = "messages" if Message.num_active > 0
-    style = "emergency" if Event.num_active_emergencies > 0 or Event.num_active_medicals > 0
+    style = "emergency" if Event.current_convention.num_active_emergencies > 0 or Event.num_active_medicals > 0
 
     return style
   end

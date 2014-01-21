@@ -50,12 +50,16 @@ class Event < ActiveRecord::Base
                       entries: :description
                   }
 
-  scope :actives_and_stickies_or_all, lambda { |c| where { |e| (e.is_active == true) | (e.sticky == true) unless c } }
+  scope :actives_and_stickies_or_all, -> (c) { where { |e| (e.is_active == true) | (e.sticky == true) unless c } }
 
-  scope :protect_sensitive_events, lambda { |user|
+  scope :protect_sensitive_events, -> (user) {
     where { |e| (e.hidden == false unless user_can_see_hidden(user)) }.
         where { |e| (e.secure == false unless user_can_rw_secure(user)) }
   }
+
+  scope :current_convention, -> () {
+    where { |e| (e.created_at >= Convention.most_recent.start_date) &
+        (e.created_at <= Convention.most_recent.end_date) } unless Convention.most_recent.blank? }
 
   STATUSES = %w[ Active Closed Merged ]
   FLAGS    = %w[ is_active merged comment flagged post_con quote sticky emergency medical hidden secure consuite hotel parties volunteers dealers dock merchandise nerf_herders ]
@@ -192,7 +196,6 @@ class Event < ActiveRecord::Base
   end
 
   protected
-
 
 
 end

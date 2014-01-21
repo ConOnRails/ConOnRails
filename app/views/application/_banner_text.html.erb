@@ -1,9 +1,9 @@
 <div id="banner_text">
   <% if current_user %>
-      <% emerg = Event.num_active_emergencies %>
-      <% medic = Event.num_active_medicals %>
+      <% emerg = Event.current_convention.num_active_emergencies %>
+      <% medic = Event.current_convention.num_active_medicals %>
       <% msgs  = Message.num_active %>
-      <% count = Event.num_active %>
+      <% count = Event.current_convention.num_active %>
       <div>
       <% if emerg > 0 %>
           <span><%= pluralize emerg, "Emergency" %></span>
