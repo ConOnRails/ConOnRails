@@ -1,7 +1,7 @@
 set :application, 'ConOnRails'
 set :repo_url, 'git@github.com:ConOnRails/ConOnRails.git'
 set :rvm_type, :system
-set :rvm_ruby_version, '2.0.0-p195'
+set :rvm_ruby_version, '2.0.0-p353'
 set :rvm_custom_path, '/usr/local/rvm'
 
 ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
