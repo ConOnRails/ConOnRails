@@ -14,6 +14,8 @@ gem 'sass-rails'   #, "~> 3.2.3"
 gem 'coffee-rails' #, "~> 3.2.1"
 gem 'uglifier' #, ">= 1.0.3"
 
+gem 'acts-as-taggable-on'
+gem 'backbone-on-rails'
 gem 'bcrypt-ruby'#, '~> 3.0.0'
 gem 'capistrano-rails'#, '~>2.14'
 gem 'capistrano-rvm'
@@ -46,6 +48,7 @@ gem 'unicorn'
 
 group :development, :test do
   gem 'rspec-rails'
+  gem 'jasmine'
   #gem 'minitest'
 end
 

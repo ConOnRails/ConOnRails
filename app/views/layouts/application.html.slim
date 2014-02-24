@@ -1,9 +1,14 @@
 html
   head
     title Con On Rails #{title}
+
+    javascript:
+      window.ciab = new function CIAB() {}
+
     = stylesheet_link_tag "application"
     = javascript_include_tag "application"
     = csrf_meta_tags
+
   body class="#{controller.controller_name} #{background}"
 
     #banner-placeholder
@@ -31,12 +36,16 @@ html
               h3 Welcome to Con On Rails.
 
               div This is version #{version_number}&mdash;#{version_name}
-            script type='text/javascript'
-              | $( '#welcome' ).fadeOut( 10000 );
       #main
         #cork-board style='background-color: #999999'
-          script defer="defer"
-            | cork_board();
         = content_for?(:main) ? yield(:main) : yield
     #footer
       = render partial: 'indicia'
+
+javascript:
+  $(
+    function() {
+      $( '#welcome' ).fadeOut( 10000 );
+      cork = new window.ciab.Corkboard();
+    }
+  );
