@@ -62,4 +62,5 @@ group :test do
   #
   gem 'simplecov'
   gem 'simplecov-html'
+  gem "codeclimate-test-reporter", group: :test, require: nil
 end
