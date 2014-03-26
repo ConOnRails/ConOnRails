@@ -1,6 +1,6 @@
 # Con On Rails
 [![Build Status](https://travis-ci.org/ConOnRails/ConOnRails.png)](https://travis-ci.org/ConOnRails/ConOnRails)
-[![Code Climate](https://codeclimate.com/repos/51c6072456b10216f3002623/badges/d00b997b8c2dfd2d14b2/gpa.png)](https://codeclimate.com/repos/51c6072456b10216f3002623/feed)
+[![Code Climate](https://codeclimate.com/github/ConOnRails/ConOnRails.png)](https://codeclimate.com/github/ConOnRails/ConOnRails)
 
 This is ConOnRails, an application for managing the operations of conventions of any size.
 
@@ -25,7 +25,7 @@ effort. For more information, please see our document on [Contributing](https://
 Michael Scott Shappe
 <mshappe@camelopard-consulting.com>
 
-PS. I ***still*** haven't pasted the right bits into the source files yet, but: Copyright &copy; 2011-2013 Thomas Keeley, DeNae
+PS. I ***still*** haven't pasted the right bits into the source files yet, but: Copyright &copy; 2011-2014 Thomas Keeley, DeNae
 Leverentz and Michael Scott Shappe. Licensed under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
 
 
