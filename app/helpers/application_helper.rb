@@ -7,11 +7,11 @@ module ApplicationHelper
   end
 
   def version_number
-    "3.0.2"
+    "3.1.0"
   end
 
   def version_name
-    "Giraffe's Killed the Radio Star"
+    "Hippo"
   end
 
   def version_type
