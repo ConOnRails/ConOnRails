@@ -31,6 +31,8 @@
 #
 
 class EventFlagHistory < ActiveRecord::Base
+  include AlertTags
+
   has_paper_trail
 
   belongs_to :event

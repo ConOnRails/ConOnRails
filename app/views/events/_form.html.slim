@@ -1,0 +1,53 @@
+- if @event.errors.any?
+  div id="error_explanation"
+    h2= pluralize(@event.errors.count, "error")
+      | prohibited this event from being saved:
+
+    ul
+      - @event.errors.full_messages.each do |msg|
+        li= msg
+
+
+h1= create_or_update
+
+= semantic_form_for @event do |f|
+  #event_options_side
+    = f.inputs class: "status" do
+      - if @event.merged?
+        | Merged
+      else
+        = f.input :status, as: :radio, collection: Event.statuses[0..1], label: false
+
+    = f.inputs class: "type_flags" do
+      = f.input :comment
+      = f.input :flagged
+      = f.input :post_con
+      = f.input :quote
+      = f.input :sticky
+      = f.input :emergency
+      = f.input :medical
+      = f.input :hidden if current_user and current_user.can_make_hidden_entries?
+      = f.input :secure if current_user and current_user.rw_secure?
+      = f.input :hidden, as: :hidden, input_html: { value: false } unless current_user and current_user.can_make_hidden_entries?
+      = f.input :secure, as: :hidden, input_html: { value: false } unless current_user and current_user.rw_secure?
+
+  #entries
+    = render partial: 'new_entry', locals: { event: @event, entry: Entry.new }
+
+  #event_options_bottom
+    = f.inputs class: "department_flags" do 
+      = f.input :consuite 
+      = f.input :hotel 
+      = f.input :parties 
+      = f.input :volunteers 
+      = f.input :dealers 
+      = f.input :dock 
+      = f.input :merchandise 
+      = f.input :nerf_herders 
+  br
+  .buttons
+    = f.actions do 
+      = f.action :submit
+      = f.input :alert_dispatcher, as: :boolean
+  = render partial: 'event', object: @event, locals: { form: true, actives: false }
+
