@@ -33,6 +33,7 @@ ConOnRails::Application.routes.draw do
       get 'review'
       get 'sticky'
       get 'secure'
+      get 'tag/:tag', action: :tag
       post 'merge_events'
       post 'search_entries'
     end
