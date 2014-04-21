@@ -7,6 +7,7 @@ class EventsController < ApplicationController
   before_filter :can_write_entries?, only: [:new, :create, :edit, :update]
   before_filter :set_event, only: [:show, :edit, :update]
   before_filter :set_convention_param, only: [:sticky]
+  before_filter :get_tagged_events, only: [:tag]
 
   respond_to :html, :json
   respond_to :js, only: [:index, :sticky, :secure, :review]
@@ -39,8 +40,14 @@ class EventsController < ApplicationController
     end
   end
 
+  def tag
+    respond_with do |format|
+      format.json { render :index }
+    end
+  end
+
   def search_entries
-    @q      = params[:q] # We'll use this to re-fill the search blank
+    @q = params[:q] # We'll use this to re-fill the search blank
     @events = limit_by_convention Event.search(@q, current_user, params[:show_closed])
     respond_with @events
   end
@@ -119,6 +126,11 @@ class EventsController < ApplicationController
     event.event_flag_histories.build(params.merge({ event: event, user: current_user, rolename: current_role }))
   end
 
+  def get_tagged_events
+    @events = IndexQuery.new(Event).query.tagged_with(params[:tag]).
+        order { |e| e.updated_at.desc }
+  end
+
   def set_convention_param
     params[:convention] = Convention.most_recent.id if (params[:convention].blank? && params[:show_older] == 'false')
   end
@@ -130,7 +142,7 @@ class EventsController < ApplicationController
   def event_params
     params.require(:event).permit :is_active, :comment, :flagged, :post_con, :quote, :sticky, :emergency,
                                   :medical, :hidden, :secure, :consuite, :hotel, :parties, :volunteers,
-                                  :dealers, :dock, :merchandise, :nerf_herders, :status, :alert_dispatcher
+                                  :dealers, :dock, :merchandise, :nerf_herders, :status, :alert_dispatcher, :tag
   end
 
   def entry_params

@@ -1,7 +1,8 @@
 !function () {
-  CIAB.Corkboard = function () {
+  CIAB.Corkboard = function (tag) {
     this.stage = null;
     this.cards = [];
+    this.tag = tag;
 
     this.init();
   }
@@ -62,15 +63,21 @@
     },
 
     fillCards: function (data, status, xhr) {
+      if (data.length == 0) return;
       for (var i = 0; i < data.length; i++) {
         this.cards.push(this.card(data[i].id, data[i].entry));
       }
       this.layout();
+      setTimeout(function () {
+        this.getEvents()
+      }.bind(this), 5000);
     },
 
     getEvents: function () {
+      this.cards = []
+
       $.ajax({
-        url: '/events',
+        url: '/events/tag/' + this.tag,
         dataType: 'json',
         success: this.fillCards.bind(this)
       });
@@ -83,12 +90,14 @@
     },
 
     layout: function () {
-      this.stage = new Kinetic.Stage({
+      this.stage = this.stage || new Kinetic.Stage({
         container: 'cork-board',
         width: 780,
         height: 100,
         fill: '#ffffff'
       });
+
+      this.stage.clear();
 
       var layer = new Kinetic.Layer({fill: '#ffffff'});
       for (var i = 0; i < this.cards.length; i++) {
