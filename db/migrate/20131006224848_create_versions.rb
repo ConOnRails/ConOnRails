@@ -7,8 +7,8 @@ class CreateVersions < ActiveRecord::Migration
       t.string   :whodunnit
       t.text     :object
       t.datetime :created_at
-    end
-    add_index :versions, [:item_type, :item_id]
+    end unless table_exists? :versions
+    add_index :versions, [:item_type, :item_id] unless index_exists? :versions, [:item_type, :item_id]
   end
 
   def self.down

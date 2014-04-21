@@ -35,6 +35,7 @@ class Event < ActiveRecord::Base
   include Queries::EventQueries
   include AlertTags
 
+  acts_as_taggable_on :corkboard
   has_paper_trail
 
   serialize :merged_from_ids
