@@ -102,5 +102,21 @@ class UserTest < ActiveSupport::TestCase
     user = User.create!(@input_attributes)
     assert false == user.authenticate( ShortPassword )
   end
+
+  context "#has_role?" do
+    setup do
+      @user = User.create!(@input_attributes)
+      role = FactoryGirl.create(:role)
+      @user.roles << role
+    end
+
+    should "return true if appropriate" do
+      assert @user.has_role? 'peon'
+      assert @user.has_role? 'peon', 'llama'
+    end
+    should "return false if appropriate" do
+      assert false == @user.has_role?('god')
+    end
+  end
   
 end

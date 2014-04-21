@@ -33,7 +33,9 @@ require Rails.root + 'app/queries/event_queries'
 class Event < ActiveRecord::Base
   include PgSearch
   include Queries::EventQueries
+  include AlertTags
 
+  acts_as_taggable_on :corkboard
   has_paper_trail
 
   serialize :merged_from_ids
@@ -64,7 +66,7 @@ class Event < ActiveRecord::Base
   STATUSES = %w[ Active Closed Merged ]
   FLAGS    = %w[ is_active merged comment flagged post_con quote sticky emergency medical hidden secure consuite hotel parties volunteers dealers dock merchandise nerf_herders ]
 
-  def self.search(q, user, show_closed=false)
+   def self.search(q, user, show_closed=false)
     protect_sensitive_events(user).
         actives_and_stickies_or_all(show_closed).
         search_entries(q)
