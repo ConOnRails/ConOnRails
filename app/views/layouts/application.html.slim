@@ -1,0 +1,51 @@
+html
+  head
+    title Con On Rails #{title}
+
+    javascript:
+      var CIAB = CIAB || {};
+
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+
+  body class="#{controller.controller_name} #{background}"
+
+    #banner-placeholder
+      noscript= render "banner"
+    = render "menubar"
+
+    - flash.each do |key, msg|
+      .flash id="#{key}"
+        p style="float:right;" = link_to 'X', '#', html_options: { id: "click-#{key}"}
+        p= msg
+        .clear
+      script type="text/javascript"
+        | $( "##{key}" ).fadeOut( 10000 );
+        | $( "##click-#{key}" ).click( function() { $( "##{key}").fadeOut(0) } );
+
+    #columns
+      #side
+        = yield :side
+        - if current_user.present?
+            hr width="80%"
+            div= link_to "Change My Password", change_password_user_path(current_user) if current_user
+
+        - if version_type != :release
+            #welcome.clearfix
+              h3 Welcome to Con On Rails.
+
+              div This is version #{version_number}&mdash;#{version_name}
+      #main
+        #cork-board style='background-color: #999999'
+        = content_for?(:main) ? yield(:main) : yield
+    #footer
+      = render partial: 'indicia'
+
+javascript:
+  $(
+    function() {
+      $( '#welcome' ).fadeOut( 10000 );
+      cork = new CIAB.Corkboard();
+    }
+  );

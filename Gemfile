@@ -21,6 +21,7 @@ gem 'capistrano-rvm'
 gem 'countries'
 gem 'country_select'
 gem 'formtastic', github: 'justinfrench/formtastic', branch: '2.3-stable'
+gem 'jbuilder'
 gem 'jquery-rails'#, '~>2.1'
 gem 'jquery-ui-rails'#, '~>3.0'
 gem 'kaminari'#, '~>0.14'
@@ -48,6 +49,7 @@ gem 'unicorn'
 
 group :development, :test do
   gem 'rspec-rails'
+  gem 'jasmine'
   #gem 'minitest'
 end
 
@@ -56,6 +58,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'minitest-reporters'
+  gem 'mocha', require: false
   gem 'shoulda', github: 'thoughtbot/shoulda'
   gem 'shoulda-matchers', github: 'thoughtbot/shoulda-matchers'
 
