@@ -2,7 +2,7 @@ module ApplicationHelper
 
   def title
     unless @title.nil?
-      " | #{ @title }"
+      "| #{ @title }"
     end
   end
 
