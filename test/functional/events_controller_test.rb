@@ -30,6 +30,22 @@ class EventsControllerTest < ActionController::TestCase
           end
         end
 
+
+        context 'GET :tag (get tagged entries with a specific tag)' do
+          setup do
+            @event.alert_list.add('dispatcher')
+            @event.save!
+            get :tag, tag: 'dispatcher', format: :json
+          end
+
+          should respond_with :success
+          should render_template :index
+
+          should 'have one tagged event' do
+            assert_equal 1, assigns[:events].count
+          end
+        end
+
         context 'GET :show for an ordinary event' do
           setup do
             get :show, { id: @event.to_param }, @admin_session

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131118025035) do
+ActiveRecord::Schema.define(version: 20140420192937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,8 +53,8 @@ ActiveRecord::Schema.define(version: 20131118025035) do
     t.string   "name"
     t.datetime "start_date"
     t.datetime "end_date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "departments", force: true do |t|
@@ -131,15 +131,15 @@ ActiveRecord::Schema.define(version: 20131118025035) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_active",       default: true
-    t.boolean  "comment"
-    t.boolean  "flagged"
-    t.boolean  "post_con"
-    t.boolean  "quote"
-    t.boolean  "sticky"
-    t.boolean  "emergency"
-    t.boolean  "medical"
-    t.boolean  "hidden"
-    t.boolean  "secure"
+    t.boolean  "comment",         default: false
+    t.boolean  "flagged",         default: false
+    t.boolean  "post_con",        default: false
+    t.boolean  "quote",           default: false
+    t.boolean  "sticky",          default: false
+    t.boolean  "emergency",       default: false
+    t.boolean  "medical",         default: false
+    t.boolean  "hidden",          default: false
+    t.boolean  "secure",          default: false
     t.boolean  "consuite"
     t.boolean  "hotel"
     t.boolean  "parties"
@@ -254,6 +254,25 @@ ActiveRecord::Schema.define(version: 20131118025035) do
 
   add_index "roles_users", ["role_id", "user_id"], name: "index_roles_users_on_role_id_and_user_id", unique: true, using: :btree
 
+  create_table "taggings", force: true do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context",       limit: 128
+    t.datetime "created_at"
+  end
+
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
+
+  create_table "tags", force: true do |t|
+    t.string  "name"
+    t.integer "taggings_count", default: 0
+  end
+
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
+
   create_table "users", force: true do |t|
     t.string   "name"
     t.string   "realname"
@@ -315,8 +334,8 @@ ActiveRecord::Schema.define(version: 20131118025035) do
     t.string   "name"
     t.boolean  "party"
     t.string   "notes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

@@ -1,4 +1,8 @@
 module EventsHelper
+  def create_or_update
+    (@event.new_record? ? 'Create a new ' : 'Update a') + ' log entry'
+  end
+
   def filter(term)
     params[:filters][term].presence if params[:filters].present?
   end
