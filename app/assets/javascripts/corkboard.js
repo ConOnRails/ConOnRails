@@ -5,7 +5,7 @@
     this.tag = tag;
 
     this.init();
-  }
+  };
 
   CIAB.Corkboard.prototype = {
     init: function () {
@@ -63,24 +63,31 @@
     },
 
     fillCards: function (data, status, xhr) {
-      if (data.length == 0) return;
-      for (var i = 0; i < data.length; i++) {
-        this.cards.push(this.card(data[i].id, data[i].entry));
+      if (data.length == 0) {
+        $('#cork-board').hide();
+      } else {
+        for (var i = 0; i < data.length; i++) {
+          this.cards.push(this.card(data[i].id, data[i].entry));
+        }
+
+        this.layout();
+        $('#cork-board').show()
       }
-      this.layout();
-      setTimeout(function () {
-        this.getEvents()
-      }.bind(this), 5000);
     },
 
     getEvents: function () {
       this.cards = []
+      console.log("getEvents!")
 
       $.ajax({
         url: '/events/tag/' + this.tag,
         dataType: 'json',
         success: this.fillCards.bind(this)
       });
+
+      setTimeout(function () {
+        this.getEvents()
+      }.bind(this), 5000);
     },
 
     gotoEvent: function (evt) {
@@ -90,6 +97,14 @@
     },
 
     layout: function () {
+      this.bg = new Kinetic.Layer({});
+      this.img = new Image();
+      this.img.src = "/assets/expanded-cork.jpg";
+      this.img.onload = function () {
+        var image = new Kinetic.Image({image: this.img, scaleX: 100, scaleY: 100});
+        this.bg.add(image);
+      }.bind(this);
+
       this.stage = this.stage || new Kinetic.Stage({
         container: 'cork-board',
         width: 780,
@@ -99,14 +114,18 @@
 
       this.stage.clear();
 
-      var layer = new Kinetic.Layer({fill: '#ffffff'});
-      for (var i = 0; i < this.cards.length; i++) {
-        this.cards[i].setAttr('x', this.cards[i].getAttr('x') + 200 * i);
-        layer.add(this.cards[i])
-      }
+      this.stage.add(this.bg);
 
-      // add the layer to the stage
-      this.stage.add(layer);
+      if (this.cards.length > 0) {
+        var layer = new Kinetic.Layer({fill: '#ffffff'});
+        for (var i = 0; i < this.cards.length; i++) {
+          this.cards[i].setAttr('x', this.cards[i].getAttr('x') + 200 * i);
+          layer.add(this.cards[i])
+        }
+
+        // add the layer to the stage
+        this.stage.add(layer);
+      }
     }
 
   }
