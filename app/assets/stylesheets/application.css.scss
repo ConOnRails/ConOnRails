@@ -519,6 +519,10 @@ a.submit-button, input[type="submit"],
 }
 
 #cork-board {
+  position: relative;
+  width: 800px;
+}
+.cork-board {
   background-image: url(image_path('expanded-cork.jpg'));
   width: 780px;
   min-height: 100px;
@@ -548,4 +552,15 @@ a.submit-button, input[type="submit"],
 .selected-card {
   background-color: blue;
   color: white;
+}
+
+.cork-board-label {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 3px;
+  width: auto;
+  height: auto;
+  background-color: white;
+  font-size: 12px;
 }

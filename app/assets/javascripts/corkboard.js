@@ -1,6 +1,5 @@
 !function () {
   CIAB.Corkboard = function (tag) {
-    this.stage = null;
     this.cards = [];
     this.tag = tag;
 
@@ -9,14 +8,26 @@
 
   CIAB.Corkboard.prototype = {
     init: function () {
+      this.$cork_space = $('#cork-board');
+
+      this.$cork_board = $(document.createElement('div'));
+      this.$cork_space.append(this.$cork_board);
+      this.$cork_board.addClass('cork-board');
+
+      this.$cork_label = $(document.createElement('div'));
+      this.$cork_space.append(this.$cork_label);
+      this.$cork_label.addClass('cork-board-label');
+      this.$cork_label.html(this.tag);
+
       this.getEvents();
     },
 
     card: function (id, text) {
       var $card = $(document.createElement('div'));
-      var $object = $('#cork-board').append($card);
 
+      this.$cork_board.append($card);
       $card.addClass('index-card');
+
       if (this.currentID() == id) {
         $card.addClass('selected-card');
       }
@@ -36,17 +47,15 @@
     },
 
     fillCards: function (data, status, xhr) {
-      $('#cork-board').html('');
+      this.$cork_board.html('');
 
       if (data.length == 0) {
-        $('#cork-board').hide();
+        this.$cork_board.hide();
       } else {
         for (var i = 0; i < data.length; i++) {
           this.cards.push(this.card(data[i].id, data[i].entry));
         }
-
-        //  this.layout();
-        $('#cork-board').show()
+        this.$cork_board.show()
       }
     },
 
