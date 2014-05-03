@@ -2,7 +2,7 @@ def show_this(e)
   if e.entries.count == 1
     e.entries.first.description
   else
-    "UPDATE: #{e.entries.last.description}\n--------\nORIG: #{e.entries.first.description}"
+    "<div class='card-text'><div>UPDATE: #{e.entries.last.description}</div><hr><div>ORIG: #{e.entries.first.description}</div></div>"
   end
 end
 

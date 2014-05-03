@@ -517,3 +517,35 @@ a.submit-button, input[type="submit"],
   }
 
 }
+
+#cork-board {
+  background-image: url(image_path('expanded-cork.jpg'));
+  width: 780px;
+  min-height: 100px;
+  max-height: 100px;
+  margin-bottom: 12px;
+  overflow: auto;
+  white-space: nowrap;
+}
+
+.index-card {
+  background-color: white;
+  color: black;
+  border: thin solid black;
+  height: 80px;
+  width: 170px;
+  margin: 5px;
+  padding: 5px;
+  float: left;
+  white-space: pre-wrap;
+
+  .card-text {
+    font-size: 12px;
+    font-family: 'Verdana';
+  }
+}
+
+.selected-card {
+  background-color: blue;
+  color: white;
+}
