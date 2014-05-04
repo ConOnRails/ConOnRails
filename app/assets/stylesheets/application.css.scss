@@ -89,12 +89,15 @@ a.sort_link
   }
 }
 
-#search #search-left
+#search, #search-left
 {
-  height:         18px;
-  padding-bottom: 1em;
-  padding-top:    1em;
+  margin-top:    2em;
+  margin-bottom: 2em;
+  padding: 1em;
 
+  border: thin solid $light_grey;
+
+  form { margin: 0; }
   input[type='submit']
   {
     margin:    0;
@@ -106,7 +109,6 @@ a.sort_link
 #search
 {
   text-align: right;
-
 }
 
 .pull-left
