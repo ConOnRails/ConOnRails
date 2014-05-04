@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: conventions
+#
+#  id         :integer          not null, primary key
+#  name       :string(255)
+#  start_date :datetime
+#  end_date   :datetime
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class NotTimeTravelingValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     unless value.present? && value > record.start_date

@@ -3,18 +3,18 @@
 # Table name: events
 #
 #  id              :integer          not null, primary key
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  created_at      :datetime
+#  updated_at      :datetime
 #  is_active       :boolean          default(TRUE)
-#  comment         :boolean          default(FALSE)
-#  flagged         :boolean          default(FALSE)
-#  post_con        :boolean          default(FALSE)
-#  quote           :boolean          default(FALSE)
-#  sticky          :boolean          default(FALSE)
-#  emergency       :boolean          default(FALSE)
-#  medical         :boolean          default(FALSE)
-#  hidden          :boolean          default(FALSE)
-#  secure          :boolean          default(FALSE)
+#  comment         :boolean
+#  flagged         :boolean
+#  post_con        :boolean
+#  quote           :boolean
+#  sticky          :boolean
+#  emergency       :boolean
+#  medical         :boolean
+#  hidden          :boolean
+#  secure          :boolean
 #  consuite        :boolean
 #  hotel           :boolean
 #  parties         :boolean
