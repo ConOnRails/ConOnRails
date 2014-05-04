@@ -1,6 +1,7 @@
 <div>
   <div id="paginator pull-left"><%= paginate @radios %></div>
-  <div id="search"><%= search_form_for @q, class: 'search-form' do |f| %>
+  <div id="search">
+    <%= search_form_for @q, html: { class: 'search-form' } do |f| %>
         <%= f.label :number_eq, 'Radio Number' %>
         <%= f.text_field :number_eq %>
         <%= f.label :radio_assignment_volunteer_first_name_cont, 'First name contains' %>
