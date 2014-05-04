@@ -6,8 +6,8 @@
 #  name       :string(255)
 #  row        :integer
 #  column     :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  created_at :datetime
+#  updated_at :datetime
 #
 
 class DutyBoardGroup < ActiveRecord::Base
