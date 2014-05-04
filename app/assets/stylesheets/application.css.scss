@@ -6,516 +6,441 @@
 *= require_self
 *= require_tree .
 */
-
 @import "colors";
 
-body
-{
-  max-width:        1000px;
-  max-height:       750px;
+body {
+  max-width: 1000px;
+  max-height: 750px;
 
-  margin:           auto;
-  padding:          0;
-  font-family:      Verdana, Geneva, sans-serif;
-  font-size:        0.9em;
+  margin: auto;
+  padding: 0;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 0.9em;
   background-color: white;
-  color:            black;
+  color: black;
 }
 
-nav
-{
+nav {
   padding-bottom: 1em;
-  padding-top:    1em;
+  padding-top: 1em;
 
-  .current
-  {
-    font-weight:      bold;
+  .current {
+    font-weight: bold;
     background-color: $green_desat;
   }
-  .page
-  {
-    padding:         .5em;
+  .page {
+    padding: .5em;
     border-collapse: collapse;
   }
 }
 
-h1, h2, h3, h4, h5, h6
-{
+h1, h2, h3, h4, h5, h6 {
   padding-top: 0;
-  margin-top:  0;
+  margin-top: 0;
 }
 
-table
-{
+table {
   width: 100%;
 }
 
-th
-{
+th {
   border-bottom: thin solid $dark-grey;
-  width:         auto;
-}
-
-tr
-{
-  height: 2em;
-}
-
-td
-{
   width: auto;
 }
 
-a
-{
-  text-decoration:  none;
-  color:            $dark_grey;
+tr {
+  height: 2em;
+}
+
+td {
+  width: auto;
+}
+
+a {
+  text-decoration: none;
+  color: $dark_grey;
   background-color: transparent;
 
-  &:hover
-  {
-    color:            white;
+  &:hover {
+    color: white;
     background-color: $dark_grey;
   }
 }
 
-a.sort_link
-{
+a.sort_link {
   color: $bright_blue;
-  &:hover
-  {
+  &:hover {
     background-color: $bright_blue;
-    color:            white;
+    color: white;
   }
 }
 
-#search, #search-left
-{
-  margin-top:    2em;
+#search, #search-left {
+  margin-top: 2em;
   margin-bottom: 2em;
   padding: 1em;
 
   border: thin solid $light_grey;
 
-  form { margin: 0; }
-  input[type='submit']
-  {
-    margin:    0;
-    padding:   4px;
+  form {
+    margin: 0;
+  }
+  input[type='submit'] {
+    margin: 0;
+    padding: 4px;
     font-size: .8em;
   }
 }
 
-#search
-{
+#search {
   text-align: right;
 }
 
-.pull-left
-{
+.pull-left {
   float: left;
 }
 
-.pull-right
-{
+.pull-right {
   float: right;
 }
 
-.clearfix
-{
+.clearfix {
   clear: both;
 }
 
-.formtastic
-{
-  li.input
-  {
+.formtastic {
+  li.input {
     padding: 0;
-    margin:  0;
+    margin: 0;
   }
 
-  label
-  {
+  label {
     font-weight: bold;
   }
 }
 
-#banner
-{
-  position:    relative;
-  height:      100px;
-  width:       100%;
+#banner {
+  position: relative;
+  height: 100px;
+  width: 100%;
   padding-top: 1px;
 
-  img
-  {
+  img {
     float: left;
   }
 
-  #logo
-  {
+  #logo {
     background-color: black;
-    color:            white;
-    padding:          10px 10px 10px 20px;
-    float:            left;
-    width:            100px;
+    color: white;
+    padding: 10px 10px 10px 20px;
+    float: left;
+    width: 100px;
 
   }
 
-  #banner_text
-  {
+  #banner_text {
     margin-left: 5em;
-    margin-top:  .5em;
+    margin-top: .5em;
     font-weight: bold;
-    float:       left;
-    div
-    {
+    float: left;
+    div {
       margin-bottom: .2em;
-      a
-      {
+      a {
         color: inherit;
       }
     }
   }
 
-  #emergency_button
-  {
-    float:        right;
+  #emergency_button {
+    float: right;
     margin-right: 6px;
   }
 
-  .not-emerg, .reverse
-  {
-    width:  162px;
+  .not-emerg, .reverse {
+    width: 162px;
     height: 100px;
   }
-  .not-emerg
-  {
+  .not-emerg {
     background-color: $emergency_bg;
-    color:            $emergency_fg;
+    color: $emergency_fg;
 
-    &:hover
-    {
-      color:            $emergency_bg;
+    &:hover {
+      color: $emergency_bg;
       background-color: $emergency_fg;
     }
   }
 
-  .reverse
-  {
+  .reverse {
     background-color: $emergency_fg;
-    color:            $emergency_bg;
-    &:hover
-    {
-      color:            $emergency_fg;
+    color: $emergency_bg;
+    &:hover {
+      color: $emergency_fg;
       background-color: $emergency_bg;
-      border:           thin solid $emergency_fg;
+      border: thin solid $emergency_fg;
     }
   }
 }
 
-.odd
-{
+.odd {
   background-color: $light-grey;
 }
 
-div.button
-{
-  margin-top:    12px;
+div.button {
+  margin-top: 12px;
   margin-bottom: 12px;
 }
 
-a.tab
-{
+a.tab {
   border-top-right-radius: 10px;
-  border-top-left-radius:  10px;
-  padding:                 12px 0.5em;
-  margin-left:             3px;
-  border:                  1px solid #778;
-  border-bottom:           none;
-  background-color:        $nav_bar_tab_bg;
-  color:                   $nav_bar_tab_fg;
-  display:                 block;
-  width:                   7em;
+  border-top-left-radius: 10px;
+  padding: 12px 0.5em;
+  margin-left: 3px;
+  border: 1px solid #778;
+  border-bottom: none;
+  background-color: $nav_bar_tab_bg;
+  color: $nav_bar_tab_fg;
+  display: block;
+  width: 7em;
 
-  &:hover, .selected
-  {
-    color:            $nav_bar_tab_bg;
+  &:hover, &.selected {
+    color: $nav_bar_tab_bg;
     background-color: $nav_bar_tab_fg;
-    border:           thin solid $nav_bar_tab_bg;
+    border: thin solid $nav_bar_tab_bg;
 
-    .selected:hover
-    {
+    .selected:hover {
       background-color: $nav_bar_tab_bg;
-      color:            $nav_bar_tab_fg;
-      border:           none;
+      color: $nav_bar_tab_fg;
+      border: none;
     }
   }
 }
 
-a.button, input[type="submit"]
-{
-  padding:            12px;
-  margin:             0px;
-  box-sizing:         content-box;
-  white-space:        normal;
+a.button, input[type="submit"] {
+  padding: 12px;
+  margin: 0px;
+  box-sizing: content-box;
+  white-space: normal;
   -webkit-appearance: none;
-  display:            inline;
-  height:             auto;
-  line-height:        normal;
-  border-width:       1px;
-  border-style:       soild;
+  display: inline;
+  height: auto;
+  line-height: normal;
+  border-width: 1px;
+  border-style: soild;
 
-  font-family:        Verdana, Geneva, sans-serif;
-  font-size:          1.2em;
-  font-weight:        bold;
-  border-radius:      10px;
-  text-align:         center;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 1.2em;
+  font-weight: bold;
+  border-radius: 10px;
+  text-align: center;
 }
 
-a.small-button
-{
-  padding:   4px;
+a.small-button {
+  padding: 4px;
   font-size: .8em;
 }
 
-a.button
-{
+a.button {
 
   background-color: $dark_grey;
-  color:            white;
+  color: white;
 
-  &:hover
-  {
-    color:            $dark_grey;
+  &:hover {
+    color: $dark_grey;
     background-color: white;
-    border:           thin solid $dark_grey;
+    border: thin solid $dark_grey;
   }
 }
 
 a.submit-button, input[type="submit"],
 {
   background-color: $green;
-  color:            white;
+  color: white;
 
-  &:hover
-  {
-    color:            $green;
+  &:hover {
+    color: $green;
     background-color: white;
-    border:           thin solid $green;
+    border: thin solid $green;
   }
 
 }
 
-.odd
-{
-  a.button
-  {
+.odd {
+  a.button {
     background-color: white;
-    color:            $dark_grey;
-    border:           thin solid $dark_grey;
+    color: $dark_grey;
+    border: thin solid $dark_grey;
 
-    &:hover
-    {
-      color:            white;
+    &:hover {
+      color: white;
       background-color: $dark_grey;
     }
   }
 }
 
-.missing
-{
+.missing {
   background-color: $missing_bg;
 }
 
-.found
-{
+.found {
   background-color: $found_bg;
 }
 
-.normal#banner
-{
+.normal#banner {
   background-color: $no_issues_bg;
-  color:            $no_issues_fg;
+  color: $no_issues_fg;
 }
 
-.active#banner
-{
+.active#banner {
   background-color: $active_issues_bg;
-  color:            $active_issues_fg;
+  color: $active_issues_fg;
 }
 
-.messages#banner
-{
+.messages#banner {
   background-color: $messages_bg;
-  color:            $messages_fg;
+  color: $messages_fg;
 }
 
-.emergency#banner
-{
+.emergency#banner {
   background-color: $emergency_bg;
-  color:            $emergency_fg;
+  color: $emergency_fg;
 }
 
-#menubar
-{
-  margin:           0;
-  padding:          0;
-  margin-bottom:    1em;
-  height:           4em;
+#menubar {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 1em;
+  height: 4em;
   background-color: $nav_bar_bg;
-  color:            $nav_bar_fg;
+  color: $nav_bar_fg;
 
-  ul
-  {
-    width:         100%;
-    float:         left;
-    padding:       0;
-    margin-left:   0;
+  ul {
+    width: 100%;
+    float: left;
+    padding: 0;
+    margin-left: 0;
     border-bottom: 1px solid #778;
-    font:          bold .9em Verdana, sans-serif;
+    font: bold .9em Verdana, sans-serif;
 
-    li
-    {
+    li {
       list-style: none;
-      margin:     0;
-      float:      left;
+      margin: 0;
+      float: left;
     }
   }
 
 }
 
-#notice
-{
-  color:            black !important;
-  border:           2px solid red;
-  padding:          1em;
-  margin-bottom:    2em;
+#notice {
+  color: black !important;
+  border: 2px solid red;
+  padding: 1em;
+  margin-bottom: 2em;
   background-color: #f0f0f0;
-  font:             bold smaller sans-serif;
+  font: bold smaller sans-serif;
 }
 
-#welcome
-{
-  border:           thin solid $green;
+#welcome {
+  border: thin solid $green;
   background-color: $green_desat;
-  padding:          1em;
-  margin-top:       1em;
-  margin-right:     1em;
+  padding: 1em;
+  margin-top: 1em;
+  margin-right: 1em;
 }
 
-#columns
-{
+#columns {
   min-height: 500px;
-  #main
-  {
+  #main {
     //  margin-left: 10em;
     //  margin-right: 5em;
     min-height: 500px;
-    width:      80%;
-    float:      left;
+    width: 80%;
+    float: left;
   }
 
-  #side
-  {
-    margin:     0;
-    padding:    0;
-    float:      left;
-    width:      20%;
+  #side {
+    margin: 0;
+    padding: 0;
+    float: left;
+    width: 20%;
     min-height: 500px;
 
-    a
-    {
-      margin-right:     .5em;
+    a {
+      margin-right: .5em;
       background-color: inherit;
-      color:            $sidebar_fg;
-      display:          block;
+      color: $sidebar_fg;
+      display: block;
 
-      &:hover
-      {
-        color:            $sidebar_bg;
+      &:hover {
+        color: $sidebar_bg;
         background-color: $sidebar_fg;
-        border:           thin solid $sidebar_bg;
+        border: thin solid $sidebar_bg;
       }
     }
 
-    ul
-    {
-      width:       100%;
-      float:       left;
-      padding:     0;
+    ul {
+      width: 100%;
+      float: left;
+      padding: 0;
       margin-left: 0;
-      font:        bold .8em Verdana, sans-serif;
+      font: bold .8em Verdana, sans-serif;
 
-      li
-      {
+      li {
         list-style: none;
-        margin:     .5em;
-        padding:    .5em;
+        margin: .5em;
+        padding: .5em;
       }
     }
   }
 }
 
-#indicia
-{
-  clear:      both;
-  padding:    10px;
+#indicia {
+  clear: both;
+  padding: 10px;
   border-top: 2px solid;
-  font:       small-caps 10px/10px "Palatino", "Times New Roman", serif;
+  font: small-caps 10px/10px "Palatino", "Times New Roman", serif;
   text-align: center;
 }
 
-.con_on_rails_form
-{
-  fieldset
-  {
-    legend
-    {
-      font-size:   larger;
+.con_on_rails_form {
+  fieldset {
+    legend {
+      font-size: larger;
       font-weight: bold;
     }
   }
 
-  form
-  {
-    label
-    {
-      width:        5em;
-      float:        left;
+  form {
+    label {
+      width: 5em;
+      float: left;
       margin-right: 0.1em;
-      display:      block;
+      display: block;
     }
 
-    select, textarea, input
-    {
+    select, textarea, input {
       margin-left: 0.5em;
     }
 
-    .submit
-    {
+    .submit {
       margin-left: 4em;
     }
 
-    br
-    {
+    br {
       display: none;
     }
   }
 }
 
-.ui-autocomplete
-{
+.ui-autocomplete {
   background-color: $light_grey;
-  color:            black;
-  border:           thin solid black;
-  width:            200px;
+  color: black;
+  border: thin solid black;
+  width: 200px;
 
-  li
-  {
+  li {
     list-style: none;
-    padding:    0;
-    margin:     0;
+    padding: 0;
+    margin: 0;
   }
 
 }
@@ -524,6 +449,7 @@ a.submit-button, input[type="submit"],
   position: relative;
   width: 800px;
 }
+
 .cork-board {
   background-image: url(image_path('expanded-cork.jpg'));
   width: 780px;
