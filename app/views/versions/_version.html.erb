@@ -1,0 +1,41 @@
+<tr class="<%= cycle('even', 'odd')%>">
+  <td><%= version.created_at.getlocal.ctime %></td>
+  <td><%= version.event %></td>
+  <td>
+    <% case version.item_type
+         when "Entry" %>
+        <% entry = Entry.find_by_id(version.item_id) %>
+        <% event = Event.find_by_id(entry.event_id) if entry.present? %>
+        <% if event.present? %>
+            <%= link_to "Entry for Event #{event.id}", event %>
+        <% else %>
+            Entry (deleted!)
+        <% end %>
+    <% when "Event" %>
+        <% event = Event.find_by_id(version.item_id) %>
+        <% if event.present? %>
+            <%= link_to "Event #{version.item_id}", event %>
+        <% else %>
+            Event <%= version.item_id %> (deleted!)
+        <% end %>
+    <% when "LostAndFoundItem" %>
+        <% lfi = LostAndFoundItem.find_by_id(version.item_id) %>
+        <% if lfi.present? %>
+            <%= link_to "Lost/Found", lfi %>
+        <% else %>
+            Lost/Found <%= version.item_id %> (deleted!)
+        <% end %>
+    <% when "LoginLog" %>
+        Login/Out
+    <% else %>
+        <%= version.item_type %> <%= version.item_id %>
+    <% end %>
+  </td>
+  <td>
+    <% user = User.find_by_id(version.whodunnit) %>
+    <% if user.present? %>
+        <%= link_to "#{user.username}", user %>
+    <% end %>
+  </td>
+  <td><%= version.object %></td>
+</tr>

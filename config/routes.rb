@@ -76,6 +76,7 @@ ConOnRails::Application.routes.draw do
     end
   end
 
+  resources :versions, only: [:index]
   resources :volunteers do
     post 'new_from_attendee'
     member do

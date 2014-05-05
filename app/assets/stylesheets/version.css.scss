@@ -1,0 +1,29 @@
+// Place all the styles related to the audit controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.versions
+{
+  table#audit_table
+  {
+    col.created_at
+    {
+      width: 150px;
+    }
+
+    col.item {
+      width: 150px;
+    }
+
+    td
+    {
+      font-size: 60%;
+      text-spacing: 0;
+      text-align: left;
+      vertical-align: top;
+      padding-left: 0.5em;
+      padding-right: 0.5em;
+    }
+  }
+
+}

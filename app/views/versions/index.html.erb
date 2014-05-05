@@ -1,0 +1,40 @@
+<h1>The Master Log</h1>
+<div id="paginator"><%= paginate @versions, remote: true if @versions %></div>
+<div id="filters">
+  <%= form_tag :versions, method: :get, remote: true do %>
+      <div>
+        <%= check_box_tag :use_start_date %>
+        <%= label_tag :start_date %>
+        <%= datetime_select :start_date, :item, start_year: DateTime.now.year %>
+      </div>
+      <div>
+        <%= check_box_tag :use_end_date %>
+        <%= label_tag :end_date %>
+        <%= datetime_select :end_date, :item, end_year: DateTime.now.year %>
+      </div>
+      <div>
+        <%= check_box_tag :events %>
+        <%= label_tag :events, "Events and Entries" %>
+        <%= check_box_tag :lfi %>
+        <%= label_tag :lfi, "Lost and Found" %>
+      </div>
+      <%= submit_tag "Filter" %>
+  <% end %>
+  <%= form_tag :versions, method: :get, remote: true do %>
+      <%= submit_tag "Clear Filter" %>
+  <% end %>
+</div>
+<table id="audit_table">
+  <colgroup>
+    <col class="created_at">
+    <col class="event">
+    <col class="item">
+    <col class="whodunnit">
+    <col class="object">
+  </colgroup>
+  <tbody id="audit_table_body">
+  <%= render @versions if @versions %>
+  </tbody>
+
+</table>
+<div id="paginator"><%= paginate @versions, remote: true if @versions %></div>
