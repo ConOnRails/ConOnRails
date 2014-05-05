@@ -50,7 +50,8 @@ module ApplicationHelper
   end
 
   def tab(text, path, target='_self')
-    link_to text, path, class: "tab #{tab_selected}", target: target
+    id = text.gsub(%r.[ /]., '-' ).downcase
+    link_to text, path, id: "menu-tab-#{id}", class: "tab #{tab_selected}", target: target
   end
 
   def tab_selected
