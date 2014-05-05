@@ -61,7 +61,6 @@
 
     getEvents: function () {
       this.cards = []
-      console.log("getEvents!")
 
       $.ajax({
         url: '/events/tag/' + this.tag,
@@ -76,7 +75,6 @@
 
     gotoEvent: function (evt) {
       var $target = $(evt.target).closest('.index-card');
-      console.log($target);
       location.assign('/events/' + $target.data('event-id'));
     }
   }
