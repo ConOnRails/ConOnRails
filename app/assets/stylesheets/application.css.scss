@@ -205,12 +205,10 @@ a.tab {
   &:hover, &.selected {
     color: $nav_bar_tab_bg;
     background-color: $nav_bar_tab_fg;
-    border: thin solid $nav_bar_tab_bg;
 
     .selected:hover {
       background-color: $nav_bar_tab_bg;
       color: $nav_bar_tab_fg;
-      border: none;
     }
   }
 }
@@ -318,7 +316,7 @@ a.submit-button, input[type="submit"],
     float: left;
     padding: 0;
     margin-left: 0;
-    border-bottom: 1px solid #778;
+    //border-bottom: 1px solid #778;
     font: bold .9em Verdana, sans-serif;
 
     li {
