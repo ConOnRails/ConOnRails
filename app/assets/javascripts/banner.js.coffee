@@ -4,7 +4,6 @@ $ ->
 
 handlePause = () ->
   window.pauseBanner = $('.pause-banner').is(':checked')
-  console.log(window.pauseBanner)
   if window.pauseBanner == false
     get_banner()
 
