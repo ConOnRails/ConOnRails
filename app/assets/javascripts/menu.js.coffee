@@ -38,7 +38,6 @@ MenuDecorator.prototype = {
 
   match_main_menu: ((i, thing) ->
     tab_href = $(thing).attr('href')
-    console.log this.here, tab_href
 
     if tab_href == this.here
       $(thing).addClass('selected')
@@ -46,7 +45,6 @@ MenuDecorator.prototype = {
   ),
 
   sub_section: (->
-    console.log this.here
     for path in this.admin_subpaths
       if path == this.here
         $('#menu-tab-admin').addClass('selected')
