@@ -26,7 +26,8 @@
 <ul>
   <% if current_user and current_user.can_read_audits? %>
       <li><%= link_to 'Conventions (enables time-based filters)', conventions_url %></li>
-      <li><%= link_to "View system log", audits_url %></li>
+      <li><%= link_to "(Pre-2014) View system log", audits_url %></li>
+      <li><%= link_to "(2014-) View system log", versions_url %></li>
       <li><%= link_to "View login/out log", login_log_index_url %></li>
   <% end %>
   <li>Create backup (not yet implemented)</li>
