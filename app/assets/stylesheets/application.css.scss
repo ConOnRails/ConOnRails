@@ -79,14 +79,16 @@ a.sort_link {
 }
 
 #search, #search-left {
-  margin-top: 2em;
-  margin-bottom: 2em;
+  margin: 1em 1em 1em 0;
   padding: 1em;
-
   border: thin solid $light_grey;
+  font-size: 80%;
 
   form {
     margin: 0;
+  }
+  input.small {
+    font-size: 80%;
   }
   input[type='submit'] {
     margin: 0;
