@@ -113,6 +113,16 @@ class EventTest < ActiveSupport::TestCase
         end
       end
 
+      context 'one event is secure' do
+        setup do
+          @event.update_attribute(:secure, true)
+        end
+
+        should 'have one secure event' do
+          assert_equal 1, Event.num_active_secure
+        end
+      end
+
       context 'one event is an emergency' do
         setup do
           @second_event.emergency = true

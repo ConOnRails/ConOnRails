@@ -11,7 +11,7 @@ module EventsHelper
     link_to merge_mode_toggle_text,
             merge_button_path,
             remote: true,
-            class:  "button merge-button #{merge_toggle_class}"
+            class: "button merge-button #{merge_toggle_class}"
   end
 
   def merge_button_path
@@ -34,7 +34,7 @@ module EventsHelper
     #           class: 'button merge-button'
     link_to 'Merge',
             '#',
-            class:   'button submit-button',
+            class: 'button submit-button',
             onclick: 'document.getElementById("merge-form").submit()'
   end
 
@@ -67,5 +67,14 @@ module EventsHelper
     ret << 'Emergency ' if event.emergency?
     ret << 'Sticky ' if event.sticky?
     ret + 'Issue'
+  end
+
+  def get_active_count
+    Event.current_convention.num_active - Event.current_convention.num_active_secure
+  end
+
+  def get_secure_count
+    return 0 unless current_user.rw_secure?
+    Event.current_convention.num_active_secure
   end
 end
