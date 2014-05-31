@@ -7,6 +7,9 @@
 *= require_tree .
 */
 @import "colors";
+@import url(http://fonts.googleapis.com/css?family=Nunito:400,700,300);
+@import url(http://fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,500,500italic,700,700italic&subset=latin,latin-ext);
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700);
 
 body {
   max-width: 1000px;
@@ -17,7 +20,7 @@ body {
   font-family: Verdana, Geneva, sans-serif;
   font-size: 0.9em;
   background-color: white;
-  color: black;
+  color: #333;
 }
 
 nav {
@@ -44,7 +47,7 @@ table {
 }
 
 th {
-  border-bottom: thin solid $dark-grey;
+  border-bottom: thin solid $dark_grey;
   width: auto;
 }
 
@@ -182,7 +185,7 @@ a.sort_link {
 }
 
 .odd {
-  background-color: $light-grey;
+  background-color: $light_grey;
 }
 
 div.button {
@@ -222,10 +225,9 @@ a.button, input[type="submit"] {
   display: inline;
   height: auto;
   line-height: normal;
-  border-width: 1px;
-  border-style: soild;
+  border: 1px soild;
 
-  font-family: Verdana, Geneva, sans-serif;
+  font-family: inherit;
   font-size: 1.2em;
   font-weight: bold;
   border-radius: 10px;
@@ -316,8 +318,8 @@ a.submit-button, input[type="submit"],
     float: left;
     padding: 0;
     margin-left: 0;
-    //border-bottom: 1px solid #778;
-    font: bold .9em Verdana, sans-serif;
+    font-size: .9em;
+    font-weight: bold;
 
     li {
       list-style: none;
@@ -348,8 +350,6 @@ a.submit-button, input[type="submit"],
 #columns {
   min-height: 500px;
   #main {
-    //  margin-left: 10em;
-    //  margin-right: 5em;
     min-height: 500px;
     width: 80%;
     float: left;
@@ -380,7 +380,7 @@ a.submit-button, input[type="submit"],
       float: left;
       padding: 0;
       margin-left: 0;
-      font: bold .8em Verdana, sans-serif;
+      font-size: .8em;
 
       li {
         list-style: none;
@@ -471,7 +471,6 @@ a.submit-button, input[type="submit"],
 
   .card-text {
     font-size: 12px;
-    font-family: 'Verdana';
   }
 }
 
