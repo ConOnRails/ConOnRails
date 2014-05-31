@@ -7,7 +7,7 @@ module ApplicationHelper
   end
 
   def version_number
-    '3.2.7'
+    '3.2.8'
   end
 
   def version_name
