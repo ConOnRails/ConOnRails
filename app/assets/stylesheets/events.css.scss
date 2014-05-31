@@ -1,100 +1,82 @@
 // Place all the styles related to the events controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
 @import "colors";
 
-.events
-{
-  .event_header
-  {
+.events {
+  .event_header {
     margin-bottom: 6px;
   }
 
-  .event_metadata
-  {
-    clear:         both;
-    font-size:     10px;
-    padding:       6px;
-    margin-right:  6px;
-    border-top:    thin solid;
+  .event_metadata {
+    clear: both;
+    font-size: 10px;
+    padding: 6px;
+    margin-right: 6px;
+    border-top: thin solid;
     border-bottom: thin solid;
 
-    .medical
-    {
+    .medical {
       color: $red;
     }
 
-    .emergency
-    {
+    .emergency {
       color: $red;
     }
 
-    .active
-    {
+    .active {
       font-weight: bold;
     }
 
-    a.update
-    {
-      padding:       .5em;
+    a.update {
+      padding: .5em;
       background-color: $green;
-      color:            white;
-      &:hover
-      {
-        color:            $green;
+      color: white;
+      &:hover {
+        color: $green;
         background-color: white;
-        border:           thin solid $green;
+        border: thin solid $green;
       }
     }
   }
 
-  .merge-button
-  {
+  .merge-button {
   }
 
-  .cancel-merge
-  {
+  .cancel-merge {
     color: $dark_grey;
     background-color: white;
     border: thin solid $dark_grey;
 
-    &:hover
-    {
+    &:hover {
       color: white;
       background-color: $dark_grey;
     }
   }
 
-  .merge-check
-  {
+  .merge-check {
     float: left;
     margin-right: 1em;
     font-weight: bold;
   }
 
-  ul.entries
-  {
-    padding:             0;
-    margin-left:         1em;
-    min-height:          5em;
+  ul.entries {
+    padding: 0;
+    margin-left: 1em;
+    min-height: 5em;
 
-    list-style-type:     circle;
+    list-style-type: circle;
     list-style-position: outside;
-    li.entry
-    {
+    li.entry {
       margin-bottom: 1em;
 
-      .entry_metadata
-      {
+      .entry_metadata {
         font-weight: bold;
-        color:       $dark_grey;
-        .date
-        {
+        color: $dark_grey;
+        .date {
           display: inline;
         }
-        .volunteer
-        {
+        .volunteer {
           display: inline;
         }
       }
@@ -102,59 +84,54 @@
     }
   }
 
-  .formtastic
-  {
-    fieldset
-    {
-      margin:       0;
-      padding:      0;
+  .formtastic {
+    fieldset {
+      margin: 0;
+      padding: 0;
       padding-left: 1em;
 
-      ol
-      {
-        margin:  0;
+      ol {
+        margin: 0;
         padding: 0;
-        li
-        {
-          margin:  0;
+        li {
+          margin: 0;
           padding: 0;
+        }
+        li.alert-tag-check {
+          padding-top: 12px;
+
+          label {
+            padding-left: 12px;
+          }
         }
       }
     }
 
-    fieldset.inputs
-    {
-      textarea
-      {
+    fieldset.inputs {
+      textarea {
         margin-right: 2em;
       }
     }
 
-    #event_options_side
-    {
+    #event_options_side {
       float: right;
       width: 25%;
     }
-    fieldset.status
-    {
+    fieldset.status {
       padding: 0;
-      margin:  0;
-      ol
-      {
-        ol.choices-group
-        {
-          padding:    0;
+      margin: 0;
+      ol {
+        ol.choices-group {
+          padding: 0;
           list-style: none;
 
-          .choice
-          {
-            margin:  0;
+          .choice {
+            margin: 0;
             padding: 0;
             //display: inline;
 
-            label
-            {
-              padding:      0;
+            label {
+              padding: 0;
               margin-right: 1em;
             }
           }
@@ -162,16 +139,12 @@
       }
     }
 
-    fieldset.type_flags
-    {
-      ol
-      {
-        li
-        {
+    fieldset.type_flags {
+      ol {
+        li {
           display: inline;
-          label
-          {
-            margin:  0;
+          label {
+            margin: 0;
             padding: 0;
           }
         }
@@ -179,132 +152,105 @@
     }
   }
 
-  #event_options_bottom
-  {
+  #event_options_bottom {
     display: block;
-    fieldset.department_flags
-    {
+    fieldset.department_flags {
       float: left;
-      ol
-      {
+      ol {
         list-style-type: none;
 
-        .input
-        {
+        .input {
           display: inline;
-          label
-          {
-            padding:      0;
+          label {
+            padding: 0;
             margin-right: .5em;
-            display:      inline;
+            display: inline;
           }
         }
       }
     }
   }
 
-  .event_flag_history
-  {
-    float:     right;
-    border:    thin solid black;
-    padding:   3px;
-    margin:    6px;
-    font-size: 80%;
+  .event_flag_history {
+    float: right;
+    border: thin solid black;
+    padding: 3px;
+    margin: 6px;
+    font-size: 9px;
 
-    .efh_header
-    {
+    .efh_header {
       font-weight: bold;
     }
-    ul
-    {
-      padding:    0;
-      margin:     0;
+    ul {
+      padding: 0;
+      margin: 0;
       list-style: none;
-      li
-      {
-        display:   inline;
-        padding:   0;
-        margin:    0;
-        font-size: 80%;
-
+      li {
+        display: inline;
+        padding: 0;
+        margin: 0;
+        font-size: 9px;
       }
     }
   }
 
-  #entry_description_input
-  {
-    textarea#entry_description
-    {
-      width:  97%;
+  #entry_description_input {
+    textarea#entry_description {
+      width: 97%;
       height: 15em;
 
     }
   }
 
-  .buttons
-  {
-    display:       block;
-    clear:         both;
+  .buttons {
+    display: block;
+    clear: both;
     margin-bottom: 1em;
-    margin-top:    .5em;
-    //    padding-left:  .5em;
-    //,    padding-top:   .5em;
-
-    //    border:        thin solid black;
-    //    border-radius: 10px;
+    margin-top: .5em;
+    padding-top: 6px;
+    padding-left: 0;
   }
 
-  #event-buttons
-  {
+  #event-buttons {
     margin-top: 12px;
     height: 2.5em;
 
-    span
-    {
+    span {
     }
   }
 
-  #big-log-button
-  {
-    a.button
-    {
-      &:link, &:active, &:visited
-      {
+  #big-log-button {
+    a.button {
+      &:link, &:active, &:visited {
         background-color: $blue;
-        color:            white;
+        color: white;
       }
-      &:hover
-      {
-        color:            $blue;
+      &:hover {
+        color: $blue;
         background-color: white;
-        border:           thin solid $blue;
+        border: thin solid $blue;
       }
 
     }
   }
 
   // Filter stuff
-  #filters
-  {
-    fieldset#filter_set
-    {
+  #filters {
+    fieldset#filter_set {
       width: 80%;
 
-      fieldset
-      {
-        width:   auto;
+      fieldset {
+        width: auto;
         padding: 0;
       }
     }
-    ol
-    {
+    ol {
       list-style-type: none;
-      padding:         0;
-      margin:          0;
-      li
-      {
-        font-size:    70%;
-        float:        left;
+      padding: 0;
+      margin: 0;
+      li {
+        font-size: 70%;
+        float: left;
         margin-right: 3px;
       }
     }
