@@ -5,12 +5,12 @@
       <div>
         <%= check_box_tag :use_start_date %>
         <%= label_tag :start_date %>
-        <%= datetime_select :start_date, :item, start_year: DateTime.now.year %>
+        <%= datetime_select :start_date, :item, start_year: Convention.least_recent.start_date.year, end_year: Convention.most_recent.end_date.year %>
       </div>
       <div>
         <%= check_box_tag :use_end_date %>
         <%= label_tag :end_date %>
-        <%= datetime_select :end_date, :item, end_year: DateTime.now.year %>
+        <%= datetime_select :end_date, :item, start_year: Convention.least_recent.start_date.year, end_year: Convention.most_recent.end_date.year%>
       </div>
       <div>
         <%= check_box_tag :events %>
