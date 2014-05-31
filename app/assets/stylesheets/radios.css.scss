@@ -6,6 +6,10 @@
 
 .radios
 {
+  tr, td {
+    height: auto;
+  }
+
   form
   {
     fieldset
@@ -76,7 +80,7 @@
   width: 200px;
 }
 
-a.check-in, a.check-out, a.transfer
+a.check-in, a.check-out, a.transfer, a.delete
 {
   font-size: 1em;
 }
