@@ -2,21 +2,26 @@
   <% if current_user %>
       <% emerg = Event.current_convention.num_active_emergencies %>
       <% medic = Event.current_convention.num_active_medicals %>
-      <% msgs  = Message.num_active %>
-      <% count = Event.current_convention.num_active %>
+      <% msgs = Message.num_active %>
       <div>
-      <% if emerg > 0 %>
-          <span><%= pluralize emerg, "Emergency" %></span>
-      <% end %>
-      <% if medic > 0 %>
-          <span><%= pluralize medic, "Medical" %></span>
-      <% end %>
+        <% if emerg > 0 %>
+            <span><%= pluralize emerg, "Emergency" %></span>
+        <% end %>
+        <% if medic > 0 %>
+            <span><%= pluralize medic, "Medical" %></span>
+        <% end %>
       </div>
       <% if msgs > 0 %>
           <div><%= pluralize msgs, "Message" %></div>
       <% end %>
- 
-      <div><%= pluralize count, "Active Issue" %></div>
+
+      <% if current_user.rw_secure? %>
+          <div><%= pluralize get_secure_count, "Secure Active Issue" %></div>
+          <div><%= pluralize get_active_count, "Active Issue" %> (excludes Secure)</div>
+      <% else %>
+          <div><%= pluralize get_active_count, "Active Issue" %></div>
+      <% end %>
+
       <div><%= Time.now.ctime %>&mdash;User: <%= link_to current_user.name, current_user %> as <%= current_role %></div>
   <% else %>
       <h1>CONVergence Operations Log</h1>

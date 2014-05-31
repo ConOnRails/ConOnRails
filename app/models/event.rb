@@ -102,6 +102,10 @@ class Event < ActiveRecord::Base
     return Event.where { is_active != true }.count
   end
 
+  def self.num_active_secure
+    return Event.where { (is_active == true) & (secure == true) }.count
+  end
+
   def self.num_active_emergencies
     return Event.where { (is_active == true) & (emergency == true) }.count
   end
