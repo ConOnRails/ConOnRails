@@ -29,4 +29,7 @@ class Convention < ActiveRecord::Base
   def self.most_recent
     order('start_date desc').first
   end
+  def self.least_recent
+    order('start_date asc').first
+  end
 end

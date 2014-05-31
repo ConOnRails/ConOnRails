@@ -1,11 +1,4 @@
 <h1>Active messages</h1>
-<div id="search-left">
-  <%= search_form_for @qc, url: contacts_path do |f| %>
-      <%= f.label :name_cont, 'Contact name contains (case sensitive)' %>
-      <%= f.text_field :name_cont %>
-      <%= f.submit %>
-  <% end %>
-</div>
 
 <div class="button">
   <%= link_to 'New Message', new_message_path, class: 'button' %>
@@ -24,5 +17,15 @@
 <%= content_for :side do %>
     <div>
       <%= link_to "Contacts", contacts_path %>
+    </div>
+<% end %>
+
+<%= content_for :search do %>
+    <div id="search">
+      <%= search_form_for @qc, url: contacts_path do |f| %>
+          <%= f.label :name_cont, 'Contact name contains (case sensitive)' %>
+          <%= f.text_field :name_cont %>
+          <%= f.submit %>
+      <% end %>
     </div>
 <% end %>
