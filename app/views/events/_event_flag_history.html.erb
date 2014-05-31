@@ -10,6 +10,8 @@
             <li><%= f %></li>
         <% end %>
     <% end %>
-    <%= event_flag_history.alert_list.join(', ') %>
+    <% event_flag_history.alert_list.each do |f| %>
+        <li><%= f %></li>
+    <% end %>
   </ul>
 </div>
