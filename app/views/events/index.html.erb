@@ -1,8 +1,8 @@
 <%= form_tag merge_events_events_path, method: :post, id: 'merge-form' do %>
     <div id="event-buttons" class="button">
-      <span id="big-log-button"><%= link_to 'Log New Event', new_event_path, class: 'button update' %></span>
-      <span id="merge-mode-toggle"></span>
-      <span id="merge-mode-submit"></span>
+      <div class="big-log-button button inline-button"><%= link_to 'Log New Event', new_event_path, class: 'button update' %></div>
+      <div id="merge-mode-toggle" class="button inline-button"></div>
+      <div id="merge-mode-submit" class="button inline-button"></div>
       <% if action_name == 'sticky' %>
           <%= label_tag :show_older, 'Show Older' %>
           <%= check_box_tag(:show_older, '1', params[:show_older], id: 'show_older') %>
