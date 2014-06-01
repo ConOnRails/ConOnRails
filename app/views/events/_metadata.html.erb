@@ -1,14 +1,19 @@
-<% if !form && params[:merge_mode] == 'true' %>
+<div style="display: inline-block; width: 100%">
+  <% if !form && params[:merge_mode] == 'true' %>
     <span class="merge-check">
       <%= check_box_tag "merge_ids[]", event.id %>
       <%= label_tag "merge_ids[]", 'Merge' %>
     </span>
-<% end %>
+  <% end %>
 
-<span class="<%= event_style event %>"><%= event_tags event %></span>
+  <% if !form %>
+      <%= link_to 'Update This Event', edit_event_path(event), class: 'button update' %>
+  <% end %>
 
-<% if !form %>
-    <span style="float: right"><%= link_to 'Update This Event', edit_event_path(event), class: 'button update' %></span>
-    <span class="updated_at"><%= event.updated_at.getlocal.ctime %></span>
-<% end %>
+  <span class="<%= event_style event %>"><%= event_tags event %></span>
 
+  <% if !form %>
+      <span class="updated_at"><%= event.updated_at.getlocal.ctime %></span>
+  <% end %>
+
+</div>
