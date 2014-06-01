@@ -7,9 +7,9 @@
 *= require_tree .
 */
 @import "colors";
-@import url(http://fonts.googleapis.com/css?family=Nunito:400,700,300);
-@import url(http://fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,500,500italic,700,700italic&subset=latin,latin-ext);
-@import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700);
+//@import url(http://fonts.googleapis.com/css?family=Nunito:400,700,300);
+//@import url(http://fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,500,500italic,700,700italic&subset=latin,latin-ext);
+//@import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700);
 
 body {
   max-width: 1000px;
@@ -95,10 +95,6 @@ a.sort_link {
     padding: 4px;
     font-size: .8em;
   }
-}
-
-#search {
-  text-align: right;
 }
 
 .pull-left {
@@ -195,6 +191,11 @@ div.button {
   margin-bottom: 12px;
 }
 
+div.small-button {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
 a.tab {
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
@@ -227,12 +228,11 @@ a.button, input[type="submit"] {
   display: inline;
   height: auto;
   line-height: normal;
-  border: 1px soild;
+  border-radius: 10px;
 
   font-family: inherit;
   font-size: 1.2em;
   font-weight: bold;
-  border-radius: 10px;
   text-align: center;
 }
 
@@ -253,10 +253,11 @@ a.button {
   }
 }
 
-a.submit-button, input[type="submit"],
+a.submit-button, input[type="submit"]
 {
   background-color: $green;
   color: white;
+  border: none;
 
   &:hover {
     color: $green;
