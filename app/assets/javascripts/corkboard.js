@@ -11,22 +11,18 @@
       this.$cork_space = $('#cork-board');
 
       this.$cork_board = $(document.createElement('div'));
-      this.$cork_space.append(this.$cork_board);
       this.$cork_board.addClass('cork-board');
 
-      this.$cork_label = $(document.createElement('div'));
-      this.$cork_space.append(this.$cork_label);
-      this.$cork_label.addClass('cork-board-label');
-      this.$cork_label.html(this.tag);
+      this.$cork_space.append(this.$cork_board);
 
       this.getEvents();
     },
 
     card: function (id, text) {
       var $card = $(document.createElement('div'));
+      $card.addClass('index-card');
 
       this.$cork_board.append($card);
-      $card.addClass('index-card');
 
       if (this.currentID() == id) {
         $card.addClass('selected-card');
@@ -48,6 +44,13 @@
 
     fillCards: function (data, status, xhr) {
       this.$cork_board.html('');
+
+      this.$cork_label = $(document.createElement('div'));
+      this.$cork_label.addClass('cork-board-label');
+      this.$cork_label.html(this.tag);
+
+      this.$cork_board.append(this.$cork_label);
+
 
       if (data.length == 0) {
         this.$cork_board.hide();
