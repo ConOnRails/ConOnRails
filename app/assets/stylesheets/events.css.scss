@@ -29,9 +29,11 @@
     }
 
     a.update {
+      margin-right: 1em;
       padding: .5em;
       background-color: $green;
       color: white;
+
       &:hover {
         color: $green;
         background-color: white;
