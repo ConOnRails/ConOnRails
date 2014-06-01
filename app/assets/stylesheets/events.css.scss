@@ -213,15 +213,7 @@
     padding-left: 0;
   }
 
-  #event-buttons {
-    margin-top: 12px;
-    height: 2.5em;
-
-    span {
-    }
-  }
-
-  #big-log-button {
+  .big-log-button {
     a.button {
       &:link, &:active, &:visited {
         background-color: $blue;
