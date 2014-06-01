@@ -456,6 +456,7 @@ a.submit-button, input[type="submit"]
 }
 
 .cork-board {
+  position: relative;
   background-image: url(image_path('expanded-cork.jpg'));
   width: 780px;
   min-height: 100px;
@@ -495,4 +496,5 @@ a.submit-button, input[type="submit"]
   height: auto;
   background-color: white;
   font-size: 12px;
+  z-index: 99;
 }
