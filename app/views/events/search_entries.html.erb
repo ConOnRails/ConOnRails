@@ -1,5 +1,7 @@
 <h1>Event Search Results</h1>
 
-<%= render partial: 'search_form' %>
+<% content_for :search do %>
+    <%= render partial: 'search_form' %>
+<% end %>
 
 <%= render @events, form: false %>
