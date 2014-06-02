@@ -29,5 +29,28 @@ class ConventionTest < ActiveSupport::TestCase
         assert_not_nil @con.errors[:end_date], 'Errors for con.end_date should be set.'
       end
     end
+
+    context '#current_convention' do
+      setup do
+        @old = FactoryGirl.create :convention, start_date: 365.days.ago, end_date: 362.days.ago
+      end
+
+      context 'nothing actually current defined' do
+        should 'return the most recent' do
+          assert_equal @old, Convention.current_convention
+        end
+      end
+
+      context 'something recent defined' do
+        setup do
+          @current = FactoryGirl.create :convention, start_date: 1.day.ago, end_date: 2.days.from_now
+        end
+
+        should 'return the convention that maps to today' do
+          assert_equal @current, Convention.current_convention
+        end
+      end
+
+    end
   end
 end

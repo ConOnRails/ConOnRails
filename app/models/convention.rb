@@ -29,7 +29,12 @@ class Convention < ActiveRecord::Base
   def self.most_recent
     order('start_date desc').first
   end
+
   def self.least_recent
     order('start_date asc').first
+  end
+
+  def self.current_convention
+    where { |c| (c.start_date <= DateTime.now) & (c.end_date >= DateTime.now) }.first || Convention.most_recent
   end
 end
