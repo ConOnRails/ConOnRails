@@ -60,8 +60,8 @@ class Event < ActiveRecord::Base
   }
 
   scope :current_convention, -> () {
-    where { |e| (e.created_at >= Convention.most_recent.start_date) &
-        (e.created_at <= Convention.most_recent.end_date) } unless Convention.most_recent.blank? }
+    where { |e| (e.created_at >= Convention.current_convention.start_date) &
+        (e.created_at <= Convention.current_convention.end_date) } unless Convention.current_convention.blank? }
 
   STATUSES = %w[ Active Closed Merged ]
   FLAGS    = %w[ is_active merged comment flagged post_con quote sticky emergency medical hidden secure consuite hotel parties volunteers dealers dock merchandise nerf_herders ]
