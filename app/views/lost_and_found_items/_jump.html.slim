@@ -2,5 +2,5 @@
   #search
     = form_tag :lost_and_found_items, method: :get, id: "lost_and_found_search_form" do
       = label_tag :id, "Jump to an ID"
-      = text_field_tag :id
+      = text_field_tag :id, class: 'small'
       = button_tag "Submit"

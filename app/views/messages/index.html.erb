@@ -24,7 +24,7 @@
     <div id="search">
       <%= search_form_for @qc, url: contacts_path do |f| %>
           <%= f.label :name_cont, 'Contact name contains (case sensitive)' %>
-          <%= f.text_field :name_cont %>
+          <%= f.text_field :name_cont, class: 'small' %>
           <div class="button small-button"><%= f.submit %></div>
       <% end %>
     </div>
