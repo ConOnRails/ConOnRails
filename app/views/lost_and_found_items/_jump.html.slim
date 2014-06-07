@@ -1,7 +1,6 @@
-#search
-  - content_for :search do
+- content_for :search do
+  #search
     = form_tag :lost_and_found_items, method: :get, id: "lost_and_found_search_form" do
       = label_tag :id, "Jump to an ID"
       = text_field_tag :id
       = button_tag "Submit"
-
