@@ -1,3 +1,5 @@
+<%= render partial: 'jump' %>
+
 <h2>Search for an item</h2>
 <%= form_tag :lost_and_found_items, method: :get, id: "lost_and_found_search_form" do %>
     <%= hidden_field_tag "reported_missing", params[:reported_missing] if params[:reported_missing] %>
