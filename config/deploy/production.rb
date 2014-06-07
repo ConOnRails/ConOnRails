@@ -16,7 +16,7 @@ role :db,  %w{cononrails@zim.itasca.net}
 # something that quacks like a hash can be used to set
 # extended properties on the server.
 server 'zim.itasca.net', user: 'cononrails', roles: %w{web app}, my_property: :my_value
-set :deploy_to, "/home/cononrails/apps/#{application}"
+set :deploy_to, "/home/cononrails/apps/" + fetch(:application)
 
 
 # you can set custom ssh options
