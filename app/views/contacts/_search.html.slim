@@ -2,7 +2,8 @@
   #search
     = search_form_for @q do |f| 
       = f.label :name_cont
-      = f.text_field :name_cont
+      = f.text_field :name_cont, class: 'small'
       = f.submit
-  div (style="text-align: right") Note: name and username searches are CASE SENSITIVE.
+    div (style="text-align: right") 
+      | Note: name and username searches are CASE SENSITIVE.
 
