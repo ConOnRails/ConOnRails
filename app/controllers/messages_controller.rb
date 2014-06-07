@@ -40,7 +40,7 @@ class MessagesController < ApplicationController
   end
 
   def find_messages
-    @qc       = Contact.search params[:qc]
+    @q       = Contact.search params[:q]
     @messages = Message.where(is_active: true).page(params[:page])
   end
 
