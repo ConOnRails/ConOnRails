@@ -7,11 +7,11 @@ module ApplicationHelper
   end
 
   def version_number
-    '3.2.11'
+    '3.2.12'
   end
 
   def version_name
-    'Hungry, Horny, Helpy, Hollering, Happenin\' Hippo'
+    'Hungry, Horny, Helpy, Hollering, Happenin\', Hysterical Hippo'
   end
 
   def version_type
