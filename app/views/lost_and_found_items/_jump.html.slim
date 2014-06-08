@@ -3,4 +3,12 @@
     = form_tag :lost_and_found_items, method: :get, id: "lost_and_found_search_form" do
       = label_tag :id, "Jump to an ID"
       = text_field_tag :id, nil, class: 'small'
-      = button_tag "Submit"
+      .button.small-button = submit_tag "Submit"
+
+    - if params[:inventory]
+      hr
+      = form_tag :lost_and_found_items, method: :get do
+        = hidden_field_tag 'inventory', params[:inventory]
+        = filter_by_convention
+        .button.small-button = submit_tag "Filter"
+
