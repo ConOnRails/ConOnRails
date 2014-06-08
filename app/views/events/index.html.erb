@@ -29,28 +29,7 @@
 </script>
 
 <% content_for :side do %>
-    <% case url_for() %>
-<% when root_path %>
-        <div><strong>Viewing Active</strong></div>
-        <% if current_user.rw_secure? %>
-            <div id="secure_link"><%= link_to 'View Active Secure', secure_events_path %></div>
-        <% end %>
-        <div id="sticky_link"><%= link_to 'View Sticky', sticky_events_path %></div>
-    <% when sticky_events_path %>
-        <div id="unsticky_link"><%= link_to 'View Active', root_path %></div>
-        <% if current_user.rw_secure? %>
-            <div id="secure_link"><%= link_to 'View Active Secure', secure_events_path %></div>
-        <% end %>
-        <div><strong>Viewing Sticky</strong></div>
-    <% when secure_events_path %>
-        <% if current_user.rw_secure? %>
-            <div id="unsticky_link"><%= link_to 'View Active', root_path %></div>
-            <div><strong>Viewing Active Secure</strong></div>
-            <div id="sticky_link"><%= link_to 'View Sticky', sticky_events_path %></div>
-        <% end %>
-    <% else %>
-        <div>I HAVE NO IDEA WHAT TO DO NOW!</div>
-    <% end %>
+  <%= sidebar_menu %>
 <% end %>
 
 <% content_for :search do %>
