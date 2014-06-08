@@ -8,3 +8,9 @@
       = label_tag :show_closed, 'Include Closed Events'
     div= filter_by_convention
     .button.small-button= submit_tag 'Search'
+  hr
+  = form_tag :events, method: :get, id: 'jump_to_event' do
+    div
+      = label_tag :jump_to_event, 'Jump to Event ID'
+      = text_field_tag :id, nil, class: 'small'
+      .button.small-button= submit_tag 'Jump'

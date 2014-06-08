@@ -40,6 +40,12 @@
         border: thin solid $green;
       }
     }
+
+    .event-id {
+      text-align: right;
+      font-weight: 700;
+      float:right;
+    }
   }
 
   .merge-button {

@@ -1,6 +1,6 @@
 <%= render partial: 'jump' %>
 <%= render "detail" %>
 <% content_for :side do %>
-    <%= link_to 'Back', searchform_lost_and_found_items_path %>
+    <%= link_to 'Back', request.referrer %>
     <%= link_to 'Open Inventory', lost_and_found_items_path(inventory: true) %>
 <% end %>

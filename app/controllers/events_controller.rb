@@ -17,6 +17,7 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
+    return jump if params[:id].present?
     @events = IndexQuery.new(Event).query.
         order { |e| e.updated_at.desc }.page(params[:page])
     respond_with @events
@@ -129,6 +130,12 @@ class EventsController < ApplicationController
   def get_tagged_events
     @events = IndexQuery.new(Event).query.tagged_with(params[:tag]).
         order { |e| e.updated_at.desc }
+  end
+
+  def jump
+    event = Event.find_by_id(params[:id])
+    return redirect_to event_path(params[:id]) if event
+    render 'lost_and_found_items/invalid'
   end
 
   def set_convention_param

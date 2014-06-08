@@ -133,9 +133,9 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
   end
 
   test "can force search to include returned" do
-    get :index, { reported_missing: true, keywords: "Llamas", show_returned: true }, { user_id: @user.id }
+    get :index, { reported_missing: true, keywords: "Llamas", show_returned_only: true }, { user_id: @user.id }
     assert_response :success
-    assert_equal 3, assigns(:lfis).length
+    assert_equal 1, assigns(:lfis).length
   end
 
   test "peon cannot create new lost" do
