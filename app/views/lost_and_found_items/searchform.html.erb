@@ -10,7 +10,7 @@
           <% LostAndFoundItem.categories.each do |k, v| %>
               <li><%= checkbox k, v %></li>
           <% end %>
-          <%= checkbox :show_returned, 'Returned' %>
+          <li><%= checkbox :show_returned_only, 'Returned Only' %></li>
         </ol>
     <% end %>
     <%= label_tag :keywords, "Search Keyword(s)" %>

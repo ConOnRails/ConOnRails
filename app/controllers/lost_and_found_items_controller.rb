@@ -29,9 +29,9 @@ class LostAndFoundItemsController < ApplicationController
     search_type = params[:search_type] || 'any'
 
     @lfis = limit_by_convention LostAndFoundItem.inventory(params[:inventory]).page(params[:page]).
-        where { |l| l.returned == false unless params[:show_returned] }.
         where { |l| l.description.send(('like_'+search_type).to_sym, wrap_keywords_for_like) unless params[:keywords].blank? }.
         where { |l| l.category >> @categories unless @categories.blank? }
+    @lfis = params[:show_returned_only] ? @lfis.returned : @lfis.not_returned
   end
 
   def new

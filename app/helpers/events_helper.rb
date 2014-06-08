@@ -77,4 +77,61 @@ module EventsHelper
     return 0 unless current_user.rw_secure?
     Event.current_convention.num_active_secure
   end
+
+  def active_link
+    content_tag :div, id: 'unsticky_link' do
+      link_to 'View Active', root_path
+    end
+  end
+
+  def active_text
+    content_tag :div do
+      content_tag :strong, 'Viewing Active'
+    end
+  end
+
+  def secure_link
+    if current_user.rw_secure?
+      content_tag :div, id: 'secure_link' do
+        link_to 'View Active Secure', secure_events_path
+      end
+    end
+  end
+
+  def secure_text
+    content_tag :div do
+      content_tag :strong, 'Viewing Active Secure'
+    end
+  end
+
+  def sticky_link
+    content_tag :div, id: 'sticky_link' do
+      link_to 'View Sticky', sticky_events_path
+    end
+  end
+
+  def sticky_text
+    content_tag :div do
+      content_tag :strong, 'Viewing Sticky'
+    end
+  end
+
+  def sidebar_menu
+    case url_for()
+      when root_path, events_path
+        active_text <<
+        secure_link <<
+        sticky_link
+      when sticky_events_path
+        active_link <<
+        secure_link <<
+        sticky_text
+      when secure_events_path
+        active_link <<
+        sticky_text <<
+        sticky_link
+      else
+        content_tag :div, "I HAVE NO IDEA WHAT TO DO NOW!"
+    end
+  end
 end
