@@ -6,16 +6,11 @@
   <div class="event_flag_history" id="event_flag_history_<%= event.id %>">
 
     <div class="efh_header" id="efh_header_<%= event.id %>">Flag History</div>
-    <div id="efh_list_<%= event.id %>">
+    <div id="efh_list_<%= event.id %>" class="efh_list">
       <%= render partial:    'event_flag_history',
                  collection: params[:active] ? event.event_flag_histories.reverse :
                          event.event_flag_histories %>
     </div>
-    <script>
-        $( '#efh_header_<%= event.id %>' ).click( function () {
-            $( '#efh_list_<%=event.id%>' ).toggle()
-        } );
-    </script>
   </div>
 
   <ul class="entries">
