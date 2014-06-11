@@ -13,13 +13,4 @@ class DutyBoardControllerTest < ActionController::TestCase
     get :index
     assert_response :success
   end
-
-  test "peon cannot assign" do
-    get :assign_slot, id: @dbs.to_param
-    assert_redirected_to :public
-  end
-
-  test "get assignment form" do
-    get :assign_slot, { id: @dbs.to_param }, @user_session
-  end
 end

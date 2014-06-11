@@ -11,9 +11,4 @@ class DutyBoardController < ApplicationController
 
   end
 
-  def assign_slot
-    @duty_board_slot = DutyBoardSlot.find params[:id]
-    respond_with @duty_board_slot, location: :duty_board_index
-  end
-
 end
