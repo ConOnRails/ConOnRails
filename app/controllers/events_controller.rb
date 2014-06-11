@@ -6,7 +6,6 @@ class EventsController < ApplicationController
   before_filter :can_read_secure?, only: [:secure]
   before_filter :can_write_entries?, only: [:new, :create, :edit, :update]
   before_filter :set_event, only: [:show, :edit, :update]
-  before_filter :set_convention_param, only: [:sticky]
   before_filter :get_tagged_events, only: [:tag]
 
   respond_to :html, :json
@@ -26,6 +25,7 @@ class EventsController < ApplicationController
   def sticky
     @events = limit_by_convention StickyQuery.new(Event).query.
                                       order { |e| e.updated_at.desc }.page(params[:page])
+
     respond_with @events do |format|
       format.html { render :index }
       format.js { render :index }
@@ -136,10 +136,6 @@ class EventsController < ApplicationController
     event = Event.find_by_id(params[:id])
     return redirect_to event_path(params[:id]) if event
     render 'lost_and_found_items/invalid'
-  end
-
-  def set_convention_param
-    params[:convention] = Convention.most_recent.id if (params[:convention].blank? && params[:show_older] == 'false')
   end
 
   def set_event
