@@ -23,8 +23,8 @@ class EventsController < ApplicationController
   end
 
   def sticky
-    @events = limit_by_convention StickyQuery.new(Event).query.
-                                      order { |e| e.updated_at.desc }.page(params[:page])
+    @events = (limit_by_convention StickyQuery.new(Event).query.
+                                       order { |e| e.updated_at.desc }).page(params[:page])
 
     respond_with @events do |format|
       format.html { render :index }
@@ -54,8 +54,10 @@ class EventsController < ApplicationController
   end
 
   def review
-    @events = limit_by_convention FiltersQuery.new(Event, params[:filters]).query.protect_sensitive_events(current_user).
-                                      order { |e| e.updated_at.asc }.page(params[:page])
+    @events = (limit_by_convention FiltersQuery.new(Event, params[:filters]).query.protect_sensitive_events(current_user).
+                                       order { |e| e.updated_at.asc }).page(params[:page])
+
+    p @events
     respond_with @events
   end
 
