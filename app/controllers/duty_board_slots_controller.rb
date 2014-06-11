@@ -1,8 +1,8 @@
 class DutyBoardSlotsController < ApplicationController
   before_filter :can_admin_duty_board?, except: [:update]
-  before_filter :can_assign_duty_board_slots?, only: [:update]
 
   respond_to :html, :json
+  layout 'application', except: :assign
 
   # GET /duty_board_slots
   # GET /duty_board_slots.json
@@ -16,7 +16,14 @@ class DutyBoardSlotsController < ApplicationController
     @duty_board_slot = DutyBoardSlot.find(params[:id])
   end
 
+  def assign
+    @duty_board_slot = DutyBoardSlot.find params[:id]
+    @duty_board_slot.build_duty_board_assignment if @duty_board_slot.duty_board_assignment.blank?
+    #respond_with @duty_board_slot, location: :duty_board_index
+  end
+
   # GET /duty_board_slots/new
+  # GET /duty_board_slots/new.json
   # GET /duty_board_slots/new.json
   def new
     @duty_board_slot = DutyBoardSlot.new
@@ -42,17 +49,19 @@ class DutyBoardSlotsController < ApplicationController
 
     respond_with @duty_board_slot, location: :duty_board_index do |format|
       if @duty_board_slot.update_attributes duty_board_slot_params
-        if params[:duty_board_assignment]
+=begin
+          if params[:duty_board_assignment]
           if @duty_board_slot.duty_board_assignment
             @duty_board_slot.duty_board_assignment.update_attributes duty_board_assignment_params
           else
             @duty_board_slot.build_duty_board_assignment duty_board_assignment_params
             @duty_board_slot.save!
           end
-          flash[:notice] = 'Duty board slot was successfully updated'
-        else
-          flash[:notice] = 'Duty board slot was successfully updated'
-        end
+=end
+        flash[:notice] = 'Duty board slot was successfully updated'
+      else
+        flash[:notice] = 'Duty board slot was successfully updated'
+        #end
       end
     end
   end
@@ -85,7 +94,7 @@ class DutyBoardSlotsController < ApplicationController
   protected
 
   def duty_board_slot_params
-    params.require(:duty_board_slot).permit :name, :duty_board_group_id
+    params.require(:duty_board_slot).permit :name, :duty_board_group_id, duty_board_assignment_attributes: [:name, :notes, :duty_board_slot_id]
   end
 
   def duty_board_assignment_params

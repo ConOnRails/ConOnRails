@@ -14,18 +14,11 @@ ConOnRails::Application.routes.draw do
   resources :conventions, except: [:destroy]
   resources :departments
 
-  resources :duty_board, only: [:index] do
-    member do
-      get :assign_slot
-    end
-  end
-
+  resources :duty_board
   resources :duty_board_groups, except: [:show]
 
   resources :duty_board_slots do
-    member do
-      post :clear_assignment
-    end
+    resources :duty_board_assignments
   end
 
   resources :events, except: [:destroy] do

@@ -1,0 +1,10 @@
+h1 Assign #{@duty_board_slot.name}
+
+= semantic_form_for [@duty_board_slot, @duty_board_assignment] do |f|
+  = f.inputs do
+    = f.input :name
+    = f.input :notes
+  = f.actions do
+    .button= f.submit
+    .button= link_to 'Clear Assignment',  [@duty_board_slot, @duty_board_assignment], class: 'button', method: :delete, data: { confirm: 'Are you sure?' } unless @duty_board_assignment.new_record?
+#create_volunteer
