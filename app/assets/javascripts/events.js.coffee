@@ -5,28 +5,30 @@
 window.events = {}
 window.events.getMain = () ->
   $.ajax({
-         url:       window.events.path,
-         dataType: 'script',
-         data: {
-            "page": window.events.page,
-            "merge_mode": window.events.merge_mode,
-            "show_older": $('#show_older').is(':checked')
-         },
-         success: ->
-           setTimeout((-> window.events.getMain()), if window.events.merge_mode == true then 120 * 1000 else 10000)
-         }
+      url: window.events.path,
+      dataType: 'script',
+      data: {
+        "page": window.events.page,
+        "convention": window.events.convention,
+        "merge_mode": window.events.merge_mode,
+        "show_older": $('#show_older').is(':checked')
+      },
+      success: ->
+        setTimeout((->
+          window.events.getMain()), if window.events.merge_mode == true then 120 * 1000 else 10000)
+    }
   )
 
 window.events.getReview = (filters) ->
   $.ajax({
-         url:      '/events/review',
-         dataType: 'script',
-         data: {
-            "page": window.events.page,
-            "filters": filters,
-            "convention": $('#convention').val()
-            }
-         }
+      url: '/events/review',
+      dataType: 'script',
+      data: {
+        "page": window.events.page,
+        "filters": filters,
+        "convention": $('#convention').val()
+      }
+    }
   )
 
 

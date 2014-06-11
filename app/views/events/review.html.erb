@@ -9,21 +9,21 @@
       <% end %>
       <script>
           $(
-                  $( '#filter_set' ).hide()
+                  $('#filter_set').hide()
           )
           $(
-                  $( '#show_hide_filters' ).click( function () {
-                      $( '#filter_set' ).toggle( 'blind' )
-                  } )
+                  $('#show_hide_filters').click(function () {
+                      $('#filter_set').toggle('blind')
+                  })
           );
           $(
-                  $( '#filters' ).change(
-                          function ( event ) {
-                              window.events.getReview( {
-                                                           <% Event.flags.each do |flag| %>
-                                                              "<%= flag %>": $( '#filters input:radio[name=<%= flag %>]:checked' ).val(),
-                                                           <% end %>
-                                                       } )
+                  $('#filters').change(
+                          function (event) {
+                              window.events.getReview({
+                                  <% Event.flags.each do |flag| %>
+                                  "<%= flag %>": $('#filters input:radio[name=<%= flag %>]:checked').val(),
+                                  <% end %>
+                              })
                           }
                   )
           )
@@ -36,19 +36,21 @@
       <span id="merge-mode-submit"></span>
     </div>
 
-    <div id="paginator"><%= paginate @events, remote: true %></div>
-    <div id="event_list">
-    </div>
-    <div id="paginator"><%= paginate @events, remote: true %></div>
+    <div class="paginator"><%= paginate @events, remote: true %></div>
+    <div id="event_list"></div>
+    <div class="paginator"><%= paginate @events, remote: true %></div>
 <% end %>
 
 <script>
-    window.events.active = <%= params[:active].nil? ? false : params[:active] %>
-    window.events.page = <%= params[:page].nil? ? "1" : params[:page] %>
-    window.events.merge_mode = <%= params[:merge_mode].presence %>
-    window.events.getReview( {
-                                 <% Event.flags.each do |flag| %>
-                                    "<%= flag %>": $( '#filters input:radio[name=<%= flag %>]:checked' ).val(),
-                                 <% end %>
-                             })
+    window.events.active = <%= params[:active].nil? ? false : params[:active] %>;
+    window.events.page = <%= params[:page].nil? ? "1" : params[:page] %>;
+    window.events.convention = "<%= params[:convention].presence %>";
+    if (window.events.convention = '')
+        window.events.convention = $('#convention').val();
+    window.events.merge_mode = "<%= params[:merge_mode].presence %>";
+    window.events.getReview({
+        <% Event.flags.each do |flag| %>
+        "<%= flag %>": $('#filters input:radio[name=<%= flag %>]:checked').val(),
+        <% end %>
+    });
 </script>
