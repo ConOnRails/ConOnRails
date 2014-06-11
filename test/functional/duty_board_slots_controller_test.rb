@@ -55,39 +55,6 @@ class DutyBoardSlotsControllerTest < ActionController::TestCase
     assert_redirected_to duty_board_index_path
   end
 
-  test "should update empty duty board slot with duty board assignment" do
-    @duty_board_slot.save!
-
-    put :update, { id:                    @duty_board_slot.to_param,
-                   duty_board_slot:       FactoryGirl.attributes_for(:valid_duty_board_slot),
-                   duty_board_assignment: @duty_board_assignment_attributes },
-        @user_session
-    assert_redirected_to duty_board_index_path
-    assert_equal @duty_board_assignment_attributes[:name],
-                 assigns(:duty_board_slot).duty_board_assignment.name
-  end
-
-  test "can update duty board slot with new information" do
-    @duty_board_slot.build_duty_board_assignment @duty_board_assignment_attributes
-    @duty_board_slot.save!
-
-    put :update, { id:                    @duty_board_slot.to_param,
-                   duty_board_slot:       FactoryGirl.attributes_for(:valid_duty_board_slot),
-                   duty_board_assignment: { notes: "Yak" } },
-        @user_session
-    assert_redirected_to duty_board_index_path
-    assert_equal "Yak", assigns(:duty_board_slot).duty_board_assignment.notes
-  end
-
-  test "can clear assignment" do
-    @duty_board_slot.save!
-    @duty_board_slot.build_duty_board_assignment @duty_board_assignment_attributes
-
-    post :clear_assignment, { id: @duty_board_slot.to_param }, @user_session
-    assert_redirected_to duty_board_index_path
-    assert_nil assigns(:duty_board_slot).duty_board_assignment
-  end
-
   test "should destroy duty_board_slot" do
     @duty_board_slot.save!
     assert_difference('DutyBoardSlot.count', -1) do
