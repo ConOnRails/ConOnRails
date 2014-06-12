@@ -15,19 +15,21 @@ h1= create_or_update
     = f.inputs class: "status" do
       - if @event.merged?
         | Merged
-      else
+      - else
         = f.input :status, as: :radio, collection: Event.statuses[0..1], label: false
 
     = f.inputs class: "type_flags" do
+      = f.input :emergency
+      = f.input :medical
       = f.input :comment
       = f.input :flagged
       = f.input :post_con
       = f.input :quote
-      = f.input :sticky
-      = f.input :emergency
-      = f.input :medical
-      = f.input :hidden if current_user and current_user.can_make_hidden_entries?
-      = f.input :secure if current_user and current_user.rw_secure?
+      hr
+      .tiny These 3 hide events from View Actives!
+      = f.input :sticky, label: "Sticky"
+      = f.input :secure, label: "Secure" if current_user and current_user.rw_secure?
+      = f.input :hidden, label: "Hidden" if current_user and current_user.can_make_hidden_entries?
       = f.input :hidden, as: :hidden, input_html: { value: false } unless current_user and current_user.can_make_hidden_entries?
       = f.input :secure, as: :hidden, input_html: { value: false } unless current_user and current_user.rw_secure?
 
@@ -50,4 +52,13 @@ h1= create_or_update
       = f.action :submit
       = f.input :alert_dispatcher, as: :boolean, wrapper_html: { class: 'alert-tag-check' }
   = render partial: 'event', object: @event, locals: { form: true, actives: false }
+
+
+javascript:
+  $(
+          $('.inline-hint').closest('li').mouseover(function () {
+            console.log("VONK");
+            $(this).find('.inline-hint').show();
+          })
+  );
 
