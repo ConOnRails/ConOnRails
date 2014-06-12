@@ -1,5 +1,6 @@
 var update = function () {
     window.events.page = <%= params[:page].nil? ? "1" : params[:page] %>;
+    window.events.merge_mode = <%= params[:merge_mode].presence || false %>;
     window.events.convention = <%= params[:convention] %>;
     $('form #event_list').html('<%= escape_javascript render(@events, form: false) %>');
     $('.paginator').html('<%= escape_javascript(paginate(@events, remote: true).to_s) %>');
