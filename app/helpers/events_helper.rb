@@ -15,23 +15,24 @@ module EventsHelper
   end
 
   def merge_button_path
+    new_params = toggle_merge_mode(params.clone)
+
     case params[:action].to_sym
       when :sticky
-        sticky_events_path(toggle_merge_mode)
+        sticky_events_path(new_params)
       when :secure
-        secure_events_path(toggle_merge_mode)
+        secure_events_path(new_params)
       when :review
-        review_events_path(toggle_merge_mode.merge({ filters: params[:filters] }))
+        review_events_path(new_params)
       else
-        events_path(toggle_merge_mode)
+        events_path(new_params)
     end
   end
 
 
   def merge_submit
     return nil if params[:merge_mode] != 'true'
-    #submit_tag 'Merge',
-    #           class: 'button merge-button'
+
     link_to 'Merge',
             '#',
             class: 'button submit-button',
@@ -43,8 +44,9 @@ module EventsHelper
     'Merge Events'
   end
 
-  def toggle_merge_mode
-    { merge_mode: (params[:merge_mode] == 'true') ? false : true }
+  def toggle_merge_mode(new_params)
+    new_params[:merge_mode] = new_params[:merge_mode] == 'true' ? 'false' : 'true'
+    new_params
   end
 
   def merge_toggle_class
