@@ -16,9 +16,9 @@ class UsersControllerTest < ActionController::TestCase
     @volunteer = FactoryGirl.create :valid_volunteer
 
     @input_attributes = {
-        name:                  "mikey",
-        realname:              "Mi Key",
-        password:              GoodPassword,
+        name: "mikey",
+        realname: "Mi Key",
+        password: GoodPassword,
         password_confirmation: GoodPassword,
     }
   end
@@ -97,31 +97,51 @@ class UsersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "peons cannot update users" do
-    put :update, { id: @user.to_param, user: @input_attributes }, { user_id: @peon_user.id }
-    assert_nil assigns(:user)
-    assert_redirected_to public_url
-  end
 
-  test "should update user" do
-    put :update, { id: @user.to_param, user: { realname: "wombat" } }, { user_id: @user.id }
-    assert assigns(:user).valid?
-    assert_equal "wombat", assigns(:user).realname
-    assert_redirected_to user_path(assigns(:user))
-  end
+  context "Updates" do
 
-  test "should update user with associated volunteer" do
-    put :update, { id: @user.to_param, user: { realname: "wombat" }, volunteer_id: @volunteer.id }, { user_id: @user.id }
-    assert assigns(:user).valid?
-    assert_equal "wombat", assigns(:user).realname
-    assert_equal @volunteer.id, assigns(:user).volunteer.id
-    assert_redirected_to user_path(assigns(:user))
-  end
+    context "peons" do
+      setup do
+        request.stubs(:referrer).returns(change_password_user_path(@peon_user))
+      end
 
-  test "cannot update user with invalid info" do
-    put :update, { id: @user.to_param, user: { name: "" } }, { user_id: @user.id }
-    assert assigns(:user).invalid?
-    assert_template :edit
+      should "not update users other than themselves" do
+        put :update, { id: @user.to_param, user: @input_attributes }, { user_id: @peon_user.id }
+        assert_redirected_to public_url
+      end
+
+      should "update themselves (change password)" do
+        put :update, { id: @peon_user.to_param, user: @input_attributes }, { user_id: @peon_user.id }
+        assert_redirected_to root_url
+      end
+    end
+
+    context "admins" do
+      setup do
+        request.stubs(:referrer).returns(edit_user_path(@user))
+      end
+
+      should "update user" do
+        put :update, { id: @peon_user.to_param, user: { realname: "wombat" } }, { user_id: @user.id }
+        assert assigns(:user).valid?
+        assert_equal "wombat", assigns(:user).realname
+        assert_redirected_to user_path(assigns(:user))
+      end
+
+      should "update user with associated volunteer" do
+        put :update, { id: @peon_user.to_param, user: { realname: "wombat" }, volunteer_id: @volunteer.id }, { user_id: @user.id }
+        assert assigns(:user).valid?
+        assert_equal "wombat", assigns(:user).realname
+        assert_equal @volunteer.id, assigns(:user).volunteer.id
+        assert_redirected_to user_path(assigns(:user))
+      end
+
+      should "not update user with invalid info" do
+        put :update, { id: @peon_user.to_param, user: { name: "" } }, { user_id: @user.id }
+        assert assigns(:user).invalid?
+        assert_template :edit
+      end
+    end
   end
 
   test "peons cannot destroy user" do
@@ -139,4 +159,5 @@ class UsersControllerTest < ActionController::TestCase
 
     assert_redirected_to users_path
   end
+
 end
