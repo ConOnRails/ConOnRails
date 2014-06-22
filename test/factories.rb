@@ -65,10 +65,7 @@ FactoryGirl.define do
 
   factory :event do
     is_active true
-    comment false
-    flagged false
     post_con false
-    quote false
     sticky false
     emergency false
     medical false
