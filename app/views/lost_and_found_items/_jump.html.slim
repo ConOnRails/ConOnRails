@@ -10,5 +10,7 @@
       = form_tag :lost_and_found_items, method: :get do
         = hidden_field_tag 'inventory', params[:inventory]
         = filter_by_convention
+        = check_box_tag :exclude_inventoried, 1, params[:exclude_inventoried]
+        = label_tag :exclude_inventoried, 'Exclude Inventoried'
         .button.small-button = submit_tag "Filter"
 
