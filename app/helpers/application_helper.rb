@@ -7,11 +7,11 @@ module ApplicationHelper
   end
 
   def version_number
-    '3.3'
+    '3.3.5'
   end
 
   def version_name
-    'Imp'
+    'Wizard Imps And Sweatsock Pimps'
   end
 
   def version_type
@@ -40,6 +40,7 @@ module ApplicationHelper
 
   def background
     return 'returned' if params[:returned] or (@lfi and @lfi.returned?)
+    return 'inventoried' if params[:inventoried] or (@lfi and @lfi.inventoried?)
     return 'missing' if params[:reported_missing] or (@lfi and @lfi.reported_missing?)
     'found' if params[:found] or (@lfi and @lfi.found?)
   end
@@ -50,7 +51,7 @@ module ApplicationHelper
   end
 
   def show_corkboard(tag)
-    (tag == 'dispatcher' && current_role.in?('Dispatch', 'Subhead', 'Head')) if current_user
+    (tag == 'dispatcher' && current_role.in?(%w(Dispatch Subhead Head))) if current_user
   end
 
   def tab(text, path, target='_self')

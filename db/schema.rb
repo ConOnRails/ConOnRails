@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140622191640) do
+ActiveRecord::Schema.define(version: 20140622210215) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -165,9 +165,6 @@ ActiveRecord::Schema.define(version: 20140622191640) do
     t.text     "owner_contact"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "found",            default: false
-    t.boolean  "returned",         default: false
-    t.boolean  "reported_missing", default: false
     t.integer  "user_id"
     t.string   "rolename"
     t.string   "who_claimed"

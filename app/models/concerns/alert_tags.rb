@@ -1,6 +1,7 @@
 require 'acts-as-taggable-on'
 module AlertTags
   extend ActiveSupport::Concern
+  include Truthiness
 
   TAGS = %w(dispatcher)
 
@@ -20,9 +21,5 @@ module AlertTags
     define_method "alert_#{t}".to_sym do
       self.alert_list.include? t
     end
-  end
-
-  def is_truthy?(flag)
-    ['true', 'TRUE', :true, true, '1', 1].include? flag
   end
 end
