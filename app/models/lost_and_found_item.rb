@@ -22,6 +22,7 @@
 
 class LostAndFoundItem < ActiveRecord::Base
   has_paper_trail
+  include LostAndFoundStateTags
 
   belongs_to :user
 
@@ -51,11 +52,13 @@ class LostAndFoundItem < ActiveRecord::Base
     @@valid_categories
   end
 
+=begin
   scope :found, -> { where(found: true) }
   scope :missing, -> { where(reported_missing: true) }
   scope :returned, -> { where(returned: true) }
   scope :not_returned, -> { where(returned: false) }
   scope :inventory, -> (i) { where(found: true, returned: false) if i }
+=end
 
   validates :category, presence: true, allow_blank: false, inclusion: { in: @@valid_categories.values }
   validates :description, presence: true, allow_blank: false
@@ -63,17 +66,16 @@ class LostAndFoundItem < ActiveRecord::Base
   # These rules are a little complicated but it's worth it to ensure data integrity
   # 1] On create, only one of reported_missing or found can be true, and only the 
   # correct fields should be defined
-  validates :found, inclusion: { in: [false] }, if: :reported_missing?, on: :create
-  validates :reported_missing, inclusion: { in: [false] }, if: :found?, on: :create
-
   # 2] It should always be true that certain fields are defined for certain flags
+  # 3] These are hard to express using standard validators, but we always want
+  # at least one of reported_missing or found to be true, and we want the "opposite"
+  # where fields to be empty on create
+
   validates :where_last_seen, presence: true, allow_blank: false, if: :reported_missing?
   validates :owner_name, presence: true, allow_blank: false, if: :reported_missing?
   validates :where_found, presence: true, allow_blank: false, if: :found?
 
-  # 3] These are hard to express using standard validators, but we always want
-  # at least one of reported_missing or found to be true, and we want the "opposite"
-  # where fields to be empty on create
+  validate :creation_state_correct, on: :create
   validate :always_missing_or_found
   validate :created_with_correct_descriptive_fields, on: :create
 
@@ -83,12 +85,14 @@ class LostAndFoundItem < ActiveRecord::Base
 
   def type
     return 'returned' if returned?
+    return 'inventoried' if inventoried?
     return 'found' if found?
     return 'missing' if reported_missing?
   end
 
   def Type
     return 'Returned' if returned?
+    return 'Inventoried' if inventoried?
     return 'Found' if found?
     return 'Missing' if reported_missing?
   end
@@ -105,6 +109,12 @@ class LostAndFoundItem < ActiveRecord::Base
     # we want both fields
     validate_where_found_empty if reported_missing? and !found?
     validate_where_last_seen_empty if found? and !reported_missing?
+  end
+
+  def creation_state_correct
+    if found? and reported_missing?
+      errors.add :reported_missing, 'Item can be EITHER reported missing OR found on creation, but not both. INTERNAL LOGIC ERROR'
+    end
   end
 
   def validate_where_last_seen_empty

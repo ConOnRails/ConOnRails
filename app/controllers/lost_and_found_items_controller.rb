@@ -28,9 +28,9 @@ class LostAndFoundItemsController < ApplicationController
     return jump if params[:id].present?
     search_type = params[:search_type] || 'any'
 
-    @lfis = limit_by_convention LostAndFoundItem.inventory(params[:inventory]).page(params[:page]).
+    @lfis = limit_by_convention LostAndFoundItem.inventory(params[:inventory], params[:exclude_inventoried]).page(params[:page]).
         where { |l| l.description.send(('like_'+search_type).to_sym, wrap_keywords_for_like) unless params[:keywords].blank? }.
-        where { |l| l.category >> @categories unless @categories.blank? }
+        where { |l| l.category >> @categories unless @categories.blank? }.references(:tags)
     @lfis = params[:show_returned_only] ? @lfis.returned : @lfis.not_returned
   end
 
@@ -52,6 +52,7 @@ class LostAndFoundItemsController < ApplicationController
   def edit
     @lfi.found = true if params[:found] == 'true'
     @lfi.returned = true if params[:returned] =='true'
+    @lfi.inventoried = true if params[:inventoried] == 'true'
   end
 
   def update
@@ -104,6 +105,6 @@ class LostAndFoundItemsController < ApplicationController
   def lfi_params
       params.require(:lost_and_found_item).permit :reported_missing, :category, :description, :where_last_seen,
                                                   :owner_name, :owner_contact, :where_found, :details, :found, :returned,
-                                                  :who_claimed
+                                                  :who_claimed, :inventoried
   end
 end

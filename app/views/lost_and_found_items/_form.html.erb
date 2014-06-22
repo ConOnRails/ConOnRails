@@ -2,19 +2,22 @@
     <%= f.inputs do %>
         <%= f.input :category, label: "Category:", as: :select, collection: LostAndFoundItem.categories, class: background %>
         <%= f.input :description, label: "Description:" %>
-        <% if @lfi.reported_missing %>
+        <% if @lfi.reported_missing? %>
             <%= f.input :reported_missing, as: :hidden, input_html: { value: true } %>
             <%= f.input :where_last_seen, label: "Where Last Seen:" %>
             <%= f.input :owner_name, label: "Owner Name:" %>
             <%= f.input :owner_contact, label: "Owner Contact:" %>
         <% end %>
-        <% if @lfi.found || @lfi.returned %>
+        <% if @lfi.found? || @lfi.returned? %>
             <%= f.input :found, as: :hidden, input_html: { value: true } %>
             <%= f.input :where_found, label: "Where Found:" %>
         <% end %>
-        <% if @lfi.returned %>
-            <%= f.input :returned, as: :hidden, value: true %>
+        <% if @lfi.returned? %>
+            <%= f.input :returned, as: :hidden, input_html: { value: true } %>
             <%= f.input :who_claimed, label: "Claimed by:" %>
+        <% end %>
+        <% if @lfi.inventoried? %>
+            <%= f.input :inventoried, as: :hidden, input_html: { value: true } %>
         <% end %>
         <%= f.input :details, as: :text %>
     <% end %>

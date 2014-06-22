@@ -1,43 +1,33 @@
 // Place all the styles related to the lost_and_found_items controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
 @import 'colors';
 
-#lost_and_found_search_form
-{
-  label
-  {
+#lost_and_found_search_form {
+  label {
     font-weight: bold;
   }
 }
 
-.lost_and_found_items
-{
-  abbr
-  {
+.lost_and_found_items {
+  abbr {
     color: red;
   }
 
-  .formtastic
-  {
-    fieldset
-    {
+  .formtastic {
+    fieldset {
       padding: 0;
-      margin:  0;
-      ol
-      {
+      margin: 0;
+      ol {
         padding: 0;
-        margin:  0;
+        margin: 0;
 
-        li.input
-        {
-          padding:     0;
+        li.input {
+          padding: 0;
           padding-top: 3px;
-          margin:      0;
+          margin: 0;
 
-          label
-          {
+          label {
             font-weight: bold;
           }
         }
@@ -45,169 +35,153 @@
     }
   }
 
-  textarea
-  {
+  textarea {
     height: 100px;
   }
 
-  #lost_and_found_search_form
-  {
-    #lost_and_found_checkboxes
-    {
+  #lost_and_found_search_form {
+    #lost_and_found_checkboxes {
       border: none;
-      ol
-      {
+      ol {
         list-style: none;
-        padding:    0;
-        margin:     0;
-        li
-        {
+        padding: 0;
+        margin: 0;
+        li {
           float: left;
           width: 33%;
 
-          label
-          {
+          label {
             margin-left: 3px;
           }
         }
       }
     }
 
-    input#keywords
-    {
+    input#keywords {
       width: 65%;
     }
 
-    #lost_and_found_search_options
-    {
+    #lost_and_found_search_options {
       border: none;
-      ol
-      {
+      ol {
         list-style: none;
-        padding:    0;
-        margin:     0;
-        li
-        {
+        padding: 0;
+        margin: 0;
+        li {
           float: left;
           width: 33%;
         }
 
-        label
-        {
+        label {
           margin-left: 3px;
         }
       }
     }
   }
 
-  .lfi
-  {
+  .lfi {
     padding: 6px;
-    .id_line
-    {
-      div
-      {
+    .id_line {
+      div {
         padding-top: 12px;
-        float:       left;
+        float: left;
       }
-      .label
-      {
-        font-weight:  bold;
+      .label {
+        font-weight: bold;
         margin-right: 3px;
       }
-      .view_button
-      {
-        font-size:   18px;
+      .view_button {
+        font-size: 18px;
         font-weight: bold;
-        padding:     12px;
+        padding: 12px;
         margin-left: 36px;
       }
     }
-    .summary
-    {
-      div
-      {
+    .summary {
+      div {
         margin-left: 36px;
-        float:       none;
-        clear:       left;
+        float: none;
+        clear: left;
       }
     }
   }
 }
 
-.missing
-{
+.missing {
   background: $missing_bg;
 
-  input[type='submit']
-  {
-    color:            black;
+  input[type='submit'] {
+    color: black;
     background-color: $missing_button_bg;
 
-    &:hover
-    {
+    &:hover {
       background-color: black;
-      color:            $missing_button_bg;
-      border:           thin solid $missing_button_bg;
+      color: $missing_button_bg;
+      border: thin solid $missing_button_bg;
     }
   }
 }
 
-.found
-{
+.found {
   background: $found_bg;
 }
 
-.returned
-{
+.returned {
   background: $returned_bg;
 }
 
-div.button, div.view_button
-{
-  .item_missing_button
-  {
-    background-color: $missing_button_bg;
-    color:            black;
+.inventoried {
+  background: $inventoried_bg;
+}
 
-    &:hover
-    {
-      color:            $missing_button_bg;
+div.button, div.view_button {
+  .item_missing_button {
+    background-color: $missing_button_bg;
+    color: black;
+
+    &:hover {
+      color: $missing_button_bg;
       background-color: black;
-      border:           thin solid $missing_button_bg;
+      border: thin solid $missing_button_bg;
     }
   }
 
-  .item_found_button
-  {
+  .item_found_button {
 
     background-color: $found_button_bg;
-    color:            white;
+    color: white;
 
-    &:hover
-    {
-      color:            $found_button_bg;
+    &:hover {
+      color: $found_button_bg;
       background-color: white;
-      border:           thin solid $found_button_bg;
+      border: thin solid $found_button_bg;
     }
   }
 
-  .item_returned_button
-  {
-    background-color: $blue;
-    color:            white;
+  .item_returned_button {
+    background-color: $returned_button_bg;
+    color: white;
 
-    &:hover
-    {
-      color:            $blue;
+    &:hover {
+      color: $returned_button_bg;
       background-color: white;
-      border:           thin solid $blue;
+      border: thin solid $returned_button_bg;
+    }
+  }
+
+  .item_inventoried_button {
+    background-color: $inventoried_button_bg;
+    color: white;
+
+    &:hover {
+      color: $inventoried_button_bg;
+      background-color: white;
+      border: thin solid $inventoried_button_bg;
     }
   }
 }
 
-input[type='submit'].lost-and-found-search-button
-{
+input[type='submit'].lost-and-found-search-button {
   font-size: 24px;
   padding-right: 24px;
   padding-left: 24px;
