@@ -4,8 +4,6 @@ html
 
     javascript:
       var CIAB = CIAB || {};
-      // TODO find a way to make this not hardwired
-      var show_cork = #{ current_user.has_role?('Dispatch', 'Subhead', 'Head') if current_user };
 
     = stylesheet_link_tag "application"
     = javascript_include_tag "application"
@@ -48,10 +46,10 @@ html
 
 javascript:
   $(
-      function () {
-        $('#welcome').fadeOut(10000);
-        // We only support a dispatcher board right now
-        if (show_cork)
-          cork = new CIAB.Corkboard('dispatcher');
-      }
+          function () {
+            $('#welcome').fadeOut(10000);
+            // We only support a dispatcher board right now
+            if (#{show_corkboard('dispatcher')})
+              cork = new CIAB.Corkboard('dispatcher');
+          }
   );
