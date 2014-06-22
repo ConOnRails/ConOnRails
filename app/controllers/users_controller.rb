@@ -1,14 +1,14 @@
 class UsersController < ApplicationController
   respond_to :html, :json
 
-  before_filter :redirect_if_cannot_admin, except: [:change_password]
   before_filter :find_user, only: [:show, :edit, :update, :destroy, :change_password]
   before_filter :find_users, only: :index
+  before_filter :redirect_if_cannot_admin, except: [:change_password]
 
   # GET /users/new
   # GET /users/new.json
   def new
-    @user           = User.new
+    @user = User.new
     @user.volunteer = Volunteer.find_by_id params[:volunteer_id]
 
     if params[:realname]
@@ -20,7 +20,7 @@ class UsersController < ApplicationController
   # POST /admin/users.json
   def create
     # user_params = params[:user].reject { |k, v| k == 'volunteer' }
-    @volunteer  = Volunteer.find_by_id(params[:user][:volunteer])
+    @volunteer = Volunteer.find_by_id(params[:user][:volunteer])
 
     if @volunteer.present?
       @user = @volunteer.create_user user_params
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
       flash[:notice] = "User #{@user.name} was successfully updated."
     end
 
-    respond_with @user
+    respond_with @user, location: get_update_success_path
   end
 
   # DELETE /users/1
@@ -56,18 +56,27 @@ class UsersController < ApplicationController
   end
 
   def find_users
-    @q     = User.search params[:q]
+    @q = User.search params[:q]
     @users = @q.result.page(params[:page])
   end
 
+  def get_update_success_path
+    if URI(request.referrer).path == change_password_user_path(@user)
+      root_path
+    else
+      user_path(@user)
+    end
+  end
+
   def redirect_if_cannot_admin
-    unless current_user and current_user.can_admin_users?
+    unless current_user && (current_user.can_admin_users? || current_user.id == @user.try(:id))
       redirect_to public_url
     end
   end
 
   def update_volunteer
     @volunteer = Volunteer.find_by_id(params[:volunteer_id])
+    return true if @volunteer.blank?
     if @volunteer.present? and (@volunteer.user_id.blank? or @volunteer.user_id != @user.id)
       @volunteer.update_attribute(:user_id, @user.id)
     end
@@ -76,4 +85,5 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit :name, :realname, :password, :password_confirmation, { role_ids: [] }, :volunteer_id
   end
+
 end
