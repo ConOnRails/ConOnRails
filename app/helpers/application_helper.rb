@@ -15,7 +15,7 @@ module ApplicationHelper
   end
 
   def version_type
-     :release #:release:beta
+    :release #:release:beta
   end
 
   def get_banner_style
@@ -41,7 +41,7 @@ module ApplicationHelper
   def background
     return 'returned' if params[:returned] or (@lfi and @lfi.returned?)
     return 'missing' if params[:reported_missing] or (@lfi and @lfi.reported_missing?)
-     'found' if params[:found] or (@lfi and @lfi.found?)
+    'found' if params[:found] or (@lfi and @lfi.found?)
   end
 
   def markdown(text)
@@ -49,13 +49,12 @@ module ApplicationHelper
                             no_intra_emphasis: true, tables: true, autolink: true, strikethrough: true).render(text).html_safe unless text.blank?
   end
 
+  def show_corkboard(tag)
+    (tag == 'dispatcher' && current_role.in?('Dispatch', 'Subhead', 'Head')) if current_user
+  end
+
   def tab(text, path, target='_self')
-    id = text.gsub(%r.[ /]., '-' ).downcase
-    link_to text, path, id: "menu-tab-#{id}", class: "tab #{tab_selected}", target: target
+    id = text.gsub(%r.[ /]., '-').downcase
+    link_to text, path, id: "menu-tab-#{id}", class: "tab", target: target
   end
-
-  def tab_selected
-
-  end
-
 end
