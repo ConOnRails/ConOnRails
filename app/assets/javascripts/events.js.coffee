@@ -4,6 +4,12 @@
 
 window.events = {}
 window.events.getMain = () ->
+  get_merge_events = () ->
+    $('input[name="merge_ids[]"]:checked').map( () ->
+      $(this).val()).get()
+
+
+  console.log(get_merge_events())
   $.ajax({
       url: window.events.path,
       dataType: 'script',
@@ -11,11 +17,12 @@ window.events.getMain = () ->
         "page": window.events.page,
         "convention": window.events.convention,
         "merge_mode": window.events.merge_mode,
+        "merge_ids": get_merge_events(),
         "show_older": $('#show_older').is(':checked')
       },
       success: ->
         setTimeout((->
-          window.events.getMain()), if window.events.merge_mode == true then 120 * 1000 else 10000)
+          window.events.getMain()), 10000)
     }
   )
 
