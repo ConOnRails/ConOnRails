@@ -6,10 +6,7 @@
 #  created_at      :datetime
 #  updated_at      :datetime
 #  is_active       :boolean          default(TRUE)
-#  comment         :boolean
-#  flagged         :boolean
 #  post_con        :boolean
-#  quote           :boolean
 #  sticky          :boolean
 #  emergency       :boolean
 #  medical         :boolean
@@ -64,7 +61,7 @@ class Event < ActiveRecord::Base
         (e.created_at <= Convention.current_convention.end_date) } unless Convention.current_convention.blank? }
 
   STATUSES = %w[ Active Closed Merged ]
-  FLAGS    = %w[ is_active merged comment flagged post_con quote sticky emergency medical hidden secure consuite hotel parties volunteers dealers dock merchandise nerf_herders ]
+  FLAGS    = %w[ is_active merged post_con sticky emergency medical hidden secure consuite hotel parties volunteers dealers dock merchandise nerf_herders ]
 
    def self.search(q, user, show_closed=false)
     protect_sensitive_events(user).
