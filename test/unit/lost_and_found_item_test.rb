@@ -2,22 +2,19 @@
 #
 # Table name: lost_and_found_items
 #
-#  id               :integer          not null, primary key
-#  category         :string(255)
-#  description      :string(255)
-#  details          :text
-#  where_last_seen  :string(255)
-#  where_found      :string(255)
-#  owner_name       :string(255)
-#  owner_contact    :text
-#  created_at       :datetime
-#  updated_at       :datetime
-#  found            :boolean          default(FALSE)
-#  returned         :boolean          default(FALSE)
-#  reported_missing :boolean          default(FALSE)
-#  user_id          :integer
-#  rolename         :string(255)
-#  who_claimed      :string(255)
+#  id              :integer          not null, primary key
+#  category        :string(255)
+#  description     :string(255)
+#  details         :text
+#  where_last_seen :string(255)
+#  where_found     :string(255)
+#  owner_name      :string(255)
+#  owner_contact   :text
+#  created_at      :datetime
+#  updated_at      :datetime
+#  user_id         :integer
+#  rolename        :string(255)
+#  who_claimed     :string(255)
 #
 
 require 'test_helper'
