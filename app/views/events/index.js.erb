@@ -1,4 +1,6 @@
 var update = function () {
+    var merge_ids;
+
     window.events.page = <%= params[:page].nil? ? "1" : params[:page] %>;
     window.events.merge_mode = <%= params[:merge_mode].presence || false %>;
     window.events.convention = <%= params[:convention] %>;
@@ -6,9 +8,14 @@ var update = function () {
     $('.paginator').html('<%= escape_javascript(paginate(@events, remote: true).to_s) %>');
     $('#merge-mode-toggle').html('<%= escape_javascript(merge_button) %>');
     $('#merge-mode-submit').html('<%= escape_javascript(merge_submit) %>');
+
+    <% params[:merge_ids].each do |id| %>
+        $('input[value="<%= id %>"]').prop("checked", true)
+    <% end unless params[:merge_ids].blank? %>
 };
 
 update();
+console.log("vong");
 $('.efh_list').hide();
 $('.event_flag_history').mouseover(function () {
     $(this).find('.efh_list').show()
