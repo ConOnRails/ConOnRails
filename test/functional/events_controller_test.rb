@@ -158,9 +158,7 @@ class EventsControllerTest < ActionController::TestCase
         end
       end
 
-      [:flagged, :post_con, :quote, :sticky, :emergency,
-       :medical, :hidden, :secure, :consuite, :hotel, :parties, :volunteers,
-       :dealers, :dock, :merchandise].each do |f|
+      (Event::FLAGS - %w'is_active').each do |f|
         context "GET :review with #{f} true" do
           setup do
             @event.send("#{f}=".to_sym, true)
@@ -170,7 +168,7 @@ class EventsControllerTest < ActionController::TestCase
 
           should respond_with :success
           should "have one event for #{f}" do
-            assert_equal ([:secure, :hidden].include?(f) ? 2 : 1), assigns(:events).count
+            assert_equal ([:secure, :hidden].include?(f.to_sym) ? 2 : 1), assigns(:events).count
             assert assigns(:events).first.send("#{f}?".to_sym)
           end
         end
@@ -240,9 +238,7 @@ class EventsControllerTest < ActionController::TestCase
         end
       end
 
-      [:flagged, :post_con, :quote, :sticky, :emergency,
-       :medical, :hidden, :secure, :consuite, :hotel, :parties, :volunteers,
-       :dealers, :dock, :merchandise].each do |f|
+      (Event::FLAGS - %w'is_active').each do |f|
         context "GET :review with #{f} true" do
           setup do
             @event.send("#{f}=".to_sym, true)
@@ -252,7 +248,7 @@ class EventsControllerTest < ActionController::TestCase
 
           should respond_with :success
           should "have one event for #{f}" do
-            assert_equal ([:secure, :hidden].include?(f) ? 0 : 1), assigns(:events).count
+            assert_equal ([:secure, :hidden].include?(f.to_sym) ? 0 : 1), assigns(:events).count
             assert assigns(:events).first.send("#{f}?".to_sym) if assigns(:events).present?
           end
         end

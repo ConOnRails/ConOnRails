@@ -6,10 +6,7 @@
 #  created_at      :datetime
 #  updated_at      :datetime
 #  is_active       :boolean          default(TRUE)
-#  comment         :boolean
-#  flagged         :boolean
 #  post_con        :boolean
-#  quote           :boolean
 #  sticky          :boolean
 #  emergency       :boolean
 #  medical         :boolean
@@ -45,10 +42,7 @@ class EventTest < ActiveSupport::TestCase
     end
 
     should 'have false type flags by default' do
-      assert !@event.comment?
-      assert !@event.flagged?
       assert !@event.post_con?
-      assert !@event.quote?
       assert !@event.sticky?
       assert !@event.emergency?
       assert !@event.medical?

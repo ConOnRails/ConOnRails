@@ -56,8 +56,6 @@ class EventsController < ApplicationController
   def review
     @events = (limit_by_convention FiltersQuery.new(Event, params[:filters]).query.protect_sensitive_events(current_user).
                                        order { |e| e.updated_at.asc }).page(params[:page])
-
-    p @events
     respond_with @events
   end
 

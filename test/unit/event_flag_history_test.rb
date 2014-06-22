@@ -5,10 +5,7 @@
 #  id           :integer          not null, primary key
 #  event_id     :integer
 #  is_active    :boolean          default(FALSE)
-#  comment      :boolean          default(FALSE)
-#  flagged      :boolean          default(FALSE)
 #  post_con     :boolean          default(FALSE)
-#  quote        :boolean          default(FALSE)
 #  sticky       :boolean          default(FALSE)
 #  emergency    :boolean          default(FALSE)
 #  medical      :boolean          default(FALSE)
