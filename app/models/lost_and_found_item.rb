@@ -88,10 +88,7 @@ class LostAndFoundItem < ActiveRecord::Base
   end
 
   def Type
-    return 'Returned' if returned?
-    return 'Inventoried' if inventoried?
-    return 'Found' if found?
-    return 'Missing' if reported_missing?
+    type.capitalize
   end
 
   def always_missing_or_found
