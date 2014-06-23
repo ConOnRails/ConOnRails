@@ -31,6 +31,7 @@ class Event < ActiveRecord::Base
   include PgSearch
   include Queries::EventQueries
   include AlertTags
+  include CurrentConvention
 
   acts_as_taggable_on :corkboard
   has_paper_trail
@@ -55,10 +56,6 @@ class Event < ActiveRecord::Base
     where { |e| (e.hidden == false unless user_can_see_hidden(user)) }.
         where { |e| (e.secure == false unless user_can_rw_secure(user)) }
   }
-
-  scope :current_convention, -> () {
-    where { |e| (e.created_at >= Convention.current_convention.start_date) &
-        (e.created_at <= Convention.current_convention.end_date) } unless Convention.current_convention.blank? }
 
   STATUSES = %w[ Active Closed Merged ]
   FLAGS    = %w[ is_active merged post_con sticky emergency medical hidden secure consuite hotel parties volunteers dealers dock merchandise nerf_herders ]

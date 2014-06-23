@@ -12,7 +12,5 @@
 #
 
 class Version < ActiveRecord::Base
-  scope :current_convention, -> () {
-    where { |e| (e.created_at >= Convention.current_convention.start_date) &
-        (e.created_at <= Convention.current_convention.end_date) } unless Convention.current_convention.blank? }
+  include CurrentConvention
 end
