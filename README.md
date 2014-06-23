@@ -16,7 +16,7 @@ ConOnRails is derived conceptually from ConInABox by Thomas Keeley, who acted as
 is derived entirely from the designs of DeNae Leverentz, who acted as our user experience expert and project manager. 
 All coding to date has been done by Michael Scott Shappe.
 
-Version 3.0.0, "Giraffe" was released on 17 November 2013. The main change is an update to Rails 4.0.1 and Ruby 2.0.0!
+Version 3.3.7, "Wizard Imps and Sweatsock Pimps" was released on 22 June 2014; see the Releases section for some recent release notes! This is the version that will be used for CONvergence 2014.
 
 It is the long-term goal of this project to be useful to other conventions, but we recognize that, in order to do 
 that, lots of things that are currently hardwired for CONvergence will need to be made configurable. This is an ongoing
