@@ -1,5 +1,6 @@
 class DutyBoardAssignmentsController < ApplicationController
   layout 'duty_board'
+  respond_to :html, :json
 
   before_filter :can_assign_duty_board_slots?
   before_action :get_slot_and_assignment, only: [:new, :edit, :update, :destroy]
@@ -8,17 +9,17 @@ class DutyBoardAssignmentsController < ApplicationController
   def create
     @duty_board_assignment = @duty_board_slot.build_duty_board_assignment(assignment_params)
     @duty_board_assignment.save!
-    redirect_to duty_board_index_path
+    respond_with @duty_board_assignment, location: duty_board_index_path
   end
 
   def update
-    @duty_board_assignment.update_attributes!(assignment_params)
-    redirect_to duty_board_index_path
+    @duty_board_assignment.update_attributes(assignment_params)
+    respond_with @duty_board_assignment, location: duty_board_index_path
   end
 
   def destroy
     @duty_board_assignment.destroy
-    redirect_to duty_board_index_path
+    respond_with @duty_board_assignment, location: duty_board_index_path
   end
 
   protected
