@@ -62,7 +62,8 @@ class VolunteersController < ApplicationController
   # POST /volunteers.json
   def create
     @volunteer = Volunteer.new volunteer_params
-    make_user_if_needed if @volunteer.save
+    @volunteer.save
+    make_user_if_needed
   end
 
   # PUT /volunteers/1
@@ -94,7 +95,6 @@ class VolunteersController < ApplicationController
         format.html { redirect_to new_user_path({ realname: @volunteer.name, volunteer_id: @volunteer.id }) }
       else
         flash[:notice] = 'Volunteer was successfully created.'
-        format.html { respond_with @volunteer, location: volunteers_path }
       end
     end
   end
