@@ -476,6 +476,7 @@ a.submit-button, input[type="submit"]
   padding: 5px;
   float: left;
   white-space: pre-wrap;
+  overflow: auto;
 
   .card-text {
     font-size: 12px;
