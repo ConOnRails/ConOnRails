@@ -66,7 +66,7 @@ class LostAndFoundItemsController < ApplicationController
   protected
   def jump
     @lfi = LostAndFoundItem.find_by_id(params[:id])
-    return redirect_to lost_and_found_item_path(@lfi) if @lfi.present?
+    return redirect_to lost_and_found_item_path(@lfi, inventory: params[:inventory]) if @lfi.present?
     render 'invalid'
   end
 
