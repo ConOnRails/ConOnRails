@@ -14,4 +14,6 @@
         = check_box_tag :exclude_inventoried, 1, params[:exclude_inventoried]
         = label_tag :exclude_inventoried, 'Exclude Inventoried'
         .button.small-button = submit_tag "Filter"
+      hr
+      = render 'mini_search_form'
 
