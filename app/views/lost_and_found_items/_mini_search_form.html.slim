@@ -1,0 +1,5 @@
+= form_tag :lost_and_found_items, method: :get, id: 'lost_and_found_mini_form' do
+  = hidden_field_tag :inventory, params[:inventory] ? '1' : '0'
+  = filter_by_convention
+  = label_tag :keywords
+  = text_field_tag :keywords
