@@ -60,7 +60,7 @@ class LostAndFoundItemsController < ApplicationController
     @lfi.rolename = current_role
 
     flash[:notice] = "#{@lfi.Type} item was successfully updated." if @lfi.update_attributes lfi_params
-    respond_with @lfi
+    respond_with @lfi, location: lost_and_found_item_path(@lfi, inventory: params[:inventory])
   end
 
   protected
