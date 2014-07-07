@@ -34,8 +34,8 @@
             <%= link_to "Item Has Been Found", edit_lost_and_found_item_path(@lfi, found: true), class: 'item_found_button button' %>
         <% end %>
         <%= link_to "Item Has Been Returned", edit_lost_and_found_item_path(@lfi, returned: true), class: 'item_returned_button button' %>
-        <% if params[:inventory] %>
-            <%= link_to "Item Has Been Inventoried", edit_lost_and_found_item_path(@lfi, inventoried: true), class: 'item_inventoried_button button' %>
+        <% if params[:inventory] && !@lfi.inventoried? %>
+            <%= link_to "Item Has Been Inventoried", edit_lost_and_found_item_path(@lfi, inventoried: true, inventory: params[:inventory]), class: 'item_inventoried_button button' %>
         <% end %>
     <% end %>
   </div>

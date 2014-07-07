@@ -1,5 +1,6 @@
 <%= semantic_form_for @lfi do |f| %>
     <%= f.inputs do %>
+        <%= hidden_field_tag :inventory, params[:inventory] ? "1" : "0" %>
         <%= f.input :category, label: "Category:", as: :select, collection: LostAndFoundItem.categories, class: background %>
         <%= f.input :description, label: "Description:" %>
         <% if @lfi.reported_missing? %>
