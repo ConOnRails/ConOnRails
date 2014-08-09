@@ -146,16 +146,15 @@ case Rails.env
             {
                 user:        user,
                 event:       event,
-                description: Faker::Lorem.paragraphs(3)
+                description: Faker::Lorem.paragraphs(3).join('\n')
             }
         )
 
         EventFlagHistory.create!(
-            event.attributes.reject { |k, v| k == 'merged_from_ids' },
-            {
+            event.attributes.reject { |k, v| ['merged_from_ids', 'id'].include? k }.merge({
                 user:  user,
                 event: event
-            }
+            })
         )
       end
     end
@@ -163,7 +162,7 @@ case Rails.env
 
     LostAndFoundItem.create!(
         {
-            category:         "Badge",
+            category:         "Badges",
             reported_missing: true,
             where_last_seen:  "Wombatland",
             owner_name:       "Spike Spiegel",
@@ -175,7 +174,7 @@ case Rails.env
 
     LostAndFoundItem.create!(
         {
-            category:    "Weapon",
+            category:    "Weapons/Props",
             found:       true,
             where_found: "Atrium 42",
             description: "A frickin' laser",
