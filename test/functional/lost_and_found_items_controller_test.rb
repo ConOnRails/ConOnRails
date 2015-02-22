@@ -44,18 +44,18 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
   end
 
   test "peons cannot get new" do
-    get :new, { reported_missing: true }, { user_id: @peon_user.id }
+    get :new, { lost_and_found_item: { reported_missing: true } }, { user_id: @peon_user.id }
     assert_redirected_to :lost_and_found
   end
 
   test "non-peons should get new missing" do
-    get :new, { reported_missing: true }, { user_id: @user.id }
+    get :new, { lost_and_found_item: { reported_missing: true } }, { user_id: @user.id }
     assert_response :success
     assert_template :new
   end
 
   test "should get new found" do
-    get :new, { found: true }, { user_id: @user.id }
+    get :new, { lost_and_found_item: { found: true } }, { user_id: @user.id }
     assert_response :success
     assert_template :new
   end

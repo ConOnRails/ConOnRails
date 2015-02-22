@@ -8,19 +8,19 @@
     <%= field_set_tag "", id: "lost_and_found_checkboxes" do %>
         <ol>
           <% LostAndFoundItem.categories.each do |k, v| %>
-              <li><%= checkbox k, v %></li>
+              <li><%= checkbox k, v, params[k] %></li>
           <% end %>
           <li><%= checkbox :show_returned_only, 'Returned Only' %></li>
         </ol>
     <% end %>
     <%= label_tag :keywords, "Search Keyword(s)" %>
-    <%= text_field_tag :keywords %>
+    <%= text_field_tag :keywords, params[:keywords] %>
     <%= field_set_tag "", id: "lost_and_found_search_options" do %>
         <ol>
           <li><%= label_tag :search_type_all, "Find All" %>
-            <%= radio_button_tag :search_type, "all", true %></li>
+            <%= radio_button_tag :search_type, "all", params[:search_type].blank? || params[:search_type] == 'all' %></li>
           <li><%= label_tag :search_type_any, "Find Any" %>
-            <%= radio_button_tag :search_type, "any" %></li>
+            <%= radio_button_tag :search_type, "any", params[:search_type] == 'any' %></li>
         </ol>
     <% end %>
     <%= submit_tag "Search", class: "lost-and-found-search-button" %>
