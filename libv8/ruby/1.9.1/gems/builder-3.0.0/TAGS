@@ -47992,8 +47992,8 @@ def usage(msg = nil)usage7,77
 module Shoulda # :nodoc:Shoulda1,0
   module ActionController # :nodoc:ActionController2,25
     module MacrosMacros24,708
-      def should_set_the_flash_to(val)should_set_the_flash_to36,1105
-      def should_not_set_the_flashshould_not_set_the_flash44,1414
+      def should_set_flash_to(val)should_set_flash_to36,1105
+      def should_not_set_flashshould_not_set_flash44,1414
       def should_filter_params(*keys)should_filter_params57,1841
       def should_assign_to(*names, &block)should_assign_to80,2642
       def should_not_assign_to(*names)should_not_assign_to98,3264
@@ -48152,11 +48152,11 @@ module Shoulda # :nodoc:Shoulda1,0
         def expectationexpectation80,1932
         def resultresult86,2111
 
-/Users/jim/.rvm/gems/ruby-1.8.7-p299/gems/shoulda-2.11.3/lib/shoulda/action_controller/matchers/set_the_flash_matcher.rb,827
+/Users/jim/.rvm/gems/ruby-1.8.7-p299/gems/shoulda-2.11.3/lib/shoulda/action_controller/matchers/set_flash_matcher.rb,827
 module Shoulda # :nodoc:Shoulda1,0
   module ActionController # :nodoc:ActionController2,25
     module MatchersMatchers3,61
-      def set_the_flashset_the_flash15,531
+      def set_flashset_flash15,531
       class SetTheFlashMatcher # :nodoc:SetTheFlashMatcher19,597
         def to(value)to21,639
         def nownow26,714
@@ -48338,11 +48338,11 @@ module Shoulda # :nodoc:Shoulda1,0
         def expectationexpectation209,5729
         def macro_descriptionmacro_description213,5846
 
-/Users/jim/.rvm/gems/ruby-1.8.7-p299/gems/shoulda-2.11.3/lib/shoulda/active_record/matchers/ensure_inclusion_of_matcher.rb,855
+/Users/jim/.rvm/gems/ruby-1.8.7-p299/gems/shoulda-2.11.3/lib/shoulda/active_record/matchers/validate_inclusion_of_matcher.rb,855
 module Shoulda # :nodoc:Shoulda1,0
   module ActiveRecord # :nodoc:ActiveRecord2,25
     module MatchersMatchers3,57
-      def ensure_inclusion_of(attr)ensure_inclusion_of19,721
+      def validate_inclusion_of(attr)validate_inclusion_of19,721
       class EnsureInclusionOfMatcher < ValidationMatcher # :nodoc:EnsureInclusionOfMatcher23,811
         def in_range(range)in_range25,879
         def with_message(message)with_message32,1025
@@ -48355,11 +48355,11 @@ module Shoulda # :nodoc:Shoulda1,0
         def allows_minimum_valueallows_minimum_value76,2053
         def allows_maximum_valueallows_maximum_value80,2149
 
-/Users/jim/.rvm/gems/ruby-1.8.7-p299/gems/shoulda-2.11.3/lib/shoulda/active_record/matchers/ensure_length_of_matcher.rb,1189
+/Users/jim/.rvm/gems/ruby-1.8.7-p299/gems/shoulda-2.11.3/lib/shoulda/active_record/matchers/validate_length_of_matcher.rb,1189
 module Shoulda # :nodoc:Shoulda1,0
   module ActiveRecord # :nodoc:ActiveRecord2,25
     module MatchersMatchers3,57
-      def ensure_length_of(attr)ensure_length_of32,1436
+      def validate_length_of(attr)validate_length_of32,1436
       class EnsureLengthOfMatcher < ValidationMatcher # :nodoc:EnsureLengthOfMatcher36,1520
         def is_at_least(length)is_at_least39,1609
         def is_at_most(length)is_at_most45,1737
@@ -48660,11 +48660,11 @@ class AllowValueMatcherTest < ActiveSupport::TestCase # :nodoc:AllowValueMatche
 /Users/jim/.rvm/gems/ruby-1.8.7-p299/gems/shoulda-2.11.3/test/matchers/active_record/association_matcher_test.rb,93
 class AssociationMatcherTest < ActiveSupport::TestCase # :nodoc:AssociationMatcherTest3,23
 
-/Users/jim/.rvm/gems/ruby-1.8.7-p299/gems/shoulda-2.11.3/test/matchers/active_record/ensure_inclusion_of_matcher_test.rb,161
+/Users/jim/.rvm/gems/ruby-1.8.7-p299/gems/shoulda-2.11.3/test/matchers/active_record/validate_inclusion_of_matcher_test.rb,161
 class EnsureInclusionOfMatcherTest < ActiveSupport::TestCase # :nodoc:EnsureInclusionOfMatcherTest3,23
         def custom_validationcustom_validation60,1829
 
-/Users/jim/.rvm/gems/ruby-1.8.7-p299/gems/shoulda-2.11.3/test/matchers/active_record/ensure_length_of_matcher_test.rb,91
+/Users/jim/.rvm/gems/ruby-1.8.7-p299/gems/shoulda-2.11.3/test/matchers/active_record/validate_length_of_matcher_test.rb,91
 class EnsureLengthOfMatcher < ActiveSupport::TestCase # :nodoc:EnsureLengthOfMatcher3,23
 
 /Users/jim/.rvm/gems/ruby-1.8.7-p299/gems/shoulda-2.11.3/test/matchers/active_record/have_db_column_matcher_test.rb,95
@@ -48718,7 +48718,7 @@ class RouteToMatcherTest < ActionController::TestCase # :nodoc:RouteToMatcherTe
 /Users/jim/.rvm/gems/ruby-1.8.7-p299/gems/shoulda-2.11.3/test/matchers/controller/set_session_matcher_test.rb,94
 class SetSessionMatcherTest < ActionController::TestCase # :nodoc:SetSessionMatcherTest3,23
 
-/Users/jim/.rvm/gems/ruby-1.8.7-p299/gems/shoulda-2.11.3/test/matchers/controller/set_the_flash_matcher.rb,96
+/Users/jim/.rvm/gems/ruby-1.8.7-p299/gems/shoulda-2.11.3/test/matchers/controller/set_flash_matcher.rb,96
 class SetTheFlashMatcherTest < ActionController::TestCase # :nodoc:SetTheFlashMatcherTest3,23
 
 /Users/jim/.rvm/gems/ruby-1.8.7-p299/gems/shoulda-2.11.3/test/other/autoload_macro_test.rb,83

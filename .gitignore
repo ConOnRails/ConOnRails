@@ -8,6 +8,7 @@ tmp/
 *.dump
 
 .rvmrc*
+.powrc
 public/assets/*
 
 contact.csv

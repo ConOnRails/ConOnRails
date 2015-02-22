@@ -106,7 +106,7 @@ class EventsControllerTest < ActionController::TestCase
         should render_template :search_entries
 
         should 'Have both entries because we can see secure' do
-          assert_equal 2, assigns(:events).count
+          assert_equal 2, assigns(:events).count(:all)
         end
       end
 
@@ -126,7 +126,7 @@ class EventsControllerTest < ActionController::TestCase
         should render_template :search_entries
 
         should 'Have one event' do
-          assert_equal 1, assigns(:events).count
+          assert_equal 1, assigns(:events).count(:all)
         end
       end
 
@@ -138,7 +138,7 @@ class EventsControllerTest < ActionController::TestCase
         should respond_with :success
 
         should 'have two events, one secure, one hidden' do
-          assert_equal 2, assigns[:events].count
+          assert_equal 2, assigns[:events].count(:all)
           assigns[:events].each do |e|
             assert e.is_active
             assert !e.sticky
@@ -154,7 +154,7 @@ class EventsControllerTest < ActionController::TestCase
 
         should respond_with :success
         should 'have all possible events' do
-          assert_equal Event.count, assigns(:events).count
+          assert_equal Event.count, assigns(:events).count(:all)
         end
       end
 
@@ -210,7 +210,7 @@ class EventsControllerTest < ActionController::TestCase
         should render_template :search_entries
 
         should 'Only have one entry because we cannot see secure' do
-          assert_equal 1, assigns(:events).count
+          assert_equal 1, assigns(:events).count(:all)
         end
       end
 

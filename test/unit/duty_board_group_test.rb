@@ -25,7 +25,7 @@ class DutyBoardGroupTest < ActiveSupport::TestCase
   should validate_numericality_of :row
   should validate_numericality_of :column
   should validate_uniqueness_of(:row).scoped_to :column
-  should ensure_inclusion_of(:row).in_range DutyBoardGroup.row_range
-  should ensure_inclusion_of(:column).in_range DutyBoardGroup.col_range
+  should validate_inclusion_of(:row).in_range DutyBoardGroup.row_range
+  should validate_inclusion_of(:column).in_range DutyBoardGroup.col_range
 
 end

@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~>4.0.0'
+gem 'rails', '~>4.1.0'
 ruby '2.2.0'
 
 # Bundle edge Rails instead:
@@ -11,7 +11,7 @@ gem 'pg'
 
 # Gems used only for assets and not required
 # in production environments by default.
-gem 'sass-rails', '~> 4.0'   #, "~> 3.2.3"
+gem 'sass-rails'#, '~> 4.0'   #, "~> 3.2.3"
 gem 'coffee-rails' #, "~> 3.2.1"
 gem 'uglifier' #, ">= 1.0.3"
 
@@ -21,7 +21,7 @@ gem 'capistrano-rails'#, '~>2.14'
 gem 'capistrano-rvm'
 gem 'countries'
 gem 'country_select'
-gem 'formtastic', '~> 2.3.0.rc3' #, github: 'justinfrench/formtastic', branch: '2.3-stable'
+gem 'formtastic'#, '~> 2.3.0.rc3' #, github: 'justinfrench/formtastic', branch: '2.3-stable'
 gem 'jbuilder'
 gem 'jquery-rails'#, '~>2.1'
 gem 'jquery-ui-rails'#, '~>3.0'
@@ -60,8 +60,8 @@ group :test do
   gem 'faker'
   gem 'minitest-reporters'
   gem 'mocha', require: false
-  gem 'shoulda', github: 'thoughtbot/shoulda'
-  gem 'shoulda-matchers', github: 'thoughtbot/shoulda-matchers'
+  gem 'shoulda'#, github: 'thoughtbot/shoulda'
+  gem 'shoulda-matchers'#, github: 'thoughtbot/shoulda-matchers'
 
   #gem 'turn'
 
