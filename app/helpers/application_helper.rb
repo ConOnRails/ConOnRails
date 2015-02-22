@@ -7,15 +7,15 @@ module ApplicationHelper
   end
 
   def version_number
-    '3.3.7'
+    '3.4.0'
   end
 
   def version_name
-    'Wizard Imps And Sweatsock Pimps'
+    'Jam'
   end
 
   def version_type
-    :release #:release:beta
+    :beta #:release:beta
   end
 
   def get_banner_style
