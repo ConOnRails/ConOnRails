@@ -36,7 +36,7 @@ ConOnRails::Application.routes.draw do
   resources :lost_and_found, only: [:index]
   resources :lost_and_found_items, except: [:destroy] do
     collection do
-      get 'searchform'
+      get :searchform
     end
   end
   resources :messages

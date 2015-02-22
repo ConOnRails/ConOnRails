@@ -45,5 +45,8 @@ module ConOnRails
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    config.active_record.raise_in_transactional_callbacks = true
+    config.active_support.test_order = :sorted
   end
 end
