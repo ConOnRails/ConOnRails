@@ -43,7 +43,7 @@ class SessionsControllerTest < ActionController::TestCase
     @user.roles << @role
     @user.save!
 
-    get :getroles, { format: :js, name: @user.name }
+    xhr :get, :getroles, { format: :js, name: @user.name }
     assert_not_nil assigns :rolenames
     assert_equal @role.name, assigns(:rolenames)[0]
   end

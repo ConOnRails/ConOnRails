@@ -15,7 +15,7 @@
           <%= f.input :state %>
           <%= f.input :postal %>
           <li class="string input optional stringish"><label class="label">Country</label>
-            <%= country_select("volunteer", "country", ["United States", "Canada", "United Kingdom"], label: "Country") %>
+            <%= country_select(:volunteer, :country, only: ["United States", "Canada", "United Kingdom"], label: "Country") %>
           </li>
           <%= f.input :home_phone %>
           <%= f.input :work_phone %>
