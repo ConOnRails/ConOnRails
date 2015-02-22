@@ -27,7 +27,7 @@ class VspsControllerTest < ActionController::TestCase
         end
         should respond_with :success
         should render_template :new
-        should_not set_the_flash.to %r[created successfully!$]
+        should_not set_flash.to %r[created successfully!$]
       end
 
       context 'correct attributes' do
@@ -36,7 +36,7 @@ class VspsControllerTest < ActionController::TestCase
         end
         should respond_with :redirect
         should redirect_to('vsp list') { vsps_path }
-        should set_the_flash.to %r[created successfully!$]
+        should set_flash.to %r[created successfully!$]
       end
     end
 
@@ -51,7 +51,7 @@ class VspsControllerTest < ActionController::TestCase
         end
         should respond_with :success
         should render_template :edit
-        should_not set_the_flash.to %r[updated successfully!$]
+        should_not set_flash.to %r[updated successfully!$]
       end
 
       context 'good params' do
@@ -61,7 +61,7 @@ class VspsControllerTest < ActionController::TestCase
 
         should respond_with :redirect
         should redirect_to('vsp list') { vsps_path }
-        should set_the_flash.to %r[updated successfully!$]
+        should set_flash.to %r[updated successfully!$]
       end
     end
 
