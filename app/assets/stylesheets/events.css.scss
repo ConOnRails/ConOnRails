@@ -16,6 +16,11 @@
     border-top: thin solid;
     border-bottom: thin solid;
 
+    .inline {
+      display: inline-block;
+      width: 100%
+    }
+
     .medical {
       color: $red;
     }
@@ -276,5 +281,3 @@
     }
   }
 }
-
-
