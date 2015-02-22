@@ -17,16 +17,16 @@
     </div>
 <% end %>
 
-<% newparams = {} %>
+<% newparams = { lost_and_found_item: {} } %>
 <% if params[:reported_missing] %>
     <% buttontype = "item_missing_button" %>
     <% buttontext = "Create new missing item" %>
-    <% newparams[:reported_missing] = true %>
+    <% newparams[:lost_and_found_item][:reported_missing] = true %>
 <% end %>
 <% if params[:found] %>
     <% buttontype = "item_found_button" %>
     <% buttontext = "Create new found item" %>
-    <% newparams[:found] = true %>
+    <% newparams[:lost_and_found_item][:found] = true %>
 <% end %>
 
 <div class="button"><%= link_to buttontext, new_lost_and_found_item_path(newparams),
@@ -36,7 +36,7 @@
 <div id="paginator"><%= paginate @lfis %></div>
 
 <% content_for :side do %>
-    <%= link_to 'Back', searchform_lost_and_found_items_path(params) %>
+    <%= link_to 'Back', searchform_lost_and_found_items_path(@back_params) %>
     <% if current_user.modify_lost_and_found? %>
         <%= link_to 'Open Inventory', lost_and_found_items_path(inventory: true) %>
     <% end %>

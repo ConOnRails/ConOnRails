@@ -25,19 +25,20 @@ class LostAndFoundItemsController < ApplicationController
   public
 
   def index
-    return jump if params[:id].present?
-    search_type = params[:search_type] || 'any'
+    return jump if lfi_search_params[:id].present?
+    search_type = lfi_search_params[:search_type] || 'any'
 
-    @lfis = limit_by_convention LostAndFoundItem.inventory(params[:inventory], params[:exclude_inventoried]).page(params[:page]).
-        where { |l| l.description.send(('like_'+search_type).to_sym, wrap_keywords_for_like) unless params[:keywords].blank? }.
+    @lfis = limit_by_convention LostAndFoundItem.inventory(lfi_search_params[:inventory], lfi_search_params[:exclude_inventoried]).page(lfi_search_params[:page]).
+        where { |l| l.description.send(('like_'+search_type).to_sym, wrap_keywords_for_like) unless lfi_search_params[:keywords].blank? }.
         where { |l| l.category >> @categories unless @categories.blank? }.references(:tags)
-    @lfis = params[:show_returned_only] ? @lfis.returned : @lfis.not_returned
+    @lfis = lfi_search_params[:show_returned_only] ? @lfis.returned : @lfis.not_returned
+    @back_params = lfi_search_params
   end
 
   def new
     @lfi                  = LostAndFoundItem.new
-    @lfi.reported_missing = params[:reported_missing]
-    @lfi.found            = params[:found]
+    @lfi.reported_missing = lfi_params[:reported_missing]
+    @lfi.found            = lfi_params[:found]
   end
 
   def create
@@ -60,13 +61,13 @@ class LostAndFoundItemsController < ApplicationController
     @lfi.rolename = current_role
 
     flash[:notice] = "#{@lfi.Type} item was successfully updated." if @lfi.update_attributes lfi_params
-    respond_with @lfi, location: lost_and_found_item_path(@lfi, inventory: params[:inventory])
+    respond_with @lfi, location: lost_and_found_item_path(@lfi, inventory: lfi_params[:inventory])
   end
 
   protected
   def jump
     @lfi = LostAndFoundItem.find_by_id(params[:id])
-    return redirect_to lost_and_found_item_path(@lfi, inventory: params[:inventory]) if @lfi.present?
+    return redirect_to lost_and_found_item_path(@lfi, inventory: lfi_params[:inventory]) if @lfi.present?
     render 'invalid'
   end
 
@@ -102,9 +103,14 @@ class LostAndFoundItemsController < ApplicationController
     end
   end
 
+  def lfi_search_params
+    params.permit LostAndFoundItem.valid_categories.keys + [:keywords, :search_type, :reported_found, :inventoried, :exclude_inventoried, :returned, :reported_missing, :found, :page, :show_returned_only]
+  end
+
+
   def lfi_params
       params.require(:lost_and_found_item).permit :reported_missing, :category, :description, :where_last_seen,
                                                   :owner_name, :owner_contact, :where_found, :details, :found, :returned,
-                                                  :who_claimed, :inventoried
+                                                  :who_claimed, :inventoried, :search_type
   end
 end

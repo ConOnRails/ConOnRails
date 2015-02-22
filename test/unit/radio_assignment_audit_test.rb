@@ -34,15 +34,15 @@ class RadioAssignmentAuditTest < ActiveSupport::TestCase
   end
 
   test "can create checkout audit" do
-    can_create_audit( 'checkout', :out )
+    can_create_audit( 'checkout', 'out' )
   end
 
   test "can create checkin audit" do
-    can_create_audit( 'checkin', :in )
+    can_create_audit( 'checkin', 'in' )
   end
 
   test "can create retirement audit" do
-    can_create_audit( 'retirement', :retired )
+    can_create_audit( 'retirement', 'retired' )
   end
 
 
