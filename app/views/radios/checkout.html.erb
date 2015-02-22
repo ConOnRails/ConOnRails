@@ -17,7 +17,7 @@
 <h2>First, find a volunteer</h2>
 <div>Note: name and username searches are CASE SENSITIVE.</div>
 
-<%= form_tag ({ action: :search_volunteers, controller: :radios }), id: "volunteer_search", remote: true do %>
+<%= form_tag({ action: :search_volunteers, controller: :radios }, id: "volunteer_search", remote: true) do %>
     <%= hidden_field_tag :radio, @radio.id %>
     <%= label_tag :first_name %>
     <%= text_field_tag :first_name %>
