@@ -61,6 +61,8 @@ GEM
     capistrano-rvm (0.1.2)
       capistrano (~> 3.0)
       sshkit (~> 1.2)
+    capistrano-safe-deploy-to (1.1.1)
+      capistrano (>= 3.0)
     capistrano-stats (1.1.1)
     codeclimate-test-reporter (0.4.6)
       simplecov (>= 0.7.1, < 1.0.0)
@@ -274,6 +276,7 @@ DEPENDENCIES
   bcrypt-ruby (~> 3.1.5)
   capistrano-rails (~> 1.1.2)
   capistrano-rvm (~> 0.1.2)
+  capistrano-safe-deploy-to (~> 1.1.1)
   codeclimate-test-reporter
   coffee-rails (~> 4.1.0)
   countries (~> 0.9.3)
