@@ -247,13 +247,13 @@ a.small-button {
 
 a.button {
 
-  background-color: $dark_grey;
-  color: white;
+  background-color: $dark_grey !important;
+  color: white !important;
 
   &:hover {
-    color: $dark_grey;
-    background-color: white;
-    border: thin solid $dark_grey;
+    color: $dark_grey !important;
+    background-color: white !important;
+    border: thin solid $dark_grey !important;
   }
 }
 
@@ -504,4 +504,10 @@ a.submit-button, input[type="submit"]
   font-size: .7em;
   line-height: .7em;
   padding-bottom: 6px;
+}
+
+.help {
+  font-weight: bold;
+  color: white;
+  background-color: $dark_grey;
 }

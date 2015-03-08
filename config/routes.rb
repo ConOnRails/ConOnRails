@@ -4,6 +4,8 @@ ConOnRails::Application.routes.draw do
   get '/public', to: 'sessions#new'
   get '/signout', to: 'sessions#destroy'
   get '/sessions/getroles', to: 'sessions#getroles'
+  post '/sessions/set_index_filter', to: 'sessions#set_index_filter'
+  post '/sessions/clear_index_filter', to: 'sessions#clear_index_filter'
   get '/lost_and_found', to: 'lost_and_found#index'
   get '/admin', to: 'admin#index'
   get '/banner', to: 'application#banner'

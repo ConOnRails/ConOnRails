@@ -47,4 +47,34 @@ class SessionsControllerTest < ActionController::TestCase
     assert_not_nil assigns :rolenames
     assert_equal @role.name, assigns(:rolenames)[0]
   end
+
+  context "Index filters" do
+    context "POST :setup_index_filter" do
+      setup do
+        @filter = { hotel: true, llama: false }
+        @safe_filter = HashWithIndifferentAccess.new({ hotel: true })
+        post :set_index_filter, { index_filter: @filter }
+      end
+
+      should respond_with :redirect
+      should redirect_to :root
+      should 'have a sanitized filter' do
+        assert_equal @safe_filter, session[:index_filter]
+      end
+    end
+
+    context "POST :clear_index_filter" do
+      setup do
+        session[:index_filter] = { hotel: true }
+        post :clear_index_filter
+      end
+
+      should respond_with :redirect
+      should redirect_to :root
+
+      should 'have no filter' do
+        assert_nil session[:index_filter]
+      end
+    end
+  end
 end
