@@ -10,6 +10,29 @@ class EventsControllerTest < ActionController::TestCase
       FactoryGirl.create :entry, description: 'Voles are in control', event: @event
     end
 
+    multiple_contexts :admin_context, :typical_context do
+      context 'An index filter set on the session' do
+        setup do
+          @hotel_event = FactoryGirl.create :ordinary_event, hotel: true
+          session[:index_filter] = { hotel: true }
+        end
+
+        context 'GET :index' do
+          setup do
+            get :index
+          end
+
+          should respond_with :success
+          should 'have one hotel event' do
+            assert_equal 1, assigns[:events].count
+            assigns[:events].each do |e|
+              assert e.hotel?
+            end
+          end
+        end
+      end
+    end
+
     multiple_contexts :admin_context, :typical_context, :peon_context do
       context 'Only ordinary events' do
         context 'GET :index' do

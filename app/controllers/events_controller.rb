@@ -17,8 +17,9 @@ class EventsController < ApplicationController
   # GET /events.json
   def index
     return jump if params[:id].present?
-    @events = IndexQuery.new(Event).query.
+    @events = IndexQuery.new(Event).query(session[:index_filter]).
         order { |e| e.updated_at.desc }.page(params[:page])
+    Rails.logger.error "VOMP #{@events.to_sql}"
     respond_with @events
   end
 
@@ -49,7 +50,7 @@ class EventsController < ApplicationController
 
   def search_entries
     @q = params[:q] # We'll use this to re-fill the search blank
-    @events = limit_by_convention Event.search(@q, current_user, params[:show_closed])
+    @events = limit_by_convention Event.search(@q, current_user, params[:show_closed], session[:index_filter])
     respond_with @events
   end
 
@@ -71,6 +72,7 @@ class EventsController < ApplicationController
   # There is POST /events. We actually create the new event here and then redirect to create the first entry
   def new
     @event = Event.new
+    @event.flags = session[:index_filter] if session[:index_filter]
     @event.emergency = true if params[:emergency] == '1'
     @entry = build_new_entry @event
   end
