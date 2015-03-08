@@ -27,10 +27,6 @@ html
     #columns
       #side
         = yield :side
-        - if current_user.present?
-          hr width="80%"
-          div= link_to "Change My Password", change_password_user_path(current_user) if current_user
-
         = yield :search
 
         - if version_type != :release
