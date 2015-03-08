@@ -57,12 +57,21 @@ class Event < ActiveRecord::Base
         where { |e| (e.secure == false unless user_can_rw_secure(user)) }
   }
 
+  # TODO this originated with EventQuery and should NOT BE DUPLICATED, but currently is.
+  scope :build_from_filters, ->(filters) {
+    filters.reduce(Squeel::Nodes::Stub.new(:created_at).not_eq(nil)) do |query, key|
+      query = query.& Squeel::Nodes::KeyPath.new(key.first.to_sym).eq(fix_bool key.second) unless key.second == 'all'
+      where { query }
+    end if filters.present?
+  }
+
   STATUSES = %w[ Active Closed Merged ]
   FLAGS    = %w[ is_active merged post_con sticky emergency medical hidden secure consuite hotel parties volunteers dealers dock merchandise nerf_herders ]
 
-   def self.search(q, user, show_closed=false)
+   def self.search(q, user, show_closed=false, index_filters=nil)
     protect_sensitive_events(user).
         actives_and_stickies_or_all(show_closed).
+        build_from_filters(index_filters).
         search_entries(q)
   end
 
@@ -196,6 +205,14 @@ class Event < ActiveRecord::Base
   end
 
   protected
+  def self.fix_bool val
+    if val.is_a? String
+      return true if val == 'true'
+      return false if val == 'false'
+    end
+    val
+  end
+
 
 
 end

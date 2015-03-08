@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_filter :require_login, only: [:new, :create, :getroles]
+  skip_before_filter :require_login, only: [:new, :create, :getroles, :set_index_filter, :clear_index_filter]
 
   private
   def ip()
@@ -40,6 +40,16 @@ class SessionsController < ApplicationController
     end
   end
 
+  def set_index_filter
+    session[:index_filter] = sanitize_flags params[:index_filter]
+    redirect_to root_url
+  end
+
+  def clear_index_filter
+    session[:index_filter] = nil
+    redirect_to root_url
+  end
+
   protected
 
   def setup_session(user)
@@ -51,5 +61,9 @@ class SessionsController < ApplicationController
 
   def log_failure
     LoginLog.create! user_name: params[:name], role_name: params[:role], comment: :failure, ip: ip()
+  end
+
+  def sanitize_flags(flags)
+    flags.select { |f| Event.flags.include?(f.to_s) }
   end
 end

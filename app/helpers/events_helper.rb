@@ -136,4 +136,11 @@ module EventsHelper
         content_tag :div, "I HAVE NO IDEA WHAT TO DO NOW!"
     end
   end
+
+  def index_filter(key)
+    link_to(key.to_s.titleize, sessions_set_index_filter_path(index_filter: { key => true }), method: :post,
+      class: (session[:index_filter] && session[:index_filter].keys.include?(key.to_s)) ? 'current_index_filter' : nil
+    )
+  end
+
 end

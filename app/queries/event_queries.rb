@@ -15,11 +15,30 @@ module Queries
           args[0].where { (kp1 | kp2) }
         end
       end
+
+      protected
+
+      # TODO there's now a copy of this on Event. Find a way to unify them.
+      def build_from_filters(filters)
+        filters.reduce(Squeel::Nodes::Stub.new(:created_at).not_eq(nil)) do |query, key|
+          query = query.& Squeel::Nodes::KeyPath.new(key.first.to_sym).eq(fix_bool key.second) unless key.second == 'all'
+          query
+        end if filters.present?
+      end
+
+      def fix_bool val
+        if val.is_a? String
+          return true if val == 'true'
+          return false if val == 'false'
+        end
+        val
+      end
+
     end
 
     class IndexQuery < EventQuery
-      def query
-        is_active not_sticky not_secure not_hidden initial_query
+      def query(filters=nil)
+        is_active not_sticky not_secure not_hidden initial_query.where { |q| build_from_filters(filters) }
       end
     end
 
@@ -45,21 +64,6 @@ module Queries
         initial_query.where { |q| build_from_filters(@filters) }
       end
 
-      protected
-      def build_from_filters(filters)
-        filters.reduce(Squeel::Nodes::Stub.new(:created_at).not_eq(nil)) do |query, key|
-          query = query.& Squeel::Nodes::KeyPath.new(key.first.to_sym).eq(fix_bool key.second) unless key.second == 'all'
-          query
-        end if filters.present?
-      end
-
-      def fix_bool val
-        if val.is_a? String
-          return true if val == 'true'
-          return false if val == 'false'
-        end
-        val
-      end
     end
   end
 end
