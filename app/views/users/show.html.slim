@@ -1,0 +1,25 @@
+div
+  strong Name:&nbsp;
+  = @user.name
+  | &nbsp;
+  div.button.small-button.inline-button
+    a.button.small-button href=change_password_user_path(current_user) Change Password
+
+
+div
+  strong Real Name:&nbsp;
+  = @user.realname
+
+- if @user.volunteer
+  div
+    strong Associated with volunteer #{link_to @user.volunteer.name, @user.volunteer}
+
+div
+  strong Roles:
+  table#roleslist
+    = render partial: "roles/roleheader"
+    = render @user.roles
+
+- content_for :side
+  div= link_to 'Edit', edit_user_path(@user)
+  div= link_to 'Back', users_path
