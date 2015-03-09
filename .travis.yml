@@ -8,4 +8,4 @@ before_script:
   - psql -c 'create database con_on_rails_test' -U postgres
   - sqlite3 -batch db/attendees.sqlite3 < db/attendees.seed
 script:
-  - RAILS_ENV=test bundle exec rake --trace db:migrate test
+  - RAILS_ENV=test bundle exec rake db:migrate test
