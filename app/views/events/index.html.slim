@@ -1,0 +1,33 @@
+= form_tag merge_events_events_path, method: :post, id: 'merge-form' do
+  #event-buttons.button
+    .big-log-button.button.inline-button= link_to 'Log New Event', new_event_path, class: 'button update'
+    | &nbsp;
+    #merge-mode-toggle.button.inline-button
+    #merge-mode-submit.button.inline-button
+    - if action_name == 'sticky'
+      = label_tag :show_older, 'Show Older'
+      = check_box_tag(:show_older, '1', params[:show_older], id: 'show_older')
+
+    - if action_name == 'secure'
+      h3 style="float: right; color: red; width: 200px;" YOU ARE VIEWING SECURE ITEMS. Do not leave this screen unattended!
+
+  .paginator.pull-left= paginate @events, remote: true
+  #event_list
+  .paginator= paginate @events, remote: true
+
+javascript:
+  window.events.page = #{params[:page].nil? ? '1' : params[:page] };
+  window.events.convention = "#{params[:convention] || Convention.current_convention.try(:id)}";
+  window.events.path = "#{url_for(only_path: true)}";
+  window.events.merge_mode = #{params[:merge_mode].presence || false};
+  window.events.getMain();
+  $('#show_older').change(function () {
+    window.events.getMain();
+  });
+
+- content_for :side do
+  = sidebar_menu
+  = render partial: 'index_filters'
+
+- content_for :search do
+  = render partial: 'search_form'

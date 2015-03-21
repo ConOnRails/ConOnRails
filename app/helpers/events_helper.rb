@@ -130,7 +130,7 @@ module EventsHelper
         sticky_text
       when secure_events_path
         active_link <<
-        sticky_text <<
+        secure_text <<
         sticky_link
       else
         content_tag :div, "I HAVE NO IDEA WHAT TO DO NOW!"

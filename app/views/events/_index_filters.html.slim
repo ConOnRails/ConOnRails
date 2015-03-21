@@ -1,11 +1,10 @@
 hr
-div
+div.filters-header
   strong Filters&nbsp;
   span.help title="New events will also default to your current filter" ?
 
-div
-  .button.small-button
-    = link_to 'Clear Filters', sessions_clear_index_filter_path, method: :post, class: 'button small-button'
+  .button.small-button.pull-right.inline-button.clear-filters-button
+    = link_to 'Clear Filters', sessions_clear_index_filter_path, method: :post, class: 'button small-button inline-button'
 
 div
   = index_filter(:hotel)
