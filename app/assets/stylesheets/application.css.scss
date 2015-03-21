@@ -510,4 +510,14 @@ a.submit-button, input[type="submit"]
   font-weight: bold;
   color: white;
   background-color: $dark_grey;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+div.clear-filters-button {
+  margin: 0;
+}
+
+div.filters-header {
+  margin-bottom: 6px;
 }
