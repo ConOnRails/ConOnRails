@@ -1,7 +1,7 @@
 <%= render partial: 'jump' %>
 
 <h2>Search for an item</h2>
-<%= form_tag :lost_and_found_items, method: :get, id: "lost_and_found_search_form" do %>
+<%= form_tag :lost_and_found_items, method: :get, id: "lost_and_found_search_form", class: 'form-inline' do %>
     <%= hidden_field_tag "reported_missing", params[:reported_missing] if params[:reported_missing] %>
     <%= hidden_field_tag "found", params[:found] if params[:found] %>
     <%= filter_by_convention %>
@@ -23,9 +23,9 @@
             <%= radio_button_tag :search_type, "any", params[:search_type] == 'any' %></li>
         </ol>
     <% end %>
-    <%= submit_tag "Search", class: "lost-and-found-search-button" %>
+    <%= submit_tag "Search", class: "btn btn-primary btn-lg" %>
 <% end %>
-<blockquote style="text-align: center;"><strong>NOTE:</strong> This page does <strong>not</strong> and <strong>cannot</strong> create a new
+<h4><strong>NOTE:</strong> This page does <strong>not</strong> and <strong>cannot</strong> create a new
   Lost and Found entry. You <strong>must</strong> search for an existing entry before you can create a new one.</blockquote>
 
 <% content_for :side do %>

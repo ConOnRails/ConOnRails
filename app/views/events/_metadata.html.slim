@@ -1,14 +1,18 @@
-.inline
-  - if !form && params[:merge_mode] == 'true'
-    span.merge-check
-      = check_box_tag "merge_ids[]", event.id
-      = label_tag "merge_ids[]", 'Merge'
+.well.well-sm
+  .container-fluid
+    .row
+      - if !form && params[:merge_mode] == 'true'
+        .col-md-2.col-sm-2.merge-check
+          = check_box_tag "merge_ids[]", event.id
+          = label_tag "merge_ids[]", 'Merge'
 
-  - if !form
-    = link_to 'Update This Event', edit_event_path(event), class: 'button update'
+      - if !form
+        .col-md-3
+          = link_to 'Update Event', edit_event_path(event), class: 'btn btn-primary'
 
-  span { class: event_style event }
-    = event_tags event
+      .col-md-4 { class: event_style event }
+        = event_tags event
 
-  - if !form
-    .event-id ID: #{event.id}
+      - if !form
+        .col-md-2
+          strong ID: #{event.id}

@@ -40,14 +40,14 @@ MenuDecorator.prototype = {
     tab_href = $(thing).attr('href')
 
     if tab_href == this.here
-      $(thing).addClass('selected')
+      $(thing).addClass('active')
       this.selected = true
   ),
 
   sub_section: (->
     for path in this.admin_subpaths
       if path == this.here
-        $('#menu-tab-admin').addClass('selected')
+        $('#menu-tab-admin').addClass('active')
         return true
     return false)
 }

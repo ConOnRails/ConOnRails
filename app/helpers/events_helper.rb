@@ -11,7 +11,8 @@ module EventsHelper
     link_to merge_mode_toggle_text,
             merge_button_path,
             remote: true,
-            class: "button merge-button #{merge_toggle_class}"
+            class: "btn btn-primary #{merge_toggle_class}",
+            type: 'button'
   end
 
   def merge_button_path
@@ -35,7 +36,7 @@ module EventsHelper
 
     link_to 'Merge',
             '#',
-            class: 'button submit-button',
+            class: 'btn btn-success',
             onclick: 'document.getElementById("merge-form").submit()'
   end
 

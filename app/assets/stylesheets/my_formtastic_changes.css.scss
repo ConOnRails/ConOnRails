@@ -3,4 +3,18 @@ li {
 }
 .action {
   font-family: inherit;
+  font-size: inherit;
 }
+
+.formtastic .choice label { margin-bottom: 0; }
+.radio label, .checkbox label {
+  min-height: 0;
+}
+
+.formtastic .choice label input, .formtastic .boolean label input {
+  position: static;
+  left: 0;
+  right: 0;
+  margin-right: 2px;
+}
+
