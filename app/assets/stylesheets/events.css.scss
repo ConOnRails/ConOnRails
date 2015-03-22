@@ -4,17 +4,12 @@
 @import "colors";
 
 .events {
-  .event_header {
-    margin-bottom: 6px;
-  }
-
   .event_metadata {
-    clear: both;
-    font-size: 10px;
-    padding: 6px;
-    margin-right: 6px;
-    border-top: thin solid;
-    border-bottom: thin solid;
+    .well {
+      margin-bottom: 6px;
+    }
+
+
 
     .inline {
       display: inline-block;
@@ -35,21 +30,13 @@
 
     a.update {
       margin-right: 1em;
-      padding: .5em;
-      background-color: $green;
       color: white;
-
-      &:hover {
-        color: $green;
-        background-color: white;
-        border: thin solid $green;
-      }
     }
 
     .event-id {
       text-align: right;
+      display: inline-block;
       font-weight: 700;
-      float: right;
     }
   }
 
@@ -101,7 +88,7 @@
     fieldset {
       margin: 0;
       padding: 0;
-      padding-left: 1em;
+      padding-left: 0;
 
       ol {
         margin: 0;
@@ -109,13 +96,6 @@
         li {
           margin: 0;
           padding: 0;
-        }
-        li.alert-tag-check {
-          padding-top: 12px;
-
-          label {
-            padding-left: 12px;
-          }
         }
       }
     }
@@ -185,19 +165,18 @@
 
   #event_options_bottom {
     display: block;
-    padding-top: 5px;
+    margin-top: 6px;
     fieldset.department_flags {
-      float: left;
       ol {
         list-style-type: none;
 
         .input {
-          display: inline;
+          display: inline-block;
+          margin-right: 6px;
+
           label {
             padding: 0;
-            margin-right: .5em;
-            display: inline;
-            font-size: .9em;
+            display: inline-block;
           }
         }
       }
@@ -239,8 +218,6 @@
     display: block;
     clear: both;
     margin-bottom: 1em;
-    margin-top: .5em;
-    padding-top: 6px;
     padding-left: 0;
   }
 

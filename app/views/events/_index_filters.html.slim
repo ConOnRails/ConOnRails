@@ -1,11 +1,13 @@
-hr
-div.filters-header
-  strong Filters&nbsp;
-  span.help title="New events will also default to your current filter" ?
+.well.well-sm
+  .row
+    .col-md-4
+      strong Filters&nbsp;
+    .col-md-1
+      span.help title="New events will also default to your current filter" ?
+    .col-md-5
+      = link_to 'Clear Filters', sessions_clear_index_filter_path, method: :post, class: 'btn btn-primary btn-xs'
 
-  .button.small-button.pull-right.inline-button.clear-filters-button
-    = link_to 'Clear Filters', sessions_clear_index_filter_path, method: :post, class: 'button small-button inline-button'
-
-div
-  = index_filter(:hotel)
-  = index_filter(:nerf_herders)
+  .row
+    .col-md-12= index_filter(:hotel)
+  .row
+    .col-md-12= index_filter(:nerf_herders)

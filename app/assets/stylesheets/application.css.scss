@@ -2,11 +2,57 @@
 * This is a manifest file that'll automatically include all the stylesheets available in this directory
 * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
 * the top of the compiled file, but it's generally better to create a new file per style scope.
-*= require formtastic
-*= require_self
-*= require_tree .
+*!= require 'formtastic'
+*!= require_self
+*!= require_tree .
+
 */
+
+// OVERRIDES for BOOTSTRAP
+$font-size-base: 16px !default;
+$nav-link-padding: 5px;
+
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
 @import "colors";
+
+@import 'admin';
+@import 'audit';
+@import 'con_on_rails';
+@import 'contacts';
+@import 'conventions';
+@import 'departments';
+@import 'duty_board';
+@import 'duty_board_assignments';
+@import 'duty_board_slots';
+@import 'events';
+@import 'login_log';
+@import 'lost_and_found';
+@import 'lost_and_found_items';
+@import 'messages';
+@import 'radio_admin';
+@import 'radio_assignment_audits';
+@import 'radio_groups';
+@import 'radios';
+@import 'roles';
+@import 'scaffolds';
+@import 'sessions';
+@import 'users';
+@import 'version';
+@import 'volunteer_trainings';
+@import 'volunteers';
+@import 'vsps';
+
+@import 'formtastic';
+@import 'my_formtastic_changes';
+
+// Some overrides have to be here
+.formtastic input[type='submit'] {
+  @extend .btn;
+  @extend .btn-success;
+  @extend .btn-lg;
+}
 //@import url(http://fonts.googleapis.com/css?family=Nunito:400,700,300);
 //@import url(http://fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,500,500italic,700,700italic&subset=latin,latin-ext);
 //@import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700);
@@ -17,15 +63,16 @@ body {
 
   margin: auto;
   padding: 0;
-  font-family: Verdana, Geneva, sans-serif;
-  font-size: 0.9em;
+  //  font-family: Verdana, Geneva, sans-serif;
+  //  font-size: 0.9em;
   background-color: white;
   color: #333;
 }
 
-nav {
+nav.pagination {
   padding-bottom: 1em;
   padding-top: 1em;
+  margin: 0;
 
   .current {
     font-weight: bold;
@@ -40,6 +87,10 @@ nav {
 h1, h2, h3, h4, h5, h6 {
   padding-top: 0;
   margin-top: 0;
+}
+
+hr {
+  margin: 6px;
 }
 
 table {
@@ -200,49 +251,26 @@ div.small-button {
   margin-bottom: 4px;
 }
 
-a.tab {
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
-  padding: 12px 0.5em;
-  margin-left: 3px;
-  border: 1px solid #778;
-  border-bottom: none;
-  background-color: $nav_bar_tab_bg;
-  color: $nav_bar_tab_fg;
-  display: block;
-  width: 7em;
 
-  &:hover, &.selected {
-    color: $nav_bar_tab_bg;
-    background-color: $nav_bar_tab_fg;
-
-    .selected:hover {
-      background-color: $nav_bar_tab_bg;
-      color: $nav_bar_tab_fg;
-    }
-  }
-}
-
-a.button, input[type="submit"] {
-  padding: 12px;
-  margin: 0px;
-  box-sizing: content-box;
-  white-space: normal;
-  -webkit-appearance: none;
-  display: inline;
-  height: auto;
-  line-height: normal;
-  border-radius: 10px;
-
-  font-family: inherit;
-  font-size: 1.2em;
-  font-weight: bold;
-  text-align: center;
-}
+//a.button, input[type="submit"] {
+//  padding: 12px;
+//  margin: 0px;
+//  box-sizing: content-box;
+//  white-space: normal;
+//  -webkit-appearance: none;
+//  display: inline;
+//  height: auto;
+//  line-height: normal;
+//  border-radius: 10px;
+//
+//  font-family: inherit;
+//  font-size: 1.2em;
+//  font-weight: bold;
+//  text-align: center;
+//}
 
 a.small-button {
   padding: 4px;
-  font-size: .8em;
 }
 
 a.button {
@@ -257,19 +285,18 @@ a.button {
   }
 }
 
-a.submit-button, input[type="submit"]
-{
-  background-color: $green;
-  color: white;
-  border: none;
-
-  &:hover {
-    color: $green;
-    background-color: white;
-    border: thin solid $green;
-  }
-
-}
+//a.submit-button, input[type="submit"] {
+//  background-color: $green;
+//  color: white;
+//  border: none;
+//
+//  &:hover {
+//    color: $green;
+//    background-color: white;
+//    border: thin solid $green;
+//  }
+//
+//}
 
 .odd {
   a.button {
@@ -316,25 +343,34 @@ a.submit-button, input[type="submit"]
   margin: 0;
   padding: 0;
   margin-bottom: 1em;
-  height: 4em;
   background-color: $nav_bar_bg;
   color: $nav_bar_fg;
 
-  ul {
-    width: 100%;
-    float: left;
-    padding: 0;
-    margin-left: 0;
-    font-size: .9em;
-    font-weight: bold;
+  a.tab {
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    margin-left: 3px;
+    border: 1px solid #778;
+    border-bottom: none;
+    background-color: $nav_bar_tab_bg;
+    color: $nav_bar_tab_fg;
 
-    li {
-      list-style: none;
-      margin: 0;
-      float: left;
+    &:hover, &.active {
+      color: $nav_bar_tab_bg;
+      background-color: $nav_bar_tab_fg;
+
+      .active:hover {
+        background-color: $nav_bar_tab_bg;
+        color: $nav_bar_tab_fg;
+      }
     }
   }
 
+  li {
+    font-weight: bold;
+    font-size: $font-size-base;
+    margin-top: 6px;
+  }
 }
 
 #notice {
@@ -452,13 +488,11 @@ a.submit-button, input[type="submit"]
 
 #cork-board {
   position: relative;
-  width: 800px;
 }
 
 .cork-board {
   position: relative;
   background-image: url(image_path('expanded-cork.jpg'));
-  width: 780px;
   min-height: 100px;
   max-height: 100px;
   margin-bottom: 12px;

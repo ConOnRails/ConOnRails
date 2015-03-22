@@ -1,23 +1,22 @@
 <%= render partial: 'lost_and_found_items/jump' %>
 
-<div id="missing" class="morf">
-  <div class="button">
+<div class="center-block">
+  <div id="missing" class="morf">
     <%= link_to "Missing Item", searchform_lost_and_found_items_path(reported_missing: true),
-                class: "button item_missing_button" %>
+                class: "btn btn-lg btn-warning center-block item_missing_button" %>
+    <div>I do not have the item in my hand</div>
   </div>
-  I do not have the item in my hand
-</div>
 
-<div id="found" class="morf">
-  <div class="button">
+  <div id="found" class="morf">
     <%= link_to "Found Item", searchform_lost_and_found_items_path(found: true),
-                class: "button item_found_button" %>
+                class: "btn btn-lg btn-success center-block item_found_button" %>
+    I have the item in my hand
   </div>
-  I have the item in my hand
-</div>
 
-<h3 style="text-align: center" class="clearfix"><strong>NOTE:</strong> You <strong>must</strong> search for for the missing or found item
-  to ensure it is not already recorded <strong>before</strong> you can create a new entry.</h3>
+</div>
+<h4 style="text-align: center" class="clearfix"><strong>NOTE:</strong> You <strong>must</strong> search for for the
+  missing or found item
+  to ensure it is not already recorded <strong>before</strong> you can create a new entry.</h4>
 <% content_for :side do %>
     <% if current_user.modify_lost_and_found? %>
         <%= link_to 'Open Inventory', lost_and_found_items_path(inventory: true) %>

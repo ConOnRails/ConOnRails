@@ -10,33 +10,41 @@ html
     = csrf_meta_tags
 
   body class="#{controller.controller_name} #{background}"
+    .container-fluid
+      .row
+        .col-md-12
+          #banner-placeholder
+            noscript= render "banner"
+          = render "menubar"
 
-    #banner-placeholder
-      noscript= render "banner"
-    = render "menubar"
+          - flash.each do |key, msg|
+            .flash id="#{key}"
+              p style="float:right;" = link_to 'X', '#', html_options: { id: "click-#{key}"}
+              p= msg
+              .clear
+            script type="text/javascript"
+              | $( "##{key}" ).fadeOut( 10000 );
+              | $( "##click-#{key}" ).click( function() { $( "##{key}").fadeOut(0) } );
 
-    - flash.each do |key, msg|
-      .flash id="#{key}"
-        p style="float:right;" = link_to 'X', '#', html_options: { id: "click-#{key}"}
-        p= msg
-        .clear
-      script type="text/javascript"
-        | $( "##{key}" ).fadeOut( 10000 );
-        | $( "##click-#{key}" ).click( function() { $( "##{key}").fadeOut(0) } );
+      .row
+        .col-md-3
+          = yield :side
+          = yield :search
 
-    #columns
-      #side
-        = yield :side
-        = yield :search
+          - if version_type != :release
+            #welcome.clearfix
+              h3 Welcome to Con On Rails.
 
-        - if version_type != :release
-          #welcome.clearfix
-            h3 Welcome to Con On Rails.
+              div This is version #{version_number}&mdash;#{version_name}
 
-            div This is version #{version_number}&mdash;#{version_name}
-      #main
-        #cork-board
-        = content_for?(:main) ? yield(:main) : yield
+        .col-md-9
+          .container-fluid
+            #main
+              .row
+                .col-md-12
+                  #cork-board
+              .row
+                = content_for?(:main) ? yield(:main) : yield
     #footer
       = render partial: 'indicia'
 

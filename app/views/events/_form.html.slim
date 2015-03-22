@@ -8,46 +8,51 @@
         li= msg
 
 
-h1= create_or_update
+h3= create_or_update
 
-= semantic_form_for @event do |f|
+= semantic_form_for @event, class: 'form-horizontal' do |f|
   #event_options_side
-    = f.inputs class: "status" do
-      - if @event.merged?
-        | Merged
-      - else
-        = f.input :status, as: :radio, collection: Event.statuses[0..1], label: false
+    .well.well-sm
+      = f.inputs class: "status" do
+        - if @event.merged?
+          | Merged
+        - else
+          = f.input :status, as: :radio, collection: Event.statuses[0..1], label: false
 
-    = f.inputs class: "type_flags" do
-      = f.input :emergency
-      = f.input :medical
-      = f.input :post_con
-      hr
-      .tiny These 3 hide events from View Actives!
-      = f.input :sticky, label: "Sticky"
-      = f.input :secure, label: "Secure" if current_user and current_user.rw_secure?
-      = f.input :hidden, label: "Hidden" if current_user and current_user.can_make_hidden_entries?
-      = f.input :hidden, as: :hidden, input_html: { value: false } unless current_user and current_user.can_make_hidden_entries?
-      = f.input :secure, as: :hidden, input_html: { value: false } unless current_user and current_user.rw_secure?
+    .well.well-sm
+      = f.inputs class: "type_flags" do
+        = f.input :emergency
+        = f.input :medical
+        = f.input :post_con
+
+    .tiny These 3 hide events from View Actives!
+    .well.well-sm
+      = f.inputs class: 'type_flags' do
+        = f.input :sticky, label: "Sticky"
+        = f.input :secure, label: "Secure" if current_user and current_user.rw_secure?
+        = f.input :hidden, label: "Hidden" if current_user and current_user.can_make_hidden_entries?
+        = f.input :hidden, as: :hidden, input_html: { value: false } unless current_user and current_user.can_make_hidden_entries?
+        = f.input :secure, as: :hidden, input_html: { value: false } unless current_user and current_user.rw_secure?
 
   #entries
     = render partial: 'new_entry', locals: { event: @event, entry: Entry.new }
 
   #event_options_bottom
-    = f.inputs class: "department_flags" do
-      = f.input :consuite
-      = f.input :hotel
-      = f.input :parties
-      = f.input :volunteers
-      = f.input :dealers
-      = f.input :dock
-      = f.input :merchandise
-      = f.input :nerf_herders
-  br
+    .well.well-sm
+      = f.inputs class: "department_flags" do
+        = f.input :consuite
+        = f.input :hotel
+        = f.input :parties
+        = f.input :volunteers
+        = f.input :dealers
+        = f.input :dock
+        = f.input :merchandise
+        = f.input :nerf_herders
+
   .buttons
     = f.actions do
-      = f.action :submit
-      = f.input :alert_dispatcher, as: :boolean, wrapper_html: { class: 'alert-tag-check' }
+      = f.action :submit, button_html: { class: 'btn btn-success btn-lg' }
+      = f.input :alert_dispatcher, as: :boolean, wrapper_html: { class: 'checkbox-inline' }
   = render partial: 'event', object: @event, locals: { form: true, actives: false }
 
 
