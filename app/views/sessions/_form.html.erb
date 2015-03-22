@@ -1,4 +1,4 @@
-<div id="login_form">
+<div id="login_form", class="well well-sm">
   <h1>Log In</h1>
   <%= form_tag sessions_path do %>
 
@@ -15,7 +15,7 @@
         <div id="role"><%= select_tag :role, options_from_collection_for_select(Role.all, :name, :name) %></div>
       </div>
       <div class="actions">
-        <%= submit_tag "Log in" %>
+        <%= submit_tag "Log in", class: 'btn btn-success' %>
       </div>
   <% end %>
 </div>
