@@ -7,11 +7,11 @@ module ApplicationHelper
   end
 
   def version_number
-    '3.4.0'
+    '3.4.1'
   end
 
   def version_name
-    'Jam'
+    'Blackberry Jam'
   end
 
   def version_type
