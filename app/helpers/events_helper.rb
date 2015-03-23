@@ -89,7 +89,10 @@ module EventsHelper
 
   def active_text
     content_tag :div do
-      content_tag :strong, 'Viewing Active'
+      [
+          content_tag(:span, '', class: 'active-sidebar'),
+          content_tag(:strong, 'Viewing Active')
+      ].join.html_safe
     end
   end
 
@@ -103,7 +106,10 @@ module EventsHelper
 
   def secure_text
     content_tag :div do
-      content_tag :strong, 'Viewing Active Secure'
+      [
+          content_tag(:span, '', class: 'active-sidebar'),
+          content_tag(:strong, 'Viewing Active Secure')
+      ].join.html_safe
     end
   end
 
@@ -115,7 +121,10 @@ module EventsHelper
 
   def sticky_text
     content_tag :div do
-      content_tag :strong, 'Viewing Sticky'
+      [
+          content_tag(:span, '', class: 'active-sidebar'),
+          content_tag(:strong, 'Viewing Sticky')
+      ].join.html_safe
     end
   end
 
@@ -123,25 +132,32 @@ module EventsHelper
     case url_for()
       when root_path, events_path
         active_text <<
-        secure_link <<
-        sticky_link
+            secure_link <<
+            sticky_link
       when sticky_events_path
         active_link <<
-        secure_link <<
-        sticky_text
+            secure_link <<
+            sticky_text
       when secure_events_path
         active_link <<
-        secure_text <<
-        sticky_link
+            secure_text <<
+            sticky_link
       else
         content_tag :div, "I HAVE NO IDEA WHAT TO DO NOW!"
     end
   end
 
   def index_filter(key)
-    link_to(key.to_s.titleize, sessions_set_index_filter_path(index_filter: { key => true }), method: :post,
-      class: (session[:index_filter] && session[:index_filter].keys.include?(key.to_s)) ? 'current_index_filter' : nil
-    )
+    [
+        (content_tag(:span, '', class: 'active-sidebar') if active_index_filter?(key)),
+        link_to(key.to_s.titleize, sessions_set_index_filter_path(index_filter: { key => true }), method: :post,
+                class: active_index_filter?(key) ? 'current_index_filter' : nil
+        )
+    ].join.html_safe
+  end
+
+  def active_index_filter?(key)
+    session[:index_filter] && session[:index_filter].keys.include?(key.to_s)
   end
 
 end

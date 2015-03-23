@@ -1,6 +1,12 @@
 <%= render partial: 'jump' %>
-<%= render "detail" %>
+<div class="col-md-12">
+  <%= render "detail" %>
+</div>
 <% content_for :side do %>
-    <%= link_to 'Back', request.referrer %>
-    <%= link_to 'Open Inventory', lost_and_found_items_path(inventory: true) %>
+    <div class="col-md-12">
+      <div class="well well-sm">
+        <div><%= link_to 'Back', request.referrer %></div>
+        <div><%= link_to 'Open Inventory', lost_and_found_items_path(inventory: true) %></div>
+      </div>
+    </div>
 <% end %>

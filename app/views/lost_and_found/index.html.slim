@@ -1,0 +1,20 @@
+= render partial: 'lost_and_found_items/jump'
+
+.col-md-12
+  #missing.morf
+    = link_to "Missing Item", searchform_lost_and_found_items_path(reported_missing: true),
+              class: "btn btn-lg btn-warning center-block item_missing_button"
+    div I do not have the item in my hand
+
+  #found.morf
+    = link_to "Found Item", searchform_lost_and_found_items_path(found: true),
+              class: "btn btn-lg btn-success center-block item_found_button"
+    div I have the item in my hand
+
+  h4 style="text-align: center" class="clearfix" NOTE: You must search for for the missing or found item to ensure it is not already recorded before you can create a new entry.
+
+- content_for :side do
+  .col-md-12
+    .well.well-sm
+      - if current_user.modify_lost_and_found?
+        = link_to 'Open Inventory', lost_and_found_items_path(inventory: true)

@@ -27,9 +27,11 @@ html
               | $( "##click-#{key}" ).click( function() { $( "##{key}").fadeOut(0) } );
 
       .row
-        .col-md-3
-          = yield :side
-          = yield :search
+        .col-md-3.col-sm-3
+          .row
+            = yield :side
+          .row
+            = yield :search
 
           - if version_type != :release
             #welcome.clearfix
@@ -37,8 +39,7 @@ html
 
               div This is version #{version_number}&mdash;#{version_name}
 
-        .col-md-9
-          .container-fluid
+        .col-md-9.col-sm-9
             #main
               .row
                 .col-md-12
