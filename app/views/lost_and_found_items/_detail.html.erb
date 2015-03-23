@@ -2,7 +2,7 @@
   <h2><%= @lfi.Type %> Item Details</h2>
 
   <div class="button">
-    <%= link_to 'Edit Details', edit_lost_and_found_item_path(@lfi), class: 'button' %>
+    <%= link_to 'Edit Details', edit_lost_and_found_item_path(@lfi), class: 'btn btn-primary' %>
   </div>
 
   <div id="header">
@@ -31,11 +31,11 @@
   <div class="morf_button button">
     <% if !@lfi.returned %>
         <% if @lfi.reported_missing? and !@lfi.found? %>
-            <%= link_to "Item Has Been Found", edit_lost_and_found_item_path(@lfi, found: true), class: 'item_found_button button' %>
+            <%= link_to "Item Has Been Found", edit_lost_and_found_item_path(@lfi, found: true), class: 'item_found_button btn btn-default' %>
         <% end %>
-        <%= link_to "Item Has Been Returned", edit_lost_and_found_item_path(@lfi, returned: true), class: 'item_returned_button button' %>
+        <%= link_to "Item Has Been Returned", edit_lost_and_found_item_path(@lfi, returned: true), class: 'item_returned_button btn btn-default' %>
         <% if params[:inventory] && !@lfi.inventoried? %>
-            <%= link_to "Item Has Been Inventoried", edit_lost_and_found_item_path(@lfi, inventoried: true, inventory: params[:inventory]), class: 'item_inventoried_button button' %>
+            <%= link_to "Item Has Been Inventoried", edit_lost_and_found_item_path(@lfi, inventoried: true, inventory: params[:inventory]), class: 'item_inventoried_button btn btn-default' %>
         <% end %>
     <% end %>
   </div>

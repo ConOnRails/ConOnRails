@@ -102,18 +102,10 @@
 
     fieldset.inputs {
       textarea {
-        margin-right: 2em;
+        //margin-right: 2em;
       }
     }
 
-    #event_options_side {
-      float: right;
-      width: 25%;
-
-      label {
-        font-size: .9em;
-      }
-    }
     fieldset.status {
       padding: 0;
       margin: 0;
@@ -164,15 +156,13 @@
   }
 
   #event_options_bottom {
-    display: block;
-    margin-top: 6px;
     fieldset.department_flags {
       ol {
         list-style-type: none;
 
         .input {
           display: inline-block;
-          margin-right: 6px;
+          margin-right: 5px;
 
           label {
             padding: 0;
@@ -208,7 +198,7 @@
 
   #entry_description_input {
     textarea#entry_description {
-      width: 97%;
+      width: 100%;
       height: 20em;
 
     }

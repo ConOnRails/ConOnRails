@@ -1,21 +1,21 @@
-<%= semantic_form_for @lfi do |f| %>
+<%= semantic_form_for @lfi, html: { class: "form-horizontal" } do |f| %>
     <%= f.inputs do %>
         <%= hidden_field_tag :inventory, params[:inventory] ? "1" : "0" %>
-        <%= f.input :category, label: "Category:", as: :select, collection: LostAndFoundItem.categories, class: background %>
-        <%= f.input :description, label: "Description:" %>
+        <%= f.input :category, as: :select, collection: LostAndFoundItem.categories, class: background %>
+        <%= f.input :description %>
         <% if @lfi.reported_missing? %>
             <%= f.input :reported_missing, as: :hidden, input_html: { value: true } %>
-            <%= f.input :where_last_seen, label: "Where Last Seen:" %>
-            <%= f.input :owner_name, label: "Owner Name:" %>
-            <%= f.input :owner_contact, label: "Owner Contact:" %>
+            <%= f.input :where_last_seen, label: "Where Last Seen" %>
+            <%= f.input :owner_name, label: "Owner Name" %>
+            <%= f.input :owner_contact, label: "Owner Contact" %>
         <% end %>
         <% if @lfi.found? || @lfi.returned? %>
             <%= f.input :found, as: :hidden, input_html: { value: true } %>
-            <%= f.input :where_found, label: "Where Found:" %>
+            <%= f.input :where_found, label: "Where Found" %>
         <% end %>
         <% if @lfi.returned? %>
             <%= f.input :returned, as: :hidden, input_html: { value: true } %>
-            <%= f.input :who_claimed, label: "Claimed by:" %>
+            <%= f.input :who_claimed, label: "Claimed by" %>
         <% end %>
         <% if @lfi.inventoried? %>
             <%= f.input :inventoried, as: :hidden, input_html: { value: true } %>

@@ -1,5 +1,7 @@
 <%= render partial: 'jump' %>
 
-<h1>New <%= @lfi.type %> item </h1>
+<div class="col-md-12">
+  <h4>New <%= @lfi.type %> item </h4>
+  <%= render partial: "form" %>
+</div>
 
-<%= render partial: "form" %>
