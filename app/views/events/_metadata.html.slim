@@ -1,15 +1,15 @@
 .row
-  .col-md-12
+  .col-md-12.col-sm-12
     .well.well-sm
       .row
-        .col-md-3
+        .col-md-3.col-sm-3
           - if !form
             = link_to 'Update Event', edit_event_path(event), class: 'btn btn-primary'
 
-        .col-md-4 { class: event_style event }
+        .col-md-4.col-sm-4 { class: event_style event }
           = event_tags event
 
-        .col-md-2
+        .col-md-2.col-sm-2
           - if !form
             strong ID: #{event.id}
 
