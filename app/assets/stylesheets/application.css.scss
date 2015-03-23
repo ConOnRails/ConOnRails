@@ -10,6 +10,7 @@
 
 // OVERRIDES for BOOTSTRAP
 $font-size-base: 16px !default;
+$form-group-margin-bottom: 6px;
 $nav-link-padding: 5px;
 
 
@@ -554,4 +555,11 @@ div.clear-filters-button {
 
 div.filters-header {
   margin-bottom: 6px;
+}
+
+.active-sidebar {
+  @extend .glyphicon;
+  @extend .glyphicon-arrow-right;
+  color: green;
+  margin-right: 3px;
 }

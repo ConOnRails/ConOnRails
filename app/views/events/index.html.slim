@@ -1,21 +1,24 @@
 .col-md-12
-  = form_tag merge_events_events_path, method: :post, id: 'merge-form', class: 'form-inline' do
+  = form_tag merge_events_events_path, method: :post, id: 'merge-form', class: 'form-horizontal' do
     .form-group
-      = link_to 'Log New Event', new_event_path, class: 'btn btn-default', type: 'button'
-      span#merge-mode-toggle
-      span#merge-mode-submit
-    - if action_name == 'sticky'
-      = label_tag :show_older, 'Show Older'
-      = check_box_tag(:show_older, '1', params[:show_older], id: 'show_older')
+      .col-md-8
+        = link_to 'Log New Event', new_event_path, class: 'btn btn-default', type: 'button'
+        span#merge-mode-toggle
+        span#merge-mode-submit
+        - if action_name == 'sticky'
+          = label_tag :show_older, 'Show Older'
+          = check_box_tag(:show_older, '1', params[:show_older], id: 'show_older')
+      .col-md-4
+        - if action_name == 'secure'
+          h6.bg-danger.pull-right YOU ARE VIEWING SECURE ITEMS. Do not leave this screen unattended!
 
-    - if action_name == 'secure'
-      h3 style="float: right; color: red; width: 200px;" YOU ARE VIEWING SECURE ITEMS. Do not leave this screen unattended!
-
-    .row
-      .paginator.pull-left= paginate @events, remote: true
+    .form-group
+      .col-md-12
+        .paginator.pull-left= paginate(@events, remote: true)
     #event_list
-    .row
-      .paginator= paginate @events, remote: true
+    .form-group
+      .col-md-12
+        .paginator= paginate @events, remote: true
 
 javascript:
   window.events.page = #{params[:page].nil? ? '1' : params[:page] };
@@ -28,9 +31,10 @@ javascript:
   });
 
 - content_for :side do
-  .well.well-sm
-    = sidebar_menu
-  = render partial: 'index_filters'
+  .col-md-12
+    .well.well-sm
+      = sidebar_menu
+    = render partial: 'index_filters'
 
 - content_for :search do
   = render partial: 'search_form'

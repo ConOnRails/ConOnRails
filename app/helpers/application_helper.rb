@@ -7,11 +7,11 @@ module ApplicationHelper
   end
 
   def version_number
-    '3.4.1'
+    '3.4.2'
   end
 
   def version_name
-    'Blackberry Jam'
+    'Blackberry Jam on Biscuits'
   end
 
   def version_type
@@ -28,7 +28,7 @@ module ApplicationHelper
   end
 
   def get_emerg_button_style
-    style = 'not-emerg'
+    style = 'btn btn-danger btn-large'
     style = 'reverse' if Event.num_active_emergencies > 0 or Event.num_active_medicals > 0
 
     style
