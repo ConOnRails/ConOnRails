@@ -13,7 +13,6 @@ $font-size-base: 16px !default;
 $form-group-margin-bottom: 6px;
 $nav-link-padding: 5px;
 
-
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "colors";
@@ -54,6 +53,7 @@ $nav-link-padding: 5px;
   @extend .btn-success;
   @extend .btn-lg;
 }
+
 //@import url(http://fonts.googleapis.com/css?family=Nunito:400,700,300);
 //@import url(http://fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,500,500italic,700,700italic&subset=latin,latin-ext);
 //@import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700);
@@ -251,7 +251,6 @@ div.small-button {
   margin-top: 4px;
   margin-bottom: 4px;
 }
-
 
 //a.button, input[type="submit"] {
 //  padding: 12px;
@@ -562,4 +561,36 @@ div.filters-header {
   @extend .glyphicon-arrow-right;
   color: green;
   margin-right: 3px;
+}
+
+.active-icon {
+  @extend .glyphicon;
+  @extend .glyphicon-arrow-right;
+  margin-right: 3px;
+  color: lightgrey;
+}
+
+.sticky-icon {
+  @extend .glyphicon;
+  @extend .glyphicon-pushpin;
+  margin-right: 3px;
+  color: lightgrey;
+}
+
+.secure-icon {
+  @extend .glyphicon;
+  @extend .glyphicon-lock;
+  margin-right: 3px;
+  color: lightgrey;
+}
+
+.filter-icon {
+  @extend .glyphicon;
+  @extend .glyphicon-filter;
+  margin-right: 3px;
+  color: lightgrey;
+}
+
+.current-icon {
+  color: green;
 }

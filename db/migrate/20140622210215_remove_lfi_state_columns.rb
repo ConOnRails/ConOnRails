@@ -1,7 +1,7 @@
 class RemoveLfiStateColumns < ActiveRecord::Migration
   def change
-    remove_column :lost_and_found_items, :reported_missing, :boolean, default: false
-    remove_column :lost_and_found_items, :found, :boolean, default: false
-    remove_column :lost_and_found_items, :returned, :boolean, default: :false
+    remove_column :lost_and_found_items, :reported_missing, :boolean
+    remove_column :lost_and_found_items, :found, :boolean
+    remove_column :lost_and_found_items, :returned, :boolean
   end
 end
