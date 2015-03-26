@@ -556,39 +556,39 @@ div.filters-header {
   margin-bottom: 6px;
 }
 
+.menuicon {
+  display: inline-block;
+  margin-right: 9px;
+  color: lightgrey;
+}
 .active-sidebar {
   @extend .glyphicon;
   @extend .glyphicon-arrow-right;
   color: green;
-  margin-right: 3px;
 }
 
 .active-icon {
   @extend .glyphicon;
   @extend .glyphicon-arrow-right;
-  margin-right: 3px;
-  color: lightgrey;
+  @extend .menuicon;
 }
 
 .sticky-icon {
   @extend .glyphicon;
   @extend .glyphicon-pushpin;
-  margin-right: 3px;
-  color: lightgrey;
+  @extend .menuicon;
 }
 
 .secure-icon {
   @extend .glyphicon;
   @extend .glyphicon-lock;
-  margin-right: 3px;
-  color: lightgrey;
+  @extend .menuicon;
 }
 
 .filter-icon {
   @extend .glyphicon;
   @extend .glyphicon-filter;
-  margin-right: 3px;
-  color: lightgrey;
+  @extend .menuicon;
 }
 
 .current-icon {
