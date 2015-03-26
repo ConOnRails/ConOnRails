@@ -2,7 +2,7 @@
   .col-md-12
     .event_metadata= render partial: 'metadata', locals: { event: event, form: form }
 
-    .event_flag_history id="event_flag_history_#{event.id}"
+    .event_flag_history.well.well-sm id="event_flag_history_#{event.id}"
 
       .efh_header id="efh_header_#{event.id}" Flag History
       .efh_list id="efh_list_#{event.id}"
