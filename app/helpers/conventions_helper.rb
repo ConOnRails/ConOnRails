@@ -5,6 +5,6 @@ module ConventionsHelper
                    options_from_collection_for_select(Convention.order('start_date desc'), 'id', 'name',
                                                       params[:convention] ||
                                                           lambda { |c| Convention.order('start_date desc').first.id == c.id }),
-               class: 'convention-filter small' unless Convention.count == 0
+               class: 'convention-filter form-control input-sm' unless Convention.count == 0
   end
 end

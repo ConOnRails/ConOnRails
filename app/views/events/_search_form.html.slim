@@ -1,17 +1,30 @@
-.col-md-12
+.col-lg-12.col-md-12.col-sm-12.col-xs-12
   .well.well-sm
-    = form_tag :search_entries_events, method: :post, id: 'events_entries_search_form' do
-      div
-        = label_tag :description, 'Search events'
-        = text_field_tag :q, params[:q], placeholder: 'Enter search terms...', class: 'small'
-      div
-        = check_box_tag :show_closed, '1', (params[:show_closed] == '1')
-        = label_tag :show_closed, 'Include Closed Events'
-      div= filter_by_convention
-      = submit_tag 'Search', class: 'btn btn-success btn-xs'
-    hr
-    = form_tag :events, method: :get, id: 'jump_to_event' do
-      div
-        = label_tag :jump_to_event, 'Jump to Event ID'
-        = text_field_tag :id, nil, class: 'small'
-        = submit_tag 'Jump', class: 'btn btn-success btn-xs'
+    = form_tag :search_entries_events, method: :post, id: 'events_entries_search_form', class: 'form-horizontal' do
+      .form-group.form-group-sm
+        .col-sm-12
+          label Search Events
+      .form-group.form-group-sm
+        .col-sm-12
+          = filter_by_convention
+      .form-group.form-group-sm
+        .col-sm-12
+          = text_field_tag :q, params[:q], placeholder: 'Enter search terms...', class: 'form-control input-sm'
+      .form-group.form-group-sm
+        .col-sm-12
+          label
+            = check_box_tag :show_closed, '1', (params[:show_closed] == '1')
+            | &nbsp; Show Closed
+      .form-group.form-group-sm
+        .col-sm-12
+          = submit_tag 'Search', class: 'center-block btn btn-success btn-xs'
+  .well.well-sm
+    = form_tag :events, method: :get, id: 'jump_to_event', class: 'form-horizontal' do
+      .form-group.form-group-sm
+        .col-sm-12
+          label Jump to Event ID
+      .form-group.form-group-sm
+        .col-sm-12
+          .input-group.input-group-sm
+            = text_field_tag :id, nil, class: 'form-control input-sm'
+            span.input-group-btn= submit_tag 'Jump', class: 'btn btn-success btn-xs'

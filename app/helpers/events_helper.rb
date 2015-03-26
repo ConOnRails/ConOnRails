@@ -83,14 +83,17 @@ module EventsHelper
 
   def active_link
     content_tag :div, id: 'unsticky_link' do
-      link_to 'View Active', root_path
+      [
+          content_tag(:span, '', class: 'active-icon'),
+          link_to('View Active', root_path)
+      ].join.html_safe
     end
   end
 
   def active_text
     content_tag :div do
       [
-          content_tag(:span, '', class: 'active-sidebar'),
+          content_tag(:span, '', class: 'active-icon current-icon'),
           content_tag(:strong, 'Viewing Active')
       ].join.html_safe
     end
@@ -99,7 +102,10 @@ module EventsHelper
   def secure_link
     if current_user.rw_secure?
       content_tag :div, id: 'secure_link' do
-        link_to 'View Active Secure', secure_events_path
+        [
+            content_tag(:span, '', class: 'secure-icon'),
+            link_to('View Active Secure', secure_events_path)
+        ].join.html_safe
       end
     end
   end
@@ -107,7 +113,7 @@ module EventsHelper
   def secure_text
     content_tag :div do
       [
-          content_tag(:span, '', class: 'active-sidebar'),
+          content_tag(:span, '', class: 'secure-icon current-icon'),
           content_tag(:strong, 'Viewing Active Secure')
       ].join.html_safe
     end
@@ -115,14 +121,17 @@ module EventsHelper
 
   def sticky_link
     content_tag :div, id: 'sticky_link' do
-      link_to 'View Sticky', sticky_events_path
+      [
+          content_tag(:span, '', class: 'sticky-icon'),
+          link_to('View Sticky', sticky_events_path)
+      ].join.html_safe
     end
   end
 
   def sticky_text
     content_tag :div do
       [
-          content_tag(:span, '', class: 'active-sidebar'),
+          content_tag(:span, '', class: 'sticky-icon current-icon'),
           content_tag(:strong, 'Viewing Sticky')
       ].join.html_safe
     end
@@ -149,15 +158,20 @@ module EventsHelper
 
   def index_filter(key)
     [
-        (content_tag(:span, '', class: 'active-sidebar') if active_index_filter?(key)),
+        content_tag(:span, '', class: "filter-icon #{current_class(key)}"),
         link_to(key.to_s.titleize, sessions_set_index_filter_path(index_filter: { key => true }), method: :post,
                 class: active_index_filter?(key) ? 'current_index_filter' : nil
         )
     ].join.html_safe
   end
 
+
   def active_index_filter?(key)
     session[:index_filter] && session[:index_filter].keys.include?(key.to_s)
   end
 
+  def current_class(key)
+    return 'current-icon' if active_index_filter?(key)
+    ''
+  end
 end
