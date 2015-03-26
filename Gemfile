@@ -9,6 +9,9 @@ gem 'rails', '~>4.2.0'
 gem 'sqlite3'
 gem 'pg', '~> 0.18.1'
 
+gem 'tiny_tds', github: 'rails-sqlserver/tiny_tds'
+gem 'activerecord-sqlserver-adapter'
+
 # Gems used only for assets and not required
 # in production environments by default.
 gem 'sass-rails', '~> 5.0.1'
