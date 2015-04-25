@@ -3,17 +3,23 @@
 .col-md-12
   #paginator= paginate @lfis
 
-  - @lfis.each do |lfi|
-    .lfi class="#{lfi.type}"
-      .id_line
-        span.lfi-label Item ID:
-        span.item_id #{lfi.id} &mdash; #{lfi.category}
-        span.view_button= link_to "View", lost_and_found_item_path(lfi, inventory: params[:inventory]), class: "btn btn-default item_#{lfi.type}_button"
-
-      .summary
-        .description Description: #{lfi.description}
-        .status Status: #{lfi.type.upcase}
-
+  .table-responsive
+    table.table.table-hover
+      thead
+        tr
+          th ID
+          th Category
+          th Status
+          th Description
+      tbody
+        - @lfis.each do |lfi|
+            tr.clickable-row class="#{lfi.type}" data-href=lost_and_found_item_path(lfi, inventory: params[:inventory])
+              td= lfi.id
+              td= lfi.category
+              td= lfi.type.upcase
+              td= lfi.description
+              noscript
+                td= link_to 'View', lost_and_found_item_path(lfi, inventory: params[:inventory]), class: "btn btn-default item_#{lfi.type}_button"
 
   - newparams = { lost_and_found_item: {} }
   - if params[:reported_missing]

@@ -21,7 +21,6 @@ $nav-link-padding: 5px;
 @import 'audit';
 @import 'con_on_rails';
 @import 'contacts';
-@import 'conventions';
 @import 'departments';
 @import 'duty_board';
 @import 'duty_board_assignments';
@@ -46,6 +45,12 @@ $nav-link-padding: 5px;
 
 @import 'formtastic';
 @import 'my_formtastic_changes';
+
+.convention-filter
+{
+  @extend .col-md-12;
+  @extend .col-sm-12;
+}
 
 // Some overrides have to be here
 .formtastic input[type='submit'] {
@@ -92,23 +97,6 @@ h1, h2, h3, h4, h5, h6 {
 
 hr {
   margin: 6px;
-}
-
-table {
-  width: 100%;
-}
-
-th {
-  border-bottom: thin solid $dark_grey;
-  width: auto;
-}
-
-tr {
-  height: 2em;
-}
-
-td {
-  width: auto;
 }
 
 a {
