@@ -2,27 +2,34 @@
 
 .col-md-12
   h3 Search for an item
-  = form_tag :lost_and_found_items, method: :get, id: "lost_and_found_search_form", class: 'form-inline' do
+  = form_tag :lost_and_found_items, method: :get, id: "lost_and_found_search_form", class: 'form-horizontal' do
     = hidden_field_tag "reported_missing", params[:reported_missing] if params[:reported_missing]
     = hidden_field_tag "found", params[:found] if params[:found]
-    = filter_by_convention
-    = field_set_tag "", id: "lost_and_found_checkboxes" do
-      ol
+    .form-group
+      .col-md-12.col-sm-12
+        = filter_by_convention
+    = field_set_tag "", id: "lost_and_found_checkboxes", class: 'form-horizontal' do
+      .form-group
         - LostAndFoundItem.categories.each do |k, v|
-          li= checkbox k, v, params[k]
-        li= checkbox :show_returned_only, 'Returned Only'
-    = label_tag :keywords, "Search Keyword(s)"
-    = text_field_tag :keywords, params[:keywords]
+          .col-md-4.col-sm-6
+            = checkbox k, v, params[k]
+        .col-md-4.col-sm-6
+          = checkbox :show_returned_only, 'Returned Only'
+    .form-group
+      .col-md-4.col-sm-12
+        = label_tag :keywords, "Search Keyword(s)"
+      .col-md-8.col-sm-12
+        = text_field_tag :keywords, params[:keywords], class: 'form-control'
     = field_set_tag "", id: "lost_and_found_search_options" do
-      ol
-        li
+      .form-group
+        .col-md-4.col-sm-6
           = label_tag :search_type_all, "Find All"
           = radio_button_tag :search_type, "all", params[:search_type].blank? || params[:search_type] == 'all'
-        li
+        .col-md-4.col-sm-6
           = label_tag :search_type_any, "Find Any"
           = radio_button_tag :search_type, "any", params[:search_type] == 'any'
     = submit_tag "Search", class: "btn btn-primary btn-lg"
-  h4 NOTE: This page does not and cannot create a new Lost and Found entry. You must search for an existing entry before you can create a new one.
+  h4.alert-warning NOTE: This page does not and cannot create a new Lost and Found entry. You must search for an existing entry before you can create a new one.
 
 - content_for :side do
   .col-md-12
