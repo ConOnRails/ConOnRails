@@ -5,7 +5,7 @@
         .form-group
           = hidden_field_tag 'inventory', params[:inventory]
           = label_tag :id, 'Jump to an ID'
-          = text_field_tag :id, nil, class: 'small', class: 'form-control'
+          = text_field_tag :id, nil, class: 'form-control'
         = submit_tag 'Submit', class: 'btn btn-success btn-sm'
 
       - if params[:inventory]

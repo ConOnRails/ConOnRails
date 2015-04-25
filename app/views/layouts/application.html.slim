@@ -13,19 +13,20 @@ html
     .container-fluid
       .row
         .col-lg-12.col-md-12.col-sm-12.col-xs-12
-          .row#banner-placeholder
+          .row
+            #banner-placeholder
               noscript= render 'banner'
           .row
             = render 'menubar'
 
-          - flash.each do |key, msg|
-            .flash id="#{key}"
-              p style="float:right;" = link_to 'X', '#', html_options: { id: "click-#{key}"}
-              p= msg
-              .clear
-            script type="text/javascript"
-              | $( "##{key}" ).fadeOut( 10000 );
-              | $( "##click-#{key}" ).click( function() { $( "##{key}").fadeOut(0) } );
+      - flash.each do |key, msg|
+        .flash id="#{key}"
+          p style="float:right;" = link_to 'X', '#', html_options: { id: "click-#{key}"}
+          p= msg
+          .clear
+        script type="text/javascript"
+          | $( "##{key}" ).fadeOut( 10000 );
+          | $( "##click-#{key}" ).click( function() { $( "##{key}").fadeOut(0) } );
 
       .row
         .col-lg-3.col-md-3.col-sm-3.col-xs-12

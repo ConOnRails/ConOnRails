@@ -17,6 +17,7 @@ $ ->
 
   window.radios = {}
   window.radios.bind_volunteer = (id, name) ->
+    console.log $('#vol-' + id)
     $('#vol-' + id).bind('ajax:success', { id: id, name: name }, bind_action)
 
 

@@ -1,0 +1,30 @@
+h1 Check out radio
+
+.table-responsive
+  table.table#radio_summary
+    thead
+      tr
+      th Radio Group
+      th Radio Number
+    tbody
+      tr
+        td class="radio_group #{@radio.radio_group.color}"= @radio.radio_group.name
+        td.radio_number= @radio.name
+        td.radio_volunteer#radio_volunteer
+
+h2 First, find a volunteer
+.alert-warning Note: name and username searches are CASE SENSITIVE.
+
+= form_tag({ action: :search_volunteers, controller: :radios }, id: 'volunteer_search', remote: true, class: 'form-inline') do
+  = hidden_field_tag :radio, @radio.id
+  = label_tag :first_name
+  = text_field_tag :first_name
+  = label_tag :last_name
+  = text_field_tag :last_name
+  = submit_tag "Find volunteer", class: 'btn btn-success'
+
+#matching_volunteers
+#errors
+
+- content_for :side do
+  = render partial: 'sidebar'

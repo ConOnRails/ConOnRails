@@ -1,0 +1,20 @@
+tr
+  td class="#{radio.radio_group.color if radio.radio_group.present?}"= link_to(radio.radio_group.name, radio.radio_group) if radio.radio_group.present?
+  td
+    - if current_user and current_user.can_admin_radios?
+      = link_to radio.number, edit_radio_path(radio)
+    - else
+      = radio.number
+  td= radio.radio_assignment && radio.radio_assignment.department ? radio.radio_assignment.department.name : ""
+  td= radio.radio_assignment && radio.radio_assignment.volunteer ? radio.radio_assignment.volunteer.first_name : ""
+  td= radio.radio_assignment && radio.radio_assignment.volunteer ? radio.radio_assignment.volunteer.last_name : ""
+  td= radio.state
+  - if current_user and current_user.can_assign_radios?
+    td
+      - if radio.state == "in" and radio.radio_assignment.nil?
+        = link_to "Check&nbsp;out".html_safe, checkout_radio_path(radio), method: :get, class: 'btn btn-xs btn-primary'
+      - else
+        = link_to "Transfer".html_safe, checkout_radio_path(radio), method: :get, class: 'btn btn-xs btn-warning'
+        = link_to "Check&nbsp;in".html_safe, radio_assignment_path(radio.radio_assignment), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-success'
+      - if current_user && current_user.can_admin_radios?
+          = link_to "Delete".html_safe, radio_path(radio), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger'
