@@ -1,12 +1,6 @@
-<%= semantic_form_for @radio do |f| %>
-    <%= f.inputs do %>
-        <%= f.input :radio_group_id, as: :select, collection: RadioGroup.all %>
-        <%= f.input :number %>
-        <%= f.input :notes %>
-        <!--%= f.input :image_filename %-->
-    <% end %>
-
-    <%= f.actions do %>
-        <%= f.action :submit %>
-    <% end %>
+<%= simple_form_for @radio, wrapper: :inline_form, html: { class: 'form-inline' } do |f| %>
+    <%= f.input :radio_group_id, as: :select, collection: RadioGroup.all, prompt: 'Select a group' %>
+    <%= f.input :number, placeholder: 'Radio number e.g. 1234' %>
+    <%= f.input :notes, placeholder: 'Notes' %>
+    <%= f.button :submit, class: 'btn btn-success' %>
 <% end %>

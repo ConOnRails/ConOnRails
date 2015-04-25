@@ -1,0 +1,12 @@
+.table-responsive
+  table.table
+    tr
+      th Name
+
+    - @volunteers.each do |volunteer|
+      tr
+        td.radio_volunteer= volunteer.name
+        td id="vol-#{volunteer.id}"= link_to 'Select', { action: :select_department, id: radio, volunteer: volunteer.id },
+                                             method: :get, class: 'btn btn-sm', remote: true
+        javascript:
+          $( window.radios.bind_volunteer( "#{volunteer.id}", "#{volunteer.name}" ) );

@@ -1,9 +1,9 @@
 <% if @radio_assignment.errors.include?(:department) %>
-$( '#errors' ).html( "The selected department already has all the radios it's permitted.");
+    $( '#errors' ).html( "<div class='alert-warning'>The selected department already has all the radios it's permitted.</div>");
 <% elsif @radio_assignment.errors.include?(:volunteer_id) %>
-$( '#errors' ).html( "<%= escape_javascript(@radio_assignment.volunteer.name) %> is already assigned a radio.");
+    $( '#errors' ).html( "<div class='alert-warning'><%= escape_javascript(@radio_assignment.volunteer.name) %> is already assigned a radio.</div>");
 <% else %>
     <% @radio_assignment.errors.full_messages.each do |e| %>
-    $( '#errors').append("Unexpected error: <%= escape_javascript(e) %>")
+        $( '#errors').append("Unexpected error: <%= escape_javascript(e) %>")
     <% end %>
 <% end %>

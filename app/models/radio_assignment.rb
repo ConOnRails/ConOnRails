@@ -39,7 +39,7 @@ class RadioAssignment < ActiveRecord::Base
   end
 
   def self.checkout(params, user)
-    assignment = RadioAssignment.new params
+    assignment = RadioAssignment.new radio_id: params[:radio_id], volunteer_id: params[:volunteer_id], department_id: params[:department_id]
     if assignment.valid?
       assignment.save
       assignment.radio.state = 'out'
@@ -59,10 +59,7 @@ class RadioAssignment < ActiveRecord::Base
   end
 
   def transfer(params, user)
-    #radio_id = self.radio_id
-    #self.checkin user
-    #RadioAssignment.checkout params.merge({ radio_id: radio_id }), user
-    if self.update_attributes(params)
+    if self.update_attributes(volunteer_id: params[:volunteer_id], department_id: params[:department_id])
       RadioAssignmentAudit.audit_checkout(self, user)
     end
     self
