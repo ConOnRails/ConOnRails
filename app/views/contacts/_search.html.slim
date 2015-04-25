@@ -1,9 +1,13 @@
 - content_for :search do
-  #search
-    = search_form_for @q do |f| 
-      = f.label :name_cont
-      = f.text_field :name_cont, class: 'small'
-      = f.submit
-    div (style="text-align: right") 
-      | Note: name and username searches are CASE SENSITIVE.
+  .col-md-12.col-sm-12.col-xs-12
+    .well.well-sm
+      #search
+        = search_form_for @q, class: 'form-vertical' do |f|
+          .form-group
+            = f.label :name_cont
+            = f.text_field :name_cont, class: 'form-control form-control-sm'
+          = f.button :submit, class: 'btn btn-success'
+            | Search
+        div style="text-align: right"
+          | Note: name and username searches are CASE SENSITIVE.
 

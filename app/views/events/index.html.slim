@@ -16,6 +16,7 @@
       .col-md-12
         .paginator.pull-left= paginate(@events, remote: true)
     #event_list
+      noscript= render @events, form: false
     .form-group
       .col-md-12
         .paginator= paginate @events, remote: true

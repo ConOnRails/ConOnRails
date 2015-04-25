@@ -119,22 +119,6 @@ a.sort_link {
 }
 
 #search, #search-left {
-  margin: 1em 1em 1em 0;
-  padding: 1em;
-  border: thin solid $light_grey;
-  font-size: 80%;
-
-  form {
-    margin: 0;
-  }
-  input.small {
-    font-size: 80%;
-  }
-  input[type='submit'] {
-    margin: 0;
-    padding: 4px;
-    font-size: .8em;
-  }
 }
 
 .pull-left {
@@ -161,29 +145,19 @@ a.sort_link {
 }
 
 #banner {
-  position: relative;
-  height: 100px;
-  width: 100%;
-  padding-top: 1px;
-
-  img {
-    float: left;
-  }
+  min-height: 120px;
 
   #logo {
-    background-color: black;
     color: white;
     padding: 10px 10px 10px 20px;
-    float: left;
-    width: 100px;
 
+    img {
+      background-color: black;
+    }
   }
 
   #banner_text {
-    margin-left: 5em;
-    margin-top: .5em;
     font-weight: bold;
-    float: left;
     div {
       margin-bottom: .2em;
       a {
@@ -193,31 +167,32 @@ a.sort_link {
   }
 
   #emergency_button {
-    float: right;
+    margin-top: 6px;
     margin-right: 6px;
   }
 
   .not-emerg, .reverse {
-    width: 162px;
-    height: 100px;
+    @extend .btn;
+    @extend .btn-default;
   }
   .not-emerg {
-    background-color: $emergency_bg;
+    @extend .btn-danger;
+    /*background-color: $emergency_bg;
     color: $emergency_fg;
 
     &:hover {
       color: $emergency_bg;
       background-color: $emergency_fg;
-    }
+    }*/
   }
 
   .reverse {
-    background-color: $emergency_fg;
-    color: $emergency_bg;
+    @extend .btn-default;
+    color: $btn-danger-bg;
     &:hover {
-      color: $emergency_fg;
-      background-color: $emergency_bg;
-      border: thin solid $emergency_fg;
+      color: $btn-danger-color;
+      background-color: $btn-danger-bg;
+      border: thin solid $btn-danger-bg;
     }
   }
 }

@@ -13,7 +13,7 @@ class MessagesController < ApplicationController
   # POST /messages
   # POST /messages.json
   def create
-    @message      = Message.new message_params
+    @message = Message.new message_params
     @message.user = current_user
     flash[:notice] = 'Message was successfully created.' if @message.save
     respond_with @message, location: messages_path
@@ -23,6 +23,8 @@ class MessagesController < ApplicationController
   # PUT /messages/1.json
   def update
     flash[:notice] = 'Message was successfully updated.' if @message.update_attributes message_params
+
+    Rails.logger.error "GOEWTYWET: #{@message.is_active}"
     respond_with @message, location: messages_path
   end
 
@@ -40,7 +42,7 @@ class MessagesController < ApplicationController
   end
 
   def find_messages
-    @q       = Contact.search params[:q]
+    @q = Contact.search params[:q]
     @messages = Message.where(is_active: true).page(params[:page])
   end
 
