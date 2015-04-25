@@ -5,17 +5,18 @@ html
     javascript:
       var CIAB = CIAB || {};
 
-    = stylesheet_link_tag "application"
-    = javascript_include_tag "application"
+    = stylesheet_link_tag 'application'
+    = javascript_include_tag 'application'
     = csrf_meta_tags
 
   body class="#{controller.controller_name} #{background}"
     .container-fluid
       .row
         .col-lg-12.col-md-12.col-sm-12.col-xs-12
-          #banner-placeholder
-            noscript= render "banner"
-          = render "menubar"
+          .row#banner-placeholder
+              noscript= render 'banner'
+          .row
+            = render 'menubar'
 
           - flash.each do |key, msg|
             .flash id="#{key}"
