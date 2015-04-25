@@ -1,4 +1,4 @@
-tr
+tr.clickable-row data-href=radio_url(radio)
   td class="#{radio.radio_group.color if radio.radio_group.present?}"= link_to(radio.radio_group.name, radio.radio_group) if radio.radio_group.present?
   td
     - if current_user and current_user.can_admin_radios?
