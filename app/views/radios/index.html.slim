@@ -1,0 +1,16 @@
+.col-md-12
+  h1 Listing radios
+
+  - if current_user and current_user.can_admin_radios?
+    = link_to 'New Radio', new_radio_path, class: 'btn btn-primary'
+
+  = render 'radios', collection: @radios
+
+  - if current_user and current_user.can_admin_radios?
+    = link_to 'New Radio', new_radio_path, class: 'btn btn-primary'
+
+  - content_for :side do
+    = render partial: 'sidebar'
+
+  - content_for :search do
+    = render partial: 'search_form'

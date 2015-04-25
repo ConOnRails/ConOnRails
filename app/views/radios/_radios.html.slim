@@ -1,0 +1,17 @@
+#paginator= paginate @radios
+
+.table-responsive
+  table#radio-list.table.table-striped
+    thead
+      tr
+        th= sort_link @q, :radio_group_name, 'Group'
+        th= sort_link @q, :number
+        th= sort_link @q, :radio_assignment_volunteer_department_name, 'Department'
+        th= sort_link @q, :radio_assignment_volunteer_volunteer_first_name, 'First Name'
+        th= sort_link @q, :radio_assignment_volunteer_volunteer_last_name, 'Last Name'
+        th= sort_link @q, :state
+        th
+    tbody
+      = render partial: "radio", collection: @radios
+
+#paginator= paginate @radios

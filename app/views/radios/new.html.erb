@@ -4,9 +4,8 @@
   <%= render 'form' %>
 </div>
 
-<ol id="radio-list">
-  <%= render partial: 'radios' %>
-</ol>
+<%= render partial: 'radios' %>
+
 <% content_for :side do %>
     <%= link_to 'Back', radios_path %>
 <% end %>

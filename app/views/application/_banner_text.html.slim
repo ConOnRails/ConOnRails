@@ -1,42 +1,43 @@
 .row#banner_text
-  - if current_user
-    - emerg = Event.current_convention.num_active_emergencies
-    - medic = Event.current_convention.num_active_medicals
-    - msgs = Message.num_active
+  .col-md-12
+    - if current_user
+      - emerg = Event.current_convention.num_active_emergencies
+      - medic = Event.current_convention.num_active_medicals
+      - msgs = Message.num_active
 
-    .row
-      .col-md-12
-        | Pardon the dust. We're renovating!
-
-    .row
-      - if emerg > 0
-        .col-md-4
-          = pluralize emerg, 'Emergency'
-      - if medic > 0
-        .col-md-4
-          span= pluralize medic, 'Medical'
-      - if msgs > 0
-        .col-md-4
-          = pluralize msgs, 'Message'
-
-    .row
-      - if current_user.rw_secure?
-        .col-md-6
-          = pluralize get_secure_count, "Secure Active Issue"
-        .col-md-6
-          = pluralize get_active_count, "Active Issue"
-            |  (excludes Secure)
-      - else
+      .row
         .col-md-12
-          = pluralize get_active_count, "Active Issue"
+          | Pardon the dust. We're renovating!
 
-    .row
-      .col-md-12
-        = Time.now.ctime
-          | &mdash;
-          | User:
-          = link_to current_user.name, current_user
-          | as
-          = current_role
-  - else
-    h1 CONVergence Operations Log
+      .row
+        - if emerg > 0
+          .col-md-4.col-sm-4
+            = pluralize emerg, 'Emergency'
+        - if medic > 0
+          .col-md-4.col-sm-4
+            span= pluralize medic, 'Medical'
+        - if msgs > 0
+          .col-md-4.col-sm-4
+            = pluralize msgs, 'Message'
+
+      .row
+        - if current_user.rw_secure?
+          .col-md-6.col-sm-6
+            = pluralize get_secure_count, "Secure Active Issue"
+          .col-md-6.col-sm-6
+            = pluralize get_active_count, "Active Issue"
+              |  (excludes Secure)
+        - else
+          .col-md-12
+            = pluralize get_active_count, "Active Issue"
+
+      .row
+        .col-md-12
+          = Time.now.ctime
+            | &mdash;
+            | User:
+            = link_to current_user.name, current_user
+            | as
+            = current_role
+    - else
+      h1 CONVergence Operations Log

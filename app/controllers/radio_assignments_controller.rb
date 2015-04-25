@@ -46,6 +46,6 @@ class RadioAssignmentsController < ApplicationController
   end
 
   def radio_assignment_params
-    params.require(:radio_assignment).permit!
+    params.require(:radio_assignment).permit(:radio_id, :volunteer_id, :department_id)
   end
 end

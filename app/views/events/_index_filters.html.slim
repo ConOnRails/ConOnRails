@@ -1,11 +1,13 @@
 .well.well-sm
   .row
     .col-md-4.col-sm-4.col-xs-4
-      strong Filters&nbsp;
+      strong Filters
     .col-md-1.col-sm-1.col-xs-1
-      span.help title="New events will also default to your current filter" ?
-    .col-md-5.col-sm-5.col-xs-5
-      = link_to 'Clear', sessions_clear_index_filter_path, method: :post, class: 'btn btn-primary btn-xs'
+      span.help title="New events will also default to your current filter"
+        .glyphicon.glyphicon-question-sign
+    .col-md-6.col-sm-6.col-xs-7
+      .text-right
+        = link_to 'Clear', sessions_clear_index_filter_path, method: :post, class: 'btn btn-primary btn-xs'
 
   .row
     .col-md-12= index_filter(:hotel)

@@ -6,10 +6,6 @@
 
 .radios
 {
-  tr, td {
-    height: auto;
-  }
-
   form
   {
     fieldset
@@ -43,83 +39,6 @@
     {
       width: 100%;
     }
-  }
-}
-
-#radio_group, .radio_group
-{
-  width:      50px;
-  text-align: center;
-}
-
-#radio_number, .radio_number
-{
-  width:      75px;
-  text-align: left;
-}
-
-#radio_department, .radio_department
-{
-  width:      150px;
-  text-align: left;
-}
-
-#radio_volunteer, .radio_volunteer
-{
-  width:      150px;
-  text-align: left;
-}
-
-#radio_summary
-{
-  margin-bottom: 6px;
-}
-
-#radio_action
-{
-  width: 200px;
-}
-
-a.check-in, a.check-out, a.transfer, a.delete
-{
-  font-size: 1em;
-}
-a.check-in, .odd a.check-in
-{
-  background-color: $green;
-  color: white;
-
-  &:hover
-  {
-    color: $green;
-    background-color: white;
-    border: thin solid $green;
-  }
-}
-
-a.check-out, .odd a.check-out
-{
-  background-color: $yellow;
-  color: black;
-
-  &:hover
-  {
-    color: $yellow;
-    background-color: black;
-    border: thin solid $yellow;
-  }
-}
-
-a.transfer, .odd a.transfer
-{
-  background-color: $blue;
-  color: white;
-
-  &:hover
-  {
-    color: $blue;
-    background-color: white;
-    border: thin solid $blue;
   }
 }
 
