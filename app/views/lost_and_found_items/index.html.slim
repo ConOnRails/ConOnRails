@@ -1,0 +1,38 @@
+= render partial: 'jump'
+
+.col-md-12
+  #paginator= paginate @lfis
+
+  - @lfis.each do |lfi|
+    .lfi class="#{lfi.type}"
+      .id_line
+        span.lfi-label Item ID:
+        span.item_id #{lfi.id} &mdash; #{lfi.category}
+        span.view_button= link_to "View", lost_and_found_item_path(lfi, inventory: params[:inventory]), class: "btn btn-default item_#{lfi.type}_button"
+
+      .summary
+        .description Description: #{lfi.description}
+        .status Status: #{lfi.type.upcase}
+
+
+  - newparams = { lost_and_found_item: {} }
+  - if params[:reported_missing]
+    - buttontype = "item_missing_button"
+    - buttontext = "Create new missing item"
+    - newparams[:lost_and_found_item][:reported_missing] = true
+  - if params[:found]
+    - buttontype = "item_found_button"
+    - buttontext = "Create new found item"
+    - newparams[:lost_and_found_item][:found] = true
+
+  = link_to buttontext, new_lost_and_found_item_path(newparams), class: "#{buttontype} btn btn-default" if buttontext.present?
+
+  #paginator= paginate @lfis
+
+- content_for :side
+  .col-md-12
+    .well.well-sm
+      div= link_to 'Back', searchform_lost_and_found_items_path(@back_params)
+      - if current_user.modify_lost_and_found?
+        div= link_to 'Open Inventory', lost_and_found_items_path(inventory: true)
+
