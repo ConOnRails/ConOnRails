@@ -1,0 +1,42 @@
+= render partial: 'search'
+
+h1 Contacts
+
+= link_to 'New Contact', new_contact_path, class: 'btn btn-primary'
+
+#paginator= paginate @contacts
+
+.table-responsive
+  table.table.table-striped.table-hover
+    tr
+      th= sort_link @q, :name, 'Name'
+      th= sort_link @q, :department, 'Department'
+      th= sort_link @q, :cell_phone, 'Cell phone'
+      th= sort_link @q, :can_text?, 'Can Text?'
+      th= sort_link @q, :hotel, 'Hotel'
+      th= sort_link @q, :hotel_room, 'Hotel room'
+      th
+    - @contacts.each do |contact|
+      tr.clickable-row data-href=contact_path(contact)
+        td= link_to contact.name, contact
+        td= contact.department
+        td= contact.cell_phone
+        td= contact.can_text? ? "Yes" : "No"
+        td= contact.hotel
+        td= contact.hotel_room
+        - if current_user and current_user.write_entries?
+          td= link_to ("Leave&nbsp;Message").html_safe, new_message_path(message: { for: contact.name,
+                                                                                    phone_number: contact.cell_phone,
+                                                                                    room_number: contact.hotel_room,
+                                                                                    hotel: contact.hotel }),
+                      class: 'btn btn-sm btn-primary'
+
+#paginator= paginate @contacts
+= link_to 'New Contact', new_contact_path, class: 'btn btn-primary'
+
+- content_for :side do
+  .col-md-12
+    .well.well-sm
+      div= link_to "Users", users_path
+      div= link_to "Volunteers", volunteers_path
+      div= link_to "Messages", messages_path
