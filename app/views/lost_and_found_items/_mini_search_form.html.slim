@@ -1,5 +1,8 @@
-= form_tag :lost_and_found_items, method: :get, id: 'lost_and_found_mini_form' do
+= form_tag :lost_and_found_items, method: :get, id: 'lost_and_found_mini_form', class: 'form-vertical' do
   = hidden_field_tag :inventory, params[:inventory] ? '1' : '0'
-  = filter_by_convention
-  = label_tag :keywords
-  = text_field_tag :keywords
+  .form-group
+    = filter_by_convention
+  .form-group
+    = label_tag :keywords
+    = text_field_tag :keywords, '', class: 'form-control'
+                                                                           git s
