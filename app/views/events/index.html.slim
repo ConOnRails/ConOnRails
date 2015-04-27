@@ -1,16 +1,32 @@
 .col-md-12
   = form_tag merge_events_events_path, method: :post, id: 'merge-form', class: 'form-horizontal' do
     .form-group
-      .col-md-8
+      .col-md-6
         = link_to 'Log New Event', new_event_path, class: 'btn btn-default', type: 'button'
         span#merge-mode-toggle
         span#merge-mode-submit
         - if action_name == 'sticky'
           = label_tag :show_older, 'Show Older'
           = check_box_tag(:show_older, '1', params[:show_older], id: 'show_older')
-      .col-md-4
+      .col-md-6
+        - if action_name == 'index'
+          h2.bg-primary.text-right
+            .glyphicon.glyphicon-arrow-right
+            - if session[:index_filter]
+              | Active #{session[:index_filter].keys.first.humanize} Items
+            - else
+              | Active Items
         - if action_name == 'secure'
-          h6.bg-danger.pull-right YOU ARE VIEWING SECURE ITEMS. Do not leave this screen unattended!
+          h2.bg-danger.text-right
+            .glyphicon.glyphicon-lock
+            | Secure Items
+        - if action_name == 'sticky'
+          h2.bg-warning.text-right
+            .glyphicon.glyphicon-pushpin
+            | Stickies
+
+    -if action_name == 'secure'
+      h3.alert-danger Do not leave this screen unattended!
 
     .form-group
       .col-md-12

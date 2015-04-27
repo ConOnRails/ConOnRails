@@ -19,7 +19,6 @@ class EventsController < ApplicationController
     return jump if params[:id].present?
     @events = IndexQuery.new(Event).query(session[:index_filter]).
         order { |e| e.updated_at.desc }.page(params[:page])
-    Rails.logger.error "VOMP #{@events.to_sql}"
     respond_with @events
   end
 
