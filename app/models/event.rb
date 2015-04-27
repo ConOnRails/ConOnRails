@@ -141,6 +141,12 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def tags
+    FLAGS.select do |flag|
+      self.send(flag)
+    end
+  end
+
   def flags=(new_flags)
     new_flags.each do |flag, val|
       self[flag] = val
@@ -168,6 +174,7 @@ class Event < ActiveRecord::Base
       self.entries << new_entry
     end
   end
+
 
   def status
     return 'Merged' if merged?

@@ -14,7 +14,7 @@ class EventsControllerTest < ActionController::TestCase
       context 'An index filter set on the session' do
         setup do
           @hotel_event = FactoryGirl.create :ordinary_event, hotel: true
-          session[:index_filter] = { hotel: true }
+          session[:index_filter] = { 'hotel' => true }
         end
 
         context 'GET :index' do

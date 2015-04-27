@@ -3,13 +3,16 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "colors";
 
+textarea#entry_description
+{
+  height: 23em;
+}
+
 .events {
   .event_metadata {
     .well {
       margin-bottom: 6px;
     }
-
-
 
     .inline {
       display: inline-block;
@@ -38,9 +41,6 @@
       display: inline-block;
       font-weight: 700;
     }
-  }
-
-  .merge-button {
   }
 
   .cancel-merge {
@@ -84,95 +84,6 @@
     }
   }
 
-  .formtastic {
-    fieldset {
-      margin: 0;
-      padding: 0;
-      padding-left: 0;
-
-      ol {
-        margin: 0;
-        padding: 0;
-        li {
-          margin: 0;
-          padding: 0;
-        }
-      }
-    }
-
-    fieldset.inputs {
-      textarea {
-        //margin-right: 2em;
-      }
-    }
-
-    fieldset.status {
-      padding: 0;
-      margin: 0;
-      .choices {
-        padding: 0;
-        margin: 0;
-      }
-      ol {
-        ol.choices-group {
-          padding-bottom: 5px;
-          list-style: none;
-
-          .choice {
-            margin: 0;
-            padding-left: 5px;
-            padding-top: 5px;
-            //display: inline;
-
-            label {
-              margin-right: 1em;
-            }
-          }
-        }
-      }
-    }
-
-    fieldset.type_flags {
-      padding: 0;
-
-      ol {
-        li {
-          display: inline;
-          label {
-            margin: 0;
-            padding-left: 4px;
-          }
-          label[for=event_emergency], label[for=event_medical] {
-            background-color: $emergency_bg;
-            color: $emergency_fg;
-          }
-          label[for=event_sticky] {
-            background-color: $pale_yellow;
-          }
-
-        }
-      }
-    }
-  }
-
-  #event_options_bottom {
-    fieldset.department_flags {
-      ol {
-        list-style-type: none;
-
-        .input {
-          display: inline-block;
-          margin-right: 5px;
-
-          label {
-            padding: 0;
-            display: inline-block;
-          }
-        }
-      }
-    }
-  }
-
   .event_flag_history {
     float: right;
     font-size: 9px;
@@ -190,14 +101,6 @@
         margin: 0;
         font-size: 9px;
       }
-    }
-  }
-
-  #entry_description_input {
-    textarea#entry_description {
-      width: 100%;
-      height: 20em;
-
     }
   }
 
