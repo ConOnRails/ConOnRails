@@ -87,6 +87,12 @@ class EventTest < ActiveSupport::TestCase
       assert_equal false, @event.flags_differ?(params)
     end
 
+    should 'have tags' do
+      # For now, tags are just flags represented as an array of symbols, until we convert flags to tags!
+      @event.medical = true
+      assert_includes @event.tags, 'medical'
+    end
+
     context 'an additional ordinary event' do
       setup do
         @second_event = FactoryGirl.create :ordinary_event
@@ -201,7 +207,6 @@ class EventTest < ActiveSupport::TestCase
             assert_equal @event, @foo.first
           end
         end
-
       end
     end
   end

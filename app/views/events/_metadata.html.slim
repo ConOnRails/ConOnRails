@@ -6,7 +6,8 @@
           - if !form
             = link_to 'Update Event', edit_event_path(event), class: 'btn btn-primary'
 
-        .col-md-4.col-xs-4 { class: event_style event }
+        .col-md-4.col-xs-4 class=event_style(event)
+          .glyphicon class="glyphicon-#{event_status_icon(event)}"
           = event_tags event
 
         .col-md-2.col-xs-2

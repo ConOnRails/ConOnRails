@@ -64,12 +64,14 @@ module EventsHelper
   end
 
   def event_tags(event)
-    ret = ''
-    ret << 'Active ' if event.is_active?
-    ret << 'Medical ' if event.medical?
-    ret << 'Emergency ' if event.emergency?
-    ret << 'Sticky ' if event.sticky?
-    ret + 'Issue'
+    event.tags.collect { |t| t.gsub(/is_/,'').humanize }.join(' ') + ' Issue'
+  end
+
+  def event_status_icon(event)
+    return 'lock' if event.secure?
+    return 'warning-sign' if event.medical? || event.emergency?
+    return 'pushpin' if event.sticky?
+    return 'arrow-right' if event.is_active?
   end
 
   def get_active_count
