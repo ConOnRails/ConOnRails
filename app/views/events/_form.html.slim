@@ -1,69 +1,75 @@
-- if @event.errors.any?
-  div id="error_explanation"
-    h2= pluralize(@event.errors.count, "error")
-      | prohibited this event from being saved:
-    ul
-      - @event.errors.full_messages.each do |msg|
-        li= msg
-
-
-h3= create_or_update
-
-= simple_form_for @event, wrapper: :horizontal_form, \
-                  wrapper_mappings: { \
-                    check_boxes: :event_sidebar_radio,
-                                      radio_buttons: :event_sidebar_radio,
-                                      file: :horizontal_file_input,
-                                      boolean: :event_sidebar_checkbox }, html: { class: 'form-horizontal' } do |f|
-  .form-group
-    .col-md-9.col-sm-8
-      #entries
-        - entry = Entry.new
-        #entry_description_input
-          = simple_fields_for entry, @event do |e|
-            = e.input :description, as: :text, for: entry, wrapper_html: { class: 'col-md-12' }, label: false
-
-    .col-md-3.col-sm-4
-      #event_options_side
-        .well.well-sm
-          - if @event.merged?
-            | Merged
-          - else
-            = f.input :status, inline_label: true, label: false, as: :radio_buttons, collection: Event.statuses[0..1], class: 'form-control'
-
-        .well.well-sm
-          = f.input :emergency, label: false, inline_label: true
-          = f.input :medical, label: false, inline_label: true
-          = f.input :post_con, label: false, inline_label: true
-
-        .tiny These 3 hide events from View Actives!
-        .well.well-sm
-          = f.input :sticky, label: false, inline_label: true
-          = f.input :secure, label: false, inline_label: true if current_user and current_user.rw_secure?
-          = f.input :hidden, label: false, inline_label: true if current_user and current_user.can_make_hidden_entries?
-          = f.input :hidden, as: :hidden, input_html: { value: false } unless current_user and current_user.can_make_hidden_entries?
-          = f.input :secure, as: :hidden, input_html: { value: false } unless current_user and current_user.rw_secure?
-
-  #event_options_bottom
+- content_for :side do
+  .col-md-12.col-sm-12
     .well.well-sm
-      .form-group
-        = f.input :consuite, wrapper: :event_bottom
-        = f.input :hotel, wrapper: :event_bottom
-        = f.input :parties, wrapper: :event_bottom
-        = f.input :volunteers, wrapper: :event_bottom
-        = f.input :dealers, wrapper: :event_bottom
-        = f.input :dock, wrapper: :event_bottom
-        = f.input :merchandise, wrapper: :event_bottom
-        = f.input :nerf_herders, wrapper: :event_bottom
+      = link_to 'Back', root_path
 
-  .form-group
-    .col-md-3
-      = f.button :submit, class: 'btn btn-success btn-lg'
-    .col-md-3
-      = f.input :alert_dispatcher, as: :boolean, wrapper_html: { class: 'checkbox-inline' }
+.col-lg-12.col-md-12.col-sm-12
+  - if @event.errors.any?
+    div id="error_explanation"
+      h2= pluralize(@event.errors.count, "error")
+        | prohibited this event from being saved:
+      ul
+        - @event.errors.full_messages.each do |msg|
+          li= msg
 
-.row
-  = render partial: 'event', object: @event, locals: { form: true, actives: false }
+
+  h3= create_or_update
+
+  = simple_form_for @event, wrapper: :horizontal_form, \
+                    wrapper_mappings: { \
+                      check_boxes: :event_sidebar_radio,
+                                        radio_buttons: :event_sidebar_radio,
+                                        file: :horizontal_file_input,
+                                        boolean: :event_sidebar_checkbox }, html: { class: 'form-horizontal' } do |f|
+    .form-group
+      .col-md-9.col-sm-8
+        #entries
+          - entry = Entry.new
+          #entry_description_input
+            = simple_fields_for entry, @event do |e|
+              = e.input :description, as: :text, for: entry, wrapper_html: { class: 'col-md-12' }, label: false
+
+      .col-md-3.col-sm-4
+        #event_options_side
+          .well.well-sm
+            - if @event.merged?
+              | Merged
+            - else
+              = f.input :status, inline_label: true, label: false, as: :radio_buttons, collection: Event.statuses[0..1], class: 'form-control'
+
+          .well.well-sm
+            = f.input :emergency, label: false, inline_label: true
+            = f.input :medical, label: false, inline_label: true
+            = f.input :post_con, label: false, inline_label: true
+
+          .tiny These 3 hide events from View Actives!
+          .well.well-sm
+            = f.input :sticky, label: false, inline_label: true
+            = f.input :secure, label: false, inline_label: true if current_user and current_user.rw_secure?
+            = f.input :hidden, label: false, inline_label: true if current_user and current_user.can_make_hidden_entries?
+            = f.input :hidden, as: :hidden, input_html: { value: false } unless current_user and current_user.can_make_hidden_entries?
+            = f.input :secure, as: :hidden, input_html: { value: false } unless current_user and current_user.rw_secure?
+
+    #event_options_bottom
+      .well.well-sm
+        .form-group
+          = f.input :consuite, wrapper: :event_bottom
+          = f.input :hotel, wrapper: :event_bottom
+          = f.input :parties, wrapper: :event_bottom
+          = f.input :volunteers, wrapper: :event_bottom
+          = f.input :dealers, wrapper: :event_bottom
+          = f.input :dock, wrapper: :event_bottom
+          = f.input :merchandise, wrapper: :event_bottom
+          = f.input :nerf_herders, wrapper: :event_bottom
+
+    .form-group
+      .col-md-3
+        = f.button :submit, class: 'btn btn-success btn-lg'
+      .col-md-3
+        = f.input :alert_dispatcher, as: :boolean, wrapper_html: { class: 'checkbox-inline' }
+
+  .row
+    = render partial: 'event', object: @event, locals: { form: true, actives: false }
 
 
 javascript:
