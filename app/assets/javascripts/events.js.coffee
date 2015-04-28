@@ -22,7 +22,7 @@ window.events.getMain = () ->
       },
       success: ->
         setTimeout((->
-          window.events.getMain()), 10000)
+          window.events.getMain()), 100000)
     }
   )
 
@@ -34,9 +34,17 @@ window.events.getReview = (filters) ->
         "page": window.events.page,
         "filters": filters,
         "convention": $('#convention').val()
+        "q": $('input[name=q]').val()
       }
     }
   )
 
+window.events.getFilters = ->
+  things = {}
 
+  $('#filters .btn-group').each((index, group)->
+    things[$(group).data('flag')] = $(group).find('.btn-primary').data('value')
+  )
+
+  things
 

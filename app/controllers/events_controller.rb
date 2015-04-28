@@ -54,8 +54,13 @@ class EventsController < ApplicationController
   end
 
   def review
+    @q = params[:q]
+
     @events = (limit_by_convention FiltersQuery.new(Event, params[:filters]).query.protect_sensitive_events(current_user).
                                        order { |e| e.updated_at.asc }).page(params[:page])
+    @events = @events.search_entries(@q) if @q.present?
+
+
     respond_with @events
   end
 
@@ -85,8 +90,8 @@ class EventsController < ApplicationController
     respond_with @event
   end
 
-# PUT /events/1
-# PUT /events/1.json
+  # PUT /events/1
+  # PUT /events/1.json
   def update
     # strong_parameters balks a bit at the permissiveness of this. Might want to consider restructuring a bit
 
