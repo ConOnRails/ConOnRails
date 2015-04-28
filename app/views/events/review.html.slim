@@ -1,0 +1,81 @@
+.col-md-12
+  .row
+    .panel.panel-success
+      .panel-heading
+        .panel-title Filters
+      .panel-body#filters
+        .row
+          .col-md-12.col-sm-12.col-xs-12
+            = filter_by_convention
+        .row
+          - Event.flags.each do |flag|
+            .col-md-3.col-sm-4.col-xs-6
+              .row
+                .col-md-5.col-sm-5.col-xs-3
+                  .text
+                    .small= flag.gsub(/is_/, '').humanize
+                .col-md-7.col-sm-7.col-xs-9
+                  .btn-group.btn-group-xs role="group" aria-label="Filter buttons" data-flag="#{flag}"
+                    button.btn.btn-default.btn-xs data-value="true"
+                      .glyphicon.glyphicon-ok-circle
+                    button.btn.btn-default.btn-xs data-value="false"
+                      .glyphicon.glyphicon-ban-circle
+                    button.btn.btn-default.btn-xs.btn-primary data-value="all"
+                      .glyphicon.glyphicon-remove-circle
+        .row
+          .col-md-12.col-sm-12.col-xs-12
+            .input-group.input-group-sm
+              = text_field_tag :q, params[:q], placeholder: 'Enter search terms...', class: 'form-control input-sm'
+              span.input-group-btn
+                button.btn.btn-primary#search-field Search
+
+
+  = form_tag merge_events_events_path, method: :post, id: 'merge-form', class: 'form-horizontal' do
+    .form-group
+      .col-md-6
+        = link_to 'Log New Event', new_event_path, class: 'btn btn-default', type: 'button'
+        span#merge-mode-toggle
+        span#merge-mode-submit
+
+  .form-group
+    .col-md-12
+      .paginator.pull-left= paginate(@events, remote: true)
+    #event_list
+      noscript= render @events, form: false
+    .form-group
+      .col-md-12
+        .paginator= paginate @events, remote: true
+
+
+javascript:
+  window.events.active =
+    #{params[:active].nil? ? false: params[:active]};
+  window.events.page =
+    #{params[:page].nil? ? "1": params[:page]};
+  window.events.convention = "#{params[:convention].presence}";
+  if (window.events.convention = '')
+    window.events.convention = $('#convention').val();
+  window.events.merge_mode = "#{params[:merge_mode].presence}";
+
+coffee:
+  window.events.getReview(window.events.getFilters());
+
+  $('.convention-filter').change(->
+    window.events.getReview window.events.getFilters()
+  )
+
+  $('#search-field').click(->
+    window.events.getReview window.events.getFilters()
+  )
+
+  $('#filters .btn-group button').click(->
+    current = $(this).parent().find('.btn-primary')
+    return if current == $(this)
+    current.removeClass('btn-primary')
+    $(this).addClass('btn-primary')
+
+    window.events.getReview window.events.getFilters()
+  )
+
+
+
