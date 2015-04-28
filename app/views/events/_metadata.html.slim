@@ -1,20 +1,18 @@
-.row
-  .col-md-12.col-sm-12
-    .well.well-sm
-      .row
-        .col-md-3.col-xs-3
-          - if !form
-            = link_to 'Update Event', edit_event_path(event), class: 'btn btn-primary'
+.col-md-2.col-sm-3.col-xs-4
+  - if !form
+    = link_to 'Update Event', edit_event_path(event), class: 'btn btn-primary'
 
-        .col-md-4.col-xs-4 class=event_style(event)
-          .glyphicon class="glyphicon-#{event_status_icon(event)}"
-          = event_tags event
+.col-md-6.col-sm-5.col-xs-4 class=event_style(event)
+  .glyphicon class="glyphicon-#{event_status_icon(event)}"
+  = event_tags event
 
-        .col-md-2.col-xs-2
-          - if !form
-            strong ID: #{event.id}
+.col-md-2.col-sm-2.col-xs-2
+  .text-right
+    - if !form
+      strong ID: #{event.id}
 
-        .col-md-2.col-xs-2.merge-check
-          - if !form && params[:merge_mode] == 'true'
-            = check_box_tag "merge_ids[]", event.id
-            = label_tag "merge_ids[]", 'Merge'
+.col-md-2.col-sm-2.col-xs-2.merge-check
+  .text-right
+    - if !form && params[:merge_mode] == 'true'
+      = check_box_tag "merge_ids[]", event.id
+      = label_tag "merge_ids[]", 'Merge'
