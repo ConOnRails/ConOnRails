@@ -67,6 +67,9 @@ coffee:
   $('#search-field').click(->
     window.events.getReview window.events.getFilters()
   )
+  $('input[name=q]').keypress((e)->
+    window.events.getReview window.events.getFilters() if e.which == 13
+  )
 
   $('#filters .btn-group button').click(->
     current = $(this).parent().find('.btn-primary')
