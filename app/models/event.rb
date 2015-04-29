@@ -67,6 +67,7 @@ class Event < ActiveRecord::Base
 
   STATUSES = %w[ Active Closed Merged ]
   FLAGS    = %w[ is_active merged post_con sticky emergency medical hidden secure consuite hotel parties volunteers dealers dock merchandise nerf_herders ]
+  DEPT_FLAGS = %w[ consuite hotel parties volunteers dealers dock merchandise nerf_herders ]
 
    def self.search(q, user, show_closed=false, index_filters=nil)
     protect_sensitive_events(user).
@@ -209,6 +210,10 @@ class Event < ActiveRecord::Base
 
   def self.flags
     return FLAGS
+  end
+
+  def self.dept_flags
+    return DEPT_FLAGS
   end
 
   protected

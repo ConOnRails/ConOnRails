@@ -11,18 +11,18 @@
       .col-md-6
         - if action_name == 'index'
           h2.bg-primary.text-right
-            .glyphicon.glyphicon-arrow-right
+            .active-icon
             - if session[:index_filter]
               | Active #{session[:index_filter].keys.first.humanize} Items
             - else
               | Active Items
         - if action_name == 'secure'
           h2.bg-danger.text-right
-            .glyphicon.glyphicon-lock
+            .secure-icon
             | Secure Items
         - if action_name == 'sticky'
           h2.bg-warning.text-right
-            .glyphicon.glyphicon-pushpin
+            .sticky-icon
             | Stickies
 
     -if action_name == 'secure'

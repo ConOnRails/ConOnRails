@@ -8,12 +8,12 @@
           .col-md-12.col-sm-12.col-xs-12
             = filter_by_convention
         .row
-          - Event.flags.each do |flag|
+          - Event.flags.reject { |f| f == 'hidden'}.each do |flag|
             .col-md-3.col-sm-4.col-xs-6
               .row
                 .col-md-5.col-sm-5.col-xs-3
                   .text
-                    .small= flag.gsub(/is_/, '').humanize
+                    .small= flag_display flag
                 .col-md-7.col-sm-7.col-xs-9
                   .btn-group.btn-group-xs role="group" aria-label="Filter buttons" data-flag="#{flag}"
                     button.btn.btn-default.btn-xs data-value="true"

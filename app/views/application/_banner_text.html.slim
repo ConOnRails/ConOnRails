@@ -6,30 +6,35 @@
       - msgs = Message.num_active
 
       .row
-        .col-md-12
-          | Pardon the dust. We're renovating!
-
-      .row
         - if emerg > 0
-          .col-md-4.col-sm-4
+          .col-md-6.col-sm-6
+            .emergency-icon
             = pluralize emerg, 'Emergency'
         - if medic > 0
-          .col-md-4.col-sm-4
+          .col-md-6.col-sm-6
+            .medical-icon
             span= pluralize medic, 'Medical'
-        - if msgs > 0
-          .col-md-4.col-sm-4
-            = pluralize msgs, 'Message'
 
       .row
         - if current_user.rw_secure?
           .col-md-6.col-sm-6
-            = pluralize get_secure_count, "Secure Active Issue"
-          .col-md-6.col-sm-6
+            .active-icon
             = pluralize get_active_count, "Active Issue"
-              |  (excludes Secure)
+            |  (exc. Secure)
+          .col-md-6.col-sm-6
+            .secure-icon
+            = pluralize get_secure_count, "Secure Active Issue"
+
         - else
           .col-md-12
+            .active-icon
             = pluralize get_active_count, "Active Issue"
+
+      - if msgs > 0
+        .row
+          .col-md-6.col-sm-6
+            .message-icon
+            = pluralize msgs, 'Message'
 
       .row
         .col-md-12
