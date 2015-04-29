@@ -9,4 +9,8 @@
   .col-md-3.col-sm-3
      - if is_authenticated?
       .text-right
-        = link_to 'Open a New Emergency', '/events/new?emergency=1', id: 'emergency_button', class: get_emerg_button_style
+        = link_to '/events/new?emergency=1', id: 'emergency_button', class: get_emerg_button_style do
+          .glyphicon.glyphicon-exclamation-sign
+          | &nbsp; Open a New Emergency
+        | Pardon the dust. We're renovating!
+
