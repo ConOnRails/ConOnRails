@@ -516,17 +516,21 @@ div.filters-header {
 .menuicon {
   display: inline-block;
   margin-right: 9px;
+}
+
+.inactive-icon {
   color: lightgrey;
 }
+
 .active-sidebar {
   @extend .glyphicon;
-  @extend .glyphicon-arrow-right;
+  @extend .glyphicon-flash;
   color: green;
 }
 
 .active-icon {
   @extend .glyphicon;
-  @extend .glyphicon-arrow-right;
+  @extend .glyphicon-flash;
   @extend .menuicon;
 }
 
@@ -544,7 +548,25 @@ div.filters-header {
 
 .filter-icon {
   @extend .glyphicon;
-  @extend .glyphicon-filter;
+  @extend .glyphicon-ok-circle;
+  @extend .menuicon;
+}
+
+.emergency-icon {
+  @extend .glyphicon;
+  @extend .glyphicon-exclamation-sign;
+  @extend .menuicon;
+}
+
+.medical-icon {
+  @extend .glyphicon;
+  @extend .glyphicon-plus-sign;
+  @extend .menuicon;
+}
+
+.message-icon {
+  @extend .glyphicon;
+  @extend .glyphicon-envelope;
   @extend .menuicon;
 }
 

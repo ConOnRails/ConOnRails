@@ -68,10 +68,10 @@ module EventsHelper
   end
 
   def event_status_icon(event)
-    return 'lock' if event.secure?
-    return 'warning-sign' if event.medical? || event.emergency?
-    return 'pushpin' if event.sticky?
-    return 'arrow-right' if event.is_active?
+    return 'secure-icon' if event.secure?
+    return 'emergency-icon' if event.medical? || event.emergency?
+    return 'sticky-icon' if event.sticky?
+    return 'active-icon' if event.is_active?
   end
 
   def get_active_count
@@ -86,7 +86,7 @@ module EventsHelper
   def active_link
     content_tag :div, id: 'unsticky_link' do
       [
-          content_tag(:span, '', class: 'active-icon'),
+          content_tag(:span, '', class: 'active-icon inactive-icon'),
           link_to('View Active', root_path)
       ].join.html_safe
     end
@@ -105,7 +105,7 @@ module EventsHelper
     if current_user.rw_secure?
       content_tag :div, id: 'secure_link' do
         [
-            content_tag(:span, '', class: 'secure-icon'),
+            content_tag(:span, '', class: 'secure-icon inactive-icon'),
             link_to('View Active Secure', secure_events_path)
         ].join.html_safe
       end
@@ -124,7 +124,7 @@ module EventsHelper
   def sticky_link
     content_tag :div, id: 'sticky_link' do
       [
-          content_tag(:span, '', class: 'sticky-icon'),
+          content_tag(:span, '', class: 'sticky-icon inactive-icon'),
           link_to('View Sticky', sticky_events_path)
       ].join.html_safe
     end
@@ -176,4 +176,9 @@ module EventsHelper
     return 'current-icon' if active_index_filter?(key)
     ''
   end
+
+  def flag_display(flag)
+    flag.gsub(/is_/, '').humanize.gsub(' ', '&nbsp;').html_safe
+  end
+
 end

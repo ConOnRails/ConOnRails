@@ -7,11 +7,11 @@ module ApplicationHelper
   end
 
   def version_number
-    '3.4.5'
+    '3.4.6'
   end
 
   def version_name
-    'Blackberry Jam and Butter on Mixed Biscuits, with Bacon'
+    'Blackberry Jam and Butter on Mixed Biscuits, with Bacon and Hashbrowns'
   end
 
   def version_type
