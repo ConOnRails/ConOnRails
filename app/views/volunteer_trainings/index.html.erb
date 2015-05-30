@@ -31,7 +31,7 @@
     <td><%= volunteer_training.ops_head %></td>
     <td><%= link_to 'Show', volunteer_training %></td>
     <td><%= link_to 'Edit', edit_volunteer_training_path(volunteer_training) %></td>
-    <td><%= link_to 'Destroy', volunteer_training, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Destroy', volunteer_training, data: { confirm: 'Are you sure?' }, method: :delete %></td>
   </tr>
 <% end %>
 </table>

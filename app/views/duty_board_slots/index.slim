@@ -1,0 +1,15 @@
+.col-md-12.col-sm-12.col-xs-12
+  = link_to "Add duty board slot", new_duty_board_slot_url, class: 'btn btn-primary'
+
+  .table-responsive
+    table.table.table-hover.table-striped
+      thead
+        th Position
+        th Group
+      tbody
+        = render @duty_board_slots
+
+- content_for :side do
+  .col-md-12.col-sm-12.col-xs-12
+    .well.well-sm
+      div= link_to "Duty Board Groups", :duty_board_groups
