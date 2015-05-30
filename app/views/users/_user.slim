@@ -1,0 +1,5 @@
+tr
+  td= link_to user.name, user
+  td= user.realname
+  - if user.volunteer.present?
+    td= link_to user.volunteer.name, user.volunteer
