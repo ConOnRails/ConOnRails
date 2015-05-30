@@ -1,0 +1,35 @@
+.col-md-12.col-sm-12.col-xs-12
+  h1 Volunteers
+
+  = link_to 'New Volunteer', new_volunteer_path, class: 'btn btn-primary'
+  = link_to 'Clear all Radio Training', clear_all_radio_training_volunteers_path, class: 'btn btn-danger', data: { confirm: 'Are you sure?!' }
+
+  #paginator= paginate @volunteers
+
+  .table-responsive
+    table.table.table-hover.table-striped
+      tr
+        th= sort_link @q, :first_name
+        th= sort_link @q, :last_name
+        th= sort_link @q, :user_name, 'Associated Username'
+      - @volunteers.each do |volunteer|
+        tr
+          td= link_to volunteer.first_name, volunteer
+          td= link_to volunteer.last_name, volunteer
+          td
+            - if volunteer.user.present?
+              = link_to volunteer.user.name, volunteer.user
+
+
+
+  #paginator= paginate @volunteers
+  = link_to 'New Volunteer', new_volunteer_path, class: 'btn btn-primary'
+
+- content_for :side do
+  .col-md-12.col-sm-12.col-xs-12
+    .well.well-sm
+      div= link_to "Users", users_path
+      div= link_to "Contacts", contacts_path
+
+- content_for :search do
+  = render partial: 'search_form'
