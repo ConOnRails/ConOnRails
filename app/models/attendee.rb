@@ -24,6 +24,7 @@
 #
 
 class Attendee < ActiveRecord::Base
+=begin
   establish_connection :attendees
 
   self.table_name = "2012"
@@ -35,4 +36,5 @@ class Attendee < ActiveRecord::Base
         ( self.MIDDLE_NAME.blank? ? "" : self.MIDDLE_NAME + " " ) +
         self.LAST_NAME
   end
+=end
 end
