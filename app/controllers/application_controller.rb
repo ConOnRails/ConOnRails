@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
     ret = false
     if is_authenticated?
       user = User.find session[:user_id]
-      ret  = user.can_admin_anything?
+      ret = user.can_admin_anything?
     end
     ret
   end
@@ -82,10 +82,17 @@ class ApplicationController < ActionController::Base
     return query if params[:convention] == 'all' || params[:show_older] == 'true'
 
     con = Convention.current_convention if params[:convention].blank?
-    con = Convention.find params[:convention]  if params[:convention].present?
+    con = Convention.find params[:convention] if params[:convention].present?
 
     return query if con.blank?
     query.where { |x| (x.created_at >= con.start_date) & (x.created_at <= con.end_date) }
+  end
+
+  def limit_by_date_range(query)
+    return query if params[:from_date].blank? && params[:to_date].blank?
+    query = query.where { |x| x.created_at >= params[:from_date] } if params[:from_date].present?
+    query = query.where { |x| x.created_at <= params[:to_date] } if params[:to_date].present?
+    query
   end
 
   helper_method :can_write_entries?, :is_authenticated?, :can_admin_anything?, :current_user, :current_role

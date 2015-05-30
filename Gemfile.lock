@@ -60,6 +60,8 @@ GEM
     bootstrap-sass (3.3.4.1)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.2.19)
+    bootstrap3-datetimepicker-rails (4.0.0)
+      momentjs-rails (>= 2.8.1)
     builder (3.2.2)
     capistrano (3.4.0)
       i18n
@@ -145,6 +147,8 @@ GEM
       ruby-progressbar
     mocha (1.1.0)
       metaclass (~> 0.0.1)
+    momentjs-rails (2.10.2)
+      railties (>= 3.1)
     multi_json (1.11.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -291,6 +295,7 @@ DEPENDENCIES
   annotate
   bcrypt-ruby (~> 3.1.5)
   bootstrap-sass (~> 3.3.4)
+  bootstrap3-datetimepicker-rails (~> 4.0.0)
   capistrano-rails (~> 1.1.2)
   capistrano-rvm (~> 0.1.2)
   capistrano-safe-deploy-to (~> 1.1.1)
@@ -309,6 +314,7 @@ DEPENDENCIES
   kaminari (~> 0.16.3)
   minitest-reporters
   mocha
+  momentjs-rails (>= 2.8.1)
   paper_trail (>= 4.0.0.beta1)
   pg (~> 0.18.1)
   pg_search (~> 0.7.9)
