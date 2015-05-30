@@ -1,0 +1,33 @@
+.col-md-12.col-sm-12.col-xs-12
+  h1 Listing users
+
+  div= link_to 'New User', new_user_path, class: 'btn btn-primary'
+  div style="text-align: right" Note: name and username searches are CASE SENSITIVE.
+  #search= search_form_for @q do |f|
+    = f.label :name_cont, 'Username'
+    = f.text_field :name_cont
+    = f.label :realname, 'Real name'
+    = f.text_field :realname_cont
+    = f.submit class: 'btn btn-primary'
+
+  #paginator= paginate @users
+
+  .table-responsive
+    table.table.table-hover.table-striped
+      thead
+        tr
+          th.username= sort_link @q, :name
+          th.realname= sort_link @q, :realname, 'Real Name'
+          th Associated Volunteer Record
+
+      tbody
+        = render @users
+
+  #paginator= paginate @users
+  div= link_to 'New User', new_user_path, class: 'btn btn-primary'
+
+- content_for :side do
+  .col-md-12.col-sm-12.col-xs-12
+    .well.well-sm
+      div= link_to "Volunteers", volunteers_path
+      div= link_to "Contacts", contacts_path

@@ -1,25 +1,28 @@
-div
-  strong Name:&nbsp;
-  = @user.name
-  | &nbsp;
-  div.button.small-button.inline-button
-    a.button.small-button href=change_password_user_path(current_user) Change Password
-
-
-div
-  strong Real Name:&nbsp;
-  = @user.realname
-
-- if @user.volunteer
+.col-md-12.col-sm-12.col-xs-12
   div
-    strong Associated with volunteer #{link_to @user.volunteer.name, @user.volunteer}
+    strong Name:&nbsp;
+    = @user.name
+    | &nbsp;
+    = link_to 'Change Password', change_password_user_path(current_user), class: 'btn btn-warning btn-sm'
 
-div
-  strong Roles:
-  table#roleslist
-    = render partial: "roles/roleheader"
-    = render @user.roles
+
+  div
+    strong Real Name:&nbsp;
+    = @user.realname
+
+  - if @user.volunteer
+    div
+      strong Associated with volunteer #{link_to @user.volunteer.name, @user.volunteer}
+
+  div
+    strong Roles:
+    .table-responsive
+      table.table.table-hover.table-striped#roleslist
+        = render partial: "roles/roleheader"
+        = render @user.roles
 
 - content_for :side
-  div= link_to 'Edit', edit_user_path(@user)
-  div= link_to 'Back', users_path
+  .col-md-12.col-sm-12.col-xs-12
+    .well.well-sm
+      div= link_to 'Edit', edit_user_path(@user)
+      div= link_to 'Back', users_path
