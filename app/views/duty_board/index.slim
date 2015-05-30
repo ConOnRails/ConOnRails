@@ -1,0 +1,12 @@
+h1 CONvergence Duty Board
+table#duty_board
+  colgroup
+    col#duty_board_left
+    col#duty_board_right
+  - DutyBoardGroup.row_range.each do |row|
+    tr.duty_board_row
+      - DutyBoardGroup.col_range.each do |col|
+        td.duty_board_group
+          - duty_board_group = DutyBoardGroup.find_by_row_and_column row, col
+          - if duty_board_group
+            = render partial: 'duty_board_group', locals: { duty_board_group: duty_board_group }

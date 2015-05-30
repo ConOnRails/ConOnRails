@@ -1,0 +1,15 @@
+.duty_board_assignment
+  - if current_user and current_user.can_assign_duty_board_slots?
+    = link_to duty_board_slot.name, \
+              duty_board_slot.duty_board_assignment.present? ?    \
+      edit_duty_board_slot_duty_board_assignment_path(duty_board_slot, duty_board_slot.duty_board_assignment) : \
+      new_duty_board_slot_duty_board_assignment_path(duty_board_slot)
+  - else
+    = duty_board_slot.name
+  | &mdash;
+  - if duty_board_slot.duty_board_assignment
+    .volunteer_name
+      = duty_board_slot.duty_board_assignment ? duty_board_slot.duty_board_assignment.name : ""
+      - if duty_board_slot.duty_board_assignment.notes and duty_board_slot.duty_board_assignment.notes != ""
+        sup *
+        span.popup= duty_board_slot.duty_board_assignment.notes
