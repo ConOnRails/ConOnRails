@@ -42,9 +42,9 @@ javascript:
   window.events.convention = "#{params[:convention] || Convention.current_convention.try(:id)}";
   window.events.path = "#{url_for(only_path: true)}";
   window.events.merge_mode = #{params[:merge_mode].presence || false};
-  window.events.getMain();
+  window.events.getMain(true);
   $('#show_older').change(function () {
-    window.events.getMain();
+    window.events.getMain(true);
   });
 
 - content_for :side do
