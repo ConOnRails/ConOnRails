@@ -16,6 +16,7 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
+    @title = 'Active Events'
     return jump if params[:id].present?
     @events = IndexQuery.new(Event).query(session[:index_filter]).
         order { |e| e.updated_at.desc }.page(params[:page])
@@ -23,6 +24,7 @@ class EventsController < ApplicationController
   end
 
   def sticky
+    @title = 'Sticky Events'
     @events = (limit_by_convention StickyQuery.new(Event).query.
                                        order { |e| e.updated_at.desc }).page(params[:page])
 
@@ -33,6 +35,7 @@ class EventsController < ApplicationController
   end
 
   def secure
+    @title = 'Secure Events'
     @events = SecureQuery.new(Event).query.
         order { |e| e.updated_at.desc }.page(params[:page])
     respond_with @events do |format|
@@ -54,10 +57,12 @@ class EventsController < ApplicationController
   end
 
   def review
+    @title = 'Event Review'
     @q = params[:q]
 
     @events = (limit_by_convention FiltersQuery.new(Event, params[:filters]).query.protect_sensitive_events(current_user).
                                        order { |e| e.updated_at.asc }).page(params[:page])
+    @events = limit_by_date_range @events
     @events = @events.search_entries(@q) if @q.present?
 
 
@@ -68,6 +73,7 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
+    @title = 'Event'
     @entry = build_new_entry @event
   end
 
@@ -75,6 +81,7 @@ class EventsController < ApplicationController
   # GET /events/new.json
   # There is POST /events. We actually create the new event here and then redirect to create the first entry
   def new
+    @title = 'New Event'
     @event = Event.new
     @event.flags = session[:index_filter] if session[:index_filter]
     @event.emergency = true if params[:emergency] == '1'
