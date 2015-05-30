@@ -14,14 +14,14 @@
           <% if @del_or_edit == "edit" %>
               <%= link_to 'Edit', edit_radio_group_path(radio_group) %>
           <% else %>
-              <%= link_to 'Delete', radio_group, method: :delete, confirm: 'Are you sure?' %>
+              <%= link_to 'Delete', radio_group, method: :delete, data: { confirm: 'Are you sure?' } %>
           <% end %>
         </td>
       </tr>
   <% end %>
 </table>
 
-<br />
+<br/>
 
 <% content_for :side do %>
     <div><%= link_to 'Back', admin_path %></div>
