@@ -1,4 +1,4 @@
 tr.clickable-row data-href=edit_duty_board_group_path(duty_board_group)
   td= link_to duty_board_group.name, edit_duty_board_group_path(duty_board_group)
   td #{duty_board_group.row}, #{duty_board_group.column}
-  td= link_to "Delete", duty_board_group, confirm: "Are you sure?", method: :delete, class: 'btn btn-danger btn-xs'
+  td= link_to "Delete", duty_board_group, data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-danger btn-xs'

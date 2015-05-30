@@ -1,0 +1,11 @@
+.col-md-12.col-sm-12.col-xs-12
+  = simple_form_for @duty_board_slot, wrapper: :horizontal_form, class: 'form-horizontal' do |f|
+    = f.input :name
+    = f.association :duty_board_group
+    = f.button :submit, class: 'btn btn-success'
+
+- content_for :side do
+  .col-md-12.col-sm-12.col-xs-12
+    .well.well-sm
+      div= link_to "Manage Duty Board Groups", duty_board_groups_path
+      div= link_to "Back", duty_board_slots_path

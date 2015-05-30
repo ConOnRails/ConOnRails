@@ -1,9 +1,0 @@
-<div>
-<%= link_to "Add duty board slot", new_duty_board_slot_url, class: 'button' %></div>
-<table>
-  <%= render @duty_board_slots %>
-</table>
-
-<% content_for :side do %>
-  <div><%= link_to "Duty Board Groups", :duty_board_groups %></div>
-<% end %>
