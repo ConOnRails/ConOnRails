@@ -3,11 +3,10 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 @import 'colors';
+@import 'bootstrap';
 .duty_board, .duty_board_assignments
 {
   padding: 12px;
-  height: 760px;
-  width: 1000px;
 
   background-color: $blue;
   color: $yellow;
@@ -18,6 +17,10 @@
   h1
   {
     text-align: center;
+  }
+  h4
+  {
+    color: white;
   }
   #duty_board
   {
@@ -31,12 +34,17 @@
     font-weight: bold;
     line-height: 100%;
   }
+
+  .duty_board_row
+  {
+    @extend .row;
+  }
+
   .duty_board_group
   {
-    min-height: 5em;
-    border: thin solid;
-    float: left;
-    width: 48%;
+    @extend .col-md-6;
+
+    //border: thin solid;
     text-align: left;
     padding: 6px;
 
