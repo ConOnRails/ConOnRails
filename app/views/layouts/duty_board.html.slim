@@ -6,6 +6,7 @@ html
     = csrf_meta_tags
     meta http-equiv="refresh" content="120"
   body class="#{controller.controller_name}"
-    #main= content_for?(:main) ? yield(:main) : yield
-    #date= Time.now.getlocal.ctime
-    #footer= render partial: 'indicia'
+    .container-fluid
+      #main= content_for?(:main) ? yield(:main) : yield
+      #date= Time.now.getlocal.ctime
+      #footer= render partial: 'indicia'

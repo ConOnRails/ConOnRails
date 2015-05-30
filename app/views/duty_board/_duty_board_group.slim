@@ -1,1 +1,1 @@
-= render partial: 'duty_board_slot', collection: duty_board_group.duty_board_slots
+= render partial: 'duty_board_slot', collection: @duty_board_group.try(:duty_board_slots)

@@ -10,6 +10,7 @@
   - if duty_board_slot.duty_board_assignment
     .volunteer_name
       = duty_board_slot.duty_board_assignment ? duty_board_slot.duty_board_assignment.name : ""
+      | &nbsp;
       - if duty_board_slot.duty_board_assignment.notes and duty_board_slot.duty_board_assignment.notes != ""
-        sup *
+        span.glyphicon.glyphicon-question-sign
         span.popup= duty_board_slot.duty_board_assignment.notes
