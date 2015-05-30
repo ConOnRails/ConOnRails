@@ -1,0 +1,45 @@
+.col-md-12.col-sm-12.col-xs-12
+  #volunteer-info
+    #training-show
+      .info= render partial: "volunteer_trainings/show", locals: { training: @volunteer.volunteer_training }
+
+    .name #{@volunteer.first_name} #{@volunteer.middle_name} #{@volunteer.last_name}
+    - if @volunteer.user.nil?
+      button id="create-user-button">Create new user
+    - else
+      div Associated with: #{link_to @volunteer.user.name, @volunteer.user}
+    .address
+      div= @volunteer.address1
+      div= @volunteer.address2
+      div= @volunteer.address3
+      div #{@volunteer.city}, #{@volunteer.state} #{@volunteer.postal}
+      div= @volunteer.country
+    .phones
+      - unless @volunteer.home_phone.nil? or @volunteer.home_phone.empty?
+      div
+        span.info-label Home phone:&nbsp;
+        = @volunteer.home_phone
+      - unless @volunteer.work_phone.nil? or @volunteer.work_phone.empty?
+        div
+          span.info-label Work phone:&nbsp;
+          = @volunteer.work_phone
+      - unless @volunteer.other_phone.nil? or @volunteer.other_phone.empty?
+        div
+          span.info-label Other phone:&nbsp;
+          = @volunteer.other_phone
+    .email
+      - unless @volunteer.email.nil? or @volunteer.email.empty?
+        div
+          span.info-label Email:&nbsp;
+          = @volunteer.email
+
+    - if @volunteer.can_have_multiple_radios?
+      div
+        span.info-label style="color: red"
+        | Can have multiple radios
+
+- content_for :side do
+  .col-md-12.col-sm-12.col-xs-12
+    .well.well-sm
+      div= link_to 'Edit', edit_volunteer_path(@volunteer)
+      div= link_to 'Back', volunteers_path
