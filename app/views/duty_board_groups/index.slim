@@ -1,0 +1,16 @@
+.col-md-12.col-sm-12.col-xs-12
+  h1.header Duty Board Groups
+  .table-responsive
+    table.table.table-hover.table-striped id="duty_board_groups"
+      tr
+        th Name
+        th Row, Column
+      = render @duty_board_groups
+
+  = link_to "New Duty Board Group", new_duty_board_group_path, class: 'btn btn-primary'
+
+- content_for :side do
+  .col-md-12.col-sm-12.col-xs-12
+    .well.well-sm
+      div= link_to "Duty Board Slots", :duty_board_slots
+      div= link_to "Back", admin_path
