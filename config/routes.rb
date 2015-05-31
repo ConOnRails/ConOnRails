@@ -25,6 +25,7 @@ ConOnRails::Application.routes.draw do
 
   resources :events, except: [:destroy] do
     collection do
+      get 'export', format: :csv
       get 'review'
       get 'sticky'
       get 'secure'
