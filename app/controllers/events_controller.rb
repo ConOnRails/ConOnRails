@@ -7,9 +7,11 @@ class EventsController < ApplicationController
   before_filter :can_write_entries?, only: [:new, :create, :edit, :update]
   before_filter :set_event, only: [:show, :edit, :update]
   before_filter :get_tagged_events, only: [:tag]
+  before_filter :process_filters, only: [:review, :export]
 
-  respond_to :html, :json
+  respond_to :html, :json, except: [:export]
   respond_to :js, only: [:index, :sticky, :secure, :review]
+  respond_to :csv, only: [:export]
 
   public
 
@@ -58,14 +60,6 @@ class EventsController < ApplicationController
 
   def review
     @title = 'Event Review'
-    @q = params[:q]
-
-    @events = (limit_by_convention FiltersQuery.new(Event, params[:filters]).query.protect_sensitive_events(current_user).
-                                       order { |e| e.updated_at.asc }).page(params[:page])
-    @events = limit_by_date_range @events
-    @events = @events.search_entries(@q) if @q.present?
-
-
     respond_with @events
   end
 
@@ -124,6 +118,12 @@ class EventsController < ApplicationController
     end
   end
 
+  def export
+    respond_with do |f|
+      f.csv { send_data Event.to_csv(@events), type: 'text/csv' }
+    end
+  end
+
   protected
 
   def build_new_entry(event)
@@ -149,6 +149,15 @@ class EventsController < ApplicationController
     event = Event.find_by_id(params[:id])
     return redirect_to event_path(params[:id]) if event
     render 'lost_and_found_items/invalid'
+  end
+
+  def process_filters
+    @q = params[:q]
+
+    @events = (limit_by_convention FiltersQuery.new(Event, params[:filters]).query.protect_sensitive_events(current_user).
+                                       order { |e| e.updated_at.asc }).page(params[:page])
+    @events = limit_by_date_range @events
+    @events = @events.search_entries(@q) if @q.present?
   end
 
   def set_event

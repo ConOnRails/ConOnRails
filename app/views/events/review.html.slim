@@ -1,59 +1,61 @@
-.col-md-12
+.col-md-12.col-sm-12.col-xs-12
   .row
-    .panel.panel-success
-      .panel-heading
-        .panel-title Filters
-      .panel-body#filters
-        .row.form-group
-          .col-md-2.col-sm-3.col-xs-3
-            = label_tag :convention, 'By&nbsp;Convention'.html_safe, class: 'control-label'
-          .col-md-10.col-sm-9.col-xs-9
-            = filter_by_convention
-        .row.form-group
-          .col-md-2.col-sm-3.col-xs-3
-            = label_tag :date, 'By&nbsp;Date&nbsp;Range'.html_safe, class: 'control-label'
-          .col-md-4.col-sm-4.col-xs-4
-              #from_date.input-group.date
-                = text_field_tag :from_date, params[:from_date], placeholder: 'From', class: 'form-control input-sm'
-                span.input-group-addon
-                  span.glyphicon.glyphicon-calendar
-          .col-md-4.col-sm-4.col-xs-4
-              #to_date.input-group.date
-                = text_field_tag :to_date, params[:to_date], placeholder: 'To', class: 'form-control input-sm'
-                span.input-group-addon
-                  span.glyphicon.glyphicon-calendar
-        .row.form-group
-          .col-md-2.col-sm-3.col-xs-3
-            = label_tag :keywords, 'By&nbsp;Keywords'.html_safe, class: 'control-label'
-          .col-md-7.col-sm-6.col-xs-6
-            = text_field_tag :q, params[:q], placeholder: 'Enter search terms...', class: 'form-control input-sm'
-          .col-md-3.col-sm-3.hidden-xs
-            button.btn.btn-primary#search-field Submit Keywords
-          .col-xs-3.hidden-lg.hidden-md.hidden-sm
-            button.btn.btn-primary#search-field Submit
-        .row.form-group
-          - Event.flags.reject { |f| f == 'hidden'}.each do |flag|
-            .col-md-3.col-sm-4.col-xs-6
-              .row
-                .col-md-5.col-sm-5.col-xs-3
-                  .text
-                    .small= flag_display flag
-                .col-md-7.col-sm-7.col-xs-9
-                  .btn-group.btn-group-xs role="group" aria-label="Filter buttons" data-flag="#{flag}"
-                    button.btn.btn-default.btn-xs data-value="true"
-                      .glyphicon.glyphicon-ok-circle
-                    button.btn.btn-default.btn-xs data-value="false"
-                      .glyphicon.glyphicon-ban-circle
-                    button.btn.btn-default.btn-xs.btn-primary data-value="all"
-                      .glyphicon.glyphicon-remove-circle
+    .col-md-12.col-sm-12.col-xs-12
+      .panel.panel-success
+        .panel-heading
+          .panel-title Filters
+        .panel-body#filters
+          .row.form-group
+            .col-md-2.col-sm-3.col-xs-3
+              = label_tag :convention, 'By&nbsp;Convention'.html_safe, class: 'control-label'
+            .col-md-10.col-sm-9.col-xs-9
+              = filter_by_convention
+          .row.form-group
+            .col-md-2.col-sm-3.col-xs-3
+              = label_tag :date, 'By&nbsp;Date&nbsp;Range'.html_safe, class: 'control-label'
+            .col-md-4.col-sm-4.col-xs-4
+                #from_date.input-group.date
+                  = text_field_tag :from_date, params[:from_date], placeholder: 'From', class: 'form-control input-sm'
+                  span.input-group-addon
+                    span.glyphicon.glyphicon-calendar
+            .col-md-4.col-sm-4.col-xs-4
+                #to_date.input-group.date
+                  = text_field_tag :to_date, params[:to_date], placeholder: 'To', class: 'form-control input-sm'
+                  span.input-group-addon
+                    span.glyphicon.glyphicon-calendar
+          .row.form-group
+            .col-md-2.col-sm-3.col-xs-3
+              = label_tag :keywords, 'By&nbsp;Keywords'.html_safe, class: 'control-label'
+            .col-md-7.col-sm-6.col-xs-6
+              = text_field_tag :q, params[:q], placeholder: 'Enter search terms...', class: 'form-control input-sm'
+            .col-md-3.col-sm-3.hidden-xs
+              button.btn.btn-primary#search-field Submit Keywords
+            .col-xs-3.hidden-lg.hidden-md.hidden-sm
+              button.btn.btn-primary#search-field Submit
+          .row.form-group
+            - Event.flags.reject { |f| f == 'hidden'}.each do |flag|
+              .col-md-3.col-sm-4.col-xs-6
+                .row
+                  .col-md-5.col-sm-5.col-xs-3
+                    .text
+                      .small= flag_display flag
+                  .col-md-7.col-sm-7.col-xs-9
+                    .btn-group.btn-group-xs role="group" aria-label="Filter buttons" data-flag="#{flag}"
+                      button.btn.btn-default.btn-xs data-value="true"
+                        .glyphicon.glyphicon-ok-circle
+                      button.btn.btn-default.btn-xs data-value="false"
+                        .glyphicon.glyphicon-ban-circle
+                      button.btn.btn-default.btn-xs.btn-primary data-value="all"
+                        .glyphicon.glyphicon-remove-circle
 
 
   = form_tag merge_events_events_path, method: :post, id: 'merge-form', class: 'form-horizontal' do
     .form-group
-      .col-md-6
-        = link_to 'Log New Event', new_event_path, class: 'btn btn-default', type: 'button'
+      .col-md-12
+        = link_to 'Log New Event', new_event_path, class: 'btn btn-default'
         span#merge-mode-toggle
         span#merge-mode-submit
+        = link_to 'Export Current Filter (CSV)', '#', class: 'btn btn-warning', onclick: 'window.events.exportReview(window.events.getFilters())'
 
   .form-group
     .col-md-12

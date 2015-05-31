@@ -24,6 +24,7 @@
 #  nerf_herders    :boolean
 #
 
+require 'csv'
 require Rails.root + 'app/queries/event_queries'
 
 
@@ -46,7 +47,7 @@ class Event < ActiveRecord::Base
   paginates_per 10
 
   pg_search_scope :search_entries, using: { tsearch: { prefix: true } },
-                  associated_against:     {
+                  associated_against: {
                       entries: :description
                   }
 
@@ -66,10 +67,10 @@ class Event < ActiveRecord::Base
   }
 
   STATUSES = %w[ Active Closed Merged ]
-  FLAGS    = %w[ is_active merged post_con sticky emergency medical hidden secure consuite hotel parties volunteers dealers dock merchandise nerf_herders ]
+  FLAGS = %w[ is_active merged post_con sticky emergency medical hidden secure consuite hotel parties volunteers dealers dock merchandise nerf_herders ]
   DEPT_FLAGS = %w[ consuite hotel parties volunteers dealers dock merchandise nerf_herders ]
 
-   def self.search(q, user, show_closed=false, index_filters=nil)
+  def self.search(q, user, show_closed=false, index_filters=nil)
     protect_sensitive_events(user).
         actives_and_stickies_or_all(show_closed).
         build_from_filters(index_filters).
@@ -121,8 +122,8 @@ class Event < ActiveRecord::Base
   def add_entry(description, user_id, rolename = nil)
     self.entries << Entry.new do |new_entry|
       new_entry.description = description
-      new_entry.user_id     = user_id
-      new_entry.rolename    = rolename
+      new_entry.user_id = user_id
+      new_entry.rolename = rolename
     end
   end
 
@@ -170,7 +171,7 @@ class Event < ActiveRecord::Base
 
   def merge_entries(event_ids)
     Entry.where { |e| e.event_id >> event_ids }.order('created_at ASC').find_each do |entry|
-      new_entry            = entry.dup
+      new_entry = entry.dup
       new_entry.created_at = entry.created_at
       self.entries << new_entry
     end
@@ -187,13 +188,13 @@ class Event < ActiveRecord::Base
     case string
       when 'Active'
         self.is_active = true
-        self.merged    = false
+        self.merged = false
       when 'Closed'
         self.is_active = false
-        self.merged    = false
+        self.merged = false
       when 'Merged'
         self.is_active = false
-        self.merged    = true
+        self.merged = true
       else
         raise Exception
     end
@@ -216,6 +217,21 @@ class Event < ActiveRecord::Base
     return DEPT_FLAGS
   end
 
+  def self.to_csv(events)
+    CSV.generate do |csv|
+      csv << %w(ID State Flags Entries)
+      events.find_each do |event|
+        csv << [
+            event.id,
+            event.status,
+            flags_for_export(event),
+            entries_for_export(event)
+        ]
+      end
+
+    end
+  end
+
   protected
   def self.fix_bool val
     if val.is_a? String
@@ -225,6 +241,27 @@ class Event < ActiveRecord::Base
     val
   end
 
+  def self.entries_for_export(event)
+    first = event.entries.first
+    event.entries.collect do |entry|
+      created_or_updated = (entry == first) ? 'created' : 'update'
+      "#{entry.created_at.getlocal.ctime} #{created_or_updated} by #{entry.user.realname} as #{entry.rolename}\r#{entry.description}"
+    end.join("\r\r")
+  end
 
-
+  def self.flags_for_export(event)
+    event.event_flag_histories.collect do |efh|
+      "at #{efh.created_at.getlocal.ctime} by #{efh.user.realname} as #{efh.rolename}\r  " +
+          Event.flags.collect do |f|
+            if f == 'is_active' && efh[f] == false
+              'CLOSED'
+            elsif efh[f] == true
+              "#{f}"
+            end
+          end.compact.join(' ') +
+          efh.alert_list.collect do |f|
+            "#{f}"
+          end.compact.join(' ')
+    end.join("\r")
+  end
 end

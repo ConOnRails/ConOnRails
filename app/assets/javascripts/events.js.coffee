@@ -3,14 +3,14 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 window.events = {}
-window.events.getMain = (push=false) ->
+window.events.getMain = (push = false) ->
   get_merge_events = () ->
-    $('input[name="merge_ids[]"]:checked').map( () ->
+    $('input[name="merge_ids[]"]:checked').map(() ->
       $(this).val()).get()
 
 
   console.log(get_merge_events())
-  data =  {
+  data = {
     "page": window.events.page,
     "convention": window.events.convention,
     "merge_mode": window.events.merge_mode,
@@ -59,4 +59,16 @@ window.events.getFilters = ->
   )
 
   things
+
+window.events.exportReview = (filters) ->
+  data =
+    "filters": filters,
+    "convention": $('#convention').val(),
+    "q": $('input[name=q]').val(),
+    "from_date": $('#from_date').data('date'),
+    "to_date": $('#to_date').data('date')
+
+  window.location = '/events/export.csv?' + jQuery.param(data)
+
+
 
