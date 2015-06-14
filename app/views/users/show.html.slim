@@ -3,8 +3,7 @@
     strong Name:&nbsp;
     = @user.username
     | &nbsp;
-    = link_to 'Change Password', change_password_user_path(current_user), class: 'btn btn-warning btn-sm'
-
+    = link_to 'Change Password', change_password_user_path(@user), class: 'btn btn-warning btn-sm'
 
   div
     strong Real Name:&nbsp;
