@@ -28,7 +28,7 @@ class UsersController < ApplicationController
     else
       @user = User.create user_params
     end
-    flash[:notice] = "User #{@user.name} was successfully created." if @user.persisted?
+    flash[:notice] = "User #{@user.username} was successfully created." if @user.persisted?
     respond_with @user
   end
 
@@ -36,7 +36,7 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     if @user.update_attributes(user_params) && update_volunteer
-      flash[:notice] = "User #{@user.name} was successfully updated."
+      flash[:notice] = "User #{@user.username} was successfully updated."
     end
 
     respond_with @user, location: get_update_success_path
@@ -83,7 +83,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit :name, :realname, :password, :password_confirmation, { role_ids: [] }, :volunteer_id
+    params.require(:user).permit :username, :realname, :password, :password_confirmation, { role_ids: [] }, :volunteer_id
   end
 
 end

@@ -287,7 +287,7 @@ FactoryGirl.define do
   end
 
   factory :user do
-    sequence(:name) { |n| "user#{n}" }
+    sequence(:username) { |n| "user#{n}" }
     sequence(:realname) { Faker::Name.name }
     password "batwom"
     password_confirmation "batwom"
