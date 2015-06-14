@@ -83,13 +83,8 @@ class ApplicationController < ActionController::Base
   end
 
   def limit_by_convention(query)
-    return query if params[:convention] == 'all' || params[:show_older] == 'true'
-
-    con = Convention.current_convention if params[:convention].blank?
-    con = Convention.find params[:convention] if params[:convention].present?
-
-    return query if con.blank?
-    query.where { |x| (x.created_at >= con.start_date) & (x.created_at <= con.end_date) }
+    return query if params[:convention] == 'all' || params[:show_older] == 'true' || get_convention.blank?
+    query.where { |x| (x.created_at >= get_convention.start_date) & (x.created_at <= get_convention.end_date) }
   end
 
   def limit_by_date_range(query)
@@ -97,6 +92,14 @@ class ApplicationController < ActionController::Base
     query = query.where { |x| x.created_at >= params[:from_date] } if params[:from_date].present?
     query = query.where { |x| x.created_at <= params[:to_date] } if params[:to_date].present?
     query
+  end
+
+  def get_convention
+    @con ||= if params[:convention].present?
+               Convention.find params[:convention]
+             else
+               Convention.current_convention if params[:convention].blank?
+             end
   end
 
   helper_method :can_write_entries?, :is_authenticated?, :can_admin_anything?, :current_user, :current_role, :current_role_name
