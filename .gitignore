@@ -13,7 +13,7 @@ public/assets/*
 
 contact.csv
 
-coverage/.last_run.json
+coverage/
 
 production.backup.sql
 
