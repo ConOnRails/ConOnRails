@@ -12,7 +12,9 @@
       </div>
       <div class="field">
         <div><%= label_tag :role %></div>
-        <div id="role"><%= select_tag :role, options_from_collection_for_select(Role.all, :name, :name) %></div>
+        <noscript>You <b>must</b> have Javascript enabled for this application to work. No exceptions. Sorry, kids!
+        </noscript>
+        <div id="role"></div>
       </div>
       <div class="actions">
         <%= submit_tag "Log in", class: 'btn btn-success' %>
@@ -21,14 +23,17 @@
 </div>
 <script>
     $(
-            $('#username').blur(function (evt) {
-                $.ajax('/sessions/getroles',
-                        {
-                            dataType: 'script',
-                            data: {
-                                username: $('#username').val()
-                            }
-                        })
-            })
+            function () {
+                $('#role').text('Enter username to select role');
+                $('#username').on('blur input', function (evt) {
+                    $.ajax('/sessions/getroles',
+                            {
+                                dataType: 'script',
+                                data: {
+                                    username: $('#username').val()
+                                }
+                            })
+                });
+            }
     )
 </script>
