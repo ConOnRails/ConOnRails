@@ -21,4 +21,15 @@ class RadioAssignmentTest < ActiveSupport::TestCase
   should validate_presence_of :volunteer
   should validate_uniqueness_of :volunteer_id
   should validate_presence_of :department
+
+  context 'validate department allotments' do
+    setup do
+      @assignment = FactoryGirl.create :valid_radio_assignment
+      @bad_assignment = FactoryGirl.build(:valid_radio_assignment, department: @assignment.department)
+    end
+
+    should 'not allow a new assignment' do
+      refute @bad_assignment.valid?, 'Assignment should not be valid'
+    end
+  end
 end
