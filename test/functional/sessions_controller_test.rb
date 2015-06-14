@@ -4,6 +4,8 @@ class SessionsControllerTest < ActionController::TestCase
   setup do
     @user = FactoryGirl.create :user
     @role = FactoryGirl.create :write_entries_role
+    @user.roles << @role
+    @user.save!
   end
 
   test "should get new" do
@@ -23,7 +25,7 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test "user can create session" do
-    get :create, { username: @user.username, password: @user.password }
+    get :create, { username: @user.username, password: @user.password, role: @role.name }
     assert_equal "Logged in!", flash[:notice]
     assert_not_nil session[:user_id]
     assert_equal @user.id, session[:user_id]
@@ -31,7 +33,7 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test "can destroy session" do
-    get :create, { username: @user.username, password: @user.password }
+    get :create, { username: @user.username, password: @user.password, role: @role.name }
     assert_not_nil session[:user_id]
     assert_equal @user.id, session[:user_id]
     get :destroy, { }, { user_id: @user.id }
@@ -40,9 +42,6 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test "can get roles for a given username" do
-    @user.roles << @role
-    @user.save!
-
     xhr :get, :getroles, { format: :js, username: @user.username }
     assert_not_nil assigns :rolenames
     assert_equal @role.name, assigns(:rolenames)[0]

@@ -6,7 +6,7 @@ class AuditsControllerTest < ActionController::TestCase
     @role = FactoryGirl.create :read_audits_role
     @user.roles << @role
 
-    @user_session = { user_id: @user.id, current_role: @role.name }
+    @user_session = { user_id: @user.id, current_role_name: @role.name }
   end
 
   test "should get index" do
