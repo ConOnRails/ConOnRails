@@ -5,10 +5,10 @@
               <div><strong>Volunteer:</strong> <%= link_to @user.volunteer.name, @user.volunteer %></div>
           <% end %>
           <% if current_user.can_admin_users? %>
-              <%= f.input :name %>
+              <%= f.input :username %>
               <%= f.input :realname %>
           <% else %>
-              <div><strong>Username:</strong> <%= @user.name %></div>
+              <div><strong>Username:</strong> <%= @user.username %></div>
               <div><strong>Real Name:</strong> <%= @user.realname %></div>
           <% end %>
           <%= f.input :password %>

@@ -4,8 +4,8 @@
   div= link_to 'New User', new_user_path, class: 'btn btn-primary'
   div style="text-align: right" Note: name and username searches are CASE SENSITIVE.
   #search= search_form_for @q do |f|
-    = f.label :name_cont, 'Username'
-    = f.text_field :name_cont
+    = f.label :username_cont, 'Username'
+    = f.text_field :username_cont
     = f.label :realname, 'Real name'
     = f.text_field :realname_cont
     = f.submit class: 'btn btn-primary'
@@ -16,7 +16,7 @@
     table.table.table-hover.table-striped
       thead
         tr
-          th.username= sort_link @q, :name
+          th.username= sort_link @q, :username
           th.realname= sort_link @q, :realname, 'Real Name'
           th Associated Volunteer Record
 

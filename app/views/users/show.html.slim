@@ -1,7 +1,7 @@
 .col-md-12.col-sm-12.col-xs-12
   div
     strong Name:&nbsp;
-    = @user.name
+    = @user.username
     | &nbsp;
     = link_to 'Change Password', change_password_user_path(current_user), class: 'btn btn-warning btn-sm'
 

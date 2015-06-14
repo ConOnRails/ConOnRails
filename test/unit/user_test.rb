@@ -3,11 +3,11 @@
 # Table name: users
 #
 #  id              :integer          not null, primary key
-#  name            :string(255)
+#  username        :string(255)
 #  realname        :string(255)
 #  password_digest :string(255)
-#  created_at      :datetime
-#  updated_at      :datetime
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #
 
 require 'test_helper'
@@ -34,7 +34,7 @@ class UserTest < ActiveSupport::TestCase
   
   setup do
     @input_attributes = {
-        name: "uncle-mikey",
+        username: "uncle-mikey",
         realname: "Mi Key",
         password: GoodPassword,
         password_confirmation: GoodPassword,
@@ -56,7 +56,7 @@ class UserTest < ActiveSupport::TestCase
   end
   
   test "username should not be longer than 32 characters" do
-    @input_attributes[:name] = LongName
+    @input_attributes[:username] = LongName
     failure_is_good @input_attributes
   end
   
@@ -66,7 +66,7 @@ class UserTest < ActiveSupport::TestCase
   end
   
   test "username should only contain alphanumerics and underscores" do
-    @input_attributes[:name] = BadName
+    @input_attributes[:username] = BadName
     failure_is_good @input_attributes
   end
   
