@@ -7,7 +7,7 @@
     - if @volunteer.user.nil?
       button id="create-user-button">Create new user
     - else
-      div Associated with: #{link_to @volunteer.user.name, @volunteer.user}
+      div Associated with: #{link_to @volunteer.user.username, @volunteer.user}
     .address
       div= @volunteer.address1
       div= @volunteer.address2
