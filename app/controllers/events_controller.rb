@@ -109,7 +109,7 @@ class EventsController < ApplicationController
   end
 
   def merge_events
-    @event = Event.merge_events merge_id_params, current_user, current_role
+    @event = Event.merge_events merge_id_params, current_user, current_role_name
     if @event.present?
       flash[:notice] = 'Event was merged. Check and save.'
       respond_with @event, location: edit_event_path(@event)
@@ -127,17 +127,17 @@ class EventsController < ApplicationController
   protected
 
   def build_new_entry(event)
-    event.entries.build event: event, user: current_user, rolename: current_role
+    event.entries.build event: event, user: current_user, rolename: current_role_name
   end
 
   def build_entry_from_params(event, params)
     return unless params and params[:description] != ''
-    event.entries.build(params.merge({ event: event, user: current_user, rolename: current_role }))
+    event.entries.build(params.merge({ event: event, user: current_user, rolename: current_role_name }))
   end
 
   def build_flag_history_from_params(event, params, always=false)
     return unless always or (params and @event.flags_differ? params)
-    event.event_flag_histories.build(params.merge({ event: event, user: current_user, rolename: current_role }))
+    event.event_flag_histories.build(params.merge({ event: event, user: current_user, rolename: current_role_name }))
   end
 
   def get_tagged_events

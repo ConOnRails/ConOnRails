@@ -50,7 +50,7 @@ class ActiveSupport::TestCase
 
   def sign_in(user, role)
     session[:user_id]      = user.id
-    session[:current_role] = role.name
+    session[:current_role_name] = role.name
   end
 
   def admin_context

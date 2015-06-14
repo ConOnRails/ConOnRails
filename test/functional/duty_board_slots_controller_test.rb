@@ -5,7 +5,7 @@ class DutyBoardSlotsControllerTest < ActionController::TestCase
     @user = FactoryGirl.create :user
     @user.roles << FactoryGirl.create(:admin_duty_board_role)
     @user.roles << FactoryGirl.create(:assign_duty_board_role)
-    @user_session                     = { user_id: @user.id, current_role: @user.roles.first.name }
+    @user_session                     = { user_id: @user.id, current_role_name: @user.roles.first.name }
     @duty_board_group                 = FactoryGirl.create :blue_man_group
     @duty_board_slot                  = FactoryGirl.build :valid_duty_board_slot
     vol                               = FactoryGirl.create :valid_volunteer

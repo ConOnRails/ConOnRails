@@ -6,7 +6,7 @@ class DutyBoardAssignmentsControllerTest < ActionController::TestCase
     @user = FactoryGirl.create :user
     @role = FactoryGirl.create :assign_duty_board_role
     @user.roles << @role
-    @user_session = { user_id: @user.id, current_role: @role.name }
+    @user_session = { user_id: @user.id, current_role_name: @role.name }
   end
 
   test "peon cannot assign" do

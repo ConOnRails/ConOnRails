@@ -16,5 +16,5 @@ tr.clickable-row data-href=radio_url(radio)
       - else
         = link_to "Transfer".html_safe, checkout_radio_path(radio), method: :get, class: 'btn btn-xs btn-warning'
         = link_to "Check&nbsp;in".html_safe, radio_assignment_path(radio.radio_assignment), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-success'
-      - if current_user && current_user.can_admin_radios?
+      - if current_user && current_role.admin_radios?
           = link_to "Delete".html_safe, radio_path(radio), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger'

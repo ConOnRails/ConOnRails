@@ -5,6 +5,6 @@ h1 Assign #{@duty_board_slot.name}
     = f.input :name
     = f.input :notes
   = f.actions do
-    .button= f.submit
-    .button= link_to 'Clear Assignment',  [@duty_board_slot, @duty_board_assignment], class: 'button', method: :delete, data: { confirm: 'Are you sure?' } unless @duty_board_assignment.new_record?
+    = f.submit class: 'btn btn-primary'
+    = link_to 'Clear Assignment',  [@duty_board_slot, @duty_board_assignment], class: 'btn btn-lg btn-default', method: :delete, data: { confirm: 'Are you sure?' } unless @duty_board_assignment.new_record?
 #create_volunteer

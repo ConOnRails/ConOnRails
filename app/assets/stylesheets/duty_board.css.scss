@@ -10,6 +10,11 @@
 
   background-color: $blue;
   color: $yellow;
+
+  input {
+    color: black;
+  }
+
   a, a:hover, a:visited, a:active
   {
     color: $yellow;

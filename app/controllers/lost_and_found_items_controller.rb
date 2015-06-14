@@ -48,7 +48,7 @@ class LostAndFoundItemsController < ApplicationController
   def create
     @lfi          = LostAndFoundItem.new lfi_params
     @lfi.user     = current_user
-    @lfi.rolename = current_role
+    @lfi.rolename = current_role_name
 
     flash[:notice] = "#{@lfi.Type} item was successfully created." if @lfi.save
     respond_with @lfi
@@ -64,7 +64,7 @@ class LostAndFoundItemsController < ApplicationController
 
   def update
     @lfi.user     = current_user
-    @lfi.rolename = current_role
+    @lfi.rolename = current_role_name
 
     flash[:notice] = "#{@lfi.Type} item was successfully updated." if @lfi.update_attributes lfi_params
     respond_with @lfi, location: lost_and_found_item_path(@lfi, inventory: lfi_params[:inventory])
