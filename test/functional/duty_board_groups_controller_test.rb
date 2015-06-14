@@ -5,7 +5,7 @@ class DutyBoardGroupsControllerTest < ActionController::TestCase
     @user = FactoryGirl.create :user
     @role = FactoryGirl.create :admin_duty_board_role
     @user.roles << @role
-    @user_session     = { user_id: @user.id, current_role: @role.name }
+    @user_session     = { user_id: @user.id, current_role_name: @role.name }
     @duty_board_group = FactoryGirl.build :valid_duty_board_group
   end
 

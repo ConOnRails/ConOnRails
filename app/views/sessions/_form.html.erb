@@ -12,9 +12,11 @@
       </div>
       <div class="field">
         <div><%= label_tag :role %></div>
-        <noscript>You <b>must</b> have Javascript enabled for this application to work. No exceptions. Sorry, kids!
-        </noscript>
-        <div id="role"></div>
+        <div id="role">
+          <noscript>
+            You <b>must</b> have Javascript enabled for this application to work. No exceptions. Sorry, kids!
+          </noscript>
+        </div>
       </div>
       <div class="actions">
         <%= submit_tag "Log in", class: 'btn btn-success' %>
@@ -25,7 +27,7 @@
     $(
             function () {
                 $('#role').text('Enter username to select role');
-                $('#username').on('blur input', function (evt) {
+                $('#username').on('input', function (evt) {
                     $.ajax('/sessions/getroles',
                             {
                                 dataType: 'script',

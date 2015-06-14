@@ -8,7 +8,7 @@ class RadiosControllerTest < ActionController::TestCase
     @role  = FactoryGirl.create :admin_radios_role
     @department = FactoryGirl.create :good_department
     @user.roles << @role
-    @user_session = { user_id: @user.id }
+    @user_session = { user_id: @user.id, current_role_name: @role.name }
     @volunteer = FactoryGirl.create :valid_volunteer
   end
 

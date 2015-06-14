@@ -75,7 +75,11 @@ class ApplicationController < ActionController::Base
   end
 
   def current_role
-    session[:current_role] if is_authenticated?
+    Role.find_by(name: current_role_name)
+  end
+
+  def current_role_name
+    session[:current_role_name] if is_authenticated?
   end
 
   def limit_by_convention(query)
@@ -95,5 +99,5 @@ class ApplicationController < ActionController::Base
     query
   end
 
-  helper_method :can_write_entries?, :is_authenticated?, :can_admin_anything?, :current_user, :current_role
+  helper_method :can_write_entries?, :is_authenticated?, :can_admin_anything?, :current_user, :current_role, :current_role_name
 end
