@@ -13,7 +13,7 @@
           <% end %>
           <%= f.input :password %>
           <%= f.input :password_confirmation %>
-          <% if current_user.can_admin_users? %>
+          <% if current_role.admin_users? %>
               <%= f.input :roles %>
           <% else %>
               <table id="roleslist">
