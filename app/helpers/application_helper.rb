@@ -51,7 +51,8 @@ module ApplicationHelper
   end
 
   def show_corkboard(tag)
-    (tag == 'dispatcher' && current_role.in?(%w(Dispatch Subhead Head))) if current_user
+    return (tag == 'dispatcher' && current_role.in?(%w(Dispatch Subhead Head))) if current_user
+    false
   end
 
   def tab(text, path, target='_self')

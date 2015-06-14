@@ -1,4 +1,4 @@
-<div id="login_form", class="well well-sm">
+<div id="login_form" class="well well-sm">
   <h1>Log In</h1>
   <%= form_tag sessions_path do %>
 
@@ -21,15 +21,14 @@
 </div>
 <script>
     $(
-            $( '#name' ).blur( function ( evt ) {
+            $('#username').blur(function (evt) {
                 $.ajax('/sessions/getroles',
-                            {
-                                dataType: 'script',
-                                data:
-                                {
-                                    name: $('#name' ).val()
-                                }
-                            })
-            } )
+                        {
+                            dataType: 'script',
+                            data: {
+                                username: $('#username').val()
+                            }
+                        })
+            })
     )
 </script>
