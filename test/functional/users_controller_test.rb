@@ -83,7 +83,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should show user" do
-    get :show, { id: @user.to_param }, { user_id: @user.id }
+    get :show, { id: @user.to_param }, { user_id: @user.id, current_role_name: @role.name }
     assert_response :success
   end
 
