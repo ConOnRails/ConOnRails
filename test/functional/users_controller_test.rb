@@ -8,6 +8,7 @@ class UsersControllerTest < ActionController::TestCase
     @user = FactoryGirl.create :user
     @role = FactoryGirl.create :admin_users_role
     @user.roles << @role
+    @user_session = { user_id: @user.id, current_role_name: @role.name }
 
     @peon_user = FactoryGirl.create :user
     @peon_role = FactoryGirl.create :role
@@ -40,7 +41,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should get new" do
-    get :new, {}, { user_id: @user.id }
+    get :new, {}, @user_session
     assert_response :success
   end
 
@@ -54,7 +55,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test "should create user" do
     assert_difference('User.count') do
-      post :create, { user: @input_attributes }, { user_id: @user.id }
+      post :create, { user: @input_attributes }, @user_session
     end
 
     assert_redirected_to user_path(assigns(:user))
@@ -62,7 +63,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test "should create user with associated volunteer" do
     assert_difference('User.count') do
-      post :create, { user: @input_attributes.merge({ volunteer: @volunteer.id }) }, { user_id: @user.id }
+      post :create, { user: @input_attributes.merge({ volunteer: @volunteer.id }) }, @user_session
     end
 
     assert_equal @volunteer.id, assigns(:user).volunteer.id
@@ -71,7 +72,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test "cannot create user with incomplete data" do
     assert_no_difference('User.count') do
-      post :create, { user: { name: "" } }, { user_id: @user.id }
+      post :create, { user: { name: "" } }, @user_session
     end
 
     assert_template :new
@@ -83,7 +84,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should show user" do
-    get :show, { id: @user.to_param }, { user_id: @user.id, current_role_name: @role.name }
+    get :show, { id: @user.to_param }, @user_session
     assert_response :success
   end
 
@@ -93,7 +94,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should get edit" do
-    get :edit, { id: @user.to_param }, { user_id: @user.id }
+    get :edit, { id: @user.to_param }, @user_session
     assert_response :success
   end
 
@@ -122,14 +123,14 @@ class UsersControllerTest < ActionController::TestCase
       end
 
       should "update user" do
-        put :update, { id: @peon_user.to_param, user: { realname: "wombat" } }, { user_id: @user.id }
+        put :update, { id: @peon_user.to_param, user: { realname: "wombat" } }, @user_session
         assert assigns(:user).valid?
         assert_equal "wombat", assigns(:user).realname
         assert_redirected_to user_path(assigns(:user))
       end
 
       should "update user with associated volunteer" do
-        put :update, { id: @peon_user.to_param, user: { realname: "wombat" }, volunteer_id: @volunteer.id }, { user_id: @user.id }
+        put :update, { id: @peon_user.to_param, user: { realname: "wombat" }, volunteer_id: @volunteer.id }, @user_session
         assert assigns(:user).valid?
         assert_equal "wombat", assigns(:user).realname
         assert_equal @volunteer.id, assigns(:user).volunteer.id
@@ -137,7 +138,7 @@ class UsersControllerTest < ActionController::TestCase
       end
 
       should "not update user with invalid info" do
-        put :update, { id: @peon_user.to_param, user: { username: "" } }, { user_id: @user.id }
+        put :update, { id: @peon_user.to_param, user: { username: "" } }, @user_session
         assert assigns(:user).invalid?
         assert_template :edit
       end
@@ -154,7 +155,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test "should destroy user" do
     assert_difference('User.count', -1) do
-      delete :destroy, { id: @user.to_param }, { user_id: @user.id }
+      delete :destroy, { id: @user.to_param }, @user_session
     end
 
     assert_redirected_to users_path
