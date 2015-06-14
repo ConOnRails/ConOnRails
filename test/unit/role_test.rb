@@ -15,8 +15,8 @@
 #  assign_shifts           :boolean
 #  assign_duty_board_slots :boolean
 #  admin_duty_board        :boolean
-#  created_at              :datetime
-#  updated_at              :datetime
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
 #  make_hidden_entries     :boolean          default(FALSE)
 #  rw_secure               :boolean          default(FALSE)
 #  read_audits             :boolean          default(FALSE)

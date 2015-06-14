@@ -6,7 +6,7 @@ class LayoutLinksTest < ActionDispatch::IntegrationTest
     @role = FactoryGirl.create(:write_entries_role)
     @user.roles << @role
     @user.save!
-    @login_params = { name: @user.name, password: @user.password }
+    @login_params = { username: @user.username, password: @user.password }
   end
 
   @@title_prefix = 'Con On Rails | '

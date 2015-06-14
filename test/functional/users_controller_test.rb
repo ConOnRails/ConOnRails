@@ -16,7 +16,7 @@ class UsersControllerTest < ActionController::TestCase
     @volunteer = FactoryGirl.create :valid_volunteer
 
     @input_attributes = {
-        name: "mikey",
+        username: "mikey",
         realname: "Mi Key",
         password: GoodPassword,
         password_confirmation: GoodPassword,
@@ -137,7 +137,7 @@ class UsersControllerTest < ActionController::TestCase
       end
 
       should "not update user with invalid info" do
-        put :update, { id: @peon_user.to_param, user: { name: "" } }, { user_id: @user.id }
+        put :update, { id: @peon_user.to_param, user: { username: "" } }, { user_id: @user.id }
         assert assigns(:user).invalid?
         assert_template :edit
       end

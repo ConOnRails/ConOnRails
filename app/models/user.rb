@@ -3,11 +3,11 @@
 # Table name: users
 #
 #  id              :integer          not null, primary key
-#  name            :string(255)
+#  username        :string(255)
 #  realname        :string(255)
 #  password_digest :string(255)
-#  created_at      :datetime
-#  updated_at      :datetime
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #
 
 class User < ActiveRecord::Base
@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   name_regex = /\A[a-zA-Z0-9_\-]*\z/
   password_regex = /\A[a-zA-Z0-9!@#$\%^&*()\-_ ]*\z/
 
-  validates :name, presence: true,
+  validates :username, presence: true,
             allow_blank: false,
             uniqueness: true,
             length: { maximum: 32 },
@@ -108,9 +108,5 @@ class User < ActiveRecord::Base
 
   def has_role?(*role_names)
     self.roles.where(name: role_names).any?
-  end
-
-  def username
-    name
   end
 end
