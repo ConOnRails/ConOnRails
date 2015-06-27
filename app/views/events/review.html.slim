@@ -3,7 +3,13 @@
     .col-md-12.col-sm-12.col-xs-12
       .panel.panel-success
         .panel-heading
-          .panel-title Filters
+          .row
+            .col-md-9.col-sm-9.col-xs-6
+              .panel-title Filters
+            .col-md-3.col-sm-3.col-xs-6
+              .pull-right
+                button.btn.btn-primary.btn-xs#clear-filter
+                  | Clear Filters
         .panel-body#filters
           .row.form-group
             .col-md-2.col-sm-3.col-xs-3
@@ -23,6 +29,10 @@
                   = text_field_tag :to_date, params[:to_date], placeholder: 'To', class: 'form-control input-sm'
                   span.input-group-addon
                     span.glyphicon.glyphicon-calendar
+            .col-md-2.col-sm-3.col-xs-3
+              .pull-right
+                button.btn.btn-primary.btn-small#clear-dates
+                  | Clear Dates
           .row.form-group
             .col-md-2.col-sm-3.col-xs-3
               = label_tag :keywords, 'By&nbsp;Keywords'.html_safe, class: 'control-label'
@@ -90,8 +100,8 @@ javascript:
 
 coffee:
   $(()->
-    $('#from_date').datetimepicker()
-    $('#to_date').datetimepicker()
+    $('#from_date').datetimepicker({ showClear: true })
+    $('#to_date').datetimepicker( { showClear: true })
   )
 
   window.events.getReview(window.events.getFilters());
@@ -112,6 +122,14 @@ coffee:
   )
   $('#to_date').on('dp.change', ->
     window.events.getReview window.events.getFilters()
+  )
+
+  $('#clear-filter').on('click', ->
+    window.events.clearFilters();
+  )
+
+  $('#clear-dates').on('click', ->
+    window.events.clearDates();
   )
 
   $('#filters .btn-group button').click(->

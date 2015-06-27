@@ -70,5 +70,24 @@ window.events.exportReview = (filters) ->
 
   window.location = '/events/export.csv?' + jQuery.param(data)
 
+window.events.clearDateFields = ->
+  $('#from_date').data('DateTimePicker').date(null)
+  $('#to_date').data('DateTimePicker').date(null)
 
+window.events.clearDates = ->
+  window.events.clearDateFields()
+  window.events.getReview window.events.getFilters()
 
+window.events.clearFilters = ->
+  $('#filters .btn-group button[data-value=true]').removeClass('btn-primary')
+  $('#filters .btn-group button[data-value=false]').removeClass('btn-primary')
+  $('#filters .btn-group button[data-value=all]').addClass('btn-primary')
+  $('#filters .btn-group button[data-value=asc]').addClass('btn-primary')
+  $('#filters .btn-group button[data-value=desc]').removeClass('btn-primary')
+
+  $('#filters select[name=convention]').val('all')
+  console.log $('#from_date').data('DateTimePicker')
+  window.events.clearDateFields()
+  $('input[name=q]').val('')
+
+  window.events.getReview window.events.getFilters()
