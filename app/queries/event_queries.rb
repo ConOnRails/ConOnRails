@@ -21,8 +21,9 @@ module Queries
       # TODO there's now a copy of this on Event. Find a way to unify them.
       def build_from_filters(filters)
         filters.reduce(Squeel::Nodes::Stub.new(:created_at).not_eq(nil)) do |query, key|
-          next if key.first == 'order'
-          query = query.& Squeel::Nodes::KeyPath.new(key.first.to_sym).eq(fix_bool key.second) unless key.second == 'all'
+          unless key.first == 'order'
+            query = query.& Squeel::Nodes::KeyPath.new(key.first.to_sym).eq(fix_bool key.second) unless key.second == 'all'
+          end
           query
         end if filters.present?
       end
