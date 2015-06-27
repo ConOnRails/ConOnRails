@@ -140,6 +140,11 @@ class EventsController < ApplicationController
     event.event_flag_histories.build(params.merge({ event: event, user: current_user, rolename: current_role_name }))
   end
 
+  def filter_order
+    return 'asc' unless params.has_key?(:filters) && params[:filters].has_key?(:order)
+    params[:filters][:order]
+  end
+
   def get_tagged_events
     @events = IndexQuery.new(Event).query.tagged_with(params[:tag]).
         order { |e| e.updated_at.desc }
@@ -154,10 +159,11 @@ class EventsController < ApplicationController
   def process_filters
     @q = params[:q]
 
-    @events = (limit_by_convention FiltersQuery.new(Event, params[:filters]).query.protect_sensitive_events(current_user).
-                                       order { |e| e.updated_at.asc }).page(params[:page])
+    @events = limit_by_convention FiltersQuery.new(Event.where {}, params[:filters]).query.protect_sensitive_events(current_user)
     @events = limit_by_date_range @events
+    @events = @events.order(updated_at: filter_order)
     @events = @events.search_entries(@q) if @q.present?
+    @events = @events.page(params[:page])
   end
 
   def set_event

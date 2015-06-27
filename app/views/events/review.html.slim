@@ -47,6 +47,17 @@
                         .glyphicon.glyphicon-ban-circle
                       button.btn.btn-default.btn-xs.btn-primary data-value="all"
                         .glyphicon.glyphicon-remove-circle
+            .col-md-3.col-sm-4.col-xs-6
+              .row
+                .col-md-5.col-sm-5.col-xs-3
+                  .text
+                    .small Order
+                .col-md-7.col-sm-7.col-xs-9
+                  .btn-group.button-group-xs role="group" aria-label="Order buttons" data-flag="order"
+                    button.btn.btn-default.btn-xs.btn-primary data-value="asc"
+                      .glyphicon.glyphicon-arrow-up
+                    button.btn.btn-default.btn-xs data-value="desc"
+                      .glyphicon.glyphicon-arrow-down
 
 
   = form_tag merge_events_events_path, method: :post, id: 'merge-form', class: 'form-horizontal' do
@@ -111,6 +122,3 @@ coffee:
 
     window.events.getReview window.events.getFilters()
   )
-
-
-
