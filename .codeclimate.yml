@@ -2,6 +2,15 @@
 languages:
   Ruby: true
   JavaScript: true
+engines:
+  rubocop:
+    enabled: true
+  eslint:
+    enabled: true
+  csslint:
+    enabled: true
+  bundler-audit:
+    enabled: true
 exclude_paths:
 - "vendor/cache/*"
 - "libv8/*"
