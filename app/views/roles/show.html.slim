@@ -1,0 +1,13 @@
+table#roleslist.table.table-striped
+  = render partial: "roleheader"
+  = render @role
+
+h2 Users
+table.table.table-striped
+  = render @role.users
+
+- content_for :side do
+  .col-md-12.col-sm-12.col-xs-12
+    .well.well-sm
+      div= link_to 'Edit', edit_role_path(@role)
+      div= link_to 'Back', roles_path

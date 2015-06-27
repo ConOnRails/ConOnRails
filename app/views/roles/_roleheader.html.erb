@@ -1,5 +1,7 @@
 <tr>
-  <th>Name</th>
+  <% unless defined? noname %>
+    <th>Name</th>
+  <% end %>
   <th>Write entries</th>
   <th>Make hidden entries</th>
   <th>Read hidden entries</th>
