@@ -1,0 +1,9 @@
+h1 Editing role
+
+= render 'form'
+
+- content_for :side do
+  .col-md-12.col-sm-12.col-xs-12
+    .well.well-sm
+      div= link_to 'Show', @role
+      div= link_to 'Back', roles_path
