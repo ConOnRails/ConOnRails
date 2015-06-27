@@ -1,0 +1,9 @@
+h1 Listing roles
+
+= link_to "New Role", new_role_path, class: 'btn btn-primary'
+
+table#roleslist.table.table-striped
+  = render partial: "roleheader"
+  = render @roles
+
+= link_to "New Role", new_role_path, class: 'btn btn-primary'
