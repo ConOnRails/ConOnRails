@@ -19,10 +19,13 @@ module ApplicationHelper
   end
 
   def get_banner_style
+    num_active = Event.current_convention.num_active
+    num_active -= Event.current_convention.num_active_secure unless current_user.rw_secure?
+
     style = 'normal'
-    style = 'active' if Event.num_active > 0
+    style = 'active' if  num_active > 0
     style = 'messages' if Message.num_active > 0
-    style = 'emergency' if Event.num_active_emergencies > 0 or Event.num_active_medicals > 0
+    style = 'emergency' if Event.current_convention.num_active_emergencies > 0 or Event.current_convention.num_active_medicals > 0
 
     style
   end
