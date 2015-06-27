@@ -9,12 +9,16 @@ class RadioAssignmentsController < ApplicationController
   # POST /radio_assignments.json
   def create
     @radio_assignment = RadioAssignment.checkout(radio_assignment_params, current_user)
-    respond_with do |format|
-      if @radio_assignment.valid?
-        format.js { render 'success' }
-      else
-        format.js { render 'error' }
+    @radio_assignment.transaction do |t|
+      respond_with do |format|
+        if @radio_assignment.save && @radio_assignment.radio.save
+          format.js { render 'success' }
+        else
+          format.js { render 'error' }
+        end
       end
+
+      raise ActiveRecord::Rollback unless @radio_assignment.persisted? && @radio_assignment.radio.persisted?
     end
   end
 

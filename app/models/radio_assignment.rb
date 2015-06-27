@@ -41,9 +41,7 @@ class RadioAssignment < ActiveRecord::Base
   def self.checkout(params, user)
     assignment = RadioAssignment.new radio_id: params[:radio_id], volunteer_id: params[:volunteer_id], department_id: params[:department_id]
     if assignment.valid?
-      assignment.save
       assignment.radio.state = 'out'
-      assignment.radio.save
       RadioAssignmentAudit.audit_checkout assignment, user
     end
     assignment
