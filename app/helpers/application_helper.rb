@@ -7,15 +7,15 @@ module ApplicationHelper
   end
 
   def version_number
-    '3.4.8'
+    '3.4.9'
   end
 
   def version_name
-    'Blackberry Jam and Butter on Mixed Biscuits, with Bacon, Hashbrowns, Coffee, and Pie'
+    'Blackberry Jam and Butter on Mixed Biscuits, with Bacon, Hashbrowns, Coffee, and Key Lime Pie'
   end
 
   def version_type
-    :beta #:release:beta
+    :release #:release:beta
   end
 
   def get_banner_style
