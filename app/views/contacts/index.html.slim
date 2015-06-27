@@ -37,6 +37,7 @@ h1 Contacts
 - content_for :side do
   .col-md-12
     .well.well-sm
-      div= link_to "Users", users_path
-      div= link_to "Volunteers", volunteers_path
+      - if current_user.can_admin_users?
+        div= link_to "Users", users_path
+        div= link_to "Volunteers", volunteers_path
       div= link_to "Messages", messages_path
