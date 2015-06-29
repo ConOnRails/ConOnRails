@@ -342,6 +342,3 @@ DEPENDENCIES
   uglifier (~> 2.7.0)
   unicorn
   yaml_db (~> 0.3.0)
-
-BUNDLED WITH
-   1.10.3
