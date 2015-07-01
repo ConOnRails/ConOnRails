@@ -21,7 +21,7 @@
           <%= f.input :work_phone %>
           <%= f.input :other_phone %>
           <%= f.input :email %>
-          <%= f.input :user %>
+          <%= f.input :user, collection: User.by_username, input_html: { class: 'user-select2', style: 'width: 300px' } %>
           <%= label_tag :can_have_multiple_radios, "Can Have Multiple Radios?" %>
           <%= f.check_box :can_have_multiple_radios %>
           <%= label_tag :make_user_after_save, "Make User after Save" %>
@@ -38,3 +38,11 @@
       <% end %>
     </div>
 <% end %>
+
+<script>
+$(
+  function() {
+    $(".user-select2").select2();
+  }
+);
+</script>
