@@ -10,4 +10,5 @@
 //= require bootstrap-sprockets
 //= require moment
 //= require bootstrap-datetimepicker
+//= require select2
 //= require_tree .
