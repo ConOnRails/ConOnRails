@@ -35,6 +35,8 @@ class User < ActiveRecord::Base
             length: { within: 6..32 },
             format: { with: password_regex }
 
+  scope :by_username,  -> { order(:username) }
+  
   def find_perm(perm)
     ret = false
     roles.each do |role|
