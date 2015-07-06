@@ -8,7 +8,7 @@
           = text_field_tag :id, nil, class: 'form-control'
         = submit_tag 'Submit', class: 'btn btn-success btn-sm'
 
-      - if params[:inventory] == true
+      - if params[:inventory] == 'true'
         hr
         = form_tag :lost_and_found_items, method: :get, class: 'form-vertical' do
           .form-group
