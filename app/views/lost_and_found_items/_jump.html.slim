@@ -3,12 +3,12 @@
     .well.well-sm
       = form_tag :lost_and_found_items, method: :get, id: "lost_and_found_search_form", class: 'form-vertical' do
         .form-group
-          = hidden_field_tag 'inventory', params[:inventory]
+          = hidden_field_tag 'inventory', params[:inventory] || false
           = label_tag :id, 'Jump to an ID'
           = text_field_tag :id, nil, class: 'form-control'
         = submit_tag 'Submit', class: 'btn btn-success btn-sm'
 
-      - if params[:inventory]
+      - if params[:inventory] == true
         hr
         = form_tag :lost_and_found_items, method: :get, class: 'form-vertical' do
           .form-group
@@ -21,4 +21,3 @@
           = submit_tag "Filter", class: 'btn btn-primary btn-sm'
         hr
         = render 'mini_search_form'
-
