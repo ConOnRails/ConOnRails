@@ -73,7 +73,7 @@ class LostAndFoundItemsController < ApplicationController
   protected
   def jump
     @lfi = LostAndFoundItem.find_by_id(params[:id])
-    return redirect_to lost_and_found_item_path(@lfi, inventory: lfi_params[:inventory]) if @lfi.present?
+    return redirect_to lost_and_found_item_path(@lfi, inventory: params[:inventory] || false) if @lfi.present?
     render 'invalid'
   end
 
@@ -110,7 +110,7 @@ class LostAndFoundItemsController < ApplicationController
   end
 
   def lfi_search_params
-    params.permit LostAndFoundItem.valid_categories.keys + [:keywords, :search_type, :reported_found, :inventoried, :exclude_inventoried, :returned, :reported_missing, :found, :page, :show_returned_only]
+    params.permit LostAndFoundItem.valid_categories.keys + [:id, :inventory, :keywords, :search_type, :reported_found, :inventoried, :exclude_inventoried, :returned, :reported_missing, :found, :page, :show_returned_only]
   end
 
 
