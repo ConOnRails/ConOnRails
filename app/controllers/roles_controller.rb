@@ -1,9 +1,7 @@
 class RolesController < ApplicationController
-  respond_to :html, :json
+  load_and_authorize_resource
 
-  before_filter :redirect_if_cannot_admin
-  before_filter :find_role, only: [:show, :edit, :update, :destroy]
-  before_filter :find_roles, only: [:index]
+  respond_to :html, :json
 
   # GET /roles/new
   # GET /roles/new.json
@@ -34,20 +32,6 @@ class RolesController < ApplicationController
   end
 
   protected
-
-  def find_role
-    @role = Role.find(params[:id])
-  end
-
-  def find_roles
-    @roles = Role.all
-  end
-
-  def redirect_if_cannot_admin
-    unless current_user and current_user.can_admin_users?
-      redirect_to public_url
-    end
-  end
 
   def role_params
     params.require(:role).permit :name, :write_entries, :add_lost_and_found, :admin_duty_board, :admin_radios, :admin_schedule,

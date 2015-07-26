@@ -1,28 +1,29 @@
 source 'http://rubygems.org'
-ruby '2.2.0'
+ruby '2.2.2'
 
-gem 'rails', '~>4.2.0'
+gem 'rails', '~>4.2.3'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
-gem 'pg', '~> 0.18.1'
+gem 'pg', '~> 0.18.2'
 
 gem 'tiny_tds', github: 'rails-sqlserver/tiny_tds'
 gem 'activerecord-sqlserver-adapter'
 
 # Gems used only for assets and not required
 # in production environments by default.
-gem 'sass-rails', '~> 5.0.1'
+gem 'sass-rails', '~> 5.0.3'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'uglifier', '~> 2.7.0'
 
 gem 'acts-as-taggable-on', '~> 3.4.4'
 gem 'bcrypt-ruby', '~> 3.1.5'
-gem 'bootstrap-sass', '~> 3.3.4'
+gem 'bootstrap-sass', '~> 3.3.5'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
-gem 'capistrano-rails', '~> 1.1.2'
+gem 'cancancan'
+gem 'capistrano-rails', '~> 1.1.3'
 gem 'capistrano-rvm', '~> 0.1.2'
 gem 'capistrano-safe-deploy-to', '~> 1.1.1'
 gem 'countries', '~> 0.9.3'

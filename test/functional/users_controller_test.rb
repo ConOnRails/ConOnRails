@@ -24,15 +24,17 @@ class UsersControllerTest < ActionController::TestCase
     }
   end
 
-  test "no index for peons" do
+  test "index for peons only shows the peon itself" do
     get :index, {}, { user_id: @peon_user.id }
-    assert_redirected_to public_url
+    assert_equal 1, assigns(:users).count
+    assert_equal @peon_user.id, assigns(:users).first.id
   end
 
   test "should get index" do
     get :index, {}, { user_id: @user.id }
     assert_response :success
     assert_not_nil assigns(:users)
+    assert_equal User.count, assigns(:users).count
   end
 
   test "peons cannot get new" do

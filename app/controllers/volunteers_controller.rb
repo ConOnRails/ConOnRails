@@ -1,7 +1,8 @@
 class VolunteersController < ApplicationController
-  before_filter :can_admin_users?
+  load_and_authorize_resource
+
   before_filter :set_volunteers, only: [:index]
-  before_filter :set_volunteer, only: [:show, :edit, :update]
+  #before_filter :set_volunteer, only: [:show, :edit, :update]
   respond_to :html, :json
 
   def attendees
@@ -100,13 +101,9 @@ class VolunteersController < ApplicationController
   end
 
   def set_volunteers
-    @q          = Volunteer.search params[:q]
+    @q          = @volunteers.search params[:q]
     @q.sorts = ['last_name', 'first_name'] if @q.sorts.empty?
     @volunteers = @q.result.page(params[:page])
-  end
-
-  def set_volunteer
-    @volunteer = Volunteer.find(params[:id])
   end
 
   def volunteer_params

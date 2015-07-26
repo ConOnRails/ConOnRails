@@ -38,7 +38,7 @@ class SessionsControllerTest < ActionController::TestCase
     assert_equal @user.id, session[:user_id]
     get :destroy, { }, { user_id: @user.id }
     assert_nil session[:user_id]
-    assert_redirected_to :root
+    assert_redirected_to :public
   end
 
   test "can get roles for a given username" do
@@ -56,7 +56,7 @@ class SessionsControllerTest < ActionController::TestCase
       end
 
       should respond_with :redirect
-      should redirect_to :root
+      should redirect_to :public
       should 'have a sanitized filter' do
         assert_equal @safe_filter, session[:index_filter]
       end
@@ -69,7 +69,7 @@ class SessionsControllerTest < ActionController::TestCase
       end
 
       should respond_with :redirect
-      should redirect_to :root
+      should redirect_to :public
 
       should 'have no filter' do
         assert_nil session[:index_filter]

@@ -1,9 +1,8 @@
 class RadioAssignmentsController < ApplicationController
+  load_and_authorize_resource
+
   respond_to :html, :json, only: :destroy
   respond_to :js, only: [:create, :update]
-
-  before_filter :can_assign_radios?
-  before_filter :find_assignment
 
   # POST /radio_assignments
   # POST /radio_assignments.json
@@ -44,10 +43,6 @@ class RadioAssignmentsController < ApplicationController
   end
 
   protected
-
-  def find_assignment
-    @radio_assignment = RadioAssignment.find(params[:id]) if params[:id]
-  end
 
   def radio_assignment_params
     params.require(:radio_assignment).permit(:radio_id, :volunteer_id, :department_id)
