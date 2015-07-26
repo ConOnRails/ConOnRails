@@ -1,5 +1,5 @@
 class VersionsController < ApplicationController
-  before_filter :can_read_audits?
+  load_and_authorize_resource
 
   private
   def make_date(date_array)
@@ -28,7 +28,7 @@ class VersionsController < ApplicationController
 
     w[:item_type] = types unless types.count == 0
 
-    @versions = Version.where(w).page(params[:page])
+    @versions = @versions.where(w).page(params[:page])
   end
 
 end

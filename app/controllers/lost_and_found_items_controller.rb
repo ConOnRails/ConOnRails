@@ -1,8 +1,9 @@
 class LostAndFoundItemsController < ApplicationController
+  skip_authorization_check only: [:searchform]
+  load_and_authorize_resource param_method: :lfi_params, except: [:searchform]
+
   respond_to :html, :json
 
-  before_filter :user_can_add_lost_and_found, only: [:new, :create]
-  before_filter :user_can_modify_lost_and_found, only: [:edit, :update]
   before_filter :build_categories_from_params, only: [:index]
   before_filter :find_lfi, only: [:show, :edit, :update]
 
@@ -91,7 +92,7 @@ class LostAndFoundItemsController < ApplicationController
   end
 
   def find_lfi
-    @lfi = LostAndFoundItem.find params[:id]
+    @lfi = @lost_and_found_item # Adapt from our old stuff to Cancan magic for now. Change the views later.
   end
 
   def fix_old_categories(cats)

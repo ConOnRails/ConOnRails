@@ -20,7 +20,7 @@ class VolunteersControllerTest < ActionController::TestCase
   def get_index_fail(session)
     get :index
     assert_redirected_to :public
-    assert_nil assigns(:volunteers)
+    assert_equal [], assigns(:volunteers)
   end
 
   def get_new_success(session)

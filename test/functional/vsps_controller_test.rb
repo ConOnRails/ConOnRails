@@ -80,28 +80,30 @@ class VspsControllerTest < ActionController::TestCase
     [:index, :new, :edit].each do |x|
       context "GET #{x}" do
         setup do
-          get x, id: 42
+          @vsp = FactoryGirl.create :vsp
+          get x, id: @vsp.id
         end
         should respond_with :redirect
-        should redirect_to('root') { root_path }
+        should redirect_to('public') { public_path }
       end
     end
 
     context 'POST :create' do
       setup do
-        post :create
+        post :create, vsp: FactoryGirl.attributes_for(:vsp)
       end
 
       should respond_with :redirect
-      should redirect_to('root') { root_path }
+      should redirect_to('public') { public_path }
     end
 
     context 'PATCH :update' do
       setup do
-        patch :update, id: 42
+        @vsp = FactoryGirl.create :vsp
+        patch :update, id: @vsp.id
       end
       should respond_with :redirect
-      should redirect_to('root') { root_path }
+      should redirect_to('public') { public_path }
     end
 
   end

@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_filter :require_login, only: [:new, :create, :getroles, :set_index_filter, :clear_index_filter]
+  skip_authorization_check only: [:new, :create, :getroles, :set_index_filter, :clear_index_filter]
 
   private
   def ip()
@@ -28,7 +28,7 @@ class SessionsController < ApplicationController
     LoginLog.create! user_name: (current_user ? current_user.username : "nobody"),
                      role_name: current_role_name, comment: :logout, ip: ip
     session[:user_id] = nil
-    redirect_to root_url, notice: "Logged out!"
+    redirect_to public_url, notice: "Logged out!"
   end
 
   def getroles
@@ -41,12 +41,12 @@ class SessionsController < ApplicationController
 
   def set_index_filter
     session[:index_filter] = sanitize_flags params[:index_filter]
-    redirect_to root_url
+    redirect_to public_url
   end
 
   def clear_index_filter
     session[:index_filter] = nil
-    redirect_to root_url
+    redirect_to public_url
   end
 
   protected

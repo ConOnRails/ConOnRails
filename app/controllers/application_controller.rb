@@ -1,5 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  check_authorization
+
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to public_url, alert: exception.message unless controller_name == 'lost_and_found_items'
+    redirect_to lost_and_found_url if controller_name == 'lost_and_found_items'
+  end
 
   before_filter :require_login, except: [:banner]
 

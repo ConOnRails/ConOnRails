@@ -1,15 +1,11 @@
 class RadioGroupsController < ApplicationController
+  load_and_authorize_resource
+
   respond_to :html, :json
-
-  before_filter :can_admin_radios?, only: [:new, :create, :edit, :update, :destroy]
-  before_filter :can_assign_radios?, only: [:index, :show]
-  before_filter :find_radio_group, only: [:show, :edit, :update, :destroy]
-
 
   # GET /radio_groups
   # GET /radio_groups.json
   def index(del_or_edit = "edit")
-    @radio_groups = RadioGroup.all
     @del_or_edit  = del_or_edit
   end
 
@@ -46,10 +42,6 @@ class RadioGroupsController < ApplicationController
   end
 
   protected
-
-  def find_radio_group
-    @radio_group = RadioGroup.find(params[:id])
-  end
 
   def radio_group_params
     params.require(:radio_group).permit :name, :color, :notes
