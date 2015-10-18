@@ -1,7 +1,8 @@
 class ContactsController < ApplicationController
-  before_filter :can_write_entries?, only: [:new, :create, :edit, :update]
+  #before_filter :can_write_entries?, only: [:new, :create, :edit, :update]
   before_filter :find_contacts, only: [:index]
-  before_filter :find_contact, only: [:show, :edit, :update]
+  #before_filter :find_contact, only: [:show, :edit, :update]
+  load_and_authorize_resource
 
   respond_to :html, :json
 

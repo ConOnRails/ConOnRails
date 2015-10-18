@@ -3,14 +3,16 @@ require Rails.root + 'app/queries/event_queries'
 class EventsController < ApplicationController
   include Queries::EventQueries
 
-  load_and_authorize_resource
-  load_and_authorize_resource :entry, through: :event
-
   #before_filter :can_read_secure?, only: [:secure]
   #before_filter :can_write_entries?, only: [:new, :create, :edit, :update]
   #before_filter :set_event, only: [:show, :edit, :update]
   before_filter :get_tagged_events, only: [:tag]
   before_filter :process_filters, only: [:review, :export]
+
+  before_filter :get_sticky_events, only: [:sticky]
+  before_filter :get_secure_events, only: [:secure]
+  load_and_authorize_resource except: [:merge_events]
+  load_and_authorize_resource :entry, through: :event
 
   respond_to :html, :json, except: [:export]
   respond_to :js, only: [:index, :sticky, :secure, :review]
@@ -30,8 +32,6 @@ class EventsController < ApplicationController
 
   def sticky
     @title = 'Sticky Events'
-    @events = (limit_by_convention StickyQuery.new(Event).query.
-                                       order { |e| e.updated_at.desc }).page(params[:page])
 
     respond_with @events do |format|
       format.html { render :index }
@@ -41,8 +41,7 @@ class EventsController < ApplicationController
 
   def secure
     @title = 'Secure Events'
-    @events = SecureQuery.new(Event).query.
-        order { |e| e.updated_at.desc }.page(params[:page])
+
     respond_with @events do |format|
       format.html { render :index }
       format.js { render :index }
@@ -113,6 +112,8 @@ class EventsController < ApplicationController
 
   def merge_events
     @event = Event.merge_events merge_id_params, current_user, current_role_name
+    authorize! :update, @event
+
     if @event.present?
       flash[:notice] = 'Event was merged. Check and save.'
       respond_with @event, location: edit_event_path(@event)
@@ -146,6 +147,16 @@ class EventsController < ApplicationController
   def filter_order
     return 'asc' unless params.has_key?(:filters) && params[:filters].has_key?(:order)
     params[:filters][:order]
+  end
+
+  def get_sticky_events
+    @events = (limit_by_convention StickyQuery.new(Event).query.
+                                       order { |e| e.updated_at.desc }).page(params[:page])
+  end
+
+  def get_secure_events
+    @events = SecureQuery.new(Event).query.
+        order { |e| e.updated_at.desc }.page(params[:page])
   end
 
   def get_tagged_events
