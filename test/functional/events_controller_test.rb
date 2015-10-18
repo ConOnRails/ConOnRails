@@ -243,7 +243,7 @@ class EventsControllerTest < ActionController::TestCase
         end
 
         should respond_with :redirect
-        should redirect_to('actives') { root_path }
+        should redirect_to('actives') { public_path }
       end
 
       context 'GET :review with no filters' do

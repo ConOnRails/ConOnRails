@@ -36,7 +36,7 @@ class SessionsControllerTest < ActionController::TestCase
     get :create, { username: @user.username, password: @user.password, role: @role.name }
     assert_not_nil session[:user_id]
     assert_equal @user.id, session[:user_id]
-    get :destroy, { }, { user_id: @user.id }
+    get :destroy, {}, { user_id: @user.id }
     assert_nil session[:user_id]
     assert_redirected_to :public
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150626000353) do
+ActiveRecord::Schema.define(version: 20151017195439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,8 +43,8 @@ ActiveRecord::Schema.define(version: 20150626000353) do
     t.string   "cell_phone", limit: 255
     t.string   "hotel",      limit: 255
     t.integer  "hotel_room"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.boolean  "can_text",               default: false
     t.string   "position",   limit: 255
   end
@@ -62,15 +62,15 @@ ActiveRecord::Schema.define(version: 20150626000353) do
     t.integer  "volunteer_id"
     t.integer  "radio_group_id"
     t.integer  "radio_allotment"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "duty_board_assignments", force: :cascade do |t|
     t.integer  "duty_board_slot_id"
     t.string   "notes",              limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.string   "name",               limit: 255
     t.string   "string",             limit: 255
   end
@@ -79,21 +79,21 @@ ActiveRecord::Schema.define(version: 20150626000353) do
     t.string   "name",       limit: 255
     t.integer  "row"
     t.integer  "column"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "duty_board_slots", force: :cascade do |t|
     t.string   "name",                limit: 255
     t.integer  "duty_board_group_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   create_table "entries", force: :cascade do |t|
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.integer  "user_id"
     t.integer  "event_id"
     t.string   "rolename",    limit: 255
@@ -115,8 +115,8 @@ ActiveRecord::Schema.define(version: 20150626000353) do
     t.boolean  "dealers",                  default: false
     t.boolean  "dock",                     default: false
     t.boolean  "merchandise",              default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.integer  "user_id"
     t.datetime "orig_time"
     t.string   "rolename",     limit: 255
@@ -125,8 +125,8 @@ ActiveRecord::Schema.define(version: 20150626000353) do
   end
 
   create_table "events", force: :cascade do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
     t.boolean  "is_active",                   default: true
     t.boolean  "post_con",                    default: false
     t.boolean  "sticky",                      default: false
@@ -151,8 +151,8 @@ ActiveRecord::Schema.define(version: 20150626000353) do
     t.string   "role_name",  limit: 255
     t.string   "comment",    limit: 255
     t.string   "ip",         limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "lost_and_found_items", force: :cascade do |t|
@@ -163,8 +163,8 @@ ActiveRecord::Schema.define(version: 20150626000353) do
     t.string   "where_found",     limit: 255
     t.string   "owner_name",      limit: 255
     t.text     "owner_contact"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "user_id"
     t.string   "rolename",        limit: 255
     t.string   "who_claimed",     limit: 255
@@ -178,16 +178,16 @@ ActiveRecord::Schema.define(version: 20150626000353) do
     t.integer  "user_id"
     t.text     "message"
     t.boolean  "is_active",                default: true
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
   end
 
   create_table "radio_assignment_audits", force: :cascade do |t|
     t.integer  "radio_id"
     t.integer  "volunteer_id"
     t.string   "state",         limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.integer  "user_id"
     t.integer  "department_id"
   end
@@ -195,8 +195,8 @@ ActiveRecord::Schema.define(version: 20150626000353) do
   create_table "radio_assignments", force: :cascade do |t|
     t.integer  "radio_id"
     t.integer  "volunteer_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.integer  "department_id"
   end
 
@@ -204,8 +204,8 @@ ActiveRecord::Schema.define(version: 20150626000353) do
     t.string   "name",       limit: 255
     t.string   "color",      limit: 255
     t.text     "notes"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "radios", force: :cascade do |t|
@@ -213,8 +213,8 @@ ActiveRecord::Schema.define(version: 20150626000353) do
     t.string   "notes",          limit: 255
     t.integer  "radio_group_id"
     t.string   "image_filename", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.string   "state",          limit: 255, default: "in"
   end
 
@@ -231,8 +231,8 @@ ActiveRecord::Schema.define(version: 20150626000353) do
     t.boolean  "assign_shifts"
     t.boolean  "assign_duty_board_slots"
     t.boolean  "admin_duty_board"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
     t.boolean  "make_hidden_entries",                 default: false
     t.boolean  "rw_secure",                           default: false
     t.boolean  "read_audits",                         default: false
@@ -258,6 +258,7 @@ ActiveRecord::Schema.define(version: 20150626000353) do
   end
 
   add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
 
   create_table "tags", force: :cascade do |t|
     t.string  "name",           limit: 255
@@ -270,8 +271,8 @@ ActiveRecord::Schema.define(version: 20150626000353) do
     t.string   "username",        limit: 255
     t.string   "realname",        limit: 255
     t.string   "password_digest", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
@@ -298,8 +299,8 @@ ActiveRecord::Schema.define(version: 20150626000353) do
     t.boolean  "xo",             default: false
     t.boolean  "ops_subhead",    default: false
     t.boolean  "ops_head",       default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
   create_table "volunteers", force: :cascade do |t|
@@ -317,8 +318,8 @@ ActiveRecord::Schema.define(version: 20150626000353) do
     t.string   "work_phone",               limit: 255
     t.string   "other_phone",              limit: 255
     t.string   "email",                    limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.integer  "user_id"
     t.boolean  "can_have_multiple_radios"
   end

@@ -1,10 +1,8 @@
 class ConventionsController < ApplicationController
   respond_to :html
 
-  before_filter :can_read_audits?
   before_filter :set_conventions, only: [:index]
-  before_filter :set_convention, only: [:show, :edit, :update]
-  before_filter :build_convention, only: [:create]
+  load_and_authorize_resource
 
   # GET /conventions/new
   # GET /conventions/new.json

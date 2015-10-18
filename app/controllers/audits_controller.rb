@@ -1,5 +1,6 @@
 class AuditsController < ApplicationController
-  before_filter :can_read_audits?
+  before_filter :get_audits, only: :index
+  load_and_authorize_resource
 
   private
   def make_date(date_array)
@@ -10,9 +11,9 @@ class AuditsController < ApplicationController
                       date_array["item(5i)"].to_i)
   end
 
-  public
+  protected
 
-  def index
+  def get_audits
     # TODO This routine needs an enema...er...refactor. Bad.
 
     start_date = Time.now.years_ago 3

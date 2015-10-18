@@ -1,5 +1,5 @@
 class LostAndFoundController < ApplicationController
-  load_and_authorize_resource
+  skip_authorization_check
 
   respond_to :html, only: :index
   before_action -> { @title = 'Lost and Found' }

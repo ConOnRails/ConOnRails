@@ -5,6 +5,7 @@ class DutyBoardController < ApplicationController
   respond_to :html
 
   skip_before_filter :require_login, only: [:index]
+  skip_authorization_check only: [:index]
 
   def index
     @duty_board_groups = DutyBoardGroup.order(:row, :column)

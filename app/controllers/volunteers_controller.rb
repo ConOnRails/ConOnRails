@@ -103,7 +103,7 @@ class VolunteersController < ApplicationController
   def set_volunteers
     @q          = @volunteers.search params[:q]
     @q.sorts = ['last_name', 'first_name'] if @q.sorts.empty?
-    @volunteers = @q.result.page(params[:page])
+    @volunteers = @q.result.page(params[:page]) || []
   end
 
   def volunteer_params

@@ -1,7 +1,6 @@
 class DepartmentsController < ApplicationController
-  before_filter :can_admin_radios?, only: [:new, :create, :edit, :update, :destroy]
   before_filter :find_departments, only: :index
-  before_filter :find_department, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   respond_to :html, :json
 

@@ -1,14 +1,18 @@
 class Ability
   include CanCan::Ability
 
+  EVENT_READ_ACTIONS = [:read, :review, :search_entries, :sticky, :tag]
+
   def initialize(user)
     user ||= User.new
 
-    p user.can_write_entries?
-
     # Who can admin stuff
-    can [:read, :create, :update], Entry if user.can_write_entries?
-    can [:read, :create, :update], Event if user.can_write_entries?
+    can :manage, Contact if user.can_write_entries? # TODO: When we get real roles, fix this
+    can :manage, Convention if user.can_read_audits? # TODO: When we get real roles, fix this
+    can :manage, Department if user.can_admin_radios? # TODO: When we get real roles, fix this
+    can :manage, DutyBoardAssignment if user.can_assign_duty_board_slots?
+    can :manage, DutyBoardGroup if user.can_admin_duty_board?
+    can :manage, DutyBoardSlot if user.can_admin_duty_board?
     can :manage, Message # Right now, just about any logged in person can do this.
     can :manage, Radio if user.can_admin_radios?
     can :manage, RadioAssignment if user.can_assign_radios?
@@ -21,9 +25,15 @@ class Ability
     can :manage, Vsp if user.can_read_audits? # FIXME needs its own role
 
     # Other permissions
+    can :read, Audit if user.can_read_audits?
+    can :read, Department
+    can :read, DutyBoardAssignment
+    can :read, DutyBoardSlot
+    can [:create, :update], Entry if user.can_write_entries?
+    can [:create, :merge_items, :update], Event if user.can_write_entries?
     can :read, Entry
-    can :read, Event, secure: true if user.can_read_secure?
-    can :read, Event, secure: false
+    can :secure, Event, secure: true if user.can_read_secure?
+    can EVENT_READ_ACTIONS, Event, secure: false
     can :read, LoginLog if user.can_read_audits?
     can [:read, :create], LostAndFoundItem if user.add_lost_and_found?
     can [:read, :update], LostAndFoundItem if user.modify_lost_and_found?

@@ -1,5 +1,6 @@
 class DutyBoardSlotsController < ApplicationController
-  before_filter :can_admin_duty_board?, except: [:update]
+  #before_filter :can_admin_duty_board?, except: [:update]
+  load_and_authorize_resource
 
   respond_to :html, :json
   layout 'application', except: :assign
@@ -7,17 +8,15 @@ class DutyBoardSlotsController < ApplicationController
   # GET /duty_board_slots
   # GET /duty_board_slots.json
   def index
-    @duty_board_slots = DutyBoardSlot.order(:duty_board_group_id, :name)
+    @duty_board_slots = @duty_board_slots.order(:duty_board_group_id, :name)
   end
 
   # GET /duty_board_slots/1
   # GET /duty_board_slots/1.json
   def show
-    @duty_board_slot = DutyBoardSlot.find(params[:id])
   end
 
   def assign
-    @duty_board_slot = DutyBoardSlot.find params[:id]
     @duty_board_slot.build_duty_board_assignment if @duty_board_slot.duty_board_assignment.blank?
     #respond_with @duty_board_slot, location: :duty_board_index
   end
@@ -26,12 +25,10 @@ class DutyBoardSlotsController < ApplicationController
   # GET /duty_board_slots/new.json
   # GET /duty_board_slots/new.json
   def new
-    @duty_board_slot = DutyBoardSlot.new
   end
 
   # GET /duty_board_slots/1/edit
   def edit
-    @duty_board_slot = DutyBoardSlot.find(params[:id])
   end
 
   # POST /duty_board_slots

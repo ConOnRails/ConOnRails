@@ -2,13 +2,12 @@ class DutyBoardAssignmentsController < ApplicationController
   layout 'duty_board'
   respond_to :html, :json
 
-  before_filter :can_assign_duty_board_slots?
-  before_action :get_slot_and_assignment, only: [:new, :edit, :update, :destroy]
-  before_action :get_slot, only: [:create]
+  before_action :get_slot
+  before_action :create_assignment, only: [:create]
+  load_and_authorize_resource
 
   def create
-    @duty_board_assignment = @duty_board_slot.build_duty_board_assignment(assignment_params)
-    @duty_board_assignment.save!
+    @duty_board_assignment.save
     respond_with @duty_board_assignment, location: duty_board_index_path
   end
 
@@ -29,8 +28,13 @@ class DutyBoardAssignmentsController < ApplicationController
     params.require(:duty_board_assignment).permit(:duty_board_slot_id, :name, :notes)
   end
 
+  def create_assignment
+    @duty_board_assignment = @duty_board_slot.build_duty_board_assignment(assignment_params)
+  end
+
   def get_slot
     @duty_board_slot = DutyBoardSlot.find(params[:duty_board_slot_id])
+    authorize! :read, @duty_board_slot
   end
 
   def get_slot_and_assignment
