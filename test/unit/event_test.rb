@@ -27,7 +27,7 @@
 require 'test_helper'
 
 class EventTest < ActiveSupport::TestCase
-
+  should belong_to :section
   should have_many :entries
   should have_many :event_flag_histories
   should accept_nested_attributes_for :entries

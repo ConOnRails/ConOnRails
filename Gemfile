@@ -60,14 +60,13 @@ gem 'unicorn'
 
 group :development, :test do
   gem 'awesome_print'
-  gem 'rspec-rails'
+  gem 'factory_girl_rails'
   gem 'jasmine'
   #gem 'minitest'
 end
 
 group :test do
   gem 'database_cleaner'
-  gem 'factory_girl_rails'
   gem 'faker'
   gem 'minitest-reporters'
   gem 'mocha', require: false

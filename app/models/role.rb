@@ -26,6 +26,8 @@ class Role < ActiveRecord::Base
   has_paper_trail
 
   has_and_belongs_to_many :users
+  has_many :section_roles
+  has_many :sections, through: :section_roles
 
   name_regex = /\A[a-zA-Z0-9_ ]*\z/
 
