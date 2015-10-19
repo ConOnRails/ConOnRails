@@ -24,7 +24,11 @@
 
 require 'test_helper'
 
-class RoleTest < ActiveSupport::TestCase  
+class RoleTest < ActiveSupport::TestCase
+  should have_many(:sections).through :section_roles
+  should validate_presence_of :name
+  should validate_uniqueness_of :name
+
   LongName = 'a' * 33
   BadName = "a&%T@%{ \003} elknart" # Should fail for printable specials, and control-C
   
@@ -66,7 +70,5 @@ class RoleTest < ActiveSupport::TestCase
     role = Role.create name: BadName
     assert role.invalid?
   end
-  # test "the truth" do
-  #   assert true
-  # end
+
 end

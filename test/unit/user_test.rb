@@ -118,5 +118,58 @@ class UserTest < ActiveSupport::TestCase
       assert false == @user.has_role?('god')
     end
   end
+
+  context '#role_names' do
+    setup do
+      @user = User.create!(@input_attributes)
+      @roles = [FactoryGirl.create(:role), FactoryGirl.create(:typical_role)]
+      @user.roles << @roles
+    end
+
+    should 'return array of names' do
+      assert_equal @user.role_names.sort, @roles.collect(&:name).sort
+    end
+  end
+
+  context 'section role permissions' do
+    setup do
+      @section = FactoryGirl.create :section
+      @role = FactoryGirl.create :role, name: 'section_regular_user'
+      @user = User.create!(@input_attributes)
+      @user.roles << @role
+
+      SectionRole.create!(section: @section, role: @role, permission: 'read')
+      SectionRole.create!(section: @section, role: @role, permission: 'write')
+    end
+
+    should 'be able to read and write but not write secure' do
+      assert @user.can_read_section? @section
+      assert @user.can_write_section? @section
+      assert_not @user.can_read_secure_section? @section
+    end
+
+    context 'someone cooler with secure permissions' do
+      setup do
+        SectionRole.create!(section: @section, role: @role, permission: 'read_secure')
+      end
+
+      should 'be able to read_secure' do
+        assert @user.can_read_secure_section? @section
+      end
+    end
+
+    context 'someone with overlapping roles that add up' do
+      setup do
+        @role2 = FactoryGirl.create :role, name: 'superguy'
+        @user.roles << @role2
+
+        SectionRole.create(section: @section, role: @role2, permission: 'read_secure')
+      end
+
+      should 'be able to read secure if any role can' do
+        assert @user.can_read_secure_section? @section
+      end
+    end
+  end
   
 end

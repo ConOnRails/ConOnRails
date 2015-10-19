@@ -36,7 +36,11 @@ class User < ActiveRecord::Base
             format: { with: password_regex }
 
   scope :by_username,  -> { order(:username) }
-  
+
+  def role_names
+    roles.pluck(:name)
+  end
+
   def find_perm(perm)
     ret = false
     roles.each do |role|
@@ -45,6 +49,19 @@ class User < ActiveRecord::Base
       end
     end
     return ret
+  end
+
+  # NEW SECTION PERMISSIONS. New system. New and improved! All new! Shinier and more absorbent!
+  def can_read_section?(section)
+    SectionRole.where(section: section, role: roles, permission: 'read').count > 0
+  end
+
+  def can_write_section?(section)
+    SectionRole.where(section: section, role: roles, permission: 'write').count > 0
+  end
+
+  def can_read_secure_section?(section)
+    SectionRole.where(section: section, role: roles, permission: 'read_secure').count > 0
   end
 
   def can_admin_anything?
