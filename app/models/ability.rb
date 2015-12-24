@@ -19,6 +19,7 @@ class Ability
     can :manage, RadioAssignmentAudit if user.can_admin_radios?
     can :manage, RadioGroup if user.can_admin_radios?
     can :manage, Role if user.can_admin_users?
+    can :manage, Section if user.can_admin_users?
     can :manage, User if user.can_admin_users?
     can :manage, Version if user.can_read_audits?
     can :manage, Volunteer if user.can_admin_users?

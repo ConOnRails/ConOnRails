@@ -1,12 +1,15 @@
 require 'faker'
 
-FactoryGirl.define do  factory :section_role do
-    section nil
-role nil
-permission "MyString"
+FactoryGirl.define do
+
+  factory :section_role do
+    section
+    role
+    permission 'read'
   end
+
   factory :section do
-    name "MyString"
+    sequence(:name) { Faker::Name.name }
   end
 
   factory :attendee do

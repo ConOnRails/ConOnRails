@@ -65,6 +65,7 @@ ConOnRails::Application.routes.draw do
   end
 
   resources :roles
+  resources :sections, except: [:destroy]
   resources :sessions, only: [:new, :create, :destroy]
   resources :users do
     member do

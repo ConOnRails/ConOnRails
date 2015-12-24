@@ -1,0 +1,28 @@
+.col-md-12
+  h1 Edit #{@section.name}
+  = simple_form_for @section, method: :put, wrapper: :horizontal_form, html: { class: 'form-horizontal' } do |f|
+    = f.input :name, placeholder: 'Name'
+
+    .table-responsive
+      table.table.table-striped
+        thead
+          tr
+            th Role Name
+            th Can Read
+            th Can Read Secure
+            th Can Add/Update Events
+        tbody
+          - Role.all.each do |r|
+            - section_roles = r.section_roles.where(section: @section)
+            tr
+              td= r.name
+              td= check_box_tag "section[section_role][#{r.id}][read]", value="1", section_roles.where(permission: 'read').count == 1
+              td= check_box_tag "section[section_role][#{r.id}][read_secure]", value="1", section_roles.where(permission: 'read_secure').count == 1
+              td= check_box_tag "section[section_role][#{r.id}][write]", value="1", section_roles.where(permission: 'write').count == 1
+
+    = f.button :submit, class: 'btn btn-success'
+
+- content_for :side
+  .col-md-12
+    .well.well-sm
+      div= link_to 'Back', sections_path

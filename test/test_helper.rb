@@ -49,12 +49,17 @@ class ActiveSupport::TestCase
   end
 
   def sign_in(user, role)
-    session[:user_id]      = user.id
+    session[:user_id] = user.id
     session[:current_role_name] = role.name
   end
 
+  def sign_out
+    session[:user_id] = nil
+    session[:current_role_name] = nil
+  end
+
   def admin_context
-    @admin      = FactoryGirl.create :user
+    @admin = FactoryGirl.create :user
     @admin_role = FactoryGirl.create :superuser_role
     @admin.roles << @admin_role
     @admin.save!
@@ -85,6 +90,10 @@ class ActiveSupport::TestCase
     context "as #{context}" do
       setup do
         send context if respond_to? context
+      end
+
+      teardown do
+        sign_out
       end
 
       merge_block &blk
