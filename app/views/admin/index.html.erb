@@ -16,6 +16,7 @@
   <% if current_user and current_user.can_admin_users? %>
       <li><%= link_to "Users", users_url %></li>
       <li><%= link_to "Roles", roles_url %></li>
+      <li><%= link_to "Sections", sections_url %></li>
   <% end %>
   <% if current_user and current_user.can_read_audits? %>
       <li><%= link_to 'VSP list', vsps_path %></li>
