@@ -2,15 +2,8 @@ source 'http://rubygems.org'
 ruby '2.2.3'
 
 gem 'rails', '~>4.2.3'
-
-# Bundle edge Rails instead:
-# gem 'rails',     :git => 'git://github.com/rails/rails.git'
-
 gem 'sqlite3'
 gem 'pg', '~> 0.18.2'
-
-gem 'tiny_tds', github: 'rails-sqlserver/tiny_tds'
-gem 'activerecord-sqlserver-adapter'
 
 # Gems used only for assets and not required
 # in production environments by default.
