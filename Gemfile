@@ -2,15 +2,8 @@ source 'http://rubygems.org'
 ruby '2.2.3'
 
 gem 'rails', '~>4.2.3'
-
-# Bundle edge Rails instead:
-# gem 'rails',     :git => 'git://github.com/rails/rails.git'
-
 gem 'sqlite3'
 gem 'pg', '~> 0.18.2'
-
-gem 'tiny_tds', github: 'rails-sqlserver/tiny_tds'
-gem 'activerecord-sqlserver-adapter'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -51,8 +44,6 @@ gem 'yaml_db', '~> 0.3.0'
 group :development do
   gem 'annotate'
   gem 'rb-fsevent'#, '~> 0.9.1'
-  #gem 'rails-dev-boost', :git => 'git://github.com/thedarkone/rails-dev-boost.git', :require => 'rails_development_boost'
-  #gem 'ruby-debug19', :require => 'ruby-debug'
 end
 
 # Use unicorn as the web server

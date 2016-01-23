@@ -1,0 +1,26 @@
+.col-md-12
+  h1 Section "#{@section.name}"
+
+  .table-responsive
+    table.table.table-striped
+      thead
+        tr
+          th Role Name
+          th Can Read
+          th Can Read Secure
+          th Can Add/Update Events
+      tbody
+        - Role.all.each do |r|
+          - section_roles = r.section_roles.where(section: @section)
+          tr
+            td= r.name
+            td= raw check_bool section_roles.where(permission: 'read').count == 1
+            td= raw check_bool section_roles.where(permission: 'read_secure').count == 1
+            td= raw check_bool section_roles.where(permission: 'write').count == 1
+
+
+- content_for :side
+  .col-md-12
+    .well.well-sm
+      div= link_to 'Edit', edit_section_path(@section)
+      div= link_to 'Back', sections_path
