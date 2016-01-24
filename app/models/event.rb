@@ -40,7 +40,8 @@ class Event < ActiveRecord::Base
 
   serialize :merged_from_ids
 
-  belongs_to :section
+  has_many :event_sections
+  has_many :sections, through: :event_sections
   has_many :entries, -> { order :created_at }, dependent: :destroy
   has_many :event_flag_histories, -> { order :created_at }, dependent: :destroy
   validates_associated :entries
