@@ -4,7 +4,7 @@ rvm:
 env:
   - DB=postgresql CODECLIMATE_REPO_TOKEN=60f24faadd4214af105e217fca320e3a6d4eab015ca1eaf672aed2fbcc77b296
 before_install:
-  - sudo apt-get install libpq-dev freetds-dev
+  - sudo apt-get install libpq-dev 
 before_script:
   - cp config/database.travis.yml config/database.yml
   - psql -c 'create database con_on_rails_test' -U postgres

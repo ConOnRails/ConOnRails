@@ -1,0 +1,15 @@
+web:
+  build: .
+  user: app
+  ports:
+  - "8080:8080"
+  volumes:
+  - ~/projects/ConOnRails:/thingy
+  links:
+  - db
+  entrypoint: "/bin/bash -l -c \"rvm use 2.2.1 do unicorn\""
+db:
+  image: postgres:9.4
+  volumes:
+  - ~/docker-dbs/cononrails:/var/lib/postgresql/data
+  

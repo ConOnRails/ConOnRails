@@ -16,7 +16,9 @@ ConOnRails is derived conceptually from ConInABox by Thomas Keeley, who acted as
 is derived entirely from the designs of DeNae Leverentz, who acted as our user experience expert and project manager.
 All coding to date has been done by Michael Scott Shappe.
 
-Version 3.4.1, "Blackberry Jam" was is in pre-release testing as of 21 March 2015. This is a transitional version that introduces the Twitter Bootstrap layout library. Some pages have been Bootstrappified, others are still in progress, so right now, things are not pretty.
+Version 3.4.9.4, 'Blackberry Jam and Butter on Mixed Biscuits, with Bacon, Hashbrowns, Coffee, and 4 slices of Key Lime Pie' was is the version that was used for the 2015 CONVergence convention, July 4th weekend. There is currently an active development branch for revising the security structure at ms/new-permissions.
+
+A note about testing: most of the tests are still under Minitest in the tests folder; there are a handful of rspec tests, and one jasmin test, under the spec folder, but for hysterical raisins, the Minitest-based testing is the main focus of TDD. 
 
 It is the long-term goal of this project to be useful to other conventions, but we recognize that, in order to do
 that, lots of things that are currently hardwired for CONvergence will need to be made configurable. This is an ongoing
