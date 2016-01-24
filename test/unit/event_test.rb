@@ -22,6 +22,7 @@
 #  merged_from_ids :string(255)
 #  merged          :boolean
 #  nerf_herders    :boolean
+#  section_id      :integer
 #
 
 require 'test_helper'

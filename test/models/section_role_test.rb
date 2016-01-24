@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: section_roles
+#
+#  id         :integer          not null, primary key
+#  section_id :integer
+#  role_id    :integer
+#  permission :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 require 'test_helper'
 
 class SectionRoleTest < ActiveSupport::TestCase

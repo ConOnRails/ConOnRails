@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: conventions
+#
+#  id         :integer          not null, primary key
+#  name       :string(255)
+#  start_date :datetime
+#  end_date   :datetime
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class ConventionsController < ApplicationController
   respond_to :html
 

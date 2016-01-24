@@ -1,3 +1,30 @@
+# == Schema Information
+#
+# Table name: events
+#
+#  id              :integer          not null, primary key
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  is_active       :boolean          default(TRUE)
+#  post_con        :boolean          default(FALSE)
+#  sticky          :boolean          default(FALSE)
+#  emergency       :boolean          default(FALSE)
+#  medical         :boolean          default(FALSE)
+#  hidden          :boolean          default(FALSE)
+#  secure          :boolean          default(FALSE)
+#  consuite        :boolean
+#  hotel           :boolean
+#  parties         :boolean
+#  volunteers      :boolean
+#  dealers         :boolean
+#  dock            :boolean
+#  merchandise     :boolean
+#  merged_from_ids :string(255)
+#  merged          :boolean
+#  nerf_herders    :boolean
+#  section_id      :integer
+#
+
 require Rails.root + 'app/queries/event_queries'
 
 class EventsController < ApplicationController
