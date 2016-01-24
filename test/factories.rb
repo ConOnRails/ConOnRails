@@ -1,10 +1,10 @@
 require 'faker'
 
-FactoryGirl.define do  factory :event_section do
+FactoryGirl.define do
+  factory :event_section do
     event nil
-section nil
+    section nil
   end
-
 
   factory :section_role do
     section
@@ -23,7 +23,7 @@ section nil
   end
 
   factory :convention do
-    sequence(:name) { |n| Faker::Name.name + "#{n}"}
+    sequence(:name) { |n| Faker::Name.name + "#{n}" }
     start_date DateTime.now
     end_date DateTime.now + 5.days
   end
@@ -219,7 +219,7 @@ section nil
   end
 
   factory :role do
-    name "peon"
+    sequence(:name) { |n| "Role #{n}" }
 
     factory :superuser_role do
       name "superuser"

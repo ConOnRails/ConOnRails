@@ -40,7 +40,7 @@ class SectionsController < ApplicationController
         params['section']['section_role'].each do |k, v|
           v.each do |p, pv|
             if pv == '1'
-              @section.section_roles.build role_id: k, permission: p
+              @section.add_role! k, p
             end
           end
         end

@@ -15,4 +15,13 @@ class Section < ActiveRecord::Base
   has_many :roles, through: :section_roles
 
   validates :name, presence: true, uniqueness: true
+
+  scope :sections_for_roles, ->(roles, permissions) { Section.joins(:section_roles).where(section_roles: { role_id: roles, permission: permissions }).uniq.order(:id) }
+
+  def add_role!(role, permission)
+    if role.is_a? Fixnum
+      role = Role.find role
+    end
+    SectionRole.create! section: self, role: role, permission: permission
+  end
 end

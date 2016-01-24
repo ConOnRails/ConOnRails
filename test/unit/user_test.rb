@@ -106,13 +106,13 @@ class UserTest < ActiveSupport::TestCase
   context "#has_role?" do
     setup do
       @user = User.create!(@input_attributes)
-      role = FactoryGirl.create(:role)
-      @user.roles << role
+      @role = FactoryGirl.create(:role)
+      @user.roles << @role
     end
 
     should "return true if appropriate" do
-      assert @user.has_role? 'peon'
-      assert @user.has_role? 'peon', 'llama'
+      assert @user.has_role? @role.name
+      assert @user.has_role? @role.name, 'llama'
     end
     should "return false if appropriate" do
       assert false == @user.has_role?('god')
