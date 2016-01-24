@@ -1,6 +1,10 @@
 require 'faker'
 
-FactoryGirl.define do
+FactoryGirl.define do  factory :event_section do
+    event nil
+section nil
+  end
+
 
   factory :section_role do
     section
