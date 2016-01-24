@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: duty_board_groups
+#
+#  id         :integer          not null, primary key
+#  name       :string(255)
+#  row        :integer
+#  column     :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class DutyBoardGroupsController < ApplicationController
   #before_filter :can_admin_duty_board?
   load_and_authorize_resource
