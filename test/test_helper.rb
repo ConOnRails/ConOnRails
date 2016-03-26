@@ -63,6 +63,7 @@ class ActiveSupport::TestCase
     @admin_role = FactoryGirl.create :superuser_role
     @admin.roles << @admin_role
     @admin.save!
+    @user = @admin
 
     sign_in @admin, @admin_role
   end
@@ -77,7 +78,11 @@ class ActiveSupport::TestCase
   end
 
   def peon_context
-    sign_in FactoryGirl.create(:user), FactoryGirl.create(:role)
+    @user = FactoryGirl.create :user
+    @role = FactoryGirl.create :role
+    @user.roles << @role
+
+    sign_in @user, @role
   end
 
   def self.multiple_contexts(*contexts, &blk)

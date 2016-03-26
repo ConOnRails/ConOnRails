@@ -10,6 +10,8 @@
         = link_to 'Clear', sessions_clear_index_filter_path, method: :post, class: 'btn btn-primary btn-xs'
 
   .row
+    .col-md-12= select_tag 'available_sections', options_from_collection_for_select(@available_sections, 'id', 'name')
+  .row
     .col-md-12= index_filter(:hotel)
   .row
     .col-md-12= index_filter(:nerf_herders)
