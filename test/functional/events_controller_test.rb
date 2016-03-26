@@ -4,7 +4,9 @@ class EventsControllerTest < ActionController::TestCase
 
   context "Given some events" do
     setup do
-      @event        = FactoryGirl.create :ordinary_event
+      @section = create :section
+      @event = FactoryGirl.create :ordinary_event
+      @event.sections << @section
 
       # We'll want these for search tests later
       FactoryGirl.create :entry, description: 'Voles are in control', event: @event
@@ -37,12 +39,14 @@ class EventsControllerTest < ActionController::TestCase
       context 'Only ordinary events' do
         context 'GET :index' do
           setup do
+            @section.add_role! @user.roles.first, 'read'
             get :index
           end
 
           should respond_with :success
 
           should 'have one, ordinary event' do
+            assert_equal [@section], assigns[:available_sections]
             assert_equal 1, assigns[:events].count
             assigns[:events].each do |e|
               assert e.is_active
@@ -321,7 +325,7 @@ class EventsControllerTest < ActionController::TestCase
 
       context 'PUT :update' do
         setup do
-          put :update, { id:    @event.to_param, event: FactoryGirl.attributes_for(:ordinary_event),
+          put :update, { id: @event.to_param, event: FactoryGirl.attributes_for(:ordinary_event),
                          entry: FactoryGirl.attributes_for(:verbose_entry) }
         end
 
@@ -398,7 +402,7 @@ class EventsControllerTest < ActionController::TestCase
 
       context 'PUT :update' do
         setup do
-          put :update, { id:    @event.to_param, event: FactoryGirl.attributes_for(:ordinary_event),
+          put :update, { id: @event.to_param, event: FactoryGirl.attributes_for(:ordinary_event),
                          entry: FactoryGirl.attributes_for(:verbose_entry) }
         end
 

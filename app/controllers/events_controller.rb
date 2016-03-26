@@ -52,6 +52,7 @@ class EventsController < ApplicationController
   def index
     @title = 'Active Events'
     return jump if params[:id].present?
+    @available_sections = Section.sections_for_roles current_user.roles, 'read'
     @events = IndexQuery.new(Event).query(session[:index_filter]).
         order { |e| e.updated_at.desc }.page(params[:page])
     respond_with @events

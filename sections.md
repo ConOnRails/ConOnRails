@@ -12,7 +12,7 @@ x SectionRole acts as tuple
     * permission (:read, :read_secure, :write)
 
 Event
-    * belongs_to section
+    *x has_many sections through section_events
     * Cancan permissions governed by section_role!
     * Event CRUD via SectionController so that permissions can be governed.
     
@@ -22,3 +22,5 @@ User
     * can_read_section?(section)
     * super_user?
     
+    
+CURRENT WORK: EventController work to expose available sections

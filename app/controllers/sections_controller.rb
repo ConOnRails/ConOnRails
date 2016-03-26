@@ -31,13 +31,13 @@ class SectionsController < ApplicationController
       unless params['section']['section_role'].blank?
         # Remove everything that's not set
         role_ids = Role.all.pluck(:id)
-        roles_mentioned = params['section']['section_role'].keys
+        roles_mentioned = params['section']['section_role_attributes'].keys
         remove_these_ids = role_ids.reject { |r| roles_mentioned.include? r }
         remove_these = @section.section_roles.where(role_id: remove_these_ids)
         @section.section_roles.delete remove_these
 
         # Add what is set
-        params['section']['section_role'].each do |k, v|
+        params['section']['section_role_attributes'].each do |k, v|
           v.each do |p, pv|
             if pv == '1'
               @section.add_role! k, p
@@ -52,6 +52,6 @@ class SectionsController < ApplicationController
   end
 
   def section_params
-    params.require(:section).permit :name, :section_role
+    params.require(:section).permit :name, { section_role_attributes: [:read, :read_secure, :write] }
   end
 end
