@@ -17,12 +17,8 @@ class Section < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true
 
-  scope :sections_for_roles, ->(roles, permissions) { Section.joins(:section_roles).where(section_roles: { role_id: roles.pluck(&:id), permission: permissions }).uniq.order(:id) }
+  scope :role_can_read, ->(role) { joins(:section_roles).where(section_roles: { role: role }).where('section_roles.permission_flags @> ?', { read: true }.to_json) }
+  scope :role_can_write, ->(role) { joins(:section_roles).where(section_roles: { role: role }).where('section_roles.permission_flags @> ?', { write: true }.to_json) }
+  scope :role_can_secure, ->(role) { joins(:section_roles).where(section_roles: { role: role }).where('section_roles.permission_flags @> ?', { secure: true }.to_json) }
 
-  def add_role!(role, permission)
-    if role.is_a? Fixnum
-      role = Role.find role
-    end
-    SectionRole.create! section: self, role: role, permission: permission
-  end
 end

@@ -35,7 +35,27 @@ class RoleTest < ActiveSupport::TestCase
   setup do
     @empty_role = Role.new
   end
-  
+
+  context 'new section permission checkers' do
+    setup do
+      @role1 = create :role
+      @role2 = create :role
+
+      @section1 = create :section
+
+      SectionRole.create section: @section1, role: @role1, read: true, write: false, secure: true
+    end
+
+    should 'get the right permissions' do
+      assert(@role1.can_read_section(@section1))
+      assert_not(@role1.can_write_section(@section1))
+      assert(@role1.can_secure_section(@section1))
+      assert_not(@role2.can_read_section(@section1))
+      assert_not(@role2.can_write_section(@section1))
+      assert_not(@role2.can_secure_section(@section1))
+    end
+  end
+
   test "role flags should default to false" do
     assert !@empty_role.write_entries?
     assert !@empty_role.read_hidden_entries?

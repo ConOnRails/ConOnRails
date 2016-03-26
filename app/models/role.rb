@@ -32,10 +32,26 @@ class Role < ActiveRecord::Base
   name_regex = /\A[a-zA-Z0-9_ ]*\z/
 
   validates :name, presence: true,
-                   allow_blank: false,
-                   uniqueness: true,
-                   length: { maximum: 32 },
-                   format: { with: name_regex }
+            allow_blank: false,
+            uniqueness: true,
+            length: { maximum: 32 },
+            format: { with: name_regex }
 
+  def method_missing(name, *args, &block)
+    if name.to_s =~ %r[can_(read|write|secure)_section]
+      SectionRole.where(section: args.first, role: self).where('permission_flags @> ?', { $1 => true }.to_json).present?
+    else
+      super
+    end
+  end
 
+  def respond_to?(name, include_private = false)
+    if name =~ %r[can_(read|write|secure)_section]
+      true
+    else
+      super
+    end
+  end
 end
+
+

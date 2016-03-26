@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160124193202) do
+ActiveRecord::Schema.define(version: 20160326205414) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -264,13 +264,13 @@ ActiveRecord::Schema.define(version: 20160124193202) do
   create_table "section_roles", force: :cascade do |t|
     t.integer  "section_id"
     t.integer  "role_id"
-    t.string   "permission"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.jsonb    "permission_flags", default: {}, null: false
   end
 
+  add_index "section_roles", ["permission_flags"], name: "index_section_roles_on_permission_flags", using: :gin
   add_index "section_roles", ["role_id"], name: "index_section_roles_on_role_id", using: :btree
-  add_index "section_roles", ["section_id", "role_id", "permission"], name: "index_section_roles_on_section_id_and_role_id_and_permission", unique: true, using: :btree
   add_index "section_roles", ["section_id", "role_id"], name: "index_section_roles_on_section_id_and_role_id", using: :btree
   add_index "section_roles", ["section_id"], name: "index_section_roles_on_section_id", using: :btree
 
