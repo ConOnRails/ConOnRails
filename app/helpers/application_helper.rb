@@ -38,7 +38,7 @@ module ApplicationHelper
   end
 
   def check_bool(val)
-    val ? '<span style="color: #00cc00">&#x2713;</span>' : '<span style="color: #cc0000">x</span>'
+    [true, 'true'].include?(val) ? '<span style="color: #00cc00">&#x2713;</span>' : '<span style="color: #cc0000">x</span>'
   end
 
   def background

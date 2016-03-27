@@ -217,9 +217,9 @@ GEM
     shoulda-context (1.2.1)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
-    simple_form (3.1.1)
-      actionpack (~> 4.0)
-      activemodel (~> 4.0)
+    simple_form (3.2.1)
+      actionpack (> 4, < 5.1)
+      activemodel (> 4, < 5.1)
     simplecov (0.11.2)
       docile (~> 1.1.0)
       json (~> 1.8)
@@ -307,10 +307,10 @@ DEPENDENCIES
   select2-rails
   shoulda
   shoulda-matchers
-  simple_form (~> 3.1.0)
+  simple_form (~> 3.2.0)
   simplecov
   simplecov-html
-  slim (~> 3.0.2)
+  slim (~> 3.0.6)
   sqlite3
   squeel (~> 1.2.3)
   sshkit (~> 1.6.1)

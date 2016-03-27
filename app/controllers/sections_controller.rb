@@ -21,12 +21,12 @@ class SectionsController < ApplicationController
 
   def update
     flash[:notice] = 'Section was updated successfully.' if @section.update_attributes section_params
-    respond_with @section
+    respond_with @section, location: edit_section_path(@section)
   end
 
   protected
 
   def section_params
-    params.require(:section).permit :name, { section_roles_attributes: [:id, :role_id, :section_id, :read, :secure, :write] }
+    params.require(:section).permit :name, { section_roles_attributes: [:id, :role_id, :section_id, :read, :secure, :write, :_destroy] }
   end
 end

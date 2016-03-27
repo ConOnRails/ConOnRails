@@ -72,7 +72,7 @@ class SectionsControllerTest < ActionController::TestCase
         end
 
         should respond_with :redirect
-        should redirect_to('llama') { section_url assigns(:section) }
+        should redirect_to('llama') { edit_section_url(assigns(:section)) }
         should set_flash.to %r[updated successfully]
       end
 
@@ -80,10 +80,11 @@ class SectionsControllerTest < ActionController::TestCase
         setup do
           @role = create :role, name: Faker::Name.first_name
           @role2 = create :role, name: Faker::Name.first_name
-          patch :update, id: @section.id, section: { section_roles_attributes: [{ role_id: @role.id, read: 1, write: 1 }, { role_id: @role2.id, secure: 1 }] }
+          patch :update, id: @section.id, section: { section_roles_attributes: { '0': { role_id: @role.id, read: 'true', write: 'true', secure: 'false' },
+                                                                                 '1': { role_id: @role2.id, read: 'false', write: 'false', secure: 'true' } } }
         end
 
-        should 'set section roles up correctly' do
+        should ' set section roles up correctly ' do
           section_role = SectionRole.find_by section: @section, role: @role
           section_role2 = SectionRole.find_by section: @section, role: @role2
 
@@ -98,7 +99,7 @@ class SectionsControllerTest < ActionController::TestCase
 
 
     user_context :typical_context do
-      context 'GET :index' do
+      context ' GET : index ' do
         setup do
           get :index
         end
@@ -107,7 +108,7 @@ class SectionsControllerTest < ActionController::TestCase
         should redirect_to :public
       end
 
-      context 'GET :show' do
+      context ' GET : show ' do
         setup do
           get :show, id: @section.id
         end
@@ -116,7 +117,7 @@ class SectionsControllerTest < ActionController::TestCase
         should redirect_to :public
       end
 
-      context 'GET :new' do
+      context ' GET : new ' do
         setup do
           get :new
         end
@@ -125,7 +126,7 @@ class SectionsControllerTest < ActionController::TestCase
         should redirect_to :public
       end
 
-      context 'GET :edit' do
+      context ' GET : edit ' do
         setup do
           get :edit, id: @section.id
         end
@@ -135,7 +136,7 @@ class SectionsControllerTest < ActionController::TestCase
       end
 
 
-      context 'POST create' do
+      context ' POST create ' do
         setup do
           post :create, section: { name: Faker::Name.name }
         end
@@ -143,7 +144,7 @@ class SectionsControllerTest < ActionController::TestCase
         should respond_with :redirect
       end
 
-      context 'PATCH update' do
+      context ' PATCH update ' do
         setup do
           patch :update, id: @section.id, section: {}
         end
