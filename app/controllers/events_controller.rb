@@ -33,6 +33,7 @@ class EventsController < ApplicationController
   #before_filter :can_read_secure?, only: [:secure]
   #before_filter :can_write_entries?, only: [:new, :create, :edit, :update]
   #before_filter :set_event, only: [:show, :edit, :update]
+  before_filter :get_available_sections, only: [:index, :sticky, :secure, :tag]
   before_filter :get_tagged_events, only: [:tag]
   before_filter :process_filters, only: [:review, :export]
 
@@ -52,7 +53,6 @@ class EventsController < ApplicationController
   def index
     @title = 'Active Events'
     return jump if params[:id].present?
-    @available_sections = Section.sections_for_roles current_user.roles, 'read'
     @events = IndexQuery.new(Event).query(session[:index_filter]).
         order { |e| e.updated_at.desc }.page(params[:page])
     respond_with @events
@@ -175,6 +175,10 @@ class EventsController < ApplicationController
   def filter_order
     return 'asc' unless params.has_key?(:filters) && params[:filters].has_key?(:order)
     params[:filters][:order]
+  end
+
+  def get_available_sections
+    @available_sections = Section.role_can_read current_user.roles.pluck(:id)
   end
 
   def get_sticky_events

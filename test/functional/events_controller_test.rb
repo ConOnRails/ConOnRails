@@ -36,10 +36,13 @@ class EventsControllerTest < ActionController::TestCase
     end
 
     multiple_contexts :admin_context, :typical_context, :peon_context do
+      setup do
+        SectionRole.create! section: @section, role: @user.roles.first, read: true
+      end
+
       context 'Only ordinary events' do
         context 'GET :index' do
           setup do
-            @section.add_role! @user.roles.first, 'read'
             get :index
           end
 

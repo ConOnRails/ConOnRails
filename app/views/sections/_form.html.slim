@@ -12,13 +12,13 @@
             th Can Read Secure
             th Can Add/Update Events
         tbody
-          - Role.all.each do |r|
-            - section_roles = r.section_roles.where(section: @section)
-            tr
-              td= r.name
-              td= check_box_tag "section[section_role_attributes][#{r.id}][read]", value="1", section_roles.where(permission: 'read').count == 1
-              td= check_box_tag "section[section_role_attributes][#{r.id}][read_secure]", value="1", section_roles.where(permission: 'read_secure').count == 1
-              td= check_box_tag "section[section_role_attributes][#{r.id}][write]", value="1", section_roles.where(permission: 'write').count == 1
+          - @section.section_roles.each do |sr|
+            = simple_fields_for sr do |g|
+              tr= sr.role.name
+              tr= g.input :read
+              tr= g.input :write
+              tr= g.input :secure
+
 
     = f.button :submit, class: 'btn btn-success'
 

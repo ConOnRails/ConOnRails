@@ -80,25 +80,18 @@ class SectionsControllerTest < ActionController::TestCase
         setup do
           @role = create :role, name: Faker::Name.first_name
           @role2 = create :role, name: Faker::Name.first_name
-          patch :update, id: @section.id, section: { section_role: { @role.id => { read: 1, write: 1 }, @role2.id => { read_secure: 1 } }}
+          patch :update, id: @section.id, section: { section_roles_attributes: [{ role_id: @role.id, read: 1, write: 1 }, { role_id: @role2.id, secure: 1 }] }
         end
 
         should 'set section roles up correctly' do
-          section_roles = SectionRole.where section: @section, role: @role
-          section_roles2 = SectionRole.where section: @section, role: @role2
+          section_role = SectionRole.find_by section: @section, role: @role
+          section_role2 = SectionRole.find_by section: @section, role: @role2
 
-          assert_equal 2, section_roles.count
-          assert_equal 1, section_roles2.count
-          assert_equal %w[read write], section_roles.pluck(:permission).sort
-          assert_equal %w[read_secure], section_roles2.pluck(:permission).sort
-        end
-      end
-
-      context 'PATCH update removes section roles that are unchecked' do
-        setup do
-          @role = create :role, name: Faker::Name.first_name
-          @role2 = create :role, name: Faker::Name.first_name
-          patch :update, id: @section.id, section: { section_role: { @role.id => { read: 1, write: 1 }, @role2.id => { read_secure: 1 } }}
+          assert_not_nil section_role
+          assert_not_nil section_role2
+          assert section_role.read
+          assert section_role.write
+          assert section_role2.secure
         end
       end
     end

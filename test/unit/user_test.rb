@@ -138,23 +138,22 @@ class UserTest < ActiveSupport::TestCase
       @user = User.create!(@input_attributes)
       @user.roles << @role
 
-      SectionRole.create!(section: @section, role: @role, permission: 'read')
-      SectionRole.create!(section: @section, role: @role, permission: 'write')
+      SectionRole.create!(section: @section, role: @role, read: true, write: true)
     end
 
     should 'be able to read and write but not write secure' do
       assert @user.can_read_section? @section
       assert @user.can_write_section? @section
-      assert_not @user.can_read_secure_section? @section
+      assert_not @user.can_secure_section? @section
     end
 
     context 'someone cooler with secure permissions' do
       setup do
-        SectionRole.create!(section: @section, role: @role, permission: 'read_secure')
+        SectionRole.create!(section: @section, role: @role, secure: true)
       end
 
       should 'be able to read_secure' do
-        assert @user.can_read_secure_section? @section
+        assert @user.can_secure_section? @section
       end
     end
 
@@ -163,11 +162,11 @@ class UserTest < ActiveSupport::TestCase
         @role2 = FactoryGirl.create :role, name: 'superguy'
         @user.roles << @role2
 
-        SectionRole.create(section: @section, role: @role2, permission: 'read_secure')
+        SectionRole.create(section: @section, role: @role2, secure: true)
       end
 
       should 'be able to read secure if any role can' do
-        assert @user.can_read_secure_section? @section
+        assert @user.can_secure_section? @section
       end
     end
   end
