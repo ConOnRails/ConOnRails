@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
             length: { within: 6..32 },
             format: { with: password_regex }
 
-  scope :by_username,  -> { order(:username) }
+  scope :by_username, -> { order(:username) }
 
   def role_names
     roles.pluck(:name)
@@ -52,16 +52,20 @@ class User < ActiveRecord::Base
   end
 
   # NEW SECTION PERMISSIONS. New system. New and improved! All new! Shinier and more absorbent!
-  def can_read_section?(section)
-    SectionRole.where(section: section, role: roles, permission: 'read').count > 0
+  def method_missing(name, *args, &block)
+    if name.to_s =~ %r[can_(read|write|secure)_section\??]
+      SectionRole.where(section: args.first, role: self.roles).where('permission_flags @> ?', { $1 => true }.to_json).present?
+    else
+      super
+    end
   end
 
-  def can_write_section?(section)
-    SectionRole.where(section: section, role: roles, permission: 'write').count > 0
-  end
-
-  def can_read_secure_section?(section)
-    SectionRole.where(section: section, role: roles, permission: 'read_secure').count > 0
+  def respond_to?(name, include_private = false)
+    if name =~ %r[can_(read|write|secure)_section\??]
+      true
+    else
+      super
+    end
   end
 
   def can_admin_anything?

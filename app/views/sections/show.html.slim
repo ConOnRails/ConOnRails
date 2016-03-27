@@ -10,13 +10,12 @@
           th Can Read Secure
           th Can Add/Update Events
       tbody
-        - Role.all.each do |r|
-          - section_roles = r.section_roles.where(section: @section)
+        - @section.section_roles.each do |sr|
           tr
-            td= r.name
-            td= raw check_bool section_roles.where(permission: 'read').count == 1
-            td= raw check_bool section_roles.where(permission: 'read_secure').count == 1
-            td= raw check_bool section_roles.where(permission: 'write').count == 1
+            td= sr.role.name
+            td= raw check_bool sr.read
+            td= raw check_bool sr.secure
+            td= raw check_bool sr.write
 
 
 - content_for :side
