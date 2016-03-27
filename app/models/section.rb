@@ -18,9 +18,10 @@ class Section < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true
 
-  scope :role_can_read, ->(role) { joins(:section_roles).where(section_roles: { role_id: role }).where('section_roles.permission_flags @> ?', { read: true }.to_json) }
-  scope :role_can_write, ->(role) { joins(:section_roles).where(section_roles: { role_id: role }).where('section_roles.permission_flags @> ?', { write: true }.to_json) }
-  scope :role_can_secure, ->(role) { joins(:section_roles).where(section_roles: { role_id: role }).where('section_roles.permission_flags @> ?', { secure: true }.to_json) }
+  scope :role_can, ->(role, perm) { joins(:section_roles).where(section_roles: { role_id: role }).where('section_roles.permission_flags @> ?', { perm => true }.to_json) }
+  scope :role_can_read, ->(role) { role_can role, :read }
+  scope :role_can_write, ->(role) { role_can role, :write }
+  scope :role_can_secure, ->(role) { role_can role, :secure }
 
   def update_attributes(attributes)
     if attributes.has_key?(:section_roles_attributes)
