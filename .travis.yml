@@ -1,6 +1,10 @@
 language: ruby
 rvm:
   - 2.2.3
+addons:
+  postgresql: "9.4"
+services:
+  - postgresql
 env:
   - DB=postgresql CODECLIMATE_REPO_TOKEN=60f24faadd4214af105e217fca320e3a6d4eab015ca1eaf672aed2fbcc77b296
 before_install:
