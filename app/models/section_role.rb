@@ -19,4 +19,22 @@ class SectionRole < ActiveRecord::Base
   store_accessor :permission_flags, :read, :write, :secure
 
   PERMISSIONS = [:read, :write, :secure]
+
+  def read=(val)
+    super bool val
+  end
+
+  def write=(val)
+    super bool val
+  end
+
+  def secure=(val)
+    super bool val
+  end
+
+  private
+
+  def bool(val)
+    [true, 'true'].include? val
+  end
 end

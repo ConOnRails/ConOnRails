@@ -2,26 +2,46 @@
   h1 Edit #{@section.name}
   = simple_form_for @section, wrapper: :horizontal_form, html: { class: 'form-horizontal' } do |f|
     = f.input :name, placeholder: 'Name'
+    .row
+      .col-md-6.col-sm-12
+        h2 Current Roles
 
-    .table-responsive
-      table.table.table-striped
-        thead
-          tr
-            th Role Name
-            th Can Read
-            th Can Read Secure
-            th Can Add/Update Events
-        tbody
-          - @section.section_roles.each do |sr|
-            = simple_fields_for sr do |g|
-              tr= sr.role.name
-              tr= g.input :read
-              tr= g.input :write
-              tr= g.input :secure
-
-
+        .table-responsive
+          table.table.table-striped
+            thead
+              tr
+                th Role Name
+                th Can Read
+                th Can Read Secure
+                th Can Add/Update Events
+            tbody
+              - @section.section_roles.each do |sr|
+                = f.simple_fields_for :section_roles, sr do |g|
+                  tr
+                    td= sr.role.name
+                    td= g.input_field :read, as: :boolean, checked_value: true, unchecked_value: false
+                    td= g.input_field :write, as: :boolean, checked_value: true, unchecked_value: false
+                    td= g.input_field :secure, as: :boolean, checked_value: true, unchecked_value: false
+      .col-md-6.col-sm-12
+        h2 Available Roles
+        .table-responsive
+          table.table.table-striped
+            thead
+              tr
+                th Role Name
+                th Can Read
+                th Can Read Secure
+                th Can Add/Update Events
+            tbody
+              - Role.where.not(id: @section.roles).each do |r|
+                = f.simple_fields_for :section_roles, @section.section_roles.build do |g|
+                  tr
+                    td= r.name
+                    td= g.input_field :read, as: :boolean, checked_value: true, unchecked_value: false
+                    td= g.input_field :write, as: :boolean, checked_value: true, unchecked_value: false
+                    td= g.input_field :secure, as: :boolean, checked_value: true, unchecked_value: false
+                    td= g.input :role_id, as: :hidden, input_html: { value: r.id }
     = f.button :submit, class: 'btn btn-success'
-
 - content_for :side
   .col-md-12
     .well.well-sm
