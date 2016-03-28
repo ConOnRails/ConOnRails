@@ -23,6 +23,11 @@ class Section < ActiveRecord::Base
   scope :role_can_write, ->(role) { role_can role, :write }
   scope :role_can_secure, ->(role) { role_can role, :secure }
 
+  scope :user_can, ->(user, perm) { role_can user.roles.pluck(:id), perm }
+  scope :user_can_read, ->(user) { user_can user, :read }
+  scope :user_can_write, ->(user) { user_can user, :write }
+  scope :user_can_secure, ->(user) { user_can user, :secure }
+
   def update_attributes(attributes)
     if attributes.has_key?(:section_roles_attributes)
       keep = attributes[:section_roles_attributes].select { |k, v| v[:read] == 'true' || v[:write] == 'true' || v[:secure] == 'true' }

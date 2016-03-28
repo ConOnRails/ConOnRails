@@ -43,4 +43,26 @@ class SectionTest < ActiveSupport::TestCase
       assert_equal(Section.role_can_secure(@role), [@securable_section])
     end
   end
+
+  context 'scope user_can' do
+    setup do
+      @section1 = create :section
+      @section2 = create :section
+
+      @role1 = create :role
+      @role2 = create :role
+
+      @user = create :user
+
+      @user.roles << @role1
+      @user.roles << @role2
+
+      SectionRole.create section: @section1, role: @role1, read: true
+      SectionRole.create section: @section2, role: @role2, read: true
+    end
+
+    should 'see both sections for reading' do
+      assert_equal(Section.user_can(@user, :read), [@section1, @section2])
+    end
+  end
 end
