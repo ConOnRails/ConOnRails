@@ -53,7 +53,6 @@ gem 'unicorn'
 
 group :development, :test do
   gem 'awesome_print'
-  gem 'rspec-rails'
   gem 'jasmine'
   #gem 'minitest'
 end
