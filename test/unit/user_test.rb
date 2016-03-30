@@ -20,6 +20,9 @@ class UserTest < ActiveSupport::TestCase
   BadName = "a&%T@%{ \003} elknart" # Should fail for space, printable specials, and control-C
   BadPassword = "a&%T@%{ \003} elknart" # Should fail for control-C
   GoodPassword = "zogity123*%^! 42"
+
+  should have_many :section_users
+  should have_many(:sections).through :section_users
   
   def failure_is_good( input_attributes )
     user = nil

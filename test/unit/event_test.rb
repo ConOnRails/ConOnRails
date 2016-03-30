@@ -32,6 +32,9 @@ class EventTest < ActiveSupport::TestCase
   should have_many :event_flag_histories
   should accept_nested_attributes_for :entries
 
+  should have_many :event_sections
+  should have_many(:sections).through :event_sections
+
   context 'an ordinary event' do
     setup do
       @event = FactoryGirl.create :ordinary_event

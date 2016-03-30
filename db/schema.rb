@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150626000353) do
+ActiveRecord::Schema.define(version: 20160330022732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,6 +123,16 @@ ActiveRecord::Schema.define(version: 20150626000353) do
     t.boolean  "merged"
     t.boolean  "nerf_herders",             default: false
   end
+
+  create_table "event_sections", force: :cascade do |t|
+    t.integer  "event_id"
+    t.integer  "section_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "event_sections", ["event_id"], name: "index_event_sections_on_event_id", using: :btree
+  add_index "event_sections", ["section_id"], name: "index_event_sections_on_section_id", using: :btree
 
   create_table "events", force: :cascade do |t|
     t.datetime "created_at"
@@ -247,6 +257,22 @@ ActiveRecord::Schema.define(version: 20150626000353) do
 
   add_index "roles_users", ["role_id", "user_id"], name: "index_roles_users_on_role_id_and_user_id", unique: true, using: :btree
 
+  create_table "section_users", force: :cascade do |t|
+    t.integer  "section_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "section_users", ["section_id"], name: "index_section_users_on_section_id", using: :btree
+  add_index "section_users", ["user_id"], name: "index_section_users_on_user_id", using: :btree
+
+  create_table "sections", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
@@ -331,4 +357,8 @@ ActiveRecord::Schema.define(version: 20150626000353) do
     t.datetime "updated_at",             null: false
   end
 
+  add_foreign_key "event_sections", "events"
+  add_foreign_key "event_sections", "sections"
+  add_foreign_key "section_users", "sections"
+  add_foreign_key "section_users", "users"
 end
