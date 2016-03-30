@@ -41,6 +41,9 @@ class Event < ActiveRecord::Base
 
   has_many :entries, -> { order :created_at }, dependent: :destroy
   has_many :event_flag_histories, -> { order :created_at }, dependent: :destroy
+  has_many :event_sections
+  has_many :sections, through: :event_sections
+
   validates_associated :entries
   accepts_nested_attributes_for :entries, allow_destroy: true
 

@@ -18,6 +18,9 @@ class User < ActiveRecord::Base
   has_one :volunteer
   has_and_belongs_to_many :roles
 
+  has_many :section_users
+  has_many :sections, through: :section_users
+
   name_regex = /\A[a-zA-Z0-9_\-]*\z/
   password_regex = /\A[a-zA-Z0-9!@#$\%^&*()\-_ ]*\z/
 
