@@ -1,8 +1,8 @@
 class LostAndFoundItemsController < ApplicationController
+  load_and_authorize_resource
+
   respond_to :html, :json
 
-  before_filter :user_can_add_lost_and_found, only: [:new, :create]
-  before_filter :user_can_modify_lost_and_found, only: [:edit, :update]
   before_filter :build_categories_from_params, only: [:index]
   before_filter :find_lfi, only: [:show, :edit, :update]
 
@@ -91,7 +91,7 @@ class LostAndFoundItemsController < ApplicationController
   end
 
   def find_lfi
-    @lfi = LostAndFoundItem.find params[:id]
+    @lfi = @lost_and_found_item
   end
 
   def fix_old_categories(cats)
@@ -112,10 +112,11 @@ class LostAndFoundItemsController < ApplicationController
   def lfi_search_params
     params.permit LostAndFoundItem.valid_categories.keys + [:id, :inventory, :keywords, :search_type, :reported_found, :inventoried, :exclude_inventoried, :returned, :reported_missing, :found, :page, :show_returned_only]
   end
+  alias :lost_and_found_item_params :lfi_search_params
 
 
   def lfi_params
-      params.require(:lost_and_found_item).permit :reported_missing, :category, :description, :where_last_seen,
+      params.require(:lost_and_found_item).permit :reported_missing, :category, :convention, :description, :where_last_seen,
                                                   :owner_name, :owner_contact, :where_found, :details, :found, :returned,
                                                   :who_claimed, :inventoried, :search_type
   end

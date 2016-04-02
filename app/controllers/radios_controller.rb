@@ -1,9 +1,8 @@
 class RadiosController < ApplicationController
+  load_and_authorize_resource
+
   respond_to :html, :json
 
-  before_filter :can_admin_radios?, only: [:new, :create, :edit, :update, :destroy]
-  before_filter :can_assign_radios?, only: [:index, :show, :search_volunteers]
-  before_filter :find_radio, only: [:show, :edit, :update, :destroy, :checkout, :transfer]
   before_filter :find_radios, only: [:index, :new, :create]
 
   # POST /radios/search_volunteers
@@ -79,10 +78,6 @@ class RadiosController < ApplicationController
   end
 
   protected
-
-  def find_radio
-    @radio = Radio.find(params[:id])
-  end
 
   def find_radios
     @q = Radio.search params[:q]

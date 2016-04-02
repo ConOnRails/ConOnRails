@@ -26,7 +26,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test "no index for peons" do
     get :index, {}, { user_id: @peon_user.id }
-    assert_redirected_to public_url
+    assert_redirected_to :public
   end
 
   test "should get index" do
@@ -37,7 +37,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test "peons cannot get new" do
     get :new, {}, { user_id: @peon_user.id }
-    assert_redirected_to public_url
+    assert_redirected_to :public
   end
 
   test "should get new" do
@@ -50,7 +50,7 @@ class UsersControllerTest < ActionController::TestCase
       post :create, { user: @input_attributes }, { user_id: @peon_user.id }
     end
 
-    assert_redirected_to public_url
+    assert_redirected_to :public
   end
 
   test "should create user" do
@@ -80,7 +80,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test "peons cannot show user" do
     get :show, { id: @user.to_param }, { user_id: @peon_user.id }
-    assert_redirected_to public_url
+    assert_redirected_to :public
   end
 
   test "should show user" do
@@ -90,7 +90,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test "peons cannot edit" do
     get :edit, { id: @user.to_param }, { user_id: @peon_user.id }
-    assert_redirected_to public_url
+    assert_redirected_to :public
   end
 
   test "should get edit" do
@@ -108,7 +108,7 @@ class UsersControllerTest < ActionController::TestCase
 
       should "not update users other than themselves" do
         put :update, { id: @user.to_param, user: @input_attributes }, { user_id: @peon_user.id }
-        assert_redirected_to public_url
+        assert_redirected_to :public
       end
 
       should "update themselves (change password)" do
@@ -150,7 +150,7 @@ class UsersControllerTest < ActionController::TestCase
       delete :destroy, { id: @user.to_param }, { user_id: @peon_user.id }
     end
 
-    assert_redirected_to public_url
+    assert_redirected_to :public
   end
 
   test "should destroy user" do

@@ -1,20 +1,13 @@
 class DepartmentsController < ApplicationController
-  before_filter :can_admin_radios?, only: [:new, :create, :edit, :update, :destroy]
+  load_and_authorize_resource
+
   before_filter :find_departments, only: :index
-  before_filter :find_department, only: [:show, :edit, :update, :destroy]
 
   respond_to :html, :json
-
-   # GET /departments/new
-  # GET /departments/new.json
-  def new
-    @department = Department.new
-  end
 
   # POST /departments
   # POST /departments.json
   def create
-    @department = Department.new department_params
     flash[:notice] = 'Department was successfully created.' if @department.save
     respond_with @department
   end
@@ -38,10 +31,6 @@ class DepartmentsController < ApplicationController
   def find_departments
     @q           = Department.search params[:q]
     @departments = @q.result.page(params[:page])
-  end
-
-  def find_department
-    @department = Department.find(params[:id])
   end
 
   def department_params

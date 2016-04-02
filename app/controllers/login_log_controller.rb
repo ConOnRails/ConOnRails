@@ -1,8 +1,8 @@
 class LoginLogController < ApplicationController
-  before_filter :can_read_audits?
+  load_and_authorize_resource
 
   def index
-    @logins = LoginLog.all
+    @logins = @log_in_logs
   end
 
 end

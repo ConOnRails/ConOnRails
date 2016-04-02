@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
-  skip_before_filter :require_login, only: [:new, :create, :getroles, :set_index_filter, :clear_index_filter]
+  skip_authorization_check only: [:new, :create, :getroles, :set_index_filter, :clear_index_filter]
+  #skip_before_filter :require_login, only: [:new, :create, :getroles, :set_index_filter, :clear_index_filter]
 
   private
   def ip()

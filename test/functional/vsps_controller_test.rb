@@ -77,31 +77,35 @@ class VspsControllerTest < ActionController::TestCase
   end
 
   user_context :typical_context do
+    setup do
+      @vsp = create :vsp
+    end
+
     [:index, :new, :edit].each do |x|
       context "GET #{x}" do
         setup do
-          get x, id: 42
+          get x, id: @vsp.id
         end
         should respond_with :redirect
-        should redirect_to('root') { root_path }
+        should redirect_to('root') { public_path }
       end
     end
 
     context 'POST :create' do
       setup do
-        post :create
+        post :create, vsp: { name: '' }
       end
 
       should respond_with :redirect
-      should redirect_to('root') { root_path }
+      should redirect_to('root') { public_path }
     end
 
     context 'PATCH :update' do
       setup do
-        patch :update, id: 42
+        patch :update, id: @vsp.id
       end
       should respond_with :redirect
-      should redirect_to('root') { root_path }
+      should redirect_to('root') { public_path }
     end
 
   end

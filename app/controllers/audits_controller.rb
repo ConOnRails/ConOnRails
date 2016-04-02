@@ -1,5 +1,5 @@
 class AuditsController < ApplicationController
-  before_filter :can_read_audits?
+  load_and_authorize_resource
 
   private
   def make_date(date_array)
