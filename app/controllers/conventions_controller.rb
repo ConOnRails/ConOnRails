@@ -1,16 +1,9 @@
 class ConventionsController < ApplicationController
+  load_and_authorize_resource
+
   respond_to :html
 
-  before_filter :can_read_audits?
   before_filter :set_conventions, only: [:index]
-  before_filter :set_convention, only: [:show, :edit, :update]
-  before_filter :build_convention, only: [:create]
-
-  # GET /conventions/new
-  # GET /conventions/new.json
-  def new
-    @convention = Convention.new
-  end
 
   # POST /conventions
   # POST /conventions.json
@@ -32,14 +25,6 @@ class ConventionsController < ApplicationController
     @q = Convention.search params[:q]
     @q.sorts = ['start_date desc'] if @q.sorts.empty?
     @conventions = @q.result.page(params[:page])
-  end
-
-  def set_convention
-    @convention = Convention.find params[:id]
-  end
-
-  def build_convention
-    @convention = Convention.new convention_params
   end
 
   def convention_params

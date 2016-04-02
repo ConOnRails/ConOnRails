@@ -243,7 +243,7 @@ class EventsControllerTest < ActionController::TestCase
         end
 
         should respond_with :redirect
-        should redirect_to('actives') { root_path }
+        should redirect_to('actives') { :public }
       end
 
       context 'GET :review with no filters' do
@@ -374,7 +374,7 @@ class EventsControllerTest < ActionController::TestCase
         end
 
         should respond_with :redirect
-        should redirect_to('public') { public_url }
+        should redirect_to('public') { :public }
       end
 
       context 'POST :create' do
@@ -384,7 +384,7 @@ class EventsControllerTest < ActionController::TestCase
         end
 
         should respond_with :redirect
-        should redirect_to('public') { public_url }
+        should redirect_to('public') { :public }
       end
 
       context 'GET :edit' do
@@ -393,7 +393,7 @@ class EventsControllerTest < ActionController::TestCase
         end
 
         should respond_with :redirect
-        should redirect_to('public') { public_url }
+        should redirect_to('public') { :public }
       end
 
       context 'PUT :update' do
@@ -403,7 +403,7 @@ class EventsControllerTest < ActionController::TestCase
         end
 
         should respond_with :redirect
-        should redirect_to('public') { public_url }
+        should redirect_to('public') { :public }
       end
     end
   end

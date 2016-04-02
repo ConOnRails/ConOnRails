@@ -1,34 +1,13 @@
 class ContactsController < ApplicationController
-  before_filter :can_write_entries?, only: [:new, :create, :edit, :update]
+  load_and_authorize_resource
+
   before_filter :find_contacts, only: [:index]
-  before_filter :find_contact, only: [:show, :edit, :update]
 
   respond_to :html, :json
-
-  # GET /contacts
-  # GET /contacts.json
-  def index
-  end
-
-  # GET /contacts/1
-  # GET /contacts/1.json
-  def show
-  end
-
-  # GET /contacts/new
-  # GET /contacts/new.json
-  def new
-    @contact = Contact.new
-  end
-
-  # GET /contacts/1/edit
-  def edit
-  end
 
   # POST /contacts
   # POST /contacts.json
   def create
-    @contact = Contact.new contact_params
     flash[:notice] = 'Contact was successfully created.' if @contact.save
     respond_with @contact, location: contacts_path
   end
@@ -45,10 +24,6 @@ class ContactsController < ApplicationController
   def find_contacts
     @q        = Contact.search params[:q]
     @contacts = @q.result.page(params[:page])
-  end
-
-  def find_contact
-    @contact = Contact.find(params[:id])
   end
 
   def contact_params

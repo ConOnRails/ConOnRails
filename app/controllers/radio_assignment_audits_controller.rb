@@ -1,7 +1,7 @@
 class RadioAssignmentAuditsController < ApplicationController
-  respond_to :html
+  load_and_authorize_resource
 
-  before_filter :can_admin_radios?
+  respond_to :html
 
   # GET /radio_assignment_audits
   # GET /radio_assignment_audits.json

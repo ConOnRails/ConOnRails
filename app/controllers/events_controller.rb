@@ -1,10 +1,10 @@
 require Rails.root + 'app/queries/event_queries'
 
 class EventsController < ApplicationController
+  load_and_authorize_resource
+
   include Queries::EventQueries
 
-  before_filter :can_read_secure?, only: [:secure]
-  before_filter :can_write_entries?, only: [:new, :create, :edit, :update]
   before_filter :set_event, only: [:show, :edit, :update]
   before_filter :get_tagged_events, only: [:tag]
   before_filter :process_filters, only: [:review, :export]

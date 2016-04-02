@@ -1,9 +1,10 @@
 class UsersController < ApplicationController
+  load_and_authorize_resource
+
   respond_to :html, :json
 
-  before_filter :find_user, only: [:show, :edit, :update, :destroy, :change_password]
   before_filter :find_users, only: :index
-  before_filter :redirect_if_cannot_admin, except: [:change_password]
+ # before_filter :redirect_if_cannot_admin, except: [:change_password]
 
   # GET /users/new
   # GET /users/new.json
@@ -50,10 +51,6 @@ class UsersController < ApplicationController
   end
 
   protected
-
-  def find_user
-    @user = User.find(params[:id])
-  end
 
   def find_users
     @q = User.search params[:q]

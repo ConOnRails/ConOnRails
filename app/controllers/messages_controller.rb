@@ -1,8 +1,9 @@
 class MessagesController < ApplicationController
+  load_and_authorize_resource
+
   respond_to :html, :json
 
   before_filter :find_messages, only: :index
-  before_filter :find_message, only: [:show, :edit, :update, :destroy]
 
   # GET /messages/new
   # GET /messages/new.json
@@ -36,10 +37,6 @@ class MessagesController < ApplicationController
   end
 
   protected
-
-  def find_message
-    @message = Message.find(params[:id])
-  end
 
   def find_messages
     @q = Contact.search params[:q]
