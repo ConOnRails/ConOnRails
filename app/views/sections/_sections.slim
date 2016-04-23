@@ -1,0 +1,12 @@
+#paginator-top= paginate @sections.page(params[:page])
+
+.table-responsive
+  table#section-list.table.table-striped.table-hover
+    thead
+      tr
+        th Section Name
+        th
+    tbody
+      = render @sections
+
+#paginator-bottom= paginate @sections.page(params[:page])

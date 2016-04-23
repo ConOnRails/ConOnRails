@@ -1,0 +1,5 @@
+tr.clickable-row data-href=section_path(section)
+  td= section.name
+  td
+    => link_to 'Edit', edit_section_path(section), method: :get, class: 'btn btn-xs btn-primary'
+    = link_to 'Delete', section_path(section), data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-xs btn-danger'

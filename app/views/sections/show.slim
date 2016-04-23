@@ -1,0 +1,8 @@
+.col-md-12
+  h1= "Section #{@section.name}"
+
+= content_for :side
+  .col-md-12
+    .well.well-sm
+      div= link_to 'Edit', edit_section_path(@section)
+      div= link_to 'Back', sections_path
