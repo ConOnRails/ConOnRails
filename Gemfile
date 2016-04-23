@@ -29,6 +29,7 @@ gem 'jquery-ui-rails', '~> 5.0.3'
 gem 'kaminari', '~> 0.16.3'
 gem 'momentjs-rails', '>= 2.8.1'
 gem 'paper_trail', '>= 4.0.0.beta1'
+gem 'paranoia', '~> 2.1.5'
 gem 'pg_search', '~> 0.7.9'
 gem 'ransack', '~> 1.6.3'
 gem 'redcarpet', '~> 3.2.2'
@@ -36,7 +37,7 @@ gem 'responders', '~> 2.1.0'
 gem 'sass', '~> 3.4.12'
 gem 'select2-rails'
 gem 'simple_form', '~> 3.1.0'
-gem 'slim', '~> 3.0.2'
+gem 'slim-rails', '~> 3.0.1'
 gem 'squeel', '~> 1.2.3'
 gem 'sshkit', '~> 1.6.1'
 gem 'therubyracer', '~>0.12', require: 'v8'
@@ -45,8 +46,6 @@ gem 'yaml_db', '~> 0.3.0'
 group :development do
   gem 'annotate'
   gem 'rb-fsevent'#, '~> 0.9.1'
-  #gem 'rails-dev-boost', :git => 'git://github.com/thedarkone/rails-dev-boost.git', :require => 'rails_development_boost'
-  #gem 'ruby-debug19', :require => 'ruby-debug'
 end
 
 # Use unicorn as the web server
@@ -55,7 +54,6 @@ gem 'unicorn'
 group :development, :test do
   gem 'awesome_print'
   gem 'jasmine'
-  #gem 'minitest'
 end
 
 group :test do

@@ -1,6 +1,9 @@
 require 'faker'
 
 FactoryGirl.define do
+  factory :section do
+    sequence(:name) { |n| Faker::Name.name + "#{n}" }
+  end
   factory :attendee do
     FIRST_NAME { Faker::Name.first_name }
     MIDDLE_NAME { Faker::Name.first_name }

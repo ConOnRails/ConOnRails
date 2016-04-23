@@ -1,5 +1,6 @@
 class Section < ActiveRecord::Base
   has_paper_trail
+  acts_as_paranoid
 
   has_many :event_sections
   has_many :events, through: :event_sections

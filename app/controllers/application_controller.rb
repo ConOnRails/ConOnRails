@@ -1,13 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  check_authorization
+  check_authorization except: :banner
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to public_url, :alert => exception.message
   end
-
-  #before_filter :require_login, except: [:banner]
-
+  
   def banner
     render partial: 'banner'
   end
