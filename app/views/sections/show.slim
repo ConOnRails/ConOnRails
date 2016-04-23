@@ -1,5 +1,8 @@
 .col-md-12
   h1= "Section #{@section.name}"
+  h2 Assigned Users
+  - @section.users.each do |u|
+    => link_to u.username, u
 
 = content_for :side
   .col-md-12

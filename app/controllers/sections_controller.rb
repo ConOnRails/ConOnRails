@@ -1,6 +1,8 @@
 class SectionsController < ApplicationController
   load_and_authorize_resource
 
+  before_action :get_users, only: :edit
+
   respond_to :html
 
   def create
@@ -21,6 +23,10 @@ class SectionsController < ApplicationController
   protected
 
   def section_params
-    params.require(:section).permit(:name)
+    params.require(:section).permit(:name, user_ids: [])
+  end
+
+  def get_users
+    @users = User.where.not(id: @section.users)
   end
 end

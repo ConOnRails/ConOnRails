@@ -80,7 +80,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit :username, :realname, :password, :password_confirmation, { role_ids: [] }, :volunteer_id
+    params.require(:user).permit :username, :realname, :password, :password_confirmation, { role_ids: [] }, { section_ids: []}, :volunteer_id
   end
 
 end

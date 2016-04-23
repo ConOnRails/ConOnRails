@@ -1,27 +1,26 @@
-<div class="con_on_rails_form">
-  <%= semantic_form_for @user do |f| %>
-      <%= f.inputs do %>
-          <% if @user.volunteer %>
-              <div><strong>Volunteer:</strong> <%= link_to @user.volunteer.name, @user.volunteer %></div>
-          <% end %>
-          <% if current_user.can_admin_users? %>
-              <%= f.input :username %>
-              <%= f.input :realname %>
-          <% else %>
-              <div><strong>Username:</strong> <%= @user.username %></div>
-              <div><strong>Real Name:</strong> <%= @user.realname %></div>
-          <% end %>
-          <%= f.input :password %>
-          <%= f.input :password_confirmation %>
-          <% if current_role.admin_users? %>
-              <%= f.input :roles %>
-          <% else %>
-              <table id="roleslist">
-                <%= render partial: "roles/roleheader" %>
-                <%= render @user.roles %>
-              </table>
-          <% end %>
+<div class="col-md-12">
+  <%= simple_form_for @user, wrapper: :horizontal_form, html: { class: 'form-horizontal' } do |f| %>
+      <% if @user.volunteer %>
+          <div><strong>Volunteer:</strong> <%= link_to @user.volunteer.name, @user.volunteer %></div>
       <% end %>
-      <%= f.actions %>
+      <% if current_user.can_admin_users? %>
+          <%= f.input :username %>
+          <%= f.input :realname %>
+      <% else %>
+          <div><strong>Username:</strong> <%= @user.username %></div>
+          <div><strong>Real Name:</strong> <%= @user.realname %></div>
+      <% end %>
+      <%= f.input :password %>
+      <%= f.input :password_confirmation %>
+      <% if current_role.admin_users? %>
+          <%= f.association :roles %>
+          <%= f.association :sections %>
+      <% else %>
+          <table id="roleslist">
+            <%= render partial: "roles/roleheader" %>
+            <%= render @user.roles %>
+          </table>
+      <% end %>
+      <%= f.button :submit, class: 'btn btn-primary' %>
   <% end %>
   </div>

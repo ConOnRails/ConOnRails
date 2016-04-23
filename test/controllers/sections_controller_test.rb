@@ -40,6 +40,27 @@ class SectionsControllerTest < ActionController::TestCase
 
       should respond_with :success
       should render_template :edit
+
+
+      context 'assign users who are not assigned to the section to @users' do
+        context 'no one is assigned at all' do
+          should 'return the only user we have right now' do
+            assert_equal assigns(:users), [@user]
+          end
+        end
+
+        context 'one assigned and one not' do
+          setup do
+            @other_user = create :user
+            @section.users << @user
+          end
+
+          should 'return one user and not the other' do
+            assert_not_equal assigns(:users), [@user]
+            assert_equal assigns(:users), [@other_user]
+          end
+        end
+      end
     end
 
     context 'post #create' do

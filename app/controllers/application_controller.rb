@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to public_url, :alert => exception.message
   end
-  
+
   def banner
     render partial: 'banner'
   end
