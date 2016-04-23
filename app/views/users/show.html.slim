@@ -21,6 +21,15 @@
         = render partial: "roles/roleheader"
         = render @user.roles
 
+  div
+    strong Sections:
+    ul
+      - @user.sections.each do |s|
+        li= link_to s.name, s
+
+
+
+
 - content_for :side
   .col-md-12.col-sm-12.col-xs-12
     .well.well-sm

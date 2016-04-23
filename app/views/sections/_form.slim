@@ -1,5 +1,6 @@
-= simple_form_for @section, wrapper: :inline_form, html: { class: 'form-inline' } do |f|
+= simple_form_for @section, wrapper: :horizontal_form, html: { class: 'form-horizontal' } do |f|
   = f.input :name, placeholder: 'Name'
+  = f.association :users, label_method: :username, hint: 'CTRL-select to add users. BE CAREFUL not to un-select users!'
   = f.button :submit, class: 'btn btn-success'
 
 = content_for :side

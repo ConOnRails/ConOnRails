@@ -60,6 +60,7 @@ class ActiveSupport::TestCase
     @admin.save!
 
     sign_in @admin, @admin_role
+    @user = @admin
   end
 
   def typical_context
