@@ -24,7 +24,7 @@ h1 Contacts
         td= contact.can_text? ? "Yes" : "No"
         td= contact.hotel
         td= contact.hotel_room
-        - if current_user and current_user.write_entries?
+        - if current_user
           td= link_to ("Leave&nbsp;Message").html_safe, new_message_path(message: { for: contact.name,
                                                                                     phone_number: contact.cell_phone,
                                                                                     room_number: contact.hotel_room,

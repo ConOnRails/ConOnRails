@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: radio_assignments
+#
+#  id            :integer          not null, primary key
+#  radio_id      :integer
+#  volunteer_id  :integer
+#  created_at    :datetime
+#  updated_at    :datetime
+#  department_id :integer
+#
+
 class RadioAssignmentsController < ApplicationController
   load_and_authorize_resource
 

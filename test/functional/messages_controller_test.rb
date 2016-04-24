@@ -5,8 +5,6 @@ class MessagesControllerTest < ActionController::TestCase
     @message = FactoryGirl.build :valid_message
     @complete_message = FactoryGirl.create :valid_message_with_user
     @user = FactoryGirl.create :user
-    @role = FactoryGirl.create :write_entries_role
-    @user.roles << @role
 
     @user_session = { user_id: @user.id }
   end

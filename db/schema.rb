@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160423193718) do
+ActiveRecord::Schema.define(version: 20160424180801) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -230,21 +230,15 @@ ActiveRecord::Schema.define(version: 20160423193718) do
 
   create_table "roles", force: :cascade do |t|
     t.string   "name",                    limit: 255
-    t.boolean  "write_entries"
-    t.boolean  "read_hidden_entries"
     t.boolean  "add_lost_and_found"
     t.boolean  "modify_lost_and_found"
     t.boolean  "admin_radios"
     t.boolean  "assign_radios"
     t.boolean  "admin_users"
-    t.boolean  "admin_schedule"
-    t.boolean  "assign_shifts"
     t.boolean  "assign_duty_board_slots"
     t.boolean  "admin_duty_board"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "make_hidden_entries",                 default: false
-    t.boolean  "rw_secure",                           default: false
     t.boolean  "read_audits",                         default: false
   end
 

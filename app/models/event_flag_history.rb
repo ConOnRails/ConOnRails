@@ -18,8 +18,8 @@
 #  dealers      :boolean          default(FALSE)
 #  dock         :boolean          default(FALSE)
 #  merchandise  :boolean          default(FALSE)
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  created_at   :datetime
+#  updated_at   :datetime
 #  user_id      :integer
 #  orig_time    :datetime
 #  rolename     :string(255)

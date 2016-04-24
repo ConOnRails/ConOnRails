@@ -8,8 +8,8 @@
 #  cell_phone :string(255)
 #  hotel      :string(255)
 #  hotel_room :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  created_at :datetime
+#  updated_at :datetime
 #  can_text   :boolean          default(FALSE)
 #  position   :string(255)
 #

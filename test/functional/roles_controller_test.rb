@@ -105,10 +105,10 @@ class RolesControllerTest < ActionController::TestCase
   end
 
   test "should update role" do
-    put :update, { id: @peon.to_param, role: { write_entries: true } }, { user_id: @user.id }
+    put :update, { id: @peon.to_param, role: { admin_users: true } }, { user_id: @user.id }
     assert_not_nil assigns(:role)
     assert assigns(:role).valid?
-    assert assigns(:role).write_entries?
+    assert assigns(:role).admin_users?
     assert_redirected_to role_path(assigns(:role))
   end
 

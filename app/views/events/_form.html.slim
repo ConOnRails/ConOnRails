@@ -45,9 +45,7 @@
           .tiny These 2 hide events from View Actives!
           .well.well-sm
             = f.input :sticky, label: false, inline_label: true, label_text: proc { '<span class="sticky-icon"></span>Sticky' }
-            = f.input :secure, label: false, inline_label: true, label_text: proc { '<span class="secure-icon"></span>Secure' } if current_user and current_user.rw_secure?
-            = f.input :hidden, as: :hidden, input_html: { value: false } unless current_user and current_user.can_make_hidden_entries?
-            = f.input :secure, as: :hidden, input_html: { value: false } unless current_user and current_user.rw_secure?
+            = f.input :secure, label: false, inline_label: true, label_text: proc { '<span class="secure-icon"></span>Secure' }
 
     #event_options_bottom
       .well.well-sm

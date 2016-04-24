@@ -3,9 +3,8 @@ require 'test_helper'
 class LayoutLinksTest < ActionDispatch::IntegrationTest
   setup do
     @user = FactoryGirl.create(:user)
-    @role = FactoryGirl.create(:write_entries_role)
-    @user.roles << @role
     @user.save!
+    @role = create :role
     @login_params = { username: @user.username, password: @user.password, role: @role.name }
   end
 

@@ -3,8 +3,8 @@
 # Table name: events
 #
 #  id              :integer          not null, primary key
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  created_at      :datetime
+#  updated_at      :datetime
 #  is_active       :boolean          default(TRUE)
 #  post_con        :boolean          default(FALSE)
 #  sticky          :boolean          default(FALSE)

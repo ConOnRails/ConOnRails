@@ -144,7 +144,7 @@ FactoryGirl.define do
 
   factory :contact do
     factory :valid_contact do
-      name "Wom Bat"
+      sequence(:name) { |n| Faker::Name.name + "#{n}" }
       department "Lingerie"
       cell_phone "+1 123 456 7890"
       hotel "Ritz"
@@ -212,10 +212,6 @@ FactoryGirl.define do
     factory :superuser_role do
       name "superuser"
       admin_users true
-      write_entries true
-      read_hidden_entries true
-      make_hidden_entries true
-      rw_secure true
       read_audits true
       admin_duty_board true
       assign_duty_board_slots true
@@ -227,7 +223,6 @@ FactoryGirl.define do
 
     factory :typical_role do
       name "typical"
-      write_entries true
       assign_duty_board_slots true
       add_lost_and_found true
       assign_radios true
@@ -236,25 +231,6 @@ FactoryGirl.define do
     factory :admin_users_role do
       name "admin_users"
       admin_users true
-    end
-
-    factory :write_entries_role do
-      name "write_entries"
-      write_entries true
-    end
-
-    factory :read_hidden_entries_role do
-      name "read_hidden_entries"
-      read_hidden_entries true
-    end
-
-    factory :make_hidden_entries_role do
-      name "make_hidden_entries"
-      make_hidden_entries true
-    end
-    factory :rw_secure_role do
-      name "rw_secure"
-      rw_secure true
     end
 
     factory :read_audits_role do

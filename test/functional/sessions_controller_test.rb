@@ -3,7 +3,7 @@ require 'test_helper'
 class SessionsControllerTest < ActionController::TestCase
   setup do
     @user = FactoryGirl.create :user
-    @role = FactoryGirl.create :write_entries_role
+    @role = create :role
     @user.roles << @role
     @user.save!
   end
