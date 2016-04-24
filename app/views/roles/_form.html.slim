@@ -3,17 +3,11 @@
   table.table.table-striped
     = render partial: "roles/roleheader", locals: { noname: true }
     tr
-      td= f.input :write_entries, label: ""
-      td= f.input :make_hidden_entries, label: ""
-      td= f.input :read_hidden_entries, label: ""
-      td= f.input :rw_secure, label: ""
       td= f.input :add_lost_and_found, label: ""
       td= f.input :modify_lost_and_found, label: ""
       td= f.input :admin_radios, label: ""
       td= f.input :assign_radios, label: ""
       td= f.input :admin_users, label: ""
-      td= f.input :admin_schedule, label: ""
-      td= f.input :assign_shifts, label: ""
       td= f.input :assign_duty_board_slots, label: ""
       td= f.input :admin_duty_board, label: ""
       td= f.input :read_audits, label: ""

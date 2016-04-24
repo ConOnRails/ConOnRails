@@ -4,11 +4,7 @@ class ContactsControllerTest < ActionController::TestCase
   setup do
     @user      = FactoryGirl.create :user
     @contact   = FactoryGirl.create :valid_contact
-    @peon_user = FactoryGirl.create :user
-    @role      = FactoryGirl.create :write_entries_role
-    @user.roles << @role
     @user_session      = { user_id: @user.id }
-    @peon_user_session = { user_id: @peon_user.id }
   end
 
   def get_index_success(session)
@@ -92,7 +88,6 @@ class ContactsControllerTest < ActionController::TestCase
 
   test "should get index" do
     get_index_success @user_session
-    get_index_success @peon_user_session
   end
 
   test "anon can't get index" do
@@ -101,10 +96,10 @@ class ContactsControllerTest < ActionController::TestCase
 
   test "should get new" do
     get_new_success @user_session
+
   end
 
-  test "peon and anon can't get new" do
-    get_new_fail(@peon_user_session)
+  test "anon can't get new" do
     get_new_fail(nil)
   end
 
@@ -116,14 +111,12 @@ class ContactsControllerTest < ActionController::TestCase
     create_contact_content_fail @user_session
   end
 
-  test "peon and anon can't create contact" do
-    create_contact_auth_fail(@peon_user_session)
+  test "anon can't create contact" do
     create_contact_auth_fail(nil)
   end
 
   test "should show contact" do
     show_item_success @user_session
-    show_item_success @peon_user_session
   end
 
   test "anon can't show" do
@@ -132,19 +125,19 @@ class ContactsControllerTest < ActionController::TestCase
 
   test "should get edit" do
     edit_item_success @user_session
+
   end
 
-  test "peon and anon can't edit" do
-    edit_item_fail @peon_user_session
+  test "anon can't edit" do
     edit_item_fail nil
   end
 
   test "should update contact" do
     update_contact_success @user_session
+
   end
 
-  test "peon and anon can't update" do
-    update_contact_auth_fail @peon_user_session
+  test "anon can't update" do
     update_contact_auth_fail nil
   end
 

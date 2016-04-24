@@ -2,13 +2,11 @@
   #menubar role='navigation'
     ul.nav.nav-tabs
       li= tab 'Main', root_path
-      - if current_user and current_user.write_entries?
-        li= tab 'Log Event', new_event_path
+      li= tab 'Log Event', new_event_path
       - if current_user and current_user.add_lost_and_found?
         li= tab 'Lost/Found', lost_and_found_path
-      - if current_user and current_user.write_entries?
-        li= tab 'Messages', messages_path
-        li= tab 'Review', review_events_path
+      li= tab 'Messages', messages_path
+      li= tab 'Review', review_events_path
       li= tab 'Duty Board', duty_board_index_path, 'fred'
       - if current_user and current_user.can_assign_radios?
         li= tab 'Radios', radios_path

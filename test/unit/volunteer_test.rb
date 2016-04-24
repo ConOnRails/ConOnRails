@@ -17,8 +17,8 @@
 #  work_phone               :string(255)
 #  other_phone              :string(255)
 #  email                    :string(255)
-#  created_at               :datetime         not null
-#  updated_at               :datetime         not null
+#  created_at               :datetime
+#  updated_at               :datetime
 #  user_id                  :integer
 #  can_have_multiple_radios :boolean
 #

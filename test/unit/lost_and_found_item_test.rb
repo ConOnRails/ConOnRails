@@ -10,8 +10,8 @@
 #  where_found     :string(255)
 #  owner_name      :string(255)
 #  owner_contact   :text
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  created_at      :datetime
+#  updated_at      :datetime
 #  user_id         :integer
 #  rolename        :string(255)
 #  who_claimed     :string(255)

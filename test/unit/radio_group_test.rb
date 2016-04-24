@@ -6,8 +6,8 @@
 #  name       :string(255)
 #  color      :string(255)
 #  notes      :text
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  created_at :datetime
+#  updated_at :datetime
 #
 
 require 'test_helper'

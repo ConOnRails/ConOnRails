@@ -4,21 +4,15 @@
 #
 #  id                      :integer          not null, primary key
 #  name                    :string(255)
-#  write_entries           :boolean
-#  read_hidden_entries     :boolean
 #  add_lost_and_found      :boolean
 #  modify_lost_and_found   :boolean
 #  admin_radios            :boolean
 #  assign_radios           :boolean
 #  admin_users             :boolean
-#  admin_schedule          :boolean
-#  assign_shifts           :boolean
 #  assign_duty_board_slots :boolean
 #  admin_duty_board        :boolean
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
-#  make_hidden_entries     :boolean          default(FALSE)
-#  rw_secure               :boolean          default(FALSE)
+#  created_at              :datetime
+#  updated_at              :datetime
 #  read_audits             :boolean          default(FALSE)
 #
 
@@ -33,14 +27,10 @@ class RoleTest < ActiveSupport::TestCase
   end
   
   test "role flags should default to false" do
-    assert !@empty_role.write_entries?
-    assert !@empty_role.read_hidden_entries?
     assert !@empty_role.add_lost_and_found?
     assert !@empty_role.modify_lost_and_found?
     assert !@empty_role.admin_radios?
     assert !@empty_role.admin_users?
-    assert !@empty_role.admin_schedule?
-    assert !@empty_role.assign_shifts?
     assert !@empty_role.assign_duty_board_slots?
     assert !@empty_role.admin_duty_board?
   end

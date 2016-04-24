@@ -15,6 +15,7 @@ class EventsHelperTest < ActionView::TestCase
       end
     end
 
+=begin
     context '#get_secure_count' do
       setup do
         self.expects(:current_user).returns(@user)
@@ -24,6 +25,7 @@ class EventsHelperTest < ActionView::TestCase
         assert_equal 0, get_secure_count
       end
     end
+=end
   end
 
   user_context :admin_context do
@@ -34,10 +36,6 @@ class EventsHelperTest < ActionView::TestCase
     end
 
     context '#get_secure_count' do
-      setup do
-        self.expects(:current_user).returns(@admin)
-      end
-
       should 'return 1 event' do
         assert_equal 1, get_secure_count
       end

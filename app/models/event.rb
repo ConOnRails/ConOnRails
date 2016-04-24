@@ -3,8 +3,8 @@
 # Table name: events
 #
 #  id              :integer          not null, primary key
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  created_at      :datetime
+#  updated_at      :datetime
 #  is_active       :boolean          default(TRUE)
 #  post_con        :boolean          default(FALSE)
 #  sticky          :boolean          default(FALSE)
@@ -57,8 +57,8 @@ class Event < ActiveRecord::Base
   scope :actives_and_stickies_or_all, -> (c) { where { |e| (e.is_active == true) | (e.sticky == true) unless c } }
 
   scope :protect_sensitive_events, -> (user) {
-    where { |e| (e.hidden == false unless user_can_see_hidden(user)) }.
-        where { |e| (e.secure == false unless user_can_rw_secure(user)) }
+    ap "DO SOMETHING"
+    where {}
   }
 
   # TODO this originated with EventQuery and should NOT BE DUPLICATED, but currently is.
@@ -92,14 +92,6 @@ class Event < ActiveRecord::Base
     new_event.add_entry "Merged by #{user.username} as '#{role_name}' from #{event_ids.join(', ')}", user.id, role_name
     new_event.save!
     new_event.reload
-  end
-
-  def self.user_can_see_hidden(user)
-    return user != nil ? user.read_hidden_entries? : false
-  end
-
-  def self.user_can_rw_secure(user)
-    return user != nil ? user.rw_secure? : false
   end
 
   def self.num_active

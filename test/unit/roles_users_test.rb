@@ -12,7 +12,7 @@ class RolesUsersTest < ActiveSupport::TestCase
   setup do
     @user1 = FactoryGirl.create :user
     @user2 = FactoryGirl.create :user
-    @role1 = FactoryGirl.create :write_entries_role
+    @role1 = FactoryGirl.create :typical_role
     @role2 = FactoryGirl.create :role
   end
 
@@ -45,12 +45,12 @@ class RolesUsersTest < ActiveSupport::TestCase
 
   test "can find write_entries permission in user roles" do
     setup_roles
-    assert @user1.write_entries?
+    assert @user1.can_assign_duty_board_slots?
   end
   
   test "can find absence of write_entries permission in user roles" do
     setup_roles
-    assert !@user2.write_entries?
+    assert !@user2.can_assign_duty_board_slots?
   end
 
 end

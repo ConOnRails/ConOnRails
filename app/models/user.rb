@@ -6,8 +6,8 @@
 #  username        :string(255)
 #  realname        :string(255)
 #  password_digest :string(255)
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  created_at      :datetime
+#  updated_at      :datetime
 #
 
 class User < ActiveRecord::Base
@@ -52,7 +52,6 @@ class User < ActiveRecord::Base
 
   def can_admin_anything?
     return (find_perm "admin_users?" or
-        find_perm "admin_schedule?" or
         find_perm "admin_duty_board?" or
         find_perm "admin_radios?")
   end
@@ -60,18 +59,6 @@ class User < ActiveRecord::Base
   def can_admin_users?
     find_perm "admin_users?"
   end
-
-  def write_entries?
-    find_perm "write_entries?"
-  end
-
-  alias :can_write_entries? :write_entries?
-
-  def read_hidden_entries?
-    find_perm "read_hidden_entries?"
-  end
-
-  alias :can_read_hidden? :read_hidden_entries?
 
   def add_lost_and_found?
     find_perm "add_lost_and_found?"
@@ -89,10 +76,6 @@ class User < ActiveRecord::Base
     find_perm "admin_radios"
   end
 
-  def can_make_hidden_entries?
-    find_perm "make_hidden_entries?"
-  end
-
   def can_admin_duty_board?
     find_perm "admin_duty_board"
   end
@@ -104,12 +87,6 @@ class User < ActiveRecord::Base
   def can_read_audits?
     find_perm "read_audits"
   end
-
-  def rw_secure?
-    find_perm "rw_secure?"
-  end
-
-  alias :can_read_secure? :rw_secure?
 
   def has_role?(*role_names)
     self.roles.where(name: role_names).any?

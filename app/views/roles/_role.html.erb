@@ -1,16 +1,10 @@
 <tr>
   <td><%= link_to role.name, role %></td>
-  <td class="flag"><%= raw check_bool role.write_entries %></td>
-  <td class="flag"><%= raw check_bool role.make_hidden_entries %></td>
-  <td class="flag"><%= raw check_bool role.read_hidden_entries %></td>
-  <td class="flag"><%= raw check_bool role.rw_secure %></td>
   <td class="flag"><%= raw check_bool role.add_lost_and_found %></td>
   <td class="flag"><%= raw check_bool role.modify_lost_and_found %></td>
   <td class="flag"><%= raw check_bool role.admin_radios %></td>
   <td class="flag"><%= raw check_bool role.assign_radios %></td>
   <td class="flag"><%= raw check_bool role.admin_users %></td>
-  <td class="flag"><%= raw check_bool role.admin_schedule %></td>
-  <td class="flag"><%= raw check_bool role.assign_shifts %></td>
   <td class="flag"><%= raw check_bool role.assign_duty_board_slots %></td>
   <td class="flag"><%= raw check_bool role.admin_duty_board %></td>
   <td class="flag"><%= raw check_bool role.read_audits %></td>
