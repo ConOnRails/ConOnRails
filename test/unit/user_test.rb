@@ -121,5 +121,19 @@ class UserTest < ActiveSupport::TestCase
       assert false == @user.has_role?('god')
     end
   end
-  
+
+  context '#can_read_section?' do
+    setup do
+      @user1 = create :user
+      @user2 = create :user
+      @section = create :section
+      @section.users << @user1
+      @section.save!
+    end
+
+    should 'return true for the user in the section' do
+      assert @user1.can_read_section? @section
+      assert !(@user2.can_read_section? @section)
+    end
+  end
 end
