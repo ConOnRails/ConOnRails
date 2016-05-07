@@ -57,7 +57,7 @@ class Event < ActiveRecord::Base
   scope :actives_and_stickies_or_all, -> (c) { where { |e| (e.is_active == true) | (e.sticky == true) unless c } }
 
   scope :protect_sensitive_events, -> (user) {
-    ap "DO SOMETHING"
+    # TODO Fill in once we've got sections again or something. Or maybe not. Whatever.
     where {}
   }
 

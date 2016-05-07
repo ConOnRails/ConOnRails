@@ -50,6 +50,10 @@ class User < ActiveRecord::Base
     return ret
   end
 
+  def can_read_section?(section)
+    sections.include? section
+  end
+
   def can_admin_anything?
     return (find_perm "admin_users?" or
         find_perm "admin_duty_board?" or
