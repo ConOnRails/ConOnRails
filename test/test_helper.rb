@@ -43,7 +43,7 @@ class ActiveSupport::TestCase
     sess.post sessions_url, login_params
     assert_redirected_to root_url
     follow_redirect!
-    assert_response :success
+    assert_response :redirect
     assert_template "events/index"
     yield sess if block_given?
   end
@@ -73,7 +73,12 @@ class ActiveSupport::TestCase
   end
 
   def peon_context
-    sign_in FactoryGirl.create(:user), FactoryGirl.create(:role)
+    @user = FactoryGirl.create(:user)
+    @role = FactoryGirl.create(:role)
+    @user.roles << @role
+    @user.save!
+
+    sign_in @user, @role
   end
 
   def self.multiple_contexts(*contexts, &blk)

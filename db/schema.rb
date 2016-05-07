@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160424180801) do
+ActiveRecord::Schema.define(version: 20160507184856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -142,8 +142,6 @@ ActiveRecord::Schema.define(version: 20160424180801) do
     t.boolean  "sticky",                      default: false
     t.boolean  "emergency",                   default: false
     t.boolean  "medical",                     default: false
-    t.boolean  "hidden",                      default: false
-    t.boolean  "secure",                      default: false
     t.boolean  "consuite"
     t.boolean  "hotel"
     t.boolean  "parties"

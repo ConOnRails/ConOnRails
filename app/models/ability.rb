@@ -4,6 +4,16 @@ class Ability
   def initialize(user)
     user ||= User.new # guest user (not logged in)
 
+    # Events and Entries
+    can :manage, Event if user.can_admin_anything?
+    # A user can read entries in any section they belong to. Complex query but the joins should sort it out I hope.
+    can [:read, :sticky, :review, :tag, :search_entries], Event, event_sections: { section: { section_users: { user_id: user.id } } }
+
+    # A user can create entries in any section at all if they belong to at least one section.
+    can [:new, :create, :edit, :update, :merge_events], Event if user.sections.count > 0
+
+    cannot :index, Event unless user.persisted?
+
     # TODO simplify admin permissions. They're currently much too granular for the real world.
     can :manage, Audit if user.can_read_audits?
     can :manage, Contact if user.persisted?
@@ -29,10 +39,7 @@ class Ability
     can :read, Department if user.can_assign_radios?
     can :read, DutyBoardSlot if user.can_assign_duty_board_slots?
     can :update, DutyBoardSlot if user.persisted?
-    can [:new, :create, :edit, :update, :merge_events], Event if user.persisted?
-    can [:read, :secure], Event, secure: true if user.persisted?
-    can :read, Event, hidden: true if user.persisted?
-    can [:read, :sticky, :review, :tag, :search_entries], Event, secure: false if user.persisted?
+
     can [:new, :create], LostAndFoundItem if user.add_lost_and_found?
     can [:edit, :update], LostAndFoundItem if user.modify_lost_and_found?
     can [:read, :searchform], LostAndFoundItem if user.persisted?

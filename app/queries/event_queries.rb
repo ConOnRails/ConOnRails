@@ -40,19 +40,19 @@ module Queries
 
     class IndexQuery < EventQuery
       def query(filters=nil)
-        is_active not_sticky not_secure not_hidden initial_query.where { |q| build_from_filters(filters) }
+        is_active not_sticky initial_query.where { |q| build_from_filters(filters) }
       end
     end
 
     class StickyQuery < EventQuery
       def query
-        sticky not_secure not_hidden initial_query
+        sticky initial_query
       end
     end
 
     class SecureQuery < EventQuery
       def query
-        is_active not_sticky hidden_or_secure initial_query
+        is_active not_sticky initial_query
       end
     end
 

@@ -10,8 +10,6 @@
 #  sticky          :boolean          default(FALSE)
 #  emergency       :boolean          default(FALSE)
 #  medical         :boolean          default(FALSE)
-#  hidden          :boolean          default(FALSE)
-#  secure          :boolean          default(FALSE)
 #  consuite        :boolean
 #  hotel           :boolean
 #  parties         :boolean
@@ -94,18 +92,13 @@ module EventsHelper
   end
 
   def event_status_icon(event)
-    return 'secure-icon' if event.secure?
     return 'emergency-icon' if event.medical? || event.emergency?
     return 'sticky-icon' if event.sticky?
     return 'active-icon' if event.is_active?
   end
 
   def get_active_count
-    Event.current_convention.num_active - Event.current_convention.num_active_secure
-  end
-
-  def get_secure_count
-    Event.current_convention.num_active_secure
+    Event.current_convention.num_active
   end
 
   def active_link
