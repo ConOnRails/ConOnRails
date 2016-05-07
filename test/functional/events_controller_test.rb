@@ -4,7 +4,10 @@ class EventsControllerTest < ActionController::TestCase
 
   context "Given some events" do
     setup do
+      @section = create :section
       @event        = FactoryGirl.create :ordinary_event
+      @event.sections << @section
+      @event.save!
 
       # We'll want these for search tests later
       FactoryGirl.create :entry, description: 'Voles are in control', event: @event
@@ -47,8 +50,6 @@ class EventsControllerTest < ActionController::TestCase
             assigns[:events].each do |e|
               assert e.is_active
               assert !e.sticky
-              assert !e.secure
-              assert !e.hidden
             end
           end
         end
@@ -71,6 +72,9 @@ class EventsControllerTest < ActionController::TestCase
 
         context 'GET :show for an ordinary event' do
           setup do
+            @section.users << @user
+            @section.save!
+
             get :show, { id: @event.to_param }, @admin_session
           end
 
@@ -81,7 +85,12 @@ class EventsControllerTest < ActionController::TestCase
 
       context 'Also a sticky event' do
         setup do
+          @section.users << @user
+          @section.save!
+
           @sticky_event = FactoryGirl.create :ordinary_event, sticky: true
+          @sticky_event.sections << @section
+          @sticky_event.save!
         end
 
         context 'GET :sticky' do
@@ -96,7 +105,6 @@ class EventsControllerTest < ActionController::TestCase
             assigns[:events].each do |e|
               assert e.sticky
               assert !e.secure
-              assert !e.hidden
             end
           end
         end
@@ -114,12 +122,6 @@ class EventsControllerTest < ActionController::TestCase
     end
 
     user_context :admin_context do
-      setup do
-        @hidden_event = FactoryGirl.create :ordinary_event, hidden: true
-        @secure_event = FactoryGirl.create :ordinary_event, secure: true
-        FactoryGirl.create :entry, description: 'There\'s a vole in your mind', event: @secure_event
-      end
-
       context 'POST :search_entries' do
         setup do
           post :search_entries, q: 'vole'
@@ -129,7 +131,7 @@ class EventsControllerTest < ActionController::TestCase
         should render_template :search_entries
 
         should 'Have both entries because we can see secure' do
-          assert_equal 2, assigns(:events).count(:all)
+          assert_equal 1, assigns(:events).count(:all)
         end
       end
 
@@ -137,9 +139,7 @@ class EventsControllerTest < ActionController::TestCase
         setup do
           @convention = create :convention
           @event.created_at = DateTime.now + 2.days # in range
-          @secure_event.created_at = DateTime.now + 7.days #out of range
           @event.save!
-          @secure_event.save!
 
           post :search_entries, q: 'vole', convention: @convention.id
 
@@ -150,23 +150,6 @@ class EventsControllerTest < ActionController::TestCase
 
         should 'Have one event' do
           assert_equal 1, assigns(:events).count(:all)
-        end
-      end
-
-
-      context 'GET :secure' do
-        setup do
-          get :secure
-        end
-        should respond_with :success
-
-        should 'have two events, one secure, one hidden' do
-          assert_equal 2, assigns[:events].count(:all)
-          assigns[:events].each do |e|
-            assert e.is_active
-            assert !e.sticky
-            assert e.secure || e.hidden
-          end
         end
       end
 
@@ -237,27 +220,9 @@ class EventsControllerTest < ActionController::TestCase
         end
       end
 
-      context 'GET :secure' do
-        setup do
-          get :secure
-        end
-
-        should respond_with :redirect
-        should redirect_to('actives') { :public }
-      end
-
       context 'GET :review with no filters' do
         setup do
           get :review
-        end
-
-        should respond_with :success
-        should 'not have any hidden or secure events' do
-          assert_equal 1, assigns(:events).count
-          assigns(:events).each do |e|
-            assert !e.secure
-            assert !e.hidden
-          end
         end
       end
 
@@ -271,7 +236,6 @@ class EventsControllerTest < ActionController::TestCase
 
           should respond_with :success
           should "have one event for #{f}" do
-            assert_equal ([:secure, :hidden].include?(f.to_sym) ? 0 : 1), assigns(:events).count
             assert assigns(:events).first.send("#{f}?".to_sym) if assigns(:events).present?
           end
         end
@@ -279,6 +243,11 @@ class EventsControllerTest < ActionController::TestCase
     end
 
     multiple_contexts :admin_context, :typical_context do
+      setup do
+        @section.users << @user
+        @section.save!
+      end
+
       context 'GET :new' do
         setup do
           get :new

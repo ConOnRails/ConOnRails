@@ -72,7 +72,6 @@ FactoryGirl.define do
     sticky false
     emergency false
     medical false
-    hidden false
     secure false
     consuite false
     hotel false
@@ -85,15 +84,6 @@ FactoryGirl.define do
     factory :ordinary_event do
       after :create do |event, evaluator|
         entry = FactoryGirl.create :oneliner_entry, event: event
-      end
-    end
-
-    factory :hidden_event do
-      hidden true
-      secure false
-
-      after :create do |event, evaluator|
-        entry = FactoryGirl.build :verbose_entry, event: event
       end
     end
   end

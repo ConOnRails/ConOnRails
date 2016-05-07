@@ -10,8 +10,6 @@
 #  sticky          :boolean          default(FALSE)
 #  emergency       :boolean          default(FALSE)
 #  medical         :boolean          default(FALSE)
-#  hidden          :boolean          default(FALSE)
-#  secure          :boolean          default(FALSE)
 #  consuite        :boolean
 #  hotel           :boolean
 #  parties         :boolean
@@ -31,7 +29,6 @@ class EventsController < ApplicationController
 
   include Queries::EventQueries
 
-  before_filter :set_event, only: [:show, :edit, :update]
   before_filter :get_tagged_events, only: [:tag]
   before_filter :process_filters, only: [:review, :export]
 
@@ -56,16 +53,6 @@ class EventsController < ApplicationController
     @events = (limit_by_convention StickyQuery.new(Event).query.
                                        order { |e| e.updated_at.desc }).page(params[:page])
 
-    respond_with @events do |format|
-      format.html { render :index }
-      format.js { render :index }
-    end
-  end
-
-  def secure
-    @title = 'Secure Events'
-    @events = SecureQuery.new(Event).query.
-        order { |e| e.updated_at.desc }.page(params[:page])
     respond_with @events do |format|
       format.html { render :index }
       format.js { render :index }
@@ -198,7 +185,7 @@ class EventsController < ApplicationController
 
   def event_params
     params.require(:event).permit :is_active, :comment, :flagged, :post_con, :quote, :sticky, :emergency,
-                                  :medical, :hidden, :secure, :consuite, :hotel, :parties, :volunteers,
+                                  :medical, :secure, :consuite, :hotel, :parties, :volunteers,
                                   :dealers, :dock, :merchandise, :nerf_herders, :status, :alert_dispatcher, :tag
   end
 

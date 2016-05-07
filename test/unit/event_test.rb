@@ -10,8 +10,6 @@
 #  sticky          :boolean          default(FALSE)
 #  emergency       :boolean          default(FALSE)
 #  medical         :boolean          default(FALSE)
-#  hidden          :boolean          default(FALSE)
-#  secure          :boolean          default(FALSE)
 #  consuite        :boolean
 #  hotel           :boolean
 #  parties         :boolean
@@ -49,8 +47,6 @@ class EventTest < ActiveSupport::TestCase
       assert !@event.sticky?
       assert !@event.emergency?
       assert !@event.medical?
-      assert !@event.hidden?
-      assert !@event.secure?
     end
 
     should 'have false department flags by default' do
@@ -84,9 +80,9 @@ class EventTest < ActiveSupport::TestCase
     end
 
     should 'detect flag changes' do
-      params = { hidden: true, secure: false }
+      params = { sticky: true }
       assert @event.flags_differ? params
-      params = { hidden: false }
+      params = { sticky: false }
       assert_equal false, @event.flags_differ?(params)
     end
 
@@ -113,16 +109,6 @@ class EventTest < ActiveSupport::TestCase
 
         should 'have one inactive' do
           assert_equal 1, Event.num_inactive
-        end
-      end
-
-      context 'one event is secure' do
-        setup do
-          @event.update_attribute(:secure, true)
-        end
-
-        should 'have one secure event' do
-          assert_equal 1, Event.num_active_secure
         end
       end
 

@@ -20,7 +20,6 @@ module ApplicationHelper
 
   def get_banner_style
     num_active = Event.current_convention.num_active
-    num_active -= Event.current_convention.num_active_secure
 
     style = 'normal'
     style = 'active' if  num_active > 0

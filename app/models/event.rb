@@ -10,8 +10,6 @@
 #  sticky          :boolean          default(FALSE)
 #  emergency       :boolean          default(FALSE)
 #  medical         :boolean          default(FALSE)
-#  hidden          :boolean          default(FALSE)
-#  secure          :boolean          default(FALSE)
 #  consuite        :boolean
 #  hotel           :boolean
 #  parties         :boolean
@@ -70,7 +68,7 @@ class Event < ActiveRecord::Base
   }
 
   STATUSES = %w[ Active Closed Merged ]
-  FLAGS = %w[ is_active merged post_con sticky emergency medical hidden secure consuite hotel parties volunteers dealers dock merchandise nerf_herders ]
+  FLAGS = %w[ is_active merged post_con sticky emergency medical consuite hotel parties volunteers dealers dock merchandise nerf_herders ]
   DEPT_FLAGS = %w[ consuite hotel parties volunteers dealers dock merchandise nerf_herders ]
 
   def self.search(q, user, show_closed=false, index_filters=nil)
@@ -100,10 +98,6 @@ class Event < ActiveRecord::Base
 
   def self.num_inactive
     return Event.where { is_active != true }.count
-  end
-
-  def self.num_active_secure
-    return Event.where { (is_active == true) & (secure == true) }.count
   end
 
   def self.num_active_emergencies
