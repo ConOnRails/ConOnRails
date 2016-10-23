@@ -1,4 +1,8 @@
 ConOnRails::Application.routes.draw do
+  get 'event_sections/index'
+
+  get 'event_sections/show'
+
   root controller: :events, action: :index, active: true
 
   get '/public', to: 'sessions#new'

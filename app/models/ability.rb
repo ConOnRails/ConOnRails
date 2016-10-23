@@ -4,7 +4,10 @@ class Ability
   def initialize(user)
     user ||= User.new # guest user (not logged in)
 
-    # Events and Entries
+    # Events and Entries nad Sections Oh My
+    can :manage, Section if user.can_admin_users?
+    can :read, Section, section_users: { user_id: user.id }
+
     can :manage, Event if user.can_admin_anything?
     # A user can read entries in any section they belong to. Complex query but the joins should sort it out I hope.
     can [:read, :sticky, :review, :tag, :search_entries], Event, event_sections: { section: { section_users: { user_id: user.id } } }
@@ -12,7 +15,9 @@ class Ability
     # A user can create entries in any section at all if they belong to at least one section.
     can [:new, :create, :edit, :update, :merge_events], Event if user.sections.count > 0
 
-    cannot :index, Event unless user.persisted?
+   # cannot :index, Event unless user.persisted?
+
+    can :read, EventSection, section: { section_users: { user_id: user.id } }
 
     # TODO simplify admin permissions. They're currently much too granular for the real world.
     can :manage, Audit if user.can_read_audits?
@@ -30,7 +35,6 @@ class Ability
     can :manage, RadioAssignmentAudit if user.can_admin_radios?
     can :manage, RadioGroup if user.can_admin_radios?
     can :manage, Role if user.can_admin_users?
-    can :manage, Section if user.can_admin_users?
     can :manage, User if user.can_admin_users?
     can :manage, Version if user.can_read_audits?
     can :manage, Volunteer if user.can_admin_users?

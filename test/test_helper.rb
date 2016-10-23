@@ -54,6 +54,7 @@ class ActiveSupport::TestCase
   end
 
   def admin_context
+    @context = :admin
     @admin      = FactoryGirl.create :user
     @admin_role = FactoryGirl.create :superuser_role
     @admin.roles << @admin_role
@@ -64,6 +65,7 @@ class ActiveSupport::TestCase
   end
 
   def typical_context
+    @context = :typical
     @user = FactoryGirl.create :user
     @role = FactoryGirl.create :typical_role
     @user.roles << @role
@@ -73,6 +75,7 @@ class ActiveSupport::TestCase
   end
 
   def peon_context
+    @context = :peon
     @user = FactoryGirl.create(:user)
     @role = FactoryGirl.create(:role)
     @user.roles << @role

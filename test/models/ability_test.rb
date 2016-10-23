@@ -8,6 +8,28 @@ class AbilityTest < ActiveSupport::TestCase
       @section = create :section
     end
 
+    context 'Admin user manage sections access' do
+      setup do
+        @role = create :superuser_role
+        @user.roles << @role
+        @ability = Ability.new @user
+      end
+
+      should 'manage sections' do
+        assert @ability.can? :manage, @section
+      end
+    end
+
+    context "Peon user who isn't a section member can't do anything with it" do
+      setup do
+        @ability = Ability.new @user
+      end
+
+      should 'do nothing' do
+        assert @ability.cannot? :read, @section
+      end
+    end
+
     context 'Bog standard read access' do
       setup do
         @user.sections << @section
@@ -18,7 +40,8 @@ class AbilityTest < ActiveSupport::TestCase
       end
 
       should 'read' do
-        assert @ability.can? :read, @event
+        assert @ability.can? :read, @section
+#        assert @ability.can? :read, EventSection.first
       end
     end
 

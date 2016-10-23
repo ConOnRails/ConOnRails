@@ -37,6 +37,16 @@
       .col-md-12
         .paginator= paginate @events, remote: true
 
+- content_for :side do
+  .col-md-12.col-sm-12.col-xs-12
+    .well.well-sm
+      = collection_select(:user, :section_id, @sections, :id, :name, { }, { multiple: true, id: 'sections-select2', class: 'form-control' })
+      = sidebar_menu
+  = render partial: 'index_filters'
+
+- content_for :search do
+  = render partial: 'search_form'
+
 javascript:
   window.events.page = #{params[:page].nil? ? '1' : params[:page] };
   window.events.convention = "#{params[:convention] || Convention.current_convention.try(:id)}";
@@ -46,12 +56,6 @@ javascript:
   $('#show_older').change(function () {
     window.events.getMain(true);
   });
+  $('#sections-select2').select2({ placeholder: 'Select the sections you want to see' });
 
-- content_for :side do
-  .col-md-12.col-sm-12.col-xs-12
-    .well.well-sm
-      = sidebar_menu
-    = render partial: 'index_filters'
 
-- content_for :search do
-  = render partial: 'search_form'
