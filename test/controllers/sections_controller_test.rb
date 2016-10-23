@@ -14,6 +14,8 @@ require 'test_helper'
 class SectionsControllerTest < ActionController::TestCase
   setup do
     @section = create :section
+    @somebody_else = create :user
+    @section.users << @somebody_else
   end
 
   user_context :admin_context do
@@ -104,13 +106,16 @@ class SectionsControllerTest < ActionController::TestCase
   end
 
   multiple_contexts :typical_context, :peon_context do
+
     context 'get #index' do
       setup do
         get :index
       end
 
-      should respond_with :redirect
-      should redirect_to :public
+      should respond_with :success
+      should 'have no actual sections assigned' do
+        assert assigns(:sections).blank?
+      end
     end
 
     context 'get #show' do

@@ -25,12 +25,13 @@
 require Rails.root + 'app/queries/event_queries'
 
 class EventsController < ApplicationController
-  load_and_authorize_resource
-
   include Queries::EventQueries
 
+  before_filter :get_events, only: [:index]
   before_filter :get_tagged_events, only: [:tag]
   before_filter :process_filters, only: [:review, :export]
+
+  load_and_authorize_resource
 
   respond_to :html, :json, except: [:export]
   respond_to :js, only: [:index, :sticky, :secure, :review]
@@ -43,8 +44,7 @@ class EventsController < ApplicationController
   def index
     @title = 'Active Events'
     return jump if params[:id].present?
-    @events = IndexQuery.new(Event).query(session[:index_filter]).
-        order { |e| e.updated_at.desc }.page(params[:page])
+
     respond_with @events
   end
 
@@ -139,6 +139,12 @@ class EventsController < ApplicationController
 
   protected
 
+  def get_events
+    @events = IndexQuery.new(Event).query(session[:index_filter]).
+        order { |e| e.updated_at.desc }.page(params[:page])
+    @events = @events.where(section_ids: params[:section_ids]) if params[:section_ids]
+    @sections = Section.joins(:section_users).where(section_users: { user_id: current_user.id } )
+  end
   def build_new_entry(event)
     event.entries.build event: event, user: current_user, rolename: current_role_name
   end

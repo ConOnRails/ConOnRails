@@ -14,9 +14,13 @@ class EventsControllerTest < ActionController::TestCase
     end
 
     multiple_contexts :admin_context, :typical_context do
+      setup do
+        @section.users << @user if @context == :typical
+      end
+
       context 'An index filter set on the session' do
         setup do
-          @hotel_event = FactoryGirl.create :ordinary_event, hotel: true
+          @hotel_event = FactoryGirl.create :ordinary_event, hotel: true, sections: [@section]
           session[:index_filter] = { 'hotel' => true }
         end
 
@@ -37,10 +41,14 @@ class EventsControllerTest < ActionController::TestCase
     end
 
     multiple_contexts :admin_context, :typical_context, :peon_context do
+      setup do
+        @section.users << @user if @context == :typical
+      end
+
       context 'Only ordinary events' do
         context 'GET :index' do
           setup do
-            get :index
+            get :index, section_id: @section.to_param
           end
 
           should respond_with :success

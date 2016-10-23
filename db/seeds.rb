@@ -9,6 +9,7 @@ $LOAD_PATH.unshift File.expand_path('..', __FILE__)
 require 'factory_girl_rails'
 require 'faker'
 
+Section.delete_all
 Entry.delete_all
 Event.delete_all
 User.delete_all
@@ -24,7 +25,7 @@ DutyBoardSlot.delete_all
 DutyBoardGroup.delete_all
 
 # Seed an admin user
-user = User.create!({ username:              "admin",
+admin = User.create!({ username:              "admin",
                       realname:              "Admin Droid",
                       password:              "controlthehorizontal",
                       password_confirmation: "controlthehorizontal"
@@ -33,64 +34,59 @@ role = Role.create!({ name:                    "Head",
                       add_lost_and_found:      true,
                       admin_duty_board:        true,
                       admin_radios:            true,
-                      admin_schedule:          true,
                       admin_users:             true,
                       assign_duty_board_slots: true,
                       assign_radios:           true,
-                      assign_shifts:           true,
-                      modify_lost_and_found:   true,
-                      read_hidden_entries:     true,
-                      make_hidden_entries:     true,
-                      read_audits:             true,
-                      rw_secure:               true,
-                      write_entries:           true,
+                      modify_lost_and_found:   true
                     })
-user.roles << role
-user.save!
+admin.roles << role
+admin.save!
+
+user = User.create!({ username: 'demo',
+                    realname: "De Mo",
+                    password: 'controlthevertical',
+                    password_confirmation: 'controlthevertical' })
+
+ops = Section.create(name: 'Ops')
+ops_secure = Section.create(name: 'Ops Secure')
+
+ops.users << admin
+ops.users << user
+ops_secure.users << admin
 
 # preseed the other roles. Since the db defaults these to false, we only need to specify what's true'
 Role.create!({ name:                    "Subhead",
                add_lost_and_found:      true,
                admin_duty_board:        true,
                admin_radios:            true,
-               admin_schedule:          true,
                admin_users:             true,
                assign_duty_board_slots: true,
                assign_radios:           true,
-               assign_shifts:           true,
                modify_lost_and_found:   true,
-               read_hidden_entries:     true,
-               make_hidden_entries:     true,
-               rw_secure:               true,
-               read_audits:             true,
-               write_entries:           true
+               read_audits:             true
              })
 Role.create!({ name:                    "XO",
                add_lost_and_found:      true,
                admin_duty_board:        true,
-               admin_schedule:          true,
                admin_users:             true,
                assign_duty_board_slots: true,
                assign_radios:           true,
-               assign_shifts:           true,
-               modify_lost_and_found:   true,
-               write_entries:           true
+               modify_lost_and_found:   true
              })
 Role.create!({ name:                  "First Contact",
                add_lost_and_found:    true,
-               modify_lost_and_found: true,
-               write_entries:         true
+               modify_lost_and_found: true
              })
 Role.create!({ name:                    "Comm 1",
                add_lost_and_found:      true,
                assign_duty_board_slots: true,
-               modify_lost_and_found:   true,
-               write_entries:           true })
+               modify_lost_and_found:   true
+             })
 Role.create!({ name:                    "Comm 2",
                add_lost_and_found:      true,
                assign_duty_board_slots: true,
-               modify_lost_and_found:   true,
-               write_entries:           true })
+               modify_lost_and_found:   true
+             })
 
 dbg = DutyBoardGroup.create! name: "Ops Leaders", row: 1, column: 1
 DutyBoardSlot.create! name: "Ops Head", duty_board_group: dbg
@@ -138,7 +134,6 @@ case Rails.env
       event = Event.create!(
           {
               is_active: rand(1..6) == 6 ? false : true,
-              hidden:    rand(1..20) > 18 ? true : false
           }
       )
       (0..rand(1..8)).each do |j|
