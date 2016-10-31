@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_filter :require_login, except: [:banner]
+  before_action :set_paper_trail_whodunnit
 
   def banner
     render partial: 'banner'
@@ -84,7 +85,8 @@ class ApplicationController < ActionController::Base
 
   def limit_by_convention(query)
     return query if params[:convention] == 'all' || params[:show_older] == 'true' || get_convention.blank?
-    query.where { |x| (x.created_at >= get_convention.start_date) & (x.created_at <= get_convention.end_date) }
+    #query.where { |x| (x.created_at >= get_convention.start_date) & (x.created_at <= get_convention.end_date) }
+    query.where(created_at: get_convention.start_date..get_convention.end_date)
   end
 
   def limit_by_date_range(query)

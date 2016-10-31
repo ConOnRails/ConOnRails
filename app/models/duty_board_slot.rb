@@ -3,10 +3,10 @@
 # Table name: duty_board_slots
 #
 #  id                  :integer          not null, primary key
-#  name                :string(255)
+#  name                :string
 #  duty_board_group_id :integer
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
+#  created_at          :datetime
+#  updated_at          :datetime
 #
 
 class DutyBoardSlot < ActiveRecord::Base

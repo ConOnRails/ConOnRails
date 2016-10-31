@@ -3,11 +3,11 @@
 # Table name: radio_groups
 #
 #  id         :integer          not null, primary key
-#  name       :string(255)
-#  color      :string(255)
+#  name       :string
+#  color      :string
 #  notes      :text
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  created_at :datetime
+#  updated_at :datetime
 #
 
 class RadioGroup < ActiveRecord::Base

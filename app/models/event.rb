@@ -3,8 +3,8 @@
 # Table name: events
 #
 #  id              :integer          not null, primary key
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  created_at      :datetime
+#  updated_at      :datetime
 #  is_active       :boolean          default(TRUE)
 #  post_con        :boolean          default(FALSE)
 #  sticky          :boolean          default(FALSE)
@@ -19,7 +19,7 @@
 #  dealers         :boolean
 #  dock            :boolean
 #  merchandise     :boolean
-#  merged_from_ids :string(255)
+#  merged_from_ids :string
 #  merged          :boolean
 #  nerf_herders    :boolean
 #
