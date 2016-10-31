@@ -24,7 +24,7 @@ DutyBoardSlot.delete_all
 DutyBoardGroup.delete_all
 
 # Seed an admin user
-user = User.create!({ name:                  "admin",
+user = User.create!({ username:              "admin",
                       realname:              "Admin Droid",
                       password:              "controlthehorizontal",
                       password_confirmation: "controlthehorizontal"
@@ -131,7 +131,7 @@ case Rails.env
     llama = FactoryGirl.create_list(:many_valid_volunteers, 42)
 
 
-    User.create!({ name:     "test", realname: "Test User",
+    User.create!({ username: "test", realname: "Test User",
                    password: "testme", password_confirmation: "testme" })
 
     (0..25).each do |i|
