@@ -85,14 +85,13 @@ class ApplicationController < ActionController::Base
 
   def limit_by_convention(query)
     return query if params[:convention] == 'all' || params[:show_older] == 'true' || get_convention.blank?
-    #query.where { |x| (x.created_at >= get_convention.start_date) & (x.created_at <= get_convention.end_date) }
     query.where(created_at: get_convention.start_date..get_convention.end_date)
   end
 
   def limit_by_date_range(query)
     return query if params[:from_date].blank? && params[:to_date].blank?
-    query = query.where { |x| x.created_at >= params[:from_date] } if params[:from_date].present?
-    query = query.where { |x| x.created_at <= params[:to_date] } if params[:to_date].present?
+    query = query.where('created_at >= ?', params[:from_date]) if params[:from_date].present?
+    query = query.where('created_at <= ?', params[:to_date]) if params[:to_date].present?
     query
   end
 

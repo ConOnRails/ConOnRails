@@ -6,26 +6,26 @@ module Queries
 
       def method_missing(name, *args)
         if Event::FLAGS.include? name.to_s
-          args[0].where Squeel::Nodes::KeyPath.new(name).eq(true)
+          args[0].where(name => true)
         elsif Event::FLAGS.include? name.to_s.sub(/^not_/, '')
-          args[0].where Squeel::Nodes::KeyPath.new(name.to_s.sub(/^not_/, '').to_sym).eq(false)
+          args[0].where(name.to_s.sub(/^not_/, '') => false)
         elsif name.to_s =~ /^(.*)_or_(.*)/ && Event::FLAGS.include?($1) && Event::FLAGS.include?($2)
-          kp1 = Squeel::Nodes::KeyPath.new($1.to_sym).eq(true)
-          kp2 = Squeel::Nodes::KeyPath.new($2.to_sym).eq(true)
-          args[0].where { (kp1 | kp2) }
+          args[0].where("#{$1} = ? OR #{$2} = ?", true, true)
         end
       end
 
       protected
 
       # TODO there's now a copy of this on Event. Find a way to unify them.
-      def build_from_filters(filters)
-        filters.reduce(Squeel::Nodes::Stub.new(:created_at).not_eq(nil)) do |query, key|
-          unless key.first == 'order'
-            query = query.& Squeel::Nodes::KeyPath.new(key.first.to_sym).eq(fix_bool key.second) unless key.second == 'all'
+      def build_from_filters(initial_query, filters)
+        new_query = initial_query
+        new_query = filters.reduce(initial_query.where.not(created_at: nil)) do |query, key|
+          unless key.first == 'order' || key.second == 'all'
+            query = query.where(key.first => key.second)
           end
           query
         end if filters.present?
+        new_query
       end
 
       def fix_bool val
@@ -40,7 +40,7 @@ module Queries
 
     class IndexQuery < EventQuery
       def query(filters=nil)
-        is_active not_sticky not_secure not_hidden initial_query.where { |q| build_from_filters(filters) }
+        is_active not_sticky not_secure not_hidden build_from_filters(initial_query, filters)
       end
     end
 
@@ -63,7 +63,7 @@ module Queries
       end
 
       def query
-        initial_query.where { |q| build_from_filters(@filters) }
+        build_from_filters(initial_query, @filters)
       end
 
     end

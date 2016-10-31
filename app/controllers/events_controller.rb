@@ -159,7 +159,7 @@ class EventsController < ApplicationController
   def process_filters
     @q = params[:q]
 
-    @events = limit_by_convention FiltersQuery.new(Event.where {}, params[:filters]).query.protect_sensitive_events(current_user)
+    @events = limit_by_convention FiltersQuery.new(Event, params[:filters]).query.protect_sensitive_events(current_user)
     @events = limit_by_date_range @events
     @events = @events.order(updated_at: filter_order)
     @events = @events.search_entries(@q) if @q.present?
