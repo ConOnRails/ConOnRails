@@ -307,7 +307,7 @@ class EventsControllerTest < ActionController::TestCase
         end
 
         should respond_with :redirect
-        should redirect_to('the item') { event_url assigns(:event) }
+        should redirect_to('root') { events_url }
       end
 
       context 'GET :edit' do
@@ -326,7 +326,7 @@ class EventsControllerTest < ActionController::TestCase
         end
 
         should respond_with :redirect
-        should redirect_to('the item') { event_url @event }
+        should redirect_to('root') { events_url }
       end
 
       context 'PUT :update with changed flags' do
