@@ -88,7 +88,7 @@ class EventsController < ApplicationController
     build_flag_history_from_params @event, event_params, true
     flash[:notice] = 'Event was successfully created.' if @event.save
 
-    respond_with @event
+    respond_with @event, location: -> {root_path}
   end
 
   # PUT /events/1
@@ -105,7 +105,7 @@ class EventsController < ApplicationController
       flash[:notice] = 'Event was successfully updated.' if @event.save
     end
 
-    respond_with @event
+    respond_with @event, location: -> {root_path}
   end
 
   def merge_events
