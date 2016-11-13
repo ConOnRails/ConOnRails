@@ -26,10 +26,13 @@ window.events.getMain = (push = false) ->
   ).done((data, status, xhr)->
     setTimeout((->
       window.events.getMain()), 5000)
-    if push == true
-      history.pushState(data, 'Main', this.url)
-    else
-      history.replaceState(data, 'Main', this.url)
+    # if push == true
+
+      # TODO: remote this; it's causing the back-button issue.
+      # history.pushState(data, 'Main', this.url) 
+    # else
+      # TODO: remote this; it's causing the back-button issue.
+      # history.replaceState(data, 'Main', this.url)
   )
 
 window.events.getReview = (filters) ->

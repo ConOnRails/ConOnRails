@@ -5,6 +5,8 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'minitest/mock'
 require 'minitest/reporters'
+require 'capybara/rails'
+
 MiniTest::Reporters.use! #[MiniTest::Reporters::ProgressReporter.new]
 
 
@@ -89,6 +91,36 @@ class ActiveSupport::TestCase
 
       merge_block &blk
     end
+  end
+end
+
+class ActionDispatch::IntegrationTest 
+  # Make the Capybara DSL available in all integration tests
+  include Capybara::DSL
+
+  def setup
+    Capybara.run_server = true #Whether start server when testing
+    Capybara.server_port = 3000
+  end
+
+
+  # Switch to JavaScript Driver
+  def jsDriver
+    Capybara.current_driver = Capybara.javascript_driver
+    yield
+    Capybara.current_driver = Capybara.default_driver
+  end
+
+  def sign_in(user, role)
+    session[:user_id]      = user.id
+    session[:current_role_name] = role.name
+  end
+
+  # Reset sessions and driver between tests
+  # Use super wherever this method is redefined in your individual test classes
+  def teardown
+    Capybara.reset_sessions!
+    Capybara.use_default_driver
   end
 end
 
