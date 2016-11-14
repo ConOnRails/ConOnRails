@@ -99,7 +99,7 @@ class ActionDispatch::IntegrationTest
   include Capybara::DSL
 
   def setup
-    Capybara.run_server = true #Whether start server when testing
+    Capybara.run_server = true
     Capybara.server_port = 3000
   end
 
