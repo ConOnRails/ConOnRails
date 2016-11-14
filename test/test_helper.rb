@@ -94,6 +94,7 @@ class ActiveSupport::TestCase
   end
 end
 
+# Capybara Base Class
 class ActionDispatch::IntegrationTest 
   # Make the Capybara DSL available in all integration tests
   include Capybara::DSL
@@ -109,11 +110,6 @@ class ActionDispatch::IntegrationTest
     Capybara.current_driver = Capybara.javascript_driver
     yield
     Capybara.current_driver = Capybara.default_driver
-  end
-
-  def sign_in(user, role)
-    session[:user_id]      = user.id
-    session[:current_role_name] = role.name
   end
 
   # Reset sessions and driver between tests
