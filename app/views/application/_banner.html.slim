@@ -12,4 +12,8 @@
         = link_to '/events/new?emergency=1', id: 'emergency_button', class: get_emerg_button_style do
           .glyphicon.glyphicon-exclamation-sign
           | &nbsp; Open a New Emergency
-
+     - if Rails.env.development?
+      .text-right
+        p 
+          | Pause Banner  
+          = check_box_tag 'pause-banner', '1', false
