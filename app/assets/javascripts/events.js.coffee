@@ -26,10 +26,6 @@ window.events.getMain = (push = false) ->
   ).done((data, status, xhr)->
     setTimeout((->
       window.events.getMain()), 5000)
-    if push == true
-      history.pushState(data, 'Main', this.url)
-    else
-      history.replaceState(data, 'Main', this.url)
   )
 
 window.events.getReview = (filters) ->

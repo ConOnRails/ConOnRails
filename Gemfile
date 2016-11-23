@@ -59,6 +59,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'capybara'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'faker'
@@ -66,7 +67,7 @@ group :test do
   gem 'mocha', require: false
   gem 'shoulda'#, github: 'thoughtbot/shoulda'
   gem 'shoulda-matchers'#, github: 'thoughtbot/shoulda-matchers'
-
+  gem 'selenium-webdriver', '2.53.4'
   #gem 'turn'
 
   #
