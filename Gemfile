@@ -6,7 +6,7 @@ gem 'rails', '~>4.2.0'
 gem 'pg', '~> 0.18.1'
 
 gem 'passenger', '~> 5.0.20'
-gem 'rails_12factor'
+gem 'rails_12factor', group: :production
 
 # Gems used only for assets and not required
 # in production environments by default.
