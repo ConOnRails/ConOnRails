@@ -50,7 +50,7 @@ class LostAndFoundItemsController < ApplicationController
     @lfi.user     = current_user
     @lfi.rolename = current_role_name
 
-    flash[:notice] = "#{@lfi.Type} item was successfully created." if @lfi.save
+    flash[:notice] = "TAG WITH #{@lfi.id} - #{@lfi.Type} item was successfully created." if @lfi.save
     respond_with @lfi
   end
 
