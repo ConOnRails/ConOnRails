@@ -1,11 +1,10 @@
 #search
   .col-md-12
     .well.well-sm
-      h5 All values case-sensitive!
       = search_form_for @q, html: { class: 'form-vertical' } do |f|
         .form-group
-          = f.label :number_eq, 'Radio Number'
-          = f.text_field :number_eq, class: 'form-control form-control-sm'
+          = f.label :number_matches, 'Radio Number'
+          = f.text_field :number_matches, class: 'form-control form-control-sm'
         .form-group
           = f.label :radio_assignment_volunteer_first_name_cont, 'First name contains'
           = f.text_field :radio_assignment_volunteer_first_name_cont, class: 'form-control'
