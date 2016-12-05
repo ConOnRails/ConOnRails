@@ -70,6 +70,12 @@ class RadiosControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "can search volunteers case insensitive" do
+    @radio.save!
+    xhr :post, :search_volunteers, { first_name: @volunteer.first_name.downcase, last_name: @volunteer.last_name.upcase, radio: @radio.to_param }, @user_session
+    assert_response :success
+  end
+
   test "can select department" do
     @radio.save!
     xhr :get, :select_department, { id: @radio.to_param, volunteer: @volunteer.to_param }, @user_session
