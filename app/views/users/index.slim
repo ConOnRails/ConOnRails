@@ -2,7 +2,6 @@
   h1 Listing users
 
   div= link_to 'New User', new_user_path, class: 'btn btn-primary'
-  div style="text-align: right" Note: name and username searches are CASE SENSITIVE.
   #search= search_form_for @q do |f|
     = f.label :username_cont, 'Username'
     = f.text_field :username_cont
