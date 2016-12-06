@@ -81,7 +81,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     can_search @user
   end
 
-  test "can search by single keyword" do
+  test "can search description by single keyword" do
     get :index, { reported_missing: true, keywords: "Llamas" }, { user_id: @user.id }
     assert_response :success
     assert_template :index
@@ -89,7 +89,15 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     assert_equal 2, assigns(:lfis).length
   end
 
-  test "can safely search with quotes or apostrophe in search term" do
+    test "can search details by single keyword" do
+    get :index, { reported_missing: true, keywords: "Oh" }, { user_id: @user.id }
+    assert_response :success
+    assert_template :index
+    assert_not_nil assigns :lfis
+    assert_equal 1, assigns(:lfis).length
+  end
+
+  test "can safely search description with quotes or apostrophe in search term" do
     @missing.description = "Llama's"
     @missing.save!
     get :index, { reported_missing: true, keywords: "Llama's" }, { user_id: @user.id }
@@ -98,8 +106,25 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     assert_not_nil assigns :lfis
   end
 
-  test "can search by all of multiple keywords" do
+  test "can safely search details with quotes or apostrophe in search term" do
+    @missing.details = "Customer's"
+    @missing.save!
+    get :index, { reported_missing: true, keywords: "Customer's" }, { user_id: @user.id }
+    assert_response :success
+    assert_template :index
+    assert_not_nil assigns :lfis
+  end
+
+  test "can search description by all of multiple keywords" do
     get :index, { reported_missing: true, search_type: "all", keywords: "Llamas Tigers" }, { user_id: @user.id }
+    assert_response :success
+    assert_template :index
+    assert_not_nil assigns :lfis
+    assert_equal 1, assigns(:lfis).length
+  end
+
+  test "can search detais by all of multiple keywords" do
+    get :index, { reported_missing: true, search_type: "all", keywords: "Oh My!" }, { user_id: @user.id }
     assert_response :success
     assert_template :index
     assert_not_nil assigns :lfis
@@ -115,13 +140,20 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     # we don't actually have one of these. We just want to make sure apostrophe doesn't go boom.
   end
 
-
-  test "can search for any of multiple keywords" do
+  test "can search description for any of multiple keywords" do
     get :index, { reported_found: true, search_type: "any", keywords: "Llamas Tigers" }, { user_id: @user.id }
     assert_response :success
     assert_template :index
     assert_not_nil assigns :lfis
     assert_equal 2, assigns(:lfis).length
+  end
+
+  test "can search details for any of multiple keywords" do
+    get :index, { reported_found: true, search_type: "any", keywords: "Oh My!" }, { user_id: @user.id }
+    assert_response :success
+    assert_template :index
+    assert_not_nil assigns :lfis
+    assert_equal 1, assigns(:lfis).length
   end
 
   test "can search for any of multiple keywords with an apostrophe" do

@@ -102,6 +102,7 @@ FactoryGirl.define do
       reported_missing true
       category "Badges"
       description "Llamas and Tigers and Bears"
+      details "Oh My!"
       where_last_seen "MyString"
       owner_name "MyString"
     end
