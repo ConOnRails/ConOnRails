@@ -42,7 +42,6 @@ ConOnRails::Application.routes.draw do
       get :searchform
     end
   end
-  resources :messages
 
 
   resources :radio_admin, only: [:index]

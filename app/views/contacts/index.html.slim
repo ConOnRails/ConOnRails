@@ -24,12 +24,7 @@ h1 Contacts
         td= contact.can_text? ? "Yes" : "No"
         td= contact.hotel
         td= contact.hotel_room
-        - if current_user and current_user.write_entries?
-          td= link_to ("Leave&nbsp;Message").html_safe, new_message_path(message: { for: contact.name,
-                                                                                    phone_number: contact.cell_phone,
-                                                                                    room_number: contact.hotel_room,
-                                                                                    hotel: contact.hotel }),
-                      class: 'btn btn-sm btn-primary'
+        
 
 #paginator= paginate @contacts
 = link_to 'New Contact', new_contact_path, class: 'btn btn-primary'
@@ -40,4 +35,3 @@ h1 Contacts
       - if current_user.can_admin_users?
         div= link_to "Users", users_path
         div= link_to "Volunteers", volunteers_path
-      div= link_to "Messages", messages_path
