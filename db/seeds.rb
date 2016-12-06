@@ -9,6 +9,7 @@ $LOAD_PATH.unshift File.expand_path('..', __FILE__)
 require 'factory_girl_rails'
 require 'faker'
 
+Convention.delete_all
 Entry.delete_all
 Event.delete_all
 User.delete_all
@@ -180,6 +181,16 @@ case Rails.env
             description: "A frickin' laser",
             details:     "One laser, frickin'"
         }
+    )
+
+    Convention.create!(
+      {
+          name:       "TestConvention",
+          start_date: DateTime.new(2016,1,1,0,0,0,Rational(-6,24)),
+          end_date:   DateTime.new(2021,12,31,0,0,0,Rational(-6,24)),
+          created_at: DateTime.now,
+          updated_at: DateTime.now 
+      }
     )
 
 end
