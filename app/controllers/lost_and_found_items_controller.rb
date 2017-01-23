@@ -31,7 +31,7 @@ class LostAndFoundItemsController < ApplicationController
     @title = "Lost and Found Entries"
 
     @lfis = limit_by_convention LostAndFoundItem.inventory(lfi_search_params[:inventory], lfi_search_params[:exclude_inventoried]).page(lfi_search_params[:page]).
-        where { |l| l.description.send(('like_'+search_type).to_sym, wrap_keywords_for_like) unless lfi_search_params[:keywords].blank? }.
+        where { |l| l.description.send(('like_'+search_type).to_sym, wrap_keywords_for_like) | l.details.send(('like_'+search_type).to_sym, wrap_keywords_for_like) unless lfi_search_params[:keywords].blank? }.
         where { |l| l.category >> @categories unless @categories.blank? }.references(:tags)
     @lfis = lfi_search_params[:show_returned_only] ? @lfis.returned : @lfis.not_returned
     @back_params = lfi_search_params
@@ -50,7 +50,7 @@ class LostAndFoundItemsController < ApplicationController
     @lfi.user     = current_user
     @lfi.rolename = current_role_name
 
-    flash[:notice] = "#{@lfi.Type} item was successfully created." if @lfi.save
+    flash[:notice] = "TAG WITH #{@lfi.id} - #{@lfi.Type} item was successfully created." if @lfi.save
     respond_with @lfi
   end
 
