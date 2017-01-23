@@ -71,9 +71,11 @@
         success: this.fillCards.bind(this)
       });
 
-      setTimeout(function () {
-        this.getEvents()
-      }.bind(this), 5000);
+      if( !window.events.pause ) {
+        setTimeout(function () {
+          this.getEvents()
+        }.bind(this), 5000); 
+      }
     },
 
     gotoEvent: function (evt) {

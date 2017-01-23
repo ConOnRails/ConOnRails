@@ -16,4 +16,4 @@
       .text-right
         p 
           | Pause Banner  
-          = check_box_tag 'pause-banner', '1', false
+          = check_box_tag 'pause-banner', 1, false, :onclick => '$("#pause-banner").is(":checked") ? console.log("Clicked") : console.log("unClicked")'
