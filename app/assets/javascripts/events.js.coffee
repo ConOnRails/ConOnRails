@@ -24,8 +24,9 @@ window.events.getMain = (push = false) ->
       data: data
     }
   ).done((data, status, xhr)->
-    setTimeout((->
-      window.events.getMain()), 5000)
+    if !window.events.pause
+      setTimeout((->
+        window.events.getMain()), 5000)
   )
 
 window.events.getReview = (filters) ->
