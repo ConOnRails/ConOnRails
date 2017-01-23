@@ -3,8 +3,10 @@ ruby '2.2.3'
 
 gem 'rails', '~>4.2.0'
 
-gem 'sqlite3'
 gem 'pg', '~> 0.18.1'
+
+gem 'passenger', '~> 5.0.20'
+gem 'rails_12factor', group: :production
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -41,6 +43,10 @@ gem 'sshkit', '~> 1.6.1'
 gem 'therubyracer', '~>0.12', require: 'v8'
 gem 'yaml_db', '~> 0.3.0'
 
+# Moved to production because we use them in seeds and we need to be able to seed Heroku
+gem 'factory_girl_rails'
+gem 'faker'
+
 group :development do
   gem 'annotate'
   gem 'rb-fsevent'#, '~> 0.9.1'
@@ -59,14 +65,13 @@ group :development, :test do
 end
 
 group :test do
+  gem 'capybara'
   gem 'database_cleaner'
-  gem 'factory_girl_rails'
-  gem 'faker'
   gem 'minitest-reporters'
   gem 'mocha', require: false
   gem 'shoulda'#, github: 'thoughtbot/shoulda'
   gem 'shoulda-matchers'#, github: 'thoughtbot/shoulda-matchers'
-
+  gem 'selenium-webdriver', '2.53.4'
   #gem 'turn'
 
   #

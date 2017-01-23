@@ -18,17 +18,17 @@ ActiveRecord::Schema.define(version: 20150626000353) do
 
   create_table "audits", force: :cascade do |t|
     t.integer  "auditable_id"
-    t.string   "auditable_type",  limit: 255
+    t.string   "auditable_type"
     t.integer  "associated_id"
-    t.string   "associated_type", limit: 255
+    t.string   "associated_type"
     t.integer  "user_id"
-    t.string   "user_type",       limit: 255
-    t.string   "username",        limit: 255
-    t.string   "action",          limit: 255
+    t.string   "user_type"
+    t.string   "username"
+    t.string   "action"
     t.text     "audited_changes"
-    t.integer  "version",                     default: 0
-    t.string   "comment",         limit: 255
-    t.string   "remote_address",  limit: 255
+    t.integer  "version",         default: 0
+    t.string   "comment"
+    t.string   "remote_address"
     t.datetime "created_at"
   end
 
@@ -38,27 +38,27 @@ ActiveRecord::Schema.define(version: 20150626000353) do
   add_index "audits", ["user_id", "user_type"], name: "user_index", using: :btree
 
   create_table "contacts", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.string   "department", limit: 255
-    t.string   "cell_phone", limit: 255
-    t.string   "hotel",      limit: 255
+    t.string   "name"
+    t.string   "department"
+    t.string   "cell_phone"
+    t.string   "hotel"
     t.integer  "hotel_room"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "can_text",               default: false
-    t.string   "position",   limit: 255
+    t.boolean  "can_text",   default: false
+    t.string   "position"
   end
 
   create_table "conventions", force: :cascade do |t|
-    t.string   "name",       limit: 255
+    t.string   "name"
     t.datetime "start_date"
     t.datetime "end_date"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "departments", force: :cascade do |t|
-    t.string   "name",            limit: 255
+    t.string   "name"
     t.integer  "volunteer_id"
     t.integer  "radio_group_id"
     t.integer  "radio_allotment"
@@ -68,15 +68,15 @@ ActiveRecord::Schema.define(version: 20150626000353) do
 
   create_table "duty_board_assignments", force: :cascade do |t|
     t.integer  "duty_board_slot_id"
-    t.string   "notes",              limit: 255
+    t.string   "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name",               limit: 255
-    t.string   "string",             limit: 255
+    t.string   "name"
+    t.string   "string"
   end
 
   create_table "duty_board_groups", force: :cascade do |t|
-    t.string   "name",       limit: 255
+    t.string   "name"
     t.integer  "row"
     t.integer  "column"
     t.datetime "created_at"
@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(version: 20150626000353) do
   end
 
   create_table "duty_board_slots", force: :cascade do |t|
-    t.string   "name",                limit: 255
+    t.string   "name"
     t.integer  "duty_board_group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -96,44 +96,44 @@ ActiveRecord::Schema.define(version: 20150626000353) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "event_id"
-    t.string   "rolename",    limit: 255
+    t.string   "rolename"
   end
 
   create_table "event_flag_histories", force: :cascade do |t|
     t.integer  "event_id"
-    t.boolean  "is_active",                default: false
-    t.boolean  "post_con",                 default: false
-    t.boolean  "sticky",                   default: false
-    t.boolean  "emergency",                default: false
-    t.boolean  "medical",                  default: false
-    t.boolean  "hidden",                   default: false
-    t.boolean  "secure",                   default: false
-    t.boolean  "consuite",                 default: false
-    t.boolean  "hotel",                    default: false
-    t.boolean  "parties",                  default: false
-    t.boolean  "volunteers",               default: false
-    t.boolean  "dealers",                  default: false
-    t.boolean  "dock",                     default: false
-    t.boolean  "merchandise",              default: false
+    t.boolean  "is_active",    default: false
+    t.boolean  "post_con",     default: false
+    t.boolean  "sticky",       default: false
+    t.boolean  "emergency",    default: false
+    t.boolean  "medical",      default: false
+    t.boolean  "hidden",       default: false
+    t.boolean  "secure",       default: false
+    t.boolean  "consuite",     default: false
+    t.boolean  "hotel",        default: false
+    t.boolean  "parties",      default: false
+    t.boolean  "volunteers",   default: false
+    t.boolean  "dealers",      default: false
+    t.boolean  "dock",         default: false
+    t.boolean  "merchandise",  default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
     t.datetime "orig_time"
-    t.string   "rolename",     limit: 255
+    t.string   "rolename"
     t.boolean  "merged"
-    t.boolean  "nerf_herders",             default: false
+    t.boolean  "nerf_herders", default: false
   end
 
   create_table "events", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_active",                   default: true
-    t.boolean  "post_con",                    default: false
-    t.boolean  "sticky",                      default: false
-    t.boolean  "emergency",                   default: false
-    t.boolean  "medical",                     default: false
-    t.boolean  "hidden",                      default: false
-    t.boolean  "secure",                      default: false
+    t.boolean  "is_active",       default: true
+    t.boolean  "post_con",        default: false
+    t.boolean  "sticky",          default: false
+    t.boolean  "emergency",       default: false
+    t.boolean  "medical",         default: false
+    t.boolean  "hidden",          default: false
+    t.boolean  "secure",          default: false
     t.boolean  "consuite"
     t.boolean  "hotel"
     t.boolean  "parties"
@@ -141,43 +141,43 @@ ActiveRecord::Schema.define(version: 20150626000353) do
     t.boolean  "dealers"
     t.boolean  "dock"
     t.boolean  "merchandise"
-    t.string   "merged_from_ids", limit: 255
+    t.string   "merged_from_ids"
     t.boolean  "merged"
     t.boolean  "nerf_herders"
   end
 
   create_table "login_logs", force: :cascade do |t|
-    t.string   "user_name",  limit: 255
-    t.string   "role_name",  limit: 255
-    t.string   "comment",    limit: 255
-    t.string   "ip",         limit: 255
+    t.string   "user_name"
+    t.string   "role_name"
+    t.string   "comment"
+    t.string   "ip"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "lost_and_found_items", force: :cascade do |t|
-    t.string   "category",        limit: 255
-    t.string   "description",     limit: 255
+    t.string   "category"
+    t.string   "description"
     t.text     "details"
-    t.string   "where_last_seen", limit: 255
-    t.string   "where_found",     limit: 255
-    t.string   "owner_name",      limit: 255
+    t.string   "where_last_seen"
+    t.string   "where_found"
+    t.string   "owner_name"
     t.text     "owner_contact"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.string   "rolename",        limit: 255
-    t.string   "who_claimed",     limit: 255
+    t.string   "rolename"
+    t.string   "who_claimed"
   end
 
   create_table "messages", force: :cascade do |t|
-    t.string   "for",          limit: 255
-    t.string   "phone_number", limit: 255
-    t.string   "room_number",  limit: 255
-    t.string   "hotel",        limit: 255
+    t.string   "for"
+    t.string   "phone_number"
+    t.string   "room_number"
+    t.string   "hotel"
     t.integer  "user_id"
     t.text     "message"
-    t.boolean  "is_active",                default: true
+    t.boolean  "is_active",    default: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -185,7 +185,7 @@ ActiveRecord::Schema.define(version: 20150626000353) do
   create_table "radio_assignment_audits", force: :cascade do |t|
     t.integer  "radio_id"
     t.integer  "volunteer_id"
-    t.string   "state",         limit: 255
+    t.string   "state"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
@@ -201,25 +201,25 @@ ActiveRecord::Schema.define(version: 20150626000353) do
   end
 
   create_table "radio_groups", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.string   "color",      limit: 255
+    t.string   "name"
+    t.string   "color"
     t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "radios", force: :cascade do |t|
-    t.string   "number",         limit: 255
-    t.string   "notes",          limit: 255
+    t.string   "number"
+    t.string   "notes"
     t.integer  "radio_group_id"
-    t.string   "image_filename", limit: 255
+    t.string   "image_filename"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "state",          limit: 255, default: "in"
+    t.string   "state",          default: "in"
   end
 
   create_table "roles", force: :cascade do |t|
-    t.string   "name",                    limit: 255
+    t.string   "name"
     t.boolean  "write_entries"
     t.boolean  "read_hidden_entries"
     t.boolean  "add_lost_and_found"
@@ -233,9 +233,9 @@ ActiveRecord::Schema.define(version: 20150626000353) do
     t.boolean  "admin_duty_board"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "make_hidden_entries",                 default: false
-    t.boolean  "rw_secure",                           default: false
-    t.boolean  "read_audits",                         default: false
+    t.boolean  "make_hidden_entries",     default: false
+    t.boolean  "rw_secure",               default: false
+    t.boolean  "read_audits",             default: false
   end
 
   add_index "roles", ["name"], name: "index_roles_on_name", unique: true, using: :btree
@@ -250,9 +250,9 @@ ActiveRecord::Schema.define(version: 20150626000353) do
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
-    t.string   "taggable_type", limit: 255
+    t.string   "taggable_type"
     t.integer  "tagger_id"
-    t.string   "tagger_type",   limit: 255
+    t.string   "tagger_type"
     t.string   "context",       limit: 128
     t.datetime "created_at"
   end
@@ -260,16 +260,16 @@ ActiveRecord::Schema.define(version: 20150626000353) do
   add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
 
   create_table "tags", force: :cascade do |t|
-    t.string  "name",           limit: 255
-    t.integer "taggings_count",             default: 0
+    t.string  "name"
+    t.integer "taggings_count", default: 0
   end
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "username",        limit: 255
-    t.string   "realname",        limit: 255
-    t.string   "password_digest", limit: 255
+    t.string   "username"
+    t.string   "realname"
+    t.string   "password_digest"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -277,10 +277,10 @@ ActiveRecord::Schema.define(version: 20150626000353) do
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
   create_table "versions", force: :cascade do |t|
-    t.string   "item_type",  limit: 255, null: false
-    t.integer  "item_id",                null: false
-    t.string   "event",      limit: 255, null: false
-    t.string   "whodunnit",  limit: 255
+    t.string   "item_type",  null: false
+    t.integer  "item_id",    null: false
+    t.string   "event",      null: false
+    t.string   "whodunnit"
     t.text     "object"
     t.datetime "created_at"
   end
@@ -303,20 +303,20 @@ ActiveRecord::Schema.define(version: 20150626000353) do
   end
 
   create_table "volunteers", force: :cascade do |t|
-    t.string   "first_name",               limit: 255
-    t.string   "middle_name",              limit: 255
-    t.string   "last_name",                limit: 255
-    t.string   "address1",                 limit: 255
-    t.string   "address2",                 limit: 255
-    t.string   "address3",                 limit: 255
-    t.string   "city",                     limit: 255
-    t.string   "state",                    limit: 255
-    t.string   "postal",                   limit: 255
-    t.string   "country",                  limit: 255
-    t.string   "home_phone",               limit: 255
-    t.string   "work_phone",               limit: 255
-    t.string   "other_phone",              limit: 255
-    t.string   "email",                    limit: 255
+    t.string   "first_name"
+    t.string   "middle_name"
+    t.string   "last_name"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "address3"
+    t.string   "city"
+    t.string   "state"
+    t.string   "postal"
+    t.string   "country"
+    t.string   "home_phone"
+    t.string   "work_phone"
+    t.string   "other_phone"
+    t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
@@ -324,11 +324,11 @@ ActiveRecord::Schema.define(version: 20150626000353) do
   end
 
   create_table "vsps", force: :cascade do |t|
-    t.string   "name",       limit: 255
+    t.string   "name"
     t.boolean  "party"
-    t.string   "notes",      limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "notes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

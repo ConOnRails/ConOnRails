@@ -13,7 +13,6 @@ h1 Check out radio
         td.radio_volunteer#radio_volunteer
 
 h2 First, find a volunteer
-.alert-warning Note: name and username searches are CASE SENSITIVE.
 
 = form_tag({ action: :search_volunteers, controller: :radios }, id: 'volunteer_search', remote: true, class: 'form-inline') do
   = hidden_field_tag :radio, @radio.id

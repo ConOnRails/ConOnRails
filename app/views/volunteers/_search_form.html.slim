@@ -1,7 +1,6 @@
 .col-md-12.col-sm-12.col-xs-12
   .well.well-sm
     #search
-    h4 All values case-sensitive!
     = search_form_for @q do |f|
       = f.label :first_name_cont
       = f.text_field :first_name_cont

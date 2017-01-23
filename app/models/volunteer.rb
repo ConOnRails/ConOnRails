@@ -44,7 +44,7 @@ class Volunteer < ActiveRecord::Base
   scope :radio_volunteers, -> { joins(:volunteer_training).order(:last_name).where("radio = ?", true) }
   scope :radio_volunteer, ->(first, last) {
     joins(:volunteer_training).
-        order(:last_name).where("first_name like ? and last_name like ? and radio = ?",
+        order(:last_name).where("first_name ilike ? and last_name ilike ? and radio = ?",
                                 "#{first}%",
                                 "#{last}%",
                                 true) }
