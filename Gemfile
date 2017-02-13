@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-ruby '2.2.3'
+ruby '2.3.3'
 
 gem 'rails', '~>4.2.0'
 
@@ -77,5 +77,5 @@ group :test do
   #
   gem 'simplecov'
   gem 'simplecov-html'
-  gem "codeclimate-test-reporter", group: :test, require: nil
+  gem "codeclimate-test-reporter", '< 1.0', require: nil
 end
