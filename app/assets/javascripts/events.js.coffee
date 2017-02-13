@@ -24,7 +24,7 @@ window.events.getMain = (push = false) ->
       data: data
     }
   ).done((data, status, xhr)->
-    if !window.events.pause
+    if !window.banner.pause
       setTimeout((->
         window.events.getMain()), 5000)
   )

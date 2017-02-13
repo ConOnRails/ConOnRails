@@ -15,5 +15,8 @@
      - if Rails.env.development?
       .text-right
         p 
-          | Pause Banner  
-          = check_box_tag 'pause-banner', 1, false, :onclick => '$("#pause-banner").is(":checked") ? console.log("Clicked") : console.log("unClicked")'
+          | Pause Banner 
+          = check_box_tag 'pause_banner', 1, session[:pause_refresh], :onclick => '$("#pause_banner").is(":checked") ? window.banner.toggle_pause(true) : window.banner.toggle_pause(false)'
+
+javascript:
+  window.banner.pause = #{session[:pause_refresh]};

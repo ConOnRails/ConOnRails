@@ -6,6 +6,7 @@ ConOnRails::Application.routes.draw do
   get '/sessions/getroles', to: 'sessions#getroles'
   post '/sessions/set_index_filter', to: 'sessions#set_index_filter'
   post '/sessions/clear_index_filter', to: 'sessions#clear_index_filter'
+  put '/sessions/set_pause_refresh', to: 'sessions#set_pause_refresh'
   get '/lost_and_found', to: 'lost_and_found#index'
   get '/admin', to: 'admin#index'
   get '/banner', to: 'application#banner'

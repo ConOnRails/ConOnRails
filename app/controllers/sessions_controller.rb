@@ -49,6 +49,11 @@ class SessionsController < ApplicationController
     redirect_to root_url
   end
 
+  def set_pause_refresh
+    session[:pause_refresh] = params[:pause] == "true" ? true : false
+    render :nothing => true
+  end
+
   protected
 
   def setup_session(user)
