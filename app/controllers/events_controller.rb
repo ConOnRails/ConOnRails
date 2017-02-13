@@ -19,7 +19,6 @@ class EventsController < ApplicationController
   # GET /events.json
   def index
     @title = 'Active Events'
-    session[:pause_refresh] = Rails.env.development? ? true : false #testing - remove this
     return jump if params[:id].present?
     @events = IndexQuery.new(Event).query(session[:index_filter]).
         order { |e| e.updated_at.desc }.page(params[:page])
