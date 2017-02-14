@@ -63,6 +63,7 @@
     },
 
     getEvents: function () {
+      if( window.banner.pause ) return;
       this.cards = []
 
       $.ajax({
@@ -73,7 +74,7 @@
 
       setTimeout(function () {
         this.getEvents()
-      }.bind(this), 5000);
+      }.bind(this), 5000); 
     },
 
     gotoEvent: function (evt) {

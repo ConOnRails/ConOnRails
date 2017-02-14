@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :require_login, except: [:banner]
 
   def banner
+    session[:pause_refresh] ||= false
     render partial: 'banner'
   end
 
