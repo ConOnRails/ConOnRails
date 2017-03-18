@@ -16,7 +16,7 @@ ConOnRails::Application.routes.draw do
   resources :contacts, except: [:destroy]
   resources :conventions, except: [:destroy]
   resources :departments
-
+  resources :lost_and_found_categories
   resources :duty_board
   resources :duty_board_groups, except: [:show]
 

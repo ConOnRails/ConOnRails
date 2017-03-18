@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Lost And Found Categories</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @lost_and_found_categories.each do |lost_and_found_category| %>
+      <tr>
+        <td><%= lost_and_found_category.name %></td>
+        <td><%= link_to 'Show', lost_and_found_category %></td>
+        <td><%= link_to 'Edit', edit_lost_and_found_category_path(lost_and_found_category) %></td>
+        <td><%= link_to 'Destroy', lost_and_found_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Lost and found category', new_lost_and_found_category_path %>
