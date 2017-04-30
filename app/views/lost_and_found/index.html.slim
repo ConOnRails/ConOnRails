@@ -18,3 +18,5 @@
     .well.well-sm
       - if current_user.modify_lost_and_found?
         = link_to 'Open Inventory', lost_and_found_items_path(inventory: true)
+        br
+        = link_to 'Category Maintenance', lost_and_found_categories_path

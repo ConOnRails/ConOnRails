@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170318115801) do
+ActiveRecord::Schema.define(version: 20170430145347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -174,7 +174,10 @@ ActiveRecord::Schema.define(version: 20170318115801) do
     t.integer  "user_id"
     t.string   "rolename"
     t.string   "who_claimed"
+    t.integer  "lost_and_found_category_id"
   end
+
+  add_index "lost_and_found_items", ["lost_and_found_category_id"], name: "index_lost_and_found_items_on_lost_and_found_category_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
     t.string   "for"
@@ -337,4 +340,5 @@ ActiveRecord::Schema.define(version: 20170318115801) do
     t.datetime "updated_at"
   end
 
+  add_foreign_key "lost_and_found_items", "lost_and_found_categories"
 end
