@@ -23,7 +23,7 @@ class LostAndFoundItem < ActiveRecord::Base
 
   belongs_to :user
 
-=begin
+
   @@valid_categories = {
       badge:             "Badges",
       bag:               "Bags",
@@ -45,8 +45,7 @@ class LostAndFoundItem < ActiveRecord::Base
       weapon:            "Weapons/Props",
       other_not_listed:  "Other Not Listed"
   }
-=end
-  @@valid_categories = LostAndFoundItem.all
+
 
   def self.valid_categories
     @@valid_categories
