@@ -11,9 +11,9 @@
         = filter_by_convention
     = field_set_tag "", id: "lost_and_found_checkboxes", class: 'form-horizontal' do
       .form-group
-        - LostAndFoundItem.categories.each do |k, v|
+        - LostAndFoundCategory.order(:name).each do |c|
           .col-md-4.col-sm-6
-            = checkbox k, v, params[k]
+            = checkbox c.id, c.name
         .col-md-4.col-sm-6
           = checkbox :show_returned_only, 'Returned Only'
     .form-group

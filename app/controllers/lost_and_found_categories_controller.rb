@@ -4,7 +4,7 @@ class LostAndFoundCategoriesController < ApplicationController
   # GET /lost_and_found_categories
   # GET /lost_and_found_categories.json
   def index
-    @lost_and_found_categories = LostAndFoundCategory.all
+    @lost_and_found_categories = LostAndFoundCategory.order(:name)
   end
 
   # GET /lost_and_found_categories/1

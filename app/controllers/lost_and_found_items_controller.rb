@@ -1,4 +1,4 @@
-class LostAndFoundItemsController < ApplicationController
+  class LostAndFoundItemsController < ApplicationController
   respond_to :html, :json
 
   before_filter :user_can_add_lost_and_found, only: [:new, :create]
@@ -110,7 +110,7 @@ class LostAndFoundItemsController < ApplicationController
   end
 
   def lfi_search_params
-    params.permit LostAndFoundItem.valid_categories.keys + [:id, :inventory, :keywords, :search_type, :reported_found, :inventoried, :exclude_inventoried, :returned, :reported_missing, :found, :page, :show_returned_only]
+    params.permit LostAndFoundCategory.all + [:id, :inventory, :keywords, :search_type, :reported_found, :inventoried, :exclude_inventoried, :returned, :reported_missing, :found, :page, :show_returned_only]
   end
 
 

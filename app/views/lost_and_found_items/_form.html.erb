@@ -1,7 +1,7 @@
 <%= semantic_form_for @lfi, html: { class: "form-horizontal" } do |f| %>
     <%= f.inputs do %>
         <%= hidden_field_tag :inventory, params[:inventory] ? "1" : "0" %>
-        <%= f.input :category, as: :select, collection: LostAndFoundItem.categories, class: background %>
+        <%= f.input :category, as: :select, collection: LostAndFoundCategory.order(:name), class: background %>
         <%= f.input :description %>
         <% if @lfi.reported_missing? %>
             <%= f.input :reported_missing, as: :hidden, input_html: { value: true } %>
