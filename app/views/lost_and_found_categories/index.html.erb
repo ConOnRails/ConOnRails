@@ -1,6 +1,7 @@
 <h1>Listing Lost And Found Categories</h1>
-
-<table>
+<%= link_to 'Add a new Lost and found category', new_lost_and_found_category_path %>
+<div class="table-responsive">
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Name</th>
@@ -11,14 +12,13 @@
   <tbody>
     <% @lost_and_found_categories.each do |lost_and_found_category| %>
       <tr>
-        <td><%= lost_and_found_category.name %> &nbsp;</td>
-        <td><%= link_to 'Edit', edit_lost_and_found_category_path(lost_and_found_category) %> |&nbsp;</td>
+        <td><%= lost_and_found_category.name %></td>
+        <td><%= link_to 'Edit', edit_lost_and_found_category_path(lost_and_found_category) %></td>
         <td><%= link_to 'Delete', lost_and_found_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+</div>
 
-<br>
 
-<%= link_to 'New Lost and found category', new_lost_and_found_category_path %>
