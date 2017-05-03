@@ -14,7 +14,7 @@ class DutyBoardGroup < ActiveRecord::Base
   has_paper_trail
 
   ROW_RANGE = (1..4)
-  COL_RANGE = (1..2)
+  COL_RANGE = (1..3)
 
   has_many :duty_board_slots, -> { order :name }
   validates_presence_of :name, :row, :column
