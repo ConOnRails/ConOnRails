@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150626000353) do
+ActiveRecord::Schema.define(version: 20170512230527) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,13 +127,13 @@ ActiveRecord::Schema.define(version: 20150626000353) do
   create_table "events", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_active",       default: true
-    t.boolean  "post_con",        default: false
-    t.boolean  "sticky",          default: false
-    t.boolean  "emergency",       default: false
-    t.boolean  "medical",         default: false
-    t.boolean  "hidden",          default: false
-    t.boolean  "secure",          default: false
+    t.boolean  "is_active",                   default: true
+    t.boolean  "post_con",                    default: false
+    t.boolean  "sticky",                      default: false
+    t.boolean  "emergency",                   default: false
+    t.boolean  "medical",                     default: false
+    t.boolean  "hidden",                      default: false
+    t.boolean  "secure",                      default: false
     t.boolean  "consuite"
     t.boolean  "hotel"
     t.boolean  "parties"
@@ -144,6 +144,14 @@ ActiveRecord::Schema.define(version: 20150626000353) do
     t.string   "merged_from_ids"
     t.boolean  "merged"
     t.boolean  "nerf_herders"
+    t.boolean  "accessibility_and_inclusion"
+    t.boolean  "allocations"
+    t.boolean  "first_advisors"
+    t.boolean  "member_advocates"
+    t.boolean  "operations"
+    t.boolean  "programming"
+    t.boolean  "registration"
+    t.boolean  "volunteers_den"
   end
 
   create_table "login_logs", force: :cascade do |t|
@@ -153,6 +161,12 @@ ActiveRecord::Schema.define(version: 20150626000353) do
     t.string   "ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "lost_and_found_categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "lost_and_found_items", force: :cascade do |t|
@@ -168,7 +182,10 @@ ActiveRecord::Schema.define(version: 20150626000353) do
     t.integer  "user_id"
     t.string   "rolename"
     t.string   "who_claimed"
+    t.integer  "lost_and_found_category_id"
   end
+
+  add_index "lost_and_found_items", ["lost_and_found_category_id"], name: "index_lost_and_found_items_on_lost_and_found_category_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
     t.string   "for"
@@ -331,4 +348,5 @@ ActiveRecord::Schema.define(version: 20150626000353) do
     t.datetime "updated_at"
   end
 
+  add_foreign_key "lost_and_found_items", "lost_and_found_categories"
 end
