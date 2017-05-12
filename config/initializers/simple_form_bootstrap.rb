@@ -130,7 +130,7 @@ SimpleForm.setup do |config|
 
   end
 
-  config.wrappers :event_bottom, tag: 'div', class: 'col-lg-2 col-md-2 col-sm-3', error_class: 'has-error' do |b|
+  config.wrappers :event_bottom, tag: 'div', class: 'col-lg-3 col-md-3 col-sm-4', error_class: 'has-error' do |b|
     b.use :html5
     b.optional :readonly
 
