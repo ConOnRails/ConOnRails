@@ -19,9 +19,17 @@
 #  dealers         :boolean
 #  dock            :boolean
 #  merchandise     :boolean
-#  merged_from_ids :string(255)
 #  merged          :boolean
 #  nerf_herders    :boolean
+#  accessibility_and_inclusion  :boolean
+#  allocations     :boolean
+#  first_advisors  :boolean
+#  member_advocates:boolean
+#  operations      :boolean
+#  programming     :boolean
+#  registration    :boolean
+#  volunteers_den  :boolean
+#  merged_from_ids :string(255)
 #
 
 require 'csv'

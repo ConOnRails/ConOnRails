@@ -18,13 +18,21 @@
 #  dealers      :boolean          default(FALSE)
 #  dock         :boolean          default(FALSE)
 #  merchandise  :boolean          default(FALSE)
+#  nerf_herders :boolean          default(FALSE)
+#  accessibility_and_inclusion  :boolean	default(FALSE)
+#  allocations  :boolean		  default(FALSE)
+#  first_advisors  :boolean		  default(FALSE)
+#  member_advocates:boolean		  default(FALSE)
+#  operations   :boolean		  default(FALSE)
+#  programming  :boolean		  default(FALSE)
+#  registration :boolean		  default(FALSE)
+#  volunteers_den  :boolean		  default(FALSE)
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  user_id      :integer
 #  orig_time    :datetime
 #  rolename     :string(255)
 #  merged       :boolean
-#  nerf_herders :boolean          default(FALSE)
 #
 
 class EventFlagHistory < ActiveRecord::Base
