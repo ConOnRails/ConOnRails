@@ -173,7 +173,9 @@ class EventsController < ApplicationController
   def event_params
     params.require(:event).permit :is_active, :comment, :flagged, :post_con, :quote, :sticky, :emergency,
                                   :medical, :hidden, :secure, :consuite, :hotel, :parties, :volunteers,
-                                  :dealers, :dock, :merchandise, :nerf_herders, :status, :alert_dispatcher, :tag
+                                  :dealers, :dock, :merchandise, :nerf_herders, :status, :alert_dispatcher, :tag,
+                                  :accessibility_and_inclusion, :allocations, :first_advisors, :member_advocates,
+                                  :operations, :programming, :registration, :volunteers_den
   end
 
   def entry_params
