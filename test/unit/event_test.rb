@@ -19,6 +19,14 @@
 #  dealers         :boolean
 #  dock            :boolean
 #  merchandise     :boolean
+#  accessibility_and_inclusion  :boolean
+#  allocations     :boolean
+#  first_advisors  :boolean
+#  member_advocates:boolean
+#  operations      :boolean
+#  programming     :boolean
+#  registration    :boolean
+#  volunteers_den  :boolean
 #  merged_from_ids :string(255)
 #  merged          :boolean
 #  nerf_herders    :boolean
@@ -59,6 +67,14 @@ class EventTest < ActiveSupport::TestCase
       assert !@event.dock?
       assert !@event.merchandise?
       assert !@event.nerf_herders?
+      assert !@event.accessibility_and_inclusion?
+      assert !@event.allocations?
+      assert !@event.first_advisors?
+      assert !@event.member_advocates?
+      assert !@event.operations?
+      assert !@event.programming?
+      assert !@event.registration?
+      assert !@event.volunteers_den?
     end
 
     should 'have correct textual status' do

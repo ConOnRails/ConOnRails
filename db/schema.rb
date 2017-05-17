@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150626000353) do
+ActiveRecord::Schema.define(version: 20170513103526) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,39 +101,47 @@ ActiveRecord::Schema.define(version: 20150626000353) do
 
   create_table "event_flag_histories", force: :cascade do |t|
     t.integer  "event_id"
-    t.boolean  "is_active",    default: false
-    t.boolean  "post_con",     default: false
-    t.boolean  "sticky",       default: false
-    t.boolean  "emergency",    default: false
-    t.boolean  "medical",      default: false
-    t.boolean  "hidden",       default: false
-    t.boolean  "secure",       default: false
-    t.boolean  "consuite",     default: false
-    t.boolean  "hotel",        default: false
-    t.boolean  "parties",      default: false
-    t.boolean  "volunteers",   default: false
-    t.boolean  "dealers",      default: false
-    t.boolean  "dock",         default: false
-    t.boolean  "merchandise",  default: false
+    t.boolean  "is_active",                   default: false
+    t.boolean  "post_con",                    default: false
+    t.boolean  "sticky",                      default: false
+    t.boolean  "emergency",                   default: false
+    t.boolean  "medical",                     default: false
+    t.boolean  "hidden",                      default: false
+    t.boolean  "secure",                      default: false
+    t.boolean  "consuite",                    default: false
+    t.boolean  "hotel",                       default: false
+    t.boolean  "parties",                     default: false
+    t.boolean  "volunteers",                  default: false
+    t.boolean  "dealers",                     default: false
+    t.boolean  "dock",                        default: false
+    t.boolean  "merchandise",                 default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
     t.datetime "orig_time"
     t.string   "rolename"
     t.boolean  "merged"
-    t.boolean  "nerf_herders", default: false
+    t.boolean  "nerf_herders",                default: false
+    t.boolean  "accessibility_and_inclusion", default: false
+    t.boolean  "allocations",                 default: false
+    t.boolean  "first_advisors",              default: false
+    t.boolean  "member_advocates",            default: false
+    t.boolean  "operations",                  default: false
+    t.boolean  "programming",                 default: false
+    t.boolean  "registration",                default: false
+    t.boolean  "volunteers_den",              default: false
   end
 
   create_table "events", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_active",       default: true
-    t.boolean  "post_con",        default: false
-    t.boolean  "sticky",          default: false
-    t.boolean  "emergency",       default: false
-    t.boolean  "medical",         default: false
-    t.boolean  "hidden",          default: false
-    t.boolean  "secure",          default: false
+    t.boolean  "is_active",                   default: true
+    t.boolean  "post_con",                    default: false
+    t.boolean  "sticky",                      default: false
+    t.boolean  "emergency",                   default: false
+    t.boolean  "medical",                     default: false
+    t.boolean  "hidden",                      default: false
+    t.boolean  "secure",                      default: false
     t.boolean  "consuite"
     t.boolean  "hotel"
     t.boolean  "parties"
@@ -144,6 +152,14 @@ ActiveRecord::Schema.define(version: 20150626000353) do
     t.string   "merged_from_ids"
     t.boolean  "merged"
     t.boolean  "nerf_herders"
+    t.boolean  "accessibility_and_inclusion"
+    t.boolean  "allocations"
+    t.boolean  "first_advisors"
+    t.boolean  "member_advocates"
+    t.boolean  "operations"
+    t.boolean  "programming"
+    t.boolean  "registration"
+    t.boolean  "volunteers_den"
   end
 
   create_table "login_logs", force: :cascade do |t|

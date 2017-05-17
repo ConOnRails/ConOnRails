@@ -19,9 +19,17 @@
 #  dealers         :boolean
 #  dock            :boolean
 #  merchandise     :boolean
-#  merged_from_ids :string(255)
 #  merged          :boolean
 #  nerf_herders    :boolean
+#  accessibility_and_inclusion  :boolean
+#  allocations     :boolean
+#  first_advisors  :boolean
+#  member_advocates:boolean
+#  operations      :boolean
+#  programming     :boolean
+#  registration    :boolean
+#  volunteers_den  :boolean
+#  merged_from_ids :string(255)
 #
 
 require 'csv'
@@ -67,8 +75,8 @@ class Event < ActiveRecord::Base
   }
 
   STATUSES = %w[ Active Closed Merged ]
-  FLAGS = %w[ is_active merged post_con sticky emergency medical hidden secure consuite hotel parties volunteers dealers dock merchandise nerf_herders ]
-  DEPT_FLAGS = %w[ consuite hotel parties volunteers dealers dock merchandise nerf_herders ]
+  FLAGS = %w[ is_active merged post_con sticky emergency medical hidden secure accessibility_and_inclusion allocations consuite dealers first_advisors hotel member_advocates nerf_herders operations parties programming registration volunteers_den volunteers ]
+  DEPT_FLAGS = %w[ accessibility_and_inclusion allocations consuite dealers first_advisors hotel member_advocates nerf_herders operations parties programming registration volunteers_den volunteers ]
 
   def self.search(q, user, show_closed=false, index_filters=nil)
     protect_sensitive_events(user).
