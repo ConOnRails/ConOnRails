@@ -3,15 +3,15 @@
 # Table name: messages
 #
 #  id           :integer          not null, primary key
-#  for          :string(255)
-#  phone_number :string(255)
-#  room_number  :string(255)
-#  hotel        :string(255)
+#  for          :string
+#  phone_number :string
+#  room_number  :string
+#  hotel        :string
 #  user_id      :integer
 #  message      :text
 #  is_active    :boolean          default(TRUE)
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  created_at   :datetime
+#  updated_at   :datetime
 #
 
 require 'test_helper'

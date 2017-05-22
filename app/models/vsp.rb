@@ -3,11 +3,11 @@
 # Table name: vsps
 #
 #  id         :integer          not null, primary key
-#  name       :string(255)
+#  name       :string
 #  party      :boolean
-#  notes      :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  notes      :string
+#  created_at :datetime
+#  updated_at :datetime
 #
 
 class Vsp < ActiveRecord::Base

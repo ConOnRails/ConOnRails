@@ -4,17 +4,17 @@
 #
 #  id              :integer          not null, primary key
 #  auditable_id    :integer
-#  auditable_type  :string(255)
+#  auditable_type  :string
 #  associated_id   :integer
-#  associated_type :string(255)
+#  associated_type :string
 #  user_id         :integer
-#  user_type       :string(255)
-#  username        :string(255)
-#  action          :string(255)
+#  user_type       :string
+#  username        :string
+#  action          :string
 #  audited_changes :text
 #  version         :integer          default(0)
-#  comment         :string(255)
-#  remote_address  :string(255)
+#  comment         :string
+#  remote_address  :string
 #  created_at      :datetime
 #
 

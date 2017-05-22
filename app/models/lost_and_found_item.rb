@@ -2,19 +2,20 @@
 #
 # Table name: lost_and_found_items
 #
-#  id              :integer          not null, primary key
-#  category        :string(255)
-#  description     :string(255)
-#  details         :text
-#  where_last_seen :string(255)
-#  where_found     :string(255)
-#  owner_name      :string(255)
-#  owner_contact   :text
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  user_id         :integer
-#  rolename        :string(255)
-#  who_claimed     :string(255)
+#  id                         :integer          not null, primary key
+#  category                   :string
+#  description                :string
+#  details                    :text
+#  where_last_seen            :string
+#  where_found                :string
+#  owner_name                 :string
+#  owner_contact              :text
+#  created_at                 :datetime
+#  updated_at                 :datetime
+#  user_id                    :integer
+#  rolename                   :string
+#  who_claimed                :string
+#  lost_and_found_category_id :integer
 #
 
 class LostAndFoundItem < ActiveRecord::Base
@@ -22,6 +23,7 @@ class LostAndFoundItem < ActiveRecord::Base
   include LostAndFoundStateTags
 
   belongs_to :user
+  belongs_to :lost_and_found_category
 
 =begin
   @@valid_categories = {
@@ -61,7 +63,7 @@ class LostAndFoundItem < ActiveRecord::Base
   scope :inventory, -> (i) { where(found: true, returned: false) if i }
 =end
 
-  validates :category, presence: true, allow_blank: false, inclusion: { in: @@valid_categories.values }
+  validates :category, presence: true, allow_blank: false
   validates :description, presence: true, allow_blank: false
 
   # These rules are a little complicated but it's worth it to ensure data integrity

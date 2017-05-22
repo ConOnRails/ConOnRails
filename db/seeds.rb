@@ -15,6 +15,7 @@ Event.delete_all
 User.delete_all
 Role.delete_all
 LostAndFoundItem.delete_all
+LostAndFoundCategory.delete_all
 Radio.delete_all
 RadioGroup.delete_all
 RadioAssignment.delete_all
@@ -160,26 +161,46 @@ case Rails.env
       end
     end
 
+    LostAndFoundCategory.create! name:"Badges"
+    LostAndFoundCategory.create! name:"Bags"
+    LostAndFoundCategory.create! name:"Bottles"
+    LostAndFoundCategory.create! name:"Clothing"
+    LostAndFoundCategory.create! name:"Costume Jewelry"
+    LostAndFoundCategory.create! name:"Electronics"
+    LostAndFoundCategory.create! name:"Glasses"
+    LostAndFoundCategory.create! name:"Headgear"
+    LostAndFoundCategory.create! name:"Jewelry"
+    LostAndFoundCategory.create! name:"Keys"
+    LostAndFoundCategory.create! name:"Media"
+    LostAndFoundCategory.create! name:"Money/Cards/ID"
+    LostAndFoundCategory.create! name:"Paper (incl. Reg Packets)"
+    LostAndFoundCategory.create! name:"Small Electronics"
+    LostAndFoundCategory.create! name:"Toys"
+    LostAndFoundCategory.create! name:"Wallet"
+    LostAndFoundCategory.create! name:"Weapons/Props"
+    LostAndFoundCategory.create! name:"Other Not Listed"
 
     LostAndFoundItem.create!(
         {
-            category:         "Badges",
-            reported_missing: true,
-            where_last_seen:  "Wombatland",
-            owner_name:       "Spike Spiegel",
-            owner_contact:    "spike@bebop.co.mars",
-            description:      "#4242",
-            details:          "I am the walrus"
+            category:                     "Badges",
+            reported_missing:             true,
+            where_last_seen:              "Wombatland",
+            owner_name:                   "Spike Spiegel",
+            owner_contact:                "spike@bebop.co.mars",
+            description:                  "#4242",
+            details:                      "I am the walrus",
+            lost_and_found_category_id:   LostAndFoundCategory.find_by_name("Badges").id
         }
     )
 
     LostAndFoundItem.create!(
         {
-            category:    "Weapons/Props",
-            found:       true,
-            where_found: "Atrium 42",
-            description: "A frickin' laser",
-            details:     "One laser, frickin'"
+            category:                     "Weapons/Props",
+            found:                        true,
+            where_found:                  "Atrium 42",
+            description:                  "A frickin' laser",
+            details:                      "One laser, frickin'",
+            lost_and_found_category_id:   LostAndFoundCategory.find_by_name("Weapons/Props").id
         }
     )
 

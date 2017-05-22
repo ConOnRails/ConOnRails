@@ -3,22 +3,22 @@
 # Table name: volunteers
 #
 #  id                       :integer          not null, primary key
-#  first_name               :string(255)
-#  middle_name              :string(255)
-#  last_name                :string(255)
-#  address1                 :string(255)
-#  address2                 :string(255)
-#  address3                 :string(255)
-#  city                     :string(255)
-#  state                    :string(255)
-#  postal                   :string(255)
-#  country                  :string(255)
-#  home_phone               :string(255)
-#  work_phone               :string(255)
-#  other_phone              :string(255)
-#  email                    :string(255)
-#  created_at               :datetime         not null
-#  updated_at               :datetime         not null
+#  first_name               :string
+#  middle_name              :string
+#  last_name                :string
+#  address1                 :string
+#  address2                 :string
+#  address3                 :string
+#  city                     :string
+#  state                    :string
+#  postal                   :string
+#  country                  :string
+#  home_phone               :string
+#  work_phone               :string
+#  other_phone              :string
+#  email                    :string
+#  created_at               :datetime
+#  updated_at               :datetime
 #  user_id                  :integer
 #  can_have_multiple_radios :boolean
 #

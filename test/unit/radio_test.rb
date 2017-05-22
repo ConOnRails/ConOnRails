@@ -3,13 +3,13 @@
 # Table name: radios
 #
 #  id             :integer          not null, primary key
-#  number         :string(255)
-#  notes          :string(255)
+#  number         :string
+#  notes          :string
 #  radio_group_id :integer
-#  image_filename :string(255)
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  state          :string(255)      default("in")
+#  image_filename :string
+#  created_at     :datetime
+#  updated_at     :datetime
+#  state          :string           default("in")
 #
 
 require 'test_helper'

@@ -3,10 +3,10 @@
 # Table name: versions
 #
 #  id         :integer          not null, primary key
-#  item_type  :string(255)      not null
+#  item_type  :string           not null
 #  item_id    :integer          not null
-#  event      :string(255)      not null
-#  whodunnit  :string(255)
+#  event      :string           not null
+#  whodunnit  :string
 #  object     :text
 #  created_at :datetime
 #

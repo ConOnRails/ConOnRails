@@ -3,11 +3,11 @@
 # Table name: conventions
 #
 #  id         :integer          not null, primary key
-#  name       :string(255)
+#  name       :string
 #  start_date :datetime
 #  end_date   :datetime
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  created_at :datetime
+#  updated_at :datetime
 #
 
 class NotTimeTravelingValidator < ActiveModel::EachValidator
