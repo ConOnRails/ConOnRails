@@ -78,6 +78,15 @@ FactoryGirl.define do
     dealers false
     dock false
     merchandise false
+    accessibility_and_inclusion false
+    allocations false
+    first_advisors false
+    member_advocates false
+    operations false
+    programming false
+    registration false
+    volunteers_den false
+
 
     factory :ordinary_event do
       after :create do |event, evaluator|
