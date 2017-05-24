@@ -1,6 +1,8 @@
 <h1>Radio Assignment Audit Trail</h1>
 
-<table>
+<div class="table-responsive">
+<table class="table table-striped sortable">
+<thead>
   <tr>
     <th>Radio</th>
     <th>Volunteer</th>
@@ -8,7 +10,8 @@
     <th>At</th>
     <th>By</th>
   </tr>
-
+</thead>
+<tbody>
 <% @radio_assignment_audits.each do |a| %>
   <tr>
     <td><%= a.radio.blank? ? 'NO RADIO' : (link_to a.radio.name, a.radio) %></td>
@@ -18,8 +21,13 @@
     <td><%= link_to a.user.realname %></td>
   </tr>
 <% end %>
+</tbody>
 </table>
-
+</div>
 <% content_for :side do %>
-    <%=  link_to 'Back', :radio_admin_index %>
+    <div class="col-md-12">
+      <div class="well well-sm">
+        <%=  link_to 'Back', :radio_admin_index %>
+      </div>
+    </div>
 <% end %>
