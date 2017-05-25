@@ -1,6 +1,4 @@
-$(document).ready(function(){
-  (function vendorTableSorter(){ 
-    /*
+/*
   SortTable
   version 2
   7th April 2007
@@ -494,6 +492,3 @@ var forEach = function(object, block, context) {
 		resolve.forEach(object, block, context);
 	}
 };
-
-  }());
-});// end document.ready
