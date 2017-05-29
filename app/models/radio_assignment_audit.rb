@@ -36,7 +36,7 @@ class RadioAssignmentAudit < ActiveRecord::Base
   end
 
   def self.to_csv
-    attributes = %w{id radio_name volunteer_name state created_at updated_at admin_name department_name}
+    attributes = %w{id radio_name volunteer_id volunteer_name state created_at updated_at admin_id admin_name department_name}
     CSV.generate(headers: true) do |csv|
       csv << attributes
 
@@ -53,6 +53,10 @@ class RadioAssignmentAudit < ActiveRecord::Base
 
   def volunteer_name
     volunteer.name
+  end
+
+  def admin_id
+    user.id
   end
 
   def admin_name
