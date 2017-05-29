@@ -27,7 +27,12 @@
 <% content_for :side do %>
     <div class="col-md-12">
       <div class="well well-sm">
-        <%=  link_to 'Back', :radio_admin_index %>
+        <div>
+          <%=  link_to 'Export CSV', radio_assignment_audits_path(format: :csv) %>
+        </div>
+        <div>
+          <%=  link_to 'Back', :radio_admin_index %>
+        </div>
       </div>
     </div>
 <% end %>
