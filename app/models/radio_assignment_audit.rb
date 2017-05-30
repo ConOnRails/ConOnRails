@@ -11,7 +11,6 @@
 #  user_id       :integer
 #  department_id :integer
 #
-
 class RadioAssignmentAudit < ActiveRecord::Base
   has_paper_trail
 
@@ -34,6 +33,38 @@ class RadioAssignmentAudit < ActiveRecord::Base
 
   def RadioAssignmentAudit.audit_retirement( radio_assignment, user )
     RadioAssignmentAudit.new_record radio_assignment, user, :retired
+  end
+
+  def self.to_csv
+    attributes = %w{id radio_name volunteer_id volunteer_name state created_at updated_at admin_id admin_name department_name}
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |audit|
+        csv << attributes.map{ |attr| audit.send(attr) }
+      end
+
+    end
+  end
+
+  def radio_name
+    radio.name
+  end
+
+  def volunteer_name
+    volunteer.name
+  end
+
+  def admin_id
+    user.id
+  end
+
+  def admin_name
+    user.realname
+  end
+
+  def department_name
+    department.name
   end
 
 protected
