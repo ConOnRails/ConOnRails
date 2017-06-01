@@ -5,7 +5,7 @@ gem 'rails', '~>4.2.0'
 
 gem 'pg', '~> 0.18.1'
 
-gem 'passenger', '~> 5.0.20'
+gem 'puma'
 gem 'rails_12factor', group: :production
 
 # Gems used only for assets and not required
@@ -50,9 +50,6 @@ group :development do
   #gem 'rails-dev-boost', :git => 'git://github.com/thedarkone/rails-dev-boost.git', :require => 'rails_development_boost'
   #gem 'ruby-debug19', :require => 'ruby-debug'
 end
-
-# Use unicorn as the web server
-gem 'unicorn'
 
 group :development, :test do
   gem 'awesome_print'
