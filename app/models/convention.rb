@@ -35,6 +35,6 @@ class Convention < ActiveRecord::Base
   end
 
   def self.current_convention
-    where { |c| (c.start_date <= DateTime.now) & (c.end_date >= DateTime.now) }.first || Convention.most_recent
+    where { |c| (c.start_date <= Date.current) & (c.end_date >= Date.current) }.first || Convention.most_recent
   end
 end
