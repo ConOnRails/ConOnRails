@@ -74,9 +74,9 @@ class Event < ActiveRecord::Base
     end if filters.present?
   }
 
-  STATUSES = %w[ Active Closed Merged ]
-  FLAGS = %w[ is_active merged post_con sticky emergency medical hidden secure accessibility_and_inclusion allocations consuite dealers first_advisors hotel member_advocates nerf_herders operations parties programming registration volunteers_den volunteers ]
-  DEPT_FLAGS = %w[ accessibility_and_inclusion allocations consuite dealers first_advisors hotel member_advocates nerf_herders operations parties programming registration volunteers_den volunteers ]
+  STATUSES = %w[Active Closed Merged].freeze
+  FLAGS = %w[is_active merged post_con sticky emergency medical hidden secure accessibility_and_inclusion allocations consuite dealers first_advisors hotel member_advocates nerf_herders operations parties programming registration volunteers_den volunteers].freeze
+  DEPT_FLAGS = %w[accessibility_and_inclusion allocations consuite dealers first_advisors hotel member_advocates nerf_herders operations parties programming registration volunteers_den volunteers].freeze
 
   def self.search(q, user, show_closed=false, index_filters=nil)
     protect_sensitive_events(user).
