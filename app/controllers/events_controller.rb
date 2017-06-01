@@ -20,15 +20,21 @@ class EventsController < ApplicationController
   def index
     @title = 'Active Events'
     return jump if params[:id].present?
-    @events = IndexQuery.new(Event).query(session[:index_filter]).
-        order { |e| e.updated_at.desc }.page(params[:page])
+    @events = IndexQuery.new(Event).query(session[:index_filter])
+                        .order { |e| e.updated_at.desc }
+                        .includes(:event_flag_histories)
+                        .includes(:entries)
+                        .page(params[:page])
     respond_with @events
   end
 
   def sticky
     @title = 'Sticky Events'
-    @events = (limit_by_convention StickyQuery.new(Event).query.
-                                       order { |e| e.updated_at.desc }).page(params[:page])
+    @events = (limit_by_convention StickyQuery.new(Event).query
+                .order { |e| e.updated_at.desc }
+                .includes(:event_flag_histories)
+                .includes(:entries))
+              .page(params[:page])
 
     respond_with @events do |format|
       format.html { render :index }
@@ -38,8 +44,11 @@ class EventsController < ApplicationController
 
   def secure
     @title = 'Secure Events'
-    @events = SecureQuery.new(Event).query.
-        order { |e| e.updated_at.desc }.page(params[:page])
+    @events = SecureQuery.new(Event).query
+                         .order { |e| e.updated_at.desc }
+                         .includes(:event_flag_histories)
+                         .includes(:entries)
+                         .page(params[:page])
     respond_with @events do |format|
       format.html { render :index }
       format.js { render :index }
@@ -146,8 +155,11 @@ class EventsController < ApplicationController
   end
 
   def get_tagged_events
-    @events = IndexQuery.new(Event).query.tagged_with(params[:tag]).
-        order { |e| e.updated_at.desc }
+    @events = IndexQuery.new(Event).query
+                        .tagged_with(params[:tag])
+                        .includes(:event_flag_histories)
+                        .includes(:entries)
+                        .order { |e| e.updated_at.desc }
   end
 
   def jump

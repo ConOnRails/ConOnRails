@@ -171,6 +171,12 @@ ActiveRecord::Schema.define(version: 20170513103526) do
     t.datetime "updated_at"
   end
 
+  create_table "lost_and_found_categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "lost_and_found_items", force: :cascade do |t|
     t.string   "category"
     t.string   "description"
@@ -184,7 +190,10 @@ ActiveRecord::Schema.define(version: 20170513103526) do
     t.integer  "user_id"
     t.string   "rolename"
     t.string   "who_claimed"
+    t.integer  "lost_and_found_category_id"
   end
+
+  add_index "lost_and_found_items", ["lost_and_found_category_id"], name: "index_lost_and_found_items_on_lost_and_found_category_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
     t.string   "for"
@@ -347,4 +356,5 @@ ActiveRecord::Schema.define(version: 20170513103526) do
     t.datetime "updated_at"
   end
 
+  add_foreign_key "lost_and_found_items", "lost_and_found_categories"
 end

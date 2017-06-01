@@ -14,7 +14,7 @@ gem 'sass-rails', '~> 5.0.1'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'uglifier', '~> 2.7.0'
 
-gem 'acts-as-taggable-on', '~> 3.4.4'
+gem 'acts-as-taggable-on', '~> 4.0'
 gem 'bcrypt-ruby', '~> 3.1.5'
 gem 'bootstrap-sass', '~> 3.3.4'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
