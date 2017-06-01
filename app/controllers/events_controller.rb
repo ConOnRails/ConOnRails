@@ -21,9 +21,9 @@ class EventsController < ApplicationController
     @title = 'Active Events'
     return jump if params[:id].present?
     @events = IndexQuery.new(Event).query(session[:index_filter])
-                        .order { |e| e.updated_at.desc }
-                        .includes(:event_flag_histories)
-                        .includes(:entries)
+                        .order(updated_at: :desc)
+                        .eager_load(:event_flag_histories)
+                        .eager_load(:entries)
                         .page(params[:page])
     respond_with @events
   end
@@ -32,8 +32,8 @@ class EventsController < ApplicationController
     @title = 'Sticky Events'
     @events = (limit_by_convention StickyQuery.new(Event).query
                 .order { |e| e.updated_at.desc }
-                .includes(:event_flag_histories)
-                .includes(:entries))
+                .eager_load(:event_flag_histories)
+                .eager_load(:entries))
               .page(params[:page])
 
     respond_with @events do |format|
@@ -46,8 +46,8 @@ class EventsController < ApplicationController
     @title = 'Secure Events'
     @events = SecureQuery.new(Event).query
                          .order { |e| e.updated_at.desc }
-                         .includes(:event_flag_histories)
-                         .includes(:entries)
+                         .eager_load(:event_flag_histories)
+                         .eager_load(:entries)
                          .page(params[:page])
     respond_with @events do |format|
       format.html { render :index }
