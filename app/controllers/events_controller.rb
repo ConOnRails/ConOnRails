@@ -31,7 +31,7 @@ class EventsController < ApplicationController
   def sticky
     @title = 'Sticky Events'
     @events = (limit_by_convention StickyQuery.new(Event).query
-                .order { |e| e.updated_at.desc }
+                .order(updated_at: :desc)
                 .eager_load(:event_flag_histories)
                 .eager_load(:entries))
               .page(params[:page])
@@ -45,7 +45,7 @@ class EventsController < ApplicationController
   def secure
     @title = 'Secure Events'
     @events = SecureQuery.new(Event).query
-                         .order { |e| e.updated_at.desc }
+                         .order(updated_at: :desc)
                          .eager_load(:event_flag_histories)
                          .eager_load(:entries)
                          .page(params[:page])
