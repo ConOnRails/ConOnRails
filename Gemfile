@@ -8,6 +8,8 @@ gem 'pg', '~> 0.18.1'
 gem 'puma'
 gem 'rails_12factor', group: :production
 
+gem 'newrelic_rpm'
+
 # Gems used only for assets and not required
 # in production environments by default.
 gem 'sass-rails', '~> 5.0.1'
