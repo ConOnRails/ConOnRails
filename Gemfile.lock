@@ -157,6 +157,7 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (4.0.1)
+    newrelic_rpm (4.2.0.334)
     nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
     paper_trail (6.0.2)
@@ -328,6 +329,7 @@ DEPENDENCIES
   minitest-reporters
   mocha
   momentjs-rails (>= 2.8.1)
+  newrelic_rpm
   paper_trail (>= 4.0.0.beta1)
   pg (~> 0.18.1)
   pg_search (~> 0.7.9)
