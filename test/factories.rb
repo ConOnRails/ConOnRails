@@ -187,6 +187,14 @@ FactoryGirl.define do
     end
   end
 
+  factory :radio_assignment_audit do
+    association :radio, factory: :valid_blue_radio
+    association :user
+    association :volunteer, factory: :valid_volunteer
+    association :department, factory: :good_department
+    state 'Wombat'
+  end
+
   factory :radio_group, class: RadioGroup do
     factory :blue_man_group do
       name "Blue"
@@ -346,5 +354,3 @@ FactoryGirl.define do
     notes { Faker::Lorem.sentence }
   end
 end
-
-

@@ -44,6 +44,8 @@ gem 'yaml_db', '~> 0.3.0'
 gem 'factory_girl_rails'
 gem 'faker'
 
+gem 'derailed'
+
 group :development do
   gem 'annotate'
   gem 'rb-fsevent'#, '~> 0.9.1'
