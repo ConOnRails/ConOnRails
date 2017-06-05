@@ -1,14 +1,18 @@
 <h1>Radio Assignment Audit Trail</h1>
 
+<div id='paginator'>
+  <%= paginate @radio_assignment_audits %>
+</div>
+
 <div class="table-responsive">
 <table class="table table-striped sortable">
 <thead>
   <tr>
-    <th>Radio</th>
-    <th>Volunteer</th>
-    <th>State</th>
-    <th>At</th>
-    <th>By</th>
+    <th><%= sort_link @q, :radio_name, 'Radio' %></th>
+    <th><%= sort_link @q, :volunteer_name, 'Volunteer' %></th>
+    <th><%= sort_link @q, :state, 'State' %></th>
+    <th><%= sort_link @q, :created_at, 'At' %></th>
+    <th><%= sort_link @q, :user_realname, 'By' %></th>
   </tr>
 </thead>
 <tbody>
@@ -36,3 +40,7 @@
       </div>
     </div>
 <% end %>
+
+<div id='paginator'>
+  <%= paginate @radio_assignment_audits %>
+</div>
