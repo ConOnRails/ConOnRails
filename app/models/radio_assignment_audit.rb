@@ -14,6 +14,8 @@
 class RadioAssignmentAudit < ActiveRecord::Base
   has_paper_trail
 
+  paginates_per 30
+
   belongs_to :radio
   belongs_to :volunteer
   belongs_to :department
@@ -22,16 +24,16 @@ class RadioAssignmentAudit < ActiveRecord::Base
   validates_presence_of :department
   validates_presence_of :user
 
-  def RadioAssignmentAudit.audit_checkin( radio_assignment, user )
+  def self.audit_checkin( radio_assignment, user )
     RadioAssignmentAudit.new_record radio_assignment, user, :in
   end
 
 
-  def RadioAssignmentAudit.audit_checkout( radio_assignment, user )
+  def self.audit_checkout( radio_assignment, user )
     RadioAssignmentAudit.new_record radio_assignment, user, :out
   end
 
-  def RadioAssignmentAudit.audit_retirement( radio_assignment, user )
+  def self.audit_retirement( radio_assignment, user )
     RadioAssignmentAudit.new_record radio_assignment, user, :retired
   end
 
@@ -48,28 +50,27 @@ class RadioAssignmentAudit < ActiveRecord::Base
   end
 
   def radio_name
-    radio.name
+    radio.try(:name) || ''
   end
 
   def volunteer_name
-    volunteer.name
+    volunteer.try(:name) || ''
   end
 
   def admin_id
-    user.id
+    user.try(:id) || ''
   end
 
   def admin_name
-    user.realname
+    user.try(:realname) || ''
   end
 
   def department_name
-    department.name
+    department.try(:name) || ''
   end
 
-protected
-  def RadioAssignmentAudit.new_record( a, u, s )
-    attr = a.attributes.reject { |k, v| [:created_at, :updated_at, :id].include? k.to_sym }
+  def self.new_record( a, u, s )
+    attr = a.attributes.reject { |k, _v| [:created_at, :updated_at, :id].include? k.to_sym }
     attr[:user_id] = u.id
     attr[:state] = s
     RadioAssignmentAudit.create! attr
