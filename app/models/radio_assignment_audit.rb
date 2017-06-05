@@ -14,6 +14,8 @@
 class RadioAssignmentAudit < ActiveRecord::Base
   has_paper_trail
 
+  paginates_per 30
+
   belongs_to :radio
   belongs_to :volunteer
   belongs_to :department
