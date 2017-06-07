@@ -24,7 +24,6 @@ module ApplicationHelper
 
     style = 'normal'
     style = 'active' if  num_active > 0
-    style = 'messages' if Message.num_active > 0
     style = 'emergency' if Event.current_convention.num_active_emergencies > 0 or Event.current_convention.num_active_medicals > 0
 
     style
