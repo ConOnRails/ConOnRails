@@ -3,7 +3,6 @@
     - if current_user
       - emerg = Event.current_convention.num_active_emergencies
       - medic = Event.current_convention.num_active_medicals
-      - msgs = Message.num_active
 
       .row
         - if emerg > 0
@@ -30,12 +29,7 @@
             .active-icon
             = pluralize get_active_count, "Active Issue"
 
-      - if msgs > 0
-        .row
-          .col-md-6.col-sm-6
-            .message-icon
-            = pluralize msgs, 'Message'
-
+      
       .row
         .col-md-12
           => Time.now.ctime
