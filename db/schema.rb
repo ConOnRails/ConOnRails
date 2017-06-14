@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170614174809) do
+ActiveRecord::Schema.define(version: 20170614181702) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,6 +103,9 @@ ActiveRecord::Schema.define(version: 20170614174809) do
     t.string   "rolename"
   end
 
+  add_index "entries", ["event_id"], name: "index_entries_on_event_id", using: :btree
+  add_index "entries", ["user_id"], name: "index_entries_on_user_id", using: :btree
+
   create_table "event_flag_histories", force: :cascade do |t|
     t.integer  "event_id"
     t.boolean  "is_active",                   default: false
@@ -136,6 +139,8 @@ ActiveRecord::Schema.define(version: 20170614174809) do
     t.boolean  "volunteers_den",              default: false
   end
 
+  add_index "event_flag_histories", ["event_id"], name: "index_event_flag_histories_on_event_id", using: :btree
+
   create_table "events", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -165,6 +170,13 @@ ActiveRecord::Schema.define(version: 20170614174809) do
     t.boolean  "registration"
     t.boolean  "volunteers_den"
   end
+
+  add_index "events", ["emergency"], name: "index_events_on_emergency", using: :btree
+  add_index "events", ["hotel"], name: "index_events_on_hotel", using: :btree
+  add_index "events", ["is_active"], name: "index_events_on_is_active", using: :btree
+  add_index "events", ["medical"], name: "index_events_on_medical", using: :btree
+  add_index "events", ["secure"], name: "index_events_on_secure", using: :btree
+  add_index "events", ["sticky"], name: "index_events_on_sticky", using: :btree
 
   create_table "login_logs", force: :cascade do |t|
     t.string   "user_name"
