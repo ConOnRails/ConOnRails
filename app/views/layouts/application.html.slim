@@ -6,7 +6,7 @@ html
       var CIAB = CIAB || {};
 
     = stylesheet_link_tag 'application'
-    = javascript_include_tag 'application'
+    = javascript_include_tag 'application', 'data-turbolinks-eval' => false
     = csrf_meta_tags
 
   body class="#{controller.controller_name} #{background}"

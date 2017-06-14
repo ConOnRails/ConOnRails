@@ -15,6 +15,8 @@ gem 'newrelic_rpm'
 gem 'sass-rails', '~> 5.0.1'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'uglifier', '~> 2.7.0'
+gem 'rails-sweetalert2-confirm'
+gem 'rails-assets-sweetalert2', source: 'https://rails-assets.org'
 
 gem 'acts-as-taggable-on', '~> 4.0'
 gem 'bcrypt-ruby', '~> 3.1.5'
