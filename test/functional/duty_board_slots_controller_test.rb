@@ -8,7 +8,7 @@ class DutyBoardSlotsControllerTest < ActionController::TestCase
     @user_session                     = { user_id: @user.id, current_role_name: @user.roles.first.name }
     @duty_board_group                 = FactoryGirl.create :blue_man_group
     @duty_board_slot                  = FactoryGirl.build :valid_duty_board_slot
-    vol                               = FactoryGirl.create :valid_volunteer
+    FactoryGirl.create :valid_volunteer
     @duty_board_assignment_attributes = {
         name:               Faker::Name.name,
         duty_board_slot_id: @duty_board_slot.id,
@@ -52,7 +52,7 @@ class DutyBoardSlotsControllerTest < ActionController::TestCase
     @duty_board_slot.save!
     put :update, { id: @duty_board_slot.to_param, duty_board_slot: FactoryGirl.attributes_for(:valid_duty_board_slot) },
         @user_session
-    assert_redirected_to duty_board_index_path
+    assert_redirected_to duty_board_slots_path
   end
 
   test "should destroy duty_board_slot" do
