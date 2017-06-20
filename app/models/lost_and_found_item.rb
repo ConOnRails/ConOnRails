@@ -30,6 +30,7 @@ class LostAndFoundItem < ActiveRecord::Base
       keys:              "Keys",
       media:             "Media",
       money:             "Money/Cards/ID",
+      paper:             "Paper (incl. Reg Packets)",
       phone:             "Phones",
       small_electronics: "Small Electronics",
       wallet:            "Wallet",
