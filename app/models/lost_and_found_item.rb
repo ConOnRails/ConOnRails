@@ -23,26 +23,32 @@ class LostAndFoundItem < ActiveRecord::Base
 
   belongs_to :user
 
-  @@valid_categories = {
+  @@retired_categories = {
       badge:             "Badges",
-      bag:               "Bags",
-      bottle:            "Bottles",
-      clothing:          "Clothing",
       costume_jewelry:   "Costume Jewelry",
-      electronics:       "Electronics",
-      glasses:           "Glasses",
       headgear:          "Headgear",
-      jewelry:           "Jewelry",
       keys:              "Keys",
       media:             "Media",
       money:             "Money/Cards/ID",
-      paper:             "Paper (incl. Reg Packets)",
       phone:             "Phones",
       small_electronics: "Small Electronics",
-      toy:               "Toys",
       wallet:            "Wallet",
       weapon:            "Weapons/Props",
-      other_not_listed:  "Other Not Listed"
+  }
+
+  @@valid_categories = {
+      bag:               "Bags",
+      bottle:            "Bottles",
+      clothing:          "Clothing",
+      electronics:       "Electronics",
+      glasses:           "Glasses",
+      headwear:          "Headwear",
+      jewelry:           "Jewelry",
+      lockbox:           "Lockbox (Money, ID, Cards, Wallets, Keys, Badges)",
+      paper:             "Papers",
+      prop:              "Props",
+      toy:               "Toys",
+      other_not_listed:  "Other Not Listed"      
   }
 
   def self.valid_categories
