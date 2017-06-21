@@ -119,10 +119,19 @@ FactoryGirl.define do
     factory :found do
       found true
       description "Wombats and Llamas and Snakes"
-      category "Badges" # Retired Category
+      category "Props"
       where_found "MyString"
       owner_name "MyString"
       owner_contact "MyText"
+    end
+
+    factory :retired do
+      reported_missing true
+      category "Badges"
+      description "Buccinas and Dilrubas and Mirlitons"
+      details "So Many Sounds!"
+      where_last_seen "MyString"
+      owner_name "MyString"
     end
 
     factory :returned do

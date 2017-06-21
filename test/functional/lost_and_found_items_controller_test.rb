@@ -5,6 +5,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     @missing    = FactoryGirl.create :lost
     @found      = FactoryGirl.create :found
     @returned   = FactoryGirl.create :returned
+    @retired    = FactoryGirl.create :retired
     @incomplete = FactoryGirl.build :incomplete
     @user       = FactoryGirl.create :user
     @admin_role = FactoryGirl.create :can_admin_lost_and_found_user
@@ -89,7 +90,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     assert_equal 2, assigns(:lfis).length
   end
 
-    test "can search details by single keyword" do
+  test "can search details by single keyword" do
     get :index, { reported_missing: true, keywords: "Oh" }, { user_id: @user.id }
     assert_response :success
     assert_template :index
@@ -198,6 +199,12 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     assert_redirected_to assigns(:lfi)
   end
 
+  test "can updated retired" do
+    put :update, { id: @retired.id, lost_and_found_item: @change_this }, { user_id: @user.id }
+    assert_equal @change_this[:description], assigns(:lfi).description
+    assert_redirected_to assigns(:lfi)
+  end
+
   test "peon cannot update" do
     put :update, { id: @missing.id, lost_and_found_item: @change_this }, { user_id: @peon_user.id }
     assert_nil assigns(:lfi)
@@ -220,7 +227,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     get :index, { convention: @convention.id }, { user_id: @user.id }
     assert_response :success
     assert_template :index
-    assert_equal 1, assigns(:lfis).count
+    assert_equal 2, assigns(:lfis).count
   end
 
 end
