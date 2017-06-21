@@ -23,26 +23,33 @@ class LostAndFoundItem < ActiveRecord::Base
 
   belongs_to :user
 
-  @@valid_categories = {
+  @@retired_categories = {
       badge:             "Badges",
-      bag:               "Bags",
-      bottle:            "Bottles",
-      clothing:          "Clothing",
       costume_jewelry:   "Costume Jewelry",
-      electronics:       "Electronics",
-      glasses:           "Glasses",
       headgear:          "Headgear",
-      jewelry:           "Jewelry",
       keys:              "Keys",
       media:             "Media",
       money:             "Money/Cards/ID",
       paper:             "Paper (incl. Reg Packets)",
       phone:             "Phones",
       small_electronics: "Small Electronics",
-      toy:               "Toys",
       wallet:            "Wallet",
       weapon:            "Weapons/Props",
-      other_not_listed:  "Other Not Listed"
+  }
+
+  @@valid_categories = {
+      bag:               "Bags",
+      bottle:            "Bottles",
+      clothing:          "Clothing",
+      electronics:       "Electronics",
+      glasses:           "Glasses",
+      headwear:          "Headwear",
+      jewelry:           "Jewelry",
+      lockbox:           "Lockbox (Money, ID, Cards, Wallets, Keys, Badges)",
+      papers:             "Papers",
+      prop:              "Props",
+      toy:               "Toys",
+      other_not_listed:  "Other Not Listed"      
   }
 
   def self.valid_categories
@@ -57,7 +64,7 @@ class LostAndFoundItem < ActiveRecord::Base
   scope :inventory, -> (i) { where(found: true, returned: false) if i }
 =end
 
-  validates :category, presence: true, allow_blank: false, inclusion: { in: @@valid_categories.values }
+  validates :category, presence: true, allow_blank: false, inclusion: { in: @@valid_categories.merge(@@retired_categories).values }
   validates :description, presence: true, allow_blank: false
 
   # These rules are a little complicated but it's worth it to ensure data integrity

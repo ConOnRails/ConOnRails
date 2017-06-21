@@ -109,7 +109,7 @@ FactoryGirl.define do
 
     factory :lost do
       reported_missing true
-      category "Badges"
+      category "Props"
       description "Llamas and Tigers and Bears"
       details "Oh My!"
       where_last_seen "MyString"
@@ -119,17 +119,26 @@ FactoryGirl.define do
     factory :found do
       found true
       description "Wombats and Llamas and Snakes"
-      category "Badges"
+      category "Props"
       where_found "MyString"
       owner_name "MyString"
       owner_contact "MyText"
+    end
+
+    factory :retired_category do
+      reported_missing true
+      category "Badges"
+      description "Buccinas and Dilrubas and Mirlitons"
+      details "So Many Sounds!"
+      where_last_seen "MyString"
+      owner_name "MyString"
     end
 
     factory :returned do
       found true
       reported_missing false
       returned true
-      category "Badges"
+      category "Props"
       description "Llamas, Begonias and Flakes"
       where_found "MyString"
       owner_name "MyString"
