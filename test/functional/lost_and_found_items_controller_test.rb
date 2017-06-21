@@ -5,7 +5,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     @missing    = FactoryGirl.create :lost
     @found      = FactoryGirl.create :found
     @returned   = FactoryGirl.create :returned
-    @retired    = FactoryGirl.create :retired
+    @retired_category = FactoryGirl.create :retired_category
     @incomplete = FactoryGirl.build :incomplete
     @user       = FactoryGirl.create :user
     @admin_role = FactoryGirl.create :can_admin_lost_and_found_user
@@ -199,8 +199,8 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     assert_redirected_to assigns(:lfi)
   end
 
-  test "can updated retired" do
-    put :update, { id: @retired.id, lost_and_found_item: @change_this }, { user_id: @user.id }
+  test "can updated item with retired category" do
+    put :update, { id: @retired_category.id, lost_and_found_item: @change_this }, { user_id: @user.id }
     assert_equal @change_this[:description], assigns(:lfi).description
     assert_redirected_to assigns(:lfi)
   end

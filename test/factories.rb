@@ -125,7 +125,7 @@ FactoryGirl.define do
       owner_contact "MyText"
     end
 
-    factory :retired do
+    factory :retired_category do
       reported_missing true
       category "Badges"
       description "Buccinas and Dilrubas and Mirlitons"
