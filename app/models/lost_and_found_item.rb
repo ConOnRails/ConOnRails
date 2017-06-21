@@ -46,7 +46,7 @@ class LostAndFoundItem < ActiveRecord::Base
       headwear:          "Headwear",
       jewelry:           "Jewelry",
       lockbox:           "Lockbox (Money, ID, Cards, Wallets, Keys, Badges)",
-      paper:             "Papers",
+      papers:             "Papers",
       prop:              "Props",
       toy:               "Toys",
       other_not_listed:  "Other Not Listed"      
@@ -64,7 +64,7 @@ class LostAndFoundItem < ActiveRecord::Base
   scope :inventory, -> (i) { where(found: true, returned: false) if i }
 =end
 
-  validates :category, presence: true, allow_blank: false, inclusion: { in: @@valid_categories.values }
+  validates :category, presence: true, allow_blank: false, inclusion: { in: @@valid_categories.merge(@@retired_categories).values }
   validates :description, presence: true, allow_blank: false
 
   # These rules are a little complicated but it's worth it to ensure data integrity
