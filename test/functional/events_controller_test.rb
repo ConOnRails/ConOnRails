@@ -120,9 +120,9 @@ class EventsControllerTest < ActionController::TestCase
         FactoryGirl.create :entry, description: 'There\'s a vole in your mind', event: @secure_event
       end
 
-      context 'POST :search_entries' do
+      context 'GET :search_entries' do
         setup do
-          post :search_entries, q: 'vole'
+          get :search_entries, q: 'vole'
         end
 
         should respond_with :success
@@ -133,7 +133,7 @@ class EventsControllerTest < ActionController::TestCase
         end
       end
 
-      context 'POST :search_entries with convention limit' do
+      context 'GET :search_entries with convention limit' do
         setup do
           @convention = create :convention
           @event.created_at = DateTime.now + 2.days # in range
@@ -141,7 +141,7 @@ class EventsControllerTest < ActionController::TestCase
           @event.save!
           @secure_event.save!
 
-          post :search_entries, q: 'vole', convention: @convention.id
+          get :search_entries, q: 'vole', convention: @convention.id
 
         end
 
