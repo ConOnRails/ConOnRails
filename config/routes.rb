@@ -37,8 +37,7 @@ ConOnRails::Application.routes.draw do
       get 'secure'
       get 'tag/:tag', action: :tag
       post 'merge_events'
-      post 'search_entries'
-      get 'search_entries'
+      get 'search_entries(/page/:page)', action: :search_entries, as: 'search_entries'
     end
   end
 
