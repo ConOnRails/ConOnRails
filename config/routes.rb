@@ -1,6 +1,11 @@
 ConOnRails::Application.routes.draw do
   root controller: :events, action: :index, active: true
 
+  concern :paginatable do
+    get '(page/:page)', action: :index, on: :collection, as: ''
+  end
+
+
   get '/public', to: 'sessions#new'
   get '/signout', to: 'sessions#destroy'
   get '/sessions/getroles', to: 'sessions#getroles'
@@ -24,7 +29,7 @@ ConOnRails::Application.routes.draw do
     resources :duty_board_assignments
   end
 
-  resources :events, except: [:destroy] do
+  resources :events, except: [:destroy], concerns: :paginatable do
     collection do
       get 'export', format: :csv
       get 'review'
@@ -33,6 +38,7 @@ ConOnRails::Application.routes.draw do
       get 'tag/:tag', action: :tag
       post 'merge_events'
       post 'search_entries'
+      get 'search_entries'
     end
   end
 

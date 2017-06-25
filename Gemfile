@@ -50,6 +50,11 @@ gem 'faker'
 
 gem 'derailed'
 
+gem 'rack-mini-profiler'
+gem 'flamegraph'
+gem 'stackprof' # ruby 2.1+ only
+gem 'memory_profiler'
+
 group :development do
   gem 'annotate'
   gem 'rb-fsevent'#, '~> 0.9.1'

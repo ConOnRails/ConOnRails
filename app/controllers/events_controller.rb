@@ -63,7 +63,10 @@ class EventsController < ApplicationController
 
   def search_entries
     @q = params[:q] # We'll use this to re-fill the search blank
-    @events = limit_by_convention Event.search(@q, current_user, params[:show_closed], session[:index_filter])
+    @events = limit_by_convention(Event.search(@q, current_user,
+                                  params[:show_closed],
+                                  session[:index_filter]))
+              .page(params[:page])
     respond_with @events
   end
 
