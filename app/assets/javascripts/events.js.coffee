@@ -53,6 +53,7 @@ window.events.getFilters = ->
 
   $('#filters .btn-group').each((index, group)->
     things[$(group).data('flag')] = $(group).find('.btn-primary').data('value')
+    true
   )
 
   things
