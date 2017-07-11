@@ -228,17 +228,15 @@ class Event < ActiveRecord::Base
 
   def self.to_csv(events)
     CSV.generate do |csv|
-      csv << ['ID', 'State', DEPT_FLAGS, 'Entries', 'Flag History'].flatten
+      csv << ['ID', 'State', DEPT_FLAGS, 'Entries'].flatten
       events.find_each do |event|
         csv << [
             event.id,
             event.status,
             event.department_flags_to_csv,
-            entries_for_export(event),
-            flags_for_export(event),
+            entries_for_export(event)
         ].flatten
       end
-
     end
   end
 
@@ -246,7 +244,6 @@ class Event < ActiveRecord::Base
     DEPT_FLAGS.collect { |f| send f }
   end
 
-  protected
   def self.fix_bool val
     if val.is_a? String
       return true if val == 'true'
@@ -261,21 +258,5 @@ class Event < ActiveRecord::Base
       created_or_updated = (entry == first) ? 'created' : 'update'
       "#{entry.created_at.getlocal.ctime} #{created_or_updated} by #{entry.user.realname} as #{entry.rolename}\r#{entry.description}"
     end.join("\r\r")
-  end
-
-  def self.flags_for_export(event)
-    event.event_flag_histories.collect do |efh|
-      "at #{efh.created_at.getlocal.ctime} by #{efh.user.realname} as #{efh.rolename}\r  " +
-          Event.flags.collect do |f|
-            if f == 'is_active' && efh[f] == false
-              'CLOSED'
-            elsif efh[f] == true
-              "#{f}"
-            end
-          end.compact.join(' ') +
-          efh.alert_list.collect do |f|
-            "#{f}"
-          end.compact.join(' ')
-    end.join("\r")
   end
 end

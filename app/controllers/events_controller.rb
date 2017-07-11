@@ -13,8 +13,6 @@ class EventsController < ApplicationController
   respond_to :js, only: [:index, :sticky, :secure, :review]
   respond_to :csv, only: [:export]
 
-  public
-
   # GET /events
   # GET /events.json
   def index
