@@ -75,8 +75,9 @@ class Event < ActiveRecord::Base
   }
 
   STATUSES = %w[Active Closed Merged].freeze
-  FLAGS = %w[is_active merged post_con sticky emergency medical hidden secure accessibility_and_inclusion allocations consuite dealers first_advisors hotel member_advocates nerf_herders operations parties programming registration volunteers_den volunteers].freeze
+  STATUS_FLAGS = %w[is_active merged post_con sticky emergency medical hidden secure].freeze
   DEPT_FLAGS = %w[accessibility_and_inclusion allocations consuite dealers first_advisors hotel member_advocates nerf_herders operations parties programming registration volunteers_den volunteers].freeze
+  FLAGS = (STATUS_FLAGS + DEPT_FLAGS).freeze
 
   def self.search(q, user, show_closed=false, index_filters=nil)
     protect_sensitive_events(user).
@@ -227,17 +228,22 @@ class Event < ActiveRecord::Base
 
   def self.to_csv(events)
     CSV.generate do |csv|
-      csv << %w(ID State Flags Entries)
+      csv << ['ID', 'State', DEPT_FLAGS, 'Entries', 'Flag History'].flatten
       events.find_each do |event|
         csv << [
             event.id,
             event.status,
+            event.department_flags_to_csv,
+            entries_for_export(event),
             flags_for_export(event),
-            entries_for_export(event)
-        ]
+        ].flatten
       end
 
     end
+  end
+
+  def department_flags_to_csv
+    DEPT_FLAGS.collect { |f| send f }
   end
 
   protected
