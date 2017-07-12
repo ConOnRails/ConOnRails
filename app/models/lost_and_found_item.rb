@@ -49,7 +49,7 @@ class LostAndFoundItem < ActiveRecord::Base
       papers:             "Papers",
       prop:              "Props",
       toy:               "Toys",
-      other_not_listed:  "Other Not Listed"      
+      other_not_listed:  "Other Not Listed"
   }
 
   def self.valid_categories
@@ -68,7 +68,7 @@ class LostAndFoundItem < ActiveRecord::Base
   validates :description, presence: true, allow_blank: false
 
   # These rules are a little complicated but it's worth it to ensure data integrity
-  # 1] On create, only one of reported_missing or found can be true, and only the 
+  # 1] On create, only one of reported_missing or found can be true, and only the
   # correct fields should be defined
   # 2] It should always be true that certain fields are defined for certain flags
   # 3] These are hard to express using standard validators, but we always want
@@ -127,6 +127,20 @@ class LostAndFoundItem < ActiveRecord::Base
   def validate_where_found_empty
     if where_found != nil and where_found != ''
       errors.add :where_found, "expected empty"
+    end
+  end
+
+  def self.to_csv(lfis)
+    CSV.generate do |csv|
+      csv << ['ID', 'Category', 'Description', 'Year']
+      lfis.find_each do |lfi|
+        csv << [
+            lfi.id,
+            lfi.category,
+            lfi.description,
+            lfi.created_at.year
+        ].flatten
+      end
     end
   end
 end
