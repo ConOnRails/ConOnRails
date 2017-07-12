@@ -1,3 +1,0 @@
-web: bundle exec puma -C config/puma.rb
-mail: mailcatcher -f
-#sidekiq: bundle exec sidekiq
