@@ -41,4 +41,4 @@
       div= link_to 'Back', searchform_lost_and_found_items_path(@back_params)
       - if current_user.modify_lost_and_found?
         div= link_to 'Open Inventory', lost_and_found_items_path(inventory: true)
-
+        div= link_to 'Export Inventory', export_lost_and_found_items_path(format: :csv)
