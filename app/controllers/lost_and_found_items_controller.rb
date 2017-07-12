@@ -70,6 +70,12 @@ class LostAndFoundItemsController < ApplicationController
     respond_with @lfi, location: lost_and_found_item_path(@lfi, inventory: lfi_params[:inventory])
   end
 
+  def export
+    respond_with do |f|
+      f.csv { send_data LostAndFoundItem.to_csv(LostAndFoundItem.inventoried.order(:id)), filename: 'lost-and-found-inventory.csv', type: 'text/csv' }
+    end
+  end
+
   protected
   def jump
     @lfi = LostAndFoundItem.find_by_id(params[:id])
