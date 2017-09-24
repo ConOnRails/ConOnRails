@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: db
+  username: postgres
+  password:
+  pool: 5
+
+development:
+  <<: *default
+  database: cononrails_dev
+
+test:
+  <<: *default
+  database: cononrails_test
+
+attendees:
+  adapter: sqlite3
+  database: db/attendees.sqlite3
+  pool: 5
+  timeout: 5000

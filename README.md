@@ -29,3 +29,47 @@ Michael Scott Shappe
 
 PS. I ***still*** haven't pasted the right bits into the source files yet, but: Copyright &copy; 2011-2015 Thomas Keeley, DeNae
 Leverentz and Michael Scott Shappe. Licensed under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
+
+## Docker Development
+
+This project has been instrumented to use Docker for development purposes. If you don't have Docker installed, go to [the Docker website](http://www.docker.com) and click on the Get Docker menu item.
+
+### Starting Out
+
+From the project directory, follow these directions.
+
+First, copy the `config/database.docker.yml` file to `config/database.yml`. This will give Docker the configuration it needs to talk to the databases.
+
+Next, run `docker-compose up`. The first time you run this, it will build the ConOnRails application's Docker image. Future runs will not need to do this and will be much faster.
+
+The third step is to prepare the database. Run these three commands in order:
+
+```
+docker-compose run web rake db:migrate
+docker-compose run web rake db:seed
+docker-compose run web sqlite3 -batch db/attendees.sqlite3 < db/attendees.seed
+```
+
+Now your database is ready to go, and the application will be usable [on localhost:3000](http://localhost:3000/).
+
+### Getting Set Up for Testing
+
+Of course, since this project is test-driven, you'll also need to get your tests going. This command will create the test database and, as a triggered action, run all of the tests:
+
+```
+docker-compose run web rake db:create test
+```
+
+After running this command once, though, you only need to run whichever tests you need to on a case-by-case basis. For example, you could do something like this:
+
+```
+docker-compose run web rake test test/unit/contact_test.rb
+```
+
+This will only run the specified test.
+
+### Cleaning Up
+
+When you're done developing for the moment, all you need to do is run `docker-compose stop`. This will shut down the Docker working environment, but it won't delete all of your data.
+
+If you want to actually shut down *and destroy* your working environment, then run `docker-compose down`. If you do this, you'll have to follow all of the above instructions again.

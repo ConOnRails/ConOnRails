@@ -1,0 +1,8 @@
+.autotest
+.capistrano
+.codeclimate.yml
+.csslintrc
+.dockerignore
+.eslintignore
+.eslintrc.yml
+.git
