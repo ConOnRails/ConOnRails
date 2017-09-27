@@ -1,4 +1,4 @@
-FROM ruby:2.3.3
+FROM ruby:2.3.5
 
 RUN apt-get update -qq
 RUN apt-get install -y \
