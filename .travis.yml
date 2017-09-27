@@ -1,7 +1,7 @@
 language: ruby
 cache: bundler
 rvm:
-  - 2.3.3
+  - 2.3.5
 env:
   - DB=postgresql CODECLIMATE_REPO_TOKEN=60f24faadd4214af105e217fca320e3a6d4eab015ca1eaf672aed2fbcc77b296
 before_install:
