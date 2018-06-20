@@ -1,15 +1,15 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    mime-types (2.0)
+    mime-types (1.25.1)
     pg (0.17.0)
-    rack (1.0.1)
-    rest-client (1.6.7)
-      mime-types (>= 1.16)
+    rack (2.0.5)
+    rest-client (1.6.9)
+      mime-types (~> 1.16)
     sequel (3.20.0)
     sinatra (1.0)
       rack (>= 1.0)
-    sqlite3 (1.3.8)
+    sqlite3 (1.3.13)
     taps (0.3.24)
       rack (>= 1.0.1)
       rest-client (>= 1.4.0, < 1.7.0)
@@ -21,6 +21,12 @@ PLATFORMS
 
 DEPENDENCIES
   pg
-  rack (= 1.0.1)
+  rack (>= 1.0.1)
   sqlite3
   taps
+
+RUBY VERSION
+   ruby 2.3.7p456
+
+BUNDLED WITH
+   1.16.1
