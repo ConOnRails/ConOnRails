@@ -85,9 +85,9 @@ class RadiosController < ApplicationController
   end
 
   def find_radios
-    @q = Radio.search params[:q]
-    @q.sorts = ['state desc', 'radio_group_name'] if @q.sorts.empty?
-    @radios = @q.result.page(params[:page])
+    @q = Radio.ransack params[:q]
+    @q.sorts = ['state desc', 'radios_number'] if @q.sorts.empty? #, 'radio_group_name', 'radio_number'
+    @radios = @q.result(distinct: true).page(params[:page])
   end
 
   def radio_params
