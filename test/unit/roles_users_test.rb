@@ -10,10 +10,10 @@ require 'test_helper'
 
 class RolesUsersTest < ActiveSupport::TestCase
   setup do
-    @user1 = FactoryGirl.create :user
-    @user2 = FactoryGirl.create :user
-    @role1 = FactoryGirl.create :write_entries_role
-    @role2 = FactoryGirl.create :role
+    @user1 = FactoryBot.create :user
+    @user2 = FactoryBot.create :user
+    @role1 = FactoryBot.create :write_entries_role
+    @role2 = FactoryBot.create :role
   end
 
   def setup_roles

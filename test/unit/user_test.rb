@@ -106,7 +106,7 @@ class UserTest < ActiveSupport::TestCase
   context "#has_role?" do
     setup do
       @user = User.create!(@input_attributes)
-      role = FactoryGirl.create(:role)
+      role = FactoryBot.create(:role)
       @user.roles << role
     end
 

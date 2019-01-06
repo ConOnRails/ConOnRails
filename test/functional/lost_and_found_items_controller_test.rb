@@ -2,16 +2,16 @@ require 'test_helper'
 
 class LostAndFoundItemsControllerTest < ActionController::TestCase
   setup do
-    @missing    = FactoryGirl.create :lost
-    @found      = FactoryGirl.create :found
-    @returned   = FactoryGirl.create :returned
-    @retired_category = FactoryGirl.create :retired_category
-    @incomplete = FactoryGirl.build :incomplete
-    @user       = FactoryGirl.create :user
-    @admin_role = FactoryGirl.create :can_admin_lost_and_found_user
+    @missing    = FactoryBot.create :lost
+    @found      = FactoryBot.create :found
+    @returned   = FactoryBot.create :returned
+    @retired_category = FactoryBot.create :retired_category
+    @incomplete = FactoryBot.build :incomplete
+    @user       = FactoryBot.create :user
+    @admin_role = FactoryBot.create :can_admin_lost_and_found_user
     @user.roles << @admin_role
-    @peon_user = FactoryGirl.create :user
-    @peon_role = FactoryGirl.create :role
+    @peon_user = FactoryBot.create :user
+    @peon_role = FactoryBot.create :role
     @peon_user.roles << @peon_role
     @change_this = { description: "Beware the viscous giraffe" }
   end
@@ -179,7 +179,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
 
   test "can create new lost" do
     assert_difference 'LostAndFoundItem.count' do
-      post :create, { lost_and_found_item: FactoryGirl.attributes_for(:lost) }, { user_id: @user.id }
+      post :create, { lost_and_found_item: FactoryBot.attributes_for(:lost) }, { user_id: @user.id }
     end
   end
 
@@ -218,16 +218,18 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
   end
 
   test 'will limit by convention if conventions defined and in use' do
-    @convention         = create :convention    # defaults to 5 days
-    @missing.created_at = DateTime.now + 2.days # force this into range
-    @found.created_at   = DateTime.now + 7.days # force this out of range
-    @missing.save!
-    @found.save!
+    Timecop.freeze do
+      @convention         = create :convention    # defaults to 5 days
+      @missing.created_at = DateTime.now + 2.days # force this into range
+      @found.created_at   = DateTime.now + 7.days # force this out of range
+      @missing.save!
+      @found.save!
 
-    get :index, { convention: @convention.id }, { user_id: @user.id }
+      get :index, { convention: @convention.id }, { user_id: @user.id }
+    end
     assert_response :success
     assert_template :index
-    assert_equal 2, assigns(:lfis).count
+    assert_equal 1, assigns(:lfis).count
   end
 
 end

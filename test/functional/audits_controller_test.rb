@@ -2,8 +2,8 @@ require 'test_helper'
 
 class AuditsControllerTest < ActionController::TestCase
   setup do
-    @user = FactoryGirl.create :user
-    @role = FactoryGirl.create :read_audits_role
+    @user = FactoryBot.create :user
+    @role = FactoryBot.create :read_audits_role
     @user.roles << @role
 
     @user_session = { user_id: @user.id, current_role_name: @role.name }

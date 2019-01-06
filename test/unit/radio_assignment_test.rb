@@ -24,8 +24,8 @@ class RadioAssignmentTest < ActiveSupport::TestCase
 
   context 'validate department allotments' do
     setup do
-      @assignment = FactoryGirl.create :valid_radio_assignment
-      @bad_assignment = FactoryGirl.build(:valid_radio_assignment, department: @assignment.department)
+      @assignment = FactoryBot.create :valid_radio_assignment
+      @bad_assignment = FactoryBot.build(:valid_radio_assignment, department: @assignment.department)
     end
 
     should 'not allow a new assignment' do

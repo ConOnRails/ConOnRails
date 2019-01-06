@@ -35,8 +35,8 @@ class VolunteerTest < ActiveSupport::TestCase
   should validate_presence_of :last_name
 
   setup do
-    @valid = FactoryGirl.attributes_for :valid_volunteer
-    @blank = FactoryGirl.attributes_for :volunteer
+    @valid = FactoryBot.attributes_for :valid_volunteer
+    @blank = FactoryBot.attributes_for :volunteer
   end
 
   test "cannot create empty" do

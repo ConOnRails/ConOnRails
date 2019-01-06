@@ -4,16 +4,16 @@ class EventsControllerTest < ActionController::TestCase
 
   context "Given some events" do
     setup do
-      @event        = FactoryGirl.create :ordinary_event
+      @event        = FactoryBot.create :ordinary_event
 
       # We'll want these for search tests later
-      FactoryGirl.create :entry, description: 'Voles are in control', event: @event
+      FactoryBot.create :entry, description: 'Voles are in control', event: @event
     end
 
     multiple_contexts :admin_context, :typical_context do
       context 'An index filter set on the session' do
         setup do
-          @hotel_event = FactoryGirl.create :ordinary_event, hotel: true
+          @hotel_event = FactoryBot.create :ordinary_event, hotel: true
           session[:index_filter] = { 'hotel' => true }
         end
 
@@ -81,7 +81,7 @@ class EventsControllerTest < ActionController::TestCase
 
       context 'Also a sticky event' do
         setup do
-          @sticky_event = FactoryGirl.create :ordinary_event, sticky: true
+          @sticky_event = FactoryBot.create :ordinary_event, sticky: true
         end
 
         context 'GET :sticky' do
@@ -115,9 +115,9 @@ class EventsControllerTest < ActionController::TestCase
 
     user_context :admin_context do
       setup do
-        @hidden_event = FactoryGirl.create :ordinary_event, hidden: true
-        @secure_event = FactoryGirl.create :ordinary_event, secure: true
-        FactoryGirl.create :entry, description: 'There\'s a vole in your mind', event: @secure_event
+        @hidden_event = FactoryBot.create :ordinary_event, hidden: true
+        @secure_event = FactoryBot.create :ordinary_event, secure: true
+        FactoryBot.create :entry, description: 'There\'s a vole in your mind', event: @secure_event
       end
 
       context 'GET :search_entries' do
@@ -199,7 +199,7 @@ class EventsControllerTest < ActionController::TestCase
 
       context 'GET :review with multiple \'true\' filters' do
         setup do
-          FactoryGirl.create :ordinary_event, hotel: true, parties: true
+          FactoryBot.create :ordinary_event, hotel: true, parties: true
           get :review, { filters: { hotel: true, parties: true } }
         end
 
@@ -211,8 +211,8 @@ class EventsControllerTest < ActionController::TestCase
 
       context 'GET :review with mixed filters' do
         setup do
-          FactoryGirl.create :ordinary_event, hotel: true
-          FactoryGirl.create :ordinary_event, parties: true
+          FactoryBot.create :ordinary_event, hotel: true
+          FactoryBot.create :ordinary_event, parties: true
           get :review, { filters: { hotel: true, parties: false, sticky: 'all' } }
         end
 
@@ -302,8 +302,8 @@ class EventsControllerTest < ActionController::TestCase
 
       context 'POST :create' do
         setup do
-          post :create, { event: FactoryGirl.attributes_for(:ordinary_event),
-                          entry: FactoryGirl.attributes_for(:verbose_entry) }
+          post :create, { event: FactoryBot.attributes_for(:ordinary_event),
+                          entry: FactoryBot.attributes_for(:verbose_entry) }
         end
 
         should respond_with :redirect
@@ -321,8 +321,8 @@ class EventsControllerTest < ActionController::TestCase
 
       context 'PUT :update' do
         setup do
-          put :update, { id:    @event.to_param, event: FactoryGirl.attributes_for(:ordinary_event),
-                         entry: FactoryGirl.attributes_for(:verbose_entry) }
+          put :update, { id:    @event.to_param, event: FactoryBot.attributes_for(:ordinary_event),
+                         entry: FactoryBot.attributes_for(:verbose_entry) }
         end
 
         should respond_with :redirect
@@ -353,7 +353,7 @@ class EventsControllerTest < ActionController::TestCase
 
       context 'A second ordinary event' do
         setup do
-          @merge_me = FactoryGirl.create :ordinary_event
+          @merge_me = FactoryBot.create :ordinary_event
         end
 
         context 'POST :merge two events' do
@@ -379,8 +379,8 @@ class EventsControllerTest < ActionController::TestCase
 
       context 'POST :create' do
         setup do
-          post :create, { event: FactoryGirl.attributes_for(:ordinary_event),
-                          entry: FactoryGirl.attributes_for(:verbose_entry) }
+          post :create, { event: FactoryBot.attributes_for(:ordinary_event),
+                          entry: FactoryBot.attributes_for(:verbose_entry) }
         end
 
         should respond_with :redirect
@@ -398,8 +398,8 @@ class EventsControllerTest < ActionController::TestCase
 
       context 'PUT :update' do
         setup do
-          put :update, { id:    @event.to_param, event: FactoryGirl.attributes_for(:ordinary_event),
-                         entry: FactoryGirl.attributes_for(:verbose_entry) }
+          put :update, { id:    @event.to_param, event: FactoryBot.attributes_for(:ordinary_event),
+                         entry: FactoryBot.attributes_for(:verbose_entry) }
         end
 
         should respond_with :redirect

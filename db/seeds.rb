@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 $LOAD_PATH.unshift File.expand_path('..', __FILE__)
-require 'factory_girl_rails'
+require 'factory_bot_rails'
 require 'faker'
 
 Convention.delete_all
@@ -127,9 +127,9 @@ case Rails.env
   when "development"
     Audit.delete_all # Audit log has to be cleared by explicit act of god in production
 
-    FactoryGirl.create :many_blue_men_group
-    FactoryGirl.create :many_red_hands
-    llama = FactoryGirl.create_list(:many_valid_volunteers, 42)
+    FactoryBot.create :many_blue_men_group
+    FactoryBot.create :many_red_hands
+    llama = FactoryBot.create_list(:many_valid_volunteers, 42)
 
 
     User.create!({ username: "test", realname: "Test User",

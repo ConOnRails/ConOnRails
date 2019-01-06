@@ -22,10 +22,10 @@ require 'test_helper'
 class LostAndFoundItemTest < ActiveSupport::TestCase
 
   setup do
-    @lost = FactoryGirl.build :lost
-    @found = FactoryGirl.build :found
-    @both = FactoryGirl.build :lost, found: true
-    @returned = FactoryGirl.build :returned
+    @lost = FactoryBot.build :lost
+    @found = FactoryBot.build :found
+    @both = FactoryBot.build :lost, found: true
+    @returned = FactoryBot.build :returned
   end
 
   should validate_presence_of :category

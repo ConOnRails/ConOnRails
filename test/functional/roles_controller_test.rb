@@ -2,10 +2,10 @@ require 'test_helper'
 
 class RolesControllerTest < ActionController::TestCase
   setup do
-    @peon      = FactoryGirl.create :role
-    @admin     = FactoryGirl.create :admin_users_role
-    @user      = FactoryGirl.create :user
-    @peon_user = FactoryGirl.create :user
+    @peon      = FactoryBot.create :role
+    @admin     = FactoryBot.create :admin_users_role
+    @user      = FactoryBot.create :user
+    @peon_user = FactoryBot.create :user
     @user.roles << @admin
   end
 

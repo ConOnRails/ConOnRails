@@ -42,7 +42,7 @@ class EventTest < ActiveSupport::TestCase
 
   context 'an ordinary event' do
     setup do
-      @event = FactoryGirl.create :ordinary_event
+      @event = FactoryBot.create :ordinary_event
     end
 
     should 'be active by default' do
@@ -111,7 +111,7 @@ class EventTest < ActiveSupport::TestCase
 
     context 'an additional ordinary event' do
       setup do
-        @second_event = FactoryGirl.create :ordinary_event
+        @second_event = FactoryBot.create :ordinary_event
       end
 
       should 'have two active events' do
@@ -185,7 +185,7 @@ class EventTest < ActiveSupport::TestCase
 
       context 'can be merged with the original' do
         setup do
-          @user = FactoryGirl.create :user
+          @user = FactoryBot.create :user
           # make one of them an emergency
           @second_event.emergency = true
           @second_event.save!
@@ -209,8 +209,8 @@ class EventTest < ActiveSupport::TestCase
       context 'can search' do
         setup do
           # We need entries with specific text to test searching
-          @entry1 = FactoryGirl.create :entry, description: 'Yak fodder', event: @event
-          @entry2 = FactoryGirl.create :entry, description: 'Moose pudding', event: @second_event
+          @entry1 = FactoryBot.create :entry, description: 'Yak fodder', event: @event
+          @entry2 = FactoryBot.create :entry, description: 'Moose pudding', event: @second_event
         end
 
         context 'search for specific text' do

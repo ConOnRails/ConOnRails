@@ -28,7 +28,7 @@ require 'test_helper'
 class AttendeeTest < ActiveSupport::TestCase
 =begin
   setup do
-    @attendee = FactoryGirl.build(:attendee)
+    @attendee = FactoryBot.build(:attendee)
   end
 
   test "can get composite name" do

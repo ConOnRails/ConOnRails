@@ -15,7 +15,7 @@ require 'test_helper'
 
 class DepartmentTest < ActiveSupport::TestCase
   setup do
-    @department = FactoryGirl.create :good_department
+    @department = FactoryBot.create :good_department
   end
 
   should belong_to :volunteer

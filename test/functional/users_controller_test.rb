@@ -5,16 +5,16 @@ class UsersControllerTest < ActionController::TestCase
   GoodPassword = "zogity123*%^! 42"
 
   setup do
-    @user = FactoryGirl.create :user
-    @role = FactoryGirl.create :admin_users_role
+    @user = FactoryBot.create :user
+    @role = FactoryBot.create :admin_users_role
     @user.roles << @role
     @user_session = { user_id: @user.id, current_role_name: @role.name }
 
-    @peon_user = FactoryGirl.create :user
-    @peon_role = FactoryGirl.create :role
+    @peon_user = FactoryBot.create :user
+    @peon_role = FactoryBot.create :role
     @peon_user.roles << @peon_role
 
-    @volunteer = FactoryGirl.create :valid_volunteer
+    @volunteer = FactoryBot.create :valid_volunteer
 
     @input_attributes = {
         username: "mikey",

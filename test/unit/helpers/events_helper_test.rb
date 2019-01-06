@@ -4,8 +4,8 @@ class EventsHelperTest < ActionView::TestCase
   include EventsHelper
 
   setup do
-    FactoryGirl.create :ordinary_event
-    FactoryGirl.create :ordinary_event, secure: true
+    FactoryBot.create :ordinary_event
+    FactoryBot.create :ordinary_event, secure: true
   end
 
   user_context :typical_context do

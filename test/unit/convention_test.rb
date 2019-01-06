@@ -32,7 +32,7 @@ class ConventionTest < ActiveSupport::TestCase
 
     context '#current_convention' do
       setup do
-        @old = FactoryGirl.create :convention, start_date: 365.days.ago, end_date: 362.days.ago
+        @old = FactoryBot.create :convention, start_date: 365.days.ago, end_date: 362.days.ago
       end
 
       context 'nothing actually current defined' do
@@ -43,7 +43,7 @@ class ConventionTest < ActiveSupport::TestCase
 
       context 'something recent defined' do
         setup do
-          @current = FactoryGirl.create :convention, start_date: 1.day.ago, end_date: 2.days.from_now
+          @current = FactoryBot.create :convention, start_date: 1.day.ago, end_date: 2.days.from_now
         end
 
         should 'return the convention that maps to today' do

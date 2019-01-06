@@ -2,8 +2,8 @@ require 'test_helper'
 
 class RadioAdminControllerTest < ActionController::TestCase
   setup do
-    @user = FactoryGirl.create :user
-    @role = FactoryGirl.create :admin_radios_role
+    @user = FactoryBot.create :user
+    @role = FactoryBot.create :admin_radios_role
     @user.roles << @role
 
   end

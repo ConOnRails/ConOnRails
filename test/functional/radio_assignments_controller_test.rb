@@ -2,12 +2,12 @@ require 'test_helper'
 
 class RadioAssignmentsControllerTest < ActionController::TestCase
   setup do
-    @radio_assignment = FactoryGirl.build :valid_radio_assignment
-    @user             = FactoryGirl.create :user
-    @role             = FactoryGirl.create :assign_radios_role
-    @radio            = FactoryGirl.create :valid_blue_radio
-    @department       = FactoryGirl.create :good_department, radio_allotment: 2
-    @volunteer        = FactoryGirl.create :valid_volunteer, can_have_multiple_radios: true
+    @radio_assignment = FactoryBot.build :valid_radio_assignment
+    @user             = FactoryBot.create :user
+    @role             = FactoryBot.create :assign_radios_role
+    @radio            = FactoryBot.create :valid_blue_radio
+    @department       = FactoryBot.create :good_department, radio_allotment: 2
+    @volunteer        = FactoryBot.create :valid_volunteer, can_have_multiple_radios: true
     @user.roles << @role
     @user_session = { user_id: @user.id }
   end
@@ -16,7 +16,7 @@ class RadioAssignmentsControllerTest < ActionController::TestCase
     assert_difference('RadioAssignmentAudit.count') do
       assert_difference('RadioAssignment.count') do
         xhr :post, :create,
-            { radio_assignment: FactoryGirl.attributes_for(:valid_radio_assignment, volunteer_id: @volunteer.id, radio_id: @radio.id, department_id: @department.id), format: :js },
+            { radio_assignment: FactoryBot.attributes_for(:valid_radio_assignment, volunteer_id: @volunteer.id, radio_id: @radio.id, department_id: @department.id), format: :js },
             @user_session
       end
     end

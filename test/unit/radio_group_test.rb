@@ -14,15 +14,15 @@ require 'test_helper'
 
 class RadioGroupTest < ActiveSupport::TestCase
   setup do
-    @radio_group     = FactoryGirl.build :blue_man_group
-    @bad_radio_group = FactoryGirl.build :radio_group
-    @radio           = FactoryGirl.build :valid_blue_radio
+    @radio_group     = FactoryBot.build :blue_man_group
+    @bad_radio_group = FactoryBot.build :radio_group
+    @radio           = FactoryBot.build :valid_blue_radio
   end
 
   test "can create a group with many radios" do
     group = nil
     assert_difference 'RadioGroup.count' do
-      group = FactoryGirl.create :many_blue_men_group
+      group = FactoryBot.create :many_blue_men_group
     end
     assert_not_nil group
     assert_equal 42, group.num_radios

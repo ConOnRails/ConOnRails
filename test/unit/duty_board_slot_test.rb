@@ -13,7 +13,7 @@ require 'test_helper'
 
 class DutyBoardSlotTest < ActiveSupport::TestCase
   setup do
-    @dbs = FactoryGirl.create :valid_duty_board_slot
+    @dbs = FactoryBot.create :valid_duty_board_slot
   end
 
   should belong_to :duty_board_group

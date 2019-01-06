@@ -16,8 +16,8 @@ require 'test_helper'
 
 class RadioAssignmentAuditTest < ActiveSupport::TestCase
   setup do
-    @assignment = FactoryGirl.build :valid_radio_assignment
-    @user      = FactoryGirl.create :user
+    @assignment = FactoryBot.build :valid_radio_assignment
+    @user      = FactoryBot.create :user
   end
 
   # @param [string] method

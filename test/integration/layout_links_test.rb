@@ -2,8 +2,8 @@ require 'test_helper'
 
 class LayoutLinksTest < ActionDispatch::IntegrationTest
   setup do
-    @user = FactoryGirl.create(:user)
-    @role = FactoryGirl.create(:write_entries_role)
+    @user = FactoryBot.create(:user)
+    @role = FactoryBot.create(:write_entries_role)
     @user.roles << @role
     @user.save!
     @login_params = { username: @user.username, password: @user.password, role: @role.name }

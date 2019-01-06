@@ -2,10 +2,10 @@ require 'test_helper'
 
 class ContactsControllerTest < ActionController::TestCase
   setup do
-    @user      = FactoryGirl.create :user
-    @contact   = FactoryGirl.create :valid_contact
-    @peon_user = FactoryGirl.create :user
-    @role      = FactoryGirl.create :write_entries_role
+    @user      = FactoryBot.create :user
+    @contact   = FactoryBot.create :valid_contact
+    @peon_user = FactoryBot.create :user
+    @role      = FactoryBot.create :write_entries_role
     @user.roles << @role
     @user_session      = { user_id: @user.id }
     @peon_user_session = { user_id: @peon_user.id }
@@ -34,7 +34,7 @@ class ContactsControllerTest < ActionController::TestCase
 
   def create_contact_success(session)
     assert_difference('Contact.count') do
-      post :create, { contact: FactoryGirl.attributes_for(:valid_contact) }, session
+      post :create, { contact: FactoryBot.attributes_for(:valid_contact) }, session
     end
 
     assert_redirected_to contacts_path
@@ -75,7 +75,7 @@ class ContactsControllerTest < ActionController::TestCase
   end
 
   def update_contact_success(session)
-    put :update, { id: @contact.to_param, contact: FactoryGirl.attributes_for(:valid_contact) }, session
+    put :update, { id: @contact.to_param, contact: FactoryBot.attributes_for(:valid_contact) }, session
     assert_redirected_to contacts_path
   end
 

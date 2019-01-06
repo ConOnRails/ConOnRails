@@ -14,7 +14,7 @@ require 'test_helper'
 
 class DutyBoardGroupTest < ActiveSupport::TestCase
   setup do
-    @dbgt = FactoryGirl.create :valid_duty_board_group
+    @dbgt = FactoryBot.create :valid_duty_board_group
   end
 
   should have_many :duty_board_slots

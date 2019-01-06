@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-ruby '2.3.7'
+ruby '2.3.8'
 
 gem 'rails', '~>4.2.0'
 
@@ -31,6 +31,7 @@ gem 'jquery-ui-rails', '~> 5.0.3'
 gem 'kaminari', '~> 0.16.3'
 gem 'momentjs-rails', '>= 2.8.1'
 gem 'paper_trail', '>= 4.0.0.beta1'
+gem 'paper_trail-association_tracking'
 gem 'pg_search', '~> 0.7.9'
 gem 'ransack', '~> 1.6.3'
 gem 'redcarpet', '~> 3.2.2'
@@ -45,7 +46,7 @@ gem 'therubyracer', '~>0.12', require: 'v8'
 gem 'yaml_db', '~> 0.3.0'
 
 # Moved to production because we use them in seeds and we need to be able to seed Heroku
-gem 'factory_girl_rails'
+gem 'factory_bot_rails'
 gem 'faker'
 
 gem 'derailed'
@@ -74,9 +75,10 @@ group :test do
   gem 'database_cleaner'
   gem 'minitest-reporters'
   gem 'mocha', require: false
-  gem 'shoulda'#, github: 'thoughtbot/shoulda'
-  gem 'shoulda-matchers'#, github: 'thoughtbot/shoulda-matchers'
+  gem 'shoulda'
+  gem 'shoulda-matchers', '~> 2.0'
   gem 'selenium-webdriver', '2.53.4'
+  gem 'timecop'
   #gem 'turn'
 
   #

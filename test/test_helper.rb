@@ -11,7 +11,7 @@ MiniTest::Reporters.use! #[MiniTest::Reporters::ProgressReporter.new]
 
 
 class ActiveSupport::TestCase
-  include FactoryGirl::Syntax::Methods
+  include FactoryBot::Syntax::Methods
 
   # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
   #
@@ -41,13 +41,11 @@ class ActiveSupport::TestCase
   end
 
   def log_in(login_params)
-    sess = open_session
-    sess.post sessions_url, login_params
+    post sessions_url, login_params
     assert_redirected_to root_url
     follow_redirect!
     assert_response :success
     assert_template "events/index"
-    yield sess if block_given?
   end
 
   def sign_in(user, role)
@@ -56,8 +54,8 @@ class ActiveSupport::TestCase
   end
 
   def admin_context
-    @admin      = FactoryGirl.create :user
-    @admin_role = FactoryGirl.create :superuser_role
+    @admin      = FactoryBot.create :user
+    @admin_role = FactoryBot.create :superuser_role
     @admin.roles << @admin_role
     @admin.save!
 
@@ -65,8 +63,8 @@ class ActiveSupport::TestCase
   end
 
   def typical_context
-    @user = FactoryGirl.create :user
-    @role = FactoryGirl.create :typical_role
+    @user = FactoryBot.create :user
+    @role = FactoryBot.create :typical_role
     @user.roles << @role
     @user.save!
 
@@ -74,7 +72,7 @@ class ActiveSupport::TestCase
   end
 
   def peon_context
-    sign_in FactoryGirl.create(:user), FactoryGirl.create(:role)
+    sign_in FactoryBot.create(:user), FactoryBot.create(:role)
   end
 
   def self.multiple_contexts(*contexts, &blk)
@@ -101,7 +99,7 @@ class ActionDispatch::IntegrationTest
 
   def setup
     Capybara.run_server = true
-    Capybara.server_port = 3000
+    Capybara.server_port = 9000
   end
 
 

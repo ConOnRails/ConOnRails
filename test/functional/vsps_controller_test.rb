@@ -32,7 +32,7 @@ class VspsControllerTest < ActionController::TestCase
 
       context 'correct attributes' do
         setup do
-          post :create, vsp: FactoryGirl.attributes_for(:vsp)
+          post :create, vsp: FactoryBot.attributes_for(:vsp)
         end
         should respond_with :redirect
         should redirect_to('vsp list') { vsps_path }
@@ -42,7 +42,7 @@ class VspsControllerTest < ActionController::TestCase
 
     context 'PATCH :update' do
       setup do
-        @vsp = FactoryGirl.create :vsp
+        @vsp = FactoryBot.create :vsp
       end
 
       context 'bad params' do
@@ -67,7 +67,7 @@ class VspsControllerTest < ActionController::TestCase
 
     context 'GET :edit' do
       setup do
-        @vsp = FactoryGirl.create :vsp
+        @vsp = FactoryBot.create :vsp
         get :edit, id: @vsp.id
       end
 

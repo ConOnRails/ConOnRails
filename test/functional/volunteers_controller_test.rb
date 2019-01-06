@@ -2,11 +2,11 @@ require 'test_helper'
 
 class VolunteersControllerTest < ActionController::TestCase
   setup do
-    @user      = FactoryGirl.create :user
-    @peon_user = FactoryGirl.create :user
-    @role      = FactoryGirl.create :admin_users_role
+    @user      = FactoryBot.create :user
+    @peon_user = FactoryBot.create :user
+    @role      = FactoryBot.create :admin_users_role
     @user.roles << @role
-    @volunteer    = FactoryGirl.create :valid_volunteer
+    @volunteer    = FactoryBot.create :valid_volunteer
     @user_session = { user_id: @user.id }
     @peon_session = { user_id: @peon_user.id }
   end
@@ -36,7 +36,7 @@ class VolunteersControllerTest < ActionController::TestCase
 
   def post_create_success(session)
     assert_difference('Volunteer.count') do
-      post :create, { volunteer: FactoryGirl.attributes_for(:valid_volunteer) }, session
+      post :create, { volunteer: FactoryBot.attributes_for(:valid_volunteer) }, session
     end
 
     assert_redirected_to volunteer_path(assigns[:volunteer])
@@ -71,7 +71,7 @@ class VolunteersControllerTest < ActionController::TestCase
   end
 
   def put_update_success(session)
-    put :update, { id: @volunteer.to_param, volunteer: FactoryGirl.attributes_for(:valid_volunteer) }, session
+    put :update, { id: @volunteer.to_param, volunteer: FactoryBot.attributes_for(:valid_volunteer) }, session
     assert_redirected_to volunteer_path(@volunteer)
   end
 
@@ -136,7 +136,7 @@ class VolunteersControllerTest < ActionController::TestCase
 
   context "five volunteers with radio training" do
     setup do
-      @volunteers = FactoryGirl.create_list :valid_volunteer, 5
+      @volunteers = FactoryBot.create_list :valid_volunteer, 5
       @volunteers.each do |v|
         v.volunteer_training.radio = true
         v.volunteer_training.save

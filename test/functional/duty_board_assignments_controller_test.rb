@@ -2,9 +2,9 @@ require 'test_helper'
 
 class DutyBoardAssignmentsControllerTest < ActionController::TestCase
   setup do
-    @dbs = FactoryGirl.create :valid_duty_board_slot
-    @user = FactoryGirl.create :user
-    @role = FactoryGirl.create :assign_duty_board_role
+    @dbs = FactoryBot.create :valid_duty_board_slot
+    @user = FactoryBot.create :user
+    @role = FactoryBot.create :assign_duty_board_role
     @user.roles << @role
     @user_session = { user_id: @user.id, current_role_name: @role.name }
   end
