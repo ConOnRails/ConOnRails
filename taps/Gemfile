@@ -1,7 +1,0 @@
-source 'http://rubygems.org'
-ruby '2.3.7'
-
-gem 'pg'
-gem 'rack', '>= 1.0.1'
-gem 'sqlite3'
-gem 'taps'
