@@ -8,8 +8,8 @@ class RadioAssignmentAuditsController < ApplicationController
   # GET /radio_assignment_audits.json
   def index
     respond_to do |format|
-    	format.html
-    	format.csv { send_data RadioAssignmentAudit.all.to_csv }
+      format.html
+      format.csv { send_data RadioAssignmentAudit.all.to_csv }
     end
   end
 

@@ -45,5 +45,4 @@ class ConventionsController < ApplicationController
   def convention_params
     params.require(:convention).permit :end_date, :name, :start_date
   end
-
 end

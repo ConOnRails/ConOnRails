@@ -16,10 +16,10 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     @change_this = { description: "Beware the viscous giraffe" }
   end
 
-#  test "should get missing index" do
-#    get :index, { reported_missing: true }, { user_id: @user.id }
-#    assert_response :success
-#  end
+  #  test "should get missing index" do
+  #    get :index, { reported_missing: true }, { user_id: @user.id }
+  #    assert_response :success
+  #  end
   test "must be authenticated" do
     get :show, { id: @missing.id }
     assert_redirected_to :public
@@ -231,5 +231,4 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     assert_template :index
     assert_equal 1, assigns(:lfis).count
   end
-
 end

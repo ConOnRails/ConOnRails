@@ -7,8 +7,7 @@ require 'minitest/mock'
 require 'minitest/reporters'
 require 'capybara/rails'
 
-MiniTest::Reporters.use! #[MiniTest::Reporters::ProgressReporter.new]
-
+MiniTest::Reporters.use! # [MiniTest::Reporters::ProgressReporter.new]
 
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
@@ -17,7 +16,7 @@ class ActiveSupport::TestCase
   #
   # Note: You'll currently still have to declare fixtures explicitly in integration tests
   # -- they do not yet inherit this setting
-  #fixtures :all
+  # fixtures :all
 
   self.use_transactional_fixtures = false
   DatabaseCleaner.strategy = :transaction
@@ -29,7 +28,6 @@ class ActiveSupport::TestCase
   teardown do
     DatabaseCleaner.clean
   end
-
 
   # Add more helper methods to be used by all tests here...
   def get_root_not_logged_in
@@ -49,7 +47,7 @@ class ActiveSupport::TestCase
   end
 
   def sign_in(user, role)
-    session[:user_id]      = user.id
+    session[:user_id] = user.id
     session[:current_role_name] = role.name
   end
 
@@ -87,13 +85,13 @@ class ActiveSupport::TestCase
         send context if respond_to? context
       end
 
-      merge_block &blk
+      merge_block(&blk)
     end
   end
 end
 
 # Capybara Base Class
-class ActionDispatch::IntegrationTest 
+class ActionDispatch::IntegrationTest
   # Make the Capybara DSL available in all integration tests
   include Capybara::DSL
 
@@ -101,7 +99,6 @@ class ActionDispatch::IntegrationTest
     Capybara.run_server = true
     Capybara.server_port = 9000
   end
-
 
   # Switch to JavaScript Driver
   def jsDriver

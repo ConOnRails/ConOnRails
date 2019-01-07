@@ -7,6 +7,6 @@ def show_this(e)
 end
 
 json.array! @events do |e|
-    json.id e.id
-    json.entry show_this e
+  json.id e.id
+  json.entry show_this e
 end

@@ -12,23 +12,23 @@ class ContactsControllerTest < ActionController::TestCase
   end
 
   def get_index_success(session)
-    get :index, { }, session
+    get :index, {}, session
     assert_response :success
     assert_not_nil assigns(:contacts)
   end
 
   def get_index_fail(session)
-    get :index, { }, session
+    get :index, {}, session
     assert_redirected_to :public
   end
 
   def get_new_success(session)
-    get :new, { }, session
+    get :new, {}, session
     assert_response :success
   end
 
   def get_new_fail(session)
-    get :new, { }, session
+    get :new, {}, session
     assert_redirected_to :public
   end
 

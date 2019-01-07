@@ -4,5 +4,4 @@ class LoginLogController < ApplicationController
   def index
     @logins = LoginLog.all
   end
-
 end

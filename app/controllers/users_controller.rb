@@ -77,6 +77,7 @@ class UsersController < ApplicationController
   def update_volunteer
     @volunteer = Volunteer.find_by_id(params[:volunteer_id])
     return true if @volunteer.blank?
+
     if @volunteer.present? and (@volunteer.user_id.blank? or @volunteer.user_id != @user.id)
       @volunteer.update_attribute(:user_id, @user.id)
     end
@@ -85,5 +86,4 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit :username, :realname, :password, :password_confirmation, { role_ids: [] }, :volunteer_id
   end
-
 end

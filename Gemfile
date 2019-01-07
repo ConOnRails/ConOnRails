@@ -12,11 +12,11 @@ gem 'newrelic_rpm'
 
 # Gems used only for assets and not required
 # in production environments by default.
-gem 'sass-rails', '~> 5.0.1'
 gem 'coffee-rails', '~> 4.1.0'
-gem 'uglifier', '~> 2.7.0'
-gem 'rails-sweetalert2-confirm'
 gem 'rails-assets-sweetalert2', source: 'https://rails-assets.org'
+gem 'rails-sweetalert2-confirm'
+gem 'sass-rails', '~> 5.0.1'
+gem 'uglifier', '~> 2.7.0'
 
 gem 'acts-as-taggable-on', '~> 4.0'
 gem 'bcrypt-ruby', '~> 3.1.5'
@@ -51,23 +51,23 @@ gem 'faker'
 
 gem 'derailed'
 
-gem 'rack-mini-profiler'
 gem 'flamegraph'
-gem 'stackprof' # ruby 2.1+ only
 gem 'memory_profiler'
+gem 'rack-mini-profiler'
+gem 'stackprof' # ruby 2.1+ only
 
 group :development do
   gem 'annotate'
-  gem 'rb-fsevent'#, '~> 0.9.1'
-  #gem 'rails-dev-boost', :git => 'git://github.com/thedarkone/rails-dev-boost.git', :require => 'rails_development_boost'
-  #gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'rb-fsevent' # , '~> 0.9.1'
+  # gem 'rails-dev-boost', :git => 'git://github.com/thedarkone/rails-dev-boost.git', :require => 'rails_development_boost'
+  # gem 'ruby-debug19', :require => 'ruby-debug'
 end
 
 group :development, :test do
   gem 'awesome_print'
-  gem 'rspec-rails'
   gem 'jasmine'
-  #gem 'minitest'
+  gem 'rspec-rails'
+  # gem 'minitest'
 end
 
 group :test do
@@ -75,14 +75,13 @@ group :test do
   gem 'database_cleaner'
   gem 'minitest-reporters'
   gem 'mocha', require: false
+  gem 'selenium-webdriver', '2.53.4'
   gem 'shoulda'
   gem 'shoulda-matchers', '~> 2.0'
-  gem 'selenium-webdriver', '2.53.4'
   gem 'timecop'
-  #gem 'turn'
+  # gem 'turn'
 
-  #
+  gem "codeclimate-test-reporter", '< 1.0', require: nil
   gem 'simplecov'
   gem 'simplecov-html'
-  gem "codeclimate-test-reporter", '< 1.0', require: nil
 end

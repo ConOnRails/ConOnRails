@@ -21,7 +21,7 @@ class Radio < ActiveRecord::Base
   validates :number, presence: true, uniqueness: true
   validates :radio_group_id, presence: true
   validates :radio_group, associated: true
-  validates :state, presence: true, inclusion:{ in: %w( in out retired ) }
+  validates :state, presence: true, inclusion: { in: %w(in out retired) }
 
   scope :assigned, -> { where { |r| r.state == 'out' } }
   scope :unassigned, -> { where { |r| r.state == 'in' } }
@@ -29,5 +29,4 @@ class Radio < ActiveRecord::Base
   def name
     self.number
   end
-
 end

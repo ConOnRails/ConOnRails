@@ -35,7 +35,6 @@
 require 'csv'
 require Rails.root + 'app/queries/event_queries'
 
-
 class Event < ActiveRecord::Base
   include PgSearch
   include Queries::EventQueries
@@ -55,15 +54,15 @@ class Event < ActiveRecord::Base
   paginates_per 10
 
   pg_search_scope :search_entries, using: { tsearch: { prefix: true } },
-                  associated_against: {
-                      entries: :description
-                  }
+                                   associated_against: {
+                                     entries: :description
+                                   }
 
-  scope :actives_and_stickies_or_all, -> (c) { where { |e| (e.is_active == true) | (e.sticky == true) unless c } }
+  scope :actives_and_stickies_or_all, ->(c) { where { |e| (e.is_active == true) | (e.sticky == true) unless c } }
 
-  scope :protect_sensitive_events, -> (user) {
-    where { |e| (e.hidden == false unless user_can_see_hidden(user)) }.
-        where { |e| (e.secure == false unless user_can_rw_secure(user)) }
+  scope :protect_sensitive_events, ->(user) {
+    where { |e| (e.hidden == false unless user_can_see_hidden(user)) }
+      .where { |e| (e.secure == false unless user_can_rw_secure(user)) }
   }
 
   # TODO this originated with EventQuery and should NOT BE DUPLICATED, but currently is.
@@ -79,18 +78,18 @@ class Event < ActiveRecord::Base
   DEPT_FLAGS = %w[accessibility_and_inclusion allocations consuite dealers first_advisors hotel member_advocates nerf_herders operations parties programming registration volunteers_den volunteers].freeze
   FLAGS = (STATUS_FLAGS + DEPT_FLAGS).freeze
 
-  def self.search(q, user, show_closed=false, index_filters=nil)
-    protect_sensitive_events(user).
-        actives_and_stickies_or_all(show_closed).
-        build_from_filters(index_filters).
-        search_entries(q)
+  def self.search(q, user, show_closed = false, index_filters = nil)
+    protect_sensitive_events(user)
+      .actives_and_stickies_or_all(show_closed)
+      .build_from_filters(index_filters)
+      .search_entries(q)
   end
 
   def self.merge_events(event_ids, user, role_name = nil)
     return if event_ids.blank?
 
-    new_event = Event.create! do |new_event|
-      new_event.merged_from_ids = event_ids
+    new_event = Event.create! do |event|
+      event.merged_from_ids = event_ids
     end
 
     new_event.merge_entries event_ids
@@ -140,7 +139,7 @@ class Event < ActiveRecord::Base
     params.each do |p|
       return true if p.first == "status" and p.second != self.status
       return true if p.first != "status" and
-          self[p.first] != ((p.last == "1" or p.last == true) ? true : false)
+                     self[p.first] != ((p.last == "1" or p.last == true) ? true : false)
     end
     false
   end
@@ -186,7 +185,6 @@ class Event < ActiveRecord::Base
     end
   end
 
-
   def status
     return 'Merged' if merged?
     return 'Active' if is_active?
@@ -195,17 +193,17 @@ class Event < ActiveRecord::Base
 
   def status=(string)
     case string
-      when 'Active'
-        self.is_active = true
-        self.merged = false
-      when 'Closed'
-        self.is_active = false
-        self.merged = false
-      when 'Merged'
-        self.is_active = false
-        self.merged = true
-      else
-        raise Exception
+    when 'Active'
+      self.is_active = true
+      self.merged = false
+    when 'Closed'
+      self.is_active = false
+      self.merged = false
+    when 'Merged'
+      self.is_active = false
+      self.merged = true
+    else
+      raise Exception
     end
   end
 
@@ -231,10 +229,10 @@ class Event < ActiveRecord::Base
       csv << ['ID', 'State', DEPT_FLAGS, 'Entries'].flatten
       events.find_each do |event|
         csv << [
-            event.id,
-            event.status,
-            event.department_flags_to_csv,
-            entries_for_export(event)
+          event.id,
+          event.status,
+          event.department_flags_to_csv,
+          entries_for_export(event)
         ].flatten
       end
     end

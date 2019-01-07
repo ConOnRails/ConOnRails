@@ -9,7 +9,7 @@ class EventsHelperTest < ActionView::TestCase
   end
 
   user_context :typical_context do
-     context '#get_active_count' do
+    context '#get_active_count' do
       should 'return 1 non-secure event' do
         assert_equal 1, get_active_count
       end

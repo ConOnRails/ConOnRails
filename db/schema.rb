@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -12,7 +13,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20170614184643) do
-
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20170614184643) do
     t.string   "username"
     t.string   "action"
     t.text     "audited_changes"
-    t.integer  "version",         default: 0
+    t.integer  "version", default: 0
     t.string   "comment"
     t.string   "remote_address"
     t.datetime "created_at"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 20170614184643) do
     t.integer  "hotel_room"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "can_text",   default: false
+    t.boolean  "can_text", default: false
     t.string   "position"
   end
 
@@ -215,7 +215,7 @@ ActiveRecord::Schema.define(version: 20170614184643) do
     t.string   "hotel"
     t.integer  "user_id"
     t.text     "message"
-    t.boolean  "is_active",    default: true
+    t.boolean  "is_active", default: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -253,7 +253,7 @@ ActiveRecord::Schema.define(version: 20170614184643) do
     t.string   "image_filename"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "state",          default: "in"
+    t.string   "state", default: "in"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -291,7 +291,7 @@ ActiveRecord::Schema.define(version: 20170614184643) do
     t.string   "taggable_type"
     t.integer  "tagger_id"
     t.string   "tagger_type"
-    t.string   "context",       limit: 128
+    t.string   "context", limit: 128
     t.datetime "created_at"
   end
 
@@ -376,5 +376,4 @@ ActiveRecord::Schema.define(version: 20170614184643) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
 end

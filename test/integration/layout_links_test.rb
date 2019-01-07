@@ -46,5 +46,4 @@ class LayoutLinksTest < ActionDispatch::IntegrationTest
       assert_template "events/index"
     end
   end
-
 end

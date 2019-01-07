@@ -19,6 +19,6 @@ class Vsp < ActiveRecord::Base
   scope :parties, -> { where { |v| v.party == true } }
 
   def name_and_note
-    "#{self.name}" + (self.notes.present? ? " (#{self.notes})" : '' )
+    "#{self.name}" + (self.notes.present? ? " (#{self.notes})" : '')
   end
 end

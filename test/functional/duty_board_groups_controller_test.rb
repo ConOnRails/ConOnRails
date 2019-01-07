@@ -10,12 +10,12 @@ class DutyBoardGroupsControllerTest < ActionController::TestCase
   end
 
   test "get index" do
-    get :index, { }, @user_session
+    get :index, {}, @user_session
     assert_response :success
   end
 
   test "get new" do
-    get :new, { }, @user_session
+    get :new, {}, @user_session
     assert_response :success
   end
 

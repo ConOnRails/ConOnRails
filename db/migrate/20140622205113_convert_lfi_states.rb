@@ -16,7 +16,7 @@ class ConvertLfiStates < ActiveRecord::Migration
         lfi.lost_and_found_state_list.add('returned')
       end
       p lfi.category
-      lfi.save(validate:false)
+      lfi.save(validate: false)
     end
   end
 
@@ -25,7 +25,7 @@ class ConvertLfiStates < ActiveRecord::Migration
       lfi[:reported_missing] = lfi.lost_and_found_state_list.include? 'reported_missing'
       lfi[:found] = lfi.lost_and_found_state_list.include? 'found'
       lfi[:returned] = lfi.lost_and_found_state_list.include? 'returned'
-      lfi.save(validate:false)
+      lfi.save(validate: false)
     end
   end
 end

@@ -50,7 +50,6 @@ class ConventionTest < ActiveSupport::TestCase
           assert_equal @current, Convention.current_convention
         end
       end
-
     end
   end
 end

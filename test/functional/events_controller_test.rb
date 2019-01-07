@@ -1,10 +1,9 @@
 require 'test_helper'
 
 class EventsControllerTest < ActionController::TestCase
-
   context "Given some events" do
     setup do
-      @event        = FactoryBot.create :ordinary_event
+      @event = FactoryBot.create :ordinary_event
 
       # We'll want these for search tests later
       FactoryBot.create :entry, description: 'Voles are in control', event: @event
@@ -53,7 +52,6 @@ class EventsControllerTest < ActionController::TestCase
           end
         end
 
-
         context 'GET :tag (get tagged entries with a specific tag)' do
           setup do
             @event.alert_list.add('dispatcher')
@@ -101,7 +99,6 @@ class EventsControllerTest < ActionController::TestCase
           end
         end
 
-
         context 'GET :show for a sticky event' do
           setup do
             get :show, { id: @sticky_event.to_param }, @admin_session
@@ -137,12 +134,11 @@ class EventsControllerTest < ActionController::TestCase
         setup do
           @convention = create :convention
           @event.created_at = DateTime.now + 2.days # in range
-          @secure_event.created_at = DateTime.now + 7.days #out of range
+          @secure_event.created_at = DateTime.now + 7.days # out of range
           @event.save!
           @secure_event.save!
 
           get :search_entries, q: 'vole', convention: @convention.id
-
         end
 
         should respond_with :success
@@ -152,7 +148,6 @@ class EventsControllerTest < ActionController::TestCase
           assert_equal 1, assigns(:events).count(:all)
         end
       end
-
 
       context 'GET :secure' do
         setup do
@@ -321,7 +316,7 @@ class EventsControllerTest < ActionController::TestCase
 
       context 'PUT :update' do
         setup do
-          put :update, { id:    @event.to_param, event: FactoryBot.attributes_for(:ordinary_event),
+          put :update, { id: @event.to_param, event: FactoryBot.attributes_for(:ordinary_event),
                          entry: FactoryBot.attributes_for(:verbose_entry) }
         end
 
@@ -398,7 +393,7 @@ class EventsControllerTest < ActionController::TestCase
 
       context 'PUT :update' do
         setup do
-          put :update, { id:    @event.to_param, event: FactoryBot.attributes_for(:ordinary_event),
+          put :update, { id: @event.to_param, event: FactoryBot.attributes_for(:ordinary_event),
                          entry: FactoryBot.attributes_for(:verbose_entry) }
         end
 

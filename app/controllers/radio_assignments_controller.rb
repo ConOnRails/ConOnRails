@@ -9,7 +9,7 @@ class RadioAssignmentsController < ApplicationController
   # POST /radio_assignments.json
   def create
     @radio_assignment = RadioAssignment.checkout(radio_assignment_params, current_user)
-    @radio_assignment.transaction do |t|
+    @radio_assignment.transaction do |_t|
       respond_with do |format|
         if @radio_assignment.save && @radio_assignment.radio.save
           format.js { render 'success' }
@@ -30,10 +30,11 @@ class RadioAssignmentsController < ApplicationController
       else
         format.js { render 'error' }
       end
-    end  end
+    end
+  end
 
-# DELETE /radio_assignments/1
-# DELETE /radio_assignments/1.json
+  # DELETE /radio_assignments/1
+  # DELETE /radio_assignments/1.json
   def destroy
     @radio_assignment.checkin current_user
 

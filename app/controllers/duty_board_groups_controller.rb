@@ -38,5 +38,4 @@ class DutyBoardGroupsController < ApplicationController
   def duty_board_group_params
     params.require(:duty_board_group).permit :name, :row, :column
   end
-
 end

@@ -5,7 +5,7 @@ class VolunteersController < ApplicationController
   respond_to :html, :json
 
   def attendees
-    # DEAD LETTER for 2013
+# DEAD LETTER for 2013
 
 =begin
     if params[:term]
@@ -49,7 +49,6 @@ class VolunteersController < ApplicationController
 =end
     render json: @list
   end
-
 
   # GET /volunteers/new
   # GET /volunteers/new.json
@@ -100,7 +99,7 @@ class VolunteersController < ApplicationController
   end
 
   def set_volunteers
-    @q          = Volunteer.search params[:q]
+    @q = Volunteer.search params[:q]
     @q.sorts = ['last_name', 'first_name'] if @q.sorts.empty?
     @volunteers = @q.result.page(params[:page])
   end

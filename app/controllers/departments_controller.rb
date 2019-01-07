@@ -5,7 +5,7 @@ class DepartmentsController < ApplicationController
 
   respond_to :html, :json
 
-   # GET /departments/new
+  # GET /departments/new
   # GET /departments/new.json
   def new
     @department = Department.new

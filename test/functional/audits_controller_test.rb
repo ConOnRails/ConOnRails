@@ -13,5 +13,4 @@ class AuditsControllerTest < ActionController::TestCase
     get :index, {}, @user_session
     assert_response :success
   end
-
 end

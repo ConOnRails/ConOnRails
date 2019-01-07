@@ -20,7 +20,6 @@
 require 'test_helper'
 
 class LostAndFoundItemTest < ActiveSupport::TestCase
-
   setup do
     @lost = FactoryBot.build :lost
     @found = FactoryBot.build :found
@@ -29,7 +28,7 @@ class LostAndFoundItemTest < ActiveSupport::TestCase
   end
 
   should validate_presence_of :category
-  #should validate_inclusion_of(:category).in_array LostAndFoundItem.valid_categories.keys
+  # should validate_inclusion_of(:category).in_array LostAndFoundItem.valid_categories.keys
   should validate_presence_of :description
 
   should "not be able to create with both missing and found" do
@@ -60,7 +59,6 @@ class LostAndFoundItemTest < ActiveSupport::TestCase
       assert !subject.returned?
     end
   end
-
 end
 
 #  test "missing items report 'missing' type" do
@@ -74,4 +72,4 @@ end
 #  test "returned items report 'returned' type" do
 #    assert_equal @returned.type, 'returned'
 #  end
-#end
+# end

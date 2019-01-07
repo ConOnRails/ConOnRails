@@ -19,17 +19,16 @@ module EventsHelper
     new_params = toggle_merge_mode(params.clone)
 
     case params[:action].to_sym
-      when :sticky
-        sticky_events_path(new_params)
-      when :secure
-        secure_events_path(new_params)
-      when :review
-        review_events_path(new_params)
-      else
-        events_path(new_params)
+    when :sticky
+      sticky_events_path(new_params)
+    when :secure
+      secure_events_path(new_params)
+    when :review
+      review_events_path(new_params)
+    else
+      events_path(new_params)
     end
   end
-
 
   def merge_submit
     return nil if params[:merge_mode] != 'true'
@@ -42,6 +41,7 @@ module EventsHelper
 
   def merge_mode_toggle_text
     return 'Cancel Merge' if params[:merge_mode] == 'true'
+
     'Merge Events'
   end
 
@@ -64,7 +64,7 @@ module EventsHelper
   end
 
   def event_tags(event)
-    event.tags.collect { |t| t.gsub(/is_/,'').humanize }.join(' ') + ' Issue'
+    event.tags.collect { |t| t.gsub(/is_/, '').humanize }.join(' ') + ' Issue'
   end
 
   def event_status_icon(event)
@@ -80,14 +80,15 @@ module EventsHelper
 
   def get_secure_count
     return 0 unless current_user.rw_secure?
+
     Event.current_convention.num_active_secure
   end
 
   def active_link
     content_tag :div, id: 'unsticky_link' do
       [
-          content_tag(:span, '', class: 'active-icon inactive-icon'),
-          link_to('View Active', root_path)
+        content_tag(:span, '', class: 'active-icon inactive-icon'),
+        link_to('View Active', root_path)
       ].join.html_safe
     end
   end
@@ -95,8 +96,8 @@ module EventsHelper
   def active_text
     content_tag :div do
       [
-          content_tag(:span, '', class: 'active-icon current-icon'),
-          content_tag(:strong, 'Viewing Active')
+        content_tag(:span, '', class: 'active-icon current-icon'),
+        content_tag(:strong, 'Viewing Active')
       ].join.html_safe
     end
   end
@@ -105,8 +106,8 @@ module EventsHelper
     if current_user.rw_secure?
       content_tag :div, id: 'secure_link' do
         [
-            content_tag(:span, '', class: 'secure-icon inactive-icon'),
-            link_to('View Active Secure', secure_events_path)
+          content_tag(:span, '', class: 'secure-icon inactive-icon'),
+          link_to('View Active Secure', secure_events_path)
         ].join.html_safe
       end
     end
@@ -115,8 +116,8 @@ module EventsHelper
   def secure_text
     content_tag :div do
       [
-          content_tag(:span, '', class: 'secure-icon current-icon'),
-          content_tag(:strong, 'Viewing Active Secure')
+        content_tag(:span, '', class: 'secure-icon current-icon'),
+        content_tag(:strong, 'Viewing Active Secure')
       ].join.html_safe
     end
   end
@@ -124,8 +125,8 @@ module EventsHelper
   def sticky_link
     content_tag :div, id: 'sticky_link' do
       [
-          content_tag(:span, '', class: 'sticky-icon inactive-icon'),
-          link_to('View Sticky', sticky_events_path)
+        content_tag(:span, '', class: 'sticky-icon inactive-icon'),
+        link_to('View Sticky', sticky_events_path)
       ].join.html_safe
     end
   end
@@ -133,40 +134,38 @@ module EventsHelper
   def sticky_text
     content_tag :div do
       [
-          content_tag(:span, '', class: 'sticky-icon current-icon'),
-          content_tag(:strong, 'Viewing Sticky')
+        content_tag(:span, '', class: 'sticky-icon current-icon'),
+        content_tag(:strong, 'Viewing Sticky')
       ].join.html_safe
     end
   end
 
   def sidebar_menu
     case url_for()
-      when root_path, events_path
-        active_text <<
-            secure_link <<
-            sticky_link
-      when sticky_events_path
-        active_link <<
-            secure_link <<
-            sticky_text
-      when secure_events_path
-        active_link <<
-            secure_text <<
-            sticky_link
-      else
-        content_tag :div, "I HAVE NO IDEA WHAT TO DO NOW!"
+    when root_path, events_path
+      active_text <<
+        secure_link <<
+        sticky_link
+    when sticky_events_path
+      active_link <<
+        secure_link <<
+        sticky_text
+    when secure_events_path
+      active_link <<
+        secure_text <<
+        sticky_link
+    else
+      content_tag :div, "I HAVE NO IDEA WHAT TO DO NOW!"
     end
   end
 
   def index_filter(key)
     [
-        content_tag(:span, '', class: "filter-icon #{current_class(key)}"),
-        link_to(key.to_s.titleize, sessions_set_index_filter_path(index_filter: { key => true }), method: :post,
-                class: active_index_filter?(key) ? 'current_index_filter' : nil
-        )
+      content_tag(:span, '', class: "filter-icon #{current_class(key)}"),
+      link_to(key.to_s.titleize, sessions_set_index_filter_path(index_filter: { key => true }), method: :post,
+                                                                                                class: active_index_filter?(key) ? 'current_index_filter' : nil)
     ].join.html_safe
   end
-
 
   def active_index_filter?(key)
     session[:index_filter] && session[:index_filter].keys.include?(key.to_s)
@@ -174,11 +173,11 @@ module EventsHelper
 
   def current_class(key)
     return 'current-icon' if active_index_filter?(key)
+
     ''
   end
 
   def flag_display(flag)
     flag.gsub(/is_/, '').humanize.gsub(' ', '&nbsp;').html_safe
   end
-
 end

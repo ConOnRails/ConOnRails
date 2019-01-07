@@ -13,13 +13,13 @@ class RadiosControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
-    get :index, { }, @user_session
+    get :index, {}, @user_session
     assert_response :success
     assert_not_nil assigns(:radios)
-   end
+  end
 
   test "should get new" do
-    get :new, { }, @user_session
+    get :new, {}, @user_session
     assert_response :success
   end
 

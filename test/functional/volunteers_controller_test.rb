@@ -17,7 +17,7 @@ class VolunteersControllerTest < ActionController::TestCase
     assert_not_nil assigns(:volunteers)
   end
 
-  def get_index_fail(session)
+  def get_index_fail(_session)
     get :index
     assert_redirected_to :public
     assert_nil assigns(:volunteers)
@@ -158,7 +158,6 @@ class VolunteersControllerTest < ActionController::TestCase
     end
   end
 
-
   test "can find an attendee" do
 =begin
     get :attendees, { term: "Micha" }, @user_session
@@ -178,5 +177,4 @@ class VolunteersControllerTest < ActionController::TestCase
     assert_equal "Shappe", assigns(:list)[0][:last_name]
 =end
   end
-
 end

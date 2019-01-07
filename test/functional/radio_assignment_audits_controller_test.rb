@@ -19,6 +19,4 @@ class RadioAssignmentAuditsControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal 30, assigns(:radio_assignment_audits).count
   end
-
-
 end

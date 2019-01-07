@@ -13,7 +13,13 @@ module LostAndFoundStateTags
     scope :not_returned, -> { tagged_with('returned', on: :lost_and_found_states, exclude: true) }
     scope :inventoried, -> { tagged_with('inventoried', on: :lost_and_found_states) }
     scope :not_inventoried, -> { tagged_with('inventoried', on: :lost_and_found_states, exclude: true) }
-    scope :inventory, -> (i, x) { return nil unless i; r = found.not_returned; r = r.not_inventoried if x; r }
+    scope :inventory, lambda { |i, x|
+      return nil unless i
+
+      r = found.not_returned;
+      r = r.not_inventoried if x
+      r
+    }
   end
 
   STATES.each do |t|

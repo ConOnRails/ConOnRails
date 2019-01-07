@@ -19,14 +19,14 @@
 #  dock         :boolean          default(FALSE)
 #  merchandise  :boolean          default(FALSE)
 #  nerf_herders :boolean          default(FALSE)
-#  accessibility_and_inclusion  :boolean	default(FALSE)
-#  allocations  :boolean		  default(FALSE)
-#  first_advisors  :boolean		  default(FALSE)
-#  member_advocates:boolean		  default(FALSE)
-#  operations   :boolean		  default(FALSE)
-#  programming  :boolean		  default(FALSE)
-#  registration :boolean		  default(FALSE)
-#  volunteers_den  :boolean		  default(FALSE)
+#  accessibility_and_inclusion  :boolean  default(FALSE)
+#  allocations  :boolean      default(FALSE)
+#  first_advisors  :boolean      default(FALSE)
+#  member_advocates:boolean      default(FALSE)
+#  operations   :boolean      default(FALSE)
+#  programming  :boolean      default(FALSE)
+#  registration :boolean      default(FALSE)
+#  volunteers_den  :boolean      default(FALSE)
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  user_id      :integer
@@ -45,8 +45,8 @@ class EventFlagHistory < ActiveRecord::Base
 
   def status=(string)
     raise Exception if string != 'Active' and string != 'Closed'
+
     self.is_active = true if string == 'Active'
     self.is_active = false if string == 'Closed'
   end
 end
-

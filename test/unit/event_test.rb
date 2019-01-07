@@ -35,7 +35,6 @@
 require 'test_helper'
 
 class EventTest < ActiveSupport::TestCase
-
   should have_many :entries
   should have_many :event_flag_histories
   should accept_nested_attributes_for :entries
@@ -198,7 +197,7 @@ class EventTest < ActiveSupport::TestCase
 
         should 'have a new merged element' do
           assert_equal @event.entries.count + @second_event.entries.count + 1, @new_event.entries.count
-          assert_match /^Merged by #{@user.username} as 'vole'/, @new_event.entries.order(:id).last.description
+          assert_match(/^Merged by #{@user.username} as 'vole'/, @new_event.entries.order(:id).last.description)
           assert @event.merged?
           assert @second_event.merged?
           assert_equal [@event.id, @second_event.id], @new_event.merged_from_ids

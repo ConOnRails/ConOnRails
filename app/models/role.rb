@@ -34,6 +34,4 @@ class Role < ActiveRecord::Base
                    uniqueness: true,
                    length: { maximum: 32 },
                    format: { with: name_regex }
-
-
 end

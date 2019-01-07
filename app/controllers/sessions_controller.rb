@@ -2,6 +2,7 @@ class SessionsController < ApplicationController
   skip_before_filter :require_login, only: [:new, :create, :getroles, :set_index_filter, :clear_index_filter]
 
   private
+
   def ip()
     request.env['HTTP_X_FORWARDED_FOR'] || request.remote_ip
   end
@@ -15,7 +16,7 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by(username: params[:username])
     if user && user.authenticate(params[:password]) && setup_session(user)
-      flash[:notice] =  "Logged in!"
+      flash[:notice] = "Logged in!"
     else
       log_failure
       flash[:notice] = "Invalid username or password"
@@ -62,7 +63,7 @@ class SessionsController < ApplicationController
       user.errors.add(:role, 'The role you tried to log in with is not one assigned to you!')
       return false
     end
-    session[:user_id]      = user.id
+    session[:user_id] = user.id
     session[:current_role_name] = params[:role]
     LoginLog.create! user_name: user.username, role_name: params[:role], comment: :success, ip: ip()
   end

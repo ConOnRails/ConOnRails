@@ -3,7 +3,6 @@ require 'query'
 module Queries
   module EventQueries
     class EventQuery < Query
-
       def method_missing(name, *args)
         if Event::FLAGS.include? name.to_s
           args[0].where Squeel::Nodes::KeyPath.new(name).eq(true)
@@ -35,12 +34,11 @@ module Queries
         end
         val
       end
-
     end
 
     class IndexQuery < EventQuery
-      def query(filters=nil)
-        is_active not_sticky not_secure not_hidden initial_query.where { |q| build_from_filters(filters) }
+      def query(filters = nil)
+        is_active not_sticky not_secure not_hidden(initial_query.where { |_q| build_from_filters(filters) })
       end
     end
 
@@ -63,9 +61,8 @@ module Queries
       end
 
       def query
-        initial_query.where { |q| build_from_filters(@filters) }
+        initial_query.where { |_q| build_from_filters(@filters) }
       end
-
     end
   end
 end

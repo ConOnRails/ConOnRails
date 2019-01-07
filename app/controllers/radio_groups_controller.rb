@@ -5,7 +5,6 @@ class RadioGroupsController < ApplicationController
   before_filter :can_assign_radios?, only: [:index, :show]
   before_filter :find_radio_group, only: [:show, :edit, :update, :destroy]
 
-
   # GET /radio_groups
   # GET /radio_groups.json
   def index(del_or_edit = "edit")

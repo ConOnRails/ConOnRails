@@ -24,16 +24,15 @@ class RadioAssignmentAudit < ActiveRecord::Base
   validates_presence_of :department
   validates_presence_of :user
 
-  def self.audit_checkin( radio_assignment, user )
+  def self.audit_checkin(radio_assignment, user)
     RadioAssignmentAudit.new_record radio_assignment, user, :in
   end
 
-
-  def self.audit_checkout( radio_assignment, user )
+  def self.audit_checkout(radio_assignment, user)
     RadioAssignmentAudit.new_record radio_assignment, user, :out
   end
 
-  def self.audit_retirement( radio_assignment, user )
+  def self.audit_retirement(radio_assignment, user)
     RadioAssignmentAudit.new_record radio_assignment, user, :retired
   end
 
@@ -43,9 +42,8 @@ class RadioAssignmentAudit < ActiveRecord::Base
       csv << attributes
 
       all.each do |audit|
-        csv << attributes.map{ |attr| audit.send(attr) }
+        csv << attributes.map { |attr| audit.send(attr) }
       end
-
     end
   end
 
@@ -69,7 +67,7 @@ class RadioAssignmentAudit < ActiveRecord::Base
     department.try(:name) || ''
   end
 
-  def self.new_record( a, u, s )
+  def self.new_record(a, u, s)
     attr = a.attributes.reject { |k, _v| [:created_at, :updated_at, :id].include? k.to_sym }
     attr[:user_id] = u.id
     attr[:state] = s

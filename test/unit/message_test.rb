@@ -23,5 +23,4 @@ class MessageTest < ActiveSupport::TestCase
   should validate_presence_of :user
   should allow_value("444 444 4444").for :phone_number
   should_not allow_value("llama").for :phone_number
-
 end

@@ -26,13 +26,19 @@ class LostAndFoundItemsController < ApplicationController
 
   def index
     return jump if lfi_search_params[:id].present?
+
     search_type = lfi_search_params[:search_type] || 'any'
 
     @title = "Lost and Found Entries"
 
-    @lfis = limit_by_convention LostAndFoundItem.inventory(lfi_search_params[:inventory], lfi_search_params[:exclude_inventoried]).page(lfi_search_params[:page]).
-        where { |l| l.description.send(('like_'+search_type).to_sym, wrap_keywords_for_like) | l.details.send(('like_'+search_type).to_sym, wrap_keywords_for_like) unless lfi_search_params[:keywords].blank? }.
-        where { |l| l.category >> @categories unless @categories.blank? }.references(:tags)
+    @lfis = limit_by_convention LostAndFoundItem.inventory(lfi_search_params[:inventory], lfi_search_params[:exclude_inventoried]).page(lfi_search_params[:page])
+    unless lfi_search_params[:keywords].blank?
+      @lfis = @lfis.where do |l|
+        l.description.send(('like_' + search_type).to_sym, wrap_keywords_for_like) |
+          l.details.send(('like_' + search_type).to_sym, wrap_keywords_for_like)
+      end
+    end
+    @lfis = @lfis.where { |l| l.category >> @categories unless @categories.blank? }.references(:tags)
     @lfis = lfi_search_params[:show_returned_only] ? @lfis.returned : @lfis.not_returned
     @back_params = lfi_search_params
   end
@@ -56,7 +62,7 @@ class LostAndFoundItemsController < ApplicationController
 
   def edit
     @lfi.found = true if params[:found] == 'true'
-    @lfi.returned = true if params[:returned] =='true'
+    @lfi.returned = true if params[:returned] == 'true'
     @lfi.inventoried = true if params[:inventoried] == 'true'
 
     @title = "Edit #{@lfi.Type} Item"
@@ -77,9 +83,11 @@ class LostAndFoundItemsController < ApplicationController
   end
 
   protected
+
   def jump
     @lfi = LostAndFoundItem.find_by_id(params[:id])
     return redirect_to lost_and_found_item_path(@lfi, inventory: params[:inventory] || false) if @lfi.present?
+
     render 'invalid'
   end
 
@@ -92,6 +100,7 @@ class LostAndFoundItemsController < ApplicationController
   def build_categories_from_params
     @categories ||= fix_old_categories((LostAndFoundItem.categories.collect do |k, v|
       next unless params.has_key? k.to_s
+
       v
     end).compact).flatten
   end
@@ -102,12 +111,12 @@ class LostAndFoundItemsController < ApplicationController
 
   def fix_old_categories(cats)
     @map ||= {
-        'Badges'         => ['Badge', 'Badges'],
-        'Bags'           => ['Bag', 'Bags'],
-        'Bottles'        => ['Bottle', 'Bottles'],
-        'Money/Cards/ID' => ['Money', 'Money/Cards/ID'],
-        'Phones'         => ['Phone', 'Phones'],
-        'Weapons/Props'  => ['Weapon', 'Weapons/Props']
+      'Badges' => ['Badge', 'Badges'],
+      'Bags' => ['Bag', 'Bags'],
+      'Bottles' => ['Bottle', 'Bottles'],
+      'Money/Cards/ID' => ['Money', 'Money/Cards/ID'],
+      'Phones' => ['Phone', 'Phones'],
+      'Weapons/Props' => ['Weapon', 'Weapons/Props']
     }
 
     cats.collect do |c|
@@ -119,10 +128,9 @@ class LostAndFoundItemsController < ApplicationController
     params.permit LostAndFoundItem.valid_categories.keys + [:id, :inventory, :keywords, :search_type, :reported_found, :inventoried, :exclude_inventoried, :returned, :reported_missing, :found, :page, :show_returned_only]
   end
 
-
   def lfi_params
-      params.require(:lost_and_found_item).permit :reported_missing, :category, :description, :where_last_seen,
-                                                  :owner_name, :owner_contact, :where_found, :details, :found, :returned,
-                                                  :who_claimed, :inventoried, :search_type
+    params.require(:lost_and_found_item).permit :reported_missing, :category, :description, :where_last_seen,
+                                                :owner_name, :owner_contact, :where_found, :details, :found, :returned,
+                                                :who_claimed, :inventoried, :search_type
   end
 end

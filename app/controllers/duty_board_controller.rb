@@ -8,7 +8,5 @@ class DutyBoardController < ApplicationController
 
   def index
     @duty_board_groups = DutyBoardGroup.order(:row, :column)
-
   end
-
 end

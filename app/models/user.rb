@@ -22,21 +22,21 @@ class User < ActiveRecord::Base
   password_regex = /\A[a-zA-Z0-9!@#$\%^&*()\-_ ]*\z/
 
   validates :username, presence: true,
-            allow_blank: false,
-            uniqueness: true,
-            length: { maximum: 32 },
-            format: { with: name_regex }
+                       allow_blank: false,
+                       uniqueness: true,
+                       length: { maximum: 32 },
+                       format: { with: name_regex }
   validates :realname, presence: true,
-            allow_blank: true,
-            length: { maximum: 64 }
+                       allow_blank: true,
+                       length: { maximum: 64 }
   has_secure_password
   validates :password, on: :create,
-            presence: true,
-            length: { within: 6..32 },
-            format: { with: password_regex }
+                       presence: true,
+                       length: { within: 6..32 },
+                       format: { with: password_regex }
 
   scope :by_username,  -> { order(:username) }
-  
+
   def find_perm(perm)
     ret = false
     roles.each do |role|

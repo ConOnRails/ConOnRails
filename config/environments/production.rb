@@ -8,7 +8,6 @@ ConOnRails::Application.configure do
   config.assets.digest = true
   config.log_level = ENV['LOG_LEVEL'].try(:to_sym) || :warn
 
-
   # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = YOUR_PATH
 

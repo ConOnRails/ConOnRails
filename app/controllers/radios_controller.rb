@@ -13,7 +13,7 @@ class RadiosController < ApplicationController
     respond_with do |format|
       format.html do
         if request.xhr?
-          render partial: 'volunteers', locals: {radio: params[:radio]}
+          render partial: 'volunteers', locals: { radio: params[:radio] }
         else
           redirect_to public_path
         end
@@ -28,9 +28,9 @@ class RadiosController < ApplicationController
     respond_with do |format|
       format.html do
         if request.xhr?
-          render partial: 'select_department', locals: {radio:       params[:id],
-                                                        radio_group: @radio.radio_group.id,
-                                                        volunteer:   params[:volunteer]}
+          render partial: 'select_department', locals: { radio: params[:id],
+                                                         radio_group: @radio.radio_group.id,
+                                                         volunteer: params[:volunteer] }
         else
           redirect_to public_path
         end
@@ -41,7 +41,7 @@ class RadiosController < ApplicationController
   # GET /radios/new
   # GET /radios/new.json
   def new
-     @radio  = Radio.new
+    @radio = Radio.new
   end
 
   # GET /radios/1/checkout -- just gets the form
@@ -71,8 +71,8 @@ class RadiosController < ApplicationController
     respond_with @radio, location: radios_path
   end
 
-# DELETE /radios/1
-# DELETE /radios/1.json
+  # DELETE /radios/1
+  # DELETE /radios/1.json
   def destroy
     @radio.destroy
     respond_with @radio, location: radios_path
@@ -86,12 +86,11 @@ class RadiosController < ApplicationController
 
   def find_radios
     @q = Radio.ransack params[:q]
-    @q.sorts = ['state desc', 'radios_number'] if @q.sorts.empty? #, 'radio_group_name', 'radio_number'
+    @q.sorts = ['state desc', 'radios_number'] if @q.sorts.empty? # , 'radio_group_name', 'radio_number'
     @radios = @q.result(distinct: true).page(params[:page])
   end
 
   def radio_params
     params.require(:radio).permit :radio_group_id, :number, :state, :notes
   end
-
 end

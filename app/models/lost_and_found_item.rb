@@ -24,32 +24,32 @@ class LostAndFoundItem < ActiveRecord::Base
   belongs_to :user
 
   @@retired_categories = {
-      badge:             "Badges",
-      costume_jewelry:   "Costume Jewelry",
-      headgear:          "Headgear",
-      keys:              "Keys",
-      media:             "Media",
-      money:             "Money/Cards/ID",
-      paper:             "Paper (incl. Reg Packets)",
-      phone:             "Phones",
-      small_electronics: "Small Electronics",
-      wallet:            "Wallet",
-      weapon:            "Weapons/Props",
+    badge: "Badges",
+    costume_jewelry: "Costume Jewelry",
+    headgear: "Headgear",
+    keys: "Keys",
+    media: "Media",
+    money: "Money/Cards/ID",
+    paper: "Paper (incl. Reg Packets)",
+    phone: "Phones",
+    small_electronics: "Small Electronics",
+    wallet: "Wallet",
+    weapon: "Weapons/Props",
   }
 
   @@valid_categories = {
-      bag:               "Bags",
-      bottle:            "Bottles",
-      clothing:          "Clothing",
-      electronics:       "Electronics",
-      glasses:           "Glasses",
-      headwear:          "Headwear",
-      jewelry:           "Jewelry",
-      lockbox:           "Lockbox (Money, ID, Cards, Wallets, Keys, Badges)",
-      papers:             "Papers",
-      prop:              "Props",
-      toy:               "Toys",
-      other_not_listed:  "Other Not Listed"
+    bag: "Bags",
+    bottle: "Bottles",
+    clothing: "Clothing",
+    electronics: "Electronics",
+    glasses: "Glasses",
+    headwear: "Headwear",
+    jewelry: "Jewelry",
+    lockbox: "Lockbox (Money, ID, Cards, Wallets, Keys, Badges)",
+    papers: "Papers",
+    prop: "Props",
+    toy: "Toys",
+    other_not_listed: "Other Not Listed"
   }
 
   def self.valid_categories
@@ -135,10 +135,10 @@ class LostAndFoundItem < ActiveRecord::Base
       csv << ['ID', 'Category', 'Description', 'Year']
       lfis.find_each do |lfi|
         csv << [
-            lfi.id,
-            lfi.category,
-            lfi.description,
-            lfi.created_at.year
+          lfi.id,
+          lfi.category,
+          lfi.description,
+          lfi.created_at.year
         ].flatten
       end
     end

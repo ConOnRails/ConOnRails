@@ -17,15 +17,15 @@ require 'test_helper'
 class RadioAssignmentAuditTest < ActiveSupport::TestCase
   setup do
     @assignment = FactoryBot.build :valid_radio_assignment
-    @user      = FactoryBot.create :user
+    @user = FactoryBot.create :user
   end
 
   # @param [string] method
   # @param [constant] state
-  def can_create_audit( method, state )
+  def can_create_audit(method, state)
     audit = nil
     assert_difference 'RadioAssignmentAudit.count' do
-      audit = RadioAssignmentAudit.send( 'audit_' + method, @assignment, @user )
+      audit = RadioAssignmentAudit.send('audit_' + method, @assignment, @user)
     end
 
     assert_not_nil audit
@@ -34,17 +34,14 @@ class RadioAssignmentAuditTest < ActiveSupport::TestCase
   end
 
   test "can create checkout audit" do
-    can_create_audit( 'checkout', 'out' )
+    can_create_audit('checkout', 'out')
   end
 
   test "can create checkin audit" do
-    can_create_audit( 'checkin', 'in' )
+    can_create_audit('checkin', 'in')
   end
 
   test "can create retirement audit" do
-    can_create_audit( 'retirement', 'retired' )
+    can_create_audit('retirement', 'retired')
   end
-
-
-
 end

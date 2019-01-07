@@ -26,7 +26,7 @@ class RadioTest < ActiveSupport::TestCase
   setup do
     @blue = FactoryBot.create :blue_man_group
     @red  = FactoryBot.create :red_handed
-    @blue_radios = FactoryBot.build_list( :one_of_many_blue_radios, 10, radio_group: @blue )
+    @blue_radios = FactoryBot.build_list(:one_of_many_blue_radios, 10, radio_group: @blue)
     @blue_radios[0].state = "out"
     @blue_radios[6].state = "out"
   end
@@ -42,5 +42,4 @@ class RadioTest < ActiveSupport::TestCase
     assert_equal 2, Radio.assigned.count
     assert_equal 8, Radio.unassigned.count
   end
-
 end

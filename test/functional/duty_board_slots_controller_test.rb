@@ -10,21 +10,20 @@ class DutyBoardSlotsControllerTest < ActionController::TestCase
     @duty_board_slot                  = FactoryBot.build :valid_duty_board_slot
     FactoryBot.create :valid_volunteer
     @duty_board_assignment_attributes = {
-        name:               Faker::Name.name,
-        duty_board_slot_id: @duty_board_slot.id,
-        notes:              Faker::Lorem.sentence
+      name: Faker::Name.name,
+      duty_board_slot_id: @duty_board_slot.id,
+      notes: Faker::Lorem.sentence
     }
-
   end
 
   test "should get index" do
-    get :index, { }, @user_session
+    get :index, {}, @user_session
     assert_response :success
     assert_not_nil assigns(:duty_board_slots)
   end
 
   test "should get new" do
-    get :new, { }, @user_session
+    get :new, {}, @user_session
     assert_response :success
   end
 

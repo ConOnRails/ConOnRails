@@ -18,6 +18,7 @@ class EventsController < ApplicationController
   def index
     @title = 'Active Events'
     return jump if params[:id].present?
+
     @events = IndexQuery.new(Event).query(session[:index_filter])
                         .order(updated_at: :desc)
                         .eager_load(:event_flag_histories)
@@ -62,8 +63,8 @@ class EventsController < ApplicationController
   def search_entries
     @q = params[:q] # We'll use this to re-fill the search blank
     @events = limit_by_convention(Event.search(@q, current_user,
-                                  params[:show_closed],
-                                  session[:index_filter]))
+                                               params[:show_closed],
+                                               session[:index_filter]))
               .page(params[:page])
     respond_with @events
   end
@@ -72,7 +73,6 @@ class EventsController < ApplicationController
     @title = 'Event Review'
     respond_with @events
   end
-
 
   # GET /events/1
   # GET /events/1.json
@@ -98,7 +98,7 @@ class EventsController < ApplicationController
     build_flag_history_from_params @event, event_params, true
     flash[:notice] = 'Event was successfully created.' if @event.save
 
-    respond_with @event, location: -> {events_path}
+    respond_with @event, location: -> { events_path }
   end
 
   # PUT /events/1
@@ -106,7 +106,7 @@ class EventsController < ApplicationController
   def update
     # strong_parameters balks a bit at the permissiveness of this. Might want to consider restructuring a bit
 
-    build_entry_from_params @event, entry_params if params.has_key? :entry #this can be blank!
+    build_entry_from_params @event, entry_params if params.has_key? :entry # this can be blank!
     build_flag_history_from_params @event, event_params if params.has_key? :event # this can also be blank if nothing changed!
 
     if params.has_key? :event
@@ -115,7 +115,7 @@ class EventsController < ApplicationController
       flash[:notice] = 'Event was successfully updated.' if @event.save
     end
 
-    respond_with @event, location: -> {events_path}
+    respond_with @event, location: -> { events_path }
   end
 
   def merge_events
@@ -142,16 +142,19 @@ class EventsController < ApplicationController
 
   def build_entry_from_params(event, params)
     return unless params and params[:description] != ''
+
     event.entries.build(params.merge({ event: event, user: current_user, rolename: current_role_name }))
   end
 
-  def build_flag_history_from_params(event, params, always=false)
+  def build_flag_history_from_params(event, params, always = false)
     return unless always or (params and @event.flags_differ? params)
+
     event.event_flag_histories.build(params.merge({ event: event, user: current_user, rolename: current_role_name }))
   end
 
   def filter_order
     return 'asc' unless params.has_key?(:filters) && params[:filters].has_key?(:order)
+
     params[:filters][:order]
   end
 
@@ -166,6 +169,7 @@ class EventsController < ApplicationController
   def jump
     event = Event.find_by_id(params[:id])
     return redirect_to event_path(params[:id]) if event
+
     render 'lost_and_found_items/invalid'
   end
 
@@ -198,5 +202,4 @@ class EventsController < ApplicationController
   def merge_id_params
     params.require(:merge_ids)
   end
-
 end

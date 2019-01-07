@@ -60,7 +60,7 @@ class RadioAssignmentsControllerTest < ActionController::TestCase
         should render_template 'success'
 
         should 'have right counts' do
-          assert_no_match /NOT/, flash[:notice]
+          assert_no_match(/NOT/, flash[:notice])
           assert_equal @count, RadioAssignment.count
           # There should be a check in and check out audit in addition to the original checkout.
           assert_equal @audit_count + 1, RadioAssignmentAudit.count

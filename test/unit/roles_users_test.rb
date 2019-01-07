@@ -47,10 +47,9 @@ class RolesUsersTest < ActiveSupport::TestCase
     setup_roles
     assert @user1.write_entries?
   end
-  
+
   test "can find absence of write_entries permission in user roles" do
     setup_roles
     assert !@user2.write_entries?
   end
-
 end

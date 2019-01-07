@@ -103,9 +103,5 @@ class VspsControllerTest < ActionController::TestCase
       should respond_with :redirect
       should redirect_to('root') { root_path }
     end
-
   end
-
-
-
 end

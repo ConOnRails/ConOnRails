@@ -3,16 +3,16 @@ require 'csv'
 def flags(event)
   event.event_flag_histories.collect do |efh|
     "at #{efh.created_at.getlocal.ctime} by #{efh.user.realname} as #{efh.rolename}\r  " +
-    Event.flags.collect do |f|
-      if f == 'is_active' && efh[f] == false
-        'CLOSED'
-      elsif efh[f] == true
+      Event.flags.collect do |f|
+        if f == 'is_active' && efh[f] == false
+          'CLOSED'
+        elsif efh[f] == true
+          "#{f}"
+        end
+      end.compact.join(' ') +
+      efh.alert_list.collect do |f|
         "#{f}"
-      end
-    end.compact.join(' ') +
-    efh.alert_list.collect do |f|
-      "#{f}"
-    end.compact.join(' ')
+      end.compact.join(' ')
   end.join("\r")
 end
 
@@ -27,11 +27,12 @@ end
 cons = Convention.order(:start_date).to_a
 con_index = -1
 
-begin
+loop do
   puts 'Pick a con'
-  cons.each_with_index { |c, i| puts "#{i+1} #{c.name}" }
+  cons.each_with_index { |c, i| puts "#{i + 1} #{c.name}" }
   con_index = gets.to_i - 1
-end until con_index >= 0 && con_index < cons.size
+  break if con_index >= 0 && con_index < cons.size
+end
 
 con = cons[con_index]
 filename = "#{con.name.downcase.gsub(' ', '_')}-event-log.csv"
@@ -39,7 +40,7 @@ filename = "#{con.name.downcase.gsub(' ', '_')}-event-log.csv"
 CSV.open filename, 'wb', headers: :first do |csv|
   csv << ['ID', 'State', 'Flag History', 'Entries']
   Event.where { |e| (e.created_at >= con.start_date) & (e.created_at <= con.end_date) }
-    .order('created_at').each do |event|
+       .order('created_at').each do |event|
     csv << [
       event.id,
       event.status,

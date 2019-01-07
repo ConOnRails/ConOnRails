@@ -19,7 +19,7 @@ class DutyBoardSlotsController < ApplicationController
   def assign
     @duty_board_slot = DutyBoardSlot.find params[:id]
     @duty_board_slot.build_duty_board_assignment if @duty_board_slot.duty_board_assignment.blank?
-    #respond_with @duty_board_slot, location: :duty_board_index
+    # respond_with @duty_board_slot, location: :duty_board_index
   end
 
   # GET /duty_board_slots/new
@@ -47,7 +47,7 @@ class DutyBoardSlotsController < ApplicationController
   def update
     @duty_board_slot = DutyBoardSlot.find(params[:id])
 
-    respond_with @duty_board_slot, location: :duty_board_slots do |format|
+    respond_with @duty_board_slot, location: :duty_board_slots do |_format|
       if @duty_board_slot.update_attributes duty_board_slot_params
 =begin
           if params[:duty_board_assignment]
@@ -61,7 +61,7 @@ class DutyBoardSlotsController < ApplicationController
         flash[:notice] = 'Duty board slot was successfully updated'
       else
         flash[:notice] = 'Duty board slot was successfully updated'
-        #end
+        # end
       end
     end
   end

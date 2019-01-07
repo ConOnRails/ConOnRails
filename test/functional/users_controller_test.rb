@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
-
   GoodPassword = "zogity123*%^! 42"
 
   setup do
@@ -17,10 +16,10 @@ class UsersControllerTest < ActionController::TestCase
     @volunteer = FactoryBot.create :valid_volunteer
 
     @input_attributes = {
-        username: "mikey",
-        realname: "Mi Key",
-        password: GoodPassword,
-        password_confirmation: GoodPassword,
+      username: "mikey",
+      realname: "Mi Key",
+      password: GoodPassword,
+      password_confirmation: GoodPassword,
     }
   end
 
@@ -98,9 +97,7 @@ class UsersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-
   context "Updates" do
-
     context "peons" do
       setup do
         request.stubs(:referrer).returns(change_password_user_path(@peon_user))
@@ -160,5 +157,4 @@ class UsersControllerTest < ActionController::TestCase
 
     assert_redirected_to users_path
   end
-
 end

@@ -16,7 +16,6 @@ class NotTimeTravelingValidator < ActiveModel::EachValidator
       record.errors[attribute] << (options[:message] || 'must be later than Start date!')
     end
   end
-
 end
 
 class Convention < ActiveRecord::Base

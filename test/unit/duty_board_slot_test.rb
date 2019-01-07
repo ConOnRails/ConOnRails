@@ -22,5 +22,4 @@ class DutyBoardSlotTest < ActiveSupport::TestCase
   should validate_presence_of :name
   should validate_presence_of :duty_board_group_id
   should validate_uniqueness_of :name
-
 end

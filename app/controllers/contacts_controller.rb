@@ -54,5 +54,4 @@ class ContactsController < ApplicationController
   def contact_params
     params.require(:contact).permit :name, :cell_phone, :department, :position, :hotel, :hotel_room, :can_text
   end
-
 end

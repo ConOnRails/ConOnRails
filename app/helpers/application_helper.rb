@@ -1,8 +1,7 @@
 module ApplicationHelper
-
   def title
     unless @title.nil?
-      "| #{ @title }"
+      "| #{@title}"
     end
   end
 
@@ -23,7 +22,7 @@ module ApplicationHelper
     num_active -= Event.current_convention.num_active_secure unless current_user && current_user.rw_secure?
 
     style = 'normal'
-    style = 'active' if  num_active > 0
+    style = 'active' if num_active > 0
     style = 'emergency' if Event.current_convention.num_active_emergencies > 0 or Event.current_convention.num_active_medicals > 0
 
     style
@@ -44,6 +43,7 @@ module ApplicationHelper
     return 'returned' if params[:returned] or (@lfi and @lfi.returned?)
     return 'inventoried' if params[:inventoried] or (@lfi and @lfi.inventoried?)
     return 'missing' if params[:reported_missing] or (@lfi and @lfi.reported_missing?)
+
     'found' if params[:found] or (@lfi and @lfi.found?)
   end
 
@@ -54,10 +54,11 @@ module ApplicationHelper
 
   def show_corkboard(tag)
     return (tag == 'dispatcher' && current_role_name.in?(%w(Dispatch Subhead Head))) if current_user
+
     false
   end
 
-  def tab(text, path, target='_self')
+  def tab(text, path, target = '_self')
     id = text.gsub(%r.[ /]., '-').downcase
     link_to text, path, id: "menu-tab-#{id}", class: "tab", role: 'presentation', target: target
   end

@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class AlertTagsTest < ActiveSupport::TestCase
-
   setup do
     @event = Event.new # TODO find a better way to test without needing a specific client of the concern
   end

@@ -10,13 +10,13 @@ class RolesControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
-    get :index, { }, { user_id: @user.id }
+    get :index, {}, { user_id: @user.id }
     assert_response :success
     assert_not_nil assigns(:roles)
   end
 
   test "peon can't get index" do
-    get :index, { }, { user_id: @peon_user.id }
+    get :index, {}, { user_id: @peon_user.id }
     assert_redirected_to :public
   end
 
@@ -26,12 +26,12 @@ class RolesControllerTest < ActionController::TestCase
   end
 
   test "should get new" do
-    get :new, { }, { user_id: @user.id }
+    get :new, {}, { user_id: @user.id }
     assert_response :success
   end
 
   test "peon can't get new" do
-    get :new, { }, { user_id: @peon_user.id }
+    get :new, {}, { user_id: @peon_user.id }
     assert_redirected_to :public
   end
 
@@ -39,7 +39,6 @@ class RolesControllerTest < ActionController::TestCase
     get :new
     assert_redirected_to :public
   end
-
 
   test "should create role" do
     assert_difference('Role.count') do

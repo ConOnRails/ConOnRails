@@ -2,6 +2,7 @@ class VersionsController < ApplicationController
   before_filter :can_read_audits?
 
   private
+
   def make_date(date_array)
     return Time.local(date_array["item(1i)"].to_i,
                       date_array["item(2i)"].to_i,
@@ -24,11 +25,10 @@ class VersionsController < ApplicationController
 
     types = []
     types << ["Event", "Entry"] if params[:events]
-    types  << "LostAndFoundItem" if params[:lfi]
+    types << "LostAndFoundItem" if params[:lfi]
 
     w[:item_type] = types unless types.count == 0
 
     @versions = Version.where(w).page(params[:page])
   end
-
 end
