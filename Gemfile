@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-ruby '2.3.8'
+ruby '2.5.5'
 
 gem 'rails', '~>4.2.0'
 
@@ -19,7 +19,7 @@ gem 'sass-rails', '~> 5.0.1'
 gem 'uglifier', '~> 2.7.0'
 
 gem 'acts-as-taggable-on', '~> 4.0'
-gem 'bcrypt-ruby', '~> 3.1.5'
+gem 'bcrypt', '~> 3.1.5'
 gem 'bootstrap-sass', '~> 3.3.4'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
 gem 'countries', '~> 0.9.3'
@@ -38,7 +38,7 @@ gem 'redcarpet', '~> 3.2.2'
 gem 'responders', '~> 2.1.0'
 gem 'sass', '~> 3.4.12'
 gem 'select2-rails'
-gem 'simple_form', '~> 3.1.0'
+gem 'simple_form', '~> 3.5.0'
 gem 'slim', '~> 3.0.2'
 gem 'squeel', '~> 1.2.3'
 gem 'sshkit', '~> 1.6.1'
@@ -46,7 +46,7 @@ gem 'therubyracer', '~>0.12', require: 'v8'
 gem 'yaml_db', '~> 0.3.0'
 
 # Moved to production because we use them in seeds and we need to be able to seed Heroku
-gem 'factory_bot_rails'
+gem 'factory_bot_rails', '~> 4.11.0'
 gem 'faker'
 
 gem 'derailed'
