@@ -20,7 +20,7 @@ gem 'uglifier', '~> 2.7.0'
 
 gem 'acts-as-taggable-on', '~> 4.0'
 gem 'bcrypt', '~> 3.1.5'
-gem 'bootstrap-sass', '~> 3.3.4'
+gem 'bootstrap-sass', '~> 3.4.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
 gem 'countries', '~> 0.9.3'
 gem 'country_select', '~> 2.1.1'
