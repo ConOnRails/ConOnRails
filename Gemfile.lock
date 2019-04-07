@@ -191,7 +191,7 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.2.11.1)
       sprockets-rails
-    rails-assets-sweetalert2 (8.8.1)
+    rails-assets-sweetalert2 (7.29.1)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.9)
@@ -294,6 +294,7 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     stackprof (0.2.12)
+    sweet-alert2-rails (0.1.0)
     temple (0.8.1)
     therubyracer (0.12.3)
       libv8 (~> 3.16.14.15)
@@ -352,7 +353,7 @@ DEPENDENCIES
   puma
   rack-mini-profiler
   rails (~> 4.2.0)
-  rails-assets-sweetalert2!
+  rails-assets-sweetalert2 (~> 7)!
   rails-sweetalert2-confirm
   rails_12factor
   ransack (~> 1.6.3)
@@ -373,6 +374,7 @@ DEPENDENCIES
   squeel (~> 1.2.3)
   sshkit (~> 1.6.1)
   stackprof
+  sweet-alert2-rails
   therubyracer (~> 0.12)
   timecop
   uglifier (~> 2.7.0)
