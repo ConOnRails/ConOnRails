@@ -7,6 +7,7 @@ env:
 before_install:
   - sudo apt-get install libpq-dev 
 before_script:
+  - gem install bundler -v 1.17.3
   - cp config/database.travis.yml config/database.yml
   - psql -c 'create database con_on_rails_test' -U postgres
   - sqlite3 -batch db/attendees.sqlite3 < db/attendees.seed
