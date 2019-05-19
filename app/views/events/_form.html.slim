@@ -45,9 +45,8 @@
           .tiny These 2 hide events from View Actives!
           .well.well-sm
             = f.input :sticky, label: false, inline_label: true, label_text: proc { '<span class="sticky-icon"></span>Sticky' }
-            = f.input :secure, label: false, inline_label: true, label_text: proc { '<span class="secure-icon"></span>Secure' } if current_user and current_user.rw_secure?
+            = f.input :secure, label: false, inline_label: true, label_text: proc { '<span class="secure-icon"></span>Secure' }
             = f.input :hidden, as: :hidden, input_html: { value: false } unless current_user and current_user.can_make_hidden_entries?
-            = f.input :secure, as: :hidden, input_html: { value: false } unless current_user and current_user.rw_secure?
 
     #event_options_bottom
       .well.well-sm
@@ -68,8 +67,17 @@
 
 
 javascript:
-  $(
+  $(document).ready(function() {
           $('.inline-hint').closest('li').mouseover(function () {
             $(this).find('.inline-hint').show();
-          })
-  );
+          });
+
+          $('input#event_secure').on('change', function() {
+            if ($(this).is(':checked')) {
+              var ok = confirm('If you create a Secure Event, only people with Secure access will be able to see it! Are You Sure?')
+              if (!!!ok) {
+                $(this).prop('checked', false);
+              }
+            }
+          });
+  });
