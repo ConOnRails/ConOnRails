@@ -16,7 +16,7 @@ class DutyBoardGroup < ActiveRecord::Base
   ROW_RANGE = (1..4)
   COL_RANGE = (1..3)
 
-  has_many :duty_board_slots, -> { order :name }
+  has_many :duty_board_slots, -> { order :name }, dependent: :destroy
   validates_presence_of :name, :row, :column
   validates_uniqueness_of :name
   validates_uniqueness_of :row, scope: :column

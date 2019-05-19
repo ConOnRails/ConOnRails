@@ -13,5 +13,4 @@
 //= require select2
 //= require sweetalert2
 //= require sweet-alert2-rails
-//= require rails-sweetalert2-confirm
 //= require_tree .
