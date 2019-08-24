@@ -1,12 +1,12 @@
 language: ruby
 cache: bundler
 rvm:
-  - 2.5.5
+  - 2.6.3
 env:
   - DB=postgresql CODECLIMATE_REPO_TOKEN=60f24faadd4214af105e217fca320e3a6d4eab015ca1eaf672aed2fbcc77b296
 before_install:
   - sudo apt-get install libpq-dev 
-  - gem install bundler:1.17.3
+  - gem install bundler:2
 before_script:
   - cp config/database.travis.yml config/database.yml
   - psql -c 'create database con_on_rails_test' -U postgres
