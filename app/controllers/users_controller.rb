@@ -61,8 +61,8 @@ class UsersController < ApplicationController
   end
 
   def get_update_success_path
-    if request.referrer.present? && 
-        URI(request.referer).path == change_password_user_path(@user)
+    if request.referer.present? &&
+       URI(request.referer).path == change_password_user_path(@user)
       root_path
     else
       user_path(@user)

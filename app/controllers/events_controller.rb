@@ -65,8 +65,8 @@ class EventsController < ApplicationController
   def search_entries
     @q = params[:q] # We'll use this to re-fill the search blank
     @events = limit_by_convention(Event.ransack(@q, current_user,
-                                               params[:show_closed],
-                                               session[:index_filter]))
+                                                params[:show_closed],
+                                                session[:index_filter]))
               .page(params[:page])
     respond_with @events
   end
@@ -152,11 +152,11 @@ class EventsController < ApplicationController
     return unless always || (params && @event.flags_differ?(params))
 
     event.event_flag_histories.build(params.merge(event: event, user: current_user,
-                                                      rolename: current_role_name))
+                                                  rolename: current_role_name))
   end
 
   def filter_order
-    params.permit(filters: :order).fetch(:filters, 'asc').fetch(:order, 'asc')
+    params.permit(filters: :order).fetch(:filters, {}).fetch(:order, 'asc')
   end
 
   def get_tagged_events
@@ -193,11 +193,11 @@ class EventsController < ApplicationController
   end
 
   def top_params
-    params.permit(:convention, :id, :page, :q,  filters: [:is_active, :comment, :flagged, :post_con, :quote, :sticky, :emergency,
-                  :medical, :hidden, :secure, :consuite, :hotel, :parties, :volunteers,
-                  :dealers, :dock, :merchandise, :nerf_herders, :status, :alert_dispatcher, :tag,
-                  :accessibility_and_inclusion, :allocations, :first_advisors, :member_advocates,
-                  :operations, :programming, :registration, :volunteers_den])
+    params.permit(:convention, :id, :page, :q, filters: %i[is_active comment flagged post_con quote sticky emergency
+                                                           medical hidden secure consuite hotel parties volunteers
+                                                           dealers dock merchandise nerf_herders status alert_dispatcher tag
+                                                           accessibility_and_inclusion allocations first_advisors member_advocates
+                                                           operations programming registration volunteers_den merged])
   end
 
   def event_params

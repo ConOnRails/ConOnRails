@@ -113,7 +113,7 @@ class UsersControllerTest < ActionController::TestCase
 
       should 'update themselves (change password)' do
         put :update, params: { id: @peon_user.to_param,
-                               user: @input_attributes }, 
+                               user: @input_attributes },
                      session: { user_id: @peon_user.id }
         assert_redirected_to user_path(assigns(:user))
       end

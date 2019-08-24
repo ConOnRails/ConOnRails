@@ -37,9 +37,9 @@ class Volunteer < ApplicationRecord
 
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :home_phone, :work_phone, :other_phone, 
-    format: { allow_blank: true, message: 'must be a valid telephone number.',
-              with: /\A[\(\)0-9\- \+\.]{10,20}\z/ }
+  validates :home_phone, :work_phone, :other_phone,
+            format: { allow_blank: true, message: 'must be a valid telephone number.',
+                      with: /\A[\(\)0-9\- \+\.]{10,20}\z/ }
   validates_associated :volunteer_training
   validate :at_least_one_phone_number
   accepts_nested_attributes_for :volunteer_training

@@ -144,7 +144,7 @@ when 'development'
       )
 
       EventFlagHistory.create!(
-        event.attributes.reject { |k, _v| %w[merged_from_ids id alert_list, corkboard_list].include? k }.merge(
+        event.attributes.reject { |k, _v| %w[merged_from_ids id alert_list corkboard_list].include? k }.merge(
           user: user,
           event: event
         )

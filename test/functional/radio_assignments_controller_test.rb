@@ -20,11 +20,11 @@ class RadioAssignmentsControllerTest < ActionController::TestCase
     assert_difference('RadioAssignmentAudit.count') do
       assert_difference('RadioAssignment.count') do
         post :create, xhr: true,
-            params: {
-              radio_assignment: FactoryBot.attributes_for(:valid_radio_assignment, volunteer_id: @volunteer.id,
-                                                                                   radio_id: @radio.id, department_id: @department.id), format: :js
-            },
-            session: @user_session
+                      params: {
+                        radio_assignment: FactoryBot.attributes_for(:valid_radio_assignment, volunteer_id: @volunteer.id,
+                                                                                             radio_id: @radio.id, department_id: @department.id), format: :js
+                      },
+                      session: @user_session
       end
     end
     assert_equal 'out', assigns(:radio_assignment).radio.state
@@ -60,9 +60,9 @@ class RadioAssignmentsControllerTest < ActionController::TestCase
       context 'With 2 radios permitted' do
         setup do
           put :update, xhr: true,
-              params: { id: @radio_assignment.id,
-                radio_assignment: { volunteer_id: @volunteer.id, department_id: @department.id }, format: :js },
-              session: @user_session
+                       params: { id: @radio_assignment.id,
+                                 radio_assignment: { volunteer_id: @volunteer.id, department_id: @department.id }, format: :js },
+                       session: @user_session
         end
         should respond_with :ok
         should render_template 'success'
@@ -79,9 +79,9 @@ class RadioAssignmentsControllerTest < ActionController::TestCase
         setup do
           @department.update_attribute(:radio_allotment, 1)
           put :update, xhr: true,
-              params: { id: @radio_assignment.id,
-                radio_assignment: { volunteer_id: @volunteer.id, department_id: @department.id }, format: :js },
-              session: @user_session
+                       params: { id: @radio_assignment.id,
+                                 radio_assignment: { volunteer_id: @volunteer.id, department_id: @department.id }, format: :js },
+                       session: @user_session
         end
         should respond_with :ok
         should render_template 'error'

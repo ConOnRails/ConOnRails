@@ -92,7 +92,10 @@ class ApplicationController < ActionController::Base
     date_params = params.permit(:from_date, :to_date)
     return query if date_params[:from_date].blank? && date_params[:to_date].blank?
 
-    query = query.where('created_at >= ?', date_params[:from_date]) if date_params[:from_date].present?
+    if date_params[:from_date].present?
+      query = query.where('created_at >= ?',
+                          date_params[:from_date])
+    end
     query = query.where('created_at <= ?', date_params[:to_date]) if date_params[:to_date].present?
     query
   end

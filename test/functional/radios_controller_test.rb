@@ -70,7 +70,7 @@ class RadiosControllerTest < ActionController::TestCase
 
   test 'can search volunteers' do
     @radio.save!
-    post :search_volunteers, xhr: true, 
+    post :search_volunteers, xhr: true,
                              params: { first_name: @volunteer.first_name,
                                        last_name: @volunteer.last_name, radio: @radio.to_param },
                              session: @user_session
@@ -80,9 +80,9 @@ class RadiosControllerTest < ActionController::TestCase
   test 'can search volunteers case insensitive' do
     @radio.save!
     post :search_volunteers, xhr: true,
-                            params: { first_name: @volunteer.first_name.downcase,
-                                      last_name: @volunteer.last_name.upcase, radio: @radio.to_param }, 
-                            session: @user_session
+                             params: { first_name: @volunteer.first_name.downcase,
+                                       last_name: @volunteer.last_name.upcase, radio: @radio.to_param },
+                             session: @user_session
     assert_response :success
   end
 

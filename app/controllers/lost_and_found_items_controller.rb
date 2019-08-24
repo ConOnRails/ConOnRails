@@ -32,7 +32,8 @@ class LostAndFoundItemsController < ApplicationController
     @lfis = limit_by_convention LostAndFoundItem.inventory(lfi_search_params[:inventory],
                                                            lfi_search_params[:exclude_inventoried]).page(lfi_search_params[:page])
     if lfi_search_params[:keywords].present?
-      @lfis = @lfis.where("(#{build_like('description', search_type)}) OR (#{build_like('details', search_type)})")
+      @lfis = @lfis.where("(#{build_like('description', search_type)}) OR (#{build_like('details',
+                                                                                        search_type)})")
     end
     @lfis = @lfis.where(category: @categories).references(:tags) if @categories.present?
     @lfis = lfi_search_params[:show_returned_only] ? @lfis.returned : @lfis.not_returned
