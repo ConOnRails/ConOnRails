@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class AlertTagsTest < ActiveSupport::TestCase
   setup do
-    @event = Event.new # TODO find a better way to test without needing a specific client of the concern
+    @event = Event.new
   end
 
   context '#alert_dispatcher' do
     should 'be false by default' do
-      assert !@event.alert_dispatcher
+      assert_not @event.alert_dispatcher
     end
 
     context 'with "dispatcher" tag set' do

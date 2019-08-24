@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RemoveUnusedFlagsFromEventAndEfi < ActiveRecord::Migration
   def change
     remove_column :events, :quote, :boolean

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -10,7 +12,7 @@
 #  updated_at      :datetime         not null
 #
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   has_paper_trail
 
   paginates_per 25
@@ -19,7 +21,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
 
   name_regex = /\A[a-zA-Z0-9_\-]*\z/
-  password_regex = /\A[a-zA-Z0-9!@#$\%^&*()\-_ ]*\z/
+  password_regex = /\A[a-zA-Z0-9!@#{$OUTPUT_RECORD_SEPARATOR}%^&*()\-_ ]*\z/
 
   validates :username, presence: true,
                        allow_blank: false,
@@ -40,75 +42,73 @@ class User < ActiveRecord::Base
   def find_perm(perm)
     ret = false
     roles.each do |role|
-      if role.send(perm)
-        ret = true
-      end
+      ret = true if role.send(perm)
     end
-    return ret
+    ret
   end
 
   def can_admin_anything?
-    return (find_perm "admin_users?" or
-        find_perm "admin_schedule?" or
-        find_perm "admin_duty_board?" or
-        find_perm "admin_radios?")
+    (find_perm('admin_users?') ||
+        find_perm('admin_schedule?') ||
+        find_perm('admin_duty_board?') ||
+        find_perm('admin_radios?'))
   end
 
   def can_admin_users?
-    find_perm "admin_users?"
+    find_perm 'admin_users?'
   end
 
   def write_entries?
-    find_perm "write_entries?"
+    find_perm 'write_entries?'
   end
 
-  alias :can_write_entries? :write_entries?
+  alias can_write_entries? write_entries?
 
   def read_hidden_entries?
-    find_perm "read_hidden_entries?"
+    find_perm 'read_hidden_entries?'
   end
 
-  alias :can_read_hidden? :read_hidden_entries?
+  alias can_read_hidden? read_hidden_entries?
 
   def add_lost_and_found?
-    find_perm "add_lost_and_found?"
+    find_perm 'add_lost_and_found?'
   end
 
   def modify_lost_and_found?
-    find_perm "modify_lost_and_found?"
+    find_perm 'modify_lost_and_found?'
   end
 
   def can_assign_radios?
-    find_perm "assign_radios"
+    find_perm 'assign_radios'
   end
 
   def can_admin_radios?
-    find_perm "admin_radios"
+    find_perm 'admin_radios'
   end
 
   def can_make_hidden_entries?
-    find_perm "make_hidden_entries?"
+    find_perm 'make_hidden_entries?'
   end
 
   def can_admin_duty_board?
-    find_perm "admin_duty_board"
+    find_perm 'admin_duty_board'
   end
 
   def can_assign_duty_board_slots?
-    find_perm "assign_duty_board_slots"
+    find_perm 'assign_duty_board_slots'
   end
 
   def can_read_audits?
-    find_perm "read_audits"
+    find_perm 'read_audits'
   end
 
   def rw_secure?
-    find_perm "rw_secure?"
+    find_perm 'rw_secure?'
   end
 
-  alias :can_read_secure? :rw_secure?
+  alias can_read_secure? rw_secure?
 
   def has_role?(*role_names)
-    self.roles.where(name: role_names).any?
+    roles.where(name: role_names).any?
   end
 end

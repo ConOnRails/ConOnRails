@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class RadiosController < ApplicationController
   respond_to :html, :json
 
-  before_filter :can_admin_radios?, only: [:new, :create, :edit, :update, :destroy]
-  before_filter :can_assign_radios?, only: [:index, :show, :search_volunteers]
-  before_filter :find_radio, only: [:show, :edit, :update, :destroy, :checkout, :transfer]
-  before_filter :find_radios, only: [:index, :new, :create]
+  before_action :can_admin_radios?, only: %i[new create edit update destroy]
+  before_action :can_assign_radios?, only: %i[index show search_volunteers]
+  before_action :find_radio, only: %i[show edit update destroy checkout transfer]
+  before_action :find_radios, only: %i[index new create]
 
   # POST /radios/search_volunteers
   def search_volunteers
@@ -67,7 +69,7 @@ class RadiosController < ApplicationController
     if params[:radio_assignment]
       @radio.radio_assignment = RadioAssignment.new params[:radio_assignment]
     end
-    flash[:notice] = 'Radio was successfully updated.' if @radio.update_attributes radio_params
+    flash[:notice] = 'Radio was successfully updated.' if @radio.update radio_params
     respond_with @radio, location: radios_path
   end
 

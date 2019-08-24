@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddUserToEntries < ActiveRecord::Migration
   def change
     add_column :entries, :user_id, :integer

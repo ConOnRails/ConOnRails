@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class EventsControllerTest < ActionController::TestCase
-  context "Given some events" do
+  context 'Given some events' do
     setup do
       @event = FactoryBot.create :ordinary_event
 
@@ -45,9 +47,9 @@ class EventsControllerTest < ActionController::TestCase
             assert_equal 1, assigns[:events].count
             assigns[:events].each do |e|
               assert e.is_active
-              assert !e.sticky
-              assert !e.secure
-              assert !e.hidden
+              assert_not e.sticky
+              assert_not e.secure
+              assert_not e.hidden
             end
           end
         end
@@ -56,7 +58,7 @@ class EventsControllerTest < ActionController::TestCase
           setup do
             @event.alert_list.add('dispatcher')
             @event.save!
-            get :tag, tag: 'dispatcher', format: :json
+            get :tag, params: { tag: 'dispatcher', format: :json }
           end
 
           should respond_with :success
@@ -69,7 +71,7 @@ class EventsControllerTest < ActionController::TestCase
 
         context 'GET :show for an ordinary event' do
           setup do
-            get :show, { id: @event.to_param }, @admin_session
+            get :show, params: { id: @event.to_param }, session: @admin_session
           end
 
           should respond_with :success
@@ -93,15 +95,15 @@ class EventsControllerTest < ActionController::TestCase
             assert_equal 1, assigns[:events].count
             assigns[:events].each do |e|
               assert e.sticky
-              assert !e.secure
-              assert !e.hidden
+              assert_not e.secure
+              assert_not e.hidden
             end
           end
         end
 
         context 'GET :show for a sticky event' do
           setup do
-            get :show, { id: @sticky_event.to_param }, @admin_session
+            get :show, params: { id: @sticky_event.to_param }, session: @admin_session
           end
 
           should respond_with :success
@@ -119,7 +121,7 @@ class EventsControllerTest < ActionController::TestCase
 
       context 'GET :search_entries' do
         setup do
-          get :search_entries, q: 'vole'
+          get :search_entries, params: { q: 'vole' }
         end
 
         should respond_with :success
@@ -138,7 +140,7 @@ class EventsControllerTest < ActionController::TestCase
           @event.save!
           @secure_event.save!
 
-          get :search_entries, q: 'vole', convention: @convention.id
+          get :search_entries, params: { q: 'vole', convention: @convention.id }
         end
 
         should respond_with :success
@@ -159,7 +161,7 @@ class EventsControllerTest < ActionController::TestCase
           assert_equal 2, assigns[:events].count(:all)
           assigns[:events].each do |e|
             assert e.is_active
-            assert !e.sticky
+            assert_not e.sticky
             assert e.secure || e.hidden
           end
         end
@@ -176,17 +178,17 @@ class EventsControllerTest < ActionController::TestCase
         end
       end
 
-      (Event::FLAGS - %w'is_active').each do |f|
+      (Event::FLAGS - %w[is_active]).each do |f|
         context "GET :review with #{f} true" do
           setup do
             @event.send("#{f}=".to_sym, true)
             @event.save!
-            get :review, { filters: { f => 'true' } } # we'll get string, not bool
+            get :review, params: { filters: { f => 'true' } } # we'll get string, not bool
           end
 
           should respond_with :success
           should "have one event for #{f}" do
-            assert_equal ([:secure, :hidden].include?(f.to_sym) ? 2 : 1), assigns(:events).count
+            assert_equal (%i[secure hidden].include?(f.to_sym) ? 2 : 1), assigns(:events).count
             assert assigns(:events).first.send("#{f}?".to_sym)
           end
         end
@@ -195,11 +197,11 @@ class EventsControllerTest < ActionController::TestCase
       context 'GET :review with multiple \'true\' filters' do
         setup do
           FactoryBot.create :ordinary_event, hotel: true, parties: true
-          get :review, { filters: { hotel: true, parties: true } }
+          get :review, params: { filters: { hotel: true, parties: true } }
         end
 
         should respond_with :success
-        should "have one events" do
+        should 'have one events' do
           assert_equal 1, assigns(:events).count
         end
       end
@@ -208,11 +210,11 @@ class EventsControllerTest < ActionController::TestCase
         setup do
           FactoryBot.create :ordinary_event, hotel: true
           FactoryBot.create :ordinary_event, parties: true
-          get :review, { filters: { hotel: true, parties: false, sticky: 'all' } }
+          get :review, params: { filters: { hotel: true, parties: false, sticky: 'all' } }
         end
 
         should respond_with :success
-        should "have one events" do
+        should 'have one events' do
           assert_equal 1, assigns(:events).count
         end
       end
@@ -221,7 +223,7 @@ class EventsControllerTest < ActionController::TestCase
     multiple_contexts :peon_context, :typical_context do
       context 'POST :search_entries' do
         setup do
-          post :search_entries, q: 'vole'
+          post :search_entries, params: { q: 'vole' }
         end
 
         should respond_with :success
@@ -250,23 +252,23 @@ class EventsControllerTest < ActionController::TestCase
         should 'not have any hidden or secure events' do
           assert_equal 1, assigns(:events).count
           assigns(:events).each do |e|
-            assert !e.secure
-            assert !e.hidden
+            assert_not e.secure
+            assert_not e.hidden
           end
         end
       end
 
-      (Event::FLAGS - %w'is_active').each do |f|
+      (Event::FLAGS - %w[is_active]).each do |f|
         context "GET :review with #{f} true" do
           setup do
             @event.send("#{f}=".to_sym, true)
             @event.save!
-            get :review, { filters: { f => true } }
+            get :review, params: { filters: { f => true } }
           end
 
           should respond_with :success
           should "have one event for #{f}" do
-            assert_equal ([:secure, :hidden].include?(f.to_sym) ? 0 : 1), assigns(:events).count
+            assert_equal (%i[secure hidden].include?(f.to_sym) ? 0 : 1), assigns(:events).count
             assert assigns(:events).first.send("#{f}?".to_sym) if assigns(:events).present?
           end
         end
@@ -285,7 +287,7 @@ class EventsControllerTest < ActionController::TestCase
 
       context 'GET :new emergency' do
         setup do
-          get :new, { emergency: '1' }
+          get :new, params: { emergency: '1' }
         end
 
         should respond_with :success
@@ -297,8 +299,8 @@ class EventsControllerTest < ActionController::TestCase
 
       context 'POST :create' do
         setup do
-          post :create, { event: FactoryBot.attributes_for(:ordinary_event),
-                          entry: FactoryBot.attributes_for(:verbose_entry) }
+          post :create, params: { event: FactoryBot.attributes_for(:ordinary_event),
+                                  entry: FactoryBot.attributes_for(:verbose_entry) }
         end
 
         should respond_with :redirect
@@ -307,7 +309,7 @@ class EventsControllerTest < ActionController::TestCase
 
       context 'GET :edit' do
         setup do
-          get :edit, { id: @event.to_param }
+          get :edit, params: { id: @event.to_param }
         end
 
         should respond_with :success
@@ -316,8 +318,8 @@ class EventsControllerTest < ActionController::TestCase
 
       context 'PUT :update' do
         setup do
-          put :update, { id: @event.to_param, event: FactoryBot.attributes_for(:ordinary_event),
-                         entry: FactoryBot.attributes_for(:verbose_entry) }
+          put :update, params: { id: @event.to_param,
+                                 event: FactoryBot.attributes_for(:ordinary_event), entry: FactoryBot.attributes_for(:verbose_entry) }
         end
 
         should respond_with :redirect
@@ -327,7 +329,7 @@ class EventsControllerTest < ActionController::TestCase
       context 'PUT :update with changed flags' do
         setup do
           @num_history = EventFlagHistory.count
-          put :update, { id: @event.to_param, event: { sticky: true } }
+          put :update, params: { id: @event.to_param, event: { sticky: true } }
         end
 
         should 'generate new history entry' do
@@ -338,7 +340,7 @@ class EventsControllerTest < ActionController::TestCase
       context 'PUT :update without changed flags' do
         setup do
           @num_history = EventFlagHistory.count
-          put :update, { id: @event.to_param }
+          put :update, params: { id: @event.to_param }
         end
 
         should 'not generate new history entry' do
@@ -353,7 +355,7 @@ class EventsControllerTest < ActionController::TestCase
 
         context 'POST :merge two events' do
           setup do
-            post :merge_events, merge_ids: [@event.id, @merge_me.id]
+            post :merge_events, params: { merge_ids: [@event.id, @merge_me.id] }
           end
 
           should respond_with :redirect
@@ -374,8 +376,8 @@ class EventsControllerTest < ActionController::TestCase
 
       context 'POST :create' do
         setup do
-          post :create, { event: FactoryBot.attributes_for(:ordinary_event),
-                          entry: FactoryBot.attributes_for(:verbose_entry) }
+          post :create, params: { event: FactoryBot.attributes_for(:ordinary_event),
+                                  entry: FactoryBot.attributes_for(:verbose_entry) }
         end
 
         should respond_with :redirect
@@ -384,7 +386,7 @@ class EventsControllerTest < ActionController::TestCase
 
       context 'GET :edit' do
         setup do
-          get :edit, { id: @event.to_param }
+          get :edit, params: { id: @event.to_param }
         end
 
         should respond_with :redirect
@@ -393,8 +395,8 @@ class EventsControllerTest < ActionController::TestCase
 
       context 'PUT :update' do
         setup do
-          put :update, { id: @event.to_param, event: FactoryBot.attributes_for(:ordinary_event),
-                         entry: FactoryBot.attributes_for(:verbose_entry) }
+          put :update, params: { id: @event.to_param,
+                                 event: FactoryBot.attributes_for(:ordinary_event), entry: FactoryBot.attributes_for(:verbose_entry) }
         end
 
         should respond_with :redirect

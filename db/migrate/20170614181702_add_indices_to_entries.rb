@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddIndicesToEntries < ActiveRecord::Migration
   def change
     add_index :entries, :event_id

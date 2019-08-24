@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: entries
@@ -11,7 +13,7 @@
 #  rolename    :string(255)
 #
 
-class Entry < ActiveRecord::Base
+class Entry < ApplicationRecord
   has_paper_trail
 
   belongs_to :event

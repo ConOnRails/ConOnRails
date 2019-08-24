@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddFieldsToContacts < ActiveRecord::Migration
   def change
     add_column :contacts, :can_text, :boolean, default: false

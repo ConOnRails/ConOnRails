@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateVsps < ActiveRecord::Migration
   def change
     create_table :vsps do |t|

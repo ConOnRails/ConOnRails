@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: radio_assignments
@@ -20,7 +22,7 @@ class DepartmentAllotmentChecker < ActiveModel::Validator
   end
 end
 
-class RadioAssignment < ActiveRecord::Base
+class RadioAssignment < ApplicationRecord
   has_paper_trail
 
   belongs_to :radio
@@ -34,7 +36,7 @@ class RadioAssignment < ActiveRecord::Base
   validates :department, presence: true
   validates_with DepartmentAllotmentChecker, message: "All of this department's radios are allotted"
 
-  def RadioAssignment.department_count(dept_id)
+  def self.department_count(dept_id)
     RadioAssignment.where(department_id: dept_id).count
   end
 
@@ -49,15 +51,15 @@ class RadioAssignment < ActiveRecord::Base
 
   def checkin(user)
     RadioAssignmentAudit.audit_checkin(self, user)
-    self.destroy
-    if self.destroyed?
-      self.radio.state = "in"
-      self.radio.save
+    destroy
+    if destroyed?
+      radio.state = 'in'
+      radio.save
     end
   end
 
   def transfer(params, user)
-    if self.update_attributes(volunteer_id: params[:volunteer_id], department_id: params[:department_id])
+    if update(volunteer_id: params[:volunteer_id], department_id: params[:department_id])
       RadioAssignmentAudit.audit_checkout(self, user)
     end
     self

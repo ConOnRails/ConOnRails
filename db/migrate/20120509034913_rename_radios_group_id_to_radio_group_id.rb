@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RenameRadiosGroupIdToRadioGroupId < ActiveRecord::Migration
   def up
     rename_column :radios, :group_id, :radio_group_id

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChangeRadioNumberToString < ActiveRecord::Migration
   def up
     change_column :radios, :number, :string

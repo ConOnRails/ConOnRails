@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: departments
@@ -11,12 +13,12 @@
 #  updated_at      :datetime         not null
 #
 
-class Department < ActiveRecord::Base
+class Department < ApplicationRecord
   has_paper_trail
 
   belongs_to :volunteer
   belongs_to :radio_group
-  validates_presence_of :name
-  validates_uniqueness_of :name
-  validates_presence_of :radio_group
+  validates :name, presence: true
+  validates :name, uniqueness: true
+  validates :radio_group, presence: true
 end

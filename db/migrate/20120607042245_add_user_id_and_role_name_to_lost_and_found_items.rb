@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddUserIdAndRoleNameToLostAndFoundItems < ActiveRecord::Migration
   def change
     add_column :lost_and_found_items, :user_id, :integer

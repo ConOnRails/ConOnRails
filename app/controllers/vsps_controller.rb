@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 class VspsController < ApplicationController
   respond_to :html
 
-  before_filter :reject_peons
-  before_filter :find_vsps, only: [:index]
-  before_filter :new_vsp, only: [:new]
-  before_filter :create_vsp, only: [:create]
-  before_filter :find_vsp, only: [:edit, :update]
+  before_action :reject_peons
+  before_action :find_vsps, only: [:index]
+  before_action :new_vsp, only: [:new]
+  before_action :create_vsp, only: [:create]
+  before_action :find_vsp, only: %i[edit update]
 
   def create
     flash[:notice] = 'VSP created successfully!' if @vsp.save
@@ -13,7 +15,7 @@ class VspsController < ApplicationController
   end
 
   def update
-    flash[:notice] = 'VSP updated successfully!' if @vsp.update_attributes vsp_params
+    flash[:notice] = 'VSP updated successfully!' if @vsp.update vsp_params
     respond_with @vsp, location: vsps_path
   end
 

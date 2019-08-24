@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: audits
@@ -18,5 +20,5 @@
 #  created_at      :datetime
 #
 
-class Audit < ActiveRecord::Base
+class Audit < ApplicationRecord
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddDepartmentFlagsToEvents < ActiveRecord::Migration
   def change
     add_column :events, :consuite, :boolean

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: versions
@@ -11,6 +13,6 @@
 #  created_at :datetime
 #
 
-class Version < ActiveRecord::Base
+class Version < ApplicationRecord
   include CurrentConvention
 end

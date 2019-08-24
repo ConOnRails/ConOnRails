@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateDutyBoardAssignments < ActiveRecord::Migration
   def change
     create_table :duty_board_assignments do |t|

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateLostAndFoundItems < ActiveRecord::Migration
   def change
     create_table :lost_and_found_items do |t|

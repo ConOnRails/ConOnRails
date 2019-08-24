@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: event_flag_histories
@@ -35,7 +37,7 @@
 #  merged       :boolean
 #
 
-class EventFlagHistory < ActiveRecord::Base
+class EventFlagHistory < ApplicationRecord
   include AlertTags
 
   has_paper_trail
@@ -44,7 +46,7 @@ class EventFlagHistory < ActiveRecord::Base
   belongs_to :user
 
   def status=(string)
-    raise Exception if string != 'Active' and string != 'Closed'
+    raise Exception if (string != 'Active') && (string != 'Closed')
 
     self.is_active = true if string == 'Active'
     self.is_active = false if string == 'Closed'

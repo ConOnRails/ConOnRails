@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'query'
 
 module Queries
@@ -5,29 +7,26 @@ module Queries
     class EventQuery < Query
       def method_missing(name, *args)
         if Event::FLAGS.include? name.to_s
-          args[0].where Squeel::Nodes::KeyPath.new(name).eq(true)
+          args[0].where(name => true)
         elsif Event::FLAGS.include? name.to_s.sub(/^not_/, '')
-          args[0].where Squeel::Nodes::KeyPath.new(name.to_s.sub(/^not_/, '').to_sym).eq(false)
-        elsif name.to_s =~ /^(.*)_or_(.*)/ && Event::FLAGS.include?($1) && Event::FLAGS.include?($2)
-          kp1 = Squeel::Nodes::KeyPath.new($1.to_sym).eq(true)
-          kp2 = Squeel::Nodes::KeyPath.new($2.to_sym).eq(true)
-          args[0].where { (kp1 | kp2) }
+          args[0].where(name.to_s.sub(/^not_/, '') => false)
+        elsif name.to_s =~ /^(.*)_or_(.*)/ && Event::FLAGS.include?(Regexp.last_match(1)) && Event::FLAGS.include?(Regexp.last_match(2))
+          args[0].where(Regexp.last_match(1) => true).or(args[0].where(Regexp.last_match(2) => true))
         end
       end
 
       protected
 
-      # TODO there's now a copy of this on Event. Find a way to unify them.
+      # TODO: there's now a copy of this on Event. Find a way to unify them.
       def build_from_filters(filters)
-        filters.reduce(Squeel::Nodes::Stub.new(:created_at).not_eq(nil)) do |query, key|
-          unless key.first == 'order'
-            query = query.& Squeel::Nodes::KeyPath.new(key.first.to_sym).eq(fix_bool key.second) unless key.second == 'all'
-          end
-          query
-        end if filters.present?
+        query = {}
+        filters&.each do |key, value|
+          query[key.to_sym] = (fix_bool value) unless value == 'all'
+        end
+        query
       end
 
-      def fix_bool val
+      def fix_bool(val)
         if val.is_a? String
           return true if val == 'true'
           return false if val == 'false'
@@ -38,7 +37,7 @@ module Queries
 
     class IndexQuery < EventQuery
       def query(filters = nil)
-        is_active not_sticky not_secure not_hidden(initial_query.where { |_q| build_from_filters(filters) })
+        is_active not_sticky not_secure not_hidden(initial_query.where(build_from_filters(filters)))
       end
     end
 
@@ -61,7 +60,7 @@ module Queries
       end
 
       def query
-        initial_query.where { |_q| build_from_filters(@filters) }
+        initial_query.where(build_from_filters(@filters))
       end
     end
   end

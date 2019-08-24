@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddNerfHerdersToEvent < ActiveRecord::Migration
   def change
     add_column :events, :nerf_herders, :boolean

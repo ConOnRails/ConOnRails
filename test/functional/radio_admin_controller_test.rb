@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class RadioAdminControllerTest < ActionController::TestCase
@@ -6,8 +8,8 @@ class RadioAdminControllerTest < ActionController::TestCase
     @role = FactoryBot.create :admin_radios_role
     @user.roles << @role
   end
-  test "should get index" do
-    get :index, {}, { user_id: @user.id }
+  test 'should get index' do
+    get :index, session: { user_id: @user.id }
     assert_response :success
   end
 end

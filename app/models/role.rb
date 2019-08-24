@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: roles
@@ -22,7 +24,7 @@
 #  read_audits             :boolean          default(FALSE)
 #
 
-class Role < ActiveRecord::Base
+class Role < ApplicationRecord
   has_paper_trail
 
   has_and_belongs_to_many :users

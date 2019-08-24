@@ -46,6 +46,7 @@ FactoryBot.define do
       column { 1 }
     end
   end
+
   factory :duty_board_slot do
     factory :valid_duty_board_slot do
       name { Faker::Name.name }

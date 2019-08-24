@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class LostAndFoundControllerTest < ActionController::TestCase
@@ -5,8 +7,8 @@ class LostAndFoundControllerTest < ActionController::TestCase
     @user = FactoryBot.create :user
   end
 
-  test "should get index" do
-    get :index, {}, { user_id: @user.id }
+  test 'should get index' do
+    get :index, session: { user_id: @user.id }
     assert_response :success
   end
 end

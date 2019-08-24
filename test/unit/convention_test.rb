@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: conventions
@@ -13,7 +15,7 @@
 require 'test_helper'
 
 class ConventionTest < ActiveSupport::TestCase
-  context Convention do
+  context Convention do # rubocop:disable Metrics/BlockLength
     should validate_presence_of :name
     should validate_uniqueness_of :name
     should validate_presence_of :start_date

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 def show_this(e)
   if e.entries.count == 1
     e.entries.first.description

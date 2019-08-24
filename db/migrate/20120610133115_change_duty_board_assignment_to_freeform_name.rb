@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChangeDutyBoardAssignmentToFreeformName < ActiveRecord::Migration
   def up
     change_table :duty_board_assignments do |t|

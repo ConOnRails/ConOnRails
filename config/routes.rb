@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ConOnRails::Application.routes.draw do
   root controller: :events, action: :index, active: true
 
@@ -50,7 +52,7 @@ ConOnRails::Application.routes.draw do
   end
 
   resources :radio_admin, only: [:index]
-  resources :radio_assignments, only: [:create, :update, :destroy]
+  resources :radio_assignments, only: %i[create update destroy]
   resources :radio_assignment_audits, only: [:index]
   resources :radio_groups do
     collection do
@@ -69,7 +71,7 @@ ConOnRails::Application.routes.draw do
   end
 
   resources :roles
-  resources :sessions, only: [:new, :create, :destroy]
+  resources :sessions, only: %i[new create destroy]
   resources :users do
     member do
       get :change_password
@@ -89,7 +91,7 @@ ConOnRails::Application.routes.draw do
     end
   end
 
-  resources :vsps, except: [:show, :destroy]
+  resources :vsps, except: %i[show destroy]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

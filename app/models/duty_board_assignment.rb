@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: duty_board_assignments
@@ -11,11 +13,11 @@
 #  string             :string(255)
 #
 
-class DutyBoardAssignment < ActiveRecord::Base
+class DutyBoardAssignment < ApplicationRecord
   has_paper_trail
 
   belongs_to :duty_board_slot
-  validates_presence_of :name, message: "You must have a name"
-  validates_presence_of :duty_board_slot, message: "You must associate with a duty board slot"
-  validates_length_of :notes, maximum: 255
+  validates :name, presence: { message: 'You must have a name' }
+  validates :duty_board_slot, presence: { message: 'You must associate with a duty board slot' }
+  validates :notes, length: { maximum: 255 }
 end

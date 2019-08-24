@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class RolesController < ApplicationController
   respond_to :html, :json
 
-  before_filter :redirect_if_cannot_admin
-  before_filter :find_role, only: [:show, :edit, :update, :destroy]
-  before_filter :find_roles, only: [:index]
+  before_action :redirect_if_cannot_admin
+  before_action :find_role, only: %i[show edit update destroy]
+  before_action :find_roles, only: [:index]
 
   # GET /roles/new
   # GET /roles/new.json
@@ -22,7 +24,7 @@ class RolesController < ApplicationController
   # PUT /roles/1
   # PUT /roles/1.json
   def update
-    flash[:notice] = 'Role was successfully updated.' if @role.update_attributes role_params
+    flash[:notice] = 'Role was successfully updated.' if @role.update role_params
     respond_with @role
   end
 
@@ -44,9 +46,7 @@ class RolesController < ApplicationController
   end
 
   def redirect_if_cannot_admin
-    unless current_user and current_user.can_admin_users?
-      redirect_to public_url
-    end
+    redirect_to public_url unless current_user&.can_admin_users?
   end
 
   def role_params

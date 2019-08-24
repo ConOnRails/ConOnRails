@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: radio_groups
@@ -19,7 +21,7 @@ class RadioGroupTest < ActiveSupport::TestCase
     @radio           = FactoryBot.build :valid_blue_radio
   end
 
-  test "can create a group with many radios" do
+  test 'can create a group with many radios' do
     group = nil
     assert_difference 'RadioGroup.count' do
       group = FactoryBot.create :many_blue_men_group

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddTypeFlagsToEvents < ActiveRecord::Migration
   def change
     add_column :events, :comment, :boolean, default: false

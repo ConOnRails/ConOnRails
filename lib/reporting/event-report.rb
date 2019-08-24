@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'csv'
 
 def flags(event)
@@ -7,19 +9,17 @@ def flags(event)
         if f == 'is_active' && efh[f] == false
           'CLOSED'
         elsif efh[f] == true
-          "#{f}"
+          f.to_s
         end
       end.compact.join(' ') +
-      efh.alert_list.collect do |f|
-        "#{f}"
-      end.compact.join(' ')
+      efh.alert_list.collect(&:to_s).compact.join(' ')
   end.join("\r")
 end
 
 def entries(event)
   first = event.entries.first
   event.entries.collect do |entry|
-    created_or_updated = (entry == first) ? 'created' : 'update'
+    created_or_updated = entry == first ? 'created' : 'update'
     "#{entry.created_at.getlocal.ctime} #{created_or_updated} by #{entry.user.realname} as #{entry.rolename}\r#{entry.description}"
   end.join("\r\r")
 end
@@ -39,7 +39,7 @@ filename = "#{con.name.downcase.gsub(' ', '_')}-event-log.csv"
 
 CSV.open filename, 'wb', headers: :first do |csv|
   csv << ['ID', 'State', 'Flag History', 'Entries']
-  Event.where { |e| (e.created_at >= con.start_date) & (e.created_at <= con.end_date) }
+  Event.where(created_at: con.start_date..con.end_date)
        .order('created_at').each do |event|
     csv << [
       event.id,

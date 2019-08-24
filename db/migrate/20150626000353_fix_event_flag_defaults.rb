@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FixEventFlagDefaults < ActiveRecord::Migration
   def change
     change_column :events, :post_con, :boolean, default: false

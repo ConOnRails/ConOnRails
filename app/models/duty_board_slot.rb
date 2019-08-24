@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: duty_board_slots
@@ -9,14 +11,14 @@
 #  updated_at          :datetime         not null
 #
 
-class DutyBoardSlot < ActiveRecord::Base
+class DutyBoardSlot < ApplicationRecord
   has_paper_trail
 
   belongs_to :duty_board_group
   has_one :duty_board_assignment
   accepts_nested_attributes_for :duty_board_assignment
 
-  validates_presence_of :name
-  validates_uniqueness_of :name
-  validates_presence_of :duty_board_group_id
+  validates :name, presence: true
+  validates :name, uniqueness: true
+  validates :duty_board_group_id, presence: true
 end

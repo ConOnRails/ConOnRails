@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: contacts
@@ -14,12 +16,12 @@
 #  position   :string(255)
 #
 
-class Contact < ActiveRecord::Base
+class Contact < ApplicationRecord
   has_paper_trail
 
   # audited
-  validates_format_of :cell_phone,
-                      message: "must be a valid telephone number.",
-                      with: /\A[\(\)0-9\- \+\.]{10,20}\z/
+  validates :cell_phone,
+            format: { message: 'must be a valid telephone number.',
+                      with: /\A[\(\)0-9\- \+\.]{10,20}\z/ }
   validates :name, presence: true, allow_blank: false
 end

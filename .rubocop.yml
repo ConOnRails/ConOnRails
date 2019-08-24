@@ -1,11 +1,6 @@
-AllCops:
-  RSpec:
-    Patterns:
-    - _test.rb
-    - "(?:^|/)test/"
+require:
+  - rubocop-rails
 
-  RSpec/FactoryBot:
-    Patterns:
-    - test/factories/**/*.rb
-
-inherit_from: .rubocop_todo.yml
+Metrics/LineLength:
+  AutoCorrect: true
+  Max: 100

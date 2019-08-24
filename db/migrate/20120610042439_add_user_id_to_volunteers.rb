@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddUserIdToVolunteers < ActiveRecord::Migration
   def change
     add_column :volunteers, :user_id, :integer

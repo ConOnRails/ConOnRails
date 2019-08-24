@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddFlagHiddenAndRwSecureToRoles < ActiveRecord::Migration
   def change
     add_column :roles, :make_hidden_entries, :boolean, default: false

@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class RadioAssignmentsController < ApplicationController
   respond_to :html, :json, only: :destroy
-  respond_to :js, only: [:create, :update]
+  respond_to :js, only: %i[create update]
 
-  before_filter :can_assign_radios?
-  before_filter :find_assignment
+  before_action :can_assign_radios?
+  before_action :find_assignment
 
   # POST /radio_assignments
   # POST /radio_assignments.json

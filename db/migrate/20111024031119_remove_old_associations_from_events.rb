@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RemoveOldAssociationsFromEvents < ActiveRecord::Migration
   def up
     remove_column :events, :event_type_id

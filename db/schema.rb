@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170614184643) do
+ActiveRecord::Schema.define(version: 20190823220241) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,12 +29,11 @@ ActiveRecord::Schema.define(version: 20170614184643) do
     t.string   "comment"
     t.string   "remote_address"
     t.datetime "created_at"
+    t.index ["associated_id", "associated_type"], name: "associated_index", using: :btree
+    t.index ["auditable_id", "auditable_type"], name: "auditable_index", using: :btree
+    t.index ["created_at"], name: "index_audits_on_created_at", using: :btree
+    t.index ["user_id", "user_type"], name: "user_index", using: :btree
   end
-
-  add_index "audits", ["associated_id", "associated_type"], name: "associated_index", using: :btree
-  add_index "audits", ["auditable_id", "auditable_type"], name: "auditable_index", using: :btree
-  add_index "audits", ["created_at"], name: "index_audits_on_created_at", using: :btree
-  add_index "audits", ["user_id", "user_type"], name: "user_index", using: :btree
 
   create_table "contacts", force: :cascade do |t|
     t.string   "name"
@@ -81,11 +79,10 @@ ActiveRecord::Schema.define(version: 20170614184643) do
     t.integer  "column"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["column"], name: "index_duty_board_groups_on_column", using: :btree
+    t.index ["row", "column"], name: "index_duty_board_groups_on_row_and_column", unique: true, using: :btree
+    t.index ["row"], name: "index_duty_board_groups_on_row", using: :btree
   end
-
-  add_index "duty_board_groups", ["column"], name: "index_duty_board_groups_on_column", using: :btree
-  add_index "duty_board_groups", ["row", "column"], name: "index_duty_board_groups_on_row_and_column", unique: true, using: :btree
-  add_index "duty_board_groups", ["row"], name: "index_duty_board_groups_on_row", using: :btree
 
   create_table "duty_board_slots", force: :cascade do |t|
     t.string   "name"
@@ -101,12 +98,11 @@ ActiveRecord::Schema.define(version: 20170614184643) do
     t.integer  "user_id"
     t.integer  "event_id"
     t.string   "rolename"
+    t.index ["created_at"], name: "index_entries_on_created_at", using: :btree
+    t.index ["event_id"], name: "index_entries_on_event_id", using: :btree
+    t.index ["updated_at"], name: "index_entries_on_updated_at", using: :btree
+    t.index ["user_id"], name: "index_entries_on_user_id", using: :btree
   end
-
-  add_index "entries", ["created_at"], name: "index_entries_on_created_at", using: :btree
-  add_index "entries", ["event_id"], name: "index_entries_on_event_id", using: :btree
-  add_index "entries", ["updated_at"], name: "index_entries_on_updated_at", using: :btree
-  add_index "entries", ["user_id"], name: "index_entries_on_user_id", using: :btree
 
   create_table "event_flag_histories", force: :cascade do |t|
     t.integer  "event_id"
@@ -139,11 +135,10 @@ ActiveRecord::Schema.define(version: 20170614184643) do
     t.boolean  "programming",                 default: false
     t.boolean  "registration",                default: false
     t.boolean  "volunteers_den",              default: false
+    t.index ["created_at"], name: "index_event_flag_histories_on_created_at", using: :btree
+    t.index ["event_id"], name: "index_event_flag_histories_on_event_id", using: :btree
+    t.index ["updated_at"], name: "index_event_flag_histories_on_updated_at", using: :btree
   end
-
-  add_index "event_flag_histories", ["created_at"], name: "index_event_flag_histories_on_created_at", using: :btree
-  add_index "event_flag_histories", ["event_id"], name: "index_event_flag_histories_on_event_id", using: :btree
-  add_index "event_flag_histories", ["updated_at"], name: "index_event_flag_histories_on_updated_at", using: :btree
 
   create_table "events", force: :cascade do |t|
     t.datetime "created_at"
@@ -173,16 +168,15 @@ ActiveRecord::Schema.define(version: 20170614184643) do
     t.boolean  "programming"
     t.boolean  "registration"
     t.boolean  "volunteers_den"
+    t.index ["created_at"], name: "index_events_on_created_at", using: :btree
+    t.index ["emergency"], name: "index_events_on_emergency", using: :btree
+    t.index ["hotel"], name: "index_events_on_hotel", using: :btree
+    t.index ["is_active"], name: "index_events_on_is_active", using: :btree
+    t.index ["medical"], name: "index_events_on_medical", using: :btree
+    t.index ["secure"], name: "index_events_on_secure", using: :btree
+    t.index ["sticky"], name: "index_events_on_sticky", using: :btree
+    t.index ["updated_at"], name: "index_events_on_updated_at", using: :btree
   end
-
-  add_index "events", ["created_at"], name: "index_events_on_created_at", using: :btree
-  add_index "events", ["emergency"], name: "index_events_on_emergency", using: :btree
-  add_index "events", ["hotel"], name: "index_events_on_hotel", using: :btree
-  add_index "events", ["is_active"], name: "index_events_on_is_active", using: :btree
-  add_index "events", ["medical"], name: "index_events_on_medical", using: :btree
-  add_index "events", ["secure"], name: "index_events_on_secure", using: :btree
-  add_index "events", ["sticky"], name: "index_events_on_sticky", using: :btree
-  add_index "events", ["updated_at"], name: "index_events_on_updated_at", using: :btree
 
   create_table "login_logs", force: :cascade do |t|
     t.string   "user_name"
@@ -274,16 +268,14 @@ ActiveRecord::Schema.define(version: 20170614184643) do
     t.boolean  "make_hidden_entries",     default: false
     t.boolean  "rw_secure",               default: false
     t.boolean  "read_audits",             default: false
+    t.index ["name"], name: "index_roles_on_name", unique: true, using: :btree
   end
-
-  add_index "roles", ["name"], name: "index_roles_on_name", unique: true, using: :btree
 
   create_table "roles_users", id: false, force: :cascade do |t|
     t.integer "role_id"
     t.integer "user_id"
+    t.index ["role_id", "user_id"], name: "index_roles_users_on_role_id_and_user_id", unique: true, using: :btree
   end
-
-  add_index "roles_users", ["role_id", "user_id"], name: "index_roles_users_on_role_id_and_user_id", unique: true, using: :btree
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
@@ -293,24 +285,22 @@ ActiveRecord::Schema.define(version: 20170614184643) do
     t.string   "tagger_type"
     t.string   "context",       limit: 128
     t.datetime "created_at"
+    t.index ["context"], name: "index_taggings_on_context", using: :btree
+    t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
+    t.index ["tag_id"], name: "index_taggings_on_tag_id", using: :btree
+    t.index ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
+    t.index ["taggable_id", "taggable_type", "tagger_id", "context"], name: "taggings_idy", using: :btree
+    t.index ["taggable_id"], name: "index_taggings_on_taggable_id", using: :btree
+    t.index ["taggable_type"], name: "index_taggings_on_taggable_type", using: :btree
+    t.index ["tagger_id", "tagger_type"], name: "index_taggings_on_tagger_id_and_tagger_type", using: :btree
+    t.index ["tagger_id"], name: "index_taggings_on_tagger_id", using: :btree
   end
-
-  add_index "taggings", ["context"], name: "index_taggings_on_context", using: :btree
-  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
-  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id", using: :btree
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
-  add_index "taggings", ["taggable_id", "taggable_type", "tagger_id", "context"], name: "taggings_idy", using: :btree
-  add_index "taggings", ["taggable_id"], name: "index_taggings_on_taggable_id", using: :btree
-  add_index "taggings", ["taggable_type"], name: "index_taggings_on_taggable_type", using: :btree
-  add_index "taggings", ["tagger_id", "tagger_type"], name: "index_taggings_on_tagger_id_and_tagger_type", using: :btree
-  add_index "taggings", ["tagger_id"], name: "index_taggings_on_tagger_id", using: :btree
 
   create_table "tags", force: :cascade do |t|
     t.string  "name"
     t.integer "taggings_count", default: 0
+    t.index ["name"], name: "index_tags_on_name", unique: true, using: :btree
   end
-
-  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "username"
@@ -318,9 +308,8 @@ ActiveRecord::Schema.define(version: 20170614184643) do
     t.string   "password_digest"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["username"], name: "index_users_on_username", unique: true, using: :btree
   end
-
-  add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",  null: false
@@ -329,9 +318,8 @@ ActiveRecord::Schema.define(version: 20170614184643) do
     t.string   "whodunnit"
     t.text     "object"
     t.datetime "created_at"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
   end
-
-  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
   create_table "volunteer_trainings", force: :cascade do |t|
     t.integer  "volunteer_id"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: radio_assignments
@@ -25,11 +27,12 @@ class RadioAssignmentTest < ActiveSupport::TestCase
   context 'validate department allotments' do
     setup do
       @assignment = FactoryBot.create :valid_radio_assignment
-      @bad_assignment = FactoryBot.build(:valid_radio_assignment, department: @assignment.department)
+      @bad_assignment = FactoryBot.build(:valid_radio_assignment,
+                                         department: @assignment.department)
     end
 
     should 'not allow a new assignment' do
-      refute @bad_assignment.valid?, 'Assignment should not be valid'
+      assert_not @bad_assignment.valid?, 'Assignment should not be valid'
     end
   end
 end

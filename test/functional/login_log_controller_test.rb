@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class LoginLogControllerTest < ActionController::TestCase
@@ -8,8 +10,8 @@ class LoginLogControllerTest < ActionController::TestCase
     @user_session = { user_id: @user.id, current_role_name: @role.name }
   end
 
-  test "should get index" do
-    get :index, {}, @user_session
+  test 'should get index' do
+    get :index, session: @user_session
     assert_response :success
   end
 end

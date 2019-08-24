@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: lost_and_found_items
@@ -31,32 +33,32 @@ class LostAndFoundItemTest < ActiveSupport::TestCase
   # should validate_inclusion_of(:category).in_array LostAndFoundItem.valid_categories.keys
   should validate_presence_of :description
 
-  should "not be able to create with both missing and found" do
+  should 'not be able to create with both missing and found' do
     assert @both.invalid?
   end
 
-  context "lost" do
+  context 'lost' do
     subject { @lost }
 
     should validate_presence_of :where_last_seen
     should validate_presence_of :owner_name
 
-    should "be marked missing and not the others" do
+    should 'be marked missing and not the others' do
       assert subject.reported_missing?
-      assert !subject.found?
-      assert !subject.returned?
+      assert_not subject.found?
+      assert_not subject.returned?
     end
   end
 
-  context "found" do
+  context 'found' do
     subject { @found }
 
     should validate_presence_of :where_found
 
-    should "be marked found and not the others" do
+    should 'be marked found and not the others' do
       assert subject.found?
-      assert !subject.reported_missing?
-      assert !subject.returned?
+      assert_not subject.reported_missing?
+      assert_not subject.returned?
     end
   end
 end

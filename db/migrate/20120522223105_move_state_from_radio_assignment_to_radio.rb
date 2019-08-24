@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MoveStateFromRadioAssignmentToRadio < ActiveRecord::Migration
   def change
     remove_column :radio_assignments, :state

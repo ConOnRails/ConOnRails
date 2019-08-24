@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class DutyBoardSlotsController < ApplicationController
-  before_filter :can_admin_duty_board?, except: [:update]
+  before_action :can_admin_duty_board?, except: [:update]
 
   respond_to :html, :json
   layout 'application', except: :assign
@@ -48,16 +50,14 @@ class DutyBoardSlotsController < ApplicationController
     @duty_board_slot = DutyBoardSlot.find(params[:id])
 
     respond_with @duty_board_slot, location: :duty_board_slots do |_format|
-      if @duty_board_slot.update_attributes duty_board_slot_params
-=begin
-          if params[:duty_board_assignment]
-          if @duty_board_slot.duty_board_assignment
-            @duty_board_slot.duty_board_assignment.update_attributes duty_board_assignment_params
-          else
-            @duty_board_slot.build_duty_board_assignment duty_board_assignment_params
-            @duty_board_slot.save!
-          end
-=end
+      if @duty_board_slot.update duty_board_slot_params
+        #           if params[:duty_board_assignment]
+        #           if @duty_board_slot.duty_board_assignment
+        #             @duty_board_slot.duty_board_assignment.update_attributes duty_board_assignment_params
+        #           else
+        #             @duty_board_slot.build_duty_board_assignment duty_board_assignment_params
+        #             @duty_board_slot.save!
+        #           end
         flash[:notice] = 'Duty board slot was successfully updated'
       else
         flash[:notice] = 'Duty board slot was successfully updated'
@@ -70,9 +70,7 @@ class DutyBoardSlotsController < ApplicationController
   def clear_assignment
     @duty_board_slot = DutyBoardSlot.find params[:id]
 
-    if @duty_board_slot.duty_board_assignment
-      @duty_board_slot.duty_board_assignment.destroy
-    end
+    @duty_board_slot.duty_board_assignment&.destroy
 
     respond_to do |format|
       format.html { redirect_to duty_board_index_path, notice: 'Duty board slot was successfully cleared' }
@@ -94,7 +92,9 @@ class DutyBoardSlotsController < ApplicationController
   protected
 
   def duty_board_slot_params
-    params.require(:duty_board_slot).permit :name, :duty_board_group_id, duty_board_assignment_attributes: [:name, :notes, :duty_board_slot_id]
+    params.require(:duty_board_slot).permit :name, :duty_board_group_id, duty_board_assignment_attributes: %i[
+      name notes duty_board_slot_id
+    ]
   end
 
   def duty_board_assignment_params

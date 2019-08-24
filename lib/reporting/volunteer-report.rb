@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'csv'
 
 CSV.open 'volunteer-report.csv', 'wb' do |csv|

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: events
@@ -34,11 +36,13 @@
 
 require 'test_helper'
 
+# rubocop:disable Metrics/ClassLength
 class EventTest < ActiveSupport::TestCase
   should have_many :entries
   should have_many :event_flag_histories
   should accept_nested_attributes_for :entries
 
+  # rubocop:disable Metrics/BlockLength
   context 'an ordinary event' do
     setup do
       @event = FactoryBot.create :ordinary_event
@@ -49,31 +53,31 @@ class EventTest < ActiveSupport::TestCase
     end
 
     should 'have false type flags by default' do
-      assert !@event.post_con?
-      assert !@event.sticky?
-      assert !@event.emergency?
-      assert !@event.medical?
-      assert !@event.hidden?
-      assert !@event.secure?
+      assert_not @event.post_con?
+      assert_not @event.sticky?
+      assert_not @event.emergency?
+      assert_not @event.medical?
+      assert_not @event.hidden?
+      assert_not @event.secure?
     end
 
     should 'have false department flags by default' do
-      assert !@event.consuite?
-      assert !@event.hotel?
-      assert !@event.parties?
-      assert !@event.volunteers?
-      assert !@event.dealers?
-      assert !@event.dock?
-      assert !@event.merchandise?
-      assert !@event.nerf_herders?
-      assert !@event.accessibility_and_inclusion?
-      assert !@event.allocations?
-      assert !@event.first_advisors?
-      assert !@event.member_advocates?
-      assert !@event.operations?
-      assert !@event.programming?
-      assert !@event.registration?
-      assert !@event.volunteers_den?
+      assert_not @event.consuite?
+      assert_not @event.hotel?
+      assert_not @event.parties?
+      assert_not @event.volunteers?
+      assert_not @event.dealers?
+      assert_not @event.dock?
+      assert_not @event.merchandise?
+      assert_not @event.nerf_herders?
+      assert_not @event.accessibility_and_inclusion?
+      assert_not @event.allocations?
+      assert_not @event.first_advisors?
+      assert_not @event.member_advocates?
+      assert_not @event.operations?
+      assert_not @event.programming?
+      assert_not @event.registration?
+      assert_not @event.volunteers_den?
     end
 
     should 'have correct textual status' do
@@ -84,7 +88,7 @@ class EventTest < ActiveSupport::TestCase
 
     should 'set textual status and get right flags' do
       @event.status = 'Closed'
-      assert !@event.is_active?
+      assert_not @event.is_active?
       @event.status = 'Active'
       assert @event.is_active?
     end
@@ -103,7 +107,8 @@ class EventTest < ActiveSupport::TestCase
     end
 
     should 'have tags' do
-      # For now, tags are just flags represented as an array of symbols, until we convert flags to tags!
+      # For now, tags are just flags represented as an array of symbols,
+      # until we convert flags to tags!
       @event.medical = true
       assert_includes @event.tags, 'medical'
     end
@@ -130,7 +135,7 @@ class EventTest < ActiveSupport::TestCase
 
       context 'one event is secure' do
         setup do
-          @event.update_attribute(:secure, true)
+          @event.update(secure: true)
         end
 
         should 'have one secure event' do
@@ -196,12 +201,15 @@ class EventTest < ActiveSupport::TestCase
         end
 
         should 'have a new merged element' do
-          assert_equal @event.entries.count + @second_event.entries.count + 1, @new_event.entries.count
-          assert_match(/^Merged by #{@user.username} as 'vole'/, @new_event.entries.order(:id).last.description)
+          assert_equal @event.entries.count + @second_event.entries.count + 1,
+                       @new_event.entries.count
+          assert_match(/^Merged by #{@user.username} as 'vole'/,
+                       @new_event.entries.order(:id).last.description)
           assert @event.merged?
           assert @second_event.merged?
           assert_equal [@event.id, @second_event.id], @new_event.merged_from_ids
-          assert_equal Event.flags_union(@original_event_flags, @original_2d_event_flags), @new_event.flags
+          assert_equal Event.flags_union(@original_event_flags,
+                                         @original_2d_event_flags), @new_event.flags
         end
       end
 
@@ -225,4 +233,6 @@ class EventTest < ActiveSupport::TestCase
       end
     end
   end
+  # rubocop:enable Metrics/BlockLength
 end
+# rubocop:enable Metrics/ClassLength

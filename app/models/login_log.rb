@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: login_logs
@@ -11,6 +13,6 @@
 #  updated_at :datetime         not null
 #
 
-class LoginLog < ActiveRecord::Base
+class LoginLog < ApplicationRecord
   has_paper_trail
 end

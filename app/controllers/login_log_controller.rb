@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class LoginLogController < ApplicationController
-  before_filter :can_read_audits?
+  before_action :can_read_audits?
 
   def index
     @logins = LoginLog.all

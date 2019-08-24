@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ConvertLfiStates < ActiveRecord::Migration
   def up
     LostAndFoundItem.all.each do |lfi|

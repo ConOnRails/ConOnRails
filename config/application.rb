@@ -1,10 +1,12 @@
-require File.expand_path('../boot', __FILE__)
+# frozen_string_literal: true
+
+require File.expand_path('boot', __dir__)
 
 require 'rails/all'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
-  Bundler.require(*Rails.groups(:assets => %w(development test)))
+  Bundler.require(*Rails.groups(assets: %w[development test]))
   # If you want your assets lazily compiled in production, use this line
   # Bundler.require(:default, :assets, Rails.env)
 end
@@ -16,7 +18,7 @@ module ConOnRails
     # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be autoloadable.
-    config.autoload_paths += %W(#{config.root}/app/**/concerns)
+    config.autoload_paths += %W[#{config.root}/app/**/concerns]
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -34,7 +36,7 @@ module ConOnRails
     # config.i18n.default_locale = :de
 
     # Configure the default encoding used in templates for Ruby 1.9.
-    config.encoding = "utf-8"
+    config.encoding = 'utf-8'
     config.i18n.enforce_available_locales = true
 
     # Configure sensitive parameters which will be filtered from the log file.
@@ -46,7 +48,6 @@ module ConOnRails
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
-    config.active_record.raise_in_transactional_callbacks = true
     config.active_support.test_order = :sorted
   end
 end

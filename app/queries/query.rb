@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Queries
   class Query
     attr_reader :initial_query, :is

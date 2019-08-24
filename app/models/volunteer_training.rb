@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: volunteer_trainings
@@ -17,7 +19,7 @@
 #  updated_at     :datetime         not null
 #
 
-class VolunteerTraining < ActiveRecord::Base
+class VolunteerTraining < ApplicationRecord
   has_paper_trail
   belongs_to :volunteer
 end

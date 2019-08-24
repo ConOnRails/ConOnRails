@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: lost_and_found_items
@@ -17,52 +19,50 @@
 #  who_claimed     :string(255)
 #
 
-class LostAndFoundItem < ActiveRecord::Base
+class LostAndFoundItem < ApplicationRecord
   has_paper_trail
   include LostAndFoundStateTags
 
   belongs_to :user
 
   @@retired_categories = {
-    badge: "Badges",
-    costume_jewelry: "Costume Jewelry",
-    headgear: "Headgear",
-    keys: "Keys",
-    media: "Media",
-    money: "Money/Cards/ID",
-    paper: "Paper (incl. Reg Packets)",
-    phone: "Phones",
-    small_electronics: "Small Electronics",
-    wallet: "Wallet",
-    weapon: "Weapons/Props",
+    badge: 'Badges',
+    costume_jewelry: 'Costume Jewelry',
+    headgear: 'Headgear',
+    keys: 'Keys',
+    media: 'Media',
+    money: 'Money/Cards/ID',
+    paper: 'Paper (incl. Reg Packets)',
+    phone: 'Phones',
+    small_electronics: 'Small Electronics',
+    wallet: 'Wallet',
+    weapon: 'Weapons/Props'
   }
 
   @@valid_categories = {
-    bag: "Bags",
-    bottle: "Bottles",
-    clothing: "Clothing",
-    electronics: "Electronics",
-    glasses: "Glasses",
-    headwear: "Headwear",
-    jewelry: "Jewelry",
-    lockbox: "Lockbox (Money, ID, Cards, Wallets, Keys, Badges)",
-    papers: "Papers",
-    prop: "Props",
-    toy: "Toys",
-    other_not_listed: "Other Not Listed"
+    bag: 'Bags',
+    bottle: 'Bottles',
+    clothing: 'Clothing',
+    electronics: 'Electronics',
+    glasses: 'Glasses',
+    headwear: 'Headwear',
+    jewelry: 'Jewelry',
+    lockbox: 'Lockbox (Money, ID, Cards, Wallets, Keys, Badges)',
+    papers: 'Papers',
+    prop: 'Props',
+    toy: 'Toys',
+    other_not_listed: 'Other Not Listed'
   }
 
   def self.valid_categories
     @@valid_categories
   end
 
-=begin
-  scope :found, -> { where(found: true) }
-  scope :missing, -> { where(reported_missing: true) }
-  scope :returned, -> { where(returned: true) }
-  scope :not_returned, -> { where(returned: false) }
-  scope :inventory, -> (i) { where(found: true, returned: false) if i }
-=end
+  #   scope :found, -> { where(found: true) }
+  #   scope :missing, -> { where(reported_missing: true) }
+  #   scope :returned, -> { where(returned: true) }
+  #   scope :not_returned, -> { where(returned: false) }
+  #   scope :inventory, -> (i) { where(found: true, returned: false) if i }
 
   validates :category, presence: true, allow_blank: false, inclusion: { in: @@valid_categories.merge(@@retired_categories).values }
   validates :description, presence: true, allow_blank: false
@@ -83,8 +83,8 @@ class LostAndFoundItem < ActiveRecord::Base
   validate :always_missing_or_found
   validate :created_with_correct_descriptive_fields, on: :create
 
-  def LostAndFoundItem.categories
-    return @@valid_categories
+  def self.categories
+    @@valid_categories
   end
 
   def type
@@ -99,40 +99,38 @@ class LostAndFoundItem < ActiveRecord::Base
   end
 
   def always_missing_or_found
-    if not reported_missing? and not found?
-      errors.add :reported_missing, "must be true if found is false"
-      errors.add :found, "must be true if reported_missing is false"
+    if !reported_missing? && !found?
+      errors.add :reported_missing, 'must be true if found is false'
+      errors.add :found, 'must be true if reported_missing is false'
     end
   end
 
   def created_with_correct_descriptive_fields
     # This used to enforce only one or the other, but once a missing item has been found,
     # we want both fields
-    validate_where_found_empty if reported_missing? and !found?
-    validate_where_last_seen_empty if found? and !reported_missing?
+    validate_where_found_empty if reported_missing? && !found?
+    validate_where_last_seen_empty if found? && !reported_missing?
   end
 
   def creation_state_correct
-    if found? and reported_missing?
+    if found? && reported_missing?
       errors.add :reported_missing, 'Item can be EITHER reported missing OR found on creation, but not both. INTERNAL LOGIC ERROR'
     end
   end
 
   def validate_where_last_seen_empty
-    if where_last_seen != nil and where_last_seen != ''
-      errors.add :where_last_seen, "expected empty"
+    if !where_last_seen.nil? && (where_last_seen != '')
+      errors.add :where_last_seen, 'expected empty'
     end
   end
 
   def validate_where_found_empty
-    if where_found != nil and where_found != ''
-      errors.add :where_found, "expected empty"
-    end
+    errors.add :where_found, 'expected empty' if !where_found.nil? && (where_found != '')
   end
 
   def self.to_csv(lfis)
     CSV.generate do |csv|
-      csv << ['ID', 'Category', 'Description', 'Year']
+      csv << %w[ID Category Description Year]
       lfis.find_each do |lfi|
         csv << [
           lfi.id,

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: radio_assignment_audits
@@ -11,7 +13,7 @@
 #  user_id       :integer
 #  department_id :integer
 #
-class RadioAssignmentAudit < ActiveRecord::Base
+class RadioAssignmentAudit < ApplicationRecord
   has_paper_trail
 
   paginates_per 30
@@ -20,9 +22,9 @@ class RadioAssignmentAudit < ActiveRecord::Base
   belongs_to :volunteer
   belongs_to :department
   belongs_to :user
-  validates_presence_of :radio
-  validates_presence_of :department
-  validates_presence_of :user
+  validates :radio, presence: true
+  validates :department, presence: true
+  validates :user, presence: true
 
   def self.audit_checkin(radio_assignment, user)
     RadioAssignmentAudit.new_record radio_assignment, user, :in
@@ -37,11 +39,12 @@ class RadioAssignmentAudit < ActiveRecord::Base
   end
 
   def self.to_csv
-    attributes = %w{id radio_name volunteer_id volunteer_name state created_at updated_at admin_id admin_name department_name}
+    attributes = %w[id radio_name volunteer_id volunteer_name state created_at updated_at admin_id
+                    admin_name department_name]
     CSV.generate(headers: true) do |csv|
       csv << attributes
 
-      all.each do |audit|
+      all.find_each do |audit|
         csv << attributes.map { |attr| audit.send(attr) }
       end
     end
@@ -68,7 +71,7 @@ class RadioAssignmentAudit < ActiveRecord::Base
   end
 
   def self.new_record(a, u, s)
-    attr = a.attributes.reject { |k, _v| [:created_at, :updated_at, :id].include? k.to_sym }
+    attr = a.attributes.reject { |k, _v| %i[created_at updated_at id].include? k.to_sym }
     attr[:user_id] = u.id
     attr[:state] = s
     RadioAssignmentAudit.create! attr

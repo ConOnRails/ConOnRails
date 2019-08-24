@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: radio_groups
@@ -10,17 +12,17 @@
 #  updated_at :datetime         not null
 #
 
-class RadioGroup < ActiveRecord::Base
+class RadioGroup < ApplicationRecord
   has_paper_trail
 
-  COLORS = ["blue", "red", "yellow", "green", "black"]
+  COLORS = %w[blue red yellow green black].freeze
 
   #  audited
   has_many :radios
   validates :name, presence: true, allow_blank: false
-  validates :color, inclusion: { in: COLORS, message: "Please select a color!" }
+  validates :color, inclusion: { in: COLORS, message: 'Please select a color!' }
 
   def num_radios
-    return self.radios.count
+    radios.count
   end
 end

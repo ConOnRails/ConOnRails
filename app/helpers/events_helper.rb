@@ -1,10 +1,20 @@
+# frozen_string_literal: true
+
 module EventsHelper
+  def filter_params
+    params.permit(filters: [])
+  end
+
+  def action_params
+    params.permit(:action)
+  end
+
   def create_or_update
     (@event.new_record? ? 'Create a new ' : 'Update a') + ' log entry'
   end
 
   def filter(term)
-    params[:filters][term].presence if params[:filters].present?
+    filter_params[:filters][term].presence if filter_params[:filters].present?
   end
 
   def merge_button
@@ -16,9 +26,9 @@ module EventsHelper
   end
 
   def merge_button_path
-    new_params = toggle_merge_mode(params.clone)
+    new_params = toggle_merge_mode(action_params.clone)
 
-    case params[:action].to_sym
+    case action_params[:action].to_sym
     when :sticky
       sticky_events_path(new_params)
     when :secure
@@ -55,7 +65,7 @@ module EventsHelper
   end
 
   def event_style(event)
-    ret = ''
+    ret = String.new
     ret << 'active ' if event.is_active?
     ret << 'medical ' if event.medical?
     ret << 'emergency ' if event.emergency?
@@ -141,7 +151,7 @@ module EventsHelper
   end
 
   def sidebar_menu
-    case url_for()
+    case url_for
     when root_path, events_path
       active_text <<
         secure_link <<
@@ -155,7 +165,7 @@ module EventsHelper
         secure_text <<
         sticky_link
     else
-      content_tag :div, "I HAVE NO IDEA WHAT TO DO NOW!"
+      content_tag :div, 'I HAVE NO IDEA WHAT TO DO NOW!'
     end
   end
 
@@ -168,7 +178,7 @@ module EventsHelper
   end
 
   def active_index_filter?(key)
-    session[:index_filter] && session[:index_filter].keys.include?(key.to_s)
+    session[:index_filter]&.keys&.include?(key.to_s)
   end
 
   def current_class(key)

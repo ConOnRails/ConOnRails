@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: roles_users
@@ -6,6 +8,6 @@
 #  user_id :integer
 #
 
-class RolesUsers < ActiveRecord::Base
+class RolesUsers < ApplicationRecord
   has_paper_trail
 end

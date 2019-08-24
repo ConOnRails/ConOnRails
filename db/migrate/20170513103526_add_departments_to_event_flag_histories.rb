@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddDepartmentsToEventFlagHistories < ActiveRecord::Migration
   def change
     add_column :event_flag_histories, :accessibility_and_inclusion, :boolean, default: false

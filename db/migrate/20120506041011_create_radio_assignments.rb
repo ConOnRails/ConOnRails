@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateRadioAssignments < ActiveRecord::Migration
   def change
     create_table :radio_assignments do |t|
