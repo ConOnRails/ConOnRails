@@ -1,12 +1,5 @@
 # frozen_string_literal: true
 
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
 $LOAD_PATH.unshift File.expand_path(__dir__)
 require 'factory_bot_rails'
 require 'faker'
@@ -49,7 +42,8 @@ role = Role.create!(name: 'Head',
 user.roles << role
 user.save!
 
-# preseed the other roles. Since the db defaults these to false, we only need to specify what's true'
+# preseed the other roles.
+# Since the db defaults these to false, we only need to specify what's true'
 Role.create!(name: 'Subhead',
              add_lost_and_found: true,
              admin_duty_board: true,
@@ -144,10 +138,9 @@ when 'development'
       )
 
       EventFlagHistory.create!(
-        event.attributes.reject { |k, _v| %w[merged_from_ids id alert_list corkboard_list].include? k }.merge(
-          user: user,
-          event: event
-        )
+        event.attributes.reject do |k, _v|
+          %w[merged_from_ids id alert_list corkboard_list].include? k
+        end.merge(user: user, event: event)
       )
     end
   end

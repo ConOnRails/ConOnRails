@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require('test_helper')
 
 class RadiosControllerTest < ActionController::TestCase
   setup do
     FactoryBot.use_parent_strategy = false
-    @assignment = FactoryBot.build :valid_radio_assignment
-    @radio = FactoryBot.build :valid_blue_radio
-    @user  = FactoryBot.create :user
-    @role  = FactoryBot.create :admin_radios_role
-    @department = FactoryBot.create :good_department
+    @assignment = FactoryBot.build(:valid_radio_assignment)
+    @radio = FactoryBot.build(:valid_blue_radio)
+    @user  = FactoryBot.create(:user)
+    @role  = FactoryBot.create(:admin_radios_role)
+    @department = FactoryBot.create(:good_department)
     @user.roles << @role
     @user_session = { user_id: @user.id, current_role_name: @role.name }
-    @volunteer = FactoryBot.create :valid_volunteer
+    @volunteer = FactoryBot.create(:valid_volunteer)
   end
 
   test 'should get index' do
@@ -28,7 +28,10 @@ class RadiosControllerTest < ActionController::TestCase
 
   test 'should create radio' do
     assert_difference('Radio.count') do
-      post :create, params: { radio: FactoryBot.attributes_for(:valid_blue_radio).merge(radio_group_id: 1) }, session: @user_session
+      post :create,
+           params: { radio: FactoryBot.attributes_for(:valid_blue_radio)
+                                      .merge(radio_group_id: 1) },
+           session: @user_session
     end
 
     assert_redirected_to radios_path
@@ -48,8 +51,12 @@ class RadiosControllerTest < ActionController::TestCase
 
   test 'should update radio' do
     @radio.save!
-    put :update, params: { id: @radio.to_param,
-                           radio: { notes: Faker::Lorem.paragraph } }, session: @user_session
+    put :update,
+        params: {
+          id: @radio.to_param,
+          radio: { notes: Faker::Lorem.paragraph }
+        },
+        session: @user_session
     assert_redirected_to radios_path
   end
 
@@ -70,28 +77,39 @@ class RadiosControllerTest < ActionController::TestCase
 
   test 'can search volunteers' do
     @radio.save!
-    post :search_volunteers, xhr: true,
-                             params: { first_name: @volunteer.first_name,
-                                       last_name: @volunteer.last_name, radio: @radio.to_param },
-                             session: @user_session
+    post :search_volunteers,
+         xhr: true,
+         params: {
+           first_name: @volunteer.first_name,
+           last_name: @volunteer.last_name,
+           radio: @radio.to_param
+         },
+         session: @user_session
     assert_response :success
   end
 
   test 'can search volunteers case insensitive' do
     @radio.save!
-    post :search_volunteers, xhr: true,
-                             params: { first_name: @volunteer.first_name.downcase,
-                                       last_name: @volunteer.last_name.upcase, radio: @radio.to_param },
-                             session: @user_session
+    post :search_volunteers,
+         xhr: true,
+         params: {
+           first_name: @volunteer.first_name.downcase,
+           last_name: @volunteer.last_name.upcase,
+           radio: @radio.to_param
+         },
+         session: @user_session
     assert_response :success
   end
 
   test 'can select department' do
     @radio.save!
-    get :select_department, xhr: true,
-                            params: { id: @radio.to_param,
-                                      volunteer: @volunteer.to_param },
-                            session: @user_session
+    get :select_department,
+        xhr: true,
+        params: {
+          id: @radio.to_param,
+          volunteer: @volunteer.to_param
+        },
+        session: @user_session
     assert_response :success
   end
 end

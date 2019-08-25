@@ -5,11 +5,11 @@
 # Table name: users
 #
 #  id              :integer          not null, primary key
-#  username        :string(255)
-#  realname        :string(255)
-#  password_digest :string(255)
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  username        :string
+#  realname        :string
+#  password_digest :string
+#  created_at      :datetime
+#  updated_at      :datetime
 #
 
 require 'test_helper'
@@ -104,7 +104,7 @@ class UserTest < ActiveSupport::TestCase
     assert user.authenticate(short_password) == false
   end
 
-  context '#has_role?' do
+  context '#role?' do
     setup do
       @user = User.create!(@input_attributes)
       role = FactoryBot.create(:role)
@@ -112,11 +112,11 @@ class UserTest < ActiveSupport::TestCase
     end
 
     should 'return true if appropriate' do
-      assert @user.has_role? 'peon'
-      assert @user.has_role? 'peon', 'llama'
+      assert @user.role? 'peon'
+      assert @user.role? 'peon', 'llama'
     end
     should 'return false if appropriate' do
-      assert @user.has_role?('god') == false
+      assert @user.role?('god') == false
     end
   end
 end

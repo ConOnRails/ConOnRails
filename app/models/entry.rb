@@ -6,11 +6,11 @@
 #
 #  id          :integer          not null, primary key
 #  description :text
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  created_at  :datetime
+#  updated_at  :datetime
 #  user_id     :integer
 #  event_id    :integer
-#  rolename    :string(255)
+#  rolename    :string
 #
 
 class Entry < ApplicationRecord

@@ -4,45 +4,41 @@
 #
 # Table name: events
 #
-#  id              :integer          not null, primary key
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  is_active       :boolean          default(TRUE)
-#  post_con        :boolean          default(FALSE)
-#  sticky          :boolean          default(FALSE)
-#  emergency       :boolean          default(FALSE)
-#  medical         :boolean          default(FALSE)
-#  hidden          :boolean          default(FALSE)
-#  secure          :boolean          default(FALSE)
-#  consuite        :boolean
-#  hotel           :boolean
-#  parties         :boolean
-#  volunteers      :boolean
-#  dealers         :boolean
-#  dock            :boolean
-#  merchandise     :boolean
-#  accessibility_and_inclusion  :boolean
-#  allocations     :boolean
-#  first_advisors  :boolean
-#  member_advocates:boolean
-#  operations      :boolean
-#  programming     :boolean
-#  registration    :boolean
-#  volunteers_den  :boolean
-#  merged_from_ids :string(255)
-#  merged          :boolean
-#  nerf_herders    :boolean
+#  id                          :integer          not null, primary key
+#  created_at                  :datetime
+#  updated_at                  :datetime
+#  is_active                   :boolean          default(TRUE)
+#  post_con                    :boolean          default(FALSE)
+#  sticky                      :boolean          default(FALSE)
+#  emergency                   :boolean          default(FALSE)
+#  medical                     :boolean          default(FALSE)
+#  hidden                      :boolean          default(FALSE)
+#  secure                      :boolean          default(FALSE)
+#  consuite                    :boolean
+#  hotel                       :boolean
+#  parties                     :boolean
+#  volunteers                  :boolean
+#  dealers                     :boolean
+#  dock                        :boolean
+#  merchandise                 :boolean
+#  merged_from_ids             :string
+#  merged                      :boolean
+#  nerf_herders                :boolean
+#  accessibility_and_inclusion :boolean
+#  allocations                 :boolean
+#  first_advisors              :boolean
+#  member_advocates            :boolean
+#  operations                  :boolean
+#  programming                 :boolean
+#  registration                :boolean
+#  volunteers_den              :boolean
 #
 
 require 'test_helper'
-
-# rubocop:disable Metrics/ClassLength
 class EventTest < ActiveSupport::TestCase
   should have_many :entries
   should have_many :event_flag_histories
   should accept_nested_attributes_for :entries
-
-  # rubocop:disable Metrics/BlockLength
   context 'an ordinary event' do
     setup do
       @event = FactoryBot.create :ordinary_event
@@ -233,6 +229,4 @@ class EventTest < ActiveSupport::TestCase
       end
     end
   end
-  # rubocop:enable Metrics/BlockLength
 end
-# rubocop:enable Metrics/ClassLength

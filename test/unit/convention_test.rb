@@ -5,17 +5,17 @@
 # Table name: conventions
 #
 #  id         :integer          not null, primary key
-#  name       :string(255)
+#  name       :string
 #  start_date :datetime
 #  end_date   :datetime
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  created_at :datetime
+#  updated_at :datetime
 #
 
 require 'test_helper'
 
 class ConventionTest < ActiveSupport::TestCase
-  context Convention do # rubocop:disable Metrics/BlockLength
+  context Convention do
     should validate_presence_of :name
     should validate_uniqueness_of :name
     should validate_presence_of :start_date

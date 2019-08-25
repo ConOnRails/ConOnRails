@@ -1,6 +1,28 @@
 require:
   - rubocop-rails
 
-Metrics/LineLength:
+AllCops:
+  TargetRubyVersion: 2.6.3
   AutoCorrect: true
+  Exclude:
+    - 'bin/*'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'lib/tasks/*rake'
+    - 'lib/reporting/*'
+
+Metrics/LineLength:
   Max: 100
+  Exclude:
+    - 'test/**/*'
+
+Metrics/ClassLength:
+  Exclude:
+    - 'test/**/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'test/**/*'
+
+Style/Documentation:
+  Enabled: false

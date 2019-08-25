@@ -1,27 +1,27 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require('test_helper')
 
 class UsersControllerTest < ActionController::TestCase
-  GoodPassword = 'zogity123*%^! 42'
+  good_password = 'zogity123*%^! 42'
 
   setup do
-    @user = FactoryBot.create :user
-    @role = FactoryBot.create :admin_users_role
+    @user = FactoryBot.create(:user)
+    @role = FactoryBot.create(:admin_users_role)
     @user.roles << @role
     @user_session = { user_id: @user.id, current_role_name: @role.name }
 
-    @peon_user = FactoryBot.create :user
-    @peon_role = FactoryBot.create :role
+    @peon_user = FactoryBot.create(:user)
+    @peon_role = FactoryBot.create(:role)
     @peon_user.roles << @peon_role
 
-    @volunteer = FactoryBot.create :valid_volunteer
+    @volunteer = FactoryBot.create(:valid_volunteer)
 
     @input_attributes = {
       username: 'mikey',
       realname: 'Mi Key',
-      password: GoodPassword,
-      password_confirmation: GoodPassword
+      password: good_password,
+      password_confirmation: good_password
     }
   end
 
@@ -64,7 +64,9 @@ class UsersControllerTest < ActionController::TestCase
 
   test 'should create user with associated volunteer' do
     assert_difference('User.count') do
-      post :create, params: { user: @input_attributes.merge(volunteer: @volunteer.id) }, session: @user_session
+      post :create,
+           params: { user: @input_attributes.merge(volunteer: @volunteer.id) },
+           session: @user_session
     end
 
     assert_equal @volunteer.id, assigns(:user).volunteer.id
@@ -106,15 +108,22 @@ class UsersControllerTest < ActionController::TestCase
       end
 
       should 'not update users other than themselves' do
-        put :update, params: { id: @user.to_param,
-                               user: @input_attributes }, session: { user_id: @peon_user.id }
+        put :update,
+            params: {
+              id: @user.to_param,
+              user: @input_attributes
+            },
+            session: { user_id: @peon_user.id }
         assert_redirected_to public_url
       end
 
       should 'update themselves (change password)' do
-        put :update, params: { id: @peon_user.to_param,
-                               user: @input_attributes },
-                     session: { user_id: @peon_user.id }
+        put :update,
+            params: {
+              id: @peon_user.to_param,
+              user: @input_attributes
+            },
+            session: { user_id: @peon_user.id }
         assert_redirected_to user_path(assigns(:user))
       end
     end
@@ -125,16 +134,25 @@ class UsersControllerTest < ActionController::TestCase
       end
 
       should 'update user' do
-        put :update, params: { id: @peon_user.to_param,
-                               user: { realname: 'wombat' } }, session: @user_session
+        put :update,
+            params: {
+              id: @peon_user.to_param,
+              user: { realname: 'wombat' }
+            },
+            session: @user_session
         assert assigns(:user).valid?
         assert_equal 'wombat', assigns(:user).realname
         assert_redirected_to user_path(assigns(:user))
       end
 
       should 'update user with associated volunteer' do
-        put :update, params: { id: @peon_user.to_param, user: { realname: 'wombat' },
-                               volunteer_id: @volunteer.id }, session: @user_session
+        put :update,
+            params: {
+              id: @peon_user.to_param,
+              user: { realname: 'wombat' },
+              volunteer_id: @volunteer.id
+            },
+            session: @user_session
         assert assigns(:user).valid?
         assert_equal 'wombat', assigns(:user).realname
         assert_equal @volunteer.id, assigns(:user).volunteer.id
@@ -142,8 +160,12 @@ class UsersControllerTest < ActionController::TestCase
       end
 
       should 'not update user with invalid info' do
-        put :update, params: { id: @peon_user.to_param,
-                               user: { username: '' } }, session: @user_session
+        put :update,
+            params: {
+              id: @peon_user.to_param,
+              user: { username: '' }
+            },
+            session: @user_session
         assert assigns(:user).invalid?
         assert_template :edit
       end

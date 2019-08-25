@@ -5,11 +5,11 @@
 # Table name: users
 #
 #  id              :integer          not null, primary key
-#  username        :string(255)
-#  realname        :string(255)
-#  password_digest :string(255)
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  username        :string
+#  realname        :string
+#  password_digest :string
+#  created_at      :datetime
+#  updated_at      :datetime
 #
 
 class User < ApplicationRecord
@@ -17,7 +17,7 @@ class User < ApplicationRecord
 
   paginates_per 25
 
-  has_one :volunteer
+  has_one :volunteer, dependent: :destroy
   has_and_belongs_to_many :roles
 
   name_regex = /\A[a-zA-Z0-9_\-]*\z/
@@ -108,7 +108,7 @@ class User < ApplicationRecord
 
   alias can_read_secure? rw_secure?
 
-  def has_role?(*role_names)
+  def role?(*role_names)
     roles.where(name: role_names).any?
   end
 end

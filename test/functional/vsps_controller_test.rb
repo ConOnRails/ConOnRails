@@ -3,7 +3,7 @@
 require 'test_helper'
 
 class VspsControllerTest < ActionController::TestCase
-  user_context :admin_context do # rubocop:disable Metrics/BlockLength
+  user_context :admin_context do
     context 'GET :index' do
       setup do
         get :index

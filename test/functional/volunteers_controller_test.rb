@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class VolunteersControllerTest < ActionController::TestCase # rubocop:disable Metrics/ClassLength
+class VolunteersControllerTest < ActionController::TestCase
   setup do
     @user      = FactoryBot.create :user
     @peon_user = FactoryBot.create :user
