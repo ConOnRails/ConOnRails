@@ -98,7 +98,7 @@ class LostAndFoundItemsController < ApplicationController
   end
 
   def wrap_keywords_for_like
-    params[:keywords].split.collect { |s| LostAndFoundItem.sanitize "%#{s}%" }
+    params[:keywords].split.collect { |s| ActiveRecord::Base.connection.quote "%#{s}%" }
   end
 
   private

@@ -3,7 +3,7 @@
 source 'http://rubygems.org'
 ruby '2.6.3'
 
-gem 'rails', '>= 5.0.0', '< 5.1'
+gem 'rails', '>= 5.1.0', '< 5.2'
 
 gem 'pg', '~> 1.0'
 
@@ -84,7 +84,6 @@ group :test do
   gem 'minitest-reporters'
   gem 'mocha', require: false
   gem 'selenium-webdriver'
-  gem 'shoulda', '~> 3.5'
   gem 'shoulda-context'
   gem 'shoulda-matchers', '~> 2.0'
   gem 'timecop'
