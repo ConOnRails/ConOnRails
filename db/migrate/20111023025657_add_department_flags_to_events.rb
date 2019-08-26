@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AddDepartmentFlagsToEvents < ActiveRecord::Migration
+class AddDepartmentFlagsToEvents < ActiveRecord::Migration[4.2]
   def change
     add_column :events, :consuite, :boolean
     add_column :events, :hotel, :boolean

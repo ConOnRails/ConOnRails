@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AddDateIndices < ActiveRecord::Migration
+class AddDateIndices < ActiveRecord::Migration[4.2]
   def change
     add_index :events, :created_at
     add_index :events, :updated_at

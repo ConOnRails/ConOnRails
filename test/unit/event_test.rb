@@ -96,9 +96,9 @@ class EventTest < ActiveSupport::TestCase
     end
 
     should 'detect flag changes' do
-      params = { hidden: true, secure: false }
+      params = { hidden: 'true', secure: 'false' }
       assert @event.flags_differ? params
-      params = { hidden: false }
+      params = { hidden: 'false' }
       assert_equal false, @event.flags_differ?(params)
     end
 

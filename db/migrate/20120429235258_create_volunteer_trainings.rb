@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateVolunteerTrainings < ActiveRecord::Migration
+class CreateVolunteerTrainings < ActiveRecord::Migration[4.2]
   def change
     create_table :volunteer_trainings do |t|
       t.integer :volunteer_id

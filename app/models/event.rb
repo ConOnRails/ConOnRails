@@ -145,7 +145,7 @@ class Event < ApplicationRecord
     params.each do |p|
       return true if (p.first == 'status') && (p.second != status)
       return true if (p.first != 'status') &&
-                     (self[p.first] != ((p.last == '1') || (p.last == true) ? true : false))
+                     (self[p.first] != ((p.last == '1') || (p.last == 'true') ? true : false))
     end
     false
   end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AddIndicesToEvent < ActiveRecord::Migration
+class AddIndicesToEvent < ActiveRecord::Migration[4.2]
   def change
     add_index :events, :is_active
     add_index :events, :sticky

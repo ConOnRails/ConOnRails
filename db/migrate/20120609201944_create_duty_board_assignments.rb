@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateDutyBoardAssignments < ActiveRecord::Migration
+class CreateDutyBoardAssignments < ActiveRecord::Migration[4.2]
   def change
     create_table :duty_board_assignments do |t|
       t.integer :volunteer_id

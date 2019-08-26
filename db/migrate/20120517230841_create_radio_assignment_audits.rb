@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateRadioAssignmentAudits < ActiveRecord::Migration
+class CreateRadioAssignmentAudits < ActiveRecord::Migration[4.2]
   def change
     create_table :radio_assignment_audits do |t|
       t.integer :radio_id

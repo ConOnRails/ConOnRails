@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateRolesUsersJoinTable < ActiveRecord::Migration
+class CreateRolesUsersJoinTable < ActiveRecord::Migration[4.2]
   def up
     create_table :roles_users, id: false do |t|
       t.integer :role_id
