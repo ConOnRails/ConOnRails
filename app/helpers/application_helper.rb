@@ -6,11 +6,11 @@ module ApplicationHelper
   end
 
   def version_number
-    '3.5.3'
+    '3.6.0'
   end
 
   def version_name
-    'Lemon Curd and Scones, with Tea'
+    'Marshmallow Fluff'
   end
 
   def version_type
