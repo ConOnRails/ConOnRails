@@ -1,4 +1,6 @@
-class CreateLostAndFoundItems < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class CreateLostAndFoundItems < ActiveRecord::Migration[4.2]
   def change
     create_table :lost_and_found_items do |t|
       t.string :category

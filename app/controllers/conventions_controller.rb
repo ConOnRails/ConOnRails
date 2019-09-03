@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class ConventionsController < ApplicationController
   respond_to :html
 
-  before_filter :can_read_audits?
-  before_filter :set_conventions, only: [:index]
-  before_filter :set_convention, only: [:show, :edit, :update]
-  before_filter :build_convention, only: [:create]
+  before_action :can_read_audits?
+  before_action :set_conventions, only: [:index]
+  before_action :set_convention, only: %i[show edit update]
+  before_action :build_convention, only: [:create]
 
   # GET /conventions/new
   # GET /conventions/new.json
@@ -22,14 +24,14 @@ class ConventionsController < ApplicationController
   # PUT /conventions/1
   # PUT /conventions/1.json
   def update
-    flash[:notice] = 'Convention was successfully updated.' if @convention.update_attributes convention_params
+    flash[:notice] = 'Convention was successfully updated.' if @convention.update convention_params
     respond_with @convention, location: :conventions
   end
 
   protected
 
   def set_conventions
-    @q = Convention.search params[:q]
+    @q = Convention.ransack params[:q]
     @q.sorts = ['start_date desc'] if @q.sorts.empty?
     @conventions = @q.result.page(params[:page])
   end

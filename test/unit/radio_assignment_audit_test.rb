@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: radio_assignment_audits
@@ -5,9 +7,9 @@
 #  id            :integer          not null, primary key
 #  radio_id      :integer
 #  volunteer_id  :integer
-#  state         :string(255)
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  state         :string
+#  created_at    :datetime
+#  updated_at    :datetime
 #  user_id       :integer
 #  department_id :integer
 #
@@ -16,6 +18,7 @@ require 'test_helper'
 
 class RadioAssignmentAuditTest < ActiveSupport::TestCase
   setup do
+    FactoryBot.use_parent_strategy = false
     @assignment = FactoryBot.build :valid_radio_assignment
     @user = FactoryBot.create :user
   end
@@ -33,15 +36,15 @@ class RadioAssignmentAuditTest < ActiveSupport::TestCase
     assert_equal state, audit.state
   end
 
-  test "can create checkout audit" do
+  test 'can create checkout audit' do
     can_create_audit('checkout', 'out')
   end
 
-  test "can create checkin audit" do
+  test 'can create checkin audit' do
     can_create_audit('checkin', 'in')
   end
 
-  test "can create retirement audit" do
+  test 'can create retirement audit' do
     can_create_audit('retirement', 'retired')
   end
 end

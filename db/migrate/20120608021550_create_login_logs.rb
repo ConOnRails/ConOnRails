@@ -1,4 +1,6 @@
-class CreateLoginLogs < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class CreateLoginLogs < ActiveRecord::Migration[4.2]
   def change
     create_table :login_logs do |t|
       t.string :user_name

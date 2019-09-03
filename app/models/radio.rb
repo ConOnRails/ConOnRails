@@ -1,18 +1,20 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: radios
 #
 #  id             :integer          not null, primary key
-#  number         :string(255)
-#  notes          :string(255)
+#  number         :string
+#  notes          :string
 #  radio_group_id :integer
-#  image_filename :string(255)
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  state          :string(255)      default("in")
+#  image_filename :string
+#  created_at     :datetime
+#  updated_at     :datetime
+#  state          :string           default("in")
 #
 
-class Radio < ActiveRecord::Base
+class Radio < ApplicationRecord
   has_paper_trail
 
   belongs_to :radio_group
@@ -21,12 +23,12 @@ class Radio < ActiveRecord::Base
   validates :number, presence: true, uniqueness: true
   validates :radio_group_id, presence: true
   validates :radio_group, associated: true
-  validates :state, presence: true, inclusion: { in: %w(in out retired) }
+  validates :state, presence: true, inclusion: { in: %w[in out retired] }
 
-  scope :assigned, -> { where { |r| r.state == 'out' } }
-  scope :unassigned, -> { where { |r| r.state == 'in' } }
+  scope :assigned, -> { where(state: 'out') }
+  scope :unassigned, -> { where(state: 'in') }
 
   def name
-    self.number
+    number
   end
 end

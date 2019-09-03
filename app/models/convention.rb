@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: conventions
 #
 #  id         :integer          not null, primary key
-#  name       :string(255)
+#  name       :string
 #  start_date :datetime
 #  end_date   :datetime
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  created_at :datetime
+#  updated_at :datetime
 #
 
 class NotTimeTravelingValidator < ActiveModel::EachValidator
@@ -18,7 +20,7 @@ class NotTimeTravelingValidator < ActiveModel::EachValidator
   end
 end
 
-class Convention < ActiveRecord::Base
+class Convention < ApplicationRecord
   has_paper_trail
 
   validates :name, presence: true, uniqueness: true
@@ -34,6 +36,8 @@ class Convention < ActiveRecord::Base
   end
 
   def self.current_convention
-    where { |c| (c.start_date <= Date.current) & (c.end_date >= Date.current) }.first || Convention.most_recent
+    where('start_date <= ?', Date.current)
+      .where('end_date >= ?', Date.current)
+      .first || Convention.most_recent
   end
 end

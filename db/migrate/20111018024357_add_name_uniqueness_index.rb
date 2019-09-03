@@ -1,4 +1,6 @@
-class AddNameUniquenessIndex < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class AddNameUniquenessIndex < ActiveRecord::Migration[4.2]
   def up
     add_index :users, :name, unique: true
   end

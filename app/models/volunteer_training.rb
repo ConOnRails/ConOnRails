@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: volunteer_trainings
@@ -13,11 +15,11 @@
 #  xo             :boolean          default(FALSE)
 #  ops_subhead    :boolean          default(FALSE)
 #  ops_head       :boolean          default(FALSE)
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
+#  created_at     :datetime
+#  updated_at     :datetime
 #
 
-class VolunteerTraining < ActiveRecord::Base
+class VolunteerTraining < ApplicationRecord
   has_paper_trail
   belongs_to :volunteer
 end

@@ -1,24 +1,25 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: vsps
 #
 #  id         :integer          not null, primary key
-#  name       :string(255)
+#  name       :string
 #  party      :boolean
-#  notes      :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  notes      :string
+#  created_at :datetime
+#  updated_at :datetime
 #
 
-class Vsp < ActiveRecord::Base
+class Vsp < ApplicationRecord
   has_paper_trail
 
   validates :name, presence: true, uniqueness: true
 
-  scope :people, -> { where { |v| (v.party == nil) | (v.party == false) } }
-  scope :parties, -> { where { |v| v.party == true } }
-
+  scope :people, -> { where(party: [nil, false]) }
+  scope :parties, -> { where(party: true) }
   def name_and_note
-    "#{self.name}" + (self.notes.present? ? " (#{self.notes})" : '')
+    name.to_s + (notes.present? ? " (#{notes})" : '')
   end
 end

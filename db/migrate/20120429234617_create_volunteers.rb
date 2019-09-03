@@ -1,4 +1,6 @@
-class CreateVolunteers < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class CreateVolunteers < ActiveRecord::Migration[4.2]
   def change
     create_table :volunteers do |t|
       t.string :first_name

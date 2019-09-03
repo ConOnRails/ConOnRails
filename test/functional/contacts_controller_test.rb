@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ContactsControllerTest < ActionController::TestCase
@@ -7,34 +9,34 @@ class ContactsControllerTest < ActionController::TestCase
     @peon_user = FactoryBot.create :user
     @role      = FactoryBot.create :write_entries_role
     @user.roles << @role
-    @user_session      = { user_id: @user.id }
+    @user_session = { user_id: @user.id }
     @peon_user_session = { user_id: @peon_user.id }
   end
 
   def get_index_success(session)
-    get :index, {}, session
+    get :index, session: session
     assert_response :success
     assert_not_nil assigns(:contacts)
   end
 
   def get_index_fail(session)
-    get :index, {}, session
+    get :index, session: session
     assert_redirected_to :public
   end
 
   def get_new_success(session)
-    get :new, {}, session
+    get :new, session: session
     assert_response :success
   end
 
   def get_new_fail(session)
-    get :new, {}, session
+    get :new, session: session
     assert_redirected_to :public
   end
 
   def create_contact_success(session)
     assert_difference('Contact.count') do
-      post :create, { contact: FactoryBot.attributes_for(:valid_contact) }, session
+      post :create, params: { contact: FactoryBot.attributes_for(:valid_contact) }, session: session
     end
 
     assert_redirected_to contacts_path
@@ -42,55 +44,57 @@ class ContactsControllerTest < ActionController::TestCase
 
   def create_contact_auth_fail(session)
     assert_no_difference 'Contact.count' do
-      post :create, { contact: @contact.attributes }, session
+      post :create, params: { contact: @contact.attributes }, session: session
     end
     assert_redirected_to :public
   end
 
   def create_contact_content_fail(session)
     assert_no_difference 'Contact.count' do
-      post :create, { contact: { name: "" } }, session
+      post :create, params: { contact: { name: '' } }, session: session
     end
     assert_template :new
   end
 
   def show_item_success(session)
-    get :show, { id: @contact.to_param }, session
+    get :show, params: { id: @contact.to_param }, session: session
     assert_response :success
   end
 
   def show_item_fail(session)
-    get :show, { id: @contact.to_param }, session
+    get :show, params: { id: @contact.to_param }, session: session
     assert_redirected_to :public
   end
 
   def edit_item_success(session)
-    get :edit, { id: @contact.to_param }, session
+    get :edit, params: { id: @contact.to_param }, session: session
     assert_response :success
   end
 
   def edit_item_fail(session)
-    get :edit, { id: @contact.to_param }, session
+    get :edit, params: { id: @contact.to_param }, session: session
     assert_redirected_to :public
   end
 
   def update_contact_success(session)
-    put :update, { id: @contact.to_param, contact: FactoryBot.attributes_for(:valid_contact) }, session
+    put :update, params: { id: @contact.to_param,
+                           contact: FactoryBot.attributes_for(:valid_contact) }, session: session
     assert_redirected_to contacts_path
   end
 
   def update_contact_auth_fail(session)
-    put :update, { id: @contact.to_param, contact: { name: "Doom" } }, session
+    put :update, params: { id: @contact.to_param, contact: { name: 'Doom' } }, session: session
     assert_redirected_to :public
   end
 
   def update_contact_content_fail(session)
-    put :update, { id: @contact.to_param, contact: { cell_phone: "Doom" } }, session
+    put :update, params: { id: @contact.to_param,
+                           contact: { cell_phone: 'Doom' } }, session: session
     assert assigns(:contact).invalid?
     assert_template :edit
   end
 
-  test "should get index" do
+  test 'should get index' do
     get_index_success @user_session
     get_index_success @peon_user_session
   end
@@ -99,7 +103,7 @@ class ContactsControllerTest < ActionController::TestCase
     get_index_fail nil
   end
 
-  test "should get new" do
+  test 'should get new' do
     get_new_success @user_session
   end
 
@@ -108,7 +112,7 @@ class ContactsControllerTest < ActionController::TestCase
     get_new_fail(nil)
   end
 
-  test "should create contact" do
+  test 'should create contact' do
     create_contact_success @user_session
   end
 
@@ -121,7 +125,7 @@ class ContactsControllerTest < ActionController::TestCase
     create_contact_auth_fail(nil)
   end
 
-  test "should show contact" do
+  test 'should show contact' do
     show_item_success @user_session
     show_item_success @peon_user_session
   end
@@ -130,7 +134,7 @@ class ContactsControllerTest < ActionController::TestCase
     show_item_fail nil
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     edit_item_success @user_session
   end
 
@@ -139,7 +143,7 @@ class ContactsControllerTest < ActionController::TestCase
     edit_item_fail nil
   end
 
-  test "should update contact" do
+  test 'should update contact' do
     update_contact_success @user_session
   end
 

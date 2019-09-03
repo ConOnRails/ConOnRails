@@ -1,4 +1,6 @@
-class ConvertLfiStates < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class ConvertLfiStates < ActiveRecord::Migration[4.2]
   def up
     LostAndFoundItem.all.each do |lfi|
       if lfi[:reported_missing]

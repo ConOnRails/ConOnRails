@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module VolunteersHelper
   def check_bool(val)
     if val == true

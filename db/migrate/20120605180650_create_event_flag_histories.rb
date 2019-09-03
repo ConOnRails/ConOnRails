@@ -1,4 +1,6 @@
-class CreateEventFlagHistories < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class CreateEventFlagHistories < ActiveRecord::Migration[4.2]
   def change
     create_table :event_flag_histories do |t|
       t.integer :event_id

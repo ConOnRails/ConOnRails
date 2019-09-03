@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class VersionsControllerTest < ActionController::TestCase
@@ -16,8 +18,8 @@ class VersionsControllerTest < ActionController::TestCase
     Convention.stubs(:most_recent).returns(@most_recent)
   end
 
-  test "should get index" do
-    get :index, {}, @user_session
+  test 'should get index' do
+    get :index, session: @user_session
     assert_response :success
   end
 end

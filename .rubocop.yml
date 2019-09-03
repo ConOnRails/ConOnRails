@@ -1,11 +1,28 @@
+require:
+  - rubocop-rails
+
 AllCops:
-  RSpec:
-    Patterns:
-    - _test.rb
-    - "(?:^|/)test/"
+  TargetRubyVersion: 2.6.3
+  AutoCorrect: true
+  Exclude:
+    - 'bin/*'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'lib/tasks/*rake'
+    - 'lib/reporting/*'
 
-  RSpec/FactoryBot:
-    Patterns:
-    - test/factories/**/*.rb
+Metrics/LineLength:
+  Max: 100
+  Exclude:
+    - 'test/**/*'
 
-inherit_from: .rubocop_todo.yml
+Metrics/ClassLength:
+  Exclude:
+    - 'test/**/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'test/**/*'
+
+Style/Documentation:
+  Enabled: false

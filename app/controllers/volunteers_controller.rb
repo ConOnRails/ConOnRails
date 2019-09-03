@@ -1,52 +1,52 @@
+# frozen_string_literal: true
+
 class VolunteersController < ApplicationController
-  before_filter :can_admin_users?
-  before_filter :set_volunteers, only: [:index]
-  before_filter :set_volunteer, only: [:show, :edit, :update]
+  before_action :can_admin_users?
+  before_action :set_volunteers, only: [:index]
+  before_action :set_volunteer, only: %i[show edit update]
   respond_to :html, :json
 
   def attendees
-# DEAD LETTER for 2013
+    # DEAD LETTER for 2013
 
-=begin
-    if params[:term]
-      terms = params[:term].split
-      if terms.size == 1
-        like      = "#{terms[0]}%"
-        attendees = Attendee.order("FIRST_NAME").where("FIRST_NAME like ? or LAST_NAME like ?", like, like)
-      elsif terms.size == 2
-        first_like  = "#{terms[0]}%"
-        second_like = "#{terms[1]}%"
-        attendees   = Attendee.order("LAST_NAME").where("FIRST_NAME like ? and ( MIDDLE_NAME like ? or LAST_NAME like ? )",
-                                                        first_like, second_like, second_like)
-      elsif terms.size == 3
-        first_like  = "#{terms[0]}%"
-        second_like = "#{terms[1]}%"
-        third_like  = "#{terms[2]}%"
-        attendees   = Attendee.order("LAST_NAME").where("FIRST_NAME like ? and MIDDLE_NAME like ? and LAST_NAME like ?",
-                                                        first_like, second_like, third_like)
-      end
-    else
-      attendees = Attendee.all
-    end
-
-    @list = attendees.map { |a| Hash[id:          a.ATTENDEE_ID,
-                                     label:       a.name,
-                                     first_name:  a.FIRST_NAME,
-                                     middle_name: a.MIDDLE_NAME,
-                                     last_name:   a.LAST_NAME,
-                                     address1:    a.ADDRESS_LINE_1,
-                                     address2:    a.ADDRESS_LINE_2,
-                                     address3:    a.ADDRESS_LINE_3,
-                                     city:        a.ADDRESS_CITY,
-                                     state:       a.ADDRESS_STATE_CODE,
-                                     postal:      (a.ADDRESS_ZIP.empty? ? a.FOREIGN_POSTAL_CODE : a.ADDRESS_ZIP),
-                                     home_phone:  a.HOME_PHONE,
-                                     work_phone:  a.WORK_PHONE,
-                                     other_phone: a.OTHER_PHONE,
-                                     email:       a.EMAIL]
-    }
-
-=end
+    #     if params[:term]
+    #       terms = params[:term].split
+    #       if terms.size == 1
+    #         like      = "#{terms[0]}%"
+    #         attendees = Attendee.order("FIRST_NAME").where("FIRST_NAME like ? or LAST_NAME like ?", like, like)
+    #       elsif terms.size == 2
+    #         first_like  = "#{terms[0]}%"
+    #         second_like = "#{terms[1]}%"
+    #         attendees   = Attendee.order("LAST_NAME").where("FIRST_NAME like ? and ( MIDDLE_NAME like ? or LAST_NAME like ? )",
+    #                                                         first_like, second_like, second_like)
+    #       elsif terms.size == 3
+    #         first_like  = "#{terms[0]}%"
+    #         second_like = "#{terms[1]}%"
+    #         third_like  = "#{terms[2]}%"
+    #         attendees   = Attendee.order("LAST_NAME").where("FIRST_NAME like ? and MIDDLE_NAME like ? and LAST_NAME like ?",
+    #                                                         first_like, second_like, third_like)
+    #       end
+    #     else
+    #       attendees = Attendee.all
+    #     end
+    #
+    #     @list = attendees.map { |a| Hash[id:          a.ATTENDEE_ID,
+    #                                      label:       a.name,
+    #                                      first_name:  a.FIRST_NAME,
+    #                                      middle_name: a.MIDDLE_NAME,
+    #                                      last_name:   a.LAST_NAME,
+    #                                      address1:    a.ADDRESS_LINE_1,
+    #                                      address2:    a.ADDRESS_LINE_2,
+    #                                      address3:    a.ADDRESS_LINE_3,
+    #                                      city:        a.ADDRESS_CITY,
+    #                                      state:       a.ADDRESS_STATE_CODE,
+    #                                      postal:      (a.ADDRESS_ZIP.empty? ? a.FOREIGN_POSTAL_CODE : a.ADDRESS_ZIP),
+    #                                      home_phone:  a.HOME_PHONE,
+    #                                      work_phone:  a.WORK_PHONE,
+    #                                      other_phone: a.OTHER_PHONE,
+    #                                      email:       a.EMAIL]
+    #     }
+    #
     render json: @list
   end
 
@@ -68,7 +68,7 @@ class VolunteersController < ApplicationController
   # PUT /volunteers/1
   # PUT /volunteers/1.json
   def update
-    make_user_if_needed if @volunteer.update_attributes volunteer_params
+    make_user_if_needed if @volunteer.update volunteer_params
   end
 
   def new_user
@@ -90,8 +90,11 @@ class VolunteersController < ApplicationController
   def make_user_if_needed
     respond_with @volunteer do |format|
       if params[:make_user_after_save]
-        flash[:notice] = "Volunteer created, create a user"
-        format.html { redirect_to new_user_path({ realname: @volunteer.name, volunteer_id: @volunteer.id }) }
+        flash[:notice] = 'Volunteer created, create a user'
+        format.html do
+          redirect_to new_user_path(realname: @volunteer.name,
+                                    volunteer_id: @volunteer.id)
+        end
       else
         flash[:notice] = 'Volunteer was successfully created.'
       end
@@ -99,8 +102,8 @@ class VolunteersController < ApplicationController
   end
 
   def set_volunteers
-    @q = Volunteer.search params[:q]
-    @q.sorts = ['last_name', 'first_name'] if @q.sorts.empty?
+    @q = Volunteer.ransack params[:q]
+    @q.sorts = %w[last_name first_name] if @q.sorts.empty?
     @volunteers = @q.result.page(params[:page])
   end
 
@@ -109,10 +112,11 @@ class VolunteersController < ApplicationController
   end
 
   def volunteer_params
+    params.permit(:id, :q)
     params.require(:volunteer).permit :can_have_multiple_radios, :first_name, :middle_name, :last_name, :address1, :address2, :address3, :city, :state, :postal,
                                       :country, :home_phone, :work_phone, :other_phone, :email, :user_id,
-                                      { volunteer_training_attributes: [:volunter_id, :radio, :ops_basics, :first_contact,
-                                                                        :communications, :dispatch,
-                                                                        :wandering_host, :xo, :ops_subhead, :ops_head] }
+                                      volunteer_training_attributes: %i[volunter_id radio ops_basics first_contact
+                                                                        communications dispatch
+                                                                        wandering_host xo ops_subhead ops_head]
   end
 end

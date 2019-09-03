@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class RadioAssignmentAuditsController < ApplicationController
   respond_to :html
 
-  before_filter :can_admin_radios?
-  before_filter :get_audits, only: :index
+  before_action :can_admin_radios?
+  before_action :get_audits, only: :index
 
   # GET /radio_assignment_audits
   # GET /radio_assignment_audits.json
@@ -16,7 +18,7 @@ class RadioAssignmentAuditsController < ApplicationController
   protected
 
   def get_audits
-    @q = RadioAssignmentAudit.search params[:q]
+    @q = RadioAssignmentAudit.ransack params[:q]
     @radio_assignment_audits = @q.result.page params[:page]
   end
 end

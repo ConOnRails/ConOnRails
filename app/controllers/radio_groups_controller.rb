@@ -1,19 +1,21 @@
+# frozen_string_literal: true
+
 class RadioGroupsController < ApplicationController
   respond_to :html, :json
 
-  before_filter :can_admin_radios?, only: [:new, :create, :edit, :update, :destroy]
-  before_filter :can_assign_radios?, only: [:index, :show]
-  before_filter :find_radio_group, only: [:show, :edit, :update, :destroy]
+  before_action :can_admin_radios?, only: %i[new create edit update destroy]
+  before_action :can_assign_radios?, only: %i[index show]
+  before_action :find_radio_group, only: %i[show edit update destroy]
 
   # GET /radio_groups
   # GET /radio_groups.json
-  def index(del_or_edit = "edit")
+  def index(del_or_edit = 'edit')
     @radio_groups = RadioGroup.all
     @del_or_edit  = del_or_edit
   end
 
   def delindex
-    index("delete")
+    index('delete')
   end
 
   # GET /radio_groups/new
@@ -33,7 +35,7 @@ class RadioGroupsController < ApplicationController
   # PUT /radio_groups/1
   # PUT /radio_groups/1.json
   def update
-    flash[:notice] = 'Radio group was successfully updated.' if @radio_group.update_attributes radio_group_params
+    flash[:notice] = 'Radio group was successfully updated.' if @radio_group.update radio_group_params
     respond_with @radio_group
   end
 

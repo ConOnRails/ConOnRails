@@ -1,26 +1,26 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   respond_to :html, :json
 
-  before_filter :find_user, only: [:show, :edit, :update, :destroy, :change_password]
-  before_filter :find_users, only: :index
-  before_filter :redirect_if_cannot_admin, except: [:change_password]
+  before_action :find_user, only: %i[show edit update destroy change_password]
+  before_action :find_users, only: :index
+  before_action :redirect_if_cannot_admin, except: [:change_password]
 
   # GET /users/new
   # GET /users/new.json
   def new
     @user = User.new
-    @user.volunteer = Volunteer.find_by_id params[:volunteer_id]
+    @user.volunteer = Volunteer.find_by id: params[:volunteer_id]
 
-    if params[:realname]
-      @user.realname = params[:realname]
-    end
+    @user.realname = params[:realname] if params[:realname]
   end
 
   # POST /admin/users
   # POST /admin/users.json
   def create
     # user_params = params[:user].reject { |k, v| k == 'volunteer' }
-    @volunteer = Volunteer.find_by_id(params[:user][:volunteer])
+    @volunteer = Volunteer.find_by(id: params[:user][:volunteer])
 
     if @volunteer.present?
       @user = @volunteer.create_user user_params
@@ -35,7 +35,7 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.json
   def update
-    if @user.update_attributes(user_params) && update_volunteer
+    if @user.update(user_params) && update_volunteer
       flash[:notice] = "User #{@user.username} was successfully updated."
     end
 
@@ -52,16 +52,17 @@ class UsersController < ApplicationController
   protected
 
   def find_user
-    @user = User.find(params[:id])
+    @user = User.find(top_params[:id])
   end
 
   def find_users
-    @q = User.search params[:q]
-    @users = @q.result.page(params[:page])
+    @q = User.ransack top_params[:q]
+    @users = @q.result.page(top_params[:page])
   end
 
   def get_update_success_path
-    if URI(request.referrer).path == change_password_user_path(@user)
+    if request.referer.present? &&
+       URI(request.referer).path == change_password_user_path(@user)
       root_path
     else
       user_path(@user)
@@ -75,12 +76,16 @@ class UsersController < ApplicationController
   end
 
   def update_volunteer
-    @volunteer = Volunteer.find_by_id(params[:volunteer_id])
+    @volunteer = Volunteer.find_by(id: params[:volunteer_id])
     return true if @volunteer.blank?
 
-    if @volunteer.present? and (@volunteer.user_id.blank? or @volunteer.user_id != @user.id)
+    if @volunteer.present? && (@volunteer.user_id.blank? || (@volunteer.user_id != @user.id))
       @volunteer.update_attribute(:user_id, @user.id)
     end
+  end
+
+  def top_params
+    params.permit(:id, :page, :q)
   end
 
   def user_params

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: roles_users
@@ -21,13 +23,13 @@ class RolesUsersTest < ActiveSupport::TestCase
     @user2.roles << @role2
   end
 
-  test "can associate user with role" do
+  test 'can associate user with role' do
     @user1.roles << @role1
     assert_equal 1, @user1.roles.count
     assert_equal 1, @role1.users.count
   end
 
-  test "can associate multiple roles with user" do
+  test 'can associate multiple roles with user' do
     @user1.roles << @role1
     @user1.roles << @role2
     assert_equal 2, @user1.roles.count
@@ -35,7 +37,7 @@ class RolesUsersTest < ActiveSupport::TestCase
     assert_equal 1, @role2.users.count
   end
 
-  test "can associate multiple users with role" do
+  test 'can associate multiple users with role' do
     @user1.roles << @role1
     @user2.roles << @role1
     assert_equal 2, @role1.users.count
@@ -43,13 +45,13 @@ class RolesUsersTest < ActiveSupport::TestCase
     assert_equal 1, @user2.roles.count
   end
 
-  test "can find write_entries permission in user roles" do
+  test 'can find write_entries permission in user roles' do
     setup_roles
     assert @user1.write_entries?
   end
 
-  test "can find absence of write_entries permission in user roles" do
+  test 'can find absence of write_entries permission in user roles' do
     setup_roles
-    assert !@user2.write_entries?
+    assert_not @user2.write_entries?
   end
 end

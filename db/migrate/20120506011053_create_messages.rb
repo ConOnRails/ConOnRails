@@ -1,4 +1,6 @@
-class CreateMessages < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class CreateMessages < ActiveRecord::Migration[4.2]
   def change
     create_table :messages do |t|
       t.string :for

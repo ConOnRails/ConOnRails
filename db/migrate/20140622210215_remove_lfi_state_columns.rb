@@ -1,4 +1,6 @@
-class RemoveLfiStateColumns < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class RemoveLfiStateColumns < ActiveRecord::Migration[4.2]
   def change
     remove_column :lost_and_found_items, :reported_missing, :boolean
     remove_column :lost_and_found_items, :found, :boolean

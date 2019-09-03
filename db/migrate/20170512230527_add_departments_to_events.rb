@@ -1,4 +1,6 @@
-class AddDepartmentsToEvents < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class AddDepartmentsToEvents < ActiveRecord::Migration[4.2]
   def change
     add_column :events, :accessibility_and_inclusion, :boolean
     add_column :events, :allocations, :boolean

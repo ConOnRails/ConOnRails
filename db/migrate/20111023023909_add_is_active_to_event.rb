@@ -1,4 +1,6 @@
-class AddIsActiveToEvent < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class AddIsActiveToEvent < ActiveRecord::Migration[4.2]
   def up
     add_column :events, :is_active, :boolean, default: true
   end

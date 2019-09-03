@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class EventsHelperTest < ActionView::TestCase
@@ -17,7 +19,7 @@ class EventsHelperTest < ActionView::TestCase
 
     context '#get_secure_count' do
       setup do
-        self.expects(:current_user).returns(@user)
+        expects(:current_user).returns(@user)
       end
 
       should 'return 0 because we are not cool enough' do
@@ -35,7 +37,7 @@ class EventsHelperTest < ActionView::TestCase
 
     context '#get_secure_count' do
       setup do
-        self.expects(:current_user).returns(@admin)
+        expects(:current_user).returns(@admin)
       end
 
       should 'return 1 event' do

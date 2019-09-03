@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class DepartmentsController < ApplicationController
-  before_filter :can_admin_radios?, only: [:new, :create, :edit, :update, :destroy]
-  before_filter :find_departments, only: :index
-  before_filter :find_department, only: [:show, :edit, :update, :destroy]
+  before_action :can_admin_radios?, only: %i[new create edit update destroy]
+  before_action :find_departments, only: :index
+  before_action :find_department, only: %i[show edit update destroy]
 
   respond_to :html, :json
 
@@ -22,7 +24,7 @@ class DepartmentsController < ApplicationController
   # PUT /departments/1
   # PUT /departments/1.json
   def update
-    flash[:notice] = 'Department was successfully updated.' if @department.update_attributes department_params
+    flash[:notice] = 'Department was successfully updated.' if @department.update department_params
     respond_with @department
   end
 
@@ -36,12 +38,16 @@ class DepartmentsController < ApplicationController
   protected
 
   def find_departments
-    @q           = Department.search params[:q]
-    @departments = @q.result.page(params[:page])
+    @q           = Department.ransack top_params[:q]
+    @departments = @q.result.page(top_params[:page])
   end
 
   def find_department
-    @department = Department.find(params[:id])
+    @department = Department.find(top_params[:id])
+  end
+
+  def top_params
+    params.permit(:id, :page, :q)
   end
 
   def department_params

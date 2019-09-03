@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class DutyBoardGroupsController < ApplicationController
-  before_filter :can_admin_duty_board?
+  before_action :can_admin_duty_board?
 
   respond_to :html, :json
 
@@ -23,7 +25,7 @@ class DutyBoardGroupsController < ApplicationController
 
   def update
     @duty_board_group = DutyBoardGroup.find params[:id]
-    flash[:notice] = 'Duty board group updated successfully' if @duty_board_group.update_attributes duty_board_group_params
+    flash[:notice] = 'Duty board group updated successfully' if @duty_board_group.update duty_board_group_params
     respond_with @duty_board_group, location: duty_board_groups_path
   end
 

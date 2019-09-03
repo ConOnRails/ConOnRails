@@ -1,4 +1,6 @@
-class CreateRadios < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class CreateRadios < ActiveRecord::Migration[4.2]
   def change
     create_table :radios do |t|
       t.integer :number

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: 2012
@@ -26,15 +28,13 @@
 require 'test_helper'
 
 class AttendeeTest < ActiveSupport::TestCase
-=begin
-  setup do
-    @attendee = FactoryBot.build(:attendee)
-  end
-
-  test "can get composite name" do
-    assert_equal @attendee.FIRST_NAME + ' ' +
-      ( @attendee.MIDDLE_NAME.blank? ? '' : @attendee.MIDDLE_NAME + ' ' ) +
-      @attendee.LAST_NAME, @attendee.name
-  end
-=end
+  #   setup do
+  #     @attendee = FactoryBot.build(:attendee)
+  #   end
+  #
+  #   test "can get composite name" do
+  #     assert_equal @attendee.FIRST_NAME + ' ' +
+  #       ( @attendee.MIDDLE_NAME.blank? ? '' : @attendee.MIDDLE_NAME + ' ' ) +
+  #       @attendee.LAST_NAME, @attendee.name
+  #   end
 end

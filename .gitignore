@@ -6,7 +6,7 @@ tmp/
 .sass-cache/
 *~
 *.dump
-
+.byebug*
 .rvmrc*
 .powrc
 public/assets/*

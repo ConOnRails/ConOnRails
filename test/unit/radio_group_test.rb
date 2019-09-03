@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: radio_groups
 #
 #  id         :integer          not null, primary key
-#  name       :string(255)
-#  color      :string(255)
+#  name       :string
+#  color      :string
 #  notes      :text
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  created_at :datetime
+#  updated_at :datetime
 #
 
 require 'test_helper'
@@ -19,7 +21,7 @@ class RadioGroupTest < ActiveSupport::TestCase
     @radio           = FactoryBot.build :valid_blue_radio
   end
 
-  test "can create a group with many radios" do
+  test 'can create a group with many radios' do
     group = nil
     assert_difference 'RadioGroup.count' do
       group = FactoryBot.create :many_blue_men_group

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class VspsControllerTest < ActionController::TestCase
@@ -23,20 +25,20 @@ class VspsControllerTest < ActionController::TestCase
     context 'POST :create' do
       context 'blank attributes' do
         setup do
-          post :create, vsp: { name: '' }
+          post :create, params: { vsp: { name: '' } }
         end
         should respond_with :success
         should render_template :new
-        should_not set_flash.to %r[created successfully!$]
+        should_not set_flash.to(/created successfully!$/)
       end
 
       context 'correct attributes' do
         setup do
-          post :create, vsp: FactoryBot.attributes_for(:vsp)
+          post :create, params: { vsp: FactoryBot.attributes_for(:vsp) }
         end
         should respond_with :redirect
         should redirect_to('vsp list') { vsps_path }
-        should set_flash.to %r[created successfully!$]
+        should set_flash.to(/created successfully!$/)
       end
     end
 
@@ -47,28 +49,28 @@ class VspsControllerTest < ActionController::TestCase
 
       context 'bad params' do
         setup do
-          patch :update, id: @vsp.id, vsp: { name: '' }
+          patch :update, params: { id: @vsp.id, vsp: { name: '' } }
         end
         should respond_with :success
         should render_template :edit
-        should_not set_flash.to %r[updated successfully!$]
+        should_not set_flash.to(/updated successfully!$/)
       end
 
       context 'good params' do
         setup do
-          patch :update, id: @vsp.id, vsp: { notes: 'Wombat' }
+          patch :update, params: { id: @vsp.id, vsp: { notes: 'Wombat' } }
         end
 
         should respond_with :redirect
         should redirect_to('vsp list') { vsps_path }
-        should set_flash.to %r[updated successfully!$]
+        should set_flash.to(/updated successfully!$/)
       end
     end
 
     context 'GET :edit' do
       setup do
         @vsp = FactoryBot.create :vsp
-        get :edit, id: @vsp.id
+        get :edit, params: { id: @vsp.id }
       end
 
       should respond_with :success
@@ -77,10 +79,10 @@ class VspsControllerTest < ActionController::TestCase
   end
 
   user_context :typical_context do
-    [:index, :new, :edit].each do |x|
+    %i[index new edit].each do |x|
       context "GET #{x}" do
         setup do
-          get x, id: 42
+          get x, params: { id: 42 }
         end
         should respond_with :redirect
         should redirect_to('root') { root_path }
@@ -98,7 +100,7 @@ class VspsControllerTest < ActionController::TestCase
 
     context 'PATCH :update' do
       setup do
-        patch :update, id: 42
+        patch :update, params: { id: 42 }
       end
       should respond_with :redirect
       should redirect_to('root') { root_path }

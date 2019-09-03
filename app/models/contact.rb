@@ -1,25 +1,27 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: contacts
 #
 #  id         :integer          not null, primary key
-#  name       :string(255)
-#  department :string(255)
-#  cell_phone :string(255)
-#  hotel      :string(255)
+#  name       :string
+#  department :string
+#  cell_phone :string
+#  hotel      :string
 #  hotel_room :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  created_at :datetime
+#  updated_at :datetime
 #  can_text   :boolean          default(FALSE)
-#  position   :string(255)
+#  position   :string
 #
 
-class Contact < ActiveRecord::Base
+class Contact < ApplicationRecord
   has_paper_trail
 
   # audited
-  validates_format_of :cell_phone,
-                      message: "must be a valid telephone number.",
-                      with: /\A[\(\)0-9\- \+\.]{10,20}\z/
+  validates :cell_phone,
+            format: { message: 'must be a valid telephone number.',
+                      with: /\A[\(\)0-9\- \+\.]{10,20}\z/ }
   validates :name, presence: true, allow_blank: false
 end

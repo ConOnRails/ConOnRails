@@ -1,16 +1,18 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: login_logs
 #
 #  id         :integer          not null, primary key
-#  user_name  :string(255)
-#  role_name  :string(255)
-#  comment    :string(255)
-#  ip         :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  user_name  :string
+#  role_name  :string
+#  comment    :string
+#  ip         :string
+#  created_at :datetime
+#  updated_at :datetime
 #
 
-class LoginLog < ActiveRecord::Base
+class LoginLog < ApplicationRecord
   has_paper_trail
 end

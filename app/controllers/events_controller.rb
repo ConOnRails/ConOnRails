@@ -1,16 +1,18 @@
+# frozen_string_literal: true
+
 require Rails.root + 'app/queries/event_queries'
 
 class EventsController < ApplicationController
   include Queries::EventQueries
 
-  before_filter :can_read_secure?, only: [:secure]
-  before_filter :can_write_entries?, only: [:new, :create, :edit, :update]
-  before_filter :set_event, only: [:show, :edit, :update]
-  before_filter :get_tagged_events, only: [:tag]
-  before_filter :process_filters, only: [:review, :export]
+  before_action :can_read_secure?, only: [:secure]
+  before_action :can_write_entries?, only: %i[new create edit update]
+  before_action :set_event, only: %i[show edit update]
+  before_action :get_tagged_events, only: [:tag]
+  before_action :process_filters, only: %i[review export]
 
   respond_to :html, :json, except: [:export]
-  respond_to :js, only: [:index, :sticky, :secure, :review]
+  respond_to :js, only: %i[index sticky secure review]
   respond_to :csv, only: [:export]
 
   # GET /events
@@ -62,9 +64,9 @@ class EventsController < ApplicationController
 
   def search_entries
     @q = params[:q] # We'll use this to re-fill the search blank
-    @events = limit_by_convention(Event.search(@q, current_user,
-                                               params[:show_closed],
-                                               session[:index_filter]))
+    @events = limit_by_convention(Event.ransack(@q, current_user,
+                                                params[:show_closed],
+                                                session[:index_filter]))
               .page(params[:page])
     respond_with @events
   end
@@ -106,11 +108,14 @@ class EventsController < ApplicationController
   def update
     # strong_parameters balks a bit at the permissiveness of this. Might want to consider restructuring a bit
 
-    build_entry_from_params @event, entry_params if params.has_key? :entry # this can be blank!
-    build_flag_history_from_params @event, event_params if params.has_key? :event # this can also be blank if nothing changed!
+    build_entry_from_params @event, entry_params if params.key? :entry # this can be blank!
+    build_flag_history_from_params @event, event_params if params.key? :event # this can also be blank if nothing changed!
 
-    if params.has_key? :event
-      flash[:notice] = 'Event was successfully updated.' if @event.update_attributes event_params
+    if params.key? :event
+      if @event.update event_params
+        flash[:notice] = 'Event was successfully updated.' 
+        @event.save!
+      end
     else
       flash[:notice] = 'Event was successfully updated.' if @event.save
     end
@@ -124,7 +129,7 @@ class EventsController < ApplicationController
       flash[:notice] = 'Event was merged. Check and save.'
       respond_with @event, location: edit_event_path(@event)
     else
-      redirect_to request.referrer, notice: 'No IDs selected for merge. Nothing done.'
+      redirect_to request.referer, notice: 'No IDs selected for merge. Nothing done.'
     end
   end
 
@@ -141,21 +146,20 @@ class EventsController < ApplicationController
   end
 
   def build_entry_from_params(event, params)
-    return unless params and params[:description] != ''
+    return unless params && (params[:description] != '')
 
-    event.entries.build(params.merge({ event: event, user: current_user, rolename: current_role_name }))
+    event.entries.build(params.merge(event: event, user: current_user, rolename: current_role_name))
   end
 
   def build_flag_history_from_params(event, params, always = false)
-    return unless always or (params and @event.flags_differ? params)
+    return unless always || (params && @event.flags_differ?(params))
 
-    event.event_flag_histories.build(params.merge({ event: event, user: current_user, rolename: current_role_name }))
+    event.event_flag_histories.build(params.merge(event: event, user: current_user,
+                                                  rolename: current_role_name))
   end
 
   def filter_order
-    return 'asc' unless params.has_key?(:filters) && params[:filters].has_key?(:order)
-
-    params[:filters][:order]
+    params.permit(filters: :order).fetch(:filters, {}).fetch(:order, 'asc')
   end
 
   def get_tagged_events
@@ -163,28 +167,40 @@ class EventsController < ApplicationController
                         .tagged_with(params[:tag])
                         .includes(:event_flag_histories)
                         .includes(:entries)
-                        .order { |e| e.updated_at.desc }
+                        .order(updated_at: :desc)
   end
 
   def jump
-    event = Event.find_by_id(params[:id])
-    return redirect_to event_path(params[:id]) if event
+    event = Event.find_by(id: top_params[:id])
+    return redirect_to event_path(event) if event.present?
 
     render 'lost_and_found_items/invalid'
   end
 
   def process_filters
-    @q = params[:q]
+    @q = top_params[:q]
 
-    @events = limit_by_convention FiltersQuery.new(Event.where {}, params[:filters]).query.protect_sensitive_events(current_user)
+    @events = FiltersQuery.new(Event.all,
+                               top_params[:filters])
+                          .query
+                          .protect_sensitive_events(current_user)
+    @events = limit_by_convention @events
     @events = limit_by_date_range @events
     @events = @events.search_entries(@q) if @q.present?
     @events = @events.order(updated_at: filter_order)
-    @events = @events.page(params[:page])
+    @events = @events.page(top_params[:page])
   end
 
   def set_event
-    @event = Event.find(params[:id])
+    @event = Event.find(top_params[:id])
+  end
+
+  def top_params
+    params.permit(:convention, :id, :page, :q, filters: %i[is_active comment flagged post_con quote sticky emergency
+                                                           medical hidden secure consuite hotel parties volunteers
+                                                           dealers dock merchandise nerf_herders status alert_dispatcher tag
+                                                           accessibility_and_inclusion allocations first_advisors member_advocates
+                                                           operations programming registration volunteers_den merged])
   end
 
   def event_params

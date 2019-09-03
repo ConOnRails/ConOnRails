@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ConventionsControllerTest < ActionController::TestCase
@@ -6,7 +8,7 @@ class ConventionsControllerTest < ActionController::TestCase
   end
 
   user_context :admin_context do
-    context "should get index" do
+    context 'should get index' do
       setup do
         get :index
       end
@@ -14,7 +16,7 @@ class ConventionsControllerTest < ActionController::TestCase
       should respond_with :success
     end
 
-    context "should get new" do
+    context 'should get new' do
       setup do
         get :new
       end
@@ -23,39 +25,42 @@ class ConventionsControllerTest < ActionController::TestCase
       should render_template :new
     end
 
-    context "should create convention" do
+    context 'should create convention' do
       setup do
-        post :create, convention: { end_date: @convention.end_date, name: @convention.name, start_date: @convention.start_date }
+        post :create, params: { convention: { end_date: @convention.end_date,
+                                              name: @convention.name, start_date: @convention.start_date } }
       end
 
       should respond_with :redirect
       should redirect_to :conventions
     end
 
-    context "should show convention" do
+    context 'should show convention' do
       setup do
         @convention.save!
-        get :show, id: @convention
+        get :show, params: { id: @convention }
       end
 
       should respond_with :success
       should render_template :show
     end
 
-    context "should get edit" do
+    context 'should get edit' do
       setup do
         @convention.save!
-        get :edit, id: @convention
+        get :edit, params: { id: @convention }
       end
 
       should respond_with :success
       should render_template :edit
     end
 
-    context "should update convention" do
+    context 'should update convention' do
       setup do
         @convention.save!
-        put :update, id: @convention, convention: { end_date: @convention.end_date, name: @convention.name, start_date: @convention.start_date }
+        put :update, params: { id: @convention,
+                               convention: { end_date: @convention.end_date, name: @convention.name,
+                                             start_date: @convention.start_date } }
       end
 
       should respond_with :redirect
@@ -64,7 +69,7 @@ class ConventionsControllerTest < ActionController::TestCase
   end
 
   multiple_contexts :typical_context, :peon_context do
-    context "should get index" do
+    context 'should get index' do
       setup do
         get :index
       end
@@ -73,7 +78,7 @@ class ConventionsControllerTest < ActionController::TestCase
       should redirect_to :public
     end
 
-    context "should get new" do
+    context 'should get new' do
       setup do
         get :new
       end
@@ -82,39 +87,42 @@ class ConventionsControllerTest < ActionController::TestCase
       should redirect_to :public
     end
 
-    context "should create convention" do
+    context 'should create convention' do
       setup do
-        post :create, convention: { end_date: @convention.end_date, name: @convention.name, start_date: @convention.start_date }
+        post :create, params: { convention: { end_date: @convention.end_date,
+                                              name: @convention.name, start_date: @convention.start_date } }
       end
 
       should respond_with :redirect
       should redirect_to :public
     end
 
-    context "should show convention" do
+    context 'should show convention' do
       setup do
         @convention.save!
-        get :show, id: @convention
+        get :show, params: { id: @convention }
       end
 
       should respond_with :redirect
       should redirect_to :public
     end
 
-    context "should get edit" do
+    context 'should get edit' do
       setup do
         @convention.save!
-        get :edit, id: @convention
+        get :edit, params: { id: @convention }
       end
 
       should respond_with :redirect
       should redirect_to :public
     end
 
-    context "should update convention" do
+    context 'should update convention' do
       setup do
         @convention.save!
-        put :update, id: @convention, convention: { end_date: @convention.end_date, name: @convention.name, start_date: @convention.start_date }
+        put :update, params: { id: @convention,
+                               convention: { end_date: @convention.end_date, name: @convention.name,
+                                             start_date: @convention.start_date } }
       end
 
       should respond_with :redirect

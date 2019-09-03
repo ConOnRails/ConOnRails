@@ -1,4 +1,6 @@
-class ChangeDutyBoardAssignmentToFreeformName < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class ChangeDutyBoardAssignmentToFreeformName < ActiveRecord::Migration[4.2]
   def up
     change_table :duty_board_assignments do |t|
       t.remove :volunteer_id
