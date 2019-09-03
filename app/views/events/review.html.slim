@@ -80,7 +80,6 @@
 
   .form-group
     .col-md-12
-      - ap @events.to_sql
       .paginator.pull-left= paginate(@events, remote: true)
     #event_list
       noscript= render @events, form: false
