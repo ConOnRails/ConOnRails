@@ -10,7 +10,7 @@ module ApplicationHelper
   end
 
   def version_name
-    'Puditry'
+    'Punditry'
   end
 
   def version_type
