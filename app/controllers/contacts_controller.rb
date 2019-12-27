@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ContactsController < ApplicationController
-  before_action :can_write_entries?, only: %i[new create edit update]
   before_action :find_contacts, only: [:index]
   before_action :find_contact, only: %i[show edit update]
 
@@ -19,6 +18,7 @@ class ContactsController < ApplicationController
   # GET /contacts/new.json
   def new
     @contact = Contact.new
+    authorize @contact
   end
 
   # GET /contacts/1/edit
@@ -28,6 +28,8 @@ class ContactsController < ApplicationController
   # POST /contacts.json
   def create
     @contact = Contact.new contact_params
+    authorize @contact
+
     flash[:notice] = 'Contact was successfully created.' if @contact.save
     respond_with @contact, location: contacts_path
   end
@@ -42,12 +44,14 @@ class ContactsController < ApplicationController
   protected
 
   def find_contacts
-    @q        = Contact.ransack params[:q]
+    @q        = policy_scope(Contact).ransack params[:q]
     @contacts = @q.result.page(params[:page])
+    authorize @contacts
   end
 
   def find_contact
     @contact = Contact.find(params[:id])
+    authorize @contact
   end
 
   def contact_params

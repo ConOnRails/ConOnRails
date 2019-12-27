@@ -3,7 +3,6 @@
 class ConventionsController < ApplicationController
   respond_to :html
 
-  before_action :can_read_audits?
   before_action :set_conventions, only: [:index]
   before_action :set_convention, only: %i[show edit update]
   before_action :build_convention, only: [:create]
@@ -12,6 +11,7 @@ class ConventionsController < ApplicationController
   # GET /conventions/new.json
   def new
     @convention = Convention.new
+    authorize @convention
   end
 
   # POST /conventions
@@ -31,17 +31,20 @@ class ConventionsController < ApplicationController
   protected
 
   def set_conventions
-    @q = Convention.ransack params[:q]
+    @q = policy_scope(Convention).ransack params[:q]
     @q.sorts = ['start_date desc'] if @q.sorts.empty?
     @conventions = @q.result.page(params[:page])
+    authorize @conventions
   end
 
   def set_convention
     @convention = Convention.find params[:id]
+    authorize @convention
   end
 
   def build_convention
     @convention = Convention.new convention_params
+    authorize @convention
   end
 
   def convention_params

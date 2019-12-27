@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class AuditsController < ApplicationController
-  before_action :can_read_audits?
-
   private
 
   def make_date(date_array)
@@ -31,6 +29,7 @@ class AuditsController < ApplicationController
 
     w[:auditable_type] = types unless types.count == 0
 
-    @audits = Audit.where(w).page(params[:page])
+    @audits = policy_scope(Audit).where(w).page(params[:page])
+    authorize @audits
   end
 end

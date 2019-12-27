@@ -5,8 +5,6 @@ require Rails.root + 'app/queries/event_queries'
 class EventsController < ApplicationController
   include Queries::EventQueries
 
-  before_action :can_read_secure?, only: [:secure]
-  before_action :can_write_entries?, only: %i[new create edit update]
   before_action :set_event, only: %i[show edit update]
   before_action :get_tagged_events, only: [:tag]
   before_action :process_filters, only: %i[review export]
@@ -18,10 +16,12 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
+    authorize Event
+
     @title = 'Active Events'
     return jump if params[:id].present?
 
-    @events = IndexQuery.new(Event).query(session[:index_filter])
+    @events = IndexQuery.new(policy_scope(Event)).query(session[:index_filter])
                         .order(updated_at: :desc)
                         .eager_load(:event_flag_histories)
                         .eager_load(:entries)
@@ -30,8 +30,10 @@ class EventsController < ApplicationController
   end
 
   def sticky
+    authorize Event
+
     @title = 'Sticky Events'
-    @events = (limit_by_convention StickyQuery.new(Event).query
+    @events = (limit_by_convention StickyQuery.new(policy_scope(Event)).query
                 .order(updated_at: :desc)
                 .eager_load(:event_flag_histories)
                 .eager_load(:entries))
@@ -44,6 +46,8 @@ class EventsController < ApplicationController
   end
 
   def secure
+    authorize Event
+
     @title = 'Secure Events'
     @events = SecureQuery.new(Event).query
                          .order(updated_at: :desc)
@@ -57,28 +61,32 @@ class EventsController < ApplicationController
   end
 
   def tag
+    authorize Event
     respond_with do |format|
       format.json { render :index }
     end
   end
 
   def search_entries
+    authorize Event
+    
     @q = params[:q] # We'll use this to re-fill the search blank
-    @events = limit_by_convention(Event.ransack(@q, current_user,
-                                                params[:show_closed],
-                                                session[:index_filter]))
+    @events = limit_by_convention(policy_scope(Event).ransack(@q, current_user,
+                                                      params[:show_closed],
+                                                      session[:index_filter]))
               .page(params[:page])
     respond_with @events
   end
 
   def review
+    authorize Event
     @title = 'Event Review'
     respond_with @events
   end
 
   # GET /events/1
   # GET /events/1.json
-  def show
+  def show    
     @title = 'Event'
     @entry = build_new_entry @event
   end
@@ -89,16 +97,24 @@ class EventsController < ApplicationController
   def new
     @title = 'New Event'
     @event = Event.new
+    authorize @event
+
     @event.flags = session[:index_filter] if session[:index_filter]
     @event.emergency = true if params[:emergency] == '1'
     @entry = build_new_entry @event
   end
 
   def create
-    @event = Event.create event_params
-    build_entry_from_params @event, entry_params
-    build_flag_history_from_params @event, event_params, true
-    flash[:notice] = 'Event was successfully created.' if @event.save
+    @event = Event.new event_params
+    authorize @event
+
+    if @event.save
+      build_entry_from_params @event, entry_params
+      build_flag_history_from_params @event, event_params, true
+      flash[:notice] = 'Event was successfully created.'
+    else
+      flash[:error] = 'Event creation failed'
+    end
 
     respond_with @event, location: -> { events_path }
   end
@@ -107,7 +123,6 @@ class EventsController < ApplicationController
   # PUT /events/1.json
   def update
     # strong_parameters balks a bit at the permissiveness of this. Might want to consider restructuring a bit
-
     build_entry_from_params @event, entry_params if params.key? :entry # this can be blank!
     build_flag_history_from_params @event, event_params if params.key? :event # this can also be blank if nothing changed!
 
@@ -123,8 +138,10 @@ class EventsController < ApplicationController
     respond_with @event, location: -> { events_path }
   end
 
-  def merge_events
-    @event = Event.merge_events merge_id_params, current_user, current_role_name
+  def merge_events  
+    authorize Event
+    merge_events = policy_scope(Event).where(id: merge_id_params)
+    @event = Event.merge_events merge_events, current_user, current_role_name
     if @event.present?
       flash[:notice] = 'Event was merged. Check and save.'
       respond_with @event, location: edit_event_path(@event)
@@ -163,7 +180,7 @@ class EventsController < ApplicationController
   end
 
   def get_tagged_events
-    @events = IndexQuery.new(Event).query
+    @events = IndexQuery.new(policy_scope(Event)).query
                         .tagged_with(params[:tag])
                         .includes(:event_flag_histories)
                         .includes(:entries)
@@ -180,7 +197,7 @@ class EventsController < ApplicationController
   def process_filters
     @q = top_params[:q]
 
-    @events = FiltersQuery.new(Event.all,
+    @events = FiltersQuery.new(policy_scope(Event),
                                top_params[:filters])
                           .query
                           .protect_sensitive_events(current_user)
@@ -193,6 +210,7 @@ class EventsController < ApplicationController
 
   def set_event
     @event = Event.find(top_params[:id])
+    authorize @event
   end
 
   def top_params

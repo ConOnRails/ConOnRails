@@ -3,14 +3,13 @@
 class RadioGroupsController < ApplicationController
   respond_to :html, :json
 
-  before_action :can_admin_radios?, only: %i[new create edit update destroy]
-  before_action :can_assign_radios?, only: %i[index show]
   before_action :find_radio_group, only: %i[show edit update destroy]
 
   # GET /radio_groups
   # GET /radio_groups.json
   def index(del_or_edit = 'edit')
-    @radio_groups = RadioGroup.all
+    @radio_groups = policy_scope(RadioGroup).all
+    authorize @radio_groups
     @del_or_edit  = del_or_edit
   end
 
@@ -22,12 +21,14 @@ class RadioGroupsController < ApplicationController
   # GET /radio_groups/new.json
   def new
     @radio_group = RadioGroup.new
+    authorize @radio_group
   end
 
   # POST /radio_groups
   # POST /radio_groups.json
   def create
     @radio_group = RadioGroup.new radio_group_params
+    authorize @radio_group
     flash[:notice] = 'Radio group was successfully created.' if @radio_group.save
     respond_with @radio_group
   end
@@ -50,6 +51,7 @@ class RadioGroupsController < ApplicationController
 
   def find_radio_group
     @radio_group = RadioGroup.find(params[:id])
+    authorize @radio_group
   end
 
   def radio_group_params

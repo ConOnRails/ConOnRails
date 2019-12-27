@@ -216,6 +216,8 @@ GEM
     public_suffix (3.1.1)
     puma (4.1.0)
       nio4r (~> 2.0)
+    pundit (2.1.0)
+      activesupport (>= 3.0.0)
     rack (2.0.7)
     rack-mini-profiler (1.0.2)
       rack (>= 1.2.0)
@@ -413,6 +415,7 @@ DEPENDENCIES
   pg (~> 1.0)
   pg_search
   puma
+  pundit (~> 2.1.0)
   rack-mini-profiler
   rails (>= 5.2.0, < 6.0)
   rails-assets-sweetalert2 (~> 5.1.1)!

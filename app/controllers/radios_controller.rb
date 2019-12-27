@@ -3,8 +3,6 @@
 class RadiosController < ApplicationController
   respond_to :html, :json
 
-  before_action :can_admin_radios?, only: %i[new create edit update destroy]
-  before_action :can_assign_radios?, only: %i[index show search_volunteers]
   before_action :find_radio, only: %i[show edit update destroy checkout transfer]
   before_action :find_radios, only: %i[index new create]
 
@@ -12,6 +10,8 @@ class RadiosController < ApplicationController
   def search_volunteers
     @volunteers = Volunteer.radio_volunteer(params[:first_name],
                                             params[:last_name])
+    authorize @volunteers
+    
     respond_with do |format|
       format.html do
         if request.xhr?
@@ -27,6 +27,9 @@ class RadiosController < ApplicationController
   def select_department
     @radio            = Radio.find params[:id]
     @radio_assignment = @radio.radio_assignment || RadioAssignment.new
+    authorize @radio
+    authorize @radio_assignment
+
     respond_with do |format|
       format.html do
         if request.xhr?
@@ -44,15 +47,18 @@ class RadiosController < ApplicationController
   # GET /radios/new.json
   def new
     @radio = Radio.new
+    authorize @radio
   end
 
   # GET /radios/1/checkout -- just gets the form
   def checkout
     @radio_assignment = RadioAssignment.new
+    authorize @radio_assignment
   end
 
   def transfer
     @radio_assignment = @radio.radio_assignment
+    authorize @radio_assignment
   end
 
   # POST /radios
@@ -84,12 +90,14 @@ class RadiosController < ApplicationController
 
   def find_radio
     @radio = Radio.find(params[:id])
+    authorize @radio
   end
 
   def find_radios
-    @q = Radio.ransack params[:q]
+    @q = policy_scope(Radio).ransack params[:q]
     @q.sorts = ['state desc', 'radios_number'] if @q.sorts.empty? # , 'radio_group_name', 'radio_number'
     @radios = @q.result(distinct: true).page(params[:page])
+    authorize @radios
   end
 
   def radio_params

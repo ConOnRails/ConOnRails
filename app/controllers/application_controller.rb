@@ -1,10 +1,15 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  include Pundit
   protect_from_forgery
 
   before_action :require_login, except: [:banner]
+  after_action :verify_authorized, except: [:index, :banner]
+  after_action :verify_policy_scoped, only: :index
 
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  
   def banner
     session[:pause_refresh] ||= false
     render partial: 'banner'
@@ -27,6 +32,10 @@ class ApplicationController < ActionController::Base
       ret = user.can_admin_anything?
     end
     ret
+  end
+
+  def user_not_authorized
+    redirect_to :public
   end
 
   def can_write_entries?

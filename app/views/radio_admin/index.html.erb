@@ -1,12 +1,10 @@
 <h1>Radio Administration</h1>
 
 <ul>
-  <% if current_user and current_user.can_admin_radios? %>
-      <li><%= link_to "Radios", :radios %></li>
-      <li><%= link_to "Radio groups", :radio_groups %></li>
-      <li><%= link_to "Department radio allotments", :departments %></li>
-      <li><%= link_to "Radio assignment log", :radio_assignment_audits %></li>
-  <% end %>
+    <li><%= link_to "Radios", :radios %></li>
+    <li><%= link_to "Radio groups", :radio_groups %></li>
+    <li><%= link_to "Department radio allotments", :departments %></li>
+    <li><%= link_to "Radio assignment log", :radio_assignment_audits %></li>
 </ul>
 
 <% content_for :side do %>

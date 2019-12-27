@@ -3,24 +3,8 @@
 class LostAndFoundItemsController < ApplicationController
   respond_to :html, :json
 
-  before_action :user_can_add_lost_and_found, only: %i[new create]
-  before_action :user_can_modify_lost_and_found, only: %i[edit update]
   before_action :build_categories_from_params, only: [:index]
   before_action :find_lfi, only: %i[show edit update]
-
-  protected
-
-  def user_can_add_lost_and_found
-    user = User.find session[:user_id]
-    redirect_to lost_and_found_url unless user.add_lost_and_found?
-  end
-
-  def user_can_modify_lost_and_found
-    user = User.find session[:user_id]
-    redirect_to lost_and_found_url unless user.modify_lost_and_found?
-  end
-
-  public
 
   def index
     return jump if lfi_search_params[:id].present?
@@ -29,19 +13,24 @@ class LostAndFoundItemsController < ApplicationController
 
     @title = 'Lost and Found Entries'
 
-    @lfis = limit_by_convention LostAndFoundItem.inventory(lfi_search_params[:inventory],
-                                                           lfi_search_params[:exclude_inventoried]).page(lfi_search_params[:page])
+    @lfis = limit_by_convention policy_scope(LostAndFoundItem)
+                                  .inventory(lfi_search_params[:inventory],
+                                             lfi_search_params[:exclude_inventoried])
+                                  .page(lfi_search_params[:page])
     if lfi_search_params[:keywords].present?
       @lfis = @lfis.where("(#{build_like('description', search_type)}) OR (#{build_like('details',
                                                                                         search_type)})")
     end
     @lfis = @lfis.where(category: @categories).references(:tags) if @categories.present?
     @lfis = lfi_search_params[:show_returned_only] ? @lfis.returned : @lfis.not_returned
+    authorize @lfis
     @back_params = lfi_search_params
   end
 
   def new
     @lfi                  = LostAndFoundItem.new
+    authorize @lfi
+
     @lfi.reported_missing = lfi_params[:reported_missing]
     @lfi.found            = lfi_params[:found]
 
@@ -50,6 +39,8 @@ class LostAndFoundItemsController < ApplicationController
 
   def create
     @lfi          = LostAndFoundItem.new lfi_params
+    authorize @lfi
+
     @lfi.user     = current_user
     @lfi.rolename = current_role_name
 
@@ -73,9 +64,15 @@ class LostAndFoundItemsController < ApplicationController
     respond_with @lfi, location: lost_and_found_item_path(@lfi, inventory: lfi_params[:inventory])
   end
 
+  def searchform
+    authorize :lost_and_found_item, :index?
+  end
+
   def export
     respond_with do |f|
-      f.csv { send_data LostAndFoundItem.to_csv(LostAndFoundItem.inventoried.order(:id)), filename: 'lost-and-found-inventory.csv', type: 'text/csv' }
+      @lfis = policy_scope(LostAndFoundItem).inventoried.order(:id)
+      authorize @lfis, :index?
+      f.csv { send_data LostAndFoundItem.to_csv(@lfis), filename: 'lost-and-found-inventory.csv', type: 'text/csv' }
     end
   end
 
@@ -83,6 +80,7 @@ class LostAndFoundItemsController < ApplicationController
 
   def jump
     @lfi = LostAndFoundItem.find_by(id: params[:id])
+    authorize @lfi
     if @lfi.present?
       return redirect_to lost_and_found_item_path(@lfi,
                                                   inventory: params[:inventory] || false)
@@ -113,6 +111,7 @@ class LostAndFoundItemsController < ApplicationController
 
   def find_lfi
     @lfi = LostAndFoundItem.find params[:id]
+    authorize @lfi
   end
 
   def fix_old_categories(cats)

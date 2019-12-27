@@ -3,7 +3,6 @@
 class RolesController < ApplicationController
   respond_to :html, :json
 
-  before_action :redirect_if_cannot_admin
   before_action :find_role, only: %i[show edit update destroy]
   before_action :find_roles, only: [:index]
 
@@ -11,12 +10,14 @@ class RolesController < ApplicationController
   # GET /roles/new.json
   def new
     @role = Role.new
+    authorize @role
   end
 
   # POST /roles
   # POST /roles.json
   def create
     @role = Role.new role_params
+    authorize @role
     flash[:notice] = 'Role was successfully created.' if @role.save
     respond_with @role
   end
@@ -39,14 +40,12 @@ class RolesController < ApplicationController
 
   def find_role
     @role = Role.find(params[:id])
+    authorize @role
   end
 
   def find_roles
-    @roles = Role.all
-  end
-
-  def redirect_if_cannot_admin
-    redirect_to public_url unless current_user&.can_admin_users?
+    authorize Role
+    @roles = policy_scope(Role)
   end
 
   def role_params

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class VersionsController < ApplicationController
-  before_action :can_read_audits?
-
   private
 
   def make_date(date_array)
@@ -31,6 +29,7 @@ class VersionsController < ApplicationController
 
     w[:item_type] = types unless types.count == 0
 
-    @versions = Version.where(w).page(params[:page])
+    @versions = policy_scope(Version).where(w).page(params[:page])
+    authorize @versions
   end
 end

@@ -80,30 +80,34 @@ class VspsControllerTest < ActionController::TestCase
 
   user_context :typical_context do
     %i[index new edit].each do |x|
+      setup do
+        @vsp = FactoryBot.create :vsp
+      end
+
       context "GET #{x}" do
         setup do
-          get x, params: { id: 42 }
+          get x, params: { id: @vsp.id }
         end
         should respond_with :redirect
-        should redirect_to('root') { root_path }
+        should redirect_to('root') { public_path }
       end
     end
 
     context 'POST :create' do
       setup do
-        post :create
+        post :create, params: { vsp: { name: '' } }
       end
 
       should respond_with :redirect
-      should redirect_to('root') { root_path }
+      should redirect_to('root') { public_path }
     end
 
     context 'PATCH :update' do
       setup do
-        patch :update, params: { id: 42 }
+        patch :update, params: { id: @vsp.id }
       end
       should respond_with :redirect
-      should redirect_to('root') { root_path }
+      should redirect_to('root') { public_path }
     end
   end
 end
