@@ -21,8 +21,8 @@ class EventsController < ApplicationController
 
     @events = IndexQuery.new(policy_scope(Event)).query(session[:index_filter])
                         .order(updated_at: :desc)
-                        .eager_load(:event_flag_histories)
-                        .eager_load(:entries)
+                        .preload(:event_flag_histories)
+                        .preload(:entries)
                         .page(params[:page])
     authorize @events
     respond_with @events
@@ -34,8 +34,8 @@ class EventsController < ApplicationController
     @title = 'Sticky Events'
     @events = (limit_by_convention StickyQuery.new(policy_scope(Event)).query
                 .order(updated_at: :desc)
-                .includes(:event_flag_histories)
-                .includes(:entries))
+                .preload(:event_flag_histories)
+                .preload(:entries))
               .page(params[:page])
 
     respond_with @events do |format|
@@ -50,8 +50,8 @@ class EventsController < ApplicationController
     @title = 'Secure Events'
     @events = SecureQuery.new(Event).query
                          .order(updated_at: :desc)
-                         .eager_load(:event_flag_histories)
-                         .eager_load(:entries)
+                         .preload(:event_flag_histories)
+                         .preload(:entries)
                          .page(params[:page])
     respond_with @events do |format|
       format.html { render :index }
@@ -184,8 +184,8 @@ class EventsController < ApplicationController
   def get_tagged_events
     @events = IndexQuery.new(policy_scope(Event)).query
                         .tagged_with(params[:tag])
-                        .includes(:event_flag_histories)
-                        .includes(:entries)
+                        .preload(:event_flag_histories)
+                        .preload(:entries)
                         .order(updated_at: :desc)
   end
 
