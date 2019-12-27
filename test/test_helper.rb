@@ -120,4 +120,4 @@ module ActionDispatch
   end
 end
 
-require 'mocha/setup'
+require 'mocha/minitest'

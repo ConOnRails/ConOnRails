@@ -35,8 +35,8 @@ class EventsController < ApplicationController
     @title = 'Sticky Events'
     @events = (limit_by_convention StickyQuery.new(policy_scope(Event)).query
                 .order(updated_at: :desc)
-                .eager_load(:event_flag_histories)
-                .eager_load(:entries))
+                .includes(:event_flag_histories)
+                .includes(:entries))
               .page(params[:page])
 
     respond_with @events do |format|
@@ -111,6 +111,9 @@ class EventsController < ApplicationController
     if @event.save
       build_entry_from_params @event, entry_params
       build_flag_history_from_params @event, event_params, true
+    end
+
+    if @event.save # save the extra bits
       flash[:notice] = 'Event was successfully created.'
     else
       flash[:error] = 'Event creation failed'
