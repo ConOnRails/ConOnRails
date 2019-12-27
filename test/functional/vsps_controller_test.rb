@@ -89,7 +89,7 @@ class VspsControllerTest < ActionController::TestCase
           get x, params: { id: @vsp.id }
         end
         should respond_with :redirect
-        should redirect_to('root') { public_path }
+        should redirect_to('root') { root_url }
       end
     end
 
@@ -99,7 +99,7 @@ class VspsControllerTest < ActionController::TestCase
       end
 
       should respond_with :redirect
-      should redirect_to('root') { public_path }
+      should redirect_to('root') { root_url }
     end
 
     context 'PATCH :update' do
@@ -107,7 +107,7 @@ class VspsControllerTest < ActionController::TestCase
         patch :update, params: { id: @vsp.id }
       end
       should respond_with :redirect
-      should redirect_to('root') { public_path }
+      should redirect_to('root') { root_url }
     end
   end
 end

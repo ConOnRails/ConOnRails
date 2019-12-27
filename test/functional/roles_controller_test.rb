@@ -19,7 +19,7 @@ class RolesControllerTest < ActionController::TestCase
 
   test "peon can't get index" do
     get :index, session: { user_id: @peon_user.id }
-    assert_redirected_to :public
+    assert_redirected_to :root
   end
 
   test "anon can't get index" do
@@ -34,7 +34,7 @@ class RolesControllerTest < ActionController::TestCase
 
   test "peon can't get new" do
     get :new, session: { user_id: @peon_user.id }
-    assert_redirected_to :public
+    assert_redirected_to :root
   end
 
   test "anon can't get new" do
@@ -55,7 +55,7 @@ class RolesControllerTest < ActionController::TestCase
       post :create, params: { role: { name: 'Foo' } }, session: { user_id: @peon_user.id }
     end
 
-    assert_redirected_to :public
+    assert_redirected_to :root
   end
 
   test "anon can't create role" do
@@ -82,7 +82,7 @@ class RolesControllerTest < ActionController::TestCase
 
   test "peon can't show role" do
     get :show, params: { id: @peon.to_param }, session: { user_id: @peon_user.id }
-    assert_redirected_to :public
+    assert_redirected_to :root
   end
 
   test "anon can't show role" do
@@ -97,7 +97,7 @@ class RolesControllerTest < ActionController::TestCase
 
   test "peon can't edit" do
     get :edit, params: { id: @peon.to_param }, session: { user_id: @peon_user.id }
-    assert_redirected_to :public
+    assert_redirected_to :root
   end
 
   test "anon can't edit" do
@@ -123,7 +123,7 @@ class RolesControllerTest < ActionController::TestCase
   test "peon can't update role" do
     put :update, params: { id: @peon.to_param,
                            role: @peon.attributes }, session: { user_id: @peon_user.id }
-    assert_redirected_to :public
+    assert_redirected_to :root
   end
 
   test "anon can't' update role" do
@@ -144,7 +144,7 @@ class RolesControllerTest < ActionController::TestCase
       delete :destroy, params: { id: @peon.to_param }, session: { user_id: @peon_user.id }
     end
 
-    assert_redirected_to :public
+    assert_redirected_to :root
   end
 
   test "anon can't destroy role" do

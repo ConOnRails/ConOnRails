@@ -16,8 +16,6 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    authorize Event
-
     @title = 'Active Events'
     return jump if params[:id].present?
 
@@ -26,6 +24,7 @@ class EventsController < ApplicationController
                         .eager_load(:event_flag_histories)
                         .eager_load(:entries)
                         .page(params[:page])
+    authorize @events
     respond_with @events
   end
 
@@ -191,7 +190,8 @@ class EventsController < ApplicationController
   end
 
   def jump
-    event = Event.find_by(id: top_params[:id])
+    event = policy_scope(Event).find_by(id: top_params[:id])
+    authorize event
     return redirect_to event_path(event) if event.present?
 
     render 'lost_and_found_items/invalid'

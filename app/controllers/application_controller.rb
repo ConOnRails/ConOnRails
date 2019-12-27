@@ -35,43 +35,7 @@ class ApplicationController < ActionController::Base
   end
 
   def user_not_authorized
-    redirect_to :public
-  end
-
-  def can_write_entries?
-    redirect_to :public unless current_user&.write_entries?
-  end
-
-  def can_admin_users?
-    redirect_to :public unless current_user&.can_admin_users?
-  end
-
-  def can_admin_radios?
-    redirect_to :public unless current_user&.can_admin_radios?
-  end
-
-  def can_assign_radios?
-    redirect_to :public unless current_user&.can_assign_radios?
-  end
-
-  def can_admin_or_assign_radios?
-    redirect_to :public unless current_user && (current_user.can_assign_radios? || current_user.can_admin_radios?)
-  end
-
-  def can_admin_duty_board?
-    redirect_to :public unless current_user&.can_admin_duty_board?
-  end
-
-  def can_assign_duty_board_slots?
-    redirect_to :public unless current_user&.can_assign_duty_board_slots?
-  end
-
-  def can_read_audits?
-    redirect_to :public unless current_user&.can_read_audits?
-  end
-
-  def can_read_secure?
-    redirect_to :root unless current_user&.can_read_secure?
+    redirect_to :root
   end
 
   def require_login

@@ -17,7 +17,7 @@ class RadiosController < ApplicationController
         if request.xhr?
           render partial: 'volunteers', locals: { radio: params[:radio] }
         else
-          redirect_to public_path
+          redirect_to root_path
         end
       end
     end
@@ -37,7 +37,7 @@ class RadiosController < ApplicationController
                                                          radio_group: @radio.radio_group.id,
                                                          volunteer: params[:volunteer] }
         else
-          redirect_to public_path
+          redirect_to root_path
         end
       end
     end

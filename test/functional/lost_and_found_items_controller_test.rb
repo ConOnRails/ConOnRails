@@ -48,7 +48,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
 
   test 'peons cannot get new' do
     get :new, params: { lost_and_found_item: { reported_missing: true } }, session: { user_id: @peon_user.id }
-    assert_redirected_to :public
+    assert_redirected_to :root
   end
 
   test 'non-peons should get new missing' do
@@ -197,7 +197,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
 
   test 'peon cannot edit lost' do
     get :edit, params: { id: @missing.id }, session: { user_id: @peon_user.id }
-    assert_redirected_to :public
+    assert_redirected_to :root
   end
 
   test 'should get edit' do
@@ -222,7 +222,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
   test 'peon cannot update' do
     put :update, params: { id: @missing.id,
                            lost_and_found_item: @change_this }, session: { user_id: @peon_user.id }
-    assert_redirected_to :public
+    assert_redirected_to :root
   end
 
   test 'cannot update with incomplete information' do
