@@ -3,7 +3,6 @@
 class VspsController < ApplicationController
   respond_to :html
 
-  before_action :reject_peons
   before_action :find_vsps, only: [:index]
   before_action :new_vsp, only: [:new]
   before_action :create_vsp, only: [:create]
@@ -23,23 +22,24 @@ class VspsController < ApplicationController
 
   def create_vsp
     @vsp = Vsp.new vsp_params
+    authorize @vsp
   end
 
   def find_vsps
-    @people  = Vsp.people
-    @parties = Vsp.parties
+    @people  = policy_scope(Vsp).people
+    @parties = policy_scope(Vsp).parties
+    authorize @people
+    authorize @parties
   end
 
   def find_vsp
     @vsp = Vsp.find params[:id]
+    authorize @vsp
   end
 
   def new_vsp
     @vsp = Vsp.new
-  end
-
-  def reject_peons
-    redirect_to root_url unless current_user.can_read_audits?
+    authorize @vsp
   end
 
   def vsp_params

@@ -33,7 +33,7 @@ class VolunteersControllerTest < ActionController::TestCase
 
   def get_new_fail(session)
     get :new, session: session
-    assert_redirected_to :public
+    assert_redirected_to :root
   end
 
   def post_create_success(session)
@@ -50,7 +50,7 @@ class VolunteersControllerTest < ActionController::TestCase
       post :create, params: { volunteer: @volunteer.attributes }, session: session
     end
 
-    assert_redirected_to :public
+    assert_redirected_to :root
   end
 
   def get_show_success(session)
@@ -60,7 +60,7 @@ class VolunteersControllerTest < ActionController::TestCase
 
   def get_show_fail(session)
     get :show, params: { id: @volunteer.to_param }, session: session
-    assert_redirected_to :public
+    assert_redirected_to :root
   end
 
   def get_edit_success(session)
@@ -70,7 +70,7 @@ class VolunteersControllerTest < ActionController::TestCase
 
   def get_edit_fail(session)
     get :edit, params: { id: @volunteer.to_param }, session: session
-    assert_redirected_to :public
+    assert_redirected_to :root
   end
 
   def put_update_success(session)
@@ -83,7 +83,7 @@ class VolunteersControllerTest < ActionController::TestCase
   def put_update_fail(session)
     put :update, params: { id: @volunteer.to_param,
                            volunteer: @volunteer.attributes }, session: session
-    assert_redirected_to :public
+    assert_redirected_to :root
   end
 
   test 'should get index' do

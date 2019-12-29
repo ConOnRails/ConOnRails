@@ -3,7 +3,6 @@
 class RadioAssignmentAuditsController < ApplicationController
   respond_to :html
 
-  before_action :can_admin_radios?
   before_action :get_audits, only: :index
 
   # GET /radio_assignment_audits
@@ -18,7 +17,8 @@ class RadioAssignmentAuditsController < ApplicationController
   protected
 
   def get_audits
-    @q = RadioAssignmentAudit.ransack params[:q]
+    @q = policy_scope(RadioAssignmentAudit).ransack params[:q]
     @radio_assignment_audits = @q.result.page params[:page]
+    authorize @radio_assignment_audits
   end
 end

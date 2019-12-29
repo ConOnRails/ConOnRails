@@ -21,7 +21,7 @@ class ContactsControllerTest < ActionController::TestCase
 
   def get_index_fail(session)
     get :index, session: session
-    assert_redirected_to :public
+    assert_redirected_to session.nil? ? :public : :root
   end
 
   def get_new_success(session)
@@ -31,7 +31,7 @@ class ContactsControllerTest < ActionController::TestCase
 
   def get_new_fail(session)
     get :new, session: session
-    assert_redirected_to :public
+    assert_redirected_to :root
   end
 
   def create_contact_success(session)
@@ -46,7 +46,7 @@ class ContactsControllerTest < ActionController::TestCase
     assert_no_difference 'Contact.count' do
       post :create, params: { contact: @contact.attributes }, session: session
     end
-    assert_redirected_to :public
+    assert_redirected_to :root
   end
 
   def create_contact_content_fail(session)
@@ -63,7 +63,7 @@ class ContactsControllerTest < ActionController::TestCase
 
   def show_item_fail(session)
     get :show, params: { id: @contact.to_param }, session: session
-    assert_redirected_to :public
+    assert_redirected_to session.nil? ? :public : :root
   end
 
   def edit_item_success(session)
@@ -73,7 +73,7 @@ class ContactsControllerTest < ActionController::TestCase
 
   def edit_item_fail(session)
     get :edit, params: { id: @contact.to_param }, session: session
-    assert_redirected_to :public
+    assert_redirected_to :root
   end
 
   def update_contact_success(session)
@@ -84,7 +84,7 @@ class ContactsControllerTest < ActionController::TestCase
 
   def update_contact_auth_fail(session)
     put :update, params: { id: @contact.to_param, contact: { name: 'Doom' } }, session: session
-    assert_redirected_to :public
+    assert_redirected_to :root
   end
 
   def update_contact_content_fail(session)

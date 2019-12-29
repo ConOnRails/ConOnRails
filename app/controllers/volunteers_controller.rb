@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class VolunteersController < ApplicationController
-  before_action :can_admin_users?
   before_action :set_volunteers, only: [:index]
   before_action :set_volunteer, only: %i[show edit update]
   respond_to :html, :json
@@ -54,6 +53,8 @@ class VolunteersController < ApplicationController
   # GET /volunteers/new.json
   def new
     @volunteer = Volunteer.new
+    authorize @volunteer
+
     @volunteer.build_volunteer_training
   end
 
@@ -61,6 +62,8 @@ class VolunteersController < ApplicationController
   # POST /volunteers.json
   def create
     @volunteer = Volunteer.new volunteer_params
+    authorize @volunteer
+
     @volunteer.save
     make_user_if_needed
   end
@@ -77,7 +80,8 @@ class VolunteersController < ApplicationController
   end
 
   def clear_all_radio_training
-    Volunteer.find_each do |v|
+    policy_scope(Volunteer).find_each do |v|
+      authorize v
       v.volunteer_training.radio = false
       v.save!
     end
@@ -102,13 +106,15 @@ class VolunteersController < ApplicationController
   end
 
   def set_volunteers
-    @q = Volunteer.ransack params[:q]
+    @q = policy_scope(Volunteer).ransack params[:q]
     @q.sorts = %w[last_name first_name] if @q.sorts.empty?
     @volunteers = @q.result.page(params[:page])
+    authorize @volunteers
   end
 
   def set_volunteer
     @volunteer = Volunteer.find(params[:id])
+    authorize @volunteer
   end
 
   def volunteer_params

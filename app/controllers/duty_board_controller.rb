@@ -9,6 +9,7 @@ class DutyBoardController < ApplicationController
   skip_before_action :require_login, only: [:index]
 
   def index
-    @duty_board_groups = DutyBoardGroup.order(:row, :column)
+    @duty_board_groups = policy_scope(DutyBoardGroup).order(:row, :column)
+    authorize :duty_board
   end
 end

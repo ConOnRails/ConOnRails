@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class DepartmentsController < ApplicationController
-  before_action :can_admin_radios?, only: %i[new create edit update destroy]
   before_action :find_departments, only: :index
   before_action :find_department, only: %i[show edit update destroy]
 
@@ -11,12 +10,15 @@ class DepartmentsController < ApplicationController
   # GET /departments/new.json
   def new
     @department = Department.new
+    authorize @department
   end
 
   # POST /departments
   # POST /departments.json
   def create
     @department = Department.new department_params
+    authorize @department
+
     flash[:notice] = 'Department was successfully created.' if @department.save
     respond_with @department
   end
@@ -38,12 +40,14 @@ class DepartmentsController < ApplicationController
   protected
 
   def find_departments
-    @q           = Department.ransack top_params[:q]
+    @q           = policy_scope(Department).ransack top_params[:q]
     @departments = @q.result.page(top_params[:page])
+    authorize @departments
   end
 
   def find_department
     @department = Department.find(top_params[:id])
+    authorize @department
   end
 
   def top_params

@@ -19,7 +19,7 @@ class AdminControllerTest < ActionController::TestCase
   end
 
   test 'peon user should not get index' do
-    get :index
-    assert_redirected_to public_url
+    get :index, session: { user_id: @peon_user.id }
+    assert_redirected_to root_url
   end
 end

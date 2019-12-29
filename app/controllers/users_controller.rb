@@ -5,14 +5,14 @@ class UsersController < ApplicationController
 
   before_action :find_user, only: %i[show edit update destroy change_password]
   before_action :find_users, only: :index
-  before_action :redirect_if_cannot_admin, except: [:change_password]
 
   # GET /users/new
   # GET /users/new.json
   def new
     @user = User.new
+    authorize @user
+    
     @user.volunteer = Volunteer.find_by id: params[:volunteer_id]
-
     @user.realname = params[:realname] if params[:realname]
   end
 
@@ -23,10 +23,14 @@ class UsersController < ApplicationController
     @volunteer = Volunteer.find_by(id: params[:user][:volunteer])
 
     if @volunteer.present?
-      @user = @volunteer.create_user user_params
+      @user = @volunteer.build_user user_params
+      authorize @user
+      @user.save
       @volunteer.save
     else
-      @user = User.create user_params
+      @user = User.new user_params
+      authorize @user
+      @user.save
     end
     flash[:notice] = "User #{@user.username} was successfully created." if @user.persisted?
     respond_with @user
@@ -53,10 +57,12 @@ class UsersController < ApplicationController
 
   def find_user
     @user = User.find(top_params[:id])
+    authorize @user
   end
 
   def find_users
-    @q = User.ransack top_params[:q]
+    authorize User
+    @q = policy_scope(User).ransack top_params[:q]
     @users = @q.result.page(top_params[:page])
   end
 
@@ -66,12 +72,6 @@ class UsersController < ApplicationController
       root_path
     else
       user_path(@user)
-    end
-  end
-
-  def redirect_if_cannot_admin
-    unless current_user && (current_user.can_admin_users? || current_user.id == @user.try(:id))
-      redirect_to public_url
     end
   end
 

@@ -91,15 +91,16 @@ class Event < ApplicationRecord
       .search_entries q
   end
 
-  def self.merge_events(event_ids, user, role_name = nil)
-    return if event_ids.blank?
+  def self.merge_events(events, user, role_name = nil)
+    return if events.blank?
 
+    event_ids = events.pluck(:id)
     new_event = Event.create! do |event|
       event.merged_from_ids = event_ids
     end
 
     new_event.merge_entries event_ids
-    new_event.merge_flags event_ids
+    new_event.merge_flags events
     new_event.add_entry "Merged by #{user.username} as '#{role_name}' from #{event_ids.join(', ')}", user.id, role_name
     new_event.save!
     new_event.reload
@@ -168,8 +169,8 @@ class Event < ApplicationRecord
     end
   end
 
-  def merge_flags(event_ids)
-    Event.where(id: event_ids).find_each do |ev|
+  def merge_flags(events)
+    events.find_each do |ev|
       self.flags = Event.flags_union(flags, ev.flags)
       ev.set_and_save_status 'Merged'
     end

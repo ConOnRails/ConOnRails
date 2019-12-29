@@ -27,7 +27,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test 'no index for peons' do
     get :index, session: { user_id: @peon_user.id }
-    assert_redirected_to public_url
+    assert_redirected_to root_url
   end
 
   test 'should get index' do
@@ -38,7 +38,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test 'peons cannot get new' do
     get :new, session: { user_id: @peon_user.id }
-    assert_redirected_to public_url
+    assert_redirected_to root_url
   end
 
   test 'should get new' do
@@ -51,7 +51,7 @@ class UsersControllerTest < ActionController::TestCase
       post :create, params: { user: @input_attributes }, session: { user_id: @peon_user.id }
     end
 
-    assert_redirected_to public_url
+    assert_redirected_to root_url
   end
 
   test 'should create user' do
@@ -83,7 +83,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test 'peons cannot show user' do
     get :show, params: { id: @user.to_param }, session: { user_id: @peon_user.id }
-    assert_redirected_to public_url
+    assert_redirected_to root_url
   end
 
   test 'should show user' do
@@ -93,7 +93,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test 'peons cannot edit' do
     get :edit, params: { id: @user.to_param }, session: { user_id: @peon_user.id }
-    assert_redirected_to public_url
+    assert_redirected_to root_url
   end
 
   test 'should get edit' do
@@ -114,7 +114,7 @@ class UsersControllerTest < ActionController::TestCase
               user: @input_attributes
             },
             session: { user_id: @peon_user.id }
-        assert_redirected_to public_url
+        assert_redirected_to root_url
       end
 
       should 'update themselves (change password)' do
@@ -177,7 +177,7 @@ class UsersControllerTest < ActionController::TestCase
       delete :destroy, params: { id: @user.to_param }, session: { user_id: @peon_user.id }
     end
 
-    assert_redirected_to public_url
+    assert_redirected_to root_url
   end
 
   test 'should destroy user' do

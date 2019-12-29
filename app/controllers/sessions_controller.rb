@@ -3,6 +3,8 @@
 class SessionsController < ApplicationController
   skip_before_action :require_login, only: %i[new create getroles set_index_filter
                                               clear_index_filter]
+  skip_after_action :verify_authorized
+  skip_after_action :verify_policy_scoped
 
   private
 

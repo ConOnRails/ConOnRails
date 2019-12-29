@@ -75,7 +75,7 @@ class ConventionsControllerTest < ActionController::TestCase
       end
 
       should respond_with :redirect
-      should redirect_to :public
+      should redirect_to :root
     end
 
     context 'should get new' do
@@ -84,7 +84,7 @@ class ConventionsControllerTest < ActionController::TestCase
       end
 
       should respond_with :redirect
-      should redirect_to :public
+      should redirect_to :root
     end
 
     context 'should create convention' do
@@ -94,7 +94,7 @@ class ConventionsControllerTest < ActionController::TestCase
       end
 
       should respond_with :redirect
-      should redirect_to :public
+      should redirect_to :root
     end
 
     context 'should show convention' do
@@ -104,7 +104,7 @@ class ConventionsControllerTest < ActionController::TestCase
       end
 
       should respond_with :redirect
-      should redirect_to :public
+      should redirect_to :root
     end
 
     context 'should get edit' do
@@ -114,7 +114,7 @@ class ConventionsControllerTest < ActionController::TestCase
       end
 
       should respond_with :redirect
-      should redirect_to :public
+      should redirect_to :root
     end
 
     context 'should update convention' do
@@ -126,7 +126,7 @@ class ConventionsControllerTest < ActionController::TestCase
       end
 
       should respond_with :redirect
-      should redirect_to :public
+      should redirect_to :root
     end
   end
 end

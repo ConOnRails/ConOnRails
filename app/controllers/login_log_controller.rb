@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 class LoginLogController < ApplicationController
-  before_action :can_read_audits?
-
   def index
-    @logins = LoginLog.all
+    @logins = policy_scope(LoginLog).all
+    authorize @logins
   end
 end

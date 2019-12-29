@@ -1,0 +1,2 @@
+class VersionPolicy < AuditPolicy
+end

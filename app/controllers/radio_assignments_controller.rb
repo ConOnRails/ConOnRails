@@ -4,13 +4,14 @@ class RadioAssignmentsController < ApplicationController
   respond_to :html, :json, only: :destroy
   respond_to :js, only: %i[create update]
 
-  before_action :can_assign_radios?
-  before_action :find_assignment
+  before_action :find_assignment, except: [:create]
 
   # POST /radio_assignments
   # POST /radio_assignments.json
   def create
     @radio_assignment = RadioAssignment.checkout(radio_assignment_params, current_user)
+    authorize @radio_assignment
+
     @radio_assignment.transaction do |_t|
       respond_with do |format|
         if @radio_assignment.save && @radio_assignment.radio.save
@@ -26,6 +27,7 @@ class RadioAssignmentsController < ApplicationController
 
   def update
     @radio_assignment = @radio_assignment.transfer radio_assignment_params, current_user
+
     respond_with do |format|
       if @radio_assignment.valid?
         format.js { render 'success' }
@@ -50,6 +52,7 @@ class RadioAssignmentsController < ApplicationController
 
   def find_assignment
     @radio_assignment = RadioAssignment.find(params[:id]) if params[:id]
+    authorize @radio_assignment
   end
 
   def radio_assignment_params
