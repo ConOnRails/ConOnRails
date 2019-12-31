@@ -126,15 +126,21 @@ when 'development'
                password: 'testme', password_confirmation: 'testme')
 
   (0..25).each do |_i|
+    base_time = rand(5.days.ago..Time.zone.now)
     event = Event.create!(
       is_active: rand(1..6) != 6,
-      hidden: rand(1..20) > 18
+      hidden: rand(1..20) > 18,
+      created_at: base_time,
+      updated_at: base_time
     )
-    (0..rand(1..8)).each do |_j|
+    (0..rand(1..8)).each do |j|
+      new_time = base_time + (j * 7).minutes
       Entry.create!(
         user: user,
         event: event,
-        description: Faker::Lorem.paragraphs(number: 3).join('\n')
+        description: Faker::Lorem.paragraphs(number: 3).join('\n'),
+        created_at: new_time,
+        updated_at: new_time
       )
 
       EventFlagHistory.create!(

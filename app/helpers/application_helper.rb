@@ -6,11 +6,11 @@ module ApplicationHelper
   end
 
   def version_number
-    '4.0.0'
+    '4.0.1'
   end
 
   def version_name
-    'Punditry'
+    'Purple Punditry'
   end
 
   def version_type
