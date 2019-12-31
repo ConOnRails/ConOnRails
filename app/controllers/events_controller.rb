@@ -19,11 +19,12 @@ class EventsController < ApplicationController
     @title = 'Active Events'
     return jump if params[:id].present?
 
-    @events = IndexQuery.new(policy_scope(Event)).query(session[:index_filter])
-                        .order(updated_at: :desc)
-                        .preload(:event_flag_histories)
-                        .preload(:entries)
-                        .page(params[:page])
+    @events = limit_by_convention IndexQuery.new(policy_scope(Event))
+                                            .query(session[:index_filter])
+                                            .order(updated_at: :desc)
+                                            .preload(:event_flag_histories)
+                                            .preload(:entries)
+                                            .page(params[:page])
     authorize @events
     respond_with @events
   end
@@ -32,11 +33,12 @@ class EventsController < ApplicationController
     authorize Event
 
     @title = 'Sticky Events'
-    @events = (limit_by_convention StickyQuery.new(policy_scope(Event)).query
-                .order(updated_at: :desc)
-                .preload(:event_flag_histories)
-                .preload(:entries))
-              .page(params[:page])
+    @events = limit_by_convention StickyQuery.new(policy_scope(Event))
+                                             .query
+                                             .order(updated_at: :desc)
+                                             .preload(:event_flag_histories)
+                                             .preload(:entries)
+                                             .page(params[:page])
 
     respond_with @events do |format|
       format.html { render :index }
@@ -48,11 +50,12 @@ class EventsController < ApplicationController
     authorize Event
 
     @title = 'Secure Events'
-    @events = SecureQuery.new(Event).query
-                         .order(updated_at: :desc)
-                         .preload(:event_flag_histories)
-                         .preload(:entries)
-                         .page(params[:page])
+    @events = limit_by_convention SecureQuery.new(policy_scope(Event))
+                                             .query
+                                             .order(updated_at: :desc)
+                                             .preload(:event_flag_histories)
+                                             .preload(:entries)
+                                             .page(params[:page])
     respond_with @events do |format|
       format.html { render :index }
       format.js { render :index }
@@ -70,9 +73,9 @@ class EventsController < ApplicationController
     authorize Event
     
     @q = params[:q] # We'll use this to re-fill the search blank
-    @events = limit_by_convention(policy_scope(Event).ransack(@q, current_user,
+    @events = limit_by_convention policy_scope(Event).ransack(@q, current_user,
                                                       params[:show_closed],
-                                                      session[:index_filter]))
+                                                      session[:index_filter])
               .page(params[:page])
     respond_with @events
   end
