@@ -5,33 +5,45 @@
 # Table name: events
 #
 #  id                          :integer          not null, primary key
-#  created_at                  :datetime
-#  updated_at                  :datetime
-#  is_active                   :boolean          default(TRUE)
-#  post_con                    :boolean          default(FALSE)
-#  sticky                      :boolean          default(FALSE)
-#  emergency                   :boolean          default(FALSE)
-#  medical                     :boolean          default(FALSE)
-#  hidden                      :boolean          default(FALSE)
-#  secure                      :boolean          default(FALSE)
-#  consuite                    :boolean
-#  hotel                       :boolean
-#  parties                     :boolean
-#  volunteers                  :boolean
-#  dealers                     :boolean
-#  dock                        :boolean
-#  merchandise                 :boolean
-#  merged_from_ids             :string
-#  merged                      :boolean
-#  nerf_herders                :boolean
 #  accessibility_and_inclusion :boolean
 #  allocations                 :boolean
+#  consuite                    :boolean
+#  dealers                     :boolean
+#  dock                        :boolean
+#  emergency                   :boolean          default(FALSE)
 #  first_advisors              :boolean
+#  hidden                      :boolean          default(FALSE)
+#  hotel                       :boolean
+#  is_active                   :boolean          default(TRUE)
+#  medical                     :boolean          default(FALSE)
 #  member_advocates            :boolean
+#  merchandise                 :boolean
+#  merged                      :boolean
+#  merged_from_ids             :string
+#  nerf_herders                :boolean
 #  operations                  :boolean
+#  parties                     :boolean
+#  post_con                    :boolean          default(FALSE)
 #  programming                 :boolean
 #  registration                :boolean
+#  secure                      :boolean          default(FALSE)
+#  smokers_paradise            :boolean          default(FALSE)
+#  sticky                      :boolean          default(FALSE)
+#  volunteers                  :boolean
 #  volunteers_den              :boolean
+#  created_at                  :datetime
+#  updated_at                  :datetime
+#
+# Indexes
+#
+#  index_events_on_created_at  (created_at)
+#  index_events_on_emergency   (emergency)
+#  index_events_on_hotel       (hotel)
+#  index_events_on_is_active   (is_active)
+#  index_events_on_medical     (medical)
+#  index_events_on_secure      (secure)
+#  index_events_on_sticky      (sticky)
+#  index_events_on_updated_at  (updated_at)
 #
 
 require 'test_helper'

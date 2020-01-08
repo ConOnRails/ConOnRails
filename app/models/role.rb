@@ -5,23 +5,27 @@
 # Table name: roles
 #
 #  id                      :integer          not null, primary key
-#  name                    :string
-#  write_entries           :boolean
-#  read_hidden_entries     :boolean
 #  add_lost_and_found      :boolean
-#  modify_lost_and_found   :boolean
-#  admin_radios            :boolean
-#  assign_radios           :boolean
-#  admin_users             :boolean
-#  admin_schedule          :boolean
-#  assign_shifts           :boolean
-#  assign_duty_board_slots :boolean
 #  admin_duty_board        :boolean
+#  admin_radios            :boolean
+#  admin_schedule          :boolean
+#  admin_users             :boolean
+#  assign_duty_board_slots :boolean
+#  assign_radios           :boolean
+#  assign_shifts           :boolean
+#  make_hidden_entries     :boolean          default(FALSE)
+#  modify_lost_and_found   :boolean
+#  name                    :string
+#  read_audits             :boolean          default(FALSE)
+#  read_hidden_entries     :boolean
+#  rw_secure               :boolean          default(FALSE)
+#  write_entries           :boolean
 #  created_at              :datetime
 #  updated_at              :datetime
-#  make_hidden_entries     :boolean          default(FALSE)
-#  rw_secure               :boolean          default(FALSE)
-#  read_audits             :boolean          default(FALSE)
+#
+# Indexes
+#
+#  index_roles_on_name  (name) UNIQUE
 #
 
 class Role < ApplicationRecord

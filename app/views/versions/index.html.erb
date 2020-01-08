@@ -1,5 +1,5 @@
 <h1>The Master Log</h1>
-<div id="paginator"><%= paginate @versions, remote: true if @versions %></div>
+<div class="paginator"><%= paginate @versions, remote: true if @versions %></div>
 <div id="filters">
   <%= form_tag :versions, method: :get, remote: true do %>
       <div>
@@ -37,4 +37,4 @@
   </tbody>
 
 </table>
-<div id="paginator"><%= paginate @versions, remote: true if @versions %></div>
+<div class="paginator"><%= paginate @versions, remote: true if @versions %></div>

@@ -54,11 +54,11 @@ class ApplicationController < ActionController::Base
     session[:current_role_name] if is_authenticated?
   end
 
-  def limit_by_convention(query)
+  def limit_by_convention(query, table: 'events')
     return query if params[:convention] == 'all' || params[:show_older] == 'true' || get_convention.blank?
 
-    query.where('created_at >= ?', get_convention.start_date)
-         .where('created_at <= ?', get_convention.end_date)
+    query.where("#{table}.created_at >= ?", get_convention.start_date)
+         .where("#{table}.created_at <= ?", get_convention.end_date)
   end
 
   def limit_by_date_range(query)

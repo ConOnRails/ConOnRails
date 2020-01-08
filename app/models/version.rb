@@ -5,12 +5,16 @@
 # Table name: versions
 #
 #  id         :integer          not null, primary key
-#  item_type  :string           not null
-#  item_id    :integer          not null
 #  event      :string           not null
-#  whodunnit  :string
+#  item_type  :string           not null
 #  object     :text
+#  whodunnit  :string
 #  created_at :datetime
+#  item_id    :integer          not null
+#
+# Indexes
+#
+#  index_versions_on_item_type_and_item_id  (item_type,item_id)
 #
 
 class Version < ApplicationRecord

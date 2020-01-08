@@ -220,19 +220,11 @@ class EventsController < ApplicationController
   end
 
   def top_params
-    params.permit(:convention, :id, :page, :q, filters: %i[is_active comment flagged post_con quote sticky emergency
-                                                           medical hidden secure consuite hotel parties volunteers
-                                                           dealers dock merchandise nerf_herders status alert_dispatcher tag
-                                                           accessibility_and_inclusion allocations first_advisors member_advocates
-                                                           operations programming registration volunteers_den merged])
+    params.permit(:convention, :id, :page, :q, filters: Event.flags)
   end
 
   def event_params
-    params.require(:event).permit :is_active, :comment, :flagged, :post_con, :quote, :sticky, :emergency,
-                                  :medical, :hidden, :secure, :consuite, :hotel, :parties, :volunteers,
-                                  :dealers, :dock, :merchandise, :nerf_herders, :status, :alert_dispatcher, :tag,
-                                  :accessibility_and_inclusion, :allocations, :first_advisors, :member_advocates,
-                                  :operations, :programming, :registration, :volunteers_den
+    params.require(:event).permit Event.flags + [:tag]
   end
 
   def entry_params
