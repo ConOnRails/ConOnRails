@@ -5,11 +5,17 @@
 # Table name: duty_board_groups
 #
 #  id         :integer          not null, primary key
+#  column     :integer
 #  name       :string
 #  row        :integer
-#  column     :integer
 #  created_at :datetime
 #  updated_at :datetime
+#
+# Indexes
+#
+#  index_duty_board_groups_on_column          (column)
+#  index_duty_board_groups_on_row             (row)
+#  index_duty_board_groups_on_row_and_column  (row,column) UNIQUE
 #
 
 require 'test_helper'

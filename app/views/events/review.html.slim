@@ -44,7 +44,7 @@
               button.btn.btn-primary#search-field Submit
           .row.form-group
             - Event.flags.reject { |f| f == 'hidden'}.each do |flag|
-              .col-md-3.col-sm-4.col-xs-6
+              .col-md-4.col-sm-4.col-xs-6
                 .row
                   .col-md-5.col-sm-5.col-xs-3
                     .text
@@ -80,12 +80,12 @@
 
   .form-group
     .col-md-12
-      .paginator.pull-left= paginate(@events, remote: true)
+      #top-paginator.paginator
     #event_list
       noscript= render @events, form: false
     .form-group
       .col-md-12
-        .paginator= paginate @events, remote: true
+        .paginator
 
 
 javascript:

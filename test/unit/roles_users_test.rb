@@ -7,6 +7,10 @@
 #  role_id :integer
 #  user_id :integer
 #
+# Indexes
+#
+#  index_roles_users_on_role_id_and_user_id  (role_id,user_id) UNIQUE
+#
 
 require 'test_helper'
 

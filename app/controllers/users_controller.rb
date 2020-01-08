@@ -6,6 +6,9 @@ class UsersController < ApplicationController
   before_action :find_user, only: %i[show edit update destroy change_password]
   before_action :find_users, only: :index
 
+  def index
+  end
+
   # GET /users/new
   # GET /users/new.json
   def new
@@ -56,14 +59,14 @@ class UsersController < ApplicationController
   protected
 
   def find_user
-    @user = User.find(top_params[:id])
+    @user = User.find(params[:id])
     authorize @user
   end
 
   def find_users
-    authorize User
-    @q = policy_scope(User).ransack top_params[:q]
-    @users = @q.result.page(top_params[:page])
+    @q = policy_scope(User).ransack params[:q]
+    @users = @q.result.page(params[:page])
+    authorize @users
   end
 
   def get_update_success_path
@@ -82,10 +85,6 @@ class UsersController < ApplicationController
     if @volunteer.present? && (@volunteer.user_id.blank? || (@volunteer.user_id != @user.id))
       @volunteer.update_attribute(:user_id, @user.id)
     end
-  end
-
-  def top_params
-    params.permit(:id, :page, :q)
   end
 
   def user_params

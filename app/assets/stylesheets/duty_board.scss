@@ -6,7 +6,7 @@
 @import 'bootstrap';
 .duty_board, .duty_board_assignments
 {
-  padding: 12px;
+  padding: 9px;
 
   background-color: $blue;
   color: $yellow;
@@ -30,6 +30,9 @@
   #duty_board
   {
     width: 100%;
+    .container {
+      width: 100%;
+    }
   }
 
   #date
@@ -47,7 +50,9 @@
 
   .duty_board_group
   {
+    @extend .col-lg-3;
     @extend .col-md-4;
+    @extend .col-sm-6;
 
     //border: thin solid;
     text-align: left;
@@ -55,7 +60,7 @@
 
     .duty_board_assignment
     {
-      font-size: 16px;
+      font-size: 14px;
       font-weight: bold;
       line-height: 110%;
 

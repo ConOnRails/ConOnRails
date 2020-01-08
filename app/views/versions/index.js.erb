@@ -1,2 +1,2 @@
-$( '#paginator' ).html( '<%= escape_javascript(paginate(@versions, remote: true).to_s) %>' )
+$( '.paginator' ).html( '<%= escape_javascript(paginate(@versions, remote: true).to_s) %>' )
 $( '#audit_table_body' ).html( '<%= escape_javascript(render @versions) %>' )

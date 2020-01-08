@@ -4,7 +4,7 @@ var update = function () {
     if (window.events.convention = '')
         window.events.convention = $('#convention').val();
     $('#event_list').html('<%= escape_javascript render(@events, form: false) %>');
-    $('.paginator').html('<%= escape_javascript(paginate(@events, remote: true).to_s) %>')
+    $('.paginator').html('<%= escape_javascript(paginate(@events, params: { anchor: 'top-paginator'}).to_s) %>')
     $('#merge-mode-toggle').html('<%= escape_javascript(merge_button) %>');
     $('#merge-mode-submit').html('<%= escape_javascript(merge_submit) %>');
 }

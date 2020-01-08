@@ -6,11 +6,18 @@
 #
 #  id          :integer          not null, primary key
 #  description :text
+#  rolename    :string
 #  created_at  :datetime
 #  updated_at  :datetime
-#  user_id     :integer
 #  event_id    :integer
-#  rolename    :string
+#  user_id     :integer
+#
+# Indexes
+#
+#  index_entries_on_created_at  (created_at)
+#  index_entries_on_event_id    (event_id)
+#  index_entries_on_updated_at  (updated_at)
+#  index_entries_on_user_id     (user_id)
 #
 
 require 'test_helper'

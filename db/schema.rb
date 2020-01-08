@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_23_220241) do
+ActiveRecord::Schema.define(version: 2020_01_08_021310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,6 +135,7 @@ ActiveRecord::Schema.define(version: 2019_08_23_220241) do
     t.boolean "programming", default: false
     t.boolean "registration", default: false
     t.boolean "volunteers_den", default: false
+    t.boolean "smokers_paradise", default: false
     t.index ["created_at"], name: "index_event_flag_histories_on_created_at"
     t.index ["event_id"], name: "index_event_flag_histories_on_event_id"
     t.index ["updated_at"], name: "index_event_flag_histories_on_updated_at"
@@ -168,6 +169,7 @@ ActiveRecord::Schema.define(version: 2019_08_23_220241) do
     t.boolean "programming"
     t.boolean "registration"
     t.boolean "volunteers_den"
+    t.boolean "smokers_paradise", default: false
     t.index ["created_at"], name: "index_events_on_created_at"
     t.index ["emergency"], name: "index_events_on_emergency"
     t.index ["hotel"], name: "index_events_on_hotel"

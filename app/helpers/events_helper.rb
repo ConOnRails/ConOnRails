@@ -18,11 +18,14 @@ module EventsHelper
   end
 
   def merge_button
+    nil 
+=begin
     link_to merge_mode_toggle_text,
             merge_button_path,
             remote: true,
             class: "btn btn-primary #{merge_toggle_class}",
             type: 'button'
+=end
   end
 
   def merge_button_path
@@ -188,6 +191,6 @@ module EventsHelper
   end
 
   def flag_display(flag)
-    flag.gsub(/is_/, '').humanize.gsub(' ', '&nbsp;').html_safe
+    flag.gsub(/is_/, '').titleize.gsub(' ', '&nbsp;').html_safe
   end
 end
