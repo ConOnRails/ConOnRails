@@ -37,7 +37,7 @@ gem 'paper_trail-association_tracking'
 gem 'pg_search' # , '~> 0.7.9'
 gem 'pundit', '~> 2.1.0'
 gem 'ransack' # , '~> 2.3.0'
-gem 'redcarpet', '~> 3.2.2'
+gem 'redcarpet', '~> 3.5.1'
 gem 'responders'
 gem 'sassc', '~> 2.0.0' # Breaks above this version.
 gem 'select2-rails'
