@@ -1,6 +1,6 @@
 common: &common
   adapter: postgresql
-  username: con_on_rails
+  username: cononrails
   password: traaains
   pool: 5
   timeout: 5000
@@ -14,7 +14,7 @@ development:
 # Do not set this db to the same as development or production.
 test: &test
   <<: *common
-  database: con_on_rails_test
+  database: cononrails_test
 
 production:
   <<: *common
