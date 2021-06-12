@@ -5,12 +5,13 @@
 // the compiled file.
 //
 //= require jquery
-//= require jquery_ujs
+//= require rails-ujs
 //= require jquery-ui
 //= require bootstrap-sprockets
 //= require moment
 //= require bootstrap-datetimepicker
 //= require select2
-//= require sweetalert2
-//= require sweet-alert2-rails
+// require sweetalert2
+// require sweet-alert2-rails
 //= require_tree .
+

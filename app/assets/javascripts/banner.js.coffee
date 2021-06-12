@@ -10,7 +10,7 @@ get_banner = () ->
 fill_banner = (data) ->
   $('#banner-placeholder').html(data);
   setTimeout((->
-    get_banner()), 10000)
+    get_banner()), 10000000)
 
 window.banner.toggle_pause = (pause) ->
   window.banner.pause = pause

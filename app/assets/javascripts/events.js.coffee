@@ -26,7 +26,7 @@ window.events.getMain = (push = false) ->
   ).done((data, status, xhr)->
     if !window.banner.pause
       setTimeout((->
-        window.events.getMain()), 5000)
+        window.events.getMain()), 500000000)
   )
 
 window.events.getReview = (filters) ->
