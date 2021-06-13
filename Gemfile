@@ -15,9 +15,7 @@ gem 'newrelic_rpm'
 # Gems used only for assets and not required
 # in production environments by default.
 gem 'coffee-rails'
-gem 'rails-assets-sweetalert2', '~> 5.1.1', source: 'https://rails-assets.org'
 gem 'sass-rails'
-gem 'sweet-alert2-rails'
 gem 'uglifier'
 
 gem 'acts-as-taggable-on', '~> 6.0'

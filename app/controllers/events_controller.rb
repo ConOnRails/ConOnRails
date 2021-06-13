@@ -132,7 +132,7 @@ class EventsController < ApplicationController
     build_flag_history_from_params @event, event_params if params.key? :event # this can also be blank if nothing changed!
 
     if params.key? :event
-      if @event.update event_params
+      if @event.update! event_params
         flash[:notice] = 'Event was successfully updated.' 
         @event.save!
       end
@@ -224,7 +224,7 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit Event.flags + [:tag]
+    params.require(:event).permit Event.flags + [:tag, :status, :alert_dispatcher]
   end
 
   def entry_params

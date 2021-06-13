@@ -2,7 +2,8 @@
   h1 Volunteers
 
   = link_to 'New Volunteer', new_volunteer_path, class: 'btn btn-primary'
-  = link_to 'Clear all Radio Training', clear_all_radio_training_volunteers_path, class: 'btn btn-danger', data: { confirm: 'Are you sure?!' }
+  - if current_user.can_admin_radios?
+    = link_to 'Clear all Radio Training', clear_all_radio_training_volunteers_path, class: 'btn btn-danger', data: { confirm: 'Are you sure?!' }
 
   #paginator= paginate @volunteers
 
