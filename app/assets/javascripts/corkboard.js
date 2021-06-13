@@ -74,7 +74,7 @@
 
       setTimeout(function () {
         this.getEvents()
-      }.bind(this), 50000000); 
+      }.bind(this), 5000); 
     },
 
     gotoEvent: function (evt) {
