@@ -6,7 +6,8 @@ $ ->
   form = $('#volunteer_search')
   div = $('<td class="radio_volunteer" id="radio_volunteer"></div>')
 
-  $('#volunteer_search').bind('ajax:success', (evt, data, status, xhr) ->
+  $('#volunteer_search').on('ajax:success', (evt, squid, squirrel, xhr) ->
+    console.log(evt);
     $('#matching_volunteers').html(xhr.responseText))
 
   bind_action = (evt, data, status, xhr) ->
@@ -17,7 +18,4 @@ $ ->
 
   window.radios = {}
   window.radios.bind_volunteer = (id, name) ->
-    console.log $('#vol-' + id)
     $('#vol-' + id).bind('ajax:success', { id: id, name: name }, bind_action)
-
-
