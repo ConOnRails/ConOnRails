@@ -6,11 +6,11 @@ module ApplicationHelper
   end
 
   def version_number
-    '4.0.2'
+    '4.0.3'
   end
 
   def version_name
-    'Pizza Punditry'
+    'Pepperoni Pizza Punditry'
   end
 
   def version_type
