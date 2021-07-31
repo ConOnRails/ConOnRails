@@ -7,7 +7,6 @@ $ ->
   div = $('<td class="radio_volunteer" id="radio_volunteer"></div>')
 
   $('#volunteer_search').on('ajax:success', (evt, squid, squirrel, xhr) ->
-    console.log(evt);
     $('#matching_volunteers').html(xhr.responseText))
 
   bind_action = (evt, data, status, xhr) ->
