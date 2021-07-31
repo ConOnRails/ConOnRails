@@ -15,9 +15,7 @@ gem 'newrelic_rpm'
 # Gems used only for assets and not required
 # in production environments by default.
 gem 'coffee-rails'
-gem 'rails-assets-sweetalert2', '~> 5.1.1', source: 'https://rails-assets.org'
 gem 'sass-rails'
-gem 'sweet-alert2-rails'
 gem 'uglifier'
 
 gem 'acts-as-taggable-on', '~> 6.0'
@@ -32,7 +30,7 @@ gem 'jquery-rails', '~> 4.3.3'
 gem 'jquery-ui-rails', '~> 6.0.1'
 gem 'kaminari', '~> 1.2.1'
 gem 'momentjs-rails', '>= 2.8.1'
-gem 'paper_trail' # , '>= 4.0.0.beta1'
+gem 'paper_trail', '~> 10.3.1'
 gem 'paper_trail-association_tracking'
 gem 'pg_search' # , '~> 0.7.9'
 gem 'pundit', '~> 2.1.0'

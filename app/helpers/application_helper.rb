@@ -6,11 +6,11 @@ module ApplicationHelper
   end
 
   def version_number
-    '4.0.3'
+    '4.1.3'
   end
 
   def version_name
-    'Pepperoni Pizza Punditry'
+    'Quiet Queer Quackers'
   end
 
   def version_type
