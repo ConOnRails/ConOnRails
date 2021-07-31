@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 source 'http://rubygems.org'
-ruby '2.6.6'
+ruby '2.6.8'
 
 gem 'rails', '>= 5.2.0', '< 6.0'
 gem 'bootsnap'
@@ -30,7 +30,7 @@ gem 'jquery-rails', '~> 4.3.3'
 gem 'jquery-ui-rails', '~> 6.0.1'
 gem 'kaminari', '~> 1.2.1'
 gem 'momentjs-rails', '>= 2.8.1'
-gem 'paper_trail' # , '>= 4.0.0.beta1'
+gem 'paper_trail', '~> 10.3.1'
 gem 'paper_trail-association_tracking'
 gem 'pg_search' # , '~> 0.7.9'
 gem 'pundit', '~> 2.1.0'

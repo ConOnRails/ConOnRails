@@ -6,11 +6,11 @@ module ApplicationHelper
   end
 
   def version_number
-    '4.1.0'
+    '4.1.3'
   end
 
   def version_name
-    'Queer Quackers'
+    'Quiet Queer Quackers'
   end
 
   def version_type
