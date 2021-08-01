@@ -32,7 +32,7 @@ jobs:
       - ruby/install-deps
       - run:
           name: Config copy
-          command: cp config/database.travis.yml config/database.yml
+          command: cp config/database.docker.yml config/database.yml
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
