@@ -1,5 +1,5 @@
 # Con On Rails
-[![CircleCI](https://circleci.com/gh/circleci/circleci-docs.svg?style=svg)](https://circleci.com/gh/circleci/circleci-docs)
+[![CircleCI](https://circleci.com/gh/circleci/circleci-docs.svg?style=svg)](https://circleci.com/gh/ConOnRails/ConOnRails)
 [![Code Climate](https://codeclimate.com/github/ConOnRails/ConOnRails.png)](https://codeclimate.com/github/ConOnRails/ConOnRails)
 
 This is ConOnRails, an application for managing the operations of conventions of any size.
