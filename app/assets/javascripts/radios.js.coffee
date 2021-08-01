@@ -6,14 +6,17 @@ $ ->
   form = $('#volunteer_search')
   div = $('<td class="radio_volunteer" id="radio_volunteer"></div>')
 
-  $('#volunteer_search').on('ajax:success', (evt, squid, squirrel, xhr) ->
-    $('#matching_volunteers').html(xhr.responseText))
+  search = document.querySelector('#volunteer_search')
+  $('#volunteer_search').on('ajax:success', (evt) ->
+    [_data, _status, _xhr] = evt.detail;
+    $('#matching_volunteers').html(_xhr.responseText))
 
-  bind_action = (evt, data, status, xhr) ->
+  bind_action = (evt) ->
+    [_data, _status, _xhr] = evt.detail
     $('#radio_volunteer').html(evt.data.name)
     form.hide()
     $('h2').text('Now select a department')
-    $('#matching_volunteers').html(xhr.responseText)
+    $('#matching_volunteers').html(_xhr.responseText)
 
   window.radios = {}
   window.radios.bind_volunteer = (id, name) ->
