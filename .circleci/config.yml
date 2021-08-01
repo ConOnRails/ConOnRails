@@ -1,0 +1,50 @@
+version: 2.1
+orbs:
+  ruby: circleci/ruby@1.1.4
+  node: circleci/node@4.5.1
+
+jobs:
+  build:
+    docker:
+      - image: cimg/ruby:2.6.8
+    environment:
+      RAILS_ENV: test
+    executor: ruby/default
+    steps:
+      - checkout
+      - run:
+          name: Which bundler?
+          command: bundle -v
+      - ruby/install-deps
+  test:
+    docker:
+      - image: cimg/ruby:2.6.8
+      - image: circleci/postgres:13.3
+        environment:
+          - POSTGRES_HOST_AUTH_METHOD=trust
+    environment:
+      RAILS_ENV: test
+    steps:
+      - checkout
+      - ruby/install-deps
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run:
+          name: Create DB
+          command: bundle exec rails db:create
+      - run:
+          name: Setup DB
+          command: bundle exec rails db:schema:load --trace
+      - run:
+          name: Run tests
+          command: bundle exec rails test
+
+workflows:
+  version: 2
+  build_and_test:     # The name of our workflow is "build_and_test"
+    jobs:             # The list of jobs we run as part of this workflow.
+      - build         # Run build first.
+      - test:         # Then run test,
+          requires:   # Test requires that build passes for it to run.
+            - build   # Finally, run the build job.
