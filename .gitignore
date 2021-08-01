@@ -27,3 +27,4 @@ db/data.yml
 .vagrant/machines/default/virtualbox/id
 Vagrantfile
 passenger.*
+node_modules
