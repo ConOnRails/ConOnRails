@@ -148,6 +148,10 @@ case Rails.env
 when 'development'
   Audit.delete_all # Audit log has to be cleared by explicit act of god in production
 
+  FactoryBot.create :radio_group, :when_red
+  FactoryBot.create :radio_group, :when_black
+  FactoryBot.create :radio_group, :when_green
+  
   FactoryBot.create :many_blue_men_group
   FactoryBot.create :many_red_hands
   FactoryBot.create_list(:many_valid_volunteers, 42)

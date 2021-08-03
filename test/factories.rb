@@ -207,6 +207,21 @@ FactoryBot.define do
   end
 
   factory :radio_group, class: RadioGroup do
+    trait :when_black do
+      name { 'Black' }
+      color { 'black' }
+    end
+
+    trait :when_red do
+      name { 'Red' }
+      color { 'red' }
+    end
+
+    trait :when_green do
+      name { 'Green' }
+      color { 'green' }
+    end
+
     factory :blue_man_group do
       name { 'Blue' }
       color { 'blue' }
