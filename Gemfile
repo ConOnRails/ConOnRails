@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 source 'http://rubygems.org'
-ruby '2.6.8'
+ruby '2.7.4'
 
 gem 'rails', '>= 5.2.4', '< 6.0'
 gem 'bootsnap'
@@ -84,7 +84,7 @@ group :test do
   gem 'mocha', require: false
   gem 'selenium-webdriver'
   gem 'shoulda-context'
-  gem 'shoulda-matchers', '~> 2.0'
+  gem 'shoulda-matchers', '~> 5'
   gem 'timecop'
   # gem 'turn'
 

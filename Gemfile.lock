@@ -319,9 +319,9 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
-    shoulda-context (1.2.2)
-    shoulda-matchers (2.8.0)
-      activesupport (>= 3.0.0)
+    shoulda-context (2.0.0)
+    shoulda-matchers (5.0.0)
+      activesupport (>= 5.2.0)
     simple_form (5.0.2)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
@@ -428,7 +428,7 @@ DEPENDENCIES
   select2-rails
   selenium-webdriver
   shoulda-context
-  shoulda-matchers (~> 2.0)
+  shoulda-matchers (~> 5)
   simple_form
   simplecov
   simplecov-html
@@ -441,7 +441,7 @@ DEPENDENCIES
   yaml_db
 
 RUBY VERSION
-   ruby 2.6.8p205
+   ruby 2.7.4p191
 
 BUNDLED WITH
-   1.17.2
+   2.1.4
