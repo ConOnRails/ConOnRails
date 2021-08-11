@@ -6,7 +6,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: cimg/ruby:2.6.8
+      - image: cimg/ruby:2.7.4
     environment:
       RAILS_ENV: test
     executor: ruby/default
@@ -14,14 +14,14 @@ jobs:
       - checkout
       - run:
           name: Right bundler
-          command: gem install bundler -v 1.17.2
+          command: gem install bundler -v 2.1.4
       - run:
           name: Which bundler?
           command: bundle -v
       - ruby/install-deps
   test:
     docker:
-      - image: cimg/ruby:2.6.8
+      - image: cimg/ruby:2.7.4
       - image: circleci/postgres:13.3
         environment:
           - POSTGRES_HOST_AUTH_METHOD=trust
