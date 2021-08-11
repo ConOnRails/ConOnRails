@@ -156,6 +156,7 @@ class EventsController < ApplicationController
   end
 
   def export
+    authorize Event
     respond_with do |f|
       f.csv { send_data Event.to_csv(@events), type: 'text/csv' }
     end

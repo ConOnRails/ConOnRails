@@ -22,6 +22,10 @@ class EventPolicy < ApplicationPolicy
     index?
   end
 
+  def export?
+    review?
+  end
+
   def search_entries?
     index?
   end
