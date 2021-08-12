@@ -45,7 +45,7 @@ jobs:
       - run:
           name: Webpack
           environment:
-            - NODE_DEV=test
+            NODE_DEV: test
           command: bundle exec rails webpacker:compile
       - run:
           name: Run tests
