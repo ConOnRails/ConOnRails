@@ -19,9 +19,7 @@ jobs:
           name: Which bundler?
           command: bundle -v
       - ruby/install-deps
-      - node/with-cache:
-          steps:
-            - run: yarn install
+      - node/install-packages
   test:
     docker:
       - image: cimg/ruby:2.7.4
@@ -33,9 +31,7 @@ jobs:
     steps:
       - checkout
       - ruby/install-deps
-      - node/with-cache:
-          steps:
-            - run: yarn install
+      - node/install-packages
       - run:
           name: Config copy
           command: cp config/database.docker.yml config/database.yml
