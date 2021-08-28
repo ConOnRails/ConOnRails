@@ -19,16 +19,12 @@ jobs:
           name: Which bundler?
           command: bundle -v
       - ruby/install-deps
-<<<<<<< HEAD
       - node/install:
           install-yarn: true
           install-npm: false
           lts: true
       - node/install-packages:
           pkg-manager: yarn
-=======
-      - node/install-packages
->>>>>>> Now with 99% more modern syntax?
   test:
     docker:
       - image: cimg/ruby:2.7.4-node
@@ -40,16 +36,12 @@ jobs:
     steps:
       - checkout
       - ruby/install-deps
-<<<<<<< HEAD
       - node/install:
           install-yarn: true
           install-npm: false
           lts: true
       - node/install-packages:
           pkg-manager: yarn
-=======
-      - node/install-packages
->>>>>>> Now with 99% more modern syntax?
       - run:
           name: Config copy
           command: cp config/database.docker.yml config/database.yml
