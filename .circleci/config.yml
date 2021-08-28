@@ -19,7 +19,12 @@ jobs:
           name: Which bundler?
           command: bundle -v
       - ruby/install-deps
-      - node/install-packages
+      - node/install:
+          install-yarn: true
+          install-npm: false
+          lts: true
+      - node/install-packages:
+          pkg-manager: yarn
   test:
     docker:
       - image: cimg/ruby:2.7.4
@@ -31,7 +36,12 @@ jobs:
     steps:
       - checkout
       - ruby/install-deps
-      - node/install-packages
+      - node/install:
+          install-yarn: true
+          install-npm: false
+          lts: true
+      - node/install-packages:
+          pkg-manager: yarn
       - run:
           name: Config copy
           command: cp config/database.docker.yml config/database.yml
