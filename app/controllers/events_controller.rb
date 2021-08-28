@@ -71,7 +71,7 @@ class EventsController < ApplicationController
 
   def search_entries
     authorize Event
-    
+
     @q = params[:q] # We'll use this to re-fill the search blank
     @events = limit_by_convention policy_scope(Event).ransack(@q, current_user,
                                                       params[:show_closed],
@@ -83,12 +83,13 @@ class EventsController < ApplicationController
   def review
     authorize Event
     @title = 'Event Review'
+    @events = @events.page(top_params[:page])
     respond_with @events
   end
 
   # GET /events/1
   # GET /events/1.json
-  def show    
+  def show
     @title = 'Event'
     @entry = build_new_entry @event
   end
@@ -133,7 +134,7 @@ class EventsController < ApplicationController
 
     if params.key? :event
       if @event.update! event_params
-        flash[:notice] = 'Event was successfully updated.' 
+        flash[:notice] = 'Event was successfully updated.'
         @event.save!
       end
     else
@@ -143,7 +144,7 @@ class EventsController < ApplicationController
     respond_with @event, location: -> { events_path }
   end
 
-  def merge_events  
+  def merge_events
     authorize Event
     merge_events = policy_scope(Event).where(id: merge_id_params)
     @event = Event.merge_events merge_events, current_user, current_role_name
@@ -212,7 +213,6 @@ class EventsController < ApplicationController
     @events = limit_by_date_range @events
     @events = @events.search_entries(@q) if @q.present?
     @events = @events.order(updated_at: filter_order)
-    @events = @events.page(top_params[:page])
   end
 
   def set_event
