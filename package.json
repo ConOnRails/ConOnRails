@@ -1,22 +1,24 @@
 {
+  "scripts": {
+    "heroku-postbuild": "npm run webpack:deploy",
+    "webpack:deploy": "webpack --config=webpack/webpack.config.js -p"
+  },
   "dependencies": {
     "@rails/webpacker": "5.4.0",
     "pluralize": "^8.0.0",
     "vue": "^2.6.14",
     "vue-loader": "^15.9.8",
     "vue-template-compiler": "^2.6.14",
+    "vuex": "^3.4.0",
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12"
   },
   "devDependencies": {
     "@vue/cli": "^4.5.13",
+    "@vue/cli-plugin-vuex": "~4.5.0",
     "jshint": "^2.13.1",
     "pug": "^3.0.2",
     "pug-plain-loader": "^1.1.0",
     "webpack-dev-server": "^3.11.2"
-  },
-  "scripts": {
-    "webpack:deploy": "webpack --config=webpack/webpack.config.js -p",
-    "heroku-postbuild": "npm run webpack:deploy"
   }
 }

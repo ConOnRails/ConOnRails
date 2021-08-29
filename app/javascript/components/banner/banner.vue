@@ -5,16 +5,7 @@
         img(:src="imageLink" alt="Con On Rails")
 
     .col-md-6.col-sm-6.col-xs-9
-      BannerText(
-        :active="this.active"
-        :active-secure="this.activeSecure"
-        :emergency="this.emergency"
-        :medical="this.medical"
-        :now="this.now"
-        :role="this.role"
-        :userName="this.userName"
-        :userUrl="this.userUrl"
-      )
+      BannerText(:now="this.now")
 
     div(v-if="this.userName").col-md-3.col-sm-3.text-right
       a#emergency_button(:class="this.emergencyButtonStyle" href="/events/new?emergency=1")
@@ -22,12 +13,14 @@
         | &nbsp; Open a New Emergency
       div
         label(for="pause") Pause Banner
-        input(name="pause" type="checkbox" v-model="pause")
+        input(name="pause" type="checkbox" @click="togglePause")
       div(v-if="this.pause").text-right
         | PAUSED
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   computed: {
     bannerStyle() {
@@ -48,20 +41,19 @@ export default {
       }
 
       return style;
-    }
+    },
+    ...mapState([
+      'active',
+      'emergency',
+      'imageLink',
+      'medical',
+      'pause',
+      'userName'
+    ])
   },
   data() {
     return {
-      active: 0,
-      activeSecure: 0,
-      emergency: 0,
-      imageLink: '',
-      medical: 0,
-      now: this.currentTime(),
-      pause: false,
-      role: '',
-      userName: '',
-      userUrl: ''
+      now: this.currentTime()
     }
   },
   methods: {
@@ -69,20 +61,15 @@ export default {
       if (!this.pause) {
         fetch('/banner').then(response => response.json())
                         .then((data) => {
-                          this.active = data.active;
-                          this.activeSecure = data.active_secure;
-                          this.emergency = data.emergency;
-                          this.medical = data.medical;
-                          this.imageLink = data.logo_url;
-                          this.now = this.currentTime();
-                          this.role = data.role;
-                          this.userName = data.user_name;
-                          this.userUrl = data.user_url;
+                          this.$store.commit('updateBanner', data);
                         });
       }
       if (this.loggedIn) {
         setTimeout(this.loadData, 10000);
       }
+    },
+    togglePause() {
+      this.$store.commit('togglePause');
     },
     currentTime() {
       const d = new Date()

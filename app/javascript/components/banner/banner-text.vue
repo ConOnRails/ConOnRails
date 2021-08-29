@@ -26,6 +26,7 @@
 
 <script>
 import Pluralize from 'pluralize';
+import { mapState } from 'vuex';
 
 export default {
   computed: {
@@ -41,16 +42,18 @@ export default {
     medicalText() {
       return Pluralize("Medical", this.medical, true);
     },
+    ...mapState([
+      'active',
+      'activeSecure',
+      'emergency',
+      'medical',
+      'role',
+      'userName',
+      'userUrl'
+    ])
   },
   props: {
-    active: [Number, String],
-    activeSecure: [Number, String],
-    emergency: [Number, String],
-    medical: [Number, String],
-    now: String,
-    role: String,
-    userName: String,
-    userUrl: String
+    now: String
   }
 };
 </script>
