@@ -145,10 +145,10 @@ a.sort_link {
 
 #banner {
   min-height: 120px;
+  padding: 1rem;
 
   #logo {
     color: white;
-    padding: 10px 10px 10px 20px;
 
     img {
       background-color: black;
@@ -158,7 +158,7 @@ a.sort_link {
   #banner_text {
     font-weight: bold;
     div {
-      margin-bottom: .2em;
+      margin-bottom: .5rem;
       a {
         color: inherit;
       }
@@ -166,8 +166,7 @@ a.sort_link {
   }
 
   #emergency_button {
-    margin-top: 6px;
-    margin-right: 6px;
+    margin: 1rem;
   }
 
   .not-emerg, .reverse {
@@ -176,13 +175,6 @@ a.sort_link {
   }
   .not-emerg {
     @extend .btn-danger;
-    /*background-color: $emergency_bg;
-    color: $emergency_fg;
-
-    &:hover {
-      color: $emergency_bg;
-      background-color: $emergency_fg;
-    }*/
   }
 
   .reverse {

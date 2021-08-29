@@ -1,4 +1,5 @@
 /* eslint no-console:0 */
+/* jshint esversion: 6 */
 // This file is automatically compiled by Webpack, along with any other files
 // present in this directory. You're encouraged to place your actual application logic in
 // a relevant structure within app/javascript and only use these pack files to reference
@@ -15,19 +16,17 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-import Vue from 'vue/dist/vue.esm.js'
-import App from '../components/app.vue'
-import Banner from '../components/banner.vue'
-import BannerText from '../components/banner-text.vue'
+import Vue from 'vue/dist/vue.esm.js';
+import Banner from '../components/banner/banner.vue';
+import BannerText from '../components/banner/banner-text.vue';
+import BannerCategory from "../components/banner/banner-category.vue";
 
-Vue.component('app', App);
 Vue.component('banner', Banner);
 Vue.component('BannerText', BannerText);
+Vue.component('BannerCategory', BannerCategory);
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
     el: '#vue'
-  })
-
-  console.log(app)
-})
+  });
+});

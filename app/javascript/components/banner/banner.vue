@@ -1,33 +1,30 @@
-<template>
-  <div class="row">
-    <div id="banner" :class="bannerStyle">
-      <div class="col-md-3 col-sm-3 col-xs-12">
-        <div id="logo">
-          <img :src="imageLink" alt="Con On Rails" />
-        </div>
-      </div>
+<template lang="pug">
+  #banner(:class="bannerStyle").row
+    .col-md-3.col-sm-3.col-xs-12
+      #logo
+        img(:src="imageLink" alt="Con On Rails")
 
-      <div class="col-md-6 col-sm-6 col-xs-9">
-        <BannerText :active="this.active" :active-secure="this.activeSecure" :emergency="this.emergency" :medical="this.medical" :now="this.now" :role="this.role" :userName="this.userName" :userUrl="this.userUrl" />
-      </div>
+    .col-md-6.col-sm-6.col-xs-9
+      BannerText(
+        :active="this.active"
+        :active-secure="this.activeSecure"
+        :emergency="this.emergency"
+        :medical="this.medical"
+        :now="this.now"
+        :role="this.role"
+        :userName="this.userName"
+        :userUrl="this.userUrl"
+      )
 
-      <div v-if="this.userName" class="col-md-3 col-sm-3">
-        <div class="text-right">
-          <a id="emergency_button" :class="this.emergencyButtonStyle" href="/events/new?emergency=1">
-            <div class="glyphicon glyphicon-exclamation-sign"></div>
-            &nbsp; Open a New Emergency
-          </a>
-        </div>
-        <div class="text-right">
-          <label for="pause">Pause Banner</label>
-          <input name="pause" type="checkbox" v-model="pause">
-        </div>
-        <div v-if="this.pause" class="text-right">
-          PAUSED
-        </div>
-      </div>
-    </div>
-  </div>
+    div(v-if="this.userName").col-md-3.col-sm-3.text-right
+      a#emergency_button(:class="this.emergencyButtonStyle" href="/events/new?emergency=1")
+        .glyphicon.glyphicon-exclamation-sign
+        | &nbsp; Open a New Emergency
+      div
+        label(for="pause") Pause Banner
+        input(name="pause" type="checkbox" v-model="pause")
+      div(v-if="this.pause").text-right
+        | PAUSED
 </template>
 
 <script>
