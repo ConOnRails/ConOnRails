@@ -9,6 +9,7 @@
     "webpack-cli": "^3.3.12"
   },
   "devDependencies": {
+    "@vue/cli": "^4.5.13",
     "jshint": "^2.13.1",
     "pug": "^3.0.2",
     "pug-plain-loader": "^1.1.0",
