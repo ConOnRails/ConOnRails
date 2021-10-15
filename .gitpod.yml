@@ -1,0 +1,11 @@
+image: gitpod/workspace-postgres:latest
+tasks:
+  - before: >
+      rvm install 2.7.4 &&
+      rvm use 2.7.4 &&
+      cp config/database.docker.yml config/database.yml
+    env:
+      DATABASE_URL: postgresql://gitpod@localhost/cononrails
+    init: bin/setup
+    command: bin/rails server
+
