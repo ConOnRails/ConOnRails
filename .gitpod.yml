@@ -5,7 +5,7 @@ tasks:
       rvm use 2.7.4 &&
       cp config/database.docker.yml config/database.yml
     env:
-      DATABASE_URL: "postgres://gitpod@localhost"
+      DATABASE_URL: "postgres://localhost"
       DATABASE_NAME: "cononrails"
     init: bin/setup
     command: bin/rails server
