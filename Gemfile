@@ -43,6 +43,7 @@ gem 'simple_form'
 gem 'slim'
 gem 'sshkit' # , '~> 1.6.1'
 gem 'therubyracer', require: 'v8'
+gem 'webpacker'
 gem 'yaml_db'
 
 # Moved to production because we use them in seeds and we need to be able to seed Heroku
@@ -58,6 +59,7 @@ gem 'stackprof' # ruby 2.1+ only
 
 group :development do
   gem 'annotate'
+  gem 'foreman'
   gem 'rb-fsevent' # , '~> 0.9.1'
   # gem 'rails-dev-boost', :git => 'git://github.com/thedarkone/rails-dev-boost.git', :require => 'rails_development_boost'
   # gem 'ruby-debug19', :require => 'ruby-debug'

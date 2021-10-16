@@ -6,16 +6,16 @@ html
       var CIAB = CIAB || {};
 
     = stylesheet_link_tag 'application'
+    = javascript_pack_tag 'application'
     = javascript_include_tag 'application', 'data-turbolinks-eval' => false
+    
     = csrf_meta_tags
 
   body class="#{controller.controller_name} #{background}"
-    .container-fluid
+    .container-fluid#vue
       .row
-        .col-lg-12.col-md-12.col-sm-12.col-xs-12
-          .row
-            #banner-placeholder
-              noscript= render 'banner'
+        .col-lg-12.col-md-12.col-sm-12.col-xs-12    
+          Banner :logged-in="#{current_user.present?}"
           .row
             = render 'menubar'
 

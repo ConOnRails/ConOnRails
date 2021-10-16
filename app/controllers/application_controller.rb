@@ -2,6 +2,8 @@
 
 class ApplicationController < ActionController::Base
   include Pundit
+  include Rails.application.routes.url_helpers
+
   protect_from_forgery
 
   before_action :require_login, except: [:banner]
@@ -11,8 +13,18 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   
   def banner
-    session[:pause_refresh] ||= false
-    render partial: 'banner'
+    render json: {
+      active: Event.current_convention.num_active,
+      active_secure: Event.current_convention.num_active_secure,
+      emergency: Event.current_convention.num_active_emergencies,
+      medical: Event.current_convention.num_active_medicals,
+      logo_url: helpers.image_path("ciab-logo-trans.png"),
+      role: current_role_name,
+      user_name: current_user&.username,
+      user_url: if current_user.present?
+          helpers.user_path(current_user)
+        end
+    }
   end
 
   private
