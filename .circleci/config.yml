@@ -6,7 +6,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: cimg/ruby:2.7.4
+      - image: cimg/ruby:2.7.4-node
     environment:
       RAILS_ENV: test
     executor: ruby/default
@@ -27,7 +27,7 @@ jobs:
           pkg-manager: yarn
   test:
     docker:
-      - image: cimg/ruby:2.7.4
+      - image: cimg/ruby:2.7.4-node
       - image: circleci/postgres:13.3
         environment:
           POSTGRES_HOST_AUTH_METHOD: trust
