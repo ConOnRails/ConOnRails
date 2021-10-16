@@ -24,7 +24,7 @@ jobs:
       - image: cimg/ruby:2.7.4
       - image: circleci/postgres:13.3
         environment:
-          - POSTGRES_HOST_AUTH_METHOD=trust
+          POSTGRES_HOST_AUTH_METHOD: trust
     environment:
       RAILS_ENV: test
     steps:
