@@ -2,8 +2,8 @@ image: gitpod/workspace-postgres:latest
 tasks:
   - before: >
       rvm install 2.7.4 &&
-      rvm use 2.7.4 &&
-      cp config/database.gitpod.yml config/database.yml
-    init: bin/setup
-    command: bin/rails server
-
+      rvm use 2.7.4
+    init: >
+      bin/setup 
+    command: >
+      bin/rails server
