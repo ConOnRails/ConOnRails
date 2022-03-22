@@ -10,12 +10,12 @@
 #  consuite                    :boolean
 #  dealers                     :boolean
 #  dock                        :boolean
-#  emergency                   :boolean          default(FALSE)
+#  emergency                   :boolean          default("false")
 #  first_advisors              :boolean
-#  hidden                      :boolean          default(FALSE)
+#  hidden                      :boolean          default("false")
 #  hotel                       :boolean
-#  is_active                   :boolean          default(TRUE)
-#  medical                     :boolean          default(FALSE)
+#  is_active                   :boolean          default("true")
+#  medical                     :boolean          default("false")
 #  member_advocates            :boolean
 #  merchandise                 :boolean
 #  merged                      :boolean
@@ -23,12 +23,12 @@
 #  nerf_herders                :boolean
 #  operations                  :boolean
 #  parties                     :boolean
-#  post_con                    :boolean          default(FALSE)
+#  post_con                    :boolean          default("false")
 #  programming                 :boolean
 #  registration                :boolean
-#  secure                      :boolean          default(FALSE)
-#  smokers_paradise            :boolean          default(FALSE)
-#  sticky                      :boolean          default(FALSE)
+#  secure                      :boolean          default("false")
+#  smokers_paradise            :boolean          default("false")
+#  sticky                      :boolean          default("false")
 #  volunteers                  :boolean
 #  volunteers_den              :boolean
 #  created_at                  :datetime
