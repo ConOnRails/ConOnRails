@@ -5,15 +5,15 @@
 # Table name: contacts
 #
 #  id         :integer          not null, primary key
-#  name       :string
-#  department :string
+#  can_text   :boolean          default("false")
 #  cell_phone :string
+#  department :string
 #  hotel      :string
 #  hotel_room :integer
+#  name       :string
+#  position   :string
 #  created_at :datetime
 #  updated_at :datetime
-#  can_text   :boolean          default(FALSE)
-#  position   :string
 #
 
 require 'test_helper'

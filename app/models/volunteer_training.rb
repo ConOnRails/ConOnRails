@@ -5,18 +5,18 @@
 # Table name: volunteer_trainings
 #
 #  id             :integer          not null, primary key
-#  volunteer_id   :integer
-#  radio          :boolean          default(FALSE)
-#  ops_basics     :boolean          default(FALSE)
-#  first_contact  :boolean          default(FALSE)
-#  communications :boolean          default(FALSE)
-#  dispatch       :boolean          default(FALSE)
-#  wandering_host :boolean          default(FALSE)
-#  xo             :boolean          default(FALSE)
-#  ops_subhead    :boolean          default(FALSE)
-#  ops_head       :boolean          default(FALSE)
+#  communications :boolean          default("false")
+#  dispatch       :boolean          default("false")
+#  first_contact  :boolean          default("false")
+#  ops_basics     :boolean          default("false")
+#  ops_head       :boolean          default("false")
+#  ops_subhead    :boolean          default("false")
+#  radio          :boolean          default("false")
+#  wandering_host :boolean          default("false")
+#  xo             :boolean          default("false")
 #  created_at     :datetime
 #  updated_at     :datetime
+#  volunteer_id   :integer
 #
 
 class VolunteerTraining < ApplicationRecord
