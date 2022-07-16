@@ -2,7 +2,7 @@ var update = function () {
     var merge_ids;
     window.events.page = <%= params[:page].nil? ? "1" : params[:page] %>;
     window.events.merge_mode = <%= params[:merge_mode].presence || false %>;
-    window.events.convention = <%= params[:convention] %>;
+    window.events.convention = <%= convention_param %>;
     $('form #event_list').html('<%= escape_javascript render(@events, form: false) %>');
     $('.paginator').html('<%= escape_javascript(paginate(@events, remote: true).to_s) %>');
     $('#merge-mode-toggle').html('<%= escape_javascript(merge_button) %>');

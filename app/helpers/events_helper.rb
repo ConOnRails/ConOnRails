@@ -18,14 +18,11 @@ module EventsHelper
   end
 
   def merge_button
-    nil 
-=begin
     link_to merge_mode_toggle_text,
             merge_button_path,
             remote: true,
             class: "btn btn-primary #{merge_toggle_class}",
             type: 'button'
-=end
   end
 
   def merge_button_path
@@ -74,6 +71,10 @@ module EventsHelper
     ret << 'emergency ' if event.emergency?
     ret << 'sticky ' if event.sticky?
     ret
+  end
+
+  def convention_param
+    params[:convention] || Convention.current_convention.try(:id)
   end
 
   def event_tags(event)

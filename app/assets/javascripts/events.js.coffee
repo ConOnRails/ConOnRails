@@ -8,7 +8,6 @@ window.events.getMain = (push = false) ->
     $('input[name="merge_ids[]"]:checked').map(() ->
       $(this).val()).get()
 
-
   console.log(get_merge_events())
   data = {
     "page": window.events.page,

@@ -107,16 +107,18 @@ class Event < ApplicationRecord
   def self.merge_events(events, user, role_name = nil)
     return if events.blank?
 
-    event_ids = events.pluck(:id)
-    new_event = Event.create! do |event|
-      event.merged_from_ids = event_ids
-    end
+    transaction do
+      event_ids = events.pluck(:id)
+      new_event = Event.create! do |event|
+        event.merged_from_ids = event_ids
+      end
 
-    new_event.merge_entries event_ids
-    new_event.merge_flags events
-    new_event.add_entry "Merged by #{user.username} as '#{role_name}' from #{event_ids.join(', ')}", user.id, role_name
-    new_event.save!
-    new_event.reload
+      new_event.merge_entries event_ids
+      new_event.merge_flags events
+      new_event.add_entry "Merged by #{user.username} as '#{role_name}' from #{event_ids.join(', ')}", user.id, role_name
+      new_event.save!
+      new_event.reload
+    end
   end
 
   def self.user_can_see_hidden(user)
