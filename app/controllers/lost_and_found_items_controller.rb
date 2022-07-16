@@ -80,7 +80,7 @@ class LostAndFoundItemsController < ApplicationController
   protected
 
   def jump
-    @lfi = LostAndFoundItem.find_by(id: params[:id])
+    @lfi = policy_scope(LostAndFoundItem).find_by(id: params[:id])
     authorize @lfi
     if @lfi.present?
       return redirect_to lost_and_found_item_path(@lfi,
