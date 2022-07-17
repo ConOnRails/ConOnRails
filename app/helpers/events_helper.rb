@@ -18,8 +18,12 @@ module EventsHelper
   end
 
   def merge_button
+    # We need to know what our path will be before we
+    # know what our text will be, so do this first.
+    path = merge_button_path
+
     link_to merge_mode_toggle_text,
-            merge_button_path,
+            path,
             remote: true,
             class: "btn btn-primary #{merge_toggle_class}",
             type: 'button'
@@ -57,7 +61,8 @@ module EventsHelper
 
   def toggle_merge_mode(new_params)
     new_params[:merge_mode] = new_params[:merge_mode] == 'true' ? 'false' : 'true'
-    new_params
+    pp "NORG"
+    pp new_params
   end
 
   def merge_toggle_class

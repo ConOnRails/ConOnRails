@@ -57,6 +57,6 @@ class EventPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
-    [:convention, :id, :page, :q, filters: Event.flags]
+    [:convention, :id, :page, :q, :show_older, :active, :merge_mode, filters: Event.flags]
   end
 end
