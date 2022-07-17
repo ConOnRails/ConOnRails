@@ -221,7 +221,7 @@ class EventsController < ApplicationController
   end
 
   def top_params
-    params.permit(:convention, :id, :page, :q, filters: Event.flags)
+    params.permit(policy(Event).permitted_attributes)
   end
 
   def event_params

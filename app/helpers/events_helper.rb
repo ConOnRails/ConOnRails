@@ -6,7 +6,7 @@ module EventsHelper
   end
 
   def action_params
-    params.permit(:action)
+    params.permit([:action] + policy(Event).permitted_attributes)
   end
 
   def create_or_update
