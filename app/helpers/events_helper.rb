@@ -61,8 +61,7 @@ module EventsHelper
 
   def toggle_merge_mode(new_params)
     new_params[:merge_mode] = new_params[:merge_mode] == 'true' ? 'false' : 'true'
-    pp "NORG"
-    pp new_params
+    new_params
   end
 
   def merge_toggle_class
