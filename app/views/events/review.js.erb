@@ -1,6 +1,7 @@
 var update = function () {
     var merge_ids;
     window.events.page = <%= params[:page].nil? ? "1" : params[:page] %>;
+    window.events.merge_mode = <%= params[:merge_mode].presence || false %>;
     window.events.convention = "<%= params[:convention] %>";
     if (window.events.convention = '')
         window.events.convention = $('#convention').val();
