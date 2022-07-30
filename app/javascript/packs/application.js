@@ -21,10 +21,16 @@ import Vuex from 'vuex';
 import Banner from '../components/banner/banner.vue';
 import BannerText from '../components/banner/banner-text.vue';
 import BannerCategory from "../components/banner/banner-category.vue";
+import Events from '../components/event/events.vue';
+import Event from '../components/event/event.vue';
+import Entry from '../components/event/entry.vue';
 
 Vue.component('banner', Banner);
 Vue.component('BannerText', BannerText);
 Vue.component('BannerCategory', BannerCategory);
+Vue.component('Events', Events);
+Vue.component('Event', Event);
+Vue.component('Entry', Entry);
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
@@ -32,6 +38,7 @@ const store = new Vuex.Store({
     active: 0,
     activeSecure: 0,
     emergency: 0,
+    events: [],
     imageLink: '',
     medical: 0,
     pause: false,
@@ -52,6 +59,10 @@ const store = new Vuex.Store({
     },
     togglePause(state) {
       state.pause = !state.pause;
+    },
+    events(state, data) {
+      console.log(data);
+      state.events = data;
     }
   }
 });

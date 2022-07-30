@@ -5,7 +5,7 @@
 
     .name #{@volunteer.first_name} #{@volunteer.middle_name} #{@volunteer.last_name}
     - if @volunteer.user.nil?
-      button id="create-user-button">Create new user
+      button id="create-user-button" Create new user
     - else
       div Associated with: #{link_to @volunteer.user.username, @volunteer.user}
     .address

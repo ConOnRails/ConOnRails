@@ -1,12 +1,12 @@
 version: 2.1
 orbs:
-  ruby: circleci/ruby@1.1.4
-  node: circleci/node@4.5.1
+  ruby: circleci/ruby@1.4.0
+  node: circleci/node@5.0.1
 
 jobs:
   build:
     docker:
-      - image: cimg/ruby:2.7.4-node
+      - image: cimg/ruby:2.6.10-node
     environment:
       RAILS_ENV: test
     executor: ruby/default
@@ -14,7 +14,7 @@ jobs:
       - checkout
       - run:
           name: Right bundler
-          command: gem install bundler -v 2.1.4
+          command: gem install bundler -v 2.3.15
       - run:
           name: Which bundler?
           command: bundle -v
@@ -27,7 +27,7 @@ jobs:
           pkg-manager: yarn
   test:
     docker:
-      - image: cimg/ruby:2.7.4-node
+      - image: cimg/ruby:2.6.10-node
       - image: circleci/postgres:13.3
         environment:
           POSTGRES_HOST_AUTH_METHOD: trust

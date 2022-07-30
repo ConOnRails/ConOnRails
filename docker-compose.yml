@@ -6,6 +6,21 @@ services:
       - "5432:5432"
     volumes:
       - db:/var/lib/postgresql/data
+
+  app:
+    image: con_on_rails:latest
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+
+  webpack:
+    command: bin/webpack-dev-server
+    image: con_on_rails:latest
+    ports:
+      - "3035:3035"
+    volumes:
+      - .:/app
 volumes:
   db:
-

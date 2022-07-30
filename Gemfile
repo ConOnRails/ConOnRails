@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 source 'http://rubygems.org'
-ruby '2.7.4'
+ruby '2.6.10'
 
-gem 'rails', '>= 5.2.4', '< 6.0'
+gem 'rails', '>= 5.2.7.0', '< 6.0'
 gem 'bootsnap'
 gem 'pg', '~> 1.0'
 
@@ -18,13 +18,13 @@ gem 'coffee-rails'
 gem 'sass-rails'
 gem 'uglifier'
 
-gem 'acts-as-taggable-on', '~> 6.0'
+gem 'acts-as-taggable-on', '~> 8.0'
 gem 'bcrypt', '~> 3.1.5'
 gem 'bootstrap-sass', '~> 3.4.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
 gem 'countries'#, '~> 0.9.3'
 gem 'country_select'#, '~> 2.1.1'
-gem 'formtastic' # , '~> 3.1.3'
+gem 'formtastic', '~> 4.0.0'
 gem 'jbuilder'
 gem 'jquery-rails', '~> 4.3.3'
 gem 'jquery-ui-rails', '~> 6.0.1'

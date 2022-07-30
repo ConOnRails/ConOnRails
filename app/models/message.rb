@@ -6,14 +6,14 @@
 #
 #  id           :integer          not null, primary key
 #  for          :string
+#  hotel        :string
+#  is_active    :boolean          default("true")
+#  message      :text
 #  phone_number :string
 #  room_number  :string
-#  hotel        :string
-#  user_id      :integer
-#  message      :text
-#  is_active    :boolean          default(TRUE)
 #  created_at   :datetime
 #  updated_at   :datetime
+#  user_id      :integer
 #
 
 class Message < ApplicationRecord

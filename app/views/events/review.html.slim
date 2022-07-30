@@ -72,31 +72,20 @@
 
   = form_tag merge_events_events_path, method: :post, id: 'merge-form', class: 'form-horizontal' do
     .form-group
-      .col-md-12
+      .col-md-6
         = link_to 'Log New Event', new_event_path, class: 'btn btn-default'
         span#merge-mode-toggle
         span#merge-mode-submit
         = link_to 'Export Current Filter (CSV)', '#', class: 'btn btn-warning', onclick: 'window.events.exportReview(window.events.getFilters())'
 
-  .form-group
-    .col-md-12
-      #top-paginator.paginator
+    .form-group
+      .col-md-12
+        #top-paginator.paginator
     #event_list
       noscript= render @events, form: false
     .form-group
       .col-md-12
         .paginator
-
-
-javascript:
-  window.events.active =
-    #{params[:active].nil? ? false: params[:active]};
-  window.events.page =
-    #{params[:page].nil? ? "1": params[:page]};
-  window.events.convention = "#{params[:convention].presence}";
-  if (window.events.convention = '')
-    window.events.convention = $('#convention').val();
-  window.events.merge_mode = "#{params[:merge_mode].presence}";
 
 coffee:
   $(()->

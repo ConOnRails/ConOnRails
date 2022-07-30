@@ -8,7 +8,6 @@ window.events.getMain = (push = false) ->
     $('input[name="merge_ids[]"]:checked').map(() ->
       $(this).val()).get()
 
-
   console.log(get_merge_events())
   data = {
     "page": window.events.page,
@@ -25,26 +24,34 @@ window.events.getMain = (push = false) ->
     }
   ).done((data, status, xhr)->
     if !window.banner.pause
-      setTimeout((->
+      window.events.currentTimer = setTimeout((->
         window.events.getMain()), 5000)
   )
 
 window.events.getReview = (filters) ->
+  get_merge_events = () ->
+    $('input[name="merge_ids[]"]:checked').map(() ->
+      $(this).val()).get()
+
   data = {
     "page": window.events.page,
     "filters": filters,
     "convention": $('#convention').val(),
+    "merge_mode": window.events.merge_mode,
+    "merge_ids": get_merge_events(),
     "q": $('input[name=q]').val(),
     "from_date": $('#from_date').data('date'),
     "to_date": $('#to_date').data('date')
   }
   $.ajax({
-      url: '/events/review',
+      url: window.events.path,
       dataType: 'script',
       data: data
     }
   ).done((data, status, xhr)->
     history.pushState(data, 'Search', this.url)
+    if window.events.currentTimer
+      clearTimeout(window.events.currentTimer)
   )
 
 

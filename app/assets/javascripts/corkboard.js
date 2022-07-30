@@ -43,6 +43,8 @@
     },
 
     fillCards: function (data, status, xhr) {
+      if (data === null) { return; }
+
       this.$cork_board.html('');
 
       this.$cork_label = $(document.createElement('div'));

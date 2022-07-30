@@ -10,12 +10,12 @@
 #  consuite                    :boolean
 #  dealers                     :boolean
 #  dock                        :boolean
-#  emergency                   :boolean          default(FALSE)
+#  emergency                   :boolean          default("false")
 #  first_advisors              :boolean
-#  hidden                      :boolean          default(FALSE)
+#  hidden                      :boolean          default("false")
 #  hotel                       :boolean
-#  is_active                   :boolean          default(TRUE)
-#  medical                     :boolean          default(FALSE)
+#  is_active                   :boolean          default("true")
+#  medical                     :boolean          default("false")
 #  member_advocates            :boolean
 #  merchandise                 :boolean
 #  merged                      :boolean
@@ -23,12 +23,12 @@
 #  nerf_herders                :boolean
 #  operations                  :boolean
 #  parties                     :boolean
-#  post_con                    :boolean          default(FALSE)
+#  post_con                    :boolean          default("false")
 #  programming                 :boolean
 #  registration                :boolean
-#  secure                      :boolean          default(FALSE)
-#  smokers_paradise            :boolean          default(FALSE)
-#  sticky                      :boolean          default(FALSE)
+#  secure                      :boolean          default("false")
+#  smokers_paradise            :boolean          default("false")
+#  sticky                      :boolean          default("false")
 #  volunteers                  :boolean
 #  volunteers_den              :boolean
 #  created_at                  :datetime
@@ -107,16 +107,18 @@ class Event < ApplicationRecord
   def self.merge_events(events, user, role_name = nil)
     return if events.blank?
 
-    event_ids = events.pluck(:id)
-    new_event = Event.create! do |event|
-      event.merged_from_ids = event_ids
-    end
+    transaction do
+      event_ids = events.pluck(:id)
+      new_event = Event.create! do |event|
+        event.merged_from_ids = event_ids
+      end
 
-    new_event.merge_entries event_ids
-    new_event.merge_flags events
-    new_event.add_entry "Merged by #{user.username} as '#{role_name}' from #{event_ids.join(', ')}", user.id, role_name
-    new_event.save!
-    new_event.reload
+      new_event.merge_entries event_ids
+      new_event.merge_flags events
+      new_event.add_entry "Merged by #{user.username} as '#{role_name}' from #{event_ids.join(', ')}", user.id, role_name
+      new_event.save!
+      new_event.reload
+    end
   end
 
   def self.user_can_see_hidden(user)

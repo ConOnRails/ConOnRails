@@ -6,7 +6,7 @@ module EventsHelper
   end
 
   def action_params
-    params.permit(:action)
+    params.permit([:action] + policy(Event).permitted_attributes)
   end
 
   def create_or_update
@@ -18,14 +18,15 @@ module EventsHelper
   end
 
   def merge_button
-    nil 
-=begin
+    # We need to know what our path will be before we
+    # know what our text will be, so do this first.
+    path = merge_button_path
+
     link_to merge_mode_toggle_text,
-            merge_button_path,
+            path,
             remote: true,
             class: "btn btn-primary #{merge_toggle_class}",
             type: 'button'
-=end
   end
 
   def merge_button_path
@@ -74,6 +75,10 @@ module EventsHelper
     ret << 'emergency ' if event.emergency?
     ret << 'sticky ' if event.sticky?
     ret
+  end
+
+  def convention_param
+    params[:convention] || Convention.current_convention.try(:id)
   end
 
   def event_tags(event)

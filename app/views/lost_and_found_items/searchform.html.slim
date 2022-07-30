@@ -12,9 +12,9 @@
     = field_set_tag "", id: "lost_and_found_checkboxes", class: 'form-horizontal' do
       .form-group
         - LostAndFoundItem.categories.each do |k, v|
-          .col-md-4.col-sm-6
+          .col-md-6.col-sm-6
             = checkbox k, v, params[k]
-        .col-md-4.col-sm-6
+        .col-md-6.col-sm-6
           = checkbox :show_returned_only, 'Returned Only'
     .form-group
       .col-md-4.col-sm-12
@@ -25,10 +25,10 @@
       .form-group
         .col-md-4.col-sm-6
           = label_tag :search_type_all, "Find All"
-          = radio_button_tag :search_type, "all", params[:search_type].blank? || params[:search_type] == 'all'
+          = radio_button_tag :search_type, "all", params[:search_type] == 'all'
         .col-md-4.col-sm-6
           = label_tag :search_type_any, "Find Any"
-          = radio_button_tag :search_type, "any", params[:search_type] == 'any'
+          = radio_button_tag :search_type, "any", params[:search_type].blank? || params[:search_type] == 'any'
     = submit_tag "Search", class: "btn btn-primary btn-lg"
   h4.alert-warning NOTE: This page does not and cannot create a new Lost and Found entry. You must search for an existing entry before you can create a new one.
 

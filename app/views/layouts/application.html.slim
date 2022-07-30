@@ -41,11 +41,13 @@ html
 
               div This is version #{version_number}&mdash;#{version_name}
 
+
         .col-lg-10.col-md-9.col-sm-9.col-xs-12
           #main
-            .row
-              .col-lg-12.col-md-12.col-sm-12.col-xs-12
-                #cork-board
+            - if current_user.present?
+              .row
+                .col-lg-12.col-md-12.col-sm-12.col-xs-12
+                  #cork-board
             .row
               = content_for?(:main) ? yield(:main) : yield
     #footer
