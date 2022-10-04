@@ -9,7 +9,7 @@
 
 # Official language image. Look for the different tagged releases at:
 # https://hub.docker.com/r/library/ruby/tags/
-image: ruby:latest
+image: ruby:2.6
 
 # Pick zero or more services to be used on all builds.
 # Only needed when using a docker container to run your tests in.
