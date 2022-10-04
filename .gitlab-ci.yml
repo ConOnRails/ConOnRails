@@ -45,7 +45,7 @@ rubocop:
 
 rails:
   variables:
-    DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/$POSTGRES_DB"
+    DATABASE_URL: "postgresql://postgres:postgres@$POSTGRES_PASSWORD:5432/$POSTGRES_DB"
   script:
     - bundle exec rake db:migrate
     - bundle exec rake db:test:prepare
