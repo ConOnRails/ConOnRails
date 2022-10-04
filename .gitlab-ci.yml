@@ -19,6 +19,9 @@ services:
 
 variables:
   POSTGRES_DB: con_on_rails_test
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+  POSTGRES_HOST_AUTH_METHOD: trust
 
 # Cache gems in between builds
 cache:
