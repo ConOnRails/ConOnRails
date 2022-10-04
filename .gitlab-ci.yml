@@ -48,7 +48,6 @@ rails:
     DATABASE_URL: "postgresql://postgres:$POSTGRES_PASSWORD@postgres:5432/$POSTGRES_DB"
   script:
     - bundle exec rake db:migrate
-    - bundle exec rake db:test:prepare
     - bundle exec rake test
 
 # This deploy job uses a simple deploy flow to Heroku, other providers, e.g. AWS Elastic Beanstalk
