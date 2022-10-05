@@ -25,8 +25,9 @@ variables:
 
 # Cache gems in between builds
 cache:
+  key: $CI_COMMIT_REF_SLUG
   paths:
-    - vendor/ruby/
+    - vendor/ruby
 
 # This is a basic example for a gem or script which doesn't use
 # services such as redis or postgres
@@ -35,7 +36,7 @@ before_script:
   # Uncomment next line if your rails app needs a JS runtime:
   # - apt-get update -q && apt-get install nodejs -yqq
   - gem install bundler
-  - bundle config set --local deployment true  # Install dependencies into ./vendor/ruby
+  - bundle config set --local path 'vendor/ruby' # Install dependencies into ./vendor/ruby
   - bundle install -j $(nproc)
 
 # Optional - Delete if not using `rubocop`
