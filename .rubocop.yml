@@ -12,7 +12,7 @@ AllCops:
     - 'config/**/*'
     - 'lib/tasks/*rake'
     - 'lib/reporting/*'
-    - 'vendor/**'
+    - 'vendor/**/*'
 
 Layout/LineLength:
   Max: 100
