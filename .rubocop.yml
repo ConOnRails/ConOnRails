@@ -1,15 +1,18 @@
 require:
   - rubocop-rails
+  - rubocop-minitest
 
 AllCops:
   TargetRubyVersion: 2.6
   AutoCorrect: true
+  NewCops: enable
   Exclude:
     - 'bin/*'
     - 'db/**/*'
     - 'config/**/*'
     - 'lib/tasks/*rake'
     - 'lib/reporting/*'
+    - 'vendor/**'
 
 Layout/LineLength:
   Max: 100

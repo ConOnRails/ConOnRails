@@ -228,7 +228,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
   test 'cannot update with incomplete information' do
     put :update, params: { id: @missing.id,
                            lost_and_found_item: { description: '' } }, session: { user_id: @user.id }
-    assert assigns(:lfi).invalid?
+    assert_predicate assigns(:lfi), :invalid?
     assert_template :edit
   end
 

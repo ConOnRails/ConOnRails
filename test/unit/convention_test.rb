@@ -27,7 +27,7 @@ class ConventionTest < ActiveSupport::TestCase
       end
 
       should 'not be allowed' do
-        assert @con.invalid?, 'Convention should be invalid'
+        assert_predicate @con, :invalid?, 'Convention should be invalid'
         assert_not_nil @con.errors[:end_date], 'Errors for con.end_date should be set.'
       end
     end

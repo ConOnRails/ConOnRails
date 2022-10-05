@@ -27,7 +27,7 @@ class EventsControllerTest < ActionController::TestCase
           should 'have one hotel event' do
             assert_equal 1, assigns[:events].count
             assigns[:events].each do |e|
-              assert e.hotel?
+              assert_predicate e, :hotel?
             end
           end
         end
@@ -293,7 +293,7 @@ class EventsControllerTest < ActionController::TestCase
         should respond_with :success
         should render_template :new
         should 'have an emergency-flagged event' do
-          assert_equal true, assigns(:event).emergency
+          assert assigns(:event).emergency
         end
       end
 

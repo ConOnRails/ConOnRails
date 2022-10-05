@@ -90,7 +90,7 @@ class ContactsControllerTest < ActionController::TestCase
   def update_contact_content_fail(session)
     put :update, params: { id: @contact.to_param,
                            contact: { cell_phone: 'Doom' } }, session: session
-    assert assigns(:contact).invalid?
+    assert_predicate assigns(:contact), :invalid?
     assert_template :edit
   end
 

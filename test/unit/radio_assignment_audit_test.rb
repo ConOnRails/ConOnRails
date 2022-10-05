@@ -32,7 +32,7 @@ class RadioAssignmentAuditTest < ActiveSupport::TestCase
     end
 
     assert_not_nil audit
-    assert audit.valid?
+    assert_predicate audit, :valid?
     assert_equal state, audit.state
   end
 

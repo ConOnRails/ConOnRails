@@ -34,7 +34,7 @@ class UserTest < ActiveSupport::TestCase
              User.new(input_attributes)
            end
 
-    assert user.invalid?
+    assert_predicate user, :invalid?
   end
 
   setup do
@@ -52,7 +52,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'create a new user' do
-    assert User.new(@input_attributes).valid?
+    assert_predicate User.new(@input_attributes), :valid?
   end
 
   test "user's name should be unique" do
@@ -105,7 +105,7 @@ class UserTest < ActiveSupport::TestCase
 
   test "wrong passwords don't authenticate" do
     user = User.create!(@input_attributes)
-    assert user.authenticate(short_password) == false
+    assert_not(user.authenticate(short_password))
   end
 
   context '#role?' do
@@ -120,7 +120,7 @@ class UserTest < ActiveSupport::TestCase
       assert @user.role? 'peon', 'llama'
     end
     should 'return false if appropriate' do
-      assert @user.role?('god') == false
+      assert_not(@user.role?('god'))
     end
   end
 end

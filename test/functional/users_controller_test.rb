@@ -140,7 +140,7 @@ class UsersControllerTest < ActionController::TestCase
               user: { realname: 'wombat' }
             },
             session: @user_session
-        assert assigns(:user).valid?
+        assert_predicate assigns(:user), :valid?
         assert_equal 'wombat', assigns(:user).realname
         assert_redirected_to user_path(assigns(:user))
       end
@@ -153,7 +153,7 @@ class UsersControllerTest < ActionController::TestCase
               volunteer_id: @volunteer.id
             },
             session: @user_session
-        assert assigns(:user).valid?
+        assert_predicate assigns(:user), :valid?
         assert_equal 'wombat', assigns(:user).realname
         assert_equal @volunteer.id, assigns(:user).volunteer.id
         assert_redirected_to user_path(assigns(:user))
@@ -166,7 +166,7 @@ class UsersControllerTest < ActionController::TestCase
               user: { username: '' }
             },
             session: @user_session
-        assert assigns(:user).invalid?
+        assert_predicate assigns(:user), :invalid?
         assert_template :edit
       end
     end

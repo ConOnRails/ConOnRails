@@ -44,12 +44,11 @@ class Volunteer < ApplicationRecord
   validate :at_least_one_phone_number
   accepts_nested_attributes_for :volunteer_training
   scope :radio_volunteers, lambda {
-                             joins(:volunteer_training).order(:last_name).where('radio = ?',
-                                                                                true)
+                             joins(:volunteer_training).order(:last_name).where(volunteer_trainings: { radio: true })
                            }
   scope :radio_volunteer, lambda { |first, last|
                             joins(:volunteer_training)
-                              .order(:last_name).where('first_name ilike ? and last_name ilike ? and radio = ?',
+                              .order(:last_name).where('first_name ilike ? and last_name ilike ? and volunteer_trainings.radio = ?',
                                                        "#{first}%",
                                                        "#{last}%",
                                                        true)

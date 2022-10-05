@@ -51,7 +51,7 @@ class RolesUsersTest < ActiveSupport::TestCase
 
   test 'can find write_entries permission in user roles' do
     setup_roles
-    assert @user1.write_entries?
+    assert_predicate @user1, :write_entries?
   end
 
   test 'can find absence of write_entries permission in user roles' do

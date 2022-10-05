@@ -18,11 +18,7 @@ class ApplicationController < ActionController::Base
   private
 
   def is_authenticated?
-    if !session[:user_id].nil?
-      true
-    else
-      false
-    end
+    !session[:user_id].nil?
   end
 
   def can_admin_anything?

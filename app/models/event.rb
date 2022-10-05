@@ -125,11 +125,11 @@ class Event < ApplicationRecord
   end
 
   def self.user_can_see_hidden(user)
-    !user.nil? ? user.read_hidden_entries? : false
+    user.nil? ? false : user.read_hidden_entries?
   end
 
   def self.user_can_rw_secure(user)
-    !user.nil? ? user.rw_secure? : false
+    user.nil? ? false : user.rw_secure?
   end
 
   def self.num_active
@@ -164,7 +164,7 @@ class Event < ApplicationRecord
     params.each do |p|
       return true if (p.first == 'status') && (p.second != status)
       return true if (p.first != 'status') &&
-                     (self[p.first] != ((p.last == '1') || (p.last == 'true') ? true : false))
+                     (self[p.first] != ((p.last == '1') || (p.last == 'true')))
     end
     false
   end
