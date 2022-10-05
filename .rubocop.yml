@@ -2,7 +2,7 @@ require:
   - rubocop-rails
 
 AllCops:
-  TargetRubyVersion: 2.6.3
+  TargetRubyVersion: 2.6
   AutoCorrect: true
   Exclude:
     - 'bin/*'
@@ -11,7 +11,7 @@ AllCops:
     - 'lib/tasks/*rake'
     - 'lib/reporting/*'
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 100
   Exclude:
     - 'test/**/*'
