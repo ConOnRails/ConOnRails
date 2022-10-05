@@ -5,11 +5,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_action :require_login, except: [:banner]
-  after_action :verify_authorized, except: [:index, :banner]
+  after_action :verify_authorized, except: %i[index banner]
   after_action :verify_policy_scoped, only: :index
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-  
+
   def banner
     session[:pause_refresh] ||= false
     render partial: 'banner'
@@ -55,7 +55,9 @@ class ApplicationController < ActionController::Base
   end
 
   def limit_by_convention(query, table: 'events')
-    return query if params[:convention] == 'all' || params[:show_older] == 'true' || get_convention.blank?
+    if params[:convention] == 'all' || params[:show_older] == 'true' || get_convention.blank?
+      return query
+    end
 
     query.where("#{table}.created_at >= ?", get_convention.start_date)
          .where("#{table}.created_at <= ?", get_convention.end_date)
@@ -76,10 +78,11 @@ class ApplicationController < ActionController::Base
   def get_convention
     @con ||= if params[:convention].present?
                Convention.find params[:convention]
-             else
-               Convention.current_convention if params[:convention].blank?
+             elsif params[:convention].blank?
+               Convention.current_convention
              end
   end
 
-  helper_method :can_write_entries?, :is_authenticated?, :can_admin_anything?, :current_user, :current_role, :current_role_name
+  helper_method :can_write_entries?, :is_authenticated?, :can_admin_anything?, :current_user,
+                :current_role, :current_role_name
 end

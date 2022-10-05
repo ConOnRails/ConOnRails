@@ -64,7 +64,8 @@ class LostAndFoundItem < ApplicationRecord
   #   scope :not_returned, -> { where(returned: false) }
   #   scope :inventory, -> (i) { where(found: true, returned: false) if i }
 
-  validates :category, presence: true, allow_blank: false, inclusion: { in: @@valid_categories.merge(@@retired_categories).values }
+  validates :category, presence: true, allow_blank: false,
+                       inclusion: { in: @@valid_categories.merge(@@retired_categories).values }
   validates :description, presence: true, allow_blank: false
 
   # These rules are a little complicated but it's worth it to ensure data integrity
@@ -114,7 +115,8 @@ class LostAndFoundItem < ApplicationRecord
 
   def creation_state_correct
     if found? && reported_missing?
-      errors.add :reported_missing, 'Item can be EITHER reported missing OR found on creation, but not both. INTERNAL LOGIC ERROR'
+      errors.add :reported_missing,
+                 'Item can be EITHER reported missing OR found on creation, but not both. INTERNAL LOGIC ERROR'
     end
   end
 

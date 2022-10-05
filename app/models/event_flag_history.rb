@@ -53,7 +53,7 @@ class EventFlagHistory < ApplicationRecord
   belongs_to :user
 
   def status=(string)
-    raise Exception if (string != 'Active') && (string != 'Closed')
+    raise StandardError if (string != 'Active') && (string != 'Closed')
 
     self.is_active = true if string == 'Active'
     self.is_active = false if string == 'Closed'

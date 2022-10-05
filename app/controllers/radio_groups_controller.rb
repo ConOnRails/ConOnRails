@@ -10,7 +10,7 @@ class RadioGroupsController < ApplicationController
   def index(del_or_edit = 'edit')
     @radio_groups = policy_scope(RadioGroup).all
     authorize @radio_groups
-    @del_or_edit  = del_or_edit
+    @del_or_edit = del_or_edit
   end
 
   def delindex
@@ -36,7 +36,10 @@ class RadioGroupsController < ApplicationController
   # PUT /radio_groups/1
   # PUT /radio_groups/1.json
   def update
-    flash[:notice] = 'Radio group was successfully updated.' if @radio_group.update radio_group_params
+    if @radio_group.update radio_group_params
+      flash[:notice] =
+        'Radio group was successfully updated.'
+    end
     respond_with @radio_group
   end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RadioAssignmentAuditPolicy < ApplicationPolicy
   def index?
     user.can_admin_radios?

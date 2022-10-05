@@ -30,14 +30,17 @@ class DutyBoardGroupsController < ApplicationController
     @duty_board_group = DutyBoardGroup.find params[:id]
     authorize @duty_board_group
 
-    flash[:notice] = 'Duty board group updated successfully' if @duty_board_group.update duty_board_group_params
+    if @duty_board_group.update duty_board_group_params
+      flash[:notice] =
+        'Duty board group updated successfully'
+    end
     respond_with @duty_board_group, location: duty_board_groups_path
   end
 
   def destroy
     @duty_board_group = DutyBoardGroup.find params[:id]
     authorize @duty_board_group
-    
+
     @duty_board_group.destroy
     respond_with @duty_board_group
   end

@@ -28,7 +28,7 @@ class RadioAssignmentAuditTest < ActiveSupport::TestCase
   def can_create_audit(method, state)
     audit = nil
     assert_difference 'RadioAssignmentAudit.count' do
-      audit = RadioAssignmentAudit.send('audit_' + method, @assignment, @user)
+      audit = RadioAssignmentAudit.send("audit_#{method}", @assignment, @user)
     end
 
     assert_not_nil audit

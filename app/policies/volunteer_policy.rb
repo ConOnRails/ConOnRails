@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class VolunteerPolicy < ApplicationPolicy
   def search_volunteers?
     user.can_assign_radios?

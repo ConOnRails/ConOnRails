@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require Rails.root + 'app/queries/event_queries'
+require "#{Rails.root}/app/queries/event_queries"
 
 class EventsController < ApplicationController
   include Queries::EventQueries
@@ -74,9 +74,9 @@ class EventsController < ApplicationController
 
     @q = params[:q] # We'll use this to re-fill the search blank
     @events = limit_by_convention policy_scope(Event).ransack(@q, current_user,
-                                                      params[:show_closed],
-                                                      session[:index_filter])
-              .page(params[:page])
+                                                              params[:show_closed],
+                                                              session[:index_filter])
+                                                     .page(params[:page])
     respond_with @events
   end
 
@@ -130,15 +130,15 @@ class EventsController < ApplicationController
   def update
     # strong_parameters balks a bit at the permissiveness of this. Might want to consider restructuring a bit
     build_entry_from_params @event, entry_params if params.key? :entry # this can be blank!
-    build_flag_history_from_params @event, event_params if params.key? :event # this can also be blank if nothing changed!
+    build_flag_history_from_params @event, event_params if params.key? :event
 
     if params.key? :event
       if @event.update! event_params
         flash[:notice] = 'Event was successfully updated.'
         @event.save!
       end
-    else
-      flash[:notice] = 'Event was successfully updated.' if @event.save
+    elsif @event.save
+      flash[:notice] = 'Event was successfully updated.'
     end
 
     respond_with @event, location: -> { events_path }
@@ -225,7 +225,7 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit Event.flags + [:tag, :status, :alert_dispatcher]
+    params.require(:event).permit Event.flags + %i[tag status alert_dispatcher]
   end
 
   def entry_params

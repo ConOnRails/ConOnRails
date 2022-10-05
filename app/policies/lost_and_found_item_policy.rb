@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LostAndFoundItemPolicy < ApplicationPolicy
   def index?
     user.present?
@@ -14,5 +16,4 @@ class LostAndFoundItemPolicy < ApplicationPolicy
   def update?
     user.modify_lost_and_found?
   end
-
 end

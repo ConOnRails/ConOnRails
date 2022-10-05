@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ConventionPolicy < ApplicationPolicy
   def index?
     user.can_read_audits?

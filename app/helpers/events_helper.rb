@@ -10,7 +10,7 @@ module EventsHelper
   end
 
   def create_or_update
-    (@event.new_record? ? 'Create a new ' : 'Update a') + ' log entry'
+    "#{@event.new_record? ? 'Create a new ' : 'Update a'} log entry"
   end
 
   def filter(term)
@@ -103,28 +103,28 @@ module EventsHelper
   end
 
   def active_link
-    content_tag :div, id: 'unsticky_link' do
+    tag.div(id: 'unsticky_link') do
       [
-        content_tag(:span, '', class: 'active-icon inactive-icon'),
+        tag.span('', class: 'active-icon inactive-icon'),
         link_to('View Active', root_path)
       ].join.html_safe
     end
   end
 
   def active_text
-    content_tag :div do
+    tag.div do
       [
-        content_tag(:span, '', class: 'active-icon current-icon'),
-        content_tag(:strong, 'Viewing Active')
+        tag.span('', class: 'active-icon current-icon'),
+        tag.strong('Viewing Active')
       ].join.html_safe
     end
   end
 
   def secure_link
     if current_user.rw_secure?
-      content_tag :div, id: 'secure_link' do
+      tag.div(id: 'secure_link') do
         [
-          content_tag(:span, '', class: 'secure-icon inactive-icon'),
+          tag.span('', class: 'secure-icon inactive-icon'),
           link_to('View Active Secure', secure_events_path)
         ].join.html_safe
       end
@@ -132,28 +132,28 @@ module EventsHelper
   end
 
   def secure_text
-    content_tag :div do
+    tag.div do
       [
-        content_tag(:span, '', class: 'secure-icon current-icon'),
-        content_tag(:strong, 'Viewing Active Secure')
+        tag.span('', class: 'secure-icon current-icon'),
+        tag.strong('Viewing Active Secure')
       ].join.html_safe
     end
   end
 
   def sticky_link
-    content_tag :div, id: 'sticky_link' do
+    tag.div(id: 'sticky_link') do
       [
-        content_tag(:span, '', class: 'sticky-icon inactive-icon'),
+        tag.span('', class: 'sticky-icon inactive-icon'),
         link_to('View Sticky', sticky_events_path)
       ].join.html_safe
     end
   end
 
   def sticky_text
-    content_tag :div do
+    tag.div do
       [
-        content_tag(:span, '', class: 'sticky-icon current-icon'),
-        content_tag(:strong, 'Viewing Sticky')
+        tag.span('', class: 'sticky-icon current-icon'),
+        tag.strong('Viewing Sticky')
       ].join.html_safe
     end
   end
@@ -173,13 +173,13 @@ module EventsHelper
         secure_text <<
         sticky_link
     else
-      content_tag :div, 'I HAVE NO IDEA WHAT TO DO NOW!'
+      tag.div('I HAVE NO IDEA WHAT TO DO NOW!')
     end
   end
 
   def index_filter(key)
     [
-      content_tag(:span, '', class: "filter-icon #{current_class(key)}"),
+      tag.span('', class: "filter-icon #{current_class(key)}"),
       link_to(key.to_s.titleize, sessions_set_index_filter_path(index_filter: { key => true }), method: :post,
                                                                                                 class: active_index_filter?(key) ? 'current_index_filter' : nil)
     ].join.html_safe

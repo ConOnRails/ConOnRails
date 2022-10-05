@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RolePolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
@@ -25,4 +27,3 @@ class RolePolicy < ApplicationPolicy
     user.can_admin_users?
   end
 end
-

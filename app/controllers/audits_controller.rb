@@ -27,7 +27,7 @@ class AuditsController < ApplicationController
     types << %w[Event Entry] if params[:events]
     types << 'LostAndFoundItem' if params[:lfi]
 
-    w[:auditable_type] = types unless types.count == 0
+    w[:auditable_type] = types unless types.count.zero?
 
     @audits = policy_scope(Audit).where(w).page(params[:page])
     authorize @audits

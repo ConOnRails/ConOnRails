@@ -64,11 +64,10 @@ class DutyBoardSlotsController < ApplicationController
         #             @duty_board_slot.build_duty_board_assignment duty_board_assignment_params
         #             @duty_board_slot.save!
         #           end
-        flash[:notice] = 'Duty board slot was successfully updated'
       else
-        flash[:notice] = 'Duty board slot was successfully updated'
         # end
       end
+      flash[:notice] = 'Duty board slot was successfully updated'
     end
   end
 
@@ -80,7 +79,9 @@ class DutyBoardSlotsController < ApplicationController
     @duty_board_slot.duty_board_assignment&.destroy
 
     respond_to do |format|
-      format.html { redirect_to duty_board_index_path, notice: 'Duty board slot was successfully cleared' }
+      format.html do
+        redirect_to duty_board_index_path, notice: 'Duty board slot was successfully cleared'
+      end
     end
   end
 

@@ -358,7 +358,7 @@ FactoryBot.define do
       sequence :address1 do |n|
         "#{n} East #{n} Street"
       end
-      sequence(:home_phone) { |n| '+1 666-666-' + Kernel.sprintf('%04d', n) }
+      sequence(:home_phone) { |n| "+1 666-666-#{Kernel.sprintf('%04d', n)}" }
       sequence :email do |n|
         "yak#{n}@yak.yk"
       end
