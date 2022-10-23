@@ -21,7 +21,7 @@ class Department < ApplicationRecord
   has_paper_trail
 
   belongs_to :volunteer
-  belongs_to :radio_group, required: false
+  belongs_to :radio_group, optional: true
   validates :name, presence: true
   validates :name, uniqueness: true
 end

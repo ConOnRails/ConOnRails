@@ -25,7 +25,7 @@ class DepartmentTest < ActiveSupport::TestCase
   end
 
   should belong_to :volunteer
-  should belong_to :radio_group
+  should belong_to(:radio_group).optional(true)
   should validate_presence_of :name
   should validate_uniqueness_of :name
 end
