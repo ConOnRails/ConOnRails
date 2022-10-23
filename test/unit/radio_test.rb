@@ -23,7 +23,6 @@ require 'test_helper'
 class RadioTest < ActiveSupport::TestCase
   should belong_to :radio_group
   should have_one :radio_assignment
-  should validate_presence_of :radio_group_id
   should validate_presence_of :number
   should validate_uniqueness_of :number
   should validate_presence_of :state

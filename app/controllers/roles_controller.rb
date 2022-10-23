@@ -8,28 +8,29 @@ class RolesController < ApplicationController
 
   def index; end
   def show; end
-  def edit; end
 
-  # GET /roles/new
-  # GET /roles/new.json
   def new
     @role = Role.new
     authorize @role
   end
+
+  # GET /roles/new
+  # GET /roles/new.json
+  def edit; end
 
   # POST /roles
   # POST /roles.json
   def create
     @role = Role.new role_params
     authorize @role
-    flash[:notice] = 'Role was successfully created.' if @role.save
+    flash.now[:notice] = 'Role was successfully created.' if @role.save
     respond_with @role
   end
 
   # PUT /roles/1
   # PUT /roles/1.json
   def update
-    flash[:notice] = 'Role was successfully updated.' if @role.update role_params
+    flash.now[:notice] = 'Role was successfully updated.' if @role.update role_params
     respond_with @role
   end
 

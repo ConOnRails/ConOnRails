@@ -7,8 +7,6 @@ class LostAndFoundItemsController < ApplicationController
   before_action :categories, only: [:index]
   before_action :find_lfi, only: %i[show edit update]
 
-  def show; end
-
   def index # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     return jump if lfi_search_params[:id].present?
 
@@ -31,6 +29,8 @@ class LostAndFoundItemsController < ApplicationController
     @back_params = lfi_search_params
   end
 
+  def show; end
+
   def new
     @lfi = LostAndFoundItem.new
     authorize @lfi
@@ -41,20 +41,6 @@ class LostAndFoundItemsController < ApplicationController
     @title = "New #{@lfi.reported_missing ? 'Missing' : 'Found'} Item"
   end
 
-  def create
-    @lfi          = LostAndFoundItem.new lfi_params
-    authorize @lfi
-
-    @lfi.user     = current_user
-    @lfi.rolename = current_role_name
-
-    if @lfi.save
-      flash[:notice] =
-        "TAG WITH #{@lfi.id} - #{@lfi.type_name} item was successfully created."
-    end
-    respond_with @lfi
-  end
-
   def edit
     @lfi.found = true if params[:found] == 'true'
     @lfi.returned = true if params[:returned] == 'true'
@@ -63,11 +49,28 @@ class LostAndFoundItemsController < ApplicationController
     @title = "Edit #{@lfi.type_name} Item"
   end
 
+  def create
+    @lfi = LostAndFoundItem.new lfi_params
+    authorize @lfi
+
+    @lfi.user     = current_user
+    @lfi.rolename = current_role_name
+
+    if @lfi.save
+      flash.now[:notice] =
+        "TAG WITH #{@lfi.id} - #{@lfi.type_name} item was successfully created."
+    end
+    respond_with @lfi
+  end
+
   def update
     @lfi.user     = current_user
     @lfi.rolename = current_role_name
 
-    flash[:notice] = "#{@lfi.type_name} item was successfully updated." if @lfi.update lfi_params
+    if @lfi.update lfi_params
+      flash.now[:notice] =
+        "#{@lfi.type_name} item was successfully updated."
+    end
     respond_with @lfi, location: lost_and_found_item_path(@lfi, inventory: lfi_params[:inventory])
   end
 

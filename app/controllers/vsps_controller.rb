@@ -13,12 +13,12 @@ class VspsController < ApplicationController
   def edit; end
 
   def create
-    flash[:notice] = 'VSP created successfully!' if @vsp.save
+    flash.now[:notice] = 'VSP created successfully!' if @vsp.save
     respond_with @vsp, location: vsps_path
   end
 
   def update
-    flash[:notice] = 'VSP updated successfully!' if @vsp.update vsp_params
+    flash.now[:notice] = 'VSP updated successfully!' if @vsp.update vsp_params
     respond_with @vsp, location: vsps_path
   end
 

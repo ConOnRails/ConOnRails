@@ -20,7 +20,7 @@ class NotTimeTravelingValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     return if value.present? && value > record.start_date
 
-    record.errors[attribute] << (options[:message] || 'must be later than Start date!')
+    record.errors.add(attribute, (options[:message] || 'must be later than Start date!'))
   end
 end
 

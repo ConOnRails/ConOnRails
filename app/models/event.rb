@@ -177,7 +177,7 @@ class Event < ApplicationRecord
 
   # NOTE: always returns FALSE for NIL
   def flags
-    FLAGS.each_with_object(HashWithIndifferentAccess.new) do |flag, map|
+    FLAGS.each_with_object(ActiveSupport::HashWithIndifferentAccess.new) do |flag, map|
       map[flag.to_sym] = (send(flag).presence || false)
     end
   end
@@ -202,7 +202,7 @@ class Event < ApplicationRecord
   end
 
   def self.flags_union(ours, theirs)
-    FLAGS.each_with_object(HashWithIndifferentAccess.new) do |flag, map|
+    FLAGS.each_with_object(ActiveSupport::HashWithIndifferentAccess.new) do |flag, map|
       map[flag.to_sym] = ours[flag] | theirs[flag]
     end
   end

@@ -25,7 +25,6 @@ class Radio < ApplicationRecord
   has_one :radio_assignment, dependent: :destroy
 
   validates :number, presence: true, uniqueness: true
-  validates :radio_group_id, presence: true
   validates :radio_group, associated: true
   validates :state, presence: true, inclusion: { in: %w[in out retired] }
 

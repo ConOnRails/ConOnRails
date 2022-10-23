@@ -7,16 +7,17 @@ class VolunteersController < ApplicationController
 
   def index; end
   def show; end
-  def edit; end
 
-  # GET /volunteers/new
-  # GET /volunteers/new.json
   def new
     @volunteer = Volunteer.new
     authorize @volunteer
 
     @volunteer.build_volunteer_training
   end
+
+  # GET /volunteers/new
+  # GET /volunteers/new.json
+  def edit; end
 
   # POST /volunteers
   # POST /volunteers.json
@@ -60,7 +61,7 @@ class VolunteersController < ApplicationController
                                     volunteer_id: @volunteer.id)
         end
       else
-        flash[:notice] = 'Volunteer was successfully created.'
+        flash.now[:notice] = 'Volunteer was successfully created.'
       end
     end
   end
