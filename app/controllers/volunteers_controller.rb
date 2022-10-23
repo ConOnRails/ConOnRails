@@ -5,49 +5,9 @@ class VolunteersController < ApplicationController
   before_action :set_volunteer, only: %i[show edit update]
   respond_to :html, :json
 
-  def attendees
-    # DEAD LETTER for 2013
-
-    #     if params[:term]
-    #       terms = params[:term].split
-    #       if terms.size == 1
-    #         like      = "#{terms[0]}%"
-    #         attendees = Attendee.order("FIRST_NAME").where("FIRST_NAME like ? or LAST_NAME like ?", like, like)
-    #       elsif terms.size == 2
-    #         first_like  = "#{terms[0]}%"
-    #         second_like = "#{terms[1]}%"
-    #         attendees   = Attendee.order("LAST_NAME").where("FIRST_NAME like ? and ( MIDDLE_NAME like ? or LAST_NAME like ? )",
-    #                                                         first_like, second_like, second_like)
-    #       elsif terms.size == 3
-    #         first_like  = "#{terms[0]}%"
-    #         second_like = "#{terms[1]}%"
-    #         third_like  = "#{terms[2]}%"
-    #         attendees   = Attendee.order("LAST_NAME").where("FIRST_NAME like ? and MIDDLE_NAME like ? and LAST_NAME like ?",
-    #                                                         first_like, second_like, third_like)
-    #       end
-    #     else
-    #       attendees = Attendee.all
-    #     end
-    #
-    #     @list = attendees.map { |a| Hash[id:          a.ATTENDEE_ID,
-    #                                      label:       a.name,
-    #                                      first_name:  a.FIRST_NAME,
-    #                                      middle_name: a.MIDDLE_NAME,
-    #                                      last_name:   a.LAST_NAME,
-    #                                      address1:    a.ADDRESS_LINE_1,
-    #                                      address2:    a.ADDRESS_LINE_2,
-    #                                      address3:    a.ADDRESS_LINE_3,
-    #                                      city:        a.ADDRESS_CITY,
-    #                                      state:       a.ADDRESS_STATE_CODE,
-    #                                      postal:      (a.ADDRESS_ZIP.empty? ? a.FOREIGN_POSTAL_CODE : a.ADDRESS_ZIP),
-    #                                      home_phone:  a.HOME_PHONE,
-    #                                      work_phone:  a.WORK_PHONE,
-    #                                      other_phone: a.OTHER_PHONE,
-    #                                      email:       a.EMAIL]
-    #     }
-    #
-    render json: @list
-  end
+  def index; end
+  def show; end
+  def edit; end
 
   # GET /volunteers/new
   # GET /volunteers/new.json
@@ -91,7 +51,7 @@ class VolunteersController < ApplicationController
 
   protected
 
-  def make_user_if_needed
+  def make_user_if_needed # rubocop:disable Metrics/MethodLength
     respond_with @volunteer do |format|
       if params[:make_user_after_save]
         flash[:notice] = 'Volunteer created, create a user'
@@ -119,10 +79,14 @@ class VolunteersController < ApplicationController
 
   def volunteer_params
     params.permit(:id, :q)
-    params.require(:volunteer).permit :can_have_multiple_radios, :first_name, :middle_name, :last_name, :address1, :address2, :address3, :city, :state, :postal,
-                                      :country, :home_phone, :work_phone, :other_phone, :email, :user_id,
-                                      volunteer_training_attributes: %i[volunter_id radio ops_basics first_contact
-                                                                        communications dispatch
-                                                                        wandering_host xo ops_subhead ops_head]
+    params.require(:volunteer).permit :can_have_multiple_radios, :first_name, :middle_name,
+                                      :last_name, :address1, :address2, :address3, :city,
+                                      :state, :postal, :country, :home_phone, :work_phone,
+                                      :other_phone, :email, :user_id,
+                                      volunteer_training_attributes:
+                                        %i[volunter_id radio ops_basics
+                                           first_contact communications dispatch
+                                           wandering_host xo ops_subhead
+                                           ops_head]
   end
 end

@@ -30,7 +30,6 @@ class LostAndFoundItemTest < ActiveSupport::TestCase
   end
 
   should validate_presence_of :category
-  # should validate_inclusion_of(:category).in_array LostAndFoundItem.valid_categories.keys
   should validate_presence_of :description
 
   should 'not be able to create with both missing and found' do

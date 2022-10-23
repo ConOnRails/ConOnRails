@@ -13,7 +13,7 @@ module AlertTags
 
   TAGS.each do |t|
     define_method "alert_#{t}=".to_sym do |flag|
-      if is_truthy? flag
+      if truthy? flag
         alert_list.add t
       else
         alert_list.remove t

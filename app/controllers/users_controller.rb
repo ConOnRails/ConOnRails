@@ -7,6 +7,9 @@ class UsersController < ApplicationController
   before_action :find_users, only: :index
 
   def index; end
+  def show; end
+  def edit; end
+  def change_password; end
 
   # GET /users/new
   # GET /users/new.json
@@ -23,17 +26,12 @@ class UsersController < ApplicationController
   def create
     # user_params = params[:user].reject { |k, v| k == 'volunteer' }
     @volunteer = Volunteer.find_by(id: params[:user][:volunteer])
+    @user = @volunteer&.build_user(user_params) || User.new(user_params)
 
-    if @volunteer.present?
-      @user = @volunteer.build_user user_params
-      authorize @user
-      @user.save
-      @volunteer.save
-    else
-      @user = User.new user_params
-      authorize @user
-      @user.save
-    end
+    authorize @user
+    @user.save
+    @volunteer&.save
+
     flash[:notice] = "User #{@user.username} was successfully created." if @user.persisted?
     respond_with @user
   end
@@ -45,7 +43,7 @@ class UsersController < ApplicationController
       flash[:notice] = "User #{@user.username} was successfully updated."
     end
 
-    respond_with @user, location: get_update_success_path
+    respond_with @user, location: update_success_path
   end
 
   # DELETE /users/1
@@ -68,7 +66,7 @@ class UsersController < ApplicationController
     authorize @users
   end
 
-  def get_update_success_path
+  def update_success_path
     if request.referer.present? &&
        URI(request.referer).path == change_password_user_path(@user)
       root_path
@@ -82,7 +80,7 @@ class UsersController < ApplicationController
     return true if @volunteer.blank?
 
     if @volunteer.present? && (@volunteer.user_id.blank? || (@volunteer.user_id != @user.id))
-      @volunteer.update_attribute(:user_id, @user.id)
+      @volunteer.update(user_id: @user.id)
     end
   end
 

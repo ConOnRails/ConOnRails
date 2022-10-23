@@ -5,6 +5,9 @@ class RadioGroupsController < ApplicationController
 
   before_action :find_radio_group, only: %i[show edit update destroy]
 
+  def show; end
+  def edit; end
+
   # GET /radio_groups
   # GET /radio_groups.json
   def index(del_or_edit = 'edit')

@@ -70,10 +70,10 @@ class RadioAssignmentAudit < ApplicationRecord
     department.try(:name) || ''
   end
 
-  def self.new_record(a, u, s)
-    attr = a.attributes.reject { |k, _v| %i[created_at updated_at id].include? k.to_sym }
-    attr[:user_id] = u.id
-    attr[:state] = s
+  def self.new_record(audit, user, state)
+    attr = audit.attributes.reject { |k, _v| %i[created_at updated_at id].include? k.to_sym }
+    attr[:user_id] = user.id
+    attr[:state] = state
     RadioAssignmentAudit.create! attr
   end
 end

@@ -25,7 +25,7 @@ class LostAndFoundItem < ApplicationRecord
 
   belongs_to :user
 
-  @@retired_categories = {
+  RETIRED_CATEGORIES = {
     badge: 'Badges',
     costume_jewelry: 'Costume Jewelry',
     headgear: 'Headgear',
@@ -37,9 +37,9 @@ class LostAndFoundItem < ApplicationRecord
     small_electronics: 'Small Electronics',
     wallet: 'Wallet',
     weapon: 'Weapons/Props'
-  }
+  }.freeze
 
-  @@valid_categories = {
+  VALID_CATEGORIES = {
     bag: 'Bags',
     bottle: 'Bottles',
     clothing: 'Clothing',
@@ -52,20 +52,18 @@ class LostAndFoundItem < ApplicationRecord
     prop: 'Props',
     toy: 'Toys',
     other_not_listed: 'Other Not Listed'
-  }
+  }.freeze
 
-  def self.valid_categories
-    @@valid_categories
+  class << self
+    def categories
+      VALID_CATEGORIES
+    end
   end
 
-  #   scope :found, -> { where(found: true) }
-  #   scope :missing, -> { where(reported_missing: true) }
-  #   scope :returned, -> { where(returned: true) }
-  #   scope :not_returned, -> { where(returned: false) }
-  #   scope :inventory, -> (i) { where(found: true, returned: false) if i }
-
   validates :category, presence: true, allow_blank: false,
-                       inclusion: { in: @@valid_categories.merge(@@retired_categories).values }
+                       inclusion: { in: LostAndFoundItem.categories
+                                                        .merge(RETIRED_CATEGORIES)
+                                                        .values }
   validates :description, presence: true, allow_blank: false
 
   # These rules are a little complicated but it's worth it to ensure data integrity
@@ -84,10 +82,6 @@ class LostAndFoundItem < ApplicationRecord
   validate :always_missing_or_found
   validate :created_with_correct_descriptive_fields, on: :create
 
-  def self.categories
-    @@valid_categories
-  end
-
   def type
     return 'returned' if returned?
     return 'inventoried' if inventoried?
@@ -95,15 +89,15 @@ class LostAndFoundItem < ApplicationRecord
     return 'missing' if reported_missing?
   end
 
-  def Type
+  def type_name
     type.capitalize
   end
 
   def always_missing_or_found
-    if !reported_missing? && !found?
-      errors.add :reported_missing, 'must be true if found is false'
-      errors.add :found, 'must be true if reported_missing is false'
-    end
+    return unless !reported_missing? && !found?
+
+    errors.add :reported_missing, 'must be true if found is false'
+    errors.add :found, 'must be true if reported_missing is false'
   end
 
   def created_with_correct_descriptive_fields
@@ -114,22 +108,25 @@ class LostAndFoundItem < ApplicationRecord
   end
 
   def creation_state_correct
-    if found? && reported_missing?
-      errors.add :reported_missing,
-                 'Item can be EITHER reported missing OR found on creation, but not both. INTERNAL LOGIC ERROR'
-    end
+    return unless found? && reported_missing?
+
+    errors.add :reported_missing,
+               'Item can be EITHER reported missing OR found on creation, but not both.'
   end
 
   def validate_where_last_seen_empty
-    if !where_last_seen.nil? && (where_last_seen != '')
-      errors.add :where_last_seen, 'expected empty'
-    end
+    return if where_last_seen.blank?
+
+    errors.add :where_last_seen, 'expected empty'
   end
 
   def validate_where_found_empty
-    errors.add :where_found, 'expected empty' if !where_found.nil? && (where_found != '')
+    return if where_found.blank?
+
+    errors.add :where_found, 'expected empty'
   end
 
+  # rubocop:disable Metrics/MethodLength
   def self.to_csv(lfis)
     CSV.generate do |csv|
       csv << %w[ID Category Description Year]
@@ -143,4 +140,5 @@ class LostAndFoundItem < ApplicationRecord
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength
 end

@@ -3,7 +3,7 @@
 class RadioAssignmentAuditsController < ApplicationController
   respond_to :html
 
-  before_action :get_audits, only: :index
+  before_action :find_audits, only: :index
 
   # GET /radio_assignment_audits
   # GET /radio_assignment_audits.json
@@ -16,7 +16,7 @@ class RadioAssignmentAuditsController < ApplicationController
 
   protected
 
-  def get_audits
+  def find_audits
     @q = policy_scope(RadioAssignmentAudit).ransack params[:q]
     @radio_assignment_audits = @q.result.page params[:page]
     authorize @radio_assignment_audits

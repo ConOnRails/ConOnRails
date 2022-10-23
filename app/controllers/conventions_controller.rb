@@ -7,6 +7,10 @@ class ConventionsController < ApplicationController
   before_action :set_convention, only: %i[show edit update]
   before_action :build_convention, only: [:create]
 
+  def index; end
+  def show; end
+  def edit; end
+
   # GET /conventions/new
   # GET /conventions/new.json
   def new

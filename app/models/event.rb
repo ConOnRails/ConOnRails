@@ -47,8 +47,9 @@
 #
 
 require 'csv'
-require "#{Rails.root}/app/queries/event_queries"
+require Rails.root.join 'app/queries/event_queries'
 
+# rubocop:disable Metrics/ClassLength
 class Event < ApplicationRecord
   include PgSearch::Model
   include Queries::EventQueries
@@ -60,8 +61,9 @@ class Event < ApplicationRecord
 
   serialize :merged_from_ids
 
-  has_many :entries, -> { order :created_at }, dependent: :destroy
-  has_many :event_flag_histories, -> { order :created_at }, dependent: :destroy
+  has_many :entries, -> { order :created_at }, dependent: :destroy, inverse_of: :event
+  has_many :event_flag_histories, -> { order :created_at }, dependent: :destroy,
+                                                            inverse_of: :event
   validates_associated :entries
   accepts_nested_attributes_for :entries, allow_destroy: true
 
@@ -95,17 +97,20 @@ class Event < ApplicationRecord
   STATUSES = %w[Active Closed Merged].freeze
   STATUS_FLAGS = %w[is_active merged post_con sticky emergency medical hidden secure].freeze
   DEPT_FLAGS = %w[accessibility_and_inclusion allocations consuite dealers first_advisors hotel
-                  member_advocates nerf_herders operations parties programming registration smokers_paradise
-                  volunteers_den volunteers].freeze
+                  member_advocates nerf_herders operations parties programming registration
+                  smokers_paradise volunteers_den volunteers].freeze
   FLAGS = (STATUS_FLAGS + DEPT_FLAGS).freeze
 
-  def self.ransack(q, user, show_closed = false, index_filters = nil)
+  # rubocop:disable Style/OptionalBooleanParameter
+  def self.ransack(query, user, show_closed = false, index_filters = nil)
     protect_sensitive_events(user)
       .actives_and_stickies_or_all(show_closed)
       .build_from_filters(index_filters)
-      .search_entries q
+      .search_entries query
   end
+  # rubocop:enable Style/OptionalBooleanParameter
 
+  # rubocop:disable Metrics/MethodLength
   def self.merge_events(events, user, role_name = nil)
     return if events.blank?
 
@@ -117,8 +122,10 @@ class Event < ApplicationRecord
 
       new_event.merge_entries event_ids
       new_event.merge_flags events
+      # rubocop:disable Layout/LineLength
       new_event.add_entry "Merged by #{user.username} as '#{role_name}' from #{event_ids.join(', ')}",
                           user.id, role_name
+      # rubocop:enable Layout/LineLength
       new_event.save!
       new_event.reload
     end
@@ -191,13 +198,13 @@ class Event < ApplicationRecord
   def merge_flags(events)
     events.find_each do |ev|
       self.flags = Event.flags_union(flags, ev.flags)
-      ev.set_and_save_status 'Merged'
+      ev.update_status 'Merged'
     end
   end
 
-  def self.flags_union(a, b)
+  def self.flags_union(ours, theirs)
     FLAGS.each_with_object(HashWithIndifferentAccess.new) do |flag, map|
-      map[flag.to_sym] = a[flag] | b[flag]
+      map[flag.to_sym] = ours[flag] | theirs[flag]
     end
   end
 
@@ -231,7 +238,7 @@ class Event < ApplicationRecord
     end
   end
 
-  def set_and_save_status(string)
+  def update_status(string)
     self.status = string
     save!
   end
@@ -261,6 +268,7 @@ class Event < ApplicationRecord
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def department_flags_to_csv
     DEPT_FLAGS.collect { |f| send f }
@@ -278,7 +286,10 @@ class Event < ApplicationRecord
     first = event.entries.first
     event.entries.collect do |entry|
       created_or_updated = entry == first ? 'created' : 'update'
+      # rubocop:disable Layout/LineLength
       "#{entry.created_at.getlocal.ctime} #{created_or_updated} by #{entry.user.realname} as #{entry.rolename}\r#{entry.description}"
+      # rubocop:enable Layout/LineLength
     end.join("\r\r")
   end
 end
+# rubocop:enable Metrics/ClassLength

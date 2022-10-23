@@ -5,15 +5,20 @@ require 'query'
 module Queries
   module EventQueries
     class EventQuery < Query
+      # rubocop:disable Metrics/AbcSize, Style/MissingRespondToMissing
       def method_missing(name, *args)
         if Event::FLAGS.include? name.to_s
           args[0].where(name => true)
         elsif Event::FLAGS.include? name.to_s.sub(/^not_/, '')
           args[0].where(name.to_s.sub(/^not_/, '') => false)
-        elsif name.to_s =~ /^(.*)_or_(.*)/ && Event::FLAGS.include?(Regexp.last_match(1)) && Event::FLAGS.include?(Regexp.last_match(2))
-          args[0].where(Regexp.last_match(1) => true).or(args[0].where(Regexp.last_match(2) => true))
+        elsif name.to_s =~ /^(.*)_or_(.*)/ &&
+              Event::FLAGS.include?(Regexp.last_match(1)) &&
+              Event::FLAGS.include?(Regexp.last_match(2))
+          args[0].where(Regexp.last_match(1) => true)
+                 .or(args[0].where(Regexp.last_match(2) => true))
         end
       end
+      # rubocop:enable Metrics/AbcSize, Style/MissingRespondToMissing
 
       protected
 

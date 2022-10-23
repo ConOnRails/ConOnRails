@@ -22,7 +22,7 @@ class User < ApplicationRecord
   paginates_per 25
 
   has_one :volunteer, dependent: :destroy
-  has_and_belongs_to_many :roles
+  has_and_belongs_to_many :roles # rubocop:disable Rails/HasAndBelongsToMany
 
   name_regex = /\A[a-zA-Z0-9_\-]*\z/
   password_regex = /\A[a-zA-Z0-9!@#{$OUTPUT_RECORD_SEPARATOR}%^&*()\-_ ]*\z/

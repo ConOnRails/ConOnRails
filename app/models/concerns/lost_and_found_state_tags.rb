@@ -29,7 +29,7 @@ module LostAndFoundStateTags
 
   STATES.each do |t|
     define_method "#{t}=".to_sym do |flag|
-      if is_truthy? flag
+      if truthy? flag
         lost_and_found_state_list.add t
       else
         lost_and_found_state_list.remove t

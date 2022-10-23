@@ -6,10 +6,14 @@
 #
 #  id         :integer          not null, primary key
 #  name       :string
-#  party      :boolean
 #  notes      :string
+#  party      :boolean
 #  created_at :datetime
 #  updated_at :datetime
+#
+# Indexes
+#
+#  index_vsps_on_name  (name) UNIQUE
 #
 
 class Vsp < ApplicationRecord

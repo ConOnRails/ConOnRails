@@ -55,18 +55,20 @@ class DutyBoardSlotsController < ApplicationController
     @duty_board_slot = DutyBoardSlot.find(params[:id])
     authorize @duty_board_slot
 
+    @duty_board_slot.update duty_board_slot_params
     respond_with @duty_board_slot, location: :duty_board_slots do |_format|
-      if @duty_board_slot.update duty_board_slot_params
-        #           if params[:duty_board_assignment]
-        #           if @duty_board_slot.duty_board_assignment
-        #             @duty_board_slot.duty_board_assignment.update_attributes duty_board_assignment_params
-        #           else
-        #             @duty_board_slot.build_duty_board_assignment duty_board_assignment_params
-        #             @duty_board_slot.save!
-        #           end
-      else
-        # end
-      end
+      # if @duty_board_slot.update duty_board_slot_params
+      #           if params[:duty_board_assignment]
+      #           if @duty_board_slot.duty_board_assignment
+      #             @duty_board_slot.duty_board_assignment
+      #                             .update_attributes duty_board_assignment_params
+      #           else
+      #             @duty_board_slot.build_duty_board_assignment duty_board_assignment_params
+      #             @duty_board_slot.save!
+      #           end
+      # else
+      # end
+      # end
       flash[:notice] = 'Duty board slot was successfully updated'
     end
   end
@@ -102,9 +104,10 @@ class DutyBoardSlotsController < ApplicationController
   protected
 
   def duty_board_slot_params
-    params.require(:duty_board_slot).permit :name, :duty_board_group_id, duty_board_assignment_attributes: %i[
-      name notes duty_board_slot_id
-    ]
+    params.require(:duty_board_slot).permit :name, :duty_board_group_id,
+                                            duty_board_assignment_attributes: %i[
+                                              name notes duty_board_slot_id
+                                            ]
   end
 
   def duty_board_assignment_params

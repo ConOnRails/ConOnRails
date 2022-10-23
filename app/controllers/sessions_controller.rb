@@ -60,7 +60,7 @@ class SessionsController < ApplicationController
 
   protected
 
-  def setup_session(user)
+  def setup_session(user) # rubocop:disable Metrics/AbcSize
     reset_session
     unless user.roles.pluck(:name).include? params[:role]
       user.errors.add(:role, 'The role you tried to log in with is not one assigned to you!')

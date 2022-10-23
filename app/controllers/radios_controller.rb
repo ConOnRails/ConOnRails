@@ -3,11 +3,16 @@
 class RadiosController < ApplicationController
   respond_to :html, :json
 
-  before_action :find_radio, only: %i[show edit update destroy checkout transfer]
+  before_action :find_radio, only: %i[show edit update destroy checkout transfer select_department]
+  before_action :find_radio_assignment, only: %i[select_department]
   before_action :find_radios, only: %i[index new create]
 
+  def index; end
+  def show; end
+  def edit; end
+
   # POST /radios/search_volunteers
-  def search_volunteers
+  def search_volunteers # rubocop:disable Metrics/MethodLength
     @volunteers = Volunteer.radio_volunteer(params[:first_name],
                                             params[:last_name])
     authorize @volunteers
@@ -24,12 +29,7 @@ class RadiosController < ApplicationController
   end
 
   # GET /radios/1/select_department?volunteer=1
-  def select_department
-    @radio            = Radio.find params[:id]
-    @radio_assignment = @radio.radio_assignment || RadioAssignment.new
-    authorize @radio
-    authorize @radio_assignment
-
+  def select_department # rubocop:disable Metrics/MethodLength
     respond_with do |format|
       format.html do
         if request.xhr?
@@ -91,6 +91,11 @@ class RadiosController < ApplicationController
   def find_radio
     @radio = Radio.find(params[:id])
     authorize @radio
+  end
+
+  def find_radio_assignment
+    @radio_assignment = @radio.radio_assignment || RadioAssignment.new
+    authorize @radio_assignment
   end
 
   def find_radios

@@ -6,9 +6,13 @@
 #
 #  id                  :integer          not null, primary key
 #  name                :string
-#  duty_board_group_id :integer
 #  created_at          :datetime
 #  updated_at          :datetime
+#  duty_board_group_id :integer
+#
+# Indexes
+#
+#  index_duty_board_slots_on_name  (name) UNIQUE
 #
 
 require 'test_helper'

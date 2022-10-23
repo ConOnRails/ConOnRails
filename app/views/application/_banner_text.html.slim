@@ -18,16 +18,16 @@
         - if current_user.rw_secure?
           .col-md-6.col-sm-6
             .active-icon
-            => pluralize get_active_count, "Active Issue"
+            => pluralize active_count, "Active Issue"
             | (exc. Secure)
           .col-md-6.col-sm-6
             .secure-icon
-            = pluralize get_secure_count, "Secure Active Issue"
+            = pluralize secure_count, "Secure Active Issue"
 
         - else
           .col-md-12
             .active-icon
-            = pluralize get_active_count, "Active Issue"
+            = pluralize active_count, "Active Issue"
 
       
       .row

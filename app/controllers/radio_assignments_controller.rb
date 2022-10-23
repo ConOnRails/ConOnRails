@@ -8,7 +8,7 @@ class RadioAssignmentsController < ApplicationController
 
   # POST /radio_assignments
   # POST /radio_assignments.json
-  def create
+  def create # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     @radio_assignment = RadioAssignment.checkout(radio_assignment_params, current_user)
     authorize @radio_assignment
 

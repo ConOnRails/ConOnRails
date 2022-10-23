@@ -144,7 +144,6 @@
 #                volunteer_new_from_attendee POST   /volunteers/:volunteer_id/new_from_attendee(.:format)                                    volunteers#new_from_attendee
 #                        associate_volunteer POST   /volunteers/:id/associate(.:format)                                                      volunteers#associate
 #                         new_user_volunteer POST   /volunteers/:id/new_user(.:format)                                                       volunteers#new_user
-#                       attendees_volunteers GET    /volunteers/attendees(.:format)                                                          volunteers#attendees
 #        clear_all_radio_training_volunteers GET    /volunteers/clear_all_radio_training(.:format)                                           volunteers#clear_all_radio_training
 #                                 volunteers GET    /volunteers(.:format)                                                                    volunteers#index
 #                                            POST   /volunteers(.:format)                                                                    volunteers#create
@@ -252,7 +251,6 @@ ConOnRails::Application.routes.draw do
       post 'new_user'
     end
     collection do
-      get 'attendees'
       get 'clear_all_radio_training'
     end
   end

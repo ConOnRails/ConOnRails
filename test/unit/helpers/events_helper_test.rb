@@ -11,37 +11,37 @@ class EventsHelperTest < ActionView::TestCase
   end
 
   user_context :typical_context do
-    context '#get_active_count' do
+    context '#active_count' do
       should 'return 1 non-secure event' do
-        assert_equal 1, get_active_count
+        assert_equal 1, active_count
       end
     end
 
-    context '#get_secure_count' do
+    context '#secure_count' do
       setup do
         expects(:current_user).returns(@user)
       end
 
       should 'return 0 because we are not cool enough' do
-        assert_equal 0, get_secure_count
+        assert_equal 0, secure_count
       end
     end
   end
 
   user_context :admin_context do
-    context '#get_active_count' do
+    context '#active_count' do
       should 'return 1 events' do
-        assert_equal 1, get_active_count
+        assert_equal 1, active_count
       end
     end
 
-    context '#get_secure_count' do
+    context '#secure_count' do
       setup do
         expects(:current_user).returns(@admin)
       end
 
       should 'return 1 event' do
-        assert_equal 1, get_secure_count
+        assert_equal 1, secure_count
       end
     end
   end

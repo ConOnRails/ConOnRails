@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module EventsHelper
+module EventsHelper # rubocop:disable Metrics/ModuleLength
   def filter_params
     params.permit(filters: [])
   end
@@ -9,8 +9,8 @@ module EventsHelper
     params.permit([:action] + policy(Event).permitted_attributes)
   end
 
-  def create_or_update
-    "#{@event.new_record? ? 'Create a new ' : 'Update a'} log entry"
+  def create_or_update(event)
+    "#{event.new_record? ? 'Create a new ' : 'Update a'} log entry"
   end
 
   def filter(term)
@@ -32,16 +32,9 @@ module EventsHelper
   def merge_button_path
     new_params = toggle_merge_mode(action_params.clone)
 
-    case action_params[:action].to_sym
-    when :sticky
-      sticky_events_path(new_params)
-    when :secure
-      secure_events_path(new_params)
-    when :review
-      review_events_path(new_params)
-    else
-      events_path(new_params)
-    end
+    prefix = params[:action]
+    prefix = 'events' unless %i[sticky secure review].include? prefix
+    send "#{prefix}_path".to_sym, new_params
   end
 
   def merge_submit
@@ -82,7 +75,7 @@ module EventsHelper
   end
 
   def event_tags(event)
-    event.tags.collect { |t| t.gsub(/is_/, '').humanize }.join(' ') + ' Issue'
+    "#{event.tags.collect { |t| t.gsub(/is_/, '').humanize }.join(' ')} Issue"
   end
 
   def event_status_icon(event)
@@ -92,11 +85,11 @@ module EventsHelper
     return 'active-icon' if event.is_active?
   end
 
-  def get_active_count
+  def active_count
     Event.current_convention.num_active - Event.current_convention.num_active_secure
   end
 
-  def get_secure_count
+  def secure_count
     return 0 unless current_user.rw_secure?
 
     Event.current_convention.num_active_secure
@@ -104,85 +97,81 @@ module EventsHelper
 
   def active_link
     tag.div(id: 'unsticky_link') do
-      [
+      safe_join [
         tag.span('', class: 'active-icon inactive-icon'),
         link_to('View Active', root_path)
-      ].join.html_safe
+      ]
     end
   end
 
   def active_text
     tag.div do
-      [
+      safe_join [
         tag.span('', class: 'active-icon current-icon'),
         tag.strong('Viewing Active')
-      ].join.html_safe
+      ]
     end
   end
 
   def secure_link
-    if current_user.rw_secure?
-      tag.div(id: 'secure_link') do
-        [
-          tag.span('', class: 'secure-icon inactive-icon'),
-          link_to('View Active Secure', secure_events_path)
-        ].join.html_safe
-      end
+    return unless current_user.rw_secure?
+
+    tag.div(id: 'secure_link') do
+      safe_join [
+        tag.span('', class: 'secure-icon inactive-icon'),
+        link_to('View Active Secure', secure_events_path)
+      ]
     end
   end
 
   def secure_text
     tag.div do
-      [
+      safe_join [
         tag.span('', class: 'secure-icon current-icon'),
         tag.strong('Viewing Active Secure')
-      ].join.html_safe
+      ]
     end
   end
 
   def sticky_link
     tag.div(id: 'sticky_link') do
-      [
+      safe_join [
         tag.span('', class: 'sticky-icon inactive-icon'),
         link_to('View Sticky', sticky_events_path)
-      ].join.html_safe
+      ]
     end
   end
 
   def sticky_text
     tag.div do
-      [
+      safe_join [
         tag.span('', class: 'sticky-icon current-icon'),
         tag.strong('Viewing Sticky')
-      ].join.html_safe
+      ]
     end
   end
 
-  def sidebar_menu
+  def sidebar_menu # rubocop:disable Metrics/AbcSize
     case url_for
     when root_path, events_path
-      active_text <<
-        secure_link <<
-        sticky_link
+      active_text << secure_link << sticky_link
     when sticky_events_path
-      active_link <<
-        secure_link <<
-        sticky_text
+      active_link << secure_link << sticky_text
     when secure_events_path
-      active_link <<
-        secure_text <<
-        sticky_link
+      active_link << secure_text << sticky_link
     else
       tag.div('I HAVE NO IDEA WHAT TO DO NOW!')
     end
   end
 
   def index_filter(key)
-    [
+    safe_join [
       tag.span('', class: "filter-icon #{current_class(key)}"),
-      link_to(key.to_s.titleize, sessions_set_index_filter_path(index_filter: { key => true }), method: :post,
-                                                                                                class: active_index_filter?(key) ? 'current_index_filter' : nil)
-    ].join.html_safe
+      link_to(key.to_s.titleize,
+              sessions_set_index_filter_path(index_filter: { key => true }),
+              method: :post,
+              class: ('current_index_filter' if active_index_filter?(key)))
+    ]
   end
 
   def active_index_filter?(key)
@@ -196,6 +185,6 @@ module EventsHelper
   end
 
   def flag_display(flag)
-    flag.gsub(/is_/, '').titleize.gsub(' ', '&nbsp;').html_safe
+    sanitize flag.gsub(/is_/, '').titleize.gsub(' ', '&nbsp;')
   end
 end

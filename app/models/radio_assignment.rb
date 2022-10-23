@@ -5,17 +5,22 @@
 # Table name: radio_assignments
 #
 #  id            :integer          not null, primary key
-#  radio_id      :integer
-#  volunteer_id  :integer
 #  created_at    :datetime
 #  updated_at    :datetime
 #  department_id :integer
+#  radio_id      :integer
+#  volunteer_id  :integer
+#
+# Indexes
+#
+#  index_radio_assignments_on_radio_id  (radio_id) UNIQUE
 #
 
 class DepartmentAllotmentChecker < ActiveModel::Validator
   def validate(record)
     if record.department.present? &&
-       RadioAssignment.department_count(record.department_id) + 1 > record.department.radio_allotment
+       RadioAssignment.department_count(record.department_id) + 1 >
+       record.department.radio_allotment
       record.errors[:department] << "All of this department's radios are allotted"
       record.errors[:radio] << "All of this department's radios are allotted"
     end
@@ -32,9 +37,11 @@ class RadioAssignment < ApplicationRecord
   validates :radio, presence: true
   validates :radio_id, uniqueness: true
   validates :volunteer, presence: true
-  validates :volunteer_id, uniqueness: true, unless: lambda { |x|
-                                                       x.volunteer.present? && x.volunteer.can_have_multiple_radios?
-                                                     }
+  validates :volunteer_id, uniqueness: true,
+                           unless: lambda { |x|
+                             x.volunteer.present? &&
+                               x.volunteer.can_have_multiple_radios?
+                           }
   validates :department, presence: true
   validates_with DepartmentAllotmentChecker, message: "All of this department's radios are allotted"
 
@@ -44,7 +51,8 @@ class RadioAssignment < ApplicationRecord
 
   def self.checkout(params, user)
     assignment = RadioAssignment.new radio_id: params[:radio_id],
-                                     volunteer_id: params[:volunteer_id], department_id: params[:department_id]
+                                     volunteer_id: params[:volunteer_id],
+                                     department_id: params[:department_id]
     if assignment.valid?
       assignment.radio.state = 'out'
       RadioAssignmentAudit.audit_checkout assignment, user
@@ -55,10 +63,10 @@ class RadioAssignment < ApplicationRecord
   def checkin(user)
     RadioAssignmentAudit.audit_checkin(self, user)
     destroy
-    if destroyed?
-      radio.state = 'in'
-      radio.save
-    end
+
+    return unless destroyed?
+
+    radio.update(state: 'in')
   end
 
   def transfer(params, user)

@@ -39,16 +39,13 @@ class RoleTest < ActiveSupport::TestCase
   end
 
   test 'role flags should default to false' do
-    assert_not @empty_role.write_entries?
-    assert_not @empty_role.read_hidden_entries?
-    assert_not @empty_role.add_lost_and_found?
-    assert_not @empty_role.modify_lost_and_found?
-    assert_not @empty_role.admin_radios?
-    assert_not @empty_role.admin_users?
-    assert_not @empty_role.admin_schedule?
-    assert_not @empty_role.assign_shifts?
-    assert_not @empty_role.assign_duty_board_slots?
-    assert_not @empty_role.admin_duty_board?
+    %i[
+      write_entries? read_hidden_entries? add_lost_and_found? modify_lost_and_found?
+      admin_radios? admin_users? admin_schedule? assign_shifts? assign_duty_board_slots?
+      admin_duty_board?
+    ].each do |flag|
+      assert_not @empty_role.send flag
+    end
   end
 
   test 'roles must have names' do
