@@ -4,10 +4,10 @@ source 'http://rubygems.org'
 ruby '2.6.10'
 
 gem 'bootsnap'
-gem 'pg', '~> 1.0'
-gem 'rails', '>= 5.2.7.0', '< 6.0'
+gem 'pg', '~> 1.4.0'
+gem 'rails', '~> 6.0.0'
 
-gem 'puma'
+gem 'puma', '~> 6.0.0'
 gem 'rails_12factor', group: :production
 
 gem 'newrelic_rpm'

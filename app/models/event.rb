@@ -79,8 +79,7 @@ class Event < ApplicationRecord
                                       }
 
   scope :protect_sensitive_events, lambda { |user|
-    query = Event.all
-    query = query.where(hidden: false) unless user_can_see_hidden(user)
+    query = where(hidden: false) unless user_can_see_hidden(user)
     query = query.where(secure: false) unless user_can_rw_secure(user)
     query
   }
