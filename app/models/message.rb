@@ -7,7 +7,7 @@
 #  id           :integer          not null, primary key
 #  for          :string
 #  hotel        :string
-#  is_active    :boolean          default("true")
+#  is_active    :boolean          default(TRUE)
 #  message      :text
 #  phone_number :string
 #  room_number  :string

@@ -13,7 +13,7 @@
 #  remote_address  :string
 #  user_type       :string
 #  username        :string
-#  version         :integer          default("0")
+#  version         :integer          default(0)
 #  created_at      :datetime
 #  associated_id   :integer
 #  auditable_id    :integer
