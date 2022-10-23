@@ -9,7 +9,11 @@ class RadiosController < ApplicationController
 
   def index; end
   def show; end
-  def edit; end
+
+  def new
+    @radio = Radio.new
+    authorize @radio
+  end
 
   # POST /radios/search_volunteers
   def search_volunteers # rubocop:disable Metrics/MethodLength
@@ -45,10 +49,7 @@ class RadiosController < ApplicationController
 
   # GET /radios/new
   # GET /radios/new.json
-  def new
-    @radio = Radio.new
-    authorize @radio
-  end
+  def edit; end
 
   # GET /radios/1/checkout -- just gets the form
   def checkout
@@ -65,7 +66,7 @@ class RadiosController < ApplicationController
   # POST /radios.json
   def create
     @radio = Radio.new radio_params
-    flash[:notice] = 'Radio was successfully created.' if @radio.save
+    flash.now[:notice] = 'Radio was successfully created.' if @radio.save
     respond_with @radio, location: radios_path
   end
 
@@ -75,7 +76,7 @@ class RadiosController < ApplicationController
     if params[:radio_assignment]
       @radio.radio_assignment = RadioAssignment.new params[:radio_assignment]
     end
-    flash[:notice] = 'Radio was successfully updated.' if @radio.update radio_params
+    flash.now[:notice] = 'Radio was successfully updated.' if @radio.update radio_params
     respond_with @radio, location: radios_path
   end
 

@@ -45,7 +45,7 @@ class DutyBoardSlotsController < ApplicationController
     @duty_board_slot = DutyBoardSlot.new duty_board_slot_params
     authorize @duty_board_slot
 
-    flash[:notice] = 'Duty board slot was successfully created.' if @duty_board_slot.save
+    flash.now[:notice] = 'Duty board slot was successfully created.' if @duty_board_slot.save
     respond_with @duty_board_slot, location: :duty_board_slots
   end
 
@@ -69,7 +69,7 @@ class DutyBoardSlotsController < ApplicationController
       # else
       # end
       # end
-      flash[:notice] = 'Duty board slot was successfully updated'
+      flash.now[:notice] = 'Duty board slot was successfully updated'
     end
   end
 

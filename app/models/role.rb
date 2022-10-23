@@ -13,12 +13,12 @@
 #  assign_duty_board_slots :boolean
 #  assign_radios           :boolean
 #  assign_shifts           :boolean
-#  make_hidden_entries     :boolean          default("false")
+#  make_hidden_entries     :boolean          default(FALSE)
 #  modify_lost_and_found   :boolean
 #  name                    :string
-#  read_audits             :boolean          default("false")
+#  read_audits             :boolean          default(FALSE)
 #  read_hidden_entries     :boolean
-#  rw_secure               :boolean          default("false")
+#  rw_secure               :boolean          default(FALSE)
 #  write_entries           :boolean
 #  created_at              :datetime
 #  updated_at              :datetime

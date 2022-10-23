@@ -8,14 +8,15 @@ class DepartmentsController < ApplicationController
 
   def index; end
   def show; end
-  def edit; end
 
-  # GET /departments/new
-  # GET /departments/new.json
   def new
     @department = Department.new
     authorize @department
   end
+
+  # GET /departments/new
+  # GET /departments/new.json
+  def edit; end
 
   # POST /departments
   # POST /departments.json
@@ -23,14 +24,17 @@ class DepartmentsController < ApplicationController
     @department = Department.new department_params
     authorize @department
 
-    flash[:notice] = 'Department was successfully created.' if @department.save
+    flash.now[:notice] = 'Department was successfully created.' if @department.save
     respond_with @department
   end
 
   # PUT /departments/1
   # PUT /departments/1.json
   def update
-    flash[:notice] = 'Department was successfully updated.' if @department.update department_params
+    if @department.update department_params
+      flash.now[:notice] =
+        'Department was successfully updated.'
+    end
     respond_with @department
   end
 

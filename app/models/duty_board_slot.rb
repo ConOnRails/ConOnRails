@@ -24,5 +24,4 @@ class DutyBoardSlot < ApplicationRecord
 
   validates :name, presence: true
   validates :name, uniqueness: true
-  validates :duty_board_group_id, presence: true
 end

@@ -14,10 +14,6 @@ class EventsController < ApplicationController
   respond_to :js, only: %i[index sticky secure review]
   respond_to :csv, only: [:export]
 
-  def edit; end
-
-  # GET /events
-  # GET /events.json
   def index # rubocop:disable Metrics/AbcSize
     @title = 'Active Events'
     return jump if params[:id].present?
@@ -30,6 +26,13 @@ class EventsController < ApplicationController
                                             .page(params[:page])
     authorize @events
     respond_with @events
+  end
+
+  # GET /events
+  # GET /events.json
+  def show
+    @title = 'Event'
+    @entry = build_new_entry @event
   end
 
   def sticky # rubocop:disable Metrics/MethodLength
@@ -92,15 +95,6 @@ class EventsController < ApplicationController
 
   # GET /events/1
   # GET /events/1.json
-  def show
-    @title = 'Event'
-    @entry = build_new_entry @event
-  end
-
-  # GET /events/new
-  # GET /events/new.json
-  # There is POST /events. We actually create the new event
-  # here and then redirect to create the first entry
   def new
     @title = 'New Event'
     @event = Event.new
@@ -111,7 +105,13 @@ class EventsController < ApplicationController
     @entry = build_new_entry @event
   end
 
-  def create # rubocop:disable Metrics/MethodLength
+  # GET /events/new
+  # GET /events/new.json
+  # There is POST /events. We actually create the new event
+  # here and then redirect to create the first entry
+  def edit; end
+
+  def create # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     @event = Event.new event_params
     authorize @event
 
@@ -121,9 +121,9 @@ class EventsController < ApplicationController
     end
 
     if @event.save # save the extra bits
-      flash[:notice] = 'Event was successfully created.'
+      flash.now[:notice] = 'Event was successfully created.'
     else
-      flash[:error] = 'Event creation failed'
+      flash.now[:error] = 'Event creation failed'
     end
 
     respond_with @event, location: -> { events_path }
@@ -139,11 +139,11 @@ class EventsController < ApplicationController
 
     if params.key? :event
       if @event.update! event_params
-        flash[:notice] = 'Event was successfully updated.'
+        flash.now[:notice] = 'Event was successfully updated.'
         @event.save!
       end
     elsif @event.save
-      flash[:notice] = 'Event was successfully updated.'
+      flash.now[:notice] = 'Event was successfully updated.'
     end
 
     respond_with @event, location: -> { events_path }
@@ -154,7 +154,7 @@ class EventsController < ApplicationController
     merge_events = policy_scope(Event).where(id: merge_id_params)
     @event = Event.merge_events merge_events, current_user, current_role_name
     if @event.present?
-      flash[:notice] = 'Event was merged. Check and save.'
+      flash.now[:notice] = 'Event was merged. Check and save.'
       respond_with @event, location: edit_event_path(@event)
     else
       redirect_to request.referer, notice: 'No IDs selected for merge. Nothing done.'

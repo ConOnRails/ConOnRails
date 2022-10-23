@@ -30,14 +30,14 @@ class ContactsController < ApplicationController
     @contact = Contact.new contact_params
     authorize @contact
 
-    flash[:notice] = 'Contact was successfully created.' if @contact.save
+    flash.now[:notice] = 'Contact was successfully created.' if @contact.save
     respond_with @contact, location: contacts_path
   end
 
   # PUT /contacts/1
   # PUT /contacts/1.json
   def update
-    flash[:notice] = 'Contact was successfully updated.' if @contact.update contact_params
+    flash.now[:notice] = 'Contact was successfully updated.' if @contact.update contact_params
     respond_with @contact, location: contacts_path
   end
 

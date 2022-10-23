@@ -21,10 +21,10 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by(username: params[:username])
     if user&.authenticate(params[:password]) && setup_session(user)
-      flash[:notice] = 'Logged in!'
+      flash.now[:notice] = 'Logged in!'
     else
       log_failure
-      flash[:notice] = 'Invalid username or password'
+      flash.now[:notice] = 'Invalid username or password'
     end
     redirect_to root_url
   end
