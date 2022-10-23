@@ -18,7 +18,7 @@ class RadioGroup < ApplicationRecord
   COLORS = %w[blue red yellow green black].freeze
 
   #  audited
-  has_many :radios
+  has_many :radios, dependent: :destroy
   validates :name, presence: true, allow_blank: false
   validates :color, inclusion: { in: COLORS, message: 'Please select a color!' }
 

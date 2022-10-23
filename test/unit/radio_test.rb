@@ -5,13 +5,17 @@
 # Table name: radios
 #
 #  id             :integer          not null, primary key
-#  number         :string
-#  notes          :string
-#  radio_group_id :integer
 #  image_filename :string
+#  notes          :string
+#  number         :string
+#  state          :string           default("in")
 #  created_at     :datetime
 #  updated_at     :datetime
-#  state          :string           default("in")
+#  radio_group_id :integer
+#
+# Indexes
+#
+#  index_radios_on_number  (number) UNIQUE
 #
 
 require 'test_helper'

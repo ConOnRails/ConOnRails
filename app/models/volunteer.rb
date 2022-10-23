@@ -31,7 +31,7 @@ class Volunteer < ApplicationRecord
   paginates_per 25
 
   has_one :volunteer_training, dependent: :destroy, autosave: true
-  has_many :radio_assignments
+  has_many :radio_assignments, dependent: :destroy
   has_many :radios, through: :radio_assignments
   belongs_to :user
 
@@ -44,14 +44,17 @@ class Volunteer < ApplicationRecord
   validate :at_least_one_phone_number
   accepts_nested_attributes_for :volunteer_training
   scope :radio_volunteers, lambda {
-                             joins(:volunteer_training).order(:last_name).where(volunteer_trainings: { radio: true })
+                             joins(:volunteer_training)
+                               .order(:last_name)
+                               .where(volunteer_trainings: { radio: true })
                            }
   scope :radio_volunteer, lambda { |first, last|
                             joins(:volunteer_training)
-                              .order(:last_name).where('first_name ilike ? and last_name ilike ? and volunteer_trainings.radio = ?',
-                                                       "#{first}%",
-                                                       "#{last}%",
-                                                       true)
+                              .order(:last_name)
+                              .where('first_name ilike ? and last_name ilike ?',
+                                     "#{first}%",
+                                     "#{last}%")
+                              .where(volunteer_trainings: { radio: true })
                           }
 
   def name

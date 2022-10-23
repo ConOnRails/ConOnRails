@@ -13,7 +13,7 @@
           li= msg
 
 
-  h3= create_or_update
+  h3= create_or_update(@event)
 
   = simple_form_for @event, wrapper: :horizontal_form, \
                     wrapper_mappings: { \

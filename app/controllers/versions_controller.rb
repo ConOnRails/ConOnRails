@@ -14,22 +14,34 @@ class VersionsController < ApplicationController
   public
 
   def index
-    # TODO: This routine needs an enema...er...refactor. Bad.
-
-    start_date = Time.zone.now.years_ago 3
-    end_date   = Time.zone.now.years_since 3
-    start_date = make_date(params[:start_date]) if params[:use_start_date]
-    end_date = make_date(params[:end_date]) if params[:use_end_date]
     w = {}
     w[:created_at] = (start_date..end_date)
-
-    types = []
-    types << %w[Event Entry] if params[:events]
-    types << 'LostAndFoundItem' if params[:lfi]
-
     w[:item_type] = types unless types.count.zero?
 
     @versions = policy_scope(Version).where(w).page(params[:page])
     authorize @versions
   end
+end
+
+def start_date
+  if params[:use_start_date]
+    make_date(params[:start_date])
+  else
+    Time.zone.now.years_ago(3)
+  end
+end
+
+def end_date
+  if params[:use_end_date]
+    make_date(params[:end_date])
+  else
+    Time.zone.now.years_since(3)
+  end
+end
+
+def types
+  types = []
+  types << %w[Event Entry] if params[:events]
+  types << 'LostAndFoundItem' if params[:lfi]
+  types
 end

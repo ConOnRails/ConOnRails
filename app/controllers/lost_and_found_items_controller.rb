@@ -1,12 +1,15 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class LostAndFoundItemsController < ApplicationController
   respond_to :html, :json
 
-  before_action :build_categories_from_params, only: [:index]
+  before_action :categories, only: [:index]
   before_action :find_lfi, only: %i[show edit update]
 
-  def index
+  def show; end
+
+  def index # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     return jump if lfi_search_params[:id].present?
 
     search_type = lfi_search_params[:search_type] || 'any'
@@ -19,8 +22,8 @@ class LostAndFoundItemsController < ApplicationController
             .page(lfi_search_params[:page]),
                                 table: 'lost_and_found_items'
     if lfi_search_params[:keywords].present?
-      @lfis = @lfis.where("(#{build_like('description', search_type)}) OR (#{build_like('details',
-                                                                                        search_type)})")
+      @lfis = @lfis.where("(#{build_like('description', search_type)}) OR
+                           (#{build_like('details', search_type)})")
     end
     @lfis = @lfis.where(category: @categories).references(:tags) if @categories.present?
     @lfis = lfi_search_params[:show_returned_only] ? @lfis.returned : @lfis.not_returned
@@ -47,7 +50,7 @@ class LostAndFoundItemsController < ApplicationController
 
     if @lfi.save
       flash[:notice] =
-        "TAG WITH #{@lfi.id} - #{@lfi.Type} item was successfully created."
+        "TAG WITH #{@lfi.id} - #{@lfi.type_name} item was successfully created."
     end
     respond_with @lfi
   end
@@ -57,14 +60,14 @@ class LostAndFoundItemsController < ApplicationController
     @lfi.returned = true if params[:returned] == 'true'
     @lfi.inventoried = true if params[:inventoried] == 'true'
 
-    @title = "Edit #{@lfi.Type} Item"
+    @title = "Edit #{@lfi.type_name} Item"
   end
 
   def update
     @lfi.user     = current_user
     @lfi.rolename = current_role_name
 
-    flash[:notice] = "#{@lfi.Type} item was successfully updated." if @lfi.update lfi_params
+    flash[:notice] = "#{@lfi.type_name} item was successfully updated." if @lfi.update lfi_params
     respond_with @lfi, location: lost_and_found_item_path(@lfi, inventory: lfi_params[:inventory])
   end
 
@@ -108,12 +111,14 @@ class LostAndFoundItemsController < ApplicationController
 
   private
 
-  def build_categories_from_params
-    @categories ||= fix_old_categories((LostAndFoundItem.categories.collect do |k, v|
-      next unless params.key? k.to_s
+  def categories
+    @categories ||= fix_old_categories(
+      LostAndFoundItem.categories.collect do |k, v|
+        next unless params.key? k.to_s
 
-      v
-    end).compact).flatten
+        v
+      end.compact
+    ).flatten
   end
 
   def find_lfi
@@ -131,19 +136,21 @@ class LostAndFoundItemsController < ApplicationController
       'Weapons/Props' => ['Weapon', 'Weapons/Props']
     }
 
-    cats.collect do |c|
-      @map[c] || c
-    end
+    cats.collect { |c| @map[c] || c }
   end
 
   def lfi_search_params
-    params.permit LostAndFoundItem.valid_categories.keys + %i[id inventory keywords search_type
-                                                              reported_found inventoried exclude_inventoried returned reported_missing found page show_returned_only]
+    params.permit LostAndFoundItem.categories
+                                  .keys + %i[id inventory keywords search_type
+                                             reported_found inventoried exclude_inventoried returned
+                                             reported_missing found page show_returned_only]
   end
 
   def lfi_params
-    params.require(:lost_and_found_item).permit :reported_missing, :category, :description, :where_last_seen,
-                                                :owner_name, :owner_contact, :where_found, :details, :found, :returned,
-                                                :who_claimed, :inventoried, :search_type
+    params.require(:lost_and_found_item)
+          .permit :reported_missing, :category, :description, :where_last_seen,
+                  :owner_name, :owner_contact, :where_found, :details, :found, :returned,
+                  :who_claimed, :inventoried, :search_type
   end
 end
+# rubocop:enable Metrics/ClassLength

@@ -14,6 +14,7 @@
 # Indexes
 #
 #  index_duty_board_groups_on_column          (column)
+#  index_duty_board_groups_on_name            (name) UNIQUE
 #  index_duty_board_groups_on_row             (row)
 #  index_duty_board_groups_on_row_and_column  (row,column) UNIQUE
 #
@@ -24,7 +25,8 @@ class DutyBoardGroup < ApplicationRecord
   ROW_RANGE = (1..4).freeze
   COL_RANGE = (1..4).freeze
 
-  has_many :duty_board_slots, -> { order :name }, dependent: :destroy
+  has_many :duty_board_slots, -> { order :name }, dependent: :destroy,
+                                                  inverse_of: :duty_board_group
   validates :name, :row, :column, presence: true
   validates :name, uniqueness: true
   validates :row, uniqueness: { scope: :column }

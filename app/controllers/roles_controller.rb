@@ -6,6 +6,10 @@ class RolesController < ApplicationController
   before_action :find_role, only: %i[show edit update destroy]
   before_action :find_roles, only: [:index]
 
+  def index; end
+  def show; end
+  def edit; end
+
   # GET /roles/new
   # GET /roles/new.json
   def new
@@ -49,8 +53,10 @@ class RolesController < ApplicationController
   end
 
   def role_params
-    params.require(:role).permit :name, :write_entries, :add_lost_and_found, :admin_duty_board, :admin_radios, :admin_schedule,
-                                 :admin_users, :assign_duty_board_slots, :assign_radios, :assign_shifts, :modify_lost_and_found,
-                                 :read_hidden_entries, :make_hidden_entries, :read_audits, :rw_secure
+    params.require(:role).permit :name, :write_entries, :add_lost_and_found, :admin_duty_board,
+                                 :admin_radios, :admin_schedule, :admin_users,
+                                 :assign_duty_board_slots, :assign_radios, :assign_shifts,
+                                 :modify_lost_and_found, :read_hidden_entries,
+                                 :make_hidden_entries, :read_audits, :rw_secure
   end
 end

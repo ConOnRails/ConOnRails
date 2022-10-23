@@ -3,6 +3,10 @@
 require 'test_helper'
 
 class LayoutLinksTest < ActionDispatch::IntegrationTest
+  class << self
+    @title_prefix = 'Con On Rails | '
+  end
+
   setup do
     @user = FactoryBot.create(:user)
     @role = FactoryBot.create(:write_entries_role)
@@ -10,8 +14,6 @@ class LayoutLinksTest < ActionDispatch::IntegrationTest
     @user.save!
     @login_params = { username: @user.username, password: @user.password, role: @role.name }
   end
-
-  @@title_prefix = 'Con On Rails | '
 
   test 'get main page while not logged in' do
     root_not_logged_in?

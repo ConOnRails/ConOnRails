@@ -29,14 +29,12 @@ class SessionsControllerTest < ActionController::TestCase
   test 'user can create session' do
     get :create, params: { username: @user.username, password: @user.password, role: @role.name }
     assert_equal 'Logged in!', flash[:notice]
-    assert_not_nil session[:user_id]
     assert_equal @user.id, session[:user_id]
     assert_redirected_to :root
   end
 
   test 'can destroy session' do
     get :create, params: { username: @user.username, password: @user.password, role: @role.name }
-    assert_not_nil session[:user_id]
     assert_equal @user.id, session[:user_id]
     get :destroy, session: { user_id: @user.id }
     assert_nil session[:user_id]

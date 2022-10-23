@@ -20,11 +20,5 @@ production:
   <<: *common
   database: con_on_rails_production
 
-attendees:
-  adapter: sqlite3
-  database: db/attendees.sqlite3
-  pool: 5
-  timeout: 5000
-
 cucumber:
   <<: *test

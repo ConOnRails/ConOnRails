@@ -1,21 +1,24 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/app/queries/event_queries"
+require Rails.root.join 'app/queries/event_queries'
 
+# rubocop:disable Metrics/ClassLength
 class EventsController < ApplicationController
   include Queries::EventQueries
 
   before_action :set_event, only: %i[show edit update]
-  before_action :get_tagged_events, only: [:tag]
+  before_action :find_tagged_events, only: [:tag]
   before_action :process_filters, only: %i[review export]
 
   respond_to :html, :json, except: [:export]
   respond_to :js, only: %i[index sticky secure review]
   respond_to :csv, only: [:export]
 
+  def edit; end
+
   # GET /events
   # GET /events.json
-  def index
+  def index # rubocop:disable Metrics/AbcSize
     @title = 'Active Events'
     return jump if params[:id].present?
 
@@ -29,7 +32,7 @@ class EventsController < ApplicationController
     respond_with @events
   end
 
-  def sticky
+  def sticky # rubocop:disable Metrics/MethodLength
     authorize Event
 
     @title = 'Sticky Events'
@@ -46,7 +49,7 @@ class EventsController < ApplicationController
     end
   end
 
-  def secure
+  def secure # rubocop:disable Metrics/MethodLength
     authorize Event
 
     @title = 'Secure Events'
@@ -96,7 +99,8 @@ class EventsController < ApplicationController
 
   # GET /events/new
   # GET /events/new.json
-  # There is POST /events. We actually create the new event here and then redirect to create the first entry
+  # There is POST /events. We actually create the new event
+  # here and then redirect to create the first entry
   def new
     @title = 'New Event'
     @event = Event.new
@@ -107,13 +111,13 @@ class EventsController < ApplicationController
     @entry = build_new_entry @event
   end
 
-  def create
+  def create # rubocop:disable Metrics/MethodLength
     @event = Event.new event_params
     authorize @event
 
     if @event.save
       build_entry_from_params @event, entry_params
-      build_flag_history_from_params @event, event_params, true
+      build_flag_history_from_params @event, event_params, always: true
     end
 
     if @event.save # save the extra bits
@@ -127,8 +131,9 @@ class EventsController < ApplicationController
 
   # PUT /events/1
   # PUT /events/1.json
-  def update
-    # strong_parameters balks a bit at the permissiveness of this. Might want to consider restructuring a bit
+  def update # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+    # strong_parameters balks a bit at the permissiveness of this.
+    # Might want to consider restructuring a bit
     build_entry_from_params @event, entry_params if params.key? :entry # this can be blank!
     build_flag_history_from_params @event, event_params if params.key? :event
 
@@ -175,7 +180,7 @@ class EventsController < ApplicationController
     event.entries.build(params.merge(event: event, user: current_user, rolename: current_role_name))
   end
 
-  def build_flag_history_from_params(event, params, always = false)
+  def build_flag_history_from_params(event, params, always: false)
     return unless always || (params && @event.flags_differ?(params))
 
     event.event_flag_histories.build(params.merge(event: event, user: current_user,
@@ -186,7 +191,7 @@ class EventsController < ApplicationController
     params.permit(filters: :order).fetch(:filters, {}).fetch(:order, 'asc')
   end
 
-  def get_tagged_events
+  def find_tagged_events
     @events = IndexQuery.new(policy_scope(Event)).query
                         .tagged_with(params[:tag])
                         .preload(:event_flag_histories)
@@ -236,3 +241,4 @@ class EventsController < ApplicationController
     params.require(:merge_ids)
   end
 end
+# rubocop:enable Metrics/ClassLength

@@ -6,11 +6,15 @@
 #
 #  id              :integer          not null, primary key
 #  name            :string
-#  volunteer_id    :integer
-#  radio_group_id  :integer
 #  radio_allotment :integer
 #  created_at      :datetime
 #  updated_at      :datetime
+#  radio_group_id  :integer
+#  volunteer_id    :integer
+#
+# Indexes
+#
+#  index_departments_on_name  (name) UNIQUE
 #
 
 require 'test_helper'

@@ -14,6 +14,7 @@
 # Indexes
 #
 #  index_duty_board_groups_on_column          (column)
+#  index_duty_board_groups_on_name            (name) UNIQUE
 #  index_duty_board_groups_on_row             (row)
 #  index_duty_board_groups_on_row_and_column  (row,column) UNIQUE
 #

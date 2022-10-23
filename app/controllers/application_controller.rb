@@ -10,6 +10,8 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+  def index; end
+
   def banner
     session[:pause_refresh] ||= false
     render partial: 'banner'
@@ -17,13 +19,13 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def is_authenticated?
+  def authenticated?
     !session[:user_id].nil?
   end
 
   def can_admin_anything?
     ret = false
-    if is_authenticated?
+    if authenticated?
       user = User.find session[:user_id]
       ret = user.can_admin_anything?
     end
@@ -35,11 +37,11 @@ class ApplicationController < ActionController::Base
   end
 
   def require_login
-    redirect_to :public unless is_authenticated?
+    redirect_to :public unless authenticated?
   end
 
   def current_user
-    User.find(session[:user_id]) if is_authenticated?
+    User.find(session[:user_id]) if authenticated?
   end
 
   def current_role
@@ -47,16 +49,16 @@ class ApplicationController < ActionController::Base
   end
 
   def current_role_name
-    session[:current_role_name] if is_authenticated?
+    session[:current_role_name] if authenticated?
   end
 
   def limit_by_convention(query, table: 'events')
-    if params[:convention] == 'all' || params[:show_older] == 'true' || get_convention.blank?
+    if params[:convention] == 'all' || params[:show_older] == 'true' || convention.blank?
       return query
     end
 
-    query.where("#{table}.created_at >= ?", get_convention.start_date)
-         .where("#{table}.created_at <= ?", get_convention.end_date)
+    query.where("#{table}.created_at >= ?", convention.start_date)
+         .where("#{table}.created_at <= ?", convention.end_date)
   end
 
   def limit_by_date_range(query)
@@ -71,14 +73,14 @@ class ApplicationController < ActionController::Base
     query
   end
 
-  def get_convention
-    @con ||= if params[:convention].present?
-               Convention.find params[:convention]
-             elsif params[:convention].blank?
-               Convention.current_convention
-             end
+  def convention
+    @convention ||= if params[:convention].present?
+                      Convention.find params[:convention]
+                    elsif params[:convention].blank?
+                      Convention.current_convention
+                    end
   end
 
-  helper_method :can_write_entries?, :is_authenticated?, :can_admin_anything?, :current_user,
+  helper_method :can_write_entries?, :authenticated?, :can_admin_anything?, :current_user,
                 :current_role, :current_role_name
 end

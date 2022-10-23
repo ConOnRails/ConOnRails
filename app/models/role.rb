@@ -31,7 +31,7 @@
 class Role < ApplicationRecord
   has_paper_trail
 
-  has_and_belongs_to_many :users
+  has_and_belongs_to_many :users # rubocop:disable Rails/HasAndBelongsToMany
 
   name_regex = /\A[a-zA-Z0-9_ ]*\z/
 

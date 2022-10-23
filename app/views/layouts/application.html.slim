@@ -1,6 +1,6 @@
 html
   head
-    title Con On Rails #{title}
+    title Con On Rails #{title(@title)}
 
     javascript:
       var CIAB = CIAB || {};
@@ -9,7 +9,7 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-eval' => false
     = csrf_meta_tags
 
-  body class="#{controller.controller_name} #{background}"
+  body class="#{controller.controller_name} #{background(@lfi)}"
     .container-fluid
       .row
         .col-lg-12.col-md-12.col-sm-12.col-xs-12

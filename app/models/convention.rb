@@ -5,18 +5,22 @@
 # Table name: conventions
 #
 #  id         :integer          not null, primary key
+#  end_date   :datetime
 #  name       :string
 #  start_date :datetime
-#  end_date   :datetime
 #  created_at :datetime
 #  updated_at :datetime
+#
+# Indexes
+#
+#  index_conventions_on_name  (name) UNIQUE
 #
 
 class NotTimeTravelingValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
-    unless value.present? && value > record.start_date
-      record.errors[attribute] << (options[:message] || 'must be later than Start date!')
-    end
+    return if value.present? && value > record.start_date
+
+    record.errors[attribute] << (options[:message] || 'must be later than Start date!')
   end
 end
 
@@ -37,7 +41,7 @@ class Convention < ApplicationRecord
 
   def self.current_convention
     where('start_date <= ?', Date.current)
-      .where('end_date >= ?', Date.current)
-      .first || Convention.most_recent
+      .find_by('end_date >= ?', Date.current) ||
+      Convention.most_recent
   end
 end

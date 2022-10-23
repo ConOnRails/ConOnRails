@@ -8,6 +8,10 @@ class VspsController < ApplicationController
   before_action :create_vsp, only: [:create]
   before_action :find_vsp, only: %i[edit update]
 
+  def index; end
+  def new; end
+  def edit; end
+
   def create
     flash[:notice] = 'VSP created successfully!' if @vsp.save
     respond_with @vsp, location: vsps_path

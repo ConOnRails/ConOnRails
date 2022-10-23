@@ -25,15 +25,4 @@ fill_in = (event, ui) ->
   $("#volunteer_other_phone").val(ui.item.other_phone)
   $("#volunteer_email").val(ui.item.email)
 
-hook_up_attendees = () ->
-  $('#search-attendees').autocomplete({
-                                      source:    "/volunteers/attendees",
-                                      minLength: 2,
-                                      select:    fill_in
-                                      })
-
-$ ->
-    hook_up_attendees()
-
-
 

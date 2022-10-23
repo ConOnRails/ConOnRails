@@ -5,11 +5,15 @@
 # Table name: conventions
 #
 #  id         :integer          not null, primary key
+#  end_date   :datetime
 #  name       :string
 #  start_date :datetime
-#  end_date   :datetime
 #  created_at :datetime
 #  updated_at :datetime
+#
+# Indexes
+#
+#  index_conventions_on_name  (name) UNIQUE
 #
 
 require 'test_helper'

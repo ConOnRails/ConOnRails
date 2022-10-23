@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_08_021310) do
+ActiveRecord::Schema.define(version: 2022_10_08_210944) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 2020_01_08_021310) do
     t.datetime "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["name"], name: "index_conventions_on_name", unique: true
   end
 
   create_table "departments", id: :serial, force: :cascade do |t|
@@ -62,6 +63,7 @@ ActiveRecord::Schema.define(version: 2020_01_08_021310) do
     t.integer "radio_allotment"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["name"], name: "index_departments_on_name", unique: true
   end
 
   create_table "duty_board_assignments", id: :serial, force: :cascade do |t|
@@ -80,6 +82,7 @@ ActiveRecord::Schema.define(version: 2020_01_08_021310) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["column"], name: "index_duty_board_groups_on_column"
+    t.index ["name"], name: "index_duty_board_groups_on_name", unique: true
     t.index ["row", "column"], name: "index_duty_board_groups_on_row_and_column", unique: true
     t.index ["row"], name: "index_duty_board_groups_on_row"
   end
@@ -89,6 +92,7 @@ ActiveRecord::Schema.define(version: 2020_01_08_021310) do
     t.integer "duty_board_group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["name"], name: "index_duty_board_slots_on_name", unique: true
   end
 
   create_table "entries", id: :serial, force: :cascade do |t|
@@ -232,6 +236,7 @@ ActiveRecord::Schema.define(version: 2020_01_08_021310) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "department_id"
+    t.index ["radio_id"], name: "index_radio_assignments_on_radio_id", unique: true
   end
 
   create_table "radio_groups", id: :serial, force: :cascade do |t|
@@ -250,6 +255,7 @@ ActiveRecord::Schema.define(version: 2020_01_08_021310) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "state", default: "in"
+    t.index ["number"], name: "index_radios_on_number", unique: true
   end
 
   create_table "roles", id: :serial, force: :cascade do |t|
@@ -365,6 +371,7 @@ ActiveRecord::Schema.define(version: 2020_01_08_021310) do
     t.string "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["name"], name: "index_vsps_on_name", unique: true
   end
 
 end
