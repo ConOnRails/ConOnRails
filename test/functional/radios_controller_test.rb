@@ -4,8 +4,6 @@ require('test_helper')
 
 class RadiosControllerTest < ActionController::TestCase
   setup do
-    FactoryBot.use_parent_strategy = false
-    @assignment = FactoryBot.build(:valid_radio_assignment)
     @radio = FactoryBot.build(:valid_blue_radio)
     @user  = FactoryBot.create(:user)
     @role  = FactoryBot.create(:admin_radios_role)

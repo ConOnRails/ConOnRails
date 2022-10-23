@@ -32,24 +32,24 @@ gem 'kaminari', '~> 1.2.2'
 gem 'momentjs-rails', '>= 2.8.1'
 gem 'paper_trail', '~> 11'
 gem 'paper_trail-association_tracking', '~> 2.1.0'
-gem 'pg_search' # , '~> 0.7.9'
-gem 'pundit', '~> 2.1.0'
-gem 'ransack' # , '~> 2.3.0'
+gem 'pg_search', '~> 2.3.6'
+gem 'pundit', '~> 2.2.0'
+gem 'ransack', '~> 3.0.1'
 gem 'redcarpet', '~> 3.5.1'
-gem 'responders'
+gem 'responders', '~> 3.0.1'
 gem 'sassc', '~> 2.0.0' # Breaks above this version.
-gem 'select2-rails'
-gem 'simple_form'
-gem 'slim'
-gem 'sshkit' # , '~> 1.6.1'
+gem 'select2-rails', '~> 4.0.3'
+gem 'simple_form', '~> 5.1.0'
+gem 'slim', '~> 4.1.0'
+gem 'sshkit', '~> 1.21.0'
 gem 'therubyracer', require: 'v8'
-gem 'yaml_db'
+gem 'yaml_db', '~> 0.7.0'
 
 # Moved to production because we use them in seeds and we need to be able to seed Heroku
-gem 'factory_bot_rails', '~> 5.0.0'
-gem 'faker'
+gem 'factory_bot_rails', '~> 6.2.0'
+gem 'faker', '~> 2.22.0'
 
-gem 'derailed'
+gem 'derailed', '~> 0.1.0'
 
 gem 'flamegraph'
 gem 'memory_profiler'
@@ -66,7 +66,6 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'byebug'
-  gem 'jasmine'
   gem 'minitest'
   gem 'minitest-fail-fast'
   gem 'rails-controller-testing'
@@ -77,7 +76,7 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'database_cleaner'
+  gem 'database_cleaner', '~> 1.8.0'
   gem 'minitest-reporters'
   gem 'mocha', require: false
   gem 'selenium-webdriver'

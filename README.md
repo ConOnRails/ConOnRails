@@ -21,7 +21,7 @@ There is currently an active development branch for revising the security struct
 have just been to keep dependencies current -- Ruby 2.5.5 and some Gem updates. This is about as far as can be gone without also
 moving to Rails 5.2, which will be a bit of a project.
 
-A note about testing: most of the tests are still under Minitest in the `test` folder; there are a handful of rspec tests, and one jasmine test, under the `spec` folder, but for hysterical raisins, the Minitest-based testing is the main focus of TDD. 
+For hysterical raisins, the Minitest-based testing is the main focus of TDD. 
 
 It is the long-term goal of this project to be useful to other conventions, but we recognize that, in order to do
 that, lots of things that are currently hardwired for CONvergence will need to be made configurable. This is an ongoing

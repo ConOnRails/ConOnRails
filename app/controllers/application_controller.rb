@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  include Pundit
+  include Pundit::Authorization
   protect_from_forgery
 
   before_action :require_login, except: [:banner]

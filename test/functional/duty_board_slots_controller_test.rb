@@ -4,7 +4,6 @@ require 'test_helper'
 
 class DutyBoardSlotsControllerTest < ActionController::TestCase
   setup do
-    FactoryBot.use_parent_strategy = false
     @user = FactoryBot.create :user
     @user.roles << FactoryBot.create(:admin_duty_board_role)
     @user.roles << FactoryBot.create(:assign_duty_board_role)

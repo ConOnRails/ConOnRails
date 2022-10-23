@@ -50,7 +50,7 @@ FactoryBot.define do
   factory :duty_board_slot do
     factory :valid_duty_board_slot do
       name { Faker::Name.name }
-      association :duty_board_group, factory: :valid_duty_board_group
+      association :duty_board_group, factory: :valid_duty_board_group, strategy: :create
     end
   end
 
@@ -176,7 +176,7 @@ FactoryBot.define do
 
     factory :valid_blue_radio do
       sequence(:number) { |n| n }
-      association :radio_group, factory: :blue_man_group
+      association :radio_group, factory: :blue_man_group, strategy: :create
     end
     factory :one_of_many_blue_radios do
       sequence :number do |n|
@@ -192,9 +192,9 @@ FactoryBot.define do
 
   factory :radio_assignment do
     factory :valid_radio_assignment do
-      association :radio, factory: :valid_blue_radio
-      association :volunteer, factory: :valid_volunteer
-      association :department, factory: :good_department
+      association :radio, factory: :valid_blue_radio, strategy: :create
+      association :volunteer, factory: :valid_volunteer, strategy: :create
+      association :department, factory: :good_department, strategy: :create
     end
   end
 
@@ -339,12 +339,12 @@ FactoryBot.define do
 
   factory :volunteer do
     factory :valid_volunteer do
-      first_name { 'Rufus' }
-      middle_name { 'Xavier' }
-      last_name { 'Sassparilla' }
+      sequence(:first_name) { Faker::Name.first_name }
+      sequence(:middle_name) { Faker::Name.middle_name }
+      sequence(:last_name) { Faker::Name.last_name }
       address1 { '666 Sixth Street SE' }
       home_phone { '+1 666-666-6666' }
-      email { 'rxs@rxs.nowhere' }
+      sequence(:email) { Faker::Internet.email }
       association :volunteer_training, factory: :valid_volunteer_training
     end
 
