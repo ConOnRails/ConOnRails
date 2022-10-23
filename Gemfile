@@ -58,6 +58,7 @@ gem 'stackprof' # ruby 2.1+ only
 
 group :development do
   gem 'annotate'
+  gem 'listen'
   gem 'rb-fsevent' # , '~> 0.9.1'
 end
 
