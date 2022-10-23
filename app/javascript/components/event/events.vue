@@ -1,6 +1,11 @@
 <template lang="pug">
   #event_list
-    Event(v-for="event in events", :key="event.id")
+    Event(
+      v-for="event in events" 
+      :key="event.id" 
+      :entries="event.entries"
+      :createdAt="event.created_at"
+    )
 </template>
 
 <script>

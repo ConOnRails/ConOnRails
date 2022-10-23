@@ -47,11 +47,14 @@ module ApplicationHelper
     'found' if params[:found] || (@lfi&.found?)
   end
 
-  def markdown(text)
-    if text.present?
-      Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(filter_html: true, hard_wrap: true, safe_links_only: true),
-                              no_intra_emphasis: true, tables: true, autolink: true, strikethrough: true).render(text).html_safe
-    end
+  def markdown(text, safe=false)
+    return if text.blank?
+
+    md = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(filter_html: true, hard_wrap: true,
+                                                             safe_links_only: true),
+                                 no_intra_emphasis: true, tables: true, autolink: true,
+                                 strikethrough: true).render(text)
+    safe ? md.html_safe : md
   end
 
   def show_corkboard(tag)

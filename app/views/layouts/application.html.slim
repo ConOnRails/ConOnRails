@@ -47,7 +47,8 @@ html
             - if current_user.present?
               .row
                 .col-lg-12.col-md-12.col-sm-12.col-xs-12
-                  #cork-board
+                  - if show_corkboard('dispatcher')
+                    <Corkboard tag="dispatcher" />
             .row
               = content_for?(:main) ? yield(:main) : yield
     #footer
@@ -57,8 +58,5 @@ javascript:
   $(
           function () {
             $('#welcome').fadeOut(10000);
-            // We only support a dispatcher board right now
-            if (#{show_corkboard('dispatcher')})
-              cork = new CIAB.Corkboard('dispatcher');
           }
   );

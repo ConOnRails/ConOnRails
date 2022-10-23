@@ -60,13 +60,13 @@
         for (var i = 0; i < data.length; i++) {
           this.cards.push(this.card(data[i].id, data[i].entry));
         }
-        this.$cork_board.show()
+        this.$cork_board.show();
       }
     },
 
     getEvents: function () {
       if( window.banner.pause ) return;
-      this.cards = []
+      this.cards = [];
 
       $.ajax({
         url: '/events/tag/' + this.tag,

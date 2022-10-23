@@ -5,6 +5,8 @@
   },
   "dependencies": {
     "@rails/webpacker": "5.4.0",
+    "jstransformer-markdown-it": "^3.0.0",
+    "marked": "^4.0.18",
     "pluralize": "^8.0.0",
     "vue": "^2.6.14",
     "vue-loader": "^15.9.8",
