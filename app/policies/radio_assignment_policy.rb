@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RadioAssignmentPolicy < ApplicationPolicy
   def checkout?
     user.can_assign_radios?

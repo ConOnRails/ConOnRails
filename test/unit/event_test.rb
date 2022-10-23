@@ -57,7 +57,7 @@ class EventTest < ActiveSupport::TestCase
     end
 
     should 'be active by default' do
-      assert @event.is_active?
+      assert_predicate @event, :is_active?
     end
 
     should 'have false type flags by default' do
@@ -98,7 +98,7 @@ class EventTest < ActiveSupport::TestCase
       @event.status = 'Closed'
       assert_not @event.is_active?
       @event.status = 'Active'
-      assert @event.is_active?
+      assert_predicate @event, :is_active?
     end
 
     should 'raise exception on invalid status text' do
@@ -111,7 +111,7 @@ class EventTest < ActiveSupport::TestCase
       params = { hidden: 'true', secure: 'false' }
       assert @event.flags_differ? params
       params = { hidden: 'false' }
-      assert_equal false, @event.flags_differ?(params)
+      assert_not @event.flags_differ?(params)
     end
 
     should 'have tags' do
@@ -214,8 +214,8 @@ class EventTest < ActiveSupport::TestCase
                        @new_event.entries.count
           assert_match(/^Merged by #{@user.username} as 'vole'/,
                        @new_event.entries.order(:id).last.description)
-          assert @event.merged?
-          assert @second_event.merged?
+          assert_predicate @event, :merged?
+          assert_predicate @second_event, :merged?
           assert_equal [@event.id, @second_event.id], @new_event.merged_from_ids
           assert_equal Event.flags_union(@original_event_flags,
                                          @original_2d_event_flags), @new_event.flags

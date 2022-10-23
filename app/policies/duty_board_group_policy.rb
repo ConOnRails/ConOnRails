@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DutyBoardGroupPolicy < ApplicationPolicy
   def index?
     user.can_admin_duty_board?

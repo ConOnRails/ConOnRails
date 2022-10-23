@@ -21,7 +21,9 @@ class RadioAssignmentsController < ApplicationController
         end
       end
 
-      raise ActiveRecord::Rollback unless @radio_assignment.persisted? && @radio_assignment.radio.persisted?
+      unless @radio_assignment.persisted? && @radio_assignment.radio.persisted?
+        raise ActiveRecord::Rollback
+      end
     end
   end
 

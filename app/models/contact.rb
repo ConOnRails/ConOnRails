@@ -22,6 +22,6 @@ class Contact < ApplicationRecord
   # audited
   validates :cell_phone,
             format: { message: 'must be a valid telephone number.',
-                      with: /\A[\(\)0-9\- \+\.]{10,20}\z/ }
+                      with: /\A[()0-9\- +.]{10,20}\z/ }
   validates :name, presence: true, allow_blank: false
 end

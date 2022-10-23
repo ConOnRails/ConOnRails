@@ -11,7 +11,7 @@ class RadiosController < ApplicationController
     @volunteers = Volunteer.radio_volunteer(params[:first_name],
                                             params[:last_name])
     authorize @volunteers
-    
+
     respond_with do |format|
       format.html do
         if request.xhr?
@@ -95,7 +95,7 @@ class RadiosController < ApplicationController
 
   def find_radios
     @q = policy_scope(Radio).ransack params[:q]
-    @q.sorts = ['state desc', 'radios_number'] if @q.sorts.empty? # , 'radio_group_name', 'radio_number'
+    @q.sorts = ['state desc', 'radios_number'] if @q.sorts.empty?
     @radios = @q.result(distinct: true).page(params[:page])
     authorize @radios
   end

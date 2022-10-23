@@ -29,7 +29,7 @@ class AlertTagsTest < ActiveSupport::TestCase
     end
 
     should 'have "dispatcher" tag' do
-      assert @event.alert_list.include? 'dispatcher'
+      assert_includes @event.alert_list, 'dispatcher'
     end
   end
 end

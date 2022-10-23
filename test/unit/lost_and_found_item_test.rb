@@ -34,7 +34,7 @@ class LostAndFoundItemTest < ActiveSupport::TestCase
   should validate_presence_of :description
 
   should 'not be able to create with both missing and found' do
-    assert @both.invalid?
+    assert_predicate @both, :invalid?
   end
 
   context 'lost' do
@@ -44,7 +44,7 @@ class LostAndFoundItemTest < ActiveSupport::TestCase
     should validate_presence_of :owner_name
 
     should 'be marked missing and not the others' do
-      assert subject.reported_missing?
+      assert_predicate subject, :reported_missing?
       assert_not subject.found?
       assert_not subject.returned?
     end
@@ -56,7 +56,7 @@ class LostAndFoundItemTest < ActiveSupport::TestCase
     should validate_presence_of :where_found
 
     should 'be marked found and not the others' do
-      assert subject.found?
+      assert_predicate subject, :found?
       assert_not subject.reported_missing?
       assert_not subject.returned?
     end

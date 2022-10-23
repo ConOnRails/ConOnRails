@@ -71,7 +71,7 @@ class RolesControllerTest < ActionController::TestCase
       post :create, params: { role: { name: '' } }, session: { user_id: @user.id }
     end
 
-    assert assigns(:role).invalid?
+    assert_predicate assigns(:role), :invalid?
     assert_template :new
   end
 
@@ -109,14 +109,14 @@ class RolesControllerTest < ActionController::TestCase
     put :update, params: { id: @peon.to_param,
                            role: { write_entries: true } }, session: { user_id: @user.id }
     assert_not_nil assigns(:role)
-    assert assigns(:role).valid?
-    assert assigns(:role).write_entries?
+    assert_predicate assigns(:role), :valid?
+    assert_predicate assigns(:role), :write_entries?
     assert_redirected_to role_path(assigns(:role))
   end
 
   test "can't update role with bad data" do
     put :update, params: { id: @peon.to_param, role: { name: '' } }, session: { user_id: @user.id }
-    assert assigns(:role).invalid?
+    assert_predicate assigns(:role), :invalid?
     assert_template :edit
   end
 

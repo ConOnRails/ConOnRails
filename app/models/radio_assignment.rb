@@ -32,7 +32,9 @@ class RadioAssignment < ApplicationRecord
   validates :radio, presence: true
   validates :radio_id, uniqueness: true
   validates :volunteer, presence: true
-  validates :volunteer_id, uniqueness: true, unless: ->(x) { x.volunteer.present? && x.volunteer.can_have_multiple_radios? }
+  validates :volunteer_id, uniqueness: true, unless: lambda { |x|
+                                                       x.volunteer.present? && x.volunteer.can_have_multiple_radios?
+                                                     }
   validates :department, presence: true
   validates_with DepartmentAllotmentChecker, message: "All of this department's radios are allotted"
 
@@ -41,7 +43,8 @@ class RadioAssignment < ApplicationRecord
   end
 
   def self.checkout(params, user)
-    assignment = RadioAssignment.new radio_id: params[:radio_id], volunteer_id: params[:volunteer_id], department_id: params[:department_id]
+    assignment = RadioAssignment.new radio_id: params[:radio_id],
+                                     volunteer_id: params[:volunteer_id], department_id: params[:department_id]
     if assignment.valid?
       assignment.radio.state = 'out'
       RadioAssignmentAudit.audit_checkout assignment, user

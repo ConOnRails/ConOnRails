@@ -43,12 +43,12 @@ class VolunteerTest < ActiveSupport::TestCase
 
   test 'cannot create empty' do
     vol = Volunteer.create @blank
-    assert vol.invalid?, 'Blank should fail'
+    assert_predicate vol, :invalid?, 'Blank should fail'
   end
 
   test 'can create valid' do
     vol = Volunteer.create @valid
-    assert vol.valid?, 'Should have been valid'
+    assert_predicate vol, :valid?, 'Should have been valid'
   end
 
   test "can't create with messed up phone number" do
@@ -62,6 +62,6 @@ class VolunteerTest < ActiveSupport::TestCase
     @valid[:work_phone] = nil
     @valid[:other_phone] = nil
     vol = Volunteer.create @valid
-    assert vol.invalid?, 'Should have choked on absence of all three numbers'
+    assert_predicate vol, :invalid?, 'Should have choked on absence of all three numbers'
   end
 end

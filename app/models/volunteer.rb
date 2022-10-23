@@ -39,25 +39,24 @@ class Volunteer < ApplicationRecord
   validates :last_name, presence: true
   validates :home_phone, :work_phone, :other_phone,
             format: { allow_blank: true, message: 'must be a valid telephone number.',
-                      with: /\A[\(\)0-9\- \+\.]{10,20}\z/ }
+                      with: /\A[()0-9\- +.]{10,20}\z/ }
   validates_associated :volunteer_training
   validate :at_least_one_phone_number
   accepts_nested_attributes_for :volunteer_training
   scope :radio_volunteers, lambda {
-                             joins(:volunteer_training).order(:last_name).where('radio = ?',
-                                                                                true)
+                             joins(:volunteer_training).order(:last_name).where(volunteer_trainings: { radio: true })
                            }
   scope :radio_volunteer, lambda { |first, last|
                             joins(:volunteer_training)
-                              .order(:last_name).where('first_name ilike ? and last_name ilike ? and radio = ?',
+                              .order(:last_name).where('first_name ilike ? and last_name ilike ? and volunteer_trainings.radio = ?',
                                                        "#{first}%",
                                                        "#{last}%",
                                                        true)
                           }
 
   def name
-    (first_name ? first_name + ' ' : '') +
-      (middle_name ? middle_name + ' ' : '') +
+    (first_name ? "#{first_name} " : '') +
+      (middle_name ? "#{middle_name} " : '') +
       (last_name || '')
   end
 

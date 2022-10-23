@@ -47,7 +47,7 @@
 #
 
 require 'csv'
-require Rails.root + 'app/queries/event_queries'
+require "#{Rails.root}/app/queries/event_queries"
 
 class Event < ApplicationRecord
   include PgSearch::Model
@@ -72,7 +72,9 @@ class Event < ApplicationRecord
                                      entries: :description
                                    }
 
-  scope :actives_and_stickies_or_all, ->(c) { where(is_active: true).or(where(sticky: true)) unless c }
+  scope :actives_and_stickies_or_all, lambda { |c|
+                                        where(is_active: true).or(where(sticky: true)) unless c
+                                      }
 
   scope :protect_sensitive_events, lambda { |user|
     query = Event.all
@@ -115,18 +117,19 @@ class Event < ApplicationRecord
 
       new_event.merge_entries event_ids
       new_event.merge_flags events
-      new_event.add_entry "Merged by #{user.username} as '#{role_name}' from #{event_ids.join(', ')}", user.id, role_name
+      new_event.add_entry "Merged by #{user.username} as '#{role_name}' from #{event_ids.join(', ')}",
+                          user.id, role_name
       new_event.save!
       new_event.reload
     end
   end
 
   def self.user_can_see_hidden(user)
-    !user.nil? ? user.read_hidden_entries? : false
+    user.nil? ? false : user.read_hidden_entries?
   end
 
   def self.user_can_rw_secure(user)
-    !user.nil? ? user.rw_secure? : false
+    user.nil? ? false : user.rw_secure?
   end
 
   def self.num_active
@@ -161,12 +164,13 @@ class Event < ApplicationRecord
     params.each do |p|
       return true if (p.first == 'status') && (p.second != status)
       return true if (p.first != 'status') &&
-                     (self[p.first] != ((p.last == '1') || (p.last == 'true') ? true : false))
+                     (self[p.first] != ((p.last == '1') || (p.last == 'true')))
     end
     false
   end
 
-  def flags # Note: always returns FALSE for NIL
+  # NOTE: always returns FALSE for NIL
+  def flags
     FLAGS.each_with_object(HashWithIndifferentAccess.new) do |flag, map|
       map[flag.to_sym] = (send(flag).presence || false)
     end
@@ -223,7 +227,7 @@ class Event < ApplicationRecord
       self.is_active = false
       self.merged = true
     else
-      raise Exception
+      raise StandardError
     end
   end
 

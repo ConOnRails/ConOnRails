@@ -14,7 +14,7 @@ module ApplicationHelper
   end
 
   def version_type
-    :release #:release:beta
+    :release # :release:beta
   end
 
   def get_banner_style
@@ -22,15 +22,19 @@ module ApplicationHelper
     num_active -= Event.current_convention.num_active_secure unless current_user&.rw_secure?
 
     style = 'normal'
-    style = 'active' if num_active > 0
-    style = 'emergency' if (Event.current_convention.num_active_emergencies > 0) || (Event.current_convention.num_active_medicals > 0)
+    style = 'active' if num_active.positive?
+    if Event.current_convention.num_active_emergencies.positive? || Event.current_convention.num_active_medicals.positive?
+      style = 'emergency'
+    end
 
     style
   end
 
   def get_emerg_button_style
     style = 'btn btn-danger btn-large'
-    style = 'reverse' if (Event.num_active_emergencies > 0) || (Event.num_active_medicals > 0)
+    if Event.num_active_emergencies.positive? || Event.num_active_medicals.positive?
+      style = 'reverse'
+    end
 
     style
   end
@@ -40,11 +44,11 @@ module ApplicationHelper
   end
 
   def background
-    return 'returned' if params[:returned] || (@lfi&.returned?)
-    return 'inventoried' if params[:inventoried] || (@lfi&.inventoried?)
-    return 'missing' if params[:reported_missing] || (@lfi&.reported_missing?)
+    return 'returned' if params[:returned] || @lfi&.returned?
+    return 'inventoried' if params[:inventoried] || @lfi&.inventoried?
+    return 'missing' if params[:reported_missing] || @lfi&.reported_missing?
 
-    'found' if params[:found] || (@lfi&.found?)
+    'found' if params[:found] || @lfi&.found?
   end
 
   def markdown(text, safe=false)

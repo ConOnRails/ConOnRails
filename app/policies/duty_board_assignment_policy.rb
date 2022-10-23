@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DutyBoardAssignmentPolicy < ApplicationPolicy
   def create?
     user.can_assign_duty_board_slots?

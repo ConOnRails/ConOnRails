@@ -14,10 +14,10 @@ class LostAndFoundItemsController < ApplicationController
     @title = 'Lost and Found Entries'
 
     @lfis = limit_by_convention policy_scope(LostAndFoundItem)
-                                  .inventory(lfi_search_params[:inventory],
-                                             lfi_search_params[:exclude_inventoried])
-                                  .page(lfi_search_params[:page]),
-                                  table: 'lost_and_found_items'
+            .inventory(lfi_search_params[:inventory],
+                       lfi_search_params[:exclude_inventoried])
+            .page(lfi_search_params[:page]),
+                                table: 'lost_and_found_items'
     if lfi_search_params[:keywords].present?
       @lfis = @lfis.where("(#{build_like('description', search_type)}) OR (#{build_like('details',
                                                                                         search_type)})")
@@ -29,7 +29,7 @@ class LostAndFoundItemsController < ApplicationController
   end
 
   def new
-    @lfi                  = LostAndFoundItem.new
+    @lfi = LostAndFoundItem.new
     authorize @lfi
 
     @lfi.reported_missing = lfi_params[:reported_missing]
@@ -45,7 +45,10 @@ class LostAndFoundItemsController < ApplicationController
     @lfi.user     = current_user
     @lfi.rolename = current_role_name
 
-    flash[:notice] = "TAG WITH #{@lfi.id} - #{@lfi.Type} item was successfully created." if @lfi.save
+    if @lfi.save
+      flash[:notice] =
+        "TAG WITH #{@lfi.id} - #{@lfi.Type} item was successfully created."
+    end
     respond_with @lfi
   end
 
@@ -73,7 +76,10 @@ class LostAndFoundItemsController < ApplicationController
     respond_with do |f|
       @lfis = policy_scope(LostAndFoundItem).inventoried.order(:id)
       authorize @lfis, :index?
-      f.csv { send_data LostAndFoundItem.to_csv(@lfis), filename: 'lost-and-found-inventory.csv', type: 'text/csv' }
+      f.csv do
+        send_data LostAndFoundItem.to_csv(@lfis), filename: 'lost-and-found-inventory.csv',
+                                                  type: 'text/csv'
+      end
     end
   end
 

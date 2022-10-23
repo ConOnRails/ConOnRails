@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RadioPolicy < ApplicationPolicy
   def index?
     user.can_assign_radios?

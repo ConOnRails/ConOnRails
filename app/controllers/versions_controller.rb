@@ -27,7 +27,7 @@ class VersionsController < ApplicationController
     types << %w[Event Entry] if params[:events]
     types << 'LostAndFoundItem' if params[:lfi]
 
-    w[:item_type] = types unless types.count == 0
+    w[:item_type] = types unless types.count.zero?
 
     @versions = policy_scope(Version).where(w).page(params[:page])
     authorize @versions

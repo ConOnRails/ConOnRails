@@ -72,7 +72,8 @@ class SessionsController < ApplicationController
   end
 
   def log_failure
-    LoginLog.create! user_name: params[:username], role_name: params[:role], comment: :failure, ip: ip
+    LoginLog.create! user_name: params[:username], role_name: params[:role], comment: :failure,
+                     ip: ip
   end
 
   def sanitize_flags(flags)
