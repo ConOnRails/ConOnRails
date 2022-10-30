@@ -5,7 +5,7 @@ ruby '2.7.6'
 
 gem 'bootsnap'
 gem 'pg', '~> 1.4.0'
-gem 'rails', '~> 6.0.0'
+gem 'rails', '~> 6.1.0'
 
 gem 'puma', '~> 6.0.0'
 gem 'rails_12factor', group: :production
@@ -30,8 +30,8 @@ gem 'jquery-rails', '~> 4.5.0'
 gem 'jquery-ui-rails', '~> 6.0.1'
 gem 'kaminari', '~> 1.2.2'
 gem 'momentjs-rails', '>= 2.8.1'
-gem 'paper_trail', '~> 11'
-gem 'paper_trail-association_tracking', '~> 2.1.0'
+gem 'paper_trail', '~> 12'
+gem 'paper_trail-association_tracking', '~> 2.2.0'
 gem 'pg_search', '~> 2.3.6'
 gem 'pundit', '~> 2.2.0'
 gem 'ransack', '~> 3.0.1'
@@ -41,6 +41,8 @@ gem 'sassc', '~> 2.0.0' # Breaks above this version.
 gem 'select2-rails', '~> 4.0.3'
 gem 'simple_form', '~> 5.1.0'
 gem 'slim', '~> 4.1.0'
+gem 'sprockets', '~> 4'
+gem 'sprockets-rails', require: 'sprockets/railtie'
 gem 'sshkit', '~> 1.21.0'
 gem 'therubyracer', require: 'v8'
 gem 'yaml_db', '~> 0.7.0'
@@ -58,6 +60,8 @@ gem 'stackprof' # ruby 2.1+ only
 
 group :development do
   gem 'annotate'
+  gem 'listen'
+  gem 'next_rails'
   gem 'rb-fsevent' # , '~> 0.9.1'
 end
 

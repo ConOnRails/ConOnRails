@@ -29,6 +29,7 @@ class LostAndFoundItemTest < ActiveSupport::TestCase
     @returned = FactoryBot.build :returned
   end
 
+  should belong_to :user
   should validate_presence_of :category
   should validate_presence_of :description
 

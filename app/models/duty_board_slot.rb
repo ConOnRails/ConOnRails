@@ -22,6 +22,5 @@ class DutyBoardSlot < ApplicationRecord
   has_one :duty_board_assignment, dependent: :destroy
   accepts_nested_attributes_for :duty_board_assignment
 
-  validates :name, presence: true
-  validates :name, uniqueness: true
+  validates :name, presence: true, uniqueness: true
 end
