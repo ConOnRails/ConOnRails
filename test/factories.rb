@@ -16,18 +16,17 @@ FactoryBot.define do
   end
 
   factory :department do
+    association :radio_group, factory: :blue_man_group
+    association :volunteer, factory: :valid_volunteer
+
     factory :good_department do
       sequence(:name) { Faker::Name.name }
       radio_allotment { 1 }
-      association :radio_group, factory: :blue_man_group
-      association :volunteer, factory: :valid_volunteer
     end
 
     factory :one_too_many do
       name { 'Doom' }
       radio_allotment { 1 } # but the blue_man group only has one, so if this and good_department are defined, the second should fail
-      association :radio_group, factory: :blue_man_group
-      association :volunteer, factory: :valid_volunteer
     end
   end
 
@@ -50,7 +49,7 @@ FactoryBot.define do
   factory :duty_board_slot do
     factory :valid_duty_board_slot do
       name { Faker::Name.name }
-      association :duty_board_group, factory: :valid_duty_board_group, strategy: :create
+      association :duty_board_group, factory: :valid_duty_board_group
     end
   end
 
@@ -108,6 +107,7 @@ FactoryBot.define do
 
   factory :lost_and_found_item do
     factory :incomplete
+    association :user
 
     factory :lost do
       reported_missing { true }
@@ -176,7 +176,7 @@ FactoryBot.define do
 
     factory :valid_blue_radio do
       sequence(:number) { |n| n }
-      association :radio_group, factory: :blue_man_group, strategy: :create
+      association :radio_group, factory: :blue_man_group
     end
     factory :one_of_many_blue_radios do
       sequence :number do |n|
@@ -345,7 +345,10 @@ FactoryBot.define do
       address1 { '666 Sixth Street SE' }
       home_phone { '+1 666-666-6666' }
       sequence(:email) { Faker::Internet.email }
-      association :volunteer_training, factory: :valid_volunteer_training
+
+      after :create do |vol, _evaluator|
+        create :valid_volunteer_training, volunteer: vol
+      end
     end
 
     factory :many_valid_volunteers do
@@ -362,11 +365,12 @@ FactoryBot.define do
       sequence :email do |n|
         "yak#{n}@yak.yk"
       end
-      association :volunteer_training, factory: :valid_volunteer_training
     end
   end
 
   factory :volunteer_training do
+    association :volunteer
+
     factory :valid_volunteer_training do
       radio { true }
       communications { true }

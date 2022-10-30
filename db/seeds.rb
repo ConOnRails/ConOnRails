@@ -164,6 +164,7 @@ when 'development'
   create_events user: user, old: true
 
   LostAndFoundItem.create!(
+    user: user,
     category: 'Badges',
     reported_missing: true,
     where_last_seen: 'Wombatland',

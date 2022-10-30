@@ -5,6 +5,7 @@ require 'test_helper'
 class DepartmentsControllerTest < ActionController::TestCase
   setup do
     @department = FactoryBot.build :department
+    @volunteer  = FactoryBot.create :valid_volunteer
     @valid_department = FactoryBot.build :good_department
     @group = FactoryBot.create :blue_man_group
     @user = FactoryBot.create :user
@@ -27,7 +28,9 @@ class DepartmentsControllerTest < ActionController::TestCase
   test 'should create department' do
     assert_difference('Department.count') do
       post :create, params: { department: FactoryBot.attributes_for(:good_department,
-                                                                    radio_group_id: @group.id) }, session: @user_session
+                                                                    volunteer_id: @volunteer.id,
+                                                                    radio_group_id: @group.id) },
+                    session: @user_session
     end
 
     assert_redirected_to department_path(assigns(:department))
