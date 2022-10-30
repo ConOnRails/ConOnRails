@@ -451,6 +451,8 @@ DEPENDENCIES
   simplecov
   simplecov-html
   slim (~> 4.1.0)
+  sprockets (~> 4)
+  sprockets-rails
   sshkit (~> 1.21.0)
   stackprof
   therubyracer

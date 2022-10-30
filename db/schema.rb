@@ -339,9 +339,7 @@ ActiveRecord::Schema.define(version: 2022_10_23_200313) do
     t.datetime "created_at"
     t.text "object_changes"
     t.string "item_subtype"
-    t.integer "transaction_id"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
-    t.index ["transaction_id"], name: "index_versions_on_transaction_id"
   end
 
   create_table "volunteer_trainings", id: :serial, force: :cascade do |t|

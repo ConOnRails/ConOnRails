@@ -41,6 +41,8 @@ gem 'sassc', '~> 2.0.0' # Breaks above this version.
 gem 'select2-rails', '~> 4.0.3'
 gem 'simple_form', '~> 5.1.0'
 gem 'slim', '~> 4.1.0'
+gem 'sprockets', '~> 4'
+gem 'sprockets-rails', require: 'sprockets/railtie'
 gem 'sshkit', '~> 1.21.0'
 gem 'therubyracer', require: 'v8'
 gem 'yaml_db', '~> 0.7.0'
