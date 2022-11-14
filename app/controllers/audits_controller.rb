@@ -46,4 +46,3 @@ class AuditsController < ApplicationController
     types
   end
 end
-

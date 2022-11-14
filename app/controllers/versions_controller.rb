@@ -45,4 +45,3 @@ class VersionsController < ApplicationController
     types
   end
 end
-
