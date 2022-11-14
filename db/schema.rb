@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_23_200313) do
+ActiveRecord::Schema.define(version: 2022_11_01_013706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -287,10 +287,10 @@ ActiveRecord::Schema.define(version: 2022_10_23_200313) do
 
   create_table "taggings", id: :serial, force: :cascade do |t|
     t.integer "tag_id"
-    t.integer "taggable_id"
     t.string "taggable_type"
-    t.integer "tagger_id"
+    t.integer "taggable_id"
     t.string "tagger_type"
+    t.integer "tagger_id"
     t.string "context", limit: 128
     t.datetime "created_at"
     t.string "tenant", limit: 128
@@ -339,7 +339,9 @@ ActiveRecord::Schema.define(version: 2022_10_23_200313) do
     t.datetime "created_at"
     t.text "object_changes"
     t.string "item_subtype"
+    t.integer "transaction_id"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
+    t.index ["transaction_id"], name: "index_versions_on_transaction_id"
   end
 
   create_table "volunteer_trainings", id: :serial, force: :cascade do |t|
