@@ -45,7 +45,7 @@ class DutyBoardSlotsController < ApplicationController
     @duty_board_slot = DutyBoardSlot.new duty_board_slot_params
     authorize @duty_board_slot
 
-    flash[:notice] = 'Duty board slot was successfully created.' if @duty_board_slot.save
+    flash.now[:notice] = 'Duty board slot was successfully created.' if @duty_board_slot.save
     respond_with @duty_board_slot, location: :duty_board_slots
   end
 
@@ -55,22 +55,10 @@ class DutyBoardSlotsController < ApplicationController
     @duty_board_slot = DutyBoardSlot.find(params[:id])
     authorize @duty_board_slot
 
-    @duty_board_slot.update duty_board_slot_params
-    respond_with @duty_board_slot, location: :duty_board_slots do |_format|
-      # if @duty_board_slot.update duty_board_slot_params
-      #           if params[:duty_board_assignment]
-      #           if @duty_board_slot.duty_board_assignment
-      #             @duty_board_slot.duty_board_assignment
-      #                             .update_attributes duty_board_assignment_params
-      #           else
-      #             @duty_board_slot.build_duty_board_assignment duty_board_assignment_params
-      #             @duty_board_slot.save!
-      #           end
-      # else
-      # end
-      # end
-      flash[:notice] = 'Duty board slot was successfully updated'
+    if @duty_board_slot.update duty_board_slot_params
+      flash.now[:notice] = 'Duty board slot updated successfully'
     end
+    respond_with @duty_board_slot, location: duty_board_slots_path
   end
 
   # POST /duty_board_slots/1/clear_assignment

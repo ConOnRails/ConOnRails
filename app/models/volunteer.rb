@@ -33,7 +33,7 @@ class Volunteer < ApplicationRecord
   has_one :volunteer_training, dependent: :destroy, autosave: true
   has_many :radio_assignments, dependent: :destroy
   has_many :radios, through: :radio_assignments
-  belongs_to :user
+  belongs_to :user, optional: true
 
   validates :first_name, presence: true
   validates :last_name, presence: true

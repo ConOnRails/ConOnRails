@@ -8,11 +8,7 @@ class UsersController < ApplicationController
 
   def index; end
   def show; end
-  def edit; end
-  def change_password; end
 
-  # GET /users/new
-  # GET /users/new.json
   def new
     @user = User.new
     authorize @user
@@ -21,9 +17,15 @@ class UsersController < ApplicationController
     @user.realname = params[:realname] if params[:realname]
   end
 
+  def change_password; end
+
+  # GET /users/new
+  # GET /users/new.json
+  def edit; end
+
   # POST /admin/users
   # POST /admin/users.json
-  def create
+  def create # rubocop:disable Metrics/AbcSize
     # user_params = params[:user].reject { |k, v| k == 'volunteer' }
     @volunteer = Volunteer.find_by(id: params[:user][:volunteer])
     @user = @volunteer&.build_user(user_params) || User.new(user_params)
@@ -32,7 +34,7 @@ class UsersController < ApplicationController
     @user.save
     @volunteer&.save
 
-    flash[:notice] = "User #{@user.username} was successfully created." if @user.persisted?
+    flash.now[:notice] = "User #{@user.username} was successfully created." if @user.persisted?
     respond_with @user
   end
 
@@ -40,7 +42,7 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     if @user.update(user_params) && update_volunteer
-      flash[:notice] = "User #{@user.username} was successfully updated."
+      flash.now[:notice] = "User #{@user.username} was successfully updated."
     end
 
     respond_with @user, location: update_success_path

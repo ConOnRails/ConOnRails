@@ -16,18 +16,17 @@ FactoryBot.define do
   end
 
   factory :department do
+    association :radio_group, factory: :blue_man_group
+    association :volunteer, factory: :valid_volunteer
+
     factory :good_department do
       sequence(:name) { Faker::Name.name }
       radio_allotment { 1 }
-      association :radio_group, factory: :blue_man_group
-      association :volunteer, factory: :valid_volunteer
     end
 
     factory :one_too_many do
       name { 'Doom' }
       radio_allotment { 1 } # but the blue_man group only has one, so if this and good_department are defined, the second should fail
-      association :radio_group, factory: :blue_man_group
-      association :volunteer, factory: :valid_volunteer
     end
   end
 
@@ -108,6 +107,7 @@ FactoryBot.define do
 
   factory :lost_and_found_item do
     factory :incomplete
+    association :user
 
     factory :lost do
       reported_missing { true }
@@ -192,9 +192,9 @@ FactoryBot.define do
 
   factory :radio_assignment do
     factory :valid_radio_assignment do
-      association :radio, factory: :valid_blue_radio
-      association :volunteer, factory: :valid_volunteer
-      association :department, factory: :good_department
+      association :radio, factory: :valid_blue_radio, strategy: :create
+      association :volunteer, factory: :valid_volunteer, strategy: :create
+      association :department, factory: :good_department, strategy: :create
     end
   end
 
@@ -339,13 +339,16 @@ FactoryBot.define do
 
   factory :volunteer do
     factory :valid_volunteer do
-      first_name { 'Rufus' }
-      middle_name { 'Xavier' }
-      last_name { 'Sassparilla' }
+      sequence(:first_name) { Faker::Name.first_name }
+      sequence(:middle_name) { Faker::Name.middle_name }
+      sequence(:last_name) { Faker::Name.last_name }
       address1 { '666 Sixth Street SE' }
       home_phone { '+1 666-666-6666' }
-      email { 'rxs@rxs.nowhere' }
-      association :volunteer_training, factory: :valid_volunteer_training
+      sequence(:email) { Faker::Internet.email }
+
+      after :create do |vol, _evaluator|
+        create :valid_volunteer_training, volunteer: vol
+      end
     end
 
     factory :many_valid_volunteers do
@@ -362,11 +365,12 @@ FactoryBot.define do
       sequence :email do |n|
         "yak#{n}@yak.yk"
       end
-      association :volunteer_training, factory: :valid_volunteer_training
     end
   end
 
   factory :volunteer_training do
+    association :volunteer
+
     factory :valid_volunteer_training do
       radio { true }
       communications { true }

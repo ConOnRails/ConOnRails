@@ -9,26 +9,30 @@ class ConventionsController < ApplicationController
 
   def index; end
   def show; end
-  def edit; end
 
-  # GET /conventions/new
-  # GET /conventions/new.json
   def new
     @convention = Convention.new
     authorize @convention
   end
 
+  # GET /conventions/new
+  # GET /conventions/new.json
+  def edit; end
+
   # POST /conventions
   # POST /conventions.json
   def create
-    flash[:notice] = 'Convention was successfully created.' if @convention.save
+    flash.now[:notice] = 'Convention was successfully created.' if @convention.save
     respond_with @convention, location: :conventions
   end
 
   # PUT /conventions/1
   # PUT /conventions/1.json
   def update
-    flash[:notice] = 'Convention was successfully updated.' if @convention.update convention_params
+    if @convention.update convention_params
+      flash.now[:notice] =
+        'Convention was successfully updated.'
+    end
     respond_with @convention, location: :conventions
   end
 

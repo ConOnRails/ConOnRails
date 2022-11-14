@@ -4,8 +4,6 @@ require('test_helper')
 
 class RadiosControllerTest < ActionController::TestCase
   setup do
-    FactoryBot.use_parent_strategy = false
-    @assignment = FactoryBot.build(:valid_radio_assignment)
     @radio = FactoryBot.build(:valid_blue_radio)
     @user  = FactoryBot.create(:user)
     @role  = FactoryBot.create(:admin_radios_role)
@@ -13,6 +11,7 @@ class RadiosControllerTest < ActionController::TestCase
     @user.roles << @role
     @user_session = { user_id: @user.id, current_role_name: @role.name }
     @volunteer = FactoryBot.create(:valid_volunteer)
+    @blue = FactoryBot.create(:blue_man_group)
   end
 
   test 'should get index' do
@@ -29,8 +28,7 @@ class RadiosControllerTest < ActionController::TestCase
   test 'should create radio' do
     assert_difference('Radio.count') do
       post :create,
-           params: { radio: FactoryBot.attributes_for(:valid_blue_radio)
-                                      .merge(radio_group_id: 1) },
+           params: { radio: FactoryBot.attributes_for(:valid_blue_radio, radio_group_id: @blue.id) },
            session: @user_session
     end
 

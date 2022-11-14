@@ -22,9 +22,6 @@ class RadioAssignmentAudit < ApplicationRecord
   belongs_to :volunteer
   belongs_to :department
   belongs_to :user
-  validates :radio, presence: true
-  validates :department, presence: true
-  validates :user, presence: true
 
   def self.audit_checkin(radio_assignment, user)
     RadioAssignmentAudit.new_record radio_assignment, user, :in

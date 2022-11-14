@@ -5,15 +5,15 @@
 # Table name: volunteer_trainings
 #
 #  id             :integer          not null, primary key
-#  communications :boolean          default("false")
-#  dispatch       :boolean          default("false")
-#  first_contact  :boolean          default("false")
-#  ops_basics     :boolean          default("false")
-#  ops_head       :boolean          default("false")
-#  ops_subhead    :boolean          default("false")
-#  radio          :boolean          default("false")
-#  wandering_host :boolean          default("false")
-#  xo             :boolean          default("false")
+#  communications :boolean          default(FALSE)
+#  dispatch       :boolean          default(FALSE)
+#  first_contact  :boolean          default(FALSE)
+#  ops_basics     :boolean          default(FALSE)
+#  ops_head       :boolean          default(FALSE)
+#  ops_subhead    :boolean          default(FALSE)
+#  radio          :boolean          default(FALSE)
+#  wandering_host :boolean          default(FALSE)
+#  xo             :boolean          default(FALSE)
 #  created_at     :datetime
 #  updated_at     :datetime
 #  volunteer_id   :integer
@@ -22,7 +22,5 @@
 require 'test_helper'
 
 class VolunteerTrainingTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  should belong_to(:volunteer).optional false
 end

@@ -18,7 +18,6 @@ require 'test_helper'
 
 class RadioAssignmentAuditTest < ActiveSupport::TestCase
   setup do
-    FactoryBot.use_parent_strategy = false
     @assignment = FactoryBot.build :valid_radio_assignment
     @user = FactoryBot.create :user
   end

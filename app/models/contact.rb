@@ -5,7 +5,7 @@
 # Table name: contacts
 #
 #  id         :integer          not null, primary key
-#  can_text   :boolean          default("false")
+#  can_text   :boolean          default(FALSE)
 #  cell_phone :string
 #  department :string
 #  hotel      :string

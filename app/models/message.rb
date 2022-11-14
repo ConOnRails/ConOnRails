@@ -7,7 +7,7 @@
 #  id           :integer          not null, primary key
 #  for          :string
 #  hotel        :string
-#  is_active    :boolean          default("true")
+#  is_active    :boolean          default(TRUE)
 #  message      :text
 #  phone_number :string
 #  room_number  :string
@@ -22,7 +22,7 @@ class Message < ApplicationRecord
   paginates_per 10
 
   belongs_to :user
-  validates :for, :message, :user, presence: true
+  validates :for, :message, presence: true
   validates :phone_number,  format: { allow_blank: true,
                                       message: 'must be a valid telephone number.',
                                       with: /\A[()0-9\- +.]{10,20}\z/ }

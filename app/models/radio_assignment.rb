@@ -21,8 +21,8 @@ class DepartmentAllotmentChecker < ActiveModel::Validator
     if record.department.present? &&
        RadioAssignment.department_count(record.department_id) + 1 >
        record.department.radio_allotment
-      record.errors[:department] << "All of this department's radios are allotted"
-      record.errors[:radio] << "All of this department's radios are allotted"
+      record.errors.add(:department, "All of this department's radios are allotted")
+      record.errors.add(:radio, "All of this department's radios are allotted")
     end
   end
 end
@@ -34,15 +34,12 @@ class RadioAssignment < ApplicationRecord
   belongs_to :volunteer
   belongs_to :department
 
-  validates :radio, presence: true
   validates :radio_id, uniqueness: true
-  validates :volunteer, presence: true
   validates :volunteer_id, uniqueness: true,
                            unless: lambda { |x|
                              x.volunteer.present? &&
                                x.volunteer.can_have_multiple_radios?
                            }
-  validates :department, presence: true
   validates_with DepartmentAllotmentChecker, message: "All of this department's radios are allotted"
 
   def self.department_count(dept_id)

@@ -13,17 +13,17 @@ class DutyBoardGroupsController < ApplicationController
     authorize @duty_board_group
   end
 
+  def edit
+    @duty_board_group = DutyBoardGroup.find params[:id]
+    authorize @duty_board_group
+  end
+
   def create
     @duty_board_group = DutyBoardGroup.new duty_board_group_params
     authorize @duty_board_group
 
-    flash[:notice] = 'Duty board group created successfully' if @duty_board_group.save
+    flash.now[:notice] = 'Duty board group created successfully' if @duty_board_group.save
     respond_with @duty_board_group, location: duty_board_groups_path
-  end
-
-  def edit
-    @duty_board_group = DutyBoardGroup.find params[:id]
-    authorize @duty_board_group
   end
 
   def update
@@ -31,7 +31,7 @@ class DutyBoardGroupsController < ApplicationController
     authorize @duty_board_group
 
     if @duty_board_group.update duty_board_group_params
-      flash[:notice] =
+      flash.now[:notice] =
         'Duty board group updated successfully'
     end
     respond_with @duty_board_group, location: duty_board_groups_path

@@ -10,12 +10,12 @@
 #  consuite                    :boolean
 #  dealers                     :boolean
 #  dock                        :boolean
-#  emergency                   :boolean          default("false")
+#  emergency                   :boolean          default(FALSE)
 #  first_advisors              :boolean
-#  hidden                      :boolean          default("false")
+#  hidden                      :boolean          default(FALSE)
 #  hotel                       :boolean
-#  is_active                   :boolean          default("true")
-#  medical                     :boolean          default("false")
+#  is_active                   :boolean          default(TRUE)
+#  medical                     :boolean          default(FALSE)
 #  member_advocates            :boolean
 #  merchandise                 :boolean
 #  merged                      :boolean
@@ -23,12 +23,12 @@
 #  nerf_herders                :boolean
 #  operations                  :boolean
 #  parties                     :boolean
-#  post_con                    :boolean          default("false")
+#  post_con                    :boolean          default(FALSE)
 #  programming                 :boolean
 #  registration                :boolean
-#  secure                      :boolean          default("false")
-#  smokers_paradise            :boolean          default("false")
-#  sticky                      :boolean          default("false")
+#  secure                      :boolean          default(FALSE)
+#  smokers_paradise            :boolean          default(FALSE)
+#  sticky                      :boolean          default(FALSE)
 #  volunteers                  :boolean
 #  volunteers_den              :boolean
 #  created_at                  :datetime
@@ -79,8 +79,7 @@ class Event < ApplicationRecord
                                       }
 
   scope :protect_sensitive_events, lambda { |user|
-    query = Event.all
-    query = query.where(hidden: false) unless user_can_see_hidden(user)
+    query = where(hidden: false) unless user_can_see_hidden(user)
     query = query.where(secure: false) unless user_can_rw_secure(user)
     query
   }
@@ -178,7 +177,7 @@ class Event < ApplicationRecord
 
   # NOTE: always returns FALSE for NIL
   def flags
-    FLAGS.each_with_object(HashWithIndifferentAccess.new) do |flag, map|
+    FLAGS.each_with_object(ActiveSupport::HashWithIndifferentAccess.new) do |flag, map|
       map[flag.to_sym] = (send(flag).presence || false)
     end
   end
@@ -203,7 +202,7 @@ class Event < ApplicationRecord
   end
 
   def self.flags_union(ours, theirs)
-    FLAGS.each_with_object(HashWithIndifferentAccess.new) do |flag, map|
+    FLAGS.each_with_object(ActiveSupport::HashWithIndifferentAccess.new) do |flag, map|
       map[flag.to_sym] = ours[flag] | theirs[flag]
     end
   end

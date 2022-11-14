@@ -3,7 +3,7 @@ require:
   - rubocop-minitest
 
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 2.7
   AutoCorrect: true
   NewCops: enable
   Exclude:
@@ -31,4 +31,10 @@ Style/Documentation:
   Enabled: false
 
 Minitest/MultipleAssertions:
+  Enabled: false
+
+Rails/ActionControllerTestCase:
+  Enabled: false
+
+Rails/I18nLocaleTexts:
   Enabled: false
