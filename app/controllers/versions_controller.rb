@@ -21,27 +21,28 @@ class VersionsController < ApplicationController
     @versions = policy_scope(Version).where(w).page(params[:page])
     authorize @versions
   end
-end
 
-def start_date
-  if params[:use_start_date]
-    make_date(params[:start_date])
-  else
-    Time.zone.now.years_ago(3)
+  def start_date
+    if params[:use_start_date]
+      make_date(params[:start_date])
+    else
+      Time.zone.now.years_ago(3)
+    end
+  end
+
+  def end_date
+    if params[:use_end_date]
+      make_date(params[:end_date])
+    else
+      Time.zone.now.years_since(3)
+    end
+  end
+
+  def types
+    types = []
+    types << %w[Event Entry] if params[:events]
+    types << 'LostAndFoundItem' if params[:lfi]
+    types
   end
 end
 
-def end_date
-  if params[:use_end_date]
-    make_date(params[:end_date])
-  else
-    Time.zone.now.years_since(3)
-  end
-end
-
-def types
-  types = []
-  types << %w[Event Entry] if params[:events]
-  types << 'LostAndFoundItem' if params[:lfi]
-  types
-end
