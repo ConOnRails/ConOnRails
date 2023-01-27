@@ -175,6 +175,7 @@ when 'development'
   )
 
   LostAndFoundItem.create!(
+    user: user,
     category: 'Weapons/Props',
     found: true,
     where_found: 'Atrium 42',

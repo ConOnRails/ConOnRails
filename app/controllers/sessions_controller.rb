@@ -68,12 +68,12 @@ class SessionsController < ApplicationController
     end
     session[:user_id] = user.id
     session[:current_role_name] = params[:role]
-    LoginLog.create! user_name: user.username, role_name: params[:role], comment: :success, ip: ip
+    LoginLog.create! user_name: user.username, role_name: params[:role], comment: :success, ip:
   end
 
   def log_failure
     LoginLog.create! user_name: params[:username], role_name: params[:role], comment: :failure,
-                     ip: ip
+                     ip:
   end
 
   def sanitize_flags(flags)

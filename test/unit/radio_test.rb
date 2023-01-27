@@ -44,6 +44,7 @@ class RadioTest < ActiveSupport::TestCase
 
   test 'can break out assigned and unassigned' do
     @blue_radios.each(&:save!)
+
     assert_equal 2, Radio.assigned.count
     assert_equal 8, Radio.unassigned.count
   end

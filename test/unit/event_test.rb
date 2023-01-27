@@ -91,13 +91,16 @@ class EventTest < ActiveSupport::TestCase
     should 'have correct textual status' do
       assert_equal 'Active', @event.status
       @event.is_active = false
+
       assert_equal 'Closed', @event.status
     end
 
     should 'set textual status and get right flags' do
       @event.status = 'Closed'
+
       assert_not @event.is_active?
       @event.status = 'Active'
+
       assert_predicate @event, :is_active?
     end
 
@@ -109,8 +112,10 @@ class EventTest < ActiveSupport::TestCase
 
     should 'detect flag changes' do
       params = { hidden: 'true', secure: 'false' }
+
       assert @event.flags_differ? params
       params = { hidden: 'false' }
+
       assert_not @event.flags_differ?(params)
     end
 
@@ -118,6 +123,7 @@ class EventTest < ActiveSupport::TestCase
       # For now, tags are just flags represented as an array of symbols,
       # until we convert flags to tags!
       @event.medical = true
+
       assert_includes @event.tags, 'medical'
     end
 

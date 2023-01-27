@@ -16,12 +16,14 @@ class RadiosControllerTest < ActionController::TestCase
 
   test 'should get index' do
     get :index, session: @user_session
+
     assert_response :success
     assert_not_nil assigns(:radios)
   end
 
   test 'should get new' do
     get :new, session: @user_session
+
     assert_response :success
   end
 
@@ -38,12 +40,14 @@ class RadiosControllerTest < ActionController::TestCase
   test 'should show radio' do
     @radio.save!
     get :show, params: { id: @radio.to_param }, session: @user_session
+
     assert_response :success
   end
 
   test 'should get edit' do
     @radio.save!
     get :edit, params: { id: @radio.to_param }, session: @user_session
+
     assert_response :success
   end
 
@@ -55,6 +59,7 @@ class RadiosControllerTest < ActionController::TestCase
           radio: { notes: Faker::Lorem.paragraph }
         },
         session: @user_session
+
     assert_redirected_to radios_path
   end
 
@@ -70,6 +75,7 @@ class RadiosControllerTest < ActionController::TestCase
   test 'should get checkout form' do
     @radio.save!
     get :checkout, params: { id: @radio.to_param }, session: @user_session
+
     assert_response :success
   end
 
@@ -83,6 +89,7 @@ class RadiosControllerTest < ActionController::TestCase
            radio: @radio.to_param
          },
          session: @user_session
+
     assert_response :success
   end
 
@@ -96,6 +103,7 @@ class RadiosControllerTest < ActionController::TestCase
            radio: @radio.to_param
          },
          session: @user_session
+
     assert_response :success
   end
 
@@ -108,6 +116,7 @@ class RadiosControllerTest < ActionController::TestCase
           volunteer: @volunteer.to_param
         },
         session: @user_session
+
     assert_response :success
   end
 end

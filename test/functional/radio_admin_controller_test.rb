@@ -10,6 +10,7 @@ class RadioAdminControllerTest < ActionController::TestCase
   end
   test 'should get index' do
     get :index, session: { user_id: @user.id }
+
     assert_response :success
   end
 end

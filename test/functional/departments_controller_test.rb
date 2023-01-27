@@ -16,12 +16,14 @@ class DepartmentsControllerTest < ActionController::TestCase
 
   test 'should get index' do
     get :index, session: @user_session
+
     assert_response :success
     assert_not_nil assigns(:departments)
   end
 
   test 'should get new' do
     get :new, session: @user_session
+
     assert_response :success
   end
 
@@ -39,12 +41,14 @@ class DepartmentsControllerTest < ActionController::TestCase
   test 'should show department' do
     @valid_department.save!
     get :show, params: { id: @valid_department.to_param }, session: @user_session
+
     assert_response :success
   end
 
   test 'should get edit' do
     @valid_department.save!
     get :edit, params: { id: @valid_department.to_param }, session: @user_session
+
     assert_response :success
   end
 
@@ -52,6 +56,7 @@ class DepartmentsControllerTest < ActionController::TestCase
     @valid_department.save!
     put :update, params: { id: @valid_department.to_param,
                            department: FactoryBot.attributes_for(:good_department) }, session: @user_session
+
     assert_redirected_to department_path(assigns(:department))
   end
 

@@ -100,11 +100,13 @@ class UserTest < ActiveSupport::TestCase
 
   test 'can authenticate user' do
     user = User.create!(@input_attributes)
+
     assert user.authenticate good_password
   end
 
   test "wrong passwords don't authenticate" do
     user = User.create!(@input_attributes)
+
     assert_not(user.authenticate(short_password))
   end
 

@@ -20,30 +20,34 @@ module ActiveSupport
     # -- they do not yet inherit this setting
     # fixtures :all
 
-    self.use_transactional_tests = false
-    DatabaseCleaner.strategy = :transaction
+    # self.use_transactional_tests = false
+    DatabaseCleaner.strategy = :deletion
 
-    setup do
-      DatabaseCleaner.start
-    end
+    # setup do
+    #  DatabaseCleaner.start
+    # end
 
-    teardown do
-      DatabaseCleaner.clean
-    end
-
+    # teardown do
+    #   DatabaseCleaner.clean
+    # end
+   
     # Add more helper methods to be used by all tests here...
     def root_not_logged_in?
       get root_url
+
       assert_redirected_to public_url
       follow_redirect!
+
       assert_response :success
       assert_template 'sessions/new'
     end
 
     def log_in(login_params)
       post sessions_url, params: login_params
+
       assert_redirected_to root_url
       follow_redirect!
+
       assert_response :success
       assert_template 'events/index'
     end
@@ -75,19 +79,19 @@ module ActiveSupport
       sign_in FactoryBot.create(:user), FactoryBot.create(:role)
     end
 
-    def self.multiple_contexts(*contexts, &blk)
+    def self.multiple_contexts(*contexts, &)
       contexts.each do |context|
-        user_context context, &blk
+        user_context(context, &)
       end
     end
 
-    def self.user_context(context, &blk)
+    def self.user_context(context, &)
       context "as #{context}" do
         setup do
           send context if respond_to? context
         end
 
-        merge_block(&blk)
+        merge_block(&)
       end
     end
   end
