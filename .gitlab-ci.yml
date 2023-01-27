@@ -26,6 +26,7 @@ variables:
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: $POSTGRES_PASSWORD
   POSTGRES_HOST_AUTH_METHOD: trust
+  DB_HOST: postgres
 
 # Cache gems in between builds
 cache:
