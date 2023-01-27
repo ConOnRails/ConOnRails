@@ -30,6 +30,7 @@ class RadioAssignmentsControllerTest < ActionController::TestCase
              session: @user_session
       end
     end
+
     assert_equal 'out', assigns(:radio_assignment).radio.state
     assert_response :ok
   end
@@ -44,6 +45,7 @@ class RadioAssignmentsControllerTest < ActionController::TestCase
         delete :destroy, params: { id: @radio_assignment.to_param }, session: @user_session
       end
     end
+
     assert_equal 'in', Radio.find_by(id: radio_id).state
     assert_redirected_to radios_path
   end

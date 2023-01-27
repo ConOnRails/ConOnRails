@@ -29,6 +29,7 @@ class RolesUsersTest < ActiveSupport::TestCase
 
   test 'can associate user with role' do
     @user1.roles << @role1
+
     assert_equal 1, @user1.roles.count
     assert_equal 1, @role1.users.count
   end
@@ -36,6 +37,7 @@ class RolesUsersTest < ActiveSupport::TestCase
   test 'can associate multiple roles with user' do
     @user1.roles << @role1
     @user1.roles << @role2
+
     assert_equal 2, @user1.roles.count
     assert_equal 1, @role1.users.count
     assert_equal 1, @role2.users.count
@@ -44,6 +46,7 @@ class RolesUsersTest < ActiveSupport::TestCase
   test 'can associate multiple users with role' do
     @user1.roles << @role1
     @user2.roles << @role1
+
     assert_equal 2, @role1.users.count
     assert_equal 1, @user1.roles.count
     assert_equal 1, @user2.roles.count
@@ -51,11 +54,13 @@ class RolesUsersTest < ActiveSupport::TestCase
 
   test 'can find write_entries permission in user roles' do
     setup_roles
+
     assert_predicate @user1, :write_entries?
   end
 
   test 'can find absence of write_entries permission in user roles' do
     setup_roles
+
     assert_not @user2.write_entries?
   end
 end

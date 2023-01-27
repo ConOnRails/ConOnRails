@@ -12,6 +12,7 @@ class LoginLogControllerTest < ActionController::TestCase
 
   test 'should get index' do
     get :index, session: @user_session
+
     assert_response :success
   end
 end

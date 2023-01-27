@@ -15,11 +15,13 @@ class AdminControllerTest < ActionController::TestCase
 
   test 'admin user should get index' do
     get :index, session: { user_id: @user.id }
+
     assert_response :success
   end
 
   test 'peon user should not get index' do
     get :index, session: { user_id: @peon_user.id }
+
     assert_redirected_to root_url
   end
 end

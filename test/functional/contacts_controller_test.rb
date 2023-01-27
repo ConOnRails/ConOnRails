@@ -15,28 +15,32 @@ class ContactsControllerTest < ActionController::TestCase
 
   def get_index_success(session)
     get :index, session: session
+
     assert_response :success
     assert_not_nil assigns(:contacts)
   end
 
   def get_index_fail(session)
     get :index, session: session
+
     assert_redirected_to session.nil? ? :public : :root
   end
 
   def get_new_success(session)
     get :new, session: session
+
     assert_response :success
   end
 
   def get_new_fail(session)
     get :new, session: session
+
     assert_redirected_to :root
   end
 
   def create_contact_success(session)
     assert_difference('Contact.count') do
-      post :create, params: { contact: FactoryBot.attributes_for(:valid_contact) }, session: session
+      post :create, params: { contact: FactoryBot.attributes_for(:valid_contact) }, session:
     end
 
     assert_redirected_to contacts_path
@@ -44,52 +48,61 @@ class ContactsControllerTest < ActionController::TestCase
 
   def create_contact_auth_fail(session)
     assert_no_difference 'Contact.count' do
-      post :create, params: { contact: @contact.attributes }, session: session
+      post :create, params: { contact: @contact.attributes }, session:
     end
+
     assert_redirected_to :root
   end
 
   def create_contact_content_fail(session)
     assert_no_difference 'Contact.count' do
-      post :create, params: { contact: { name: '' } }, session: session
+      post :create, params: { contact: { name: '' } }, session:
     end
+
     assert_template :new
   end
 
   def show_item_success(session)
     get :show, params: { id: @contact.to_param }, session: session
+
     assert_response :success
   end
 
   def show_item_fail(session)
     get :show, params: { id: @contact.to_param }, session: session
+
     assert_redirected_to session.nil? ? :public : :root
   end
 
   def edit_item_success(session)
     get :edit, params: { id: @contact.to_param }, session: session
+
     assert_response :success
   end
 
   def edit_item_fail(session)
     get :edit, params: { id: @contact.to_param }, session: session
+
     assert_redirected_to :root
   end
 
   def update_contact_success(session)
     put :update, params: { id: @contact.to_param,
                            contact: FactoryBot.attributes_for(:valid_contact) }, session: session
+
     assert_redirected_to contacts_path
   end
 
   def update_contact_auth_fail(session)
     put :update, params: { id: @contact.to_param, contact: { name: 'Doom' } }, session: session
+
     assert_redirected_to :root
   end
 
   def update_contact_content_fail(session)
     put :update, params: { id: @contact.to_param,
                            contact: { cell_phone: 'Doom' } }, session: session
+
     assert_predicate assigns(:contact), :invalid?
     assert_template :edit
   end

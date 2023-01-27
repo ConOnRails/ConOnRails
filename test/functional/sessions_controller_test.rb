@@ -12,22 +12,26 @@ class SessionsControllerTest < ActionController::TestCase
 
   test 'should get new' do
     get :new
+
     assert_response :success
   end
 
   test 'should have the right title' do
     get :new
+
     assert_select 'title', 'Con On Rails | Mr X., Sign in please!'
   end
 
   test 'anon cannot create session' do
     get :create
+
     assert_not_nil flash[:notice]
     assert_redirected_to :root
   end
 
   test 'user can create session' do
     get :create, params: { username: @user.username, password: @user.password, role: @role.name }
+
     assert_equal 'Logged in!', flash[:notice]
     assert_equal @user.id, session[:user_id]
     assert_redirected_to :root
@@ -35,14 +39,17 @@ class SessionsControllerTest < ActionController::TestCase
 
   test 'can destroy session' do
     get :create, params: { username: @user.username, password: @user.password, role: @role.name }
+
     assert_equal @user.id, session[:user_id]
     get :destroy, session: { user_id: @user.id }
+
     assert_nil session[:user_id]
     assert_redirected_to :root
   end
 
   test 'can get roles for a given username' do
     get :getroles, xhr: true, format: :js, params: { username: @user.username }
+
     assert_not_nil assigns :rolenames
     assert_equal @role.name, assigns(:rolenames)[0]
   end

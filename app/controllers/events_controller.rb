@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require Rails.root.join 'app/queries/event_queries'
+# require Rails.root.join 'app/queries/event_queries'
 
 # rubocop:disable Metrics/ClassLength
 class EventsController < ApplicationController
-  include Queries::EventQueries
+  include EventQueries
 
   before_action :set_event, only: %i[show edit update]
   before_action :find_tagged_events, only: [:tag]
@@ -171,19 +171,19 @@ class EventsController < ApplicationController
   protected
 
   def build_new_entry(event)
-    event.entries.build event: event, user: current_user, rolename: current_role_name
+    event.entries.build event:, user: current_user, rolename: current_role_name
   end
 
   def build_entry_from_params(event, params)
     return unless params && (params[:description] != '')
 
-    event.entries.build(params.merge(event: event, user: current_user, rolename: current_role_name))
+    event.entries.build(params.merge(event:, user: current_user, rolename: current_role_name))
   end
 
   def build_flag_history_from_params(event, params, always: false)
     return unless always || (params && @event.flags_differ?(params))
 
-    event.event_flag_histories.build(params.merge(event: event, user: current_user,
+    event.event_flag_histories.build(params.merge(event:, user: current_user,
                                                   rolename: current_role_name))
   end
 
@@ -230,7 +230,7 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit Event.flags + %i[tag status alert_dispatcher]
+    params.require(:event).permit Event.flags + %i[tag status alert_dispatcher order]
   end
 
   def entry_params

@@ -47,12 +47,12 @@
 #
 
 require 'csv'
-require Rails.root.join 'app/queries/event_queries'
+# require Rails.root.join 'app/queries/event_queries'
 
 # rubocop:disable Metrics/ClassLength
 class Event < ApplicationRecord
   include PgSearch::Model
-  include Queries::EventQueries
+  include EventQueries
   include AlertTags
   include CurrentConvention
 

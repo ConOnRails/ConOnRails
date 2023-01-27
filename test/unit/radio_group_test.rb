@@ -26,6 +26,7 @@ class RadioGroupTest < ActiveSupport::TestCase
     assert_difference 'RadioGroup.count' do
       group = FactoryBot.create :many_blue_men_group
     end
+
     assert_not_nil group
     assert_equal 42, group.num_radios
   end

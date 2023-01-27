@@ -13,11 +13,13 @@ class DutyBoardGroupsControllerTest < ActionController::TestCase
 
   test 'get index' do
     get :index, session: @user_session
+
     assert_response :success
   end
 
   test 'get new' do
     get :new, session: @user_session
+
     assert_response :success
   end
 
@@ -25,12 +27,14 @@ class DutyBoardGroupsControllerTest < ActionController::TestCase
     assert_difference 'DutyBoardGroup.count' do
       post :create, params: { duty_board_group: FactoryBot.attributes_for(:valid_duty_board_group) }, session: @user_session
     end
+
     assert_redirected_to duty_board_groups_path
   end
 
   test 'get edit' do
     @duty_board_group.save!
     get :edit, params: { id: @duty_board_group.to_param }, session: @user_session
+
     assert_response :success
   end
 
@@ -47,6 +51,7 @@ class DutyBoardGroupsControllerTest < ActionController::TestCase
     assert_difference 'DutyBoardGroup.count', -1 do
       delete :destroy, params: { id: @duty_board_group.to_param }, session: @user_session
     end
+
     assert_redirected_to duty_board_groups_path
   end
 end

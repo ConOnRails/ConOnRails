@@ -24,15 +24,19 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
   #  end
   test 'must be authenticated' do
     get :show, params: { id: @missing.id }
+
     assert_redirected_to :public
     get :new, params: { reported_missing: true }
+
     assert_redirected_to :public
     get :searchform, params: { reported_missing: true }
+
     assert_redirected_to :public
   end
 
   def get_show(user)
     get :show, params: { id: @missing.id }, session: { user_id: user.id }
+
     assert_response :success
     assert_template :show
     assert_not_nil assigns :lfi
@@ -48,29 +52,34 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
 
   test 'peons cannot get new' do
     get :new, params: { lost_and_found_item: { reported_missing: true } }, session: { user_id: @peon_user.id }
+
     assert_redirected_to :root
   end
 
   test 'non-peons should get new missing' do
     get :new, params: { lost_and_found_item: { reported_missing: true } }, session: { user_id: @user.id }
+
     assert_response :success
     assert_template :new
   end
 
   test 'should get new found' do
     get :new, params: { lost_and_found_item: { found: true } }, session: { user_id: @user.id }
+
     assert_response :success
     assert_template :new
   end
 
   test 'should get missing search form' do
     get :searchform, params: { reported_missing: true }, session: { user_id: @user.id }
+
     assert_response :success
     assert_template :searchform
   end
 
   def can_search(user)
     get :index, params: { reported_missing: true, badge: 1 }, session: { user_id: user.id }
+
     assert_response :success
     assert_template :index
     assert_not_nil assigns :lfis
@@ -87,6 +96,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
   test 'can search description by single keyword' do
     get :index, params: { reported_missing: true,
                           keywords: 'Llamas' }, session: { user_id: @user.id }
+
     assert_response :success
     assert_template :index
     assert_not_nil assigns :lfis
@@ -95,6 +105,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
 
   test 'can search details by single keyword' do
     get :index, params: { reported_missing: true, keywords: 'Oh' }, session: { user_id: @user.id }
+
     assert_response :success
     assert_template :index
     assert_not_nil assigns :lfis
@@ -106,6 +117,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     @missing.save!
     get :index, params: { reported_missing: true,
                           keywords: "Llama's" }, session: { user_id: @user.id }
+
     assert_response :success
     assert_template :index
     assert_not_nil assigns :lfis
@@ -116,6 +128,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
     @missing.save!
     get :index, params: { reported_missing: true,
                           keywords: "Customer's" }, session: { user_id: @user.id }
+
     assert_response :success
     assert_template :index
     assert_not_nil assigns :lfis
@@ -124,6 +137,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
   test 'can search description by all of multiple keywords' do
     get :index, params: { reported_missing: true, search_type: 'all',
                           keywords: 'Llamas Tigers' }, session: { user_id: @user.id }
+
     assert_response :success
     assert_template :index
     assert_not_nil assigns :lfis
@@ -133,6 +147,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
   test 'can search detais by all of multiple keywords' do
     get :index, params: { reported_missing: true, search_type: 'all',
                           keywords: 'Oh My!' }, session: { user_id: @user.id }
+
     assert_response :success
     assert_template :index
     assert_not_nil assigns :lfis
@@ -142,6 +157,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
   test 'can search by all of multiple keywords with an apostrophe' do
     get :index, params: { reported_missing: true, search_type: 'all',
                           keywords: "Llama's Tigers" }, session: { user_id: @user.id }
+
     assert_response :success
     assert_template :index
     assert_not_nil assigns :lfis
@@ -152,6 +168,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
   test 'can search description for any of multiple keywords' do
     get :index, params: { reported_found: true, search_type: 'any',
                           keywords: 'Llamas Tigers' }, session: { user_id: @user.id }
+
     assert_response :success
     assert_template :index
     assert_not_nil assigns :lfis
@@ -161,6 +178,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
   test 'can search details for any of multiple keywords' do
     get :index, params: { reported_found: true, search_type: 'any',
                           keywords: 'Oh My!' }, session: { user_id: @user.id }
+
     assert_response :success
     assert_template :index
     assert_not_nil assigns :lfis
@@ -170,6 +188,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
   test 'can search for any of multiple keywords with an apostrophe' do
     get :index, params: { reported_found: true, search_type: 'any',
                           keywords: "Llama's Tigers" }, session: { user_id: @user.id }
+
     assert_response :success
     assert_template :index
     assert_not_nil assigns :lfis
@@ -179,6 +198,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
   test 'can force search to include returned' do
     get :index, params: { reported_missing: true, keywords: 'Llamas',
                           show_returned_only: true }, session: { user_id: @user.id }
+
     assert_response :success
     assert_equal 1, assigns(:lfis).length
   end
@@ -197,17 +217,20 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
 
   test 'peon cannot edit lost' do
     get :edit, params: { id: @missing.id }, session: { user_id: @peon_user.id }
+
     assert_redirected_to :root
   end
 
   test 'should get edit' do
     get :edit, params: { id: @missing.id }, session: { user_id: @user.id }
+
     assert_response :success
   end
 
   test 'can update' do
     put :update, params: { id: @missing.id,
                            lost_and_found_item: @change_this }, session: { user_id: @user.id }
+
     assert_equal @change_this[:description], assigns(:lfi).description
     assert_redirected_to assigns(:lfi)
   end
@@ -215,6 +238,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
   test 'can updated item with retired category' do
     put :update, params: { id: @retired_category.id,
                            lost_and_found_item: @change_this }, session: { user_id: @user.id }
+
     assert_equal @change_this[:description], assigns(:lfi).description
     assert_redirected_to assigns(:lfi)
   end
@@ -222,12 +246,14 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
   test 'peon cannot update' do
     put :update, params: { id: @missing.id,
                            lost_and_found_item: @change_this }, session: { user_id: @peon_user.id }
+
     assert_redirected_to :root
   end
 
   test 'cannot update with incomplete information' do
     put :update, params: { id: @missing.id,
                            lost_and_found_item: { description: '' } }, session: { user_id: @user.id }
+
     assert_predicate assigns(:lfi), :invalid?
     assert_template :edit
   end
@@ -242,6 +268,7 @@ class LostAndFoundItemsControllerTest < ActionController::TestCase
 
       get :index, params: { convention: @convention.id }, session: { user_id: @user.id }
     end
+
     assert_response :success
     assert_template :index
     assert_equal 1, assigns(:lfis).count

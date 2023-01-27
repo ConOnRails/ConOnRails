@@ -6,11 +6,11 @@ module ApplicationHelper
   end
 
   def version_number
-    '4.3.0'
+    '4.4.0'
   end
 
   def version_name
-    'Silly Squid'
+    'Tyranasaurus'
   end
 
   def version_type
@@ -69,6 +69,6 @@ module ApplicationHelper
 
   def tab(text, path, target = '_self')
     id = text.gsub(%r{[ /]}, '-').downcase
-    link_to text, path, id: "menu-tab-#{id}", class: 'tab', role: 'presentation', target: target
+    link_to text, path, id: "menu-tab-#{id}", class: 'tab', role: 'presentation', target:
   end
 end

@@ -22,8 +22,8 @@
 class DutyBoardGroup < ApplicationRecord
   has_paper_trail
 
-  ROW_RANGE = (1..4).freeze
-  COL_RANGE = (1..4).freeze
+  ROW_RANGE = (1..4)
+  COL_RANGE = (1..4)
 
   has_many :duty_board_slots, -> { order :name }, dependent: :destroy,
                                                   inverse_of: :duty_board_group

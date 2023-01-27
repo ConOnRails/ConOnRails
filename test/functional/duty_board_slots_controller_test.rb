@@ -20,12 +20,14 @@ class DutyBoardSlotsControllerTest < ActionController::TestCase
 
   test 'should get index' do
     get :index, session: @user_session
+
     assert_response :success
     assert_not_nil assigns(:duty_board_slots)
   end
 
   test 'should get new' do
     get :new, session: @user_session
+
     assert_response :success
   end
 
@@ -42,12 +44,14 @@ class DutyBoardSlotsControllerTest < ActionController::TestCase
   test 'should show duty_board_slot' do
     @duty_board_slot.save!
     get :show, params: { id: @duty_board_slot.to_param }, session: @user_session
+
     assert_response :success
   end
 
   test 'should get edit' do
     @duty_board_slot.save!
     get :edit, params: { id: @duty_board_slot.to_param }, session: @user_session
+
     assert_response :success
   end
 
@@ -55,6 +59,7 @@ class DutyBoardSlotsControllerTest < ActionController::TestCase
     @duty_board_slot.save!
     put :update, params: { id: @duty_board_slot.to_param,
                            duty_board_slot: FactoryBot.attributes_for(:valid_duty_board_slot) }, session: @user_session
+
     assert_redirected_to duty_board_slots_path
   end
 

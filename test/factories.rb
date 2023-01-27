@@ -91,7 +91,7 @@ FactoryBot.define do
 
     factory :ordinary_event do
       after :create do |event, _evaluator|
-        FactoryBot.create :oneliner_entry, event: event
+        FactoryBot.create :oneliner_entry, event:
       end
     end
 
@@ -100,7 +100,7 @@ FactoryBot.define do
       secure { false }
 
       after :create do |event, _evaluator|
-        FactoryBot.build :verbose_entry, event: event
+        FactoryBot.build :verbose_entry, event:
       end
     end
   end

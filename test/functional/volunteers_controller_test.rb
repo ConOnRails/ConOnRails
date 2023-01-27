@@ -15,31 +15,35 @@ class VolunteersControllerTest < ActionController::TestCase
 
   def get_index_success(session)
     get :index, session: session
+
     assert_response :success
     assert_not_nil assigns(:volunteers)
   end
 
   def get_index_fail(_session)
     get :index
+
     assert_redirected_to :public
     assert_nil assigns(:volunteers)
   end
 
   def get_new_success(session)
     get :new, session: session
+
     assert_not_nil assigns(:volunteer).volunteer_training
     assert_response :success
   end
 
   def get_new_fail(session)
     get :new, session: session
+
     assert_redirected_to :root
   end
 
   def post_create_success(session)
     assert_difference('Volunteer.count') do
       post :create, params: { volunteer: FactoryBot.attributes_for(:valid_volunteer) },
-                    session: session
+                    session:
     end
 
     assert_redirected_to volunteer_path(assigns[:volunteer])
@@ -47,7 +51,7 @@ class VolunteersControllerTest < ActionController::TestCase
 
   def post_create_auth_fail(session)
     assert_no_difference('Volunteer.count') do
-      post :create, params: { volunteer: @volunteer.attributes }, session: session
+      post :create, params: { volunteer: @volunteer.attributes }, session:
     end
 
     assert_redirected_to :root
@@ -55,21 +59,25 @@ class VolunteersControllerTest < ActionController::TestCase
 
   def get_show_success(session)
     get :show, params: { id: @volunteer.to_param }, session: session
+
     assert_response :success
   end
 
   def get_show_fail(session)
     get :show, params: { id: @volunteer.to_param }, session: session
+
     assert_redirected_to :root
   end
 
   def get_edit_success(session)
     get :edit, params: { id: @volunteer.to_param }, session: session
+
     assert_response :success
   end
 
   def get_edit_fail(session)
     get :edit, params: { id: @volunteer.to_param }, session: session
+
     assert_redirected_to :root
   end
 
@@ -77,12 +85,14 @@ class VolunteersControllerTest < ActionController::TestCase
     put :update, params: { id: @volunteer.to_param,
                            volunteer: FactoryBot.attributes_for(:valid_volunteer) },
                  session: session
+
     assert_redirected_to volunteer_path(@volunteer)
   end
 
   def put_update_fail(session)
     put :update, params: { id: @volunteer.to_param,
                            volunteer: @volunteer.attributes }, session: session
+
     assert_redirected_to :root
   end
 

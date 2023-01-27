@@ -9,6 +9,7 @@ class LostAndFoundControllerTest < ActionController::TestCase
 
   test 'should get index' do
     get :index, session: { user_id: @user.id }
+
     assert_response :success
   end
 end

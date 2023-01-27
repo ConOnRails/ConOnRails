@@ -27,22 +27,26 @@ class UsersControllerTest < ActionController::TestCase
 
   test 'no index for peons' do
     get :index, session: { user_id: @peon_user.id }
+
     assert_redirected_to root_url
   end
 
   test 'should get index' do
     get :index, session: { user_id: @user.id }
+
     assert_response :success
     assert_not_nil assigns(:users)
   end
 
   test 'peons cannot get new' do
     get :new, session: { user_id: @peon_user.id }
+
     assert_redirected_to root_url
   end
 
   test 'should get new' do
     get :new, session: @user_session
+
     assert_response :success
   end
 
@@ -83,21 +87,25 @@ class UsersControllerTest < ActionController::TestCase
 
   test 'peons cannot show user' do
     get :show, params: { id: @user.to_param }, session: { user_id: @peon_user.id }
+
     assert_redirected_to root_url
   end
 
   test 'should show user' do
     get :show, params: { id: @user.to_param }, session: @user_session
+
     assert_response :success
   end
 
   test 'peons cannot edit' do
     get :edit, params: { id: @user.to_param }, session: { user_id: @peon_user.id }
+
     assert_redirected_to root_url
   end
 
   test 'should get edit' do
     get :edit, params: { id: @user.to_param }, session: @user_session
+
     assert_response :success
   end
 
@@ -114,6 +122,7 @@ class UsersControllerTest < ActionController::TestCase
               user: @input_attributes
             },
             session: { user_id: @peon_user.id }
+
         assert_redirected_to root_url
       end
 
@@ -124,6 +133,7 @@ class UsersControllerTest < ActionController::TestCase
               user: @input_attributes
             },
             session: { user_id: @peon_user.id }
+
         assert_redirected_to user_path(assigns(:user))
       end
     end
@@ -140,6 +150,7 @@ class UsersControllerTest < ActionController::TestCase
               user: { realname: 'wombat' }
             },
             session: @user_session
+
         assert_predicate assigns(:user), :valid?
         assert_equal 'wombat', assigns(:user).realname
         assert_redirected_to user_path(assigns(:user))
@@ -153,6 +164,7 @@ class UsersControllerTest < ActionController::TestCase
               volunteer_id: @volunteer.id
             },
             session: @user_session
+
         assert_predicate assigns(:user), :valid?
         assert_equal 'wombat', assigns(:user).realname
         assert_equal @volunteer.id, assigns(:user).volunteer.id
@@ -166,6 +178,7 @@ class UsersControllerTest < ActionController::TestCase
               user: { username: '' }
             },
             session: @user_session
+
         assert_predicate assigns(:user), :invalid?
         assert_template :edit
       end

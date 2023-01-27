@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
-module Queries
-  class Query
-    attr_reader :initial_query, :is
+class Query
+  attr_reader :initial_query, :is
 
-    def initialize(query_so_far)
-      @initial_query = query_so_far
-    end
+  def initialize(query_so_far)
+    @initial_query = query_so_far
   end
 end
