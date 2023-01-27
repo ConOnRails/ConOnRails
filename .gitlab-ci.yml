@@ -15,7 +15,7 @@ image: ruby:2.7
 # Only needed when using a docker container to run your tests in.
 # Check out: https://docs.gitlab.com/ee/ci/services/index.html
 services:
-  - postgres:latest
+  - postgres:15.1
 
 variables:
   POSTGRES_DB: con_on_rails_test
@@ -38,19 +38,19 @@ before_script:
   - gem install bundler
   - bundle config set --local path 'vendor/ruby' # Install dependencies into ./vendor/ruby
   - bundle install -j $(nproc)
+  - cp config/database.gitlab-ci.yml config/database.yml
+  - bundle exec rails db:test:prepare
 
 # Optional - Delete if not using `rubocop`
 rubocop:
+  stage: lint
   script:
     - bundle exec rubocop
 
 rails:
-  variables:
-    DATABASE_URL: "postgresql://postgres:$POSTGRES_PASSWORD@postgres:5432/$POSTGRES_DB"
-    DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL: "true"
+  stage: test
   script:
-    - bundle exec rake db:migrate
-    - bundle exec rake test
+    - bundle exec rake test -d
 
 # This deploy job uses a simple deploy flow to Heroku, other providers, e.g. AWS Elastic Beanstalk
 # are supported too: https://github.com/travis-ci/dpl

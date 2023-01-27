@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 source 'http://rubygems.org'
-ruby '2.7.6'
+ruby '2.7.7'
 
 gem 'bootsnap'
 gem 'pg', '~> 1.4.0'

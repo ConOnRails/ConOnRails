@@ -2,6 +2,10 @@ version: "3.7"
 services:
   db:
     image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: spooky!doom
+      POSTGRES_DB: con_on_rails_development
     ports:
       - "5432:5432"
     volumes:
@@ -10,6 +14,10 @@ services:
   app:
     image: con_on_rails:latest
     build: .
+    environment:
+      RAILS_ENV: development
+      DATABASE_URL: postgres://postgres:spooky!doom@db:5432
+      DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL: true
     ports:
       - "3000:3000"
     volumes:
