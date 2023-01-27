@@ -9,6 +9,10 @@
 
 # Official language image. Look for the different tagged releases at:
 # https://hub.docker.com/r/library/ruby/tags/
+stages:
+  - test
+  - lint
+
 image: ruby:2.7
 
 # Pick zero or more services to be used on all builds.
