@@ -19,6 +19,7 @@ COPY --chown=1000 Gemfile Gemfile.lock ${APP}/
 RUN bundle install
 
 COPY --chown=1000 . ${APP}/
+RUN cp config/database.docker.yml config/database.yml
 RUN bundle exec rails assets:precompile
 
 CMD [ "bundle", "exec", "rails", "server", "-b", "0.0.0.0" ]
