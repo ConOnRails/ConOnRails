@@ -4,12 +4,20 @@ services:
     image: postgres:15
     ports:
       - "5432:5432"
+    environment:
+      POSTGRES_DB: con_on_rails_development
+      POSTGRES_HOST_AUTH_METHOD: trust
     volumes:
       - db:/var/lib/postgresql/data
 
   app:
     image: con_on_rails:latest
     build: .
+    depends_on:
+      - db
+    environment:
+      RAILS_ENV: development
+      DATABASE_URL: postgresql://postgres@db:5432/
     ports:
       - "3000:3000"
     volumes:

@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
 source 'http://rubygems.org'
-ruby '2.7.6'
+ruby '3.1.3'
+
+# Ruby decoupled gems
+gem 'net-smtp'
 
 gem 'bootsnap'
 gem 'pg', '~> 1.4.0'
-gem 'rails', '~> 6.1.0'
+gem 'rails', '~> 7.0.0'
 
 gem 'puma', '~> 6.0.0'
 gem 'rails_12factor', group: :production
@@ -30,7 +33,7 @@ gem 'jquery-rails', '~> 4.5.0'
 gem 'jquery-ui-rails', '~> 6.0.1'
 gem 'kaminari', '~> 1.2.2'
 gem 'momentjs-rails', '>= 2.8.1'
-gem 'paper_trail', '~> 12'
+gem 'paper_trail', '~> 13'
 gem 'paper_trail-association_tracking', '~> 2.2.0'
 gem 'pg_search', '~> 2.3.6'
 gem 'pundit', '~> 2.2.0'
@@ -44,7 +47,6 @@ gem 'slim', '~> 4.1.0'
 gem 'sprockets', '~> 4'
 gem 'sprockets-rails', require: 'sprockets/railtie'
 gem 'sshkit', '~> 1.21.0'
-gem 'therubyracer', require: 'v8'
 gem 'yaml_db', '~> 0.7.0'
 
 # Moved to production because we use them in seeds and we need to be able to seed Heroku
@@ -80,14 +82,13 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'database_cleaner', '~> 1.8.0'
+  gem 'database_cleaner', '~> 1'
   gem 'minitest-reporters'
   gem 'mocha', require: false
   gem 'selenium-webdriver'
   gem 'shoulda-context'
   gem 'shoulda-matchers', '~> 5'
   gem 'timecop'
-  # gem 'turn'
 
   gem 'codeclimate-test-reporter', '< 1.0', require: nil
   gem 'simplecov'

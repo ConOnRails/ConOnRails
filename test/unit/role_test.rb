@@ -50,6 +50,7 @@ class RoleTest < ActiveSupport::TestCase
 
   test 'roles must have names' do
     role = Role.create
+
     assert_predicate role, :invalid?
   end
 
@@ -62,11 +63,13 @@ class RoleTest < ActiveSupport::TestCase
 
   test 'role names should be 32 characters or less' do
     role = Role.create name: long_name
+
     assert_predicate role, :invalid?
   end
 
   test 'role names should not contain printable-specials or control characters' do
     role = Role.create name: bad_name
+
     assert_predicate role, :invalid?
   end
   # test "the truth" do

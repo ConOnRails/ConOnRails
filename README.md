@@ -16,10 +16,7 @@ ConOnRails is derived conceptually from ConInABox by Thomas Keeley, who acted as
 is derived entirely from the designs of DeNae Leverentz, who acted as our user experience expert and project manager.
 All coding to date has been done by Michael Scott Shappe.
 
-Version 3.5.2 'Lemon Curd and Scones', and will be the version that was used for the 2019 CONVergence convention, July 4th weekend. 
-There is currently an active development branch for revising the security structure at ms/new-permissions. The main recent updates
-have just been to keep dependencies current -- Ruby 2.5.5 and some Gem updates. This is about as far as can be gone without also
-moving to Rails 5.2, which will be a bit of a project.
+Version 4.4.0 'Tyranasaurus', brings all dependencies fully up to date: Rails 7, Ruby 3.1, etc
 
 For hysterical raisins, the Minitest-based testing is the main focus of TDD. 
 

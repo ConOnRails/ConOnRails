@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_01_013706) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_11_01_013706) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,7 +27,7 @@ ActiveRecord::Schema.define(version: 2022_11_01_013706) do
     t.integer "version", default: 0
     t.string "comment"
     t.string "remote_address"
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.index ["associated_id", "associated_type"], name: "associated_index"
     t.index ["auditable_id", "auditable_type"], name: "auditable_index"
     t.index ["created_at"], name: "index_audits_on_created_at"
@@ -41,18 +40,18 @@ ActiveRecord::Schema.define(version: 2022_11_01_013706) do
     t.string "cell_phone"
     t.string "hotel"
     t.integer "hotel_room"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "can_text", default: false
     t.string "position"
   end
 
   create_table "conventions", id: :serial, force: :cascade do |t|
     t.string "name"
-    t.datetime "start_date"
-    t.datetime "end_date"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "start_date", precision: nil
+    t.datetime "end_date", precision: nil
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["name"], name: "index_conventions_on_name", unique: true
   end
 
@@ -61,16 +60,16 @@ ActiveRecord::Schema.define(version: 2022_11_01_013706) do
     t.integer "volunteer_id"
     t.integer "radio_group_id"
     t.integer "radio_allotment"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["name"], name: "index_departments_on_name", unique: true
   end
 
   create_table "duty_board_assignments", id: :serial, force: :cascade do |t|
     t.integer "duty_board_slot_id"
     t.string "notes"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "name"
     t.string "string"
   end
@@ -79,8 +78,8 @@ ActiveRecord::Schema.define(version: 2022_11_01_013706) do
     t.string "name"
     t.integer "row"
     t.integer "column"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["column"], name: "index_duty_board_groups_on_column"
     t.index ["name"], name: "index_duty_board_groups_on_name", unique: true
     t.index ["row", "column"], name: "index_duty_board_groups_on_row_and_column", unique: true
@@ -90,15 +89,15 @@ ActiveRecord::Schema.define(version: 2022_11_01_013706) do
   create_table "duty_board_slots", id: :serial, force: :cascade do |t|
     t.string "name"
     t.integer "duty_board_group_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["name"], name: "index_duty_board_slots_on_name", unique: true
   end
 
   create_table "entries", id: :serial, force: :cascade do |t|
     t.text "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "user_id"
     t.integer "event_id"
     t.string "rolename"
@@ -124,10 +123,10 @@ ActiveRecord::Schema.define(version: 2022_11_01_013706) do
     t.boolean "dealers", default: false
     t.boolean "dock", default: false
     t.boolean "merchandise", default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "user_id"
-    t.datetime "orig_time"
+    t.datetime "orig_time", precision: nil
     t.string "rolename"
     t.boolean "merged"
     t.boolean "nerf_herders", default: false
@@ -146,8 +145,8 @@ ActiveRecord::Schema.define(version: 2022_11_01_013706) do
   end
 
   create_table "events", id: :serial, force: :cascade do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "is_active", default: true
     t.boolean "post_con", default: false
     t.boolean "sticky", default: false
@@ -189,8 +188,8 @@ ActiveRecord::Schema.define(version: 2022_11_01_013706) do
     t.string "role_name"
     t.string "comment"
     t.string "ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "lost_and_found_items", id: :serial, force: :cascade do |t|
@@ -201,8 +200,8 @@ ActiveRecord::Schema.define(version: 2022_11_01_013706) do
     t.string "where_found"
     t.string "owner_name"
     t.text "owner_contact"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "user_id"
     t.string "rolename"
     t.string "who_claimed"
@@ -216,16 +215,16 @@ ActiveRecord::Schema.define(version: 2022_11_01_013706) do
     t.integer "user_id"
     t.text "message"
     t.boolean "is_active", default: true
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "radio_assignment_audits", id: :serial, force: :cascade do |t|
     t.integer "radio_id"
     t.integer "volunteer_id"
     t.string "state"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "user_id"
     t.integer "department_id"
   end
@@ -233,8 +232,8 @@ ActiveRecord::Schema.define(version: 2022_11_01_013706) do
   create_table "radio_assignments", id: :serial, force: :cascade do |t|
     t.integer "radio_id"
     t.integer "volunteer_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "department_id"
     t.index ["radio_id"], name: "index_radio_assignments_on_radio_id", unique: true
   end
@@ -243,8 +242,8 @@ ActiveRecord::Schema.define(version: 2022_11_01_013706) do
     t.string "name"
     t.string "color"
     t.text "notes"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "radios", id: :serial, force: :cascade do |t|
@@ -252,8 +251,8 @@ ActiveRecord::Schema.define(version: 2022_11_01_013706) do
     t.string "notes"
     t.integer "radio_group_id"
     t.string "image_filename"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "state", default: "in"
     t.index ["number"], name: "index_radios_on_number", unique: true
   end
@@ -271,8 +270,8 @@ ActiveRecord::Schema.define(version: 2022_11_01_013706) do
     t.boolean "assign_shifts"
     t.boolean "assign_duty_board_slots"
     t.boolean "admin_duty_board"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "make_hidden_entries", default: false
     t.boolean "rw_secure", default: false
     t.boolean "read_audits", default: false
@@ -292,7 +291,7 @@ ActiveRecord::Schema.define(version: 2022_11_01_013706) do
     t.string "tagger_type"
     t.integer "tagger_id"
     t.string "context", limit: 128
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.string "tenant", limit: 128
     t.index ["context"], name: "index_taggings_on_context"
     t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
@@ -316,8 +315,8 @@ ActiveRecord::Schema.define(version: 2022_11_01_013706) do
     t.string "username"
     t.string "realname"
     t.string "password_digest"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
@@ -336,7 +335,7 @@ ActiveRecord::Schema.define(version: 2022_11_01_013706) do
     t.string "event", null: false
     t.string "whodunnit"
     t.text "object"
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.text "object_changes"
     t.string "item_subtype"
     t.integer "transaction_id"
@@ -355,8 +354,8 @@ ActiveRecord::Schema.define(version: 2022_11_01_013706) do
     t.boolean "xo", default: false
     t.boolean "ops_subhead", default: false
     t.boolean "ops_head", default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "volunteers", id: :serial, force: :cascade do |t|
@@ -374,8 +373,8 @@ ActiveRecord::Schema.define(version: 2022_11_01_013706) do
     t.string "work_phone"
     t.string "other_phone"
     t.string "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "user_id"
     t.boolean "can_have_multiple_radios"
   end
@@ -384,8 +383,8 @@ ActiveRecord::Schema.define(version: 2022_11_01_013706) do
     t.string "name"
     t.boolean "party"
     t.string "notes"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["name"], name: "index_vsps_on_name", unique: true
   end
 

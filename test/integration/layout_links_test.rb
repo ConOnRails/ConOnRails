@@ -28,6 +28,7 @@ class LayoutLinksTest < ActionDispatch::IntegrationTest
     root_not_logged_in?
     log_in @login_params do |sess|
       sess.get new_event_url
+
       assert_response :success
       assert_template 'events/new'
     end
@@ -37,6 +38,7 @@ class LayoutLinksTest < ActionDispatch::IntegrationTest
     root_not_logged_in?
     log_in @login_params do |sess|
       sess.get lost_and_found_url
+
       assert_response :success
       assert_template 'lost_and_found/index'
     end
@@ -46,6 +48,7 @@ class LayoutLinksTest < ActionDispatch::IntegrationTest
     root_not_logged_in?
     log_in @login_params do |sess|
       sess.get events_url
+
       assert_response :success
       assert_template 'events/index'
     end

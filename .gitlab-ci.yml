@@ -9,19 +9,24 @@
 
 # Official language image. Look for the different tagged releases at:
 # https://hub.docker.com/r/library/ruby/tags/
-image: ruby:2.7
+stages:
+  - test
+  - lint
+
+image: ruby:3.1
 
 # Pick zero or more services to be used on all builds.
 # Only needed when using a docker container to run your tests in.
 # Check out: https://docs.gitlab.com/ee/ci/services/index.html
 services:
-  - postgres:latest
+  - postgres:15.1
 
 variables:
   POSTGRES_DB: con_on_rails_test
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: $POSTGRES_PASSWORD
   POSTGRES_HOST_AUTH_METHOD: trust
+  DB_HOST: postgres
 
 # Cache gems in between builds
 cache:
@@ -38,18 +43,18 @@ before_script:
   - gem install bundler
   - bundle config set --local path 'vendor/ruby' # Install dependencies into ./vendor/ruby
   - bundle install -j $(nproc)
+  - cp config/database.gitlab-ci.yml config/database.yml
+  - bundle exec rails db:test:prepare
 
 # Optional - Delete if not using `rubocop`
 rubocop:
+  stage: lint
   script:
     - bundle exec rubocop
 
 rails:
-  variables:
-    DATABASE_URL: "postgresql://postgres:$POSTGRES_PASSWORD@postgres:5432/$POSTGRES_DB"
-    DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL: "true"
+  stage: test
   script:
-    - bundle exec rake db:migrate
     - bundle exec rake test
 
 # This deploy job uses a simple deploy flow to Heroku, other providers, e.g. AWS Elastic Beanstalk

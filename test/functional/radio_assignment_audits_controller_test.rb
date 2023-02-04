@@ -11,6 +11,7 @@ class RadioAssignmentAuditsControllerTest < ActionController::TestCase
 
   test 'should get index' do
     get :index, session: { user_id: @user.id }
+
     assert_response :success
     assert_not_nil assigns(:radio_assignment_audits)
   end
@@ -18,6 +19,7 @@ class RadioAssignmentAuditsControllerTest < ActionController::TestCase
   test 'limit to 30 per page' do
     FactoryBot.create_list :radio_assignment_audit, 31
     get :index, session: { user_id: @user.id }
+
     assert_response :success
     assert_equal 30, assigns(:radio_assignment_audits).count
   end

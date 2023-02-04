@@ -13,32 +13,38 @@ class RolesControllerTest < ActionController::TestCase
 
   test 'should get index' do
     get :index, session: { user_id: @user.id }
+
     assert_response :success
     assert_not_nil assigns(:roles)
   end
 
   test "peon can't get index" do
     get :index, session: { user_id: @peon_user.id }
+
     assert_redirected_to :root
   end
 
   test "anon can't get index" do
     get :index
+
     assert_redirected_to :public
   end
 
   test 'should get new' do
     get :new, session: { user_id: @user.id }
+
     assert_response :success
   end
 
   test "peon can't get new" do
     get :new, session: { user_id: @peon_user.id }
+
     assert_redirected_to :root
   end
 
   test "anon can't get new" do
     get :new
+
     assert_redirected_to :public
   end
 
@@ -77,37 +83,44 @@ class RolesControllerTest < ActionController::TestCase
 
   test 'should show role' do
     get :show, params: { id: @peon.to_param }, session: { user_id: @user.id }
+
     assert_response :success
   end
 
   test "peon can't show role" do
     get :show, params: { id: @peon.to_param }, session: { user_id: @peon_user.id }
+
     assert_redirected_to :root
   end
 
   test "anon can't show role" do
     get :show, params: { id: @peon.to_param }
+
     assert_redirected_to :public
   end
 
   test 'should get edit' do
     get :edit, params: { id: @peon.to_param }, session: { user_id: @user.id }
+
     assert_response :success
   end
 
   test "peon can't edit" do
     get :edit, params: { id: @peon.to_param }, session: { user_id: @peon_user.id }
+
     assert_redirected_to :root
   end
 
   test "anon can't edit" do
     get :edit, params: { id: @peon.to_param }
+
     assert_redirected_to :public
   end
 
   test 'should update role' do
     put :update, params: { id: @peon.to_param,
                            role: { write_entries: true } }, session: { user_id: @user.id }
+
     assert_not_nil assigns(:role)
     assert_predicate assigns(:role), :valid?
     assert_predicate assigns(:role), :write_entries?
@@ -116,6 +129,7 @@ class RolesControllerTest < ActionController::TestCase
 
   test "can't update role with bad data" do
     put :update, params: { id: @peon.to_param, role: { name: '' } }, session: { user_id: @user.id }
+
     assert_predicate assigns(:role), :invalid?
     assert_template :edit
   end
@@ -123,11 +137,13 @@ class RolesControllerTest < ActionController::TestCase
   test "peon can't update role" do
     put :update, params: { id: @peon.to_param,
                            role: @peon.attributes }, session: { user_id: @peon_user.id }
+
     assert_redirected_to :root
   end
 
   test "anon can't' update role" do
     put :update, params: { id: @peon.to_param, role: @peon.attributes }
+
     assert_redirected_to :public
   end
 

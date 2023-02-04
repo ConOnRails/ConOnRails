@@ -6,11 +6,11 @@ module ApplicationHelper
   end
 
   def version_number
-    '4.3.0'
+    '4.4.0'
   end
 
   def version_name
-    'Silly Squid'
+    'Tyranasaurus'
   end
 
   def version_type
@@ -53,12 +53,9 @@ module ApplicationHelper
   def markdown(text)
     return if text.blank?
 
-    sanitize Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(filter_html: true,
-                                                                 hard_wrap: true,
-                                                                 safe_links_only: true),
-                                     no_intra_emphasis: true,
-                                     tables: true, autolink: true,
-                                     strikethrough: true).render(text)
+    options = [:hard_wrap, :autolink, :no_intra_emphasis, :fenced_code_blocks, :underline, :highlight,
+               :no_images, :filter_html, :safe_links_only, :prettify, :no_styles]
+    Markdown.new(text, *options).to_html.html_safe
   end
 
   def show_corkboard(tag)
@@ -69,6 +66,6 @@ module ApplicationHelper
 
   def tab(text, path, target = '_self')
     id = text.gsub(%r{[ /]}, '-').downcase
-    link_to text, path, id: "menu-tab-#{id}", class: 'tab', role: 'presentation', target: target
+    link_to text, path, id: "menu-tab-#{id}", class: 'tab', role: 'presentation', target:
   end
 end
