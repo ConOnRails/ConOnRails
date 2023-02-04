@@ -2,13 +2,10 @@ version: "3.7"
 services:
   db:
     image: postgres:15
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: spooky!doom
-      POSTGRES_DB: con_on_rails_development
     ports:
       - "5432:5432"
     environment:
+      POSTGRES_DB: con_on_rails_development
       POSTGRES_HOST_AUTH_METHOD: trust
     volumes:
       - db:/var/lib/postgresql/data
@@ -20,15 +17,11 @@ services:
       - db
     environment:
       RAILS_ENV: development
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: spooky!doom
-      POSTGRES_DB: con_on_rails_development
-      DB_HOST: db
-      DATABASE_URL: postgres://postgres:spooky!doom@db:5432/con_on_rails_development
+      DATABASE_URL: postgresql://postgres@db:5432/
     ports:
       - "3000:3000"
-        #volumes:
-        # - .:/app
+    volumes:
+      - .:/app
 
 volumes:
   db:

@@ -34,7 +34,7 @@ def create_events(user:, old: false)
       Entry.create!(
         user: user,
         event: event,
-        description: Faker::Lorem.paragraphs(number: 3).join('\n'),
+        description: Faker::Lorem.paragraphs(number: 3).join("\n"),
         created_at: new_time,
         updated_at: new_time
       )
@@ -151,7 +151,7 @@ when 'development'
   FactoryBot.create :radio_group, :when_red
   FactoryBot.create :radio_group, :when_black
   FactoryBot.create :radio_group, :when_green
-  
+
   FactoryBot.create :many_blue_men_group
   FactoryBot.create :many_red_hands
   FactoryBot.create_list(:many_valid_volunteers, 42)
@@ -159,7 +159,7 @@ when 'development'
   User.create!(username: 'test', realname: 'Test User',
                password: 'testme', password_confirmation: 'testme')
 
-  
+
   create_events user: user
   create_events user: user, old: true
 
@@ -200,4 +200,3 @@ when 'development'
   )
 
 end
-
